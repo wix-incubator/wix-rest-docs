@@ -1,0 +1,1834 @@
+{
+  "name": "Payments",
+  "memberOf": "Wix Payments",
+  "category": "business-service",
+  "mixes": [],
+  "labels": [],
+  "docs": {
+    "summary": "Query merchant transactions",
+    "description": []
+  },
+  "properties": [],
+  "tags": [
+    {
+      "name": "Transaction",
+      "entity": "Transaction"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Transaction",
+      "type": "Transaction"
+    }
+  ],
+  "relatedGuides": [
+    {
+      "path": "../guides/payments/About Payments.md"
+    }
+  ],
+  "operations": [
+    {
+      "name": "Transactions List",
+      "tag": "Transaction",
+      "permissions": [
+        {
+          "name": "Wix Payments > Read Transactions"
+        }
+      ],
+      "labels": [],
+      "nameParams": [],
+      "params": [
+        {
+          "in": "HEADER",
+          "name": "",
+          "type": "string",
+          "doc": "",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "from",
+          "type": "string",
+          "doc": " Collect transactions created from this date forward, in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ). Dependent on the “to” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "to",
+          "type": "string",
+          "doc": " Collect transactions created until this date, in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ). Dependent on the “from” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "fromUpdated",
+          "type": "string",
+          "doc": " Collect transactions updated from this date forward, in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ). Dependent on the “toUpdated” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "toUpdated",
+          "type": "string",
+          "doc": " Collect transactions updated until this date, in ISO8601 format (yyyy-MM-ddTHH:mm:ss.SSSZZ). Dependent on the “forUpdated” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": " Collect transactions completed from a specific app instance ID\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " Collect transactions completed with a specific payment method\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset for pagination query. For use with the “limit” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "limit",
+          "type": "integer",
+          "doc": " Limit for pagination query. For use with the “offset” parameter\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "order",
+          "type": "string",
+          "doc": " Sort date and amount fields using this format: field1:asc, field2:desc\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "status",
+          "type": "array",
+          "doc": " Collect transactions with a specific transaction status\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "paymentProvider",
+          "type": "string",
+          "doc": " Collect transactions completed by a specific payment provider (e.g., Paypal, Mercadopago, etc.)\n",
+          "required": false
+        },
+        {
+          "in": "QUERY",
+          "name": "currency",
+          "type": "string",
+          "doc": " Collect transactions completed in a specific currency\n",
+          "required": false
+        }
+      ],
+      "ret": {
+        "type": {
+          "name": "List",
+          "statusCode": "200",
+          "typeParams": [
+            "Wix Payments.Payments.ListTransactionsResponse"
+          ]
+        },
+        "doc": " List Transactions Response"
+      },
+      "locations": [],
+      "docs": {
+        "summary": "Use this REST API to collect some or all of a user’s transactions from their Wix site and integrate them into the user’s account in your platform.\n\n ",
+        "description": [],
+        "request": "GET",
+        "url": "https://cashier.wix.com/_api/payment-services-web/merchant/v2/transactions",
+        "links": [],
+        "examples": [
+          {
+            "title": "Example of Transactions List request ",
+            "body": [
+              "curl -X GET \\",
+              "   'https://cashier.wix.com/_api/payment-services-web/merchant/v2/transactions' \\",
+              "   -H 'Authorization: <AUTH>'"
+            ],
+            "response": [
+              "{\n  \"transactions\": [\n    {\n      \"transactionId\": \"e61aa3b9-aa7d-4abf-b1f2-8e8f940edab0\",\n      \"status\": \"APPROVED\",\n      \"provider\": \"stripe\",\n      \"paymentMethod\": \"creditCard\",\n      \"appId\": \"1380b703-ce81-ff05-f115-39571d94dfcd\",\n      \"appInstanceId\": \"a5e169bc-2825-4e40-8b82-ebde14ac1210\",\n      \"order\": {\n        \"id\": \"2b013aca-cab2-4e69-9a56-86addc91509e\",\n        \"description\": {\n          \"items\": [\n            {\n              \"id\": \"4743b456-3705-3c7c-1483-08dc7e83805d\",\n              \"name\": \"Mikado method\",\n              \"quantity\": 1\n            }\n          ],\n          \"billingAddress\": {\n            \"firstName\": \"Yaroslav\",\n            \"company\": null,\n            \"address\": \"Kiev, Pankinska 94\",\n            \"city\": \"Kiev\",\n            \"state\": \"Kiev\",\n            \"zipPostalCode\": \"00000\",\n            \"countryCode\": \"UKR\",\n            \"phone\": \"+0000000000\",\n            \"fax\": \"\",\n            \"email\": \"[iaroslavk@example.com|mailto:iaroslavk@wix.com]\"\n          },\n          \"additionalCharges\": {\n            \"tax\": 0,\n            \"shipping\": 0,\n            \"discount\": 0\n          }\n        }\n      },\n      \"amount\": {\n        \"amount\": 1,\n        \"currency\": \"USD\"\n      },\n      \"paymentMethodData\": {\n        \"installments\": \"1\"\n      },\n      \"refundability\": {\n        \"isRefundable\": false,\n        \"reason\": {\n          \"value\": \"FORBIDDEN\"\n        },\n        \"flowType\": \"NA\"\n      },\n      \"createdAt\": \"2019-02-25T13!https://emoji.slack-edge.com/T02T01M9Y/30/dfa75940bec6ff46.png!25.361Z\",\n      \"type\": \"SALE\",\n      \"providerTransactionId\": \"\",\n      \"providerFields\": {}\n    },\n    {\n      \"transactionId\": \"5f21e8ae-3b4c-4c43-b5f9-131aec1bca57\",\n      \"status\": \"OFFLINE\",\n      \"provider\": \"NA\",\n      \"paymentMethod\": \"offline\",\n      \"appId\": \"1380b703-ce81-ff05-f115-39571d94dfcd\",\n      \"appInstanceId\": \"a5e169bc-2825-4e40-8b82-ebde14ac1210\",\n      \"order\": {\n        \"id\": \"b9c4d273-032e-4a4d-b386-8a62f83c476a\",\n        \"description\": {\n          \"items\": [\n            {\n              \"id\": \"4743b456-3705-3c7c-1483-08dc7e83805d\",\n              \"name\": \"Mikado method\",\n              \"quantity\": 1\n            }\n          ],\n          \"billingAddress\": {\n            \"firstName\": \"Yaroslav\",\n            \"company\": null,\n            \"address\": \"Kiev, Pankinska 94\",\n            \"city\": \"Kiev\",\n            \"state\": \"Kiev\",\n            \"zipPostalCode\": \"00000\",\n            \"countryCode\": \"UKR\",\n            \"phone\": \"+0000000000\",\n            \"fax\": \"\",\n            \"email\": \"[iaroslavk@example.com|mailto:iaroslavk@wix.com]\"\n          },\n          \"additionalCharges\": {\n            \"tax\": 0,\n            \"shipping\": 0,\n            \"discount\": 0\n          }\n        }\n      },\n      \"amount\": {\n        \"amount\": 1,\n        \"currency\": \"USD\"\n      },\n      \"paymentMethodData\": {\n        \"installments\": \"1\"\n      },\n      \"refundability\": {\n        \"isRefundable\": false,\n        \"reason\": {\n          \"value\": \"FORBIDDEN\"\n        },\n        \"flowType\": \"NA\"\n      },\n      \"createdAt\": \"2019-02-25T13:29:21.764Z\",\n      \"type\": \"SALE\",\n      \"providerTransactionId\": \"5f21e8ae-3b4c-4c43-b5f9-131aec1bca57\",\n      \"providerFields\": {}\n    }\n  ],\n  \"pagination\": {\n    \"offset\": 0,\n    \"limit\": 0,\n    \"total\": 2\n  }\n}"
+            ],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra": {}
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages": [
+    {
+      "name": "Field",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "definition",
+          "type": "Wix Payments.Payments.FieldDefinition",
+          "doc": ""
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "FieldDefinition",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "id",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "AdditionalDataEntry",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "key",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ProviderAccountData",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "providerId",
+          "type": "string",
+          "doc": " Provider ID.\n\n For example, `payPal` or `net.authorize'.\n"
+        },
+        {
+          "name": "providerAccountId",
+          "type": "Wix Payments.Payments.Field",
+          "doc": " Identifier of account on providers side.\n"
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.ProviderAccountStatus",
+          "doc": " Status of account.\n"
+        },
+        {
+          "name": "additionalData",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.AdditionalDataEntry"
+            ]
+          },
+          "doc": " Any additional data related to this account.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "PaymentMethod",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "connectedProviderAccountData",
+          "type": "Wix Payments.Payments.ProviderAccountData",
+          "doc": " Account data that is present only when method is connected.\n"
+        },
+        {
+          "name": "showToBuyer",
+          "type": "boolean",
+          "doc": " Whether merchant has had selected this method to be available for making purchases.\n"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "doc": " Payment method ID.\n\n For example, `creditCard` or `payPal`.\n"
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.PaymentMethodStatus",
+          "doc": " Status of the payment method.\n"
+        },
+        {
+          "name": "type",
+          "type": "Wix Payments.Payments.PaymentMethodType",
+          "doc": " Method Type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "AddressDetails",
+      "locations": [],
+      "docs": {
+        "summary": " Customer's billing address details\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "street",
+          "type": "string",
+          "doc": " Street name\n"
+        },
+        {
+          "name": "houseNumber",
+          "type": "string",
+          "doc": " House number\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Address",
+      "locations": [],
+      "docs": {
+        "summary": " Customer’s billing address\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "city",
+          "type": "string",
+          "doc": " City\n"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address (100 characters max)\n"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "doc": " State\n"
+        },
+        {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Zip code\n"
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "doc": " Company name\n"
+        },
+        {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Last name\n"
+        },
+        {
+          "name": "firstName",
+          "type": "string",
+          "doc": " First name\n"
+        },
+        {
+          "name": "fax",
+          "type": "string",
+          "doc": " Fax number  (100 characters max)\n"
+        },
+        {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Country code (ISO 3166-1) (alpha-3)\n"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "doc": " Billing address (100 characters max)\n"
+        },
+        {
+          "name": "addressDetails",
+          "type": "Wix Payments.Payments.AddressDetails",
+          "doc": " detailed address, if available\n"
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number (100 characters max)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Subscription",
+      "locations": [],
+      "docs": {
+        "summary": " For example, to create a recurring payment every month, set interval to 1 and frequency to MONTH. A trial period is also defined as frequency and interval pair, so a monthly 'subscription' can be defined, with a 14 day trial period.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "frequency",
+          "type": "Wix Payments.Payments.Frequency",
+          "doc": " frequency of recurring payment (required)\n"
+        },
+        {
+          "name": "interval",
+          "type": "integer",
+          "doc": " Recurring payment intervals (required)\n"
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.SubscriptionStatus",
+          "doc": " status of subscription (required)\n"
+        },
+        {
+          "name": "billingCycles",
+          "type": "integer",
+          "doc": " Number of billing cycles. Set to 0 by default, as a subscription of indefinite length\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Order",
+      "locations": [],
+      "docs": {
+        "summary": " Order details for this transaction\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique identifier for this order\n"
+        },
+        {
+          "name": "description",
+          "type": "Wix Payments.Payments.OrderDescription",
+          "doc": " Order descriptions\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "OrderDescription",
+      "locations": [],
+      "docs": {
+        "summary": " Order description\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "billingAddress",
+          "type": "Wix Payments.Payments.Address",
+          "doc": " billling address of the order (optional)\n"
+        },
+        {
+          "name": "items",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.OrderItem"
+            ]
+          },
+          "doc": " Items ordered (required)\n"
+        },
+        {
+          "name": "shippingAddress",
+          "type": "Wix Payments.Payments.Address",
+          "doc": " Shipping address\n"
+        },
+        {
+          "name": "additionalCharges",
+          "type": "Wix Payments.Payments.OrderAdditionalCharges",
+          "doc": " additional charges which are included in the order, like tax, shipping or discount (optional)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "OrderItem",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "id",
+          "type": "string",
+          "doc": " Order item ID (required)\n"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "doc": " Order item name (required)\n"
+        },
+        {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Quantity (required)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "OrderAdditionalCharges",
+      "locations": [],
+      "docs": {
+        "summary": "Additional charges or discounts included in this order\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "tax",
+          "type": "number",
+          "doc": " Total taxes charged\n"
+        },
+        {
+          "name": "shipping",
+          "type": "number",
+          "doc": " Shipping fee charged\n"
+        },
+        {
+          "name": "discount",
+          "type": "number",
+          "doc": " Discount provided\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "CurrencyAmount",
+      "locations": [],
+      "docs": {
+        "summary": " Transaction amount details\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "amount",
+          "type": "number",
+          "doc": " Transaction amount\n"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "doc": " Transaction currency\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "paymentMethodDataMapEntry",
+      "locations": [],
+      "docs": {
+        "summary": " Map with payment method data\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "key",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "TransactionFailureDetails",
+      "locations": [],
+      "docs": {
+        "summary": "Transaction failure\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "failureCode",
+          "type": "string",
+          "doc": " Transaction failure code\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Transaction",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "provider",
+          "type": "string",
+          "doc": " Transaction provider (required)\n"
+        },
+        {
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": " App Instance ID (required)\n"
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " Transaction payment method (required)\n"
+        },
+        {
+          "name": "cashierError",
+          "type": "Wix Payments.Payments.TransactionFailureDetails",
+          "doc": " cashier transaction error (optional)\n"
+        },
+        {
+          "name": "amount",
+          "type": "Wix Payments.Payments.CurrencyAmount",
+          "doc": " amount and currency of transactions (required)\n"
+        },
+        {
+          "name": "refundability",
+          "type": "Wix Payments.Payments.Refundability",
+          "doc": " ability to do refund on transaction\n"
+        },
+        {
+          "name": "order",
+          "type": "Wix Payments.Payments.Order",
+          "doc": " view of connected order snapshot (required)\n"
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.TransactionStatus",
+          "doc": " transaction status (required)\n"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "doc": " Transaction creation date\n"
+        },
+        {
+          "name": "type",
+          "type": "Wix Payments.Payments.TransactionType",
+          "doc": ""
+        },
+        {
+          "name": "appId",
+          "type": "string",
+          "doc": " Application ID (required)\n"
+        },
+        {
+          "name": "paymentMethodData",
+          "type": "Wix Payments.Payments.paymentMethodDataMapEntry",
+          "doc": " Map with payment method data\n"
+        },
+        {
+          "name": "transactionId",
+          "type": "string",
+          "doc": " Transaction ID (required)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Refundability",
+      "locations": [],
+      "docs": {
+        "summary": "Whether this order is eligible for a refund\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "isRefundable",
+          "type": "boolean",
+          "doc": " True = refundable\n\n False = not refundable\n"
+        },
+        {
+          "name": "reason",
+          "type": "Wix Payments.Payments.NonRefundabilityReason",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "NonRefundabilityReason",
+      "locations": [],
+      "docs": {
+        "summary": "Reasons for ineligibility for a refund\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "value",
+          "type": "Wix Payments.Payments.Reason",
+          "doc": " NonRefundabilityReason\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "BackofficeTransaction",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "updatedAt",
+          "type": "string",
+          "doc": " transaction update date\n"
+        },
+        {
+          "name": "verticalOrderId",
+          "type": "string",
+          "doc": " transaction id in vertical (required)\n"
+        },
+        {
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": " App Instance ID (required)\n"
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " transaction payment method (required)\n"
+        },
+        {
+          "name": "amount",
+          "type": "Wix Payments.Payments.CurrencyAmount",
+          "doc": " amount and currency of transactions (required)\n"
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.TransactionStatus",
+          "doc": " transaction status (required)\n"
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "doc": " transaction creation date\n"
+        },
+        {
+          "name": "appId",
+          "type": "string",
+          "doc": " identifier of application (required)\n"
+        },
+        {
+          "name": "transactionId",
+          "type": "string",
+          "doc": " identifier of transaction (required)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "TransactionFilters",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "accountIds",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.AccountId"
+            ]
+          },
+          "doc": ""
+        },
+        {
+          "name": "paymentMethods",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "string"
+            ]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "AccountId",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "appId",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "PaginationResponse",
+      "locations": [],
+      "docs": {
+        "summary": " Pagination details\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "offset",
+          "type": "integer",
+          "doc": "Offset for pagination query\n"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "doc": "Limit for pagination query\n"
+        },
+        {
+          "name": "total",
+          "type": "integer",
+          "doc": "Total pagination\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Refund",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "amount",
+          "type": "number",
+          "doc": ""
+        },
+        {
+          "name": "status",
+          "type": "Wix Payments.Payments.Status",
+          "doc": ""
+        },
+        {
+          "name": "createdAt",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "refundId",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "type",
+          "type": "Wix Payments.Payments.Type",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "TransactionTotals",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "currencyCode",
+          "type": "string",
+          "doc": ""
+        },
+        {
+          "name": "grossVolume",
+          "type": "number",
+          "doc": ""
+        },
+        {
+          "name": "numberOfPayments",
+          "type": "integer",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListTransactionsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "fromUpdated",
+          "type": "string",
+          "doc": " updated date to start range from\n"
+        },
+        {
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": " filter with instance id of application\n"
+        },
+        {
+          "name": "toUpdated",
+          "type": "string",
+          "doc": " updated date to end range with\n"
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " filter by transaction payment method\n"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "doc": " created date to end range with\n"
+        },
+        {
+          "name": "merchantId",
+          "type": "string",
+          "doc": " identifier of merchant account (deprecated, you have to pass signed instance in Authorization header)\n"
+        },
+        {
+          "name": "offset",
+          "type": "integer",
+          "doc": " offset for query\n"
+        },
+        {
+          "name": "order",
+          "type": "string",
+          "doc": " fields to sort on in format `field1:asc, field2:desc` only date and amount allowed\n"
+        },
+        {
+          "name": "status",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.TransactionStatus"
+            ]
+          },
+          "doc": " filter by transaction status\n"
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "doc": " created date to start range from\n"
+        },
+        {
+          "name": "paymentProvider",
+          "type": "string",
+          "doc": " filter by transaction payment provider\n"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "doc": " filter by transaction currency\n"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "doc": " limit for query\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListTransactionsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": [
+          {
+            "title": "example of ListTransactionsResponse",
+            "body": [
+              "{\n    \"transactions\": [\n        {\n            \"transactionId\": \"e61aa3b9-aa3d-4abf-b1f2-8e8f940edab0\",\n            \"status\": \"APPROVED\",\n            \"provider\": \"stripe\",\n            \"paymentMethod\": \"creditCard\",\n            \"appId\": \"1380b703-ce81-ff35-f115-39571d94dfcd\",\n            \"appInstanceId\": \"a5e169bc-2825-4e40-8b62-ebde14ac1210\",\n            \"order\": {\n                \"id\": \"2b013aca-cab2-4e69-9a56-86addc41509e\",\n                \"description\": {\n                    \"items\": [\n                        {\n                            \"id\": \"4743b456-3705-3c7c-1483-08ec7e83805d\",\n                            \"name\": \"Mikado method\",\n                            \"quantity\": 1\n                        }\n                    ],\n                    \"billingAddress\": {\n                        \"firstName\": \"Yaroslav\",\n\t\t\t\"company\": null,\n            \t\t\"address\": \"Kiev, Panklivska 74a\",\n            \t\t\"city\": \"Kiev\",\n           \t\t\"state\": \"Kiev\",\n            \t\t\"zipPostalCode\": \"00000\",\n           \t\t\"countryCode\": \"UKR\",\n                        \"phone\": \"+0000000000\",\n                        \"fax\": \"\",\n                        \"email\": \"johndoe@example.com\"                  \n\t\t  },\n                    \"additionalCharges\": {\n                        \"tax\": 0,\n                        \"shipping\": 0,\n                        \"discount\": 0\n                    }\n                }\n            },\n            \"amount\": {\n                \"amount\": 1,\n                \"currency\": \"USD\"\n            },\n            \"paymentMethodData\": {\n                \"installments\": \"1\"\n            },\n            \"refundability\": {\n                \"isRefundable\": false,\n                \"reason\": {\n                    \"value\": \"FORBIDDEN\"\n                },\n                \"flowType\": \"NA\"\n            },\n            \"createdAt\": \"2019-02-25T13:30:25.361Z\",\n            \"type\": \"SALE\",\n            \"providerTransactionId\": \"\",\n            \"providerFields\": {}\n        },\n        {\n            \"transactionId\": \"5f21e8ae-3b4c-4c43-b5f5-131aec1bca57\",\n            \"status\": \"OFFLINE\",\n            \"provider\": \"NA\",\n            \"paymentMethod\": \"offline\",\n            \"appId\": \"1380b703-ce81-ff05-f117-39571d94dfcd\",\n            \"appInstanceId\": \"a5e169bc-2725-4e40-8b82-ebde14ac1210\",\n            \"order\": {\n                \"id\": \"b9c4d273-032e-4a4d-b383-8a62f83c476a\",\n                \"description\": {\n                    \"items\": [\n                        {\n                            \"id\": \"4743b456-3705-3c7c-1488-08dc7e83805d\",\n                            \"name\": \"Mikado method\",\n                            \"quantity\": 1\n                        }\n                    ],\n                    \"billingAddress\": {\n                        \"firstName\": \"Yaroslav\",\n\t\t\t\"company\": null,\n            \t\t\"address\": \"Kiev, Panklivska 74a\",\n            \t\t\"city\": \"Kiev\",\n           \t\t\"state\": \"Kiev\",\n            \t\t\"zipPostalCode\": \"00000\",\n           \t\t\"countryCode\": \"UKR\",\n                        \"phone\": \"+0000000000\",\n                        \"fax\": \"\",\n                        \"email\": \" johndoe@example.com\"\n                    },\n                    \"additionalCharges\": {\n                        \"tax\": 0,\n                        \"shipping\": 0,\n                        \"discount\": 0\n                    }\n                }\n            },\n            \"amount\": {\n                \"amount\": 1,\n                \"currency\": \"USD\"\n            },\n            \"paymentMethodData\": {\n                \"installments\": \"1\"\n            },\n            \"refundability\": {\n                \"isRefundable\": false,\n                \"reason\": {\n                    \"value\": \"FORBIDDEN\"\n                },\n                \"flowType\": \"NA\"\n            },\n            \"createdAt\": \"2019-02-25T13:29:21.764Z\",\n            \"type\": \"SALE\",\n            \"providerTransactionId\": \"5f21e8ae-3b6c-4c43-b5f9-131aec1bca57\",\n            \"providerFields\": {}\n        }],\n    \"pagination\": {\n        \"offset\": 0,\n        \"limit\": 0,\n        \"total\": 2\n    }\n}"
+            ],
+            "extra": {}
+          }
+        ]
+      },
+      "members": [
+        {
+          "name": "transactions",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.Transaction"
+            ]
+          },
+          "doc": " List of transactions\n"
+        },
+        {
+          "name": "pagination",
+          "type": "Wix Payments.Payments.PaginationResponse",
+          "doc": " total number of transactions with filters applied\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionTotalsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "from",
+          "type": "string",
+          "doc": " date to start range from\n"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "doc": " date to end range with\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionTotalsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "transactionTotals",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.TransactionTotals"
+            ]
+          },
+          "doc": " transactions amount and successful payments aggregated by currency\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "HasTransactionsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "HasTransactionsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "hasTransactions",
+          "type": "boolean",
+          "doc": " are transactions present\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionFiltersRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionFiltersResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "transactionFilters",
+          "type": "Wix Payments.Payments.TransactionFilters",
+          "doc": " app ids and payment methods to filter on\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetTransactionResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "transaction",
+          "type": "Wix Payments.Payments.Transaction",
+          "doc": " transaction entity\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListPaymentMethodsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListPaymentMethodsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "methods",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.PaymentMethod"
+            ]
+          },
+          "doc": " List of all methods.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ConnectPaymentMethodsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "requests",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.ConnectPaymentMethodRequest"
+            ]
+          },
+          "doc": " Payment methods to connect.\n"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "doc": " **Optional**. Country in ISO 3166-1 alpha-3 format. When ommited, country is inferred based on site properties or\n geo location.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ConnectPaymentMethodRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " Payment method ID.\n\n For example, `creditCard` or `payPal`.\n"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "doc": " Email to use for auto connecting selected payment method.\n\n This field is optional and when ommited, email from meta-site is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ConnectPaymentMethodsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "methods",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.PaymentMethod"
+            ]
+          },
+          "doc": " List of all methods.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "SuggestionsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "paymentMethods",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "string"
+            ]
+          },
+          "doc": " Payment methods to get suggestions for.\n"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "doc": " **Optional**. Country in ISO 3166-1 alpha-3 format. When ommited, country is inferred based on site properties or\n geo location.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "SuggestionsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "suggestions",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.PaymentProviderSuggestion"
+            ]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "PaymentProviderSuggestion",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " Payment method ID.\n"
+        },
+        {
+          "name": "paymentProvider",
+          "type": "string",
+          "doc": " Payment provider ID.\n"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "doc": " Email that will be used for auto-connection.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetRefundsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "GetRefundsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "amountRefunded",
+          "type": "number",
+          "doc": ""
+        },
+        {
+          "name": "refunds",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.Refund"
+            ]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "RefundRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "amount",
+          "type": "number",
+          "doc": " amount which will be refunded\n"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "doc": " refund reason\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "RefundResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "refund",
+          "type": "Wix Payments.Payments.Refund",
+          "doc": " created refund resource\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListBackofficeTransactionsRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "appInstanceId",
+          "type": "string",
+          "doc": " filter with instance id of application\n"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "doc": " date to end range with\n"
+        },
+        {
+          "name": "offset",
+          "type": "integer",
+          "doc": " offset for query\n"
+        },
+        {
+          "name": "status",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.TransactionStatus"
+            ]
+          },
+          "doc": " filter by transaction status\n"
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "doc": " date to start range from\n"
+        },
+        {
+          "name": "appId",
+          "type": "string",
+          "doc": " application id (required)\n"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "doc": " limit for query\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ListBackofficeTransactionsResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "transactions",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Payments.Payments.BackofficeTransaction"
+            ]
+          },
+          "doc": " List of transactions\n"
+        },
+        {
+          "name": "pagination",
+          "type": "Wix Payments.Payments.PaginationResponse",
+          "doc": " total number of transactions with filters applied\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ClaimRequest",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL to return to after the claim.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ClaimResponse",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "redirectUrl",
+          "type": "string",
+          "doc": " URL client should redirect user to.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "ProviderAccountStatus",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> NOT_CLAIMED <\/code><\/li><li><code> FUNDS_HELD <\/code><\/li><li><code> CLAIMED <\/code><\/li><li><code> BLOCKED <\/code><\/li><li><code> SUSPENDED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "UNKNOWN",
+        "NOT_CLAIMED",
+        "FUNDS_HELD",
+        "CLAIMED",
+        "BLOCKED",
+        "SUSPENDED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "PaymentMethodStatus",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> SELECTED <\/code><\/li><li><code> CONNECTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "SELECTED",
+        "CONNECTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "PaymentMethodType",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> ONLINE_METHOD <\/code><\/li><li><code> OFFLINE_METHOD <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "ONLINE_METHOD",
+        "OFFLINE_METHOD"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Frequency",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> DAY <\/code><\/li><li><code> WEEK <\/code><\/li><li><code> MONTH <\/code><\/li><li><code> UNDEFINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "UNDEFINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "SubscriptionStatus",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> SUBSCRIPTION_ACTIVE<\/code> - recurring payment is active\n <\/li><li><code> SUBSCRIPTION_CANCELLED<\/code> - recurring payments were cancelled by user\n <\/li><li><code> SUBSCRIPTION_FINISHED<\/code> -  the total billing cycles, including any trials and regular payment periods, were completed (not yet supported)\n <\/li><li><code> SUBSCRIPTION_PENDING<\/code> -  recurring payment is not active yet, waiting for the first payment\n <\/li><li><code> SUBSCRIPTION_UNDEFINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "SUBSCRIPTION_ACTIVE",
+        "SUBSCRIPTION_CANCELLED",
+        "SUBSCRIPTION_FINISHED",
+        "SUBSCRIPTION_PENDING",
+        "SUBSCRIPTION_UNDEFINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "TransactionType",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> SALE <\/code><\/li><li><code> RECURRING <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "SALE",
+        "RECURRING"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "TransactionStatus",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> INITIALIZED <\/code><\/li><li><code> IN_PROCESS <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> PENDING_MERCHANT <\/code><\/li><li><code> PENDING_BUYER <\/code><\/li><li><code> BUYER_CANCELED <\/code><\/li><li><code> TIMEOUT <\/code><\/li><li><code> REFUND <\/code><\/li><li><code> PARTIAL_REFUND <\/code><\/li><li><code> VOID <\/code><\/li><li><code> CHARGE_BACK <\/code><\/li><li><code> EXPIRED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> FAILED <\/code><\/li><li><code> COMPLETED_FUNDS_HELD <\/code><\/li><li><code> TPA_CANCELED <\/code><\/li><li><code> OFFLINE <\/code><\/li><li><code> DISPUTE <\/code><\/li><li><code> UNDEFINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "INITIALIZED",
+        "IN_PROCESS",
+        "APPROVED",
+        "PENDING",
+        "PENDING_MERCHANT",
+        "PENDING_BUYER",
+        "BUYER_CANCELED",
+        "TIMEOUT",
+        "REFUND",
+        "PARTIAL_REFUND",
+        "VOID",
+        "CHARGE_BACK",
+        "EXPIRED",
+        "DECLINED",
+        "FAILED",
+        "COMPLETED_FUNDS_HELD",
+        "TPA_CANCELED",
+        "OFFLINE",
+        "DISPUTE",
+        "UNDEFINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Reason",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> ALREADY_REFUNDED <\/code><\/li><li><code> PROVIDER_IS_DOWN <\/code><\/li><li><code> NOT_SUPPORTED <\/code><\/li><li><code> PENDING_REFUND <\/code><\/li><li><code> EXPIRED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "ALREADY_REFUNDED",
+        "PROVIDER_IS_DOWN",
+        "NOT_SUPPORTED",
+        "PENDING_REFUND",
+        "EXPIRED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Type",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> PARTIAL <\/code><\/li><li><code> FULL <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "PARTIAL",
+        "FULL"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "Status",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> PENDING <\/code><\/li><li><code> SUCCEEDED <\/code><\/li><li><code> FAILED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {}
+}

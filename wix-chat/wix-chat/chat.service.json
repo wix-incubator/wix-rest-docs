@@ -1,0 +1,482 @@
+{
+  "name": "Chat",
+  "memberOf": "Wix Chat",
+  "category": "business-service",
+  "mixes": [],
+  "labels": [],
+  "docs": {
+    "summary": "",
+    "description": []
+  },
+  "properties": [],
+  "tags": [
+    {
+      "name": "SendMessageService",
+      "entity": "_com_wix_inbox_chat_wix_code_Channel"
+    }
+  ],
+  "relatedGuides": [
+    {
+      "path": "../guides/chat/Introduction.md"
+    }
+  ],
+  "operations": [
+    {
+      "name": "Send Message",
+      "tag": "SendMessageService",
+      "permissions": [
+        {
+          "name": "CHAT.MANAGE_CHAT"
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [
+        {
+          "in": "PATH",
+          "name": "channelId",
+          "type": "string",
+          "doc": " Chat ID this message is part of\n",
+          "required": true
+        },
+        {
+          "in": "BODY",
+          "name": "type",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_MessageType",
+          "doc": " Message type (e.g., text, image, file). Currently only text is supported\n",
+          "required": false
+        },
+        {
+          "in": "BODY",
+          "name": "payload",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Payload",
+          "doc": " Message payload\n",
+          "required": false
+        },
+        {
+          "in": "BODY",
+          "name": "metadata",
+          "type": "object",
+          "doc": "Set of key-value pairs. Any extra data that is valuable for this message\n",
+          "required": false
+        }
+      ],
+      "ret": {
+        "type": {
+          "name": "sendMessage",
+          "statusCode": "200",
+          "typeParams": [
+            "Wix Chat.Chat._com_wix_inbox_chat_wix_code_SendMessageResponse"
+          ]
+        },
+        "doc": " Send Message Response"
+      },
+      "locations": [],
+      "docs": {
+        "summary": "Sends a text message to a specific channel (AKA chat) on behalf of the site owner\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/chat/v1/channels/{channelId}/messages",
+        "links": [],
+        "examples": [
+          {
+            "title": "",
+            "body": [
+              "curl -X POST \\\n  https://www.wixapis.com/chat/v1/channels/3762db18-9231-41db-bfc6-0adcdf01c41d/messages \\\n  -H 'authorization: <AUTH>' \\\n  -H 'cache-control: no-cache' \\\n  -H 'content-type: application/json' \\\n  -d '{\n\t\"channelId\": \"3762db18-9231-41db-bfc6-0adcdf01c41d\",\n\t\"type\": \"TEXT\",\n\t\"payload\": {\n\t\t\"text\": \"testing from rest\"\n\t},\n\t\"metadata\": {}\n}'"
+            ],
+            "response": [
+              "\n{\"message\": {\n  \"sequence\": \"1581520287964268\",\n  \"channelId\": \"3762db18-9231-41db-bfc6-0adcdf01c41d\",\n  \"type\": \"TEXT\",\n  \"summary\": \"testing from rest\",\n  \"participantId\": \"2551a0f7-65ad-430e-b073-73b842a21d1f\",\n  \"createdDate\": \"2020-02-12T15:11:27Z\",\n  \"metadata\": {},\n  \"payload\": {\"text\": \"testing from rest\"},\n  \"sender\":   {\n    \"id\": \"8ac81d4e-45d0-426c-bd2d-2597af00dac0\",\n    \"role\": \"Admin\"\n  },\n  \"direction\": \"BusinessToVisitor\"\n}}"
+            ],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra": {}
+    }
+  ],
+  "events": [
+    {
+      "type": "_com_wix_inbox_chat_wix_code_Message",
+      "name": "Message",
+      "docs": {
+        "summary": "This event is spread as onNewMessage webhook"
+      },
+      "topic": "chat-corvid-message-events",
+      "tag": "SendMessageService",
+      "permissions": [
+        {
+          "name": "WIX_CHAT.READ_MESSAGES"
+        }
+      ]
+    }
+  ],
+  "callbacks": [],
+  "messages": [
+    {
+      "name": "metadataMapEntry",
+      "displayName": "metadata Map Entry",
+      "locations": [],
+      "docs": {
+        "summary": "Set of key-value pairs. Any extra data that is valuable for this message\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "key:value",
+          "type": "string",
+          "doc": "`key` of type string, `value` of type string"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_SendMessageRequest",
+      "displayName": "Send Message Request",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "channelId",
+          "type": "string",
+          "doc": " Chat ID this message is part of\n"
+        },
+        {
+          "name": "type",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_MessageType",
+          "doc": " Message type (e.g., text, image, file). Currently only text is supported\n"
+        },
+        {
+          "name": "payload",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Payload",
+          "doc": " Message payload\n"
+        },
+        {
+          "name": "metadata",
+          "type": "Wix Chat.Chat.metadataMapEntry",
+          "doc": "Set of key-value pairs. Any extra data that is valuable for this message\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_Payload",
+      "displayName": "Payload",
+      "locations": [],
+      "docs": {
+        "summary": " Message payload\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "text",
+          "type": "string",
+          "doc": " Message content\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_SendMessageResponse",
+      "displayName": "Send Message Response",
+      "locations": [],
+      "docs": {
+        "summary": " Send message response\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "message",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Message",
+          "doc": "Message that was sent\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_Sender",
+      "displayName": "Sender",
+      "locations": [],
+      "docs": {
+        "summary": " Sender\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "id",
+          "type": "string",
+          "doc": " Sender's user ID\n"
+        },
+        {
+          "name": "role",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Role",
+          "doc": " Sender's role\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "metadataMapEntry",
+      "displayName": "metadata Map Entry",
+      "locations": [],
+      "docs": {
+        "summary": "Set of key-value pairs. Any extra data that is valuable for this message\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "key:value",
+          "type": "string",
+          "doc": "`key` of type string, `value` of type string"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_Message",
+      "displayName": "Message",
+      "locations": [],
+      "docs": {
+        "summary": " Message\n",
+        "links": [],
+        "examples": [
+          {
+            "title": "",
+            "body": [
+              "\n{\n  \"channelId\": \"3762db18-9231-41db-bfc6-0adcdf01c41d\",\n  \"sequence\": 1581521462916708,\n  \"type\": \"TEXT\",\n  \"summary\": \"hello from a visitor on your site\",\n  \"participantId\": \"2551a0f7-65ad-430e-b073-73b842a21d1f\",\n  \"createdDate\": \"2020-02-12T15:31:02.916Z\",\n  \"metadata\": {},\n  \"payload\": {\"text\": \"hello from a visitor on your site\"},\n  \"direction\": \"VisitorToBusiness\",\n  \"sender\":   {\n    \"role\": \"Visitor\",\n    \"id\": \"2551a0f7-65ad-430e-b073-73b842a21d1f\"\n  }\n}"
+            ],
+            "type": "json",
+            "extra": {}
+          }
+        ]
+      },
+      "members": [
+        {
+          "name": "payload",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Payload",
+          "doc": " Message payload\n"
+        },
+        {
+          "name": "direction",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_MessageDirection",
+          "doc": " Message direction\n",
+          "readOnly": true
+        },
+        {
+          "name": "participantId",
+          "type": "string",
+          "doc": " Participant ID that sent this message\n",
+          "readOnly": true
+        },
+        {
+          "name": "sequence",
+          "type": "integer",
+          "doc": " Incremental ID (used for ordering & tracking)\n",
+          "readOnly": true
+        },
+        {
+          "name": "metadata",
+          "type": "Wix Chat.Chat.metadataMapEntry",
+          "doc": "Set of key-value pairs. Any extra data that is valuable for this message\n"
+        },
+        {
+          "name": "sender",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Sender",
+          "doc": " Message sender\n"
+        },
+        {
+          "name": "type",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_MessageType",
+          "doc": " Message type\n"
+        },
+        {
+          "name": "channelId",
+          "type": "string",
+          "doc": " Channel ID (AKA Chat ID)\n"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "doc": " One-line summary of the message, as displayed in the site owner's chat view\n"
+        },
+        {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Creation date\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_Channel",
+      "displayName": "Channel",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "messages",
+          "type": {
+            "name": "array",
+            "typeParams": [
+              "Wix Chat.Chat._com_wix_inbox_chat_wix_code_Message"
+            ]
+          },
+          "doc": " Latest messages in this chat (defaults to 5 messages)\n"
+        },
+        {
+          "name": "state",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_ChannelState",
+          "doc": ""
+        },
+        {
+          "name": "participantCount",
+          "type": "integer",
+          "doc": " Total number of participants in this channel\n"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "doc": " Channel ID\n",
+          "readOnly": true
+        },
+        {
+          "name": "createdBy",
+          "type": "string",
+          "doc": " Participant ID of the channel creator\n"
+        },
+        {
+          "name": "type",
+          "type": "Wix Chat.Chat._com_wix_inbox_chat_wix_code_ChannelType",
+          "doc": ""
+        },
+        {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Creation date\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_MessageType",
+      "displayName": "Message Type",
+      "locations": [],
+      "docs": {
+        "summary": " Message type\n \n Possible values are: <li><code> TEXT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "TEXT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_Role",
+      "displayName": "Role",
+      "locations": [],
+      "docs": {
+        "summary": " Role\n \n Possible values are: <li><code> Visitor <\/code><\/li><li><code> Admin <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "Visitor",
+        "Admin"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_MessageDirection",
+      "displayName": "Message Direction",
+      "locations": [],
+      "docs": {
+        "summary": " Message direction\n \n Possible values are: <li><code> BusinessToVisitor <\/code><\/li><li><code> VisitorToBusiness <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "BusinessToVisitor",
+        "VisitorToBusiness"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_ChannelType",
+      "displayName": "Channel Type",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> PRIVATE <\/code><\/li><li><code> GROUP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "PRIVATE",
+        "GROUP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_com_wix_inbox_chat_wix_code_ChannelState",
+      "displayName": "Channel State",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> ACTIVE <\/code><\/li><li><code> ARCHIVED <\/code><\/li><li><code> DELETED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED",
+        "DELETED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {
+    "artifactId": "com.wixpress.inbox.crm-inbox-api"
+  }
+}
