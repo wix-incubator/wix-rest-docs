@@ -15,7 +15,7 @@ The Wix Bookings APIs include:
 - **Calendar**: A bird’s-eye view of the business calendar, where you can easily view sessions available for booking, sessions taught per staff member, etc.
 - **Schedules and Sessions**: Manage the individual schedules of each staff member, location, etc. (i.e., resource) and session 
 
-> **Important**:
+> **Important**:  
 A session is a time-specific instance of a service. A business that provides multi-session services (e.g., a 4-meeting class, a weekly event) will manage these as schedules. See the [Schedules and Sessions API Terminology]() for more details.
 
 Wix Bookings supports 2 different types of services:
@@ -24,3 +24,5 @@ Wix Bookings supports 2 different types of services:
 
 > **Important**:  
 Both of these types of services can exist within one business - see [Schedules and Sessions Use Cases]().
+
+![AboutBookingsImage](./images/BookingsSchedules)
