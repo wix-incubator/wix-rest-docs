@@ -79,6 +79,7 @@ Remember to replace '12345678' with your ngrok string from step 2.
 You just configured the app's <a href="https://dev.wix.com/api/rest/getting-started/authentication">OAuth flow</a>.
 </p>
 </blockquote>
+
 5. Run your app:    
   a. Browse to the cloned sample application.    
   b. Run `npm install`.  
