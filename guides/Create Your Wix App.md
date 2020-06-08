@@ -73,9 +73,15 @@ Remember to replace '12345678' with your ngrok string from step 2.
 4. Go to **src** > **credentials.js**:
   a. Find and replace the APP_SECRET  with the value you copied from Wix Developers:
 ![Change app secret](../media/change-credentials.png)
+<blockquote class='note'>
+<p>
+  <strong>Note:</strong><br/>
+You just configured the app's <a href="https://dev.wix.com/api/rest/getting-started/authentication">OAuth flow</a>.
+</p>
+</blockquote>
 
-5. Run your app:  
-  a. Browse to the cloned sample application.  
+5. Run your app:    
+  a. Browse to the cloned sample application.    
   b. Run `npm install`.  
   c. Run `npm build`.  
   d. Run `npm start`.  
