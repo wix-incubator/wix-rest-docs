@@ -1,5 +1,5 @@
 SortOrder: 0
-# **Resources Service**
+# About the Resources API
 
 The Resources Service allows you to manage *schedule-able assets* in Wix Bookings. A resource is any business asset that can be booked or assigned to a session. Resources often include staff people, rooms and/or locations, and specialized equipment.
 Each resource will have its own schedule.
@@ -13,7 +13,7 @@ A set of resources with the the tag `StaffMember` and another set of resources w
 We recommend applying tags to resources to categorize staff, rooms, equipment, etc. for easy filtering. 
 You can create new tags when creating and updating resources via this API.
 
-## **Usage in Wix Bookings**
+## Usage in Wix Bookings
 
 In Wix Bookings, all default resources fall into 2 categories:
 
