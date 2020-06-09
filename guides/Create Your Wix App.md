@@ -4,7 +4,7 @@ In this tutorial we review how to create a Wix application that interacts with t
 ## Step 1: Set Up Your App in a Wix Developers Account 
 1. Log in (or sign up) to [Wix Developers](https://dev.wix.com/).
 2. Click **Create New App**.
-3. Go to **Workspace** > **OAuth** and copy your App ID and App Secret Key - you'll need them later.
+3. Go to **OAuth** in the side menu (under Build Your App) and copy your App ID and App Secret Key - you'll need them later.
 ![oaurg](../media/oauth-settings.png)
 
 ## Step 2: Set Up Your App to Receive Inbound HTTPS Connections
