@@ -4,7 +4,7 @@ In this tutorial we review how to create a Wix application that interacts with t
 ## Step 1: Set Up Your App in a Wix Developers Account 
 1. Log in (or sign up) to [Wix Developers](https://dev.wix.com/).
 2. Click **Create New App**.
-3. Go to **Workspace** > **OAuth** and copy your App ID and App Secret Key - you'll need them later.
+3. Go to **OAuth** in the side menu (under Build Your App) and copy your App ID and App Secret Key - you'll need them later.
 ![oaurg](../media/oauth-settings.png)
 
 ## Step 2: Set Up Your App to Receive Inbound HTTPS Connections
@@ -25,7 +25,7 @@ Don't close the ngrok process - You will need it running for the entire process.
 </blockquote>
 
 ## Step 3: Enter Your App URLs in the Wix Developers Center
-1. Go to **Workspace** > **OAuth**:     
+1. Go to **OAuth** in the side menu (under Build Your App):     
    a. In **Redirect URL** enter: `https://<NGROK_STRING>.ngrok.io/login`     
    b. In **App URL** enter: `https://<NGROK_STRING>.ngrok.io/signup`     
 ![update application urls](../media/urls.png)
@@ -40,7 +40,7 @@ Remember to replace <NGROK_STRING> with the string from the forwarding URL in st
 
 
 ## Step 4: Register For a Webhook
-1. Go to **Workspace** > **Webhooks** and click **+ Add Webhook**.
+1. Go to **Webhooks** in the side menu (under Build Your App) and click **+ Add Webhook**.
 2. Select the **App Management** webhook category and the **APP INSTALLED** event.  
 ![New webhook](../media/add-webhook.png)
 
@@ -92,7 +92,7 @@ Well done! Now it's time to make sure your app works as expected.
 
 ## Step 6: Test Your App
 
-1. In the Wix Developers Center Workspace, click **Test Your App**.  
+1. In the Wix Developers Center Dashboard, click **Test Your App**.  
 ![test your app](../media/test-button.png)  
 
 2. Select a site and click **Test Your App**.  
