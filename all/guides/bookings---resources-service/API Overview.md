@@ -8,6 +8,7 @@ A resource will typically be assigned to an *availability type schedule* (See 
 
 **Tags system:**  
 You can apply a tag to a resource to group multiple resources together for management or display. 
+
 For example:
 A set of resources with the the tag `StaffMember` and another set of resources with the tag `room` can be filtered for by tag based on the data required for display.
 
