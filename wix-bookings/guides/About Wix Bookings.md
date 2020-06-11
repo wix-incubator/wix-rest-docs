@@ -25,4 +25,4 @@ Wix Bookings supports 2 different types of services:
 > **Important**:  
 Both of these types of services can exist within one business - see [Schedules and Sessions Use Cases]().
 
-![AboutBookingsImage](./images/BookingsSchedules.png)
+![AboutBookingsImage](../../media/BookingsSchedules.png)
