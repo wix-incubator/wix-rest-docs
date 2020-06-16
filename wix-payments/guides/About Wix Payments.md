@@ -4,7 +4,6 @@ Wix Payments enables site owners to collect payments from online stores, booking
 
 Wix Payments supports the following Wix Apps:
 
-Relevant apps include:
 - Wix Stores (1380b703-ce81-ff05-f115-39571d94dfcd)
 - Wix Bookings (13d21c63-b5ec-5912-8397-c3a5ddb27a97)
 - Wix Events (140603ad-af8d-84a5-2c80-a0f60cb47351)
