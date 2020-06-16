@@ -5,8 +5,8 @@ Use the external calendar sync API to sync the Wix Bookings Calendar and an exte
 
 When a Wix calendar and an external calendar are synced, the following occurs:
 - A session that is created in the Wix Bookings schedule will also be created in the external calendar.
-- An event that is created on the external calendar will affect the availability of a Wix schedule, and the slots that are returned in `getSlots` in the *calendar* service.
-    - The events from the external calendar will be returned in `listSessions` in the schedules service,  and will hold a `tag` with the value "`google`"
+- An event that is created on the external calendar will affect the availability of a Wix schedule, and the slots that are returned in the [List Slots](https://dev.wix.com/api/rest/wix-bookings/calendar/list-slots) endpoint.
+    - The events from the external calendar will be returned in the [List Sessions](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session/list-sessions) endpoint,  and will hold a `tag` with the value "`google`"
 - When an session is modified / deleted in Wix Bookings, it will also be modified / deleted in the external calendar.
 - When an event is modified / deleted in the external calendar service,  it will also be modified / deleted in Wix Bookings.
 
@@ -14,7 +14,7 @@ When a Wix calendar and an external calendar are synced, the following occurs:
 
 - **External Calendar**: A non Wix calendar (e.g., Google Calendar). 
 
-- **Resource**(not necessarily related to the Resource API): An entity with two defining features:
+- **Resource** (not necessarily related to the Resource API): An entity with two defining features:
 	- it is a schedule owner in Wix Bookings,
 	- it has a calendar in an external calendar. 
 	For example: A staff member in a business registered with Wix Bookings that also has a Gmail account and a Google calendar.
