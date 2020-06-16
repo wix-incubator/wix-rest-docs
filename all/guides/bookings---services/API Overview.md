@@ -1,5 +1,5 @@
 SortOrder: 0
-# Services API
+# About the Services API
 
 A service is an offering that a business provides to its customers. 
 
@@ -24,7 +24,7 @@ The following payment options available via the Wix Bookings UI:
 - **Wix pay online** (not available via API) - when this option is selected, a booking made for this service can be paid online using the Wix Payment service. In case this option is the only payment option set, the client won't be able to complete the booking flow without paying online for the service.
 - **Wix pay in-person -** when this option is selected, a booking made for this service can be paid in person (up to the business to charge the payment, externally to Wix). In case this option is the only payment option set, the service will be booked without a payment being charged.
 - **Custom** - when this option is selected, a booking made for this service can be paid for in a custom way which is up to the API user to define. 
-- **Wix Paid Plan** - when a service is connected to a Wix Paid Plan (e.g., a membership or a package of sessions), a booking made for this service can be paid using WiX Paid Plans. To retrieve the Wix Paid Plan that a site member has available for a specific service/booking, call the [Checkout Options]() endpoint.
+- **Wix Pricing Plan** - when a service is connected to a Wix Pricing Plan (e.g., a membership or a package of sessions), a booking made for this service can be paid using Wix Pricing Plans. To retrieve the Wix Pricing Plan that a site member has available for a specific service/booking, call the [Checkout Options](https://dev.wix.com/api/rest/wix-bookings/checkout-options) endpoint.
 
 > **Important**:
 Wix Bookings users can select any or all of these payment options. A Wix Bookings user who selects Wix pay online as their only payment option will not be able to integrate their bookings payment flow with an external platform.
