@@ -19,7 +19,7 @@ A booking contains the following:
 - **Member**: Someone who is registered as a member in the Wix site.
 - **Owner**: The Wix site owner (who has Wix Bookings installed).
 - **Slot**: An available period of time in a schedule that can be booked by a customer. While this includes existing sessions that are available for booking, it can also represent a period of time that can be booked based on the availability of a resource (e.g., a barber with appointments of 30 minutes each that are open for booking every weekday between 8:00 - 17:00). These slots are calculated by the constraints of the schedule.
-- **[Wix Pricing Plans](https://support.wix.com/en/article/about-pricing-plans)**: A pre-paid bundle of services or membership including access to certain services. Access a member's pricing plans by calling the [Checkout Options](https://dev.wix.com/api/rest/wix-bookings/checkout-options/checkout-options) endpoint with the member's contact ID.
+- **[Wix Paid Plans](https://support.wix.com/en/article/about-pricing-plans)**: A pre-paid bundle of services or membership including access to certain services. Access a member's pricing plans by calling the [Checkout Options](https://dev.wix.com/api/rest/wix-bookings/checkout-options/checkout-options) endpoint with the member's contact ID.
 
 ## Bookings Statuses
 Each booking has a status. Statuses include:
@@ -32,10 +32,10 @@ Each booking has a status. Statuses include:
 ## Use Cases
 
 ### Book a visitor (i.e., anyone, not necessarily known to the site owner in advance) to a given service, including payment
-![image](./images/BookWithID-Slot.png)
+![image](https://s3.amazonaws.com/wixplorer-readme-images/bookings---bookings-service/BookWithID-Slot.png)
 1. To display the various services available for booking on your platform, call the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) endpoint.  
-2. When a visitor selects a service, call [List Slots](https://dev.wix.com/api/rest/wix-bookings/calendar/list-slots) to display the sessions available for booking.
-2a. Provide the visitor with a form to fill out that matches the data required in this session's form, as returned in the [List Services]((https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) response.
+2. When a visitor selects a service, call [List Slots](https://dev.wix.com/api/rest/wix-bookings/calendar/list-slots) to display the sessions available for booking.  
+2a. Provide the visitor with a form to fill out that matches the data required in this session's form, as returned in the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) response.
 3. When a visitor selects a slot to book, call [Checkout Options](https://dev.wix.com/api/rest/wix-bookings/checkout-options/checkout-options) to display the payment options available for this service. At this time, payment via WixPayOnline is not supported via API.
 4. When a visitor continues with the checkout process - if a significant amount of time has passed, call [Is Available](https://dev.wix.com/api/rest/wix-bookings/bookings/availability/is-available) to confirm that the slot is still available before continuing.
 5. When a visitor completes the checkout process, call [Book with Checkout](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/book-with-checkout). Include formInfo and either scheduleId or by bySessionId.
