@@ -4,8 +4,8 @@ SortOrder: 0
 
 Create, modify and delete bookable schedules and sessions.
 
-> **Note**:
-Read schedule and session data using the [Calendar API]().
+> **Note**:  
+Read schedule and session data using the [Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar).
 
 ## Terminology
 
@@ -30,7 +30,7 @@ When creating schedules via API, adding the relevant tag is recommended so that 
 
 ### Create a Recurring Event on Fridays at 10am beginning May 15th, 2020
 
-Call [Create Schedule](). Parameters to include:  
+Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule). Parameters to include:  
 1. scheduleOwnerId (writable)  
 2. intervals.interval.daysOfWeek = FRI  
 3. intervals.interval.hourOfDay = 10 (for AM. 22 for PM)  
@@ -41,7 +41,7 @@ Call [Create Schedule](). Parameters to include:
 ### Set up a Fitness Instructor's Work Schedule, Including Group Classes and Availability for 1-on-1 Appointments
 The fitness instructor will exist as a resource in the system, with their own personal schedule. They will also be linked to both the group class's schedule, and the schedule detailing their availaibility for 1-on-1 appointments. 
 
-1. Call [Create Resource]() to add the instructor to the system and create their personal schedule.   
+1. Call [Create Resource](https://dev.wix.com/api/rest/wix-bookings/resources/create-resource) to add the instructor to the system and create their personal schedule.   
 Parameters to include:  
    a. tags = StaffMember  
    b. schedules.schedule.intervals.interval.intervalType = AVAILABILITY  
@@ -51,7 +51,7 @@ Parameters to include:
    f. schedule.intervals.interval.duration = 480  
 2. Collect the returned resource ID and schedule ID. 
 Note: the resource's schedule owner ID will equal the resource ID)  
-3. Call [Create Schedule]() to set up the instructor's group class (on Tuesdays from 5:30-6:30pm).  
+3. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) to set up the instructor's group class (on Tuesdays from 5:30-6:30pm).  
 Parameters to include:  
    a. scheduleOwnerId = service ID  
    b. schedule.intervals.affectedSchedules.scheduleId = instructor's schedule ID  
@@ -61,7 +61,7 @@ Parameters to include:
    f. schedule.intervals.interval.minuteOfHour = 30  
    g. schedule.intervals.interval.duration= 60  
 4. Collect the returned schedule ID.  
-5. Call [Create Schedule]() again to set the logic for the instructor's availability for 1-on-1 appointments of 60 minutes. Parameters to include:  
+5. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) again to set the logic for the instructor's availability for 1-on-1 appointments of 60 minutes. Parameters to include:  
    a. scheduleOwnerId (service ID - e.g., "1-on-1 training")  
    b. schedule.availability.linkedSchedules.transparency = BUSY  
    c. schedule.availability.linkedSchedules.scheduleId = (instructor's schedule ID)   
