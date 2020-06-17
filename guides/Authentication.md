@@ -122,6 +122,8 @@ curl -X POST \
    'https://www.wix.com/_api/site-apps/v1/site-apps/token-received' \
    -H 'Authorization: <AUTH>'
 ```
+> **Note**:  
+Until one of these endpoints is called, the app will be marked as "pending installation" in Wix's database.
 
 ## Step 7: App Requests Protected Data
 Follow our [API Reference](https://dev.wix.com/api/app-management) section to request the user's protected data, with a fresh access token as the authorization header.
