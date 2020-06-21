@@ -110,7 +110,7 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 > Request a new access token every time you call an API.
 > Access tokens expire after 10 minutes. Use your refresh token to request a new access token.  
 
-## Step 6: App Completes the OAuth Flow
+## Step 5a: App Completes the OAuth Flow
 A. If the user's flow is finished, redirect them to the following endpoint to complete the OAuth flow and close the installation window/tab:
 ```
 curl -X GET \
@@ -125,5 +125,5 @@ curl -X POST \
 > **Note**:  
 Until one of these endpoints is called, the app will be marked as "pending installation" in Wix's database.
 
-## Step 7: App Requests Protected Data
+## Step 6: App Requests Protected Data
 Follow our [API Reference](https://dev.wix.com/api/app-management) section to request the user's protected data, with a fresh access token as the authorization header.
