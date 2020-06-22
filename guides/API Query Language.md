@@ -90,9 +90,9 @@ The following query matches entities that do not contain the `item` field, or wh
 ```
 
 ### The Sort Section
-The sort section is an array of field names and sort direction. If the direction is not specified, it will be sorted in ascending order:
+The sort section is an array of field names and sort order. If the order is not specified, it will be sorted in ascending order:
 ```javascript
-sort: [{"fieldName":"sortField1"},{"fieldName":"sortField2","direction":"DESC"}]
+sort: [{"fieldName":"sortField1"},{"fieldName":"sortField2","order":"DESC"}]
 ```
 
 ### The Paging Section
