@@ -13,3 +13,4 @@ Wix Payments supports the following Wix Apps:
 - Wix Music (13bb5d67-1add-e770-a71f-001277e17c57)
 - Wix Video (14409595-f076-4753-8303-9a86f9f71469)
 - Wix Hotels (135aad86-9125-6074-7346-29dc6a3c9bcf)
+- Wix Restaurants Orders (13e8d036-5516-6104-b456-c8466db39542)
