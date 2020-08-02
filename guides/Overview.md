@@ -9,6 +9,8 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 </p>
 </blockquote>
 
+![oauth flow diagram](../media/add-webhook-2.png)
+
 <blockquote class='tip'><p>
   <strong>Tip:</strong><br/>
 There's more information available in our <a target="_blank" href="https://devforum.wix.com/en/article/api-faq">FAQ</a>.
