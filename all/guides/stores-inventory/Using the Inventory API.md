@@ -20,7 +20,7 @@ From the result, you can see whether inventory is being tracked for this product
 {
   "item": {
     "id": "4d55c9b5-7f00-1dd8-c213-272615328354",
-    "externalId": "b2aa364a-80ff-e227-3dec-d8d9eacd7cab",
+    "productId": "b2aa364a-80ff-e227-3dec-d8d9eacd7cab",
     "trackInventory": false
   }
 }
