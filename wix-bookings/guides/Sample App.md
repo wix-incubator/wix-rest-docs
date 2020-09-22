@@ -1,6 +1,6 @@
 # Wix Bookings Sample App
 
-We have created a sample app for you to use for the Wix Bookings REST API. 
+We have created a [sample app](https://github.com/DecorWeb/Wix) for you to use for the Wix Bookings REST API.  
 
 <INSERT PICTURE>
 
@@ -11,4 +11,4 @@ It enables you to:
 
 The app uses the following APIs and services:
 
-To see this app working, clone the repo and add it to your developer's center and run it on your site.
+To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here](https://github.com/DecorWeb/Wix).
