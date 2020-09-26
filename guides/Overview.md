@@ -19,9 +19,6 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 [Stores - catalog](../wix-stores/guides/catalog/Introduction.md)
 
-[Stores - inventory](../wix-stores/guides/inventory/Introduction.md)
-
-[Stores - orders](../wix-stores/guides/orders/Introduction.md)
 
 [Stores - Rich text](../wix-stores/guides/Rich%20Text.md)
 
