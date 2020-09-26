@@ -9,7 +9,24 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 </p>
 </blockquote>
 
+[Data payloads](Data%20Payloads.md)
+
+[App-instance/Introduction](../app-management/guides/app-instance/Introduction.md)
+
+[About app management](../app-management/guides/About%20App%20Management.md)
+
+[Stores - carts](../wix-stores/guides/carts/Introduction.md)
+
+[Stores - catalog](../wix-stores/guides/catalog/Introduction.md)
+
+[Stores - inventory](../wix-stores/guides/inventory/Introduction.md)
+
+[Stores - orders](../wix-stores/guides/orders/Introduction.md)
+
+[Stores - Rich text](../wix-stores/guides/Rich%20Text.md)
+
 ![oauth flow diagram](../media/add-webhook-2.png)
+
 
 <blockquote class='tip'><p>
   <strong>Tip:</strong><br/>
