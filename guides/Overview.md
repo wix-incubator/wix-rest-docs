@@ -19,7 +19,7 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 [Stores - carts](../wix-stores/guides/carts/Introduction.md)
 
-[Stores - catalog](../all/guides/stores-catalog/Introduction.md)
+[Stores - inventory](../all/guides/stores-inventory/Introduction.md)
 
 [CRM - contacts inrtoduction](../all/guides/contacts/Introduction.md)
 
