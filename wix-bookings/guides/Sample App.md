@@ -2,7 +2,7 @@
 
 We have created a [sample app](https://github.com/DecorWeb/Wix) for you to use for the Wix Bookings REST API.  
 
-INSERT PICTURE HERE!!!!!!!!!!!!!!!
+![Bookings Sample App](../../media/wix-bookings-sample-app.gif)
 
 It enables you to:
 * View all bookings in a list format (instead of calendar)
