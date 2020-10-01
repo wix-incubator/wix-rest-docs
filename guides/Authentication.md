@@ -33,7 +33,7 @@ Your app should redirect users to the URL below so that we can ask them to appro
 <br/>
 
 Redirect users to the following URL:  
-`https://www.wix.com/app-oauth-installation/consent`  
+`https://www.wix.com/installer/install`  
 
 <br/>
 
