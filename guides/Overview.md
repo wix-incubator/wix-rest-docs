@@ -27,17 +27,18 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 [relative link to Stores - Rich text](../wix-stores/guides/Rich%20Text.md)
 
+[Absolute link to Update Inventory Status](https://bo.wix.com/wix-docs/development/wix-stores/inventory/get-inventory-variants)
+
+[Absolute link to  Contacts](https://bo.wix.com/wix-docs/development/contacts)
+
+[Absolute link to  Wix stores pagination](https://bo.wix.com/wix-docs/development/wix-stores/pagination)
+
+[Absolute link to  Wix-stores/print-orders/introduction](https://bo.wix.com/wix-docs/development/wix-stores/print-orders/introduction)
+
+[Absolute link to  Wix-stores/catalog/collection/create-collection](https://bo.wix.com/wix-docs/development/wix-stores/catalog/collection/create-collection)
+
+
 ![relative link to oauth flow diagram](../media/add-webhook-2.png)
-
-[Absolute link to Update Inventory Status](https://dev.wix.com/api/rest/wix-stores/inventory/get-inventory-variants)
-
-[Absolute link to  Contacts](https://dev.wix.com/api/rest/contacts)
-
-[Absolute link to  Wix stores pagination](https://dev.wix.com/api/rest/wix-stores/pagination)
-
-[Absolute link to  Wix-stores/print-orders/introduction](https://dev.wix.com/api/rest/wix-stores/print-orders/introduction)
-
-[Absolute link to  Wix-stores/catalog/collection/create-collection](https://dev.wix.com/api/rest/wix-stores/catalog/collection/create-collection)
 
 <blockquote class='tip'><p>
   <strong>Tip:</strong><br/>
