@@ -9,6 +9,7 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 </p>
 </blockquote>
 
+# Test Relative links
 [relative link to Overview hahs](#Overview)
 
 [relative link to Data payloads](Data%20Payloads.md)
@@ -27,6 +28,8 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 [relative link to Stores - Rich text](../wix-stores/guides/Rich%20Text.md)
 
+# Test Absolute links to the same site
+
 [Absolute link to Update Inventory Status](https://bo.wix.com/wix-docs/development/wix-stores/inventory/get-inventory-variants)
 
 [Absolute link to  Contacts](https://bo.wix.com/wix-docs/development/contacts)
@@ -36,6 +39,18 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 [Absolute link to  Wix-stores/print-orders/introduction](https://bo.wix.com/wix-docs/development/wix-stores/print-orders/introduction)
 
 [Absolute link to  Wix-stores/catalog/collection/create-collection](https://bo.wix.com/wix-docs/development/wix-stores/catalog/collection/create-collection)
+
+# Test Absolute links that should not replace
+
+[Absolute link with diffetent host](https://www.wix.com/wix-docs/development/contacts)
+
+[Absolute link with diffetent baseUrl](https://bo.wix.com/wix-docs/test/contacts)
+
+[Absolute link with same host and baseUrl but endpoint that not exist](https://bo.wix.com/wix-docs/development/test/contacts)
+
+# Test valid Absolute links
+[google](https://www.google.com)
+[rest viewer](https://bo.wix.com/wix-docs/rets)
 
 
 ![relative link to oauth flow diagram](../media/add-webhook-2.png)
