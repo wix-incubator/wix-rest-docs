@@ -51,7 +51,7 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 ## Test valid Absolute links
 [google](https://www.google.com)
 
-[rest viewer](https://bo.wix.com/wix-docs/rets)
+[rest viewer](https://bo.wix.com/wix-docs/rest)
 
 
 ![relative link to oauth flow diagram](../media/add-webhook-2.png)
