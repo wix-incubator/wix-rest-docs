@@ -1,6 +1,6 @@
 # Wix Bookings Sample App
 
-We have created a [sample app](https://github.com/DecorWeb/Wix) for you to use for the Wix Bookings REST API.  
+We have created a [sample app](https://github.com/wix/bookings-list-sample-application) for you to use for the Wix Bookings REST API.  
 
 ![Bookings Sample App](../../media/wix-bookings-sample-app.gif)
 
