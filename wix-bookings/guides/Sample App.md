@@ -2,8 +2,7 @@
 
 We have created a [sample app](https://github.com/wix/bookings-list-sample-application) for you to use for the Wix Bookings REST API.  
 
-![Bookings Sample App](http://g.recordit.co/n1PIWIrfF9.gif)
-
+<1--![Bookings Sample App](http://g.recordit.co/n1PIWIrfF9.gif) -->
 <!-- ![Bookings Sample App](../../media/wix-bookings-sample-app.gif). -->
 
 It enables you to:
