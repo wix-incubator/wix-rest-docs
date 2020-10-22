@@ -13,7 +13,8 @@ It enables you to:
 
 To run the app on your site, clone the the repo and add it to your developer's center as explained [here](https://github.com/wix/bookings-list-sample-application).
 
-##  API Endpoints List
+**API Endpoints used in the Sample App**
+
 The app uses the following APIs:
 
 <!-- Mark as Paid  is not in public docs - will it work? -->
