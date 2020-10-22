@@ -22,7 +22,7 @@ The app uses the following APIs:
 1. [List Resources](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources)
 1. [Bookings Reader List](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings-reader/list)
 1. [Calendar List Slots](https://dev.wix.com/api/rest/wix-bookings/calendar/list-slots)
-1. Mark as Paid
+1. Mark as Paid (Coming soon!)
 1. [Reschedule Booking](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/reschedule-booking)
 1. [Confirm Booking](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/confirm-booking)
 1. [Decline Booking](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/decline-booking)
