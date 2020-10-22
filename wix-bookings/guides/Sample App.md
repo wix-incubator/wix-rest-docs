@@ -1,15 +1,20 @@
 # Wix Bookings Sample App
 
-We have created a [sample app](https://github.com/DecorWeb/Wix) for you to use for the Wix Bookings REST API.  
+We have created a [sample app](https://github.com/wix/bookings-list-sample-application) for you to use for the Wix Bookings REST API.  
 
-![Bookings Sample App](../../media/wix-bookings-sample-app.gif)
+![Bookings Sample App](http://g.recordit.co/n1PIWIrfF9.gif)
+
+<!-- ![Bookings Sample App](../../media/wix-bookings-sample-app.gif). -->
 
 It enables you to:
 * View all bookings in a list format (instead of calendar)
 * Filter the view by date and/or status
 * Update attendance and payments directly from this list.
 
-##  API Endpoints List
+To run the app on your site, clone the the repository and add it to your developer's center as explained [here](https://github.com/wix/bookings-list-sample-application).
+
+### API Endpoints used in the Sample App
+
 The app uses the following APIs:
 
 <!-- Mark as Paid  is not in public docs - will it work? -->
@@ -24,6 +29,3 @@ The app uses the following APIs:
 1. [Decline Booking](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/decline-booking)
 1. [Set Attendance](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/set-attendance)
 1. [Update Session](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session/update-session)
-
-
-To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here](https://github.com/DecorWeb/Wix).
