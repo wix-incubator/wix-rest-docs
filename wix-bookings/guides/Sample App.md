@@ -26,4 +26,4 @@ The app uses the following APIs:
 1. [Update Session](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session/update-session)
 
 
-To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here](https://github.com/DecorWeb/Wix).
+To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here]((https://github.com/wix/bookings-list-sample-application).
