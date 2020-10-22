@@ -13,7 +13,7 @@ It enables you to:
 
 To run the app on your site, clone the the repo and add it to your developer's center as explained [here](https://github.com/wix/bookings-list-sample-application).
 
-#### API Endpoints used in the Sample App
+### API Endpoints used in the Sample App
 
 The app uses the following APIs:
 
