@@ -11,7 +11,7 @@ It enables you to:
 * Filter the view by date and/or status
 * Update attendance and payments directly from this list.
 
-To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here](https://github.com/wix/bookings-list-sample-application).
+To run the app on your site, clone the the repo and add it to your developer's center as explained [here](https://github.com/wix/bookings-list-sample-application).
 
 ##  API Endpoints List
 The app uses the following APIs:
