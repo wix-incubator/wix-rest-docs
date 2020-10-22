@@ -11,6 +11,8 @@ It enables you to:
 * Filter the view by date and/or status
 * Update attendance and payments directly from this list.
 
+To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here](https://github.com/wix/bookings-list-sample-application).
+
 ##  API Endpoints List
 The app uses the following APIs:
 
@@ -26,6 +28,3 @@ The app uses the following APIs:
 1. [Decline Booking](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/decline-booking)
 1. [Set Attendance](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings/set-attendance)
 1. [Update Session](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session/update-session)
-
-
-To see this app working, clone the the repo and add it to your developer's center and run it on your site. The app repo is [here]((https://github.com/wix/bookings-list-sample-application).
