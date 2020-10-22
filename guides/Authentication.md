@@ -2,7 +2,7 @@
 # Authentication
 When a site owner installs your app, they will grant you permission to collect their site data during the installation flow, which is based on the settings you provide in the Wix Developers Center. You will then receive an authorization code which you will use to request an access token and a refresh token. Then you’ll pass the access token as an authorization header in the API call.
 > **Note:**  
-> Access and refresh tokens are user-specific. [Access tokens](https://dev.wix.com/api/authorization#oauth-2.refreshing-an-access-token) are valid for 10 minutes. Refresh tokens are valid as long as the app is installed on the user's site. 
+> Access and refresh tokens are user-specific. [Access tokens](https://dev.wix.com/api/authorization#oauth-2.refreshing-an-access-token) are valid for 5 minutes. Refresh tokens are valid as long as the app is installed on the user's site. 
 
 > **Note:** 
 > In certain installation flows, Wix will load your app and redirect URLs in an iframe.
@@ -33,7 +33,7 @@ Your app should redirect users to the URL below so that we can ask them to appro
 <br/>
 
 Redirect users to the following URL:  
-`https://www.wix.com/app-oauth-installation/consent`  
+`https://www.wix.com/installer/install`  
 
 <br/>
 
@@ -54,7 +54,7 @@ When the user approves the permissions your app has requested, Wix will continue
 
 ## Step 3: Wix Redirects the User to App Server With an Authorization Code
 Wix will redirect the user back to your specified `redirectUrl` along the following query parameters:
-* `code` - A temporary authorization code. You’ll need this later, to request an access token to use our API. 
+* `code` - A temporary authorization code, valid for up to 10 minutes. You’ll need this to request an access token to use our API. 
 * `state` - The same value in case you provided one in the previous step. If the states don't match, the request may have been created by a third party and you should abort the process.
 * `instanceId` - The unique ID created for your app installation in the user specific site. All of your app’s components in the site share the same [instance ID](https://devforum.wix.com/en/article/identifying-your-users). Your app should always identify users using the instance ID.  
 
@@ -73,7 +73,7 @@ After this step, the user is done. However, your app still has some work to do.
 </blockquote> 
 
 ## Step 4: App Submits the Authorization Code 
-Once the user completes the installation process and gives your app permission to access their data, use the temporary authorization code we sent you, together with your secret key, to request an access token and a refresh token. (The access token is only valid for 10 minutes.) 
+Once the user completes the installation process and gives your app permission to access their data, use the temporary authorization code we sent you, together with your secret key, to request an access token and a refresh token. (The access token is only valid for 5 minutes.) 
 
 > You can find your secret key in the [Wix Developers Center](https://dev.wix.com). 
 
@@ -108,7 +108,7 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 ```
 > **Note:**  
 > Request a new access token every time you call an API.
-> Access tokens expire after 10 minutes. Use your refresh token to request a new access token.  
+> Access tokens expire after 5 minutes. Use your refresh token to request a new access token.  
 
 ## Step 5a: App Completes the OAuth Flow
 A. If the user's flow is finished, redirect them to the following endpoint to complete the OAuth flow and close the installation window/tab:
