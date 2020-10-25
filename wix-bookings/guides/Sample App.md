@@ -4,7 +4,7 @@ We have created a [sample app](https://github.com/wix/bookings-list-sample-appli
 
 ![App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)
 
-[![Foo](http://www.google.com.au/images/nav_logo7.png)](http://google.com.au/)
+[![Bookings Sample App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)](https://static.wixstatic.com/m)
 
 <!-- ![Bookings Sample App](../../media/wix-bookings-sample-app.gif). -->
 
