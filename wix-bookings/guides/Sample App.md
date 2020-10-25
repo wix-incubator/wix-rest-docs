@@ -2,9 +2,9 @@
 
 We have created a [sample app](https://github.com/wix/bookings-list-sample-application) for you to use for the Wix Bookings REST API.  
 
-![App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)
+![Bookings Sample App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)
 
-[![Bookings Sample App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)](https://static.wixstatic.com)
+[![Bookings Sample App](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)](https://static.wixstatic.com/media/22580c_6037c61d1cb64ef9aa11dddef4882b8f~mv2.gif)
 
 <!-- ![Bookings Sample App](../../media/wix-bookings-sample-app.gif). -->
 
