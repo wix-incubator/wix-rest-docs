@@ -32,7 +32,7 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 [Absolute link to Update Inventory Status](http://local.wix.com:3000/wix-stores/inventory/get-inventory-variants)
 
-[Absolute link to  Contacts](http://local.wix.com:3000/wix-docs/development/contacts)
+[Absolute link to  Contacts](http://local.wix.com:3000/contacts)
 
 [Absolute link to  Wix stores pagination](http://local.wix.com:3000/wix-stores/pagination)
 
