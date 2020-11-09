@@ -11,7 +11,7 @@ In this tutorial we review how to create a Wix application that interacts with t
 Since most developers machines are not open for inbound connection and don't have HTTPS certificates, we will describe the process using **ngrok**.  
 (If you are hosting your application on a server without these restrictions, you can skip this step.)
 
-1. Install and run [ngrok](https://dashboard.ngrok.com/get-started).
+1. Install and run [ngrok](https://ngrok.com/download).
 2. Start an HTTP tunnel on the port your app is listening on  (default is 3000).
   You should get something like this:  
 ![ngrok screen](../media/ngrok.png)
