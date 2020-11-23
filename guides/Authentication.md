@@ -114,7 +114,7 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 A. If the user's flow is finished, redirect them to the following endpoint to complete the OAuth flow and close the installation window/tab:
 ```
 curl -X GET \
-   'https://www.wix.com/_api/site-apps/v1/site-apps/token-received?<ACCESS_TOKEN>' \
+   'https://www.wix.com/_api/site-apps/v1/site-apps/token-received??access_token=<ACCESS_TOKEN>' \
 ```
 B. If the user can continue using your app, call the following endpoint to let us know that the flow is complete (without taking any visible action):
 ```
@@ -127,3 +127,6 @@ Until one of these endpoints is called, the app will be marked as "pending insta
 
 ## Step 6: App Requests Protected Data
 Follow our [API Reference](https://dev.wix.com/api/app-management) section to request the user's protected data, with a fresh access token as the authorization header.
+
+> **Important**:  
+For all future API cals, you will need to [request a new access token](https://dev.wix.com/api/rest/authorization/oauth-2/refresh-an-access-token), using the refresh token you received in step 5. 
