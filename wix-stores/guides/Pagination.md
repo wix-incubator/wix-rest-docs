@@ -19,14 +19,14 @@ Should return items 21-120 in the collection.
 
 Wix Stores query endpoints are designed to handle a max of 10k data items. Therefore, if a user's store includes ~10k relevant items (e.g., products, inventory items), limit and offset may fail.  
   
-Instead, filter by numericId (query products, query inventory) or number (query orders) and sort in ascending order:
+Instead, filter by `numericId` and sort in ascending order:
 ``` 
 "query": { 
   "sort": [{"numericId": "asc"}],
 } 
 ```
 
-Then copy the last numericId/number sent in this call and call the endpoint again:
+Then copy the last `numericId` sent in this call and call the endpoint again:
 ```
 "query":{ 
   "sort": [{"numericId": "asc"}],
