@@ -52,7 +52,7 @@ In Bootstrap:
 ### REST Client
 
 ```bash
-npm -i @wix/ambassador-contacts-app
+npm i @wix/ambassador-contacts-app
 ```
 
 ```typescript
