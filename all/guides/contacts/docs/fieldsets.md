@@ -43,7 +43,7 @@ by specifying them in `fields`:
 - `info.birthdate`
 - `info.locale`
 - `info.labelKeys`
-- `info.extendedFields`
+- [`info.extendedFields`][md-ext-fields]
 
 ## Contact Fieldsets
 
@@ -58,9 +58,10 @@ If both `fieldsets` and `fields` are empty or missing, the `FULL` fieldset is re
 |---|---|
 | `BASIC`  | `id`, `revision`, `info.name.first`, `info.name.last`, `primaryInfo.email`, `primaryInfo.phone` |
 | `COMMUNICATION_DETAILS` | `id`, `revision`, `info.name.first`, `info.name.last`, `info.emails`, `info.phones`, `info.addresses` |
-| `EXTENDED` | `id`, `revision`, `info.name.first`, `info.name.last`, `primaryInfo.email`, `primaryInfo.phone`, `info.extendedFields` |
+| `EXTENDED` | `id`, `revision`, `info.name.first`, `info.name.last`, `primaryInfo.email`, `primaryInfo.phone`, [`info.extendedFields`][md-ext-fields] |
 | `FULL` (default) | All fields |
 
-[get-contact]: crm.contacts.contacts-v4.get-contact
-[list-contacts]: crm.contacts.contacts-v4.list-contacts
-[query-contacts]: crm.contacts.contacts-v4.query-contacts
+[get-contact]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/get-contact
+[list-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/list-contacts
+[query-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts
+[md-ext-fields]: ./extended-fields.md

@@ -93,14 +93,21 @@ Listen for any changes to Wix contacts with these webhooks:
 - [Contact Created Webhook][hook-contact-created]
 - [Contact Deleted Webhook][hook-contact-deleted]
 - [Contact Updated Webhook][hook-contact-updated]
-- [Contacts Merged Webhook][hook-contacts-merged]
 
-When one of these above webhooks is triggered,
+<!-- TODO uncomment when v4 hooks are exposed
+- [Contacts Merged Webhook][hook-contacts-merged] -->
+
+<!-- TODO uncomment when v4 hooks are exposed
+When one of these above webhooks is triggered, -->
+When a webhook is triggered,
 your endpoint will receive the contact in the payload.
 You can bring those changes to the external CRM with a flow like this one:
 
+<!-- TODO uncomment when v4 hooks are exposed
 1. Get the `slug` (which tells you what the event was)
-    and `entityId` (which is the contact ID) from the webhook data.
+    and `entityId` (which is the contact ID) from the webhook data. -->
+
+1. Get `contact.id` from the webhook data.
 2. Parse the data object for any other relevant information.
 3. Use the mapping (from the [initial setup][initial-setup])
     to copy the relevant information to the external CRM.
@@ -114,14 +121,7 @@ When your app detects a change that it needs to synchronize,
 follow this basic flow:
 
 1. Copy the relevant details using one of these CRUD endpoints.
-    Use the endpoint that matches the event from the external CRM:
-
-    - [Create Contact][create-contact]
-    - [Delete Contact][delete-contact]
-    - [Update Contact][update-contact]
-    - [Merge Contacts][merge-contacts]
-    - [Add Labels to Contact][add-labels]
-    - [Remove Labels from Contact][remove-labels]
+    Use the endpoint that matches the event from the external CRM.
 
 2. Ignore the resulting event from Wix
     so you don’t create an endless loop of updates.
@@ -177,19 +177,18 @@ with this basic flow:
 2. Create a mapping from the Wix fields to the email delivery service fields.
     Store this mapping on your app's server.
 
-[list-contacts]: crm.contacts.contacts-v4.list-contacts
-[query-contacts]: crm.contacts.contacts-v4.query-contacts
-[find-create-field]: crm.extended-fields.find-or-create-extended-field
-[create-contact]: crm.contacts.contacts-v4.create-contact
-[delete-contact]: crm.contacts.contacts-v4.delete-contact
-[update-contact]: crm.contacts.contacts-v4.update-contact
-[merge-contacts]: crm.contacts.contacts-v4.merge-contacts
-[add-labels]: crm.contacts.contacts-v4.add-labels-to-contact
-[remove-labels]: crm.contacts.contacts-v4.remove-labels-from-contact
+[list-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/list-contacts
+[query-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts
+[find-create-field]: https://dev.wix.com/api/rest/contacts/extended-fields/find-or-create-extended-field
+[create-contact]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/create-contact
+[delete-contact]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/delete-contact
+[update-contact]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/update-contact
+[add-labels]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/add-labels-to-contact
+[remove-labels]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/remove-labels-from-contact
 
-[hook-contact-created]: crm.contacts.contacts-v4.contact-created-domain-event
-[hook-contact-deleted]: crm.contacts.contacts-v4.contact-deleted-domain-event
-[hook-contact-updated]: crm.contacts.contacts-v4.contact-updated-domain-event
+[hook-contact-created]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v1-(deprecated)/contact-created-webhook
+[hook-contact-deleted]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v1-(deprecated)/contact-deleted-webhook
+[hook-contact-updated]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v1-(deprecated)/contact-changed-webhook
 [hook-contacts-merged]: crm.contacts.contacts-v4.contact-merged-domain-event
 
 [initial-setup]: #part-1-initial-setup

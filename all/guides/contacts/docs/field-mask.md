@@ -19,5 +19,5 @@ in these update requests:
 - [Update Contact][update-contact]
 - [Bulk Update Contacts][bulk-update-contacts]
 
-[update-contact]: crm.contacts.contacts-v4.update-contact
-[bulk-update-contacts]: crm.contacts.contacts-v4.bulk-update-contacts
+[update-contact]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/update-contact
+[bulk-update-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contacts
