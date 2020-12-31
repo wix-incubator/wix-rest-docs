@@ -1,4 +1,4 @@
-SortOrder: 9
+SortOrder: 10
 # Last Activity Types
 
 When a contact interacts with a site,

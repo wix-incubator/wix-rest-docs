@@ -1,4 +1,4 @@
-SortOrder: 10
+SortOrder: 11
 # Internal Fields
 
 Some fields are for Wix internal use

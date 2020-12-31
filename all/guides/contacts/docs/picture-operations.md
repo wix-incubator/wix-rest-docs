@@ -1,4 +1,4 @@
-SortOrder: 11
+SortOrder: 12
 # Picture Operations
 
 The Contacts API allows you to update the contact's picture:

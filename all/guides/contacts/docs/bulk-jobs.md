@@ -25,10 +25,10 @@ by running a [query][query] with the intended filter and search options.
 You can show the query results to the user
 and ask them to confirm that they want to continue with the bulk action.
 
-[bulk-add-remove]: crm.contacts.contacts-v4.bulk-add-and-remove-labels
-[bulk-update]: crm.contacts.contacts-v4.bulk-update-contacts
-[bulk-delete]: crm.contacts.contacts-v4.bulk-delete-contacts
-[get-bulk-job]: crm.contacts.bulk-jobs.get-bulk-job
-[list-bulk-jobs]: crm.contacts.bulk-jobs.list-bulk-jobs
-[query]: crm.contacts.contacts-v4.query-contacts
-[md-field-support]: sort-and-filter.md#field-support-for-filtering-sorting-and-searching
+[bulk-add-remove]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-add-and-remove-labels
+[bulk-update]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contacts
+[bulk-delete]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-delete-contacts
+[get-bulk-job]: https://dev.wix.com/api/rest/contacts/contacts/bulk-jobs/get-bulk-job
+[list-bulk-jobs]: https://dev.wix.com/api/rest/contacts/contacts/bulk-jobs/list-bulk-jobs
+[query]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts
+[md-field-support]: https://dev.wix.com/api/rest/contacts/contacts/sort-and-filter#contacts_contacts_sort-and-filter_field-support-for-filtering-sorting-and-searching

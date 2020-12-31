@@ -37,5 +37,5 @@ Read more about how site owners can
 [kb-add-contacts]: https://support.wix.com/en/article/manually-adding-contacts
 [kb-manage-contacts]: https://support.wix.com/en/article/about-your-contact-list
 
-[svc-fields]: crm.contacts.extended-fields
-[svc-labels]: crm.labels
+[svc-fields]: https://dev.wix.com/api/rest/contacts/extended-fields
+[svc-labels]: https://dev.wix.com/api/rest/contacts/labels
