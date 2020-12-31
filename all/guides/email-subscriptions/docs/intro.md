@@ -12,6 +12,7 @@ These statuses are automatically updated by Wix,
 although site contributors can
 [change subscription status][change-subscription-status]
 in the site Dashboard.
+
 By using the Email Subscriptions API,
 your app can keep subscription and deliverability statuses
 in sync with an external email marketing tool.
@@ -23,6 +24,7 @@ The Email Subscriptions API allows your app to:
 - Generate unsubscribe links for individual recipients
 - Listen for changes to subscription or deliverability statuses
   for site contacts
+  (coming soon)
 
 ## Terminology
 
