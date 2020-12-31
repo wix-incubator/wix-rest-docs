@@ -124,7 +124,7 @@ follow this basic flow:
     }
     ```
 
-3. Ignore the resulting event from Wix
+3. As before, ignore the resulting event from Wix
   so you don’t create an endless loop of updates.
 
 [query]: crm.email-subscriptions.query-email-subscriptions
