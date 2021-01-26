@@ -3,7 +3,7 @@ SortOrder: 1
 
 ## Query Language
 
-Endpoints that allow querying follow these format [guidelines](https://github.com/wix-private/platformization-guidelines/blob/master/Server/API-Query.md).
+Endpoints that allow querying follow these format [guidelines](https://dev.wix.com/api/rest/getting-started/api-query-language).
 
 ## Fields That Allow Filtering
 
