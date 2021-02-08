@@ -42,13 +42,13 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 ## Test Absolute links to the same site
 
-[Absolute link to Update Inventory Status](https://bo.wix.com/wix-docs/development/wix-stores/inventory/get-inventory-variants)
+[Absolute link to rich-text](https://bo.wix.com/wix-docs/development/wix-stores/rich-text)
 
-[Absolute link to  Contacts](https://bo.wix.com/wix-docs/development/contacts)
+[Absolute link to  get-cart](https://bo.wix.com/wix-docs/development/wix-stores/carts/carts/get-cart)
 
-[Absolute link to  Wix stores pagination](https://bo.wix.com/wix-docs/development/wix-stores/pagination)
+[Absolute link to  cart-completed](https://bo.wix.com/wix-docs/development/wix-stores/carts/carts/cart-completed)
 
-[Absolute link to  Wix-stores/print-orders/introduction](https://bo.wix.com/wix-docs/development/wix-stores/print-orders/introduction)
+[Absolute link to  Wix-stores/print-orders/transactions-list](https://bo.wix.com/wix-docs/development/wix-payments/payments/transactions-list)
 
 [Absolute link to  Wix-stores/catalog/collection/create-collection](https://bo.wix.com/wix-docs/development/wix-stores/catalog/collection/create-collection)
 
