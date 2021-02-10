@@ -27,12 +27,11 @@ However, with a monthly subscription (1 coffee bag per month) for 3 months the p
 
 The following list contains currently unavailable functionality:
 
-- Suspending a subscription
-- Skipping a cycle
-- Providing/delivering a product X times per week/month/year (for example, 3 times a month)
-- Applying the same subscriptions to multiple different products in bulk
-- Extending subscriptions (adding more billing cycles to an active subscription)
-- Updating payment method
-- Creating a subscription from the whole cart
-- Coupons on X first payments of a subscription
+- Providing/delivering a product X times per week/month/year (for example, 3 times a month).
+- Suspending a subscription.
+- Skipping a cycle.
+- Applying the same subscriptions to multiple different products in bulk.
+- Extending subscriptions (adding more billing cycles to an active subscription).
+- Creating a subscription from the whole cart.
+- Coupons on X first payments of a subscription.
 - Adding a subscription to a cart. Currently the subscription goes straight to checkout, similar to using ‘buy now’.
