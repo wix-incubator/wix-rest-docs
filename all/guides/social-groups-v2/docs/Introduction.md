@@ -37,15 +37,15 @@ Site owners can provide site members permissions to create groups, add members t
 For example, create a group for each class at a school or each fitness class (yoga, TRX, etc) in a gym.
 
 1. Create a list of site members to add to the relevant group, identified by one of the following: name, email address, phone number, contactId.
-2. Create a group by calling the [Create Group](https://bo.wix.com/wix-docs/rest/drafts/social-groups-v2/group/create-group) endpoint.
+2. Create a group by calling the [Create Group](https://dev.wix.com/api/rest/community/social-groups/group/create-group) endpoint.
 3. Call the [Query Members](https://dev.wix.com/api/rest/members/members/query-members) endpoint to get the site member data.
 4. Map the site members to add to the group to their IDs as returned in step 3.
-5. Add the site members to the group by calling the [Add Group Members](https://bo.wix.com/wix-docs/rest/drafts/social-groups-v2/group-member/add-group-members) endpoint with the site member IDs collected above.
+5. Add the site members to the group by calling the [Add Group Members](https://dev.wix.com/api/rest/community/social-groups/group-member/add-group-members) endpoint with the site member IDs collected above.
 
 ### Manage Bulk Emailing to Group Members
 For example, send automated emails to group members.
 
-1. Get all members of a group by calling the [List Group Members](https://bo.wix.com/wix-docs/rest/drafts/social-groups-v2/group-member/list-group-members) endpoint.
+1. Get all members of a group by calling the [List Group Members](https://dev.wix.com/api/rest/community/social-groups/group-member/list-group-members) endpoint.
 2. From the response, collect the site member IDs.
 3. Call the [Query Members](https://dev.wix.com/api/rest/members/members/query-members) endpoint, with site member IDs you collected, to get their email addresses.
 4. Call the [Query Email Subscriptions](https://dev.wix.com/api/rest/marketing/email-subscriptions/query-email-subscriptions) endpoint to confirm that the members have agreed to receive emails from the site owner.
@@ -54,9 +54,9 @@ For example, send automated emails to group members.
 ### Provide Analytical Reports
 For example, create a report including aggregated group info: total amount of groups created, the most popular groups by member count, idle groups;
 
-1. Get the total amount of groups by calling the [List Groups](https://bo.wix.com/wix-docs/rest/drafts/social-groups-v2/group/list-groups) endpoint.
+1. Get the total amount of groups by calling the [List Groups](https://dev.wix.com/api/rest/community/social-groups/group/list-groups) endpoint.
 2. From the response, collect the metadata total.
-3. Get the most popular groups by calling the [Query Groups](https://bo.wix.com/wix-docs/rest/drafts/social-groups-v2/group/query-groups) endpoint and sorting by group size.
+3. Get the most popular groups by calling the [Query Groups](https://dev.wix.com/api/rest/community/social-groups/group/query-groups) endpoint and sorting by group size.
 Sample request body:
 ```json
 {
