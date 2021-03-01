@@ -1,1 +1,537 @@
-{"name":"Provider platform events API","memberOf":"All APIs","category":"core","mixes":[],"labels":[],"docs":{"summary":"Integrate payment processing to your checkout, with a wide range of payment providers","description":[]},"properties":[],"tags":[{"name":"Transactions (deprecated)","entity":null},{"name":"Provider platform events","entity":null}],"relatedGuides":[{"path":"../guides/provider-platform-events-api/Authentication.md"},{"path":"../guides/provider-platform-events-api/Overview.md"}],"operations":[{"name":"Submit event","methodName":"SubmitEvent","serviceName":"ProviderPlatformEventsService","tag":"Provider platform events","permissions":[],"events":[],"labels":[],"nameParams":[],"requiredFields":["event.pluginId"],"params":[{"in":"BODY","name":"event","type":"All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent","doc":" Provider platform event.\n","required":false}],"ret":{"type":{"name":"SubmitEvent","statusCode":"200","typeParams":["All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_SubmitEventResponse"]},"doc":" Submit event response\n"},"locations":[],"docs":{"summary":"This method must be used by plugins with an asynchronous model in order to\nupdate payment status on Wix's side. Even if the payment method has a synchronous\nmodel, consider using this client to notify Wix about transaction status\nchanges like charge backs and refunds on your side.\n \n","description":[],"request":"POST","url":"https://www.wixapis.com/payments/v1/provider-platform-events","links":[],"examples":[{"title":"","body":["curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"transaction\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 0\n                    }\n                }\n            }\n        }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"refund\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 0,\n                        \"amount\": 120,\n                        \"wixRefundId\": \"b599e390-a225-4356-84b7-0f577ff95aa8\"\n                    }\n                }\n            }\n        }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"refund\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 5005,\n                        \"amount\": 120,\n                        \"wixRefundId\": \"b599e390-a225-4356-84b7-0f577ff95aa8\",\n                        \"errorCode\": \"INS_FND005\",\n                        \"errorMessage\": \"Insufficient funds to refund\"\n                    }\n                }\n            }\n        }'\n"],"response":["{} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"SubmitEventRequest","rpcResponseName":"SubmitEventResponse"},"customLabels":[{"id":"maturity-beta"}]},{"name":"Update Transaction","methodName":"Update","serviceName":"PlatformTransactionService","tag":"Transactions (deprecated)","permissions":[],"events":[],"labels":[],"nameParams":[],"requiredFields":["transactionId","pluginTransactionId","reasonCode"],"deprecated":true,"params":[{"in":"PATH","name":"transactionId","type":"string","doc":" identifier of transaction (required)\n","required":true},{"in":"BODY","name":"errorMessage","type":"string","doc":" `Payment provider` error description with details of the decline.\n","required":false},{"in":"BODY","name":"pluginTransactionId","type":"string","doc":" `Payment Provider` transaction identifier.\n","required":true},{"in":"BODY","name":"reasonCode","type":"integer","doc":" `Wix` predefined reason code that specifies actual status\n","required":true},{"in":"BODY","name":"amount","type":"integer","doc":" Upon the sale transaction this parameter is optional.\n *Note:* In case of partial refund and status `REFUNDED` the field is mandatory.\n","required":false},{"in":"BODY","name":"status","type":"All APIs.Provider platform events API._wix_payment_api_plugin_v1_TransactionStatus","doc":" Transaction status.\n","required":false}],"ret":{"type":{"name":"Update","statusCode":"200","typeParams":["All APIs.Provider platform events API._wix_payment_api_plugin_v1_UpdateTransactionResponse"]},"doc":""},"locations":[],"docs":{"summary":" \n","description":[],"request":"PUT","url":"https://www.wixapis.com/api/plugin/v1/transactions/{transactionId}","links":[],"examples":[{"title":"","body":["curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"APPROVED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0\n    }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"CANCELED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 3030,\n        \"errorMessage\": \"Buyer cancelled\"\n    }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"REFUNDED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0,\n        \"amount\" : 1000\n    }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"CHARGED_BACK\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0\n    }'\n"],"response":["{} "],"type":"curl","extra":{}},{"title":"","body":["curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"DECLINED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 4001,\n        \"errorMessage\": \"Error description from provider.\"\n    }'\n"],"response":["{} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"UpdateTransactionRequest","rpcResponseName":"UpdateTransactionResponse"},"customLabels":[{"id":"maturity-beta"}]}],"events":[],"callbacks":[],"messages":[{"name":"_wix_payment_api_plugin_v1_UpdateTransactionRequest","displayName":"Update Transaction Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"errorMessage","type":"string","doc":" `Payment provider` error description with details of the decline.\n"},{"name":"pluginTransactionId","type":"string","doc":" `Payment Provider` transaction identifier.\n"},{"name":"reasonCode","type":"integer","doc":" `Wix` predefined reason code that specifies actual status\n"},{"name":"amount","type":"integer","doc":" Upon the sale transaction this parameter is optional.\n *Note:* In case of partial refund and status `REFUNDED` the field is mandatory.\n"},{"name":"status","type":"All APIs.Provider platform events API._wix_payment_api_plugin_v1_TransactionStatus","doc":" Transaction status.\n"},{"name":"transactionId","type":"string","doc":" identifier of transaction (required)\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payment_api_plugin_v1_UpdateTransactionResponse","displayName":"Update Transaction Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payments_v1_provider_platform_events_SubmitEventRequest","displayName":"Submit Event Request Object","locations":[],"docs":{"summary":" Submit event request\n","links":[],"examples":[]},"members":[{"name":"event","type":"All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent","doc":" Provider platform event.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payments_v1_provider_platform_events_ProviderPlatformEvent","displayName":"Provider Platform Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"pluginId","type":"string","doc":" Provider `clientId` provided during app registration in the [DevCenter](https://dev.wix.com).\n"},{"name":"resource","type":"All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource","doc":" Resource specifies event type based on its content.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource","displayName":"resource Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"refund","type":"All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_RefundEvent","doc":" Refund event type.\n"},{"name":"transaction","type":"All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_TransactionEvent","doc":" Transaction event type.\n"}],"enum":null,"extra":{},"labels":[],"oneOf":true},{"name":"_wix_payments_v1_provider_platform_events_RefundEvent","displayName":"Refund Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"wixTransactionId","type":"string","doc":" Wix transaction ID.\n"},{"name":"errorMessage","type":"string","doc":" Payment provider's error description with details of the decline.\n"},{"name":"reasonCode","type":"integer","doc":" Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"},{"name":"amount","type":"integer","doc":" Refunded amount.\n"},{"name":"errorCode","type":"string","doc":" Payment provider's own error code.\n"},{"name":"wixRefundId","type":"string","doc":" Wix refund ID. In case refund was performed via Wix admin panel by merchant.\n"},{"name":"pluginRefundId","type":"string","doc":" Payment provider transaction ID.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payments_v1_provider_platform_events_TransactionEvent","displayName":"Transaction Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"wixTransactionId","type":"string","doc":" Wix transaction ID.\n"},{"name":"errorMessage","type":"string","doc":" Payment provider's error description with details of the decline.\n"},{"name":"pluginTransactionId","type":"string","doc":" Payment Provider transaction ID.\n"},{"name":"reasonCode","type":"integer","doc":" Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"},{"name":"errorCode","type":"string","doc":" Payment provider's error code.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payments_v1_provider_platform_events_SubmitEventResponse","displayName":"Submit Event Response Object","locations":[],"docs":{"summary":" Submit event response\n","links":[],"examples":[{"title":"","body":["{} "],"type":"json","extra":{}}]},"members":[],"enum":null,"extra":{},"labels":[]},{"name":"_wix_payment_api_plugin_v1_TransactionStatus","displayName":"Transaction Status Object","locations":[],"docs":{"summary":" \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> CHARGEBACK -  deprecated. Use CHARGED_BACK instead\n <\/code><\/li><li><code> CHARGED_BACK <\/code><\/li><li><code> APPROVED <\/code><\/li>","links":[],"examples":[]},"members":[],"enum":["UNKNOWN","PENDING","CANCELED","DECLINED","REFUNDED","CHARGEBACK","CHARGED_BACK","APPROVED"],"extra":{},"labels":[]}],"extra":{"artifactId":"com.wixpress.payment.payment-plugin-api"}}
+{
+  "name": "Provider platform events API",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs": {
+    "summary": "Integrate payment processing to your checkout, with a wide range of payment providers",
+    "description": []
+  },
+  "properties": [],
+  "tags": [
+    {
+      "name": "Transactions (deprecated)",
+      "entity": null
+    },
+    {
+      "name": "Provider platform events",
+      "entity": null
+    }
+  ],
+  "relatedGuides": [
+    {
+      "path": "../guides/provider-platform-events-api/Authentication.md"
+    },
+    {
+      "path": "../guides/provider-platform-events-api/Overview.md"
+    }
+  ],
+  "operations": [
+    {
+      "name": "Submit event",
+      "methodName": "SubmitEvent",
+      "serviceName": "ProviderPlatformEventsService",
+      "tag": "Provider platform events",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": [
+        "event.pluginId"
+      ],
+      "params": [
+        {
+          "in": "BODY",
+          "name": "event",
+          "type": "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+          "doc": " Provider platform event.\n",
+          "required": false
+        }
+      ],
+      "ret": {
+        "type": {
+          "name": "SubmitEvent",
+          "statusCode": "200",
+          "typeParams": [
+            "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_SubmitEventResponse"
+          ]
+        },
+        "doc": " Submit event response\n"
+      },
+      "locations": [],
+      "docs": {
+        "summary": "This method must be used by plugins with an asynchronous model in order to\nupdate payment status on Wix's side. Even if the payment method has a synchronous\nmodel, consider using this client to notify Wix about transaction status\nchanges like charge backs and refunds on your side.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/payments/v1/provider-platform-events",
+        "links": [],
+        "examples": [
+          {
+            "title": "",
+            "body": [
+              "curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"transaction\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 0\n                    }\n                }\n            }\n        }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"refund\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 0,\n                        \"amount\": 120,\n                        \"wixRefundId\": \"b599e390-a225-4356-84b7-0f577ff95aa8\"\n                    }\n                }\n            }\n        }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X POST \\\n    'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n            \"event\" : {\n                \"pluginId\": \"baaff6f5-27a0-4d45-b760-8a1252490433\",\n                \"resource\": {\n                    \"refund\": {\n                        \"wixTransactionId\": \"ff8f643e-6456-4476-800d-bf6d3e0fcca1\",\n                        \"pluginTransactionId\" : \"providerTx1\",\n                        \"reasonCode\": 5005,\n                        \"amount\": 120,\n                        \"wixRefundId\": \"b599e390-a225-4356-84b7-0f577ff95aa8\",\n                        \"errorCode\": \"INS_FND005\",\n                        \"errorMessage\": \"Insufficient funds to refund\"\n                    }\n                }\n            }\n        }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra": {
+        "hasRest": true,
+        "rpcRequestName": "SubmitEventRequest",
+        "rpcResponseName": "SubmitEventResponse"
+      },
+      "customLabels": [
+        {
+          "id": "maturity-beta"
+        }
+      ]
+    },
+    {
+      "name": "Update Transaction",
+      "methodName": "Update",
+      "serviceName": "PlatformTransactionService",
+      "tag": "Transactions (deprecated)",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": [
+        "transactionId",
+        "pluginTransactionId",
+        "reasonCode"
+      ],
+      "deprecated": true,
+      "params": [
+        {
+          "in": "PATH",
+          "name": "transactionId",
+          "type": "string",
+          "doc": " identifier of transaction (required)\n",
+          "required": true
+        },
+        {
+          "in": "BODY",
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " `Payment provider` error description with details of the decline.\n",
+          "required": false
+        },
+        {
+          "in": "BODY",
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " `Payment Provider` transaction identifier.\n",
+          "required": true
+        },
+        {
+          "in": "BODY",
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " `Wix` predefined reason code that specifies actual status\n",
+          "required": true
+        },
+        {
+          "in": "BODY",
+          "name": "amount",
+          "type": "integer",
+          "doc": " Upon the sale transaction this parameter is optional.\n *Note:* In case of partial refund and status `REFUNDED` the field is mandatory.\n",
+          "required": false
+        },
+        {
+          "in": "BODY",
+          "name": "status",
+          "type": "All APIs.Provider platform events API._wix_payment_api_plugin_v1_TransactionStatus",
+          "doc": " Transaction status.\n",
+          "required": false
+        }
+      ],
+      "ret": {
+        "type": {
+          "name": "Update",
+          "statusCode": "200",
+          "typeParams": [
+            "All APIs.Provider platform events API._wix_payment_api_plugin_v1_UpdateTransactionResponse"
+          ]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs": {
+        "summary": " \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/api/plugin/v1/transactions/{transactionId}",
+        "links": [],
+        "examples": [
+          {
+            "title": "",
+            "body": [
+              "curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"APPROVED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0\n    }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"CANCELED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 3030,\n        \"errorMessage\": \"Buyer cancelled\"\n    }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"REFUNDED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0,\n        \"amount\" : 1000\n    }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"CHARGED_BACK\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 0\n    }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          },
+          {
+            "title": "",
+            "body": [
+              "curl -v -X PUT \\\n    'https://cashier-services.wix.com/api/plugin/v1/transactions/12463f81-8f4c-4784-90cd-a6ee10496781' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"status\": \"DECLINED\",\n        \"pluginTransactionId\": \"2_dd8970c8-759d-4c92-960d-8d65be93d0c7\",\n        \"reasonCode\": 4001,\n        \"errorMessage\": \"Error description from provider.\"\n    }'\n"
+            ],
+            "response": [
+              "{} "
+            ],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra": {
+        "hasRest": true,
+        "rpcRequestName": "UpdateTransactionRequest",
+        "rpcResponseName": "UpdateTransactionResponse"
+      },
+      "customLabels": [
+        {
+          "id": "maturity-beta"
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages": [
+    {
+      "name": "_wix_payment_api_plugin_v1_UpdateTransactionRequest",
+      "displayName": "Update Transaction Request Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " `Payment provider` error description with details of the decline.\n"
+        },
+        {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " `Payment Provider` transaction identifier.\n"
+        },
+        {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " `Wix` predefined reason code that specifies actual status\n"
+        },
+        {
+          "name": "amount",
+          "type": "integer",
+          "doc": " Upon the sale transaction this parameter is optional.\n *Note:* In case of partial refund and status `REFUNDED` the field is mandatory.\n"
+        },
+        {
+          "name": "status",
+          "type": "All APIs.Provider platform events API._wix_payment_api_plugin_v1_TransactionStatus",
+          "doc": " Transaction status.\n"
+        },
+        {
+          "name": "transactionId",
+          "type": "string",
+          "doc": " identifier of transaction (required)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payment_api_plugin_v1_UpdateTransactionResponse",
+      "displayName": "Update Transaction Response Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_SubmitEventRequest",
+      "displayName": "Submit Event Request Object",
+      "locations": [],
+      "docs": {
+        "summary": " Submit event request\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "event",
+          "type": "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+          "doc": " Provider platform event.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+      "displayName": "Provider Platform Event Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "pluginId",
+          "type": "string",
+          "doc": " Provider `clientId` provided during app registration in the [DevCenter](https://dev.wix.com).\n"
+        },
+        {
+          "name": "resource",
+          "type": "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource",
+          "doc": " Resource specifies event type based on its content.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource",
+      "displayName": "resource Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "refund",
+          "type": "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_RefundEvent",
+          "doc": " Refund event type.\n"
+        },
+        {
+          "name": "transaction",
+          "type": "All APIs.Provider platform events API._wix_payments_v1_provider_platform_events_TransactionEvent",
+          "doc": " Transaction event type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_RefundEvent",
+      "displayName": "Refund Event Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Payment provider's error description with details of the decline.\n"
+        },
+        {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+        },
+        {
+          "name": "amount",
+          "type": "integer",
+          "doc": " Refunded amount.\n"
+        },
+        {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Payment provider's own error code.\n"
+        },
+        {
+          "name": "wixRefundId",
+          "type": "string",
+          "doc": " Wix refund ID. In case refund was performed via Wix admin panel by merchant.\n"
+        },
+        {
+          "name": "pluginRefundId",
+          "type": "string",
+          "doc": " Payment provider transaction ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_TransactionEvent",
+      "displayName": "Transaction Event Object",
+      "locations": [],
+      "docs": {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [
+        {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Payment provider's error description with details of the decline.\n"
+        },
+        {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " Payment Provider transaction ID.\n"
+        },
+        {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+        },
+        {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Payment provider's error code.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payments_v1_provider_platform_events_SubmitEventResponse",
+      "displayName": "Submit Event Response Object",
+      "locations": [],
+      "docs": {
+        "summary": " Submit event response\n",
+        "links": [],
+        "examples": [
+          {
+            "title": "",
+            "body": [
+              "{} "
+            ],
+            "type": "json",
+            "extra": {}
+          }
+        ]
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+    {
+      "name": "_wix_payment_api_plugin_v1_TransactionStatus",
+      "displayName": "Transaction Status Object",
+      "locations": [],
+      "docs": {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> CHARGEBACK -  deprecated. Use CHARGED_BACK instead\n <\/code><\/li><li><code> CHARGED_BACK <\/code><\/li><li><code> APPROVED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": [
+        "UNKNOWN",
+        "PENDING",
+        "CANCELED",
+        "DECLINED",
+        "REFUNDED",
+        "CHARGEBACK",
+        "CHARGED_BACK",
+        "APPROVED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {
+    "artifactId": "com.wixpress.payment.payment-services-web"
+  }
+}
