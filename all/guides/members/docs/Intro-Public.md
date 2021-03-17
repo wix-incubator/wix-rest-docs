@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 2
 # About Wix Members
 
 [Wix Members area](https://support.wix.com/en/article/about-members-area) provides site members with a personal account area for social communities or non-social businesses. 
