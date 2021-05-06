@@ -1,0 +1,14 @@
+SortOrder: 0
+# About Blog
+
+Wix Blog allows users to create and manage blog posts. The posts can be organized in categories, and may contain media (images, videos),
+hashtags (any #word in the post's #text that #begins with a #), tags, and rich text content.
+
+Learn more [about Wix Blog](https://support.wix.com/en/article/wix-blog-about-the-wix-blog).
+
+## Terminology
+
+- **Post**
+  An article written by the site owner and published in their blog. Also called publication.
+- **Category**
+  A logical group that the site writer assigns their publication(s) to in their blog.
