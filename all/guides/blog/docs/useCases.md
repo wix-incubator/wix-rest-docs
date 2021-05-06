@@ -6,20 +6,20 @@ This articles shares some possible uses of the Blog API endpoints and their resp
 ## Post API
 ### Get a Post by ID or by Slug
 
-To get a specific post, use [Get Post](/docs/LINK) to retrieve a post by its ID:
+To get a specific post, use [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) to retrieve a post by its ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
 
-Another option for retrieving a specific post is by using [Get Post by Slug](/docs/LINK):
+Another option for retrieving a specific post is by using [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug):
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/slugs/my-vacation' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-An example response to both [Get Post](/docs/LINK) and [Get Post by Slug](/docs/LINK) will look something like this:
+An example response to both [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) and [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug) will look something like this:
 
 ```
 {
@@ -60,7 +60,7 @@ An example response to both [Get Post](/docs/LINK) and [Get Post by Slug](/docs/
 
 ### Get a Post's Metrics
 
-To get post metrics like the number of comments, likes, and views, use [Get Post Metrics](/docs/LINK) and pass the post ID
+To get post metrics like the number of comments, likes, and views, use [Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/get-post-metrics) and pass the post ID
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd/metrics' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -80,11 +80,11 @@ The response will look something like this:
 
 ### Retrieving Multiple Posts
 
-To retrieve more than one post, use either the [List Posts](/docs/LINK) or [Query Posts](/docs/LINK) endpoints.
+To retrieve more than one post, use either the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) or [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts) endpoints.
 
 #### List Posts
 
-Using the [List Posts](/docs/LINK) endpoint, list the posts that belong to the category with the provided ID:
+Using the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) endpoint, list the posts that belong to the category with the provided ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts?categoryIds=5f2bcaa5940a02003488af3e' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -137,7 +137,7 @@ An example response to the call above will look something like this:
 ```
 
 ### Query Posts
-If a more detailed query is needed, use [Query Posts](/docs/LINK).
+If a more detailed query is needed, use [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts).
 In the example below we're going to request only posts that have a title starting with "My vacation".
 Note that we're also requesting to include the `"URL"`, `"COUNTERS"`, and `"CONTENT_TEXT"` fields in the response:
 
@@ -201,50 +201,11 @@ The response we got looked like this:
 }
 ```
 
-## Publication Stats API
-
-The Publication Stats API allows for the retrieval of publication counts for each month of a specified time range, or the total number of posts published by the blog in context.
-
-### Query Publications Count
-
-Using [Query Publications Count](/docs/LINK), we're fetching statistics for the 3 months starting from November 2018, and ordered by oldest first:
-
-```
-curl --request POST 'http://social-blog.wix.com/_api/communities-blog-node-api/v2/stats/publications/count' \
---header 'Authorization: <AUTH> --header 'Content-Type: application/json' \
---data-raw '{
-	"rangeStart": "2018-11-01T00:00:00Z",
-	"order": "OLDEST",
-	"months": 3
-}'
-```
-
-The response will look like this:
-
-```
-{
-  "stats": [
-    {
-      "periodStart": "2018-11-01T00:00:00.000Z",
-      "publicationsCount": 1
-    },
-    {
-      "periodStart": "2018-12-01T00:00:00.000Z",
-      "publicationsCount": 2
-    },
-    {
-      "periodStart": "2019-01-01T00:00:00.000Z",
-      "publicationsCount": 2
-    }
-  ]
-}
-```
-
 ## Category API
 
 ### Get a Category
 
-To get a specific category, use [Get Category](/docs/LINK) to retrieve a category by its ID:
+To get a specific category, use [Get Category](https://dev.wix.com/api/rest/community/blog/category/get-category) to retrieve a category by its ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -269,11 +230,11 @@ The response will contain a category object:
 
 ### Retrieving Multiple Categories
 
-To retrieve more than one category, use either the [List Categories](/docs/LINK) or [Query Categories](/docs/LINK) endpoints.
+To retrieve more than one category, use either the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) or [Query Categories](https://dev.wix.com/api/rest/community/blog/category/query-categories) endpoints.
 
 #### List Categories
 
-Using the [List Categories](/docs/LINK) endpoint, retrieve all existing categories:
+Using the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) endpoint, retrieve all existing categories:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/categories' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -334,7 +295,7 @@ The response will be an array of the retrieved categories:
 
 #### Query Categories
 
-If a more detailed query is needed, use [Query Categories](/docs/LINK).
+If a more detailed query is needed, use [Query Categories](https://dev.wix.com/api/rest/community/blog/category/query-categories).
 In the example below we're going to request only categories that have a title starting with "Summer":
 
 ```
