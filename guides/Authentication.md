@@ -129,4 +129,4 @@ Until one of these endpoints is called, the app will be marked as "pending insta
 Follow our [API Reference](https://dev.wix.com/api/app-management) section to request the user's protected data, with a fresh access token as the authorization header.
 
 > **Important**:  
-For all future API cals, you will need to [request a new access token](https://dev.wix.com/api/rest/authorization/oauth-2/refresh-an-access-token), using the refresh token you received in step 5. 
+For all future API calls, you will need to [request a new access token](https://dev.wix.com/api/rest/authorization/oauth-2/refresh-an-access-token), using the refresh token you received in step 5. 
