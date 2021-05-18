@@ -32,7 +32,6 @@ by specifying them in `fields`:
 - `createdDate`
 - `updatedDate`
 - `lastActivity`
-- `picture`
 - `primaryInfo`
 - `info.name`
 - `info.emails`
@@ -40,6 +39,7 @@ by specifying them in `fields`:
 - `info.addresses`
 - `info.company`
 - `info.jobTitle`
+- `info.picture`
 - `info.birthdate`
 - `info.locale`
 - `info.labelKeys`
