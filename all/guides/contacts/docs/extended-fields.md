@@ -1,21 +1,21 @@
 SortOrder: 8
 # Extended Fields
 
-Extended fields allow apps to extend the default set of information
-stored in the Contact List.
-In addition to the core set of Contact List fields,
-Wix manages some fields that integrate with apps created by Wix.
+Extended fields allow apps to add to the available data in the Contact List.
+In addition to the core set of fields,
+some Wix apps manage their own extended fields.
+
 Just like the core Contact List fields,
 these Wix-managed extended fields support field masks, field projection,
 fieldsets, filtering, sorting, and searching.
 See [Extended Fields Managed by Wix][wix-ext-fields] (below)
-for more details.
+for details on what each field supports.
 
-Contact data in extended fields can be accessed
+Data in extended fields can be accessed
 in the [Contact object][contact-obj]
-under `info.extendedFields.{namespace}.{key}`.
+under `info.extendedFields[{namespace}.{key}]`.
 The namespace is unique for each Wix app (for example, `ecom` or `members`).
-All third party apps share the `custom` namespace.
+All 3rd-party apps share the `custom` namespace.
 All field keys must be unique within a namespace.
 
 > **Note:**
@@ -25,12 +25,13 @@ All field keys must be unique within a namespace.
 
 ## Custom Fields
 
-Extended fields that are created by third party apps and site contributors
+Extended fields that are created by 3rd-party apps and site contributors
 are known as _custom fields_.
 Site contributors can add, remove, and change custom field names
 from the [Contact List][dashboard-contact-list] in their site's Dashboard.
 
 All custom fields use the `custom` namespace.
+
 The following table shows sorting, filtering, and search support
 for each custom field data type.
 
@@ -42,24 +43,18 @@ for each custom field data type.
 
 ## Extended Fields Managed by Wix
 
-Some Wix apps add their own extended fields.
+Some Wix apps add their own extended fields to the Contact List.
 The table below shows a list of these fields and their attributes
 so your app can make use of them through the REST API.
 
-| Field                                                         | Description                                                                    | Read-Only | Data Type | Supported Filters                          | Sortable |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------- | --------- | ------------------------------------------ | -------- |
-| `info.extendedFields.contacts.displayByFirstName`             | Concatenated name, starting with first name.                                   | Read-only | `TEXT`    | `$exists`                                  |          |
-| `info.extendedFields.contacts.displayByLastName`              | Concatenated name, starting with last name.                                    | Read-only | `TEXT`    |                                            |          |
-| `info.extendedFields.ecom.lastPurchaseDate`                   | Last Wix Stores purchase in UTC datetime `YYYY-MM-DDThh:mm[:ss][.sss]` format. | Read-only | `DATE`    | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |
-| `info.extendedFields.ecom.numOfPurchases`                     | Count of Wix Stores purchases.                                                 | Read-only | `NUMBER`  | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |
-| `info.extendedFields.ecom.totalSpentAmount`                   | Total currency amount of Wix Stores purchases.                                 | Read-only | `NUMBER`  | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |
-| `info.extendedFields.ecom.totalSpentCurrency`                 | [Three-letter currency code][iso-4217-currency] of Wix Stores purchases.       | Read-only | `TEXT`    |                                            |          |
-| `info.extendedFields.emailSubscriptions.deliverabilityStatus` | Supported values: `VALID`, `BOUNCED`, `SPAM_COMPLAINT`, `INACTIVE`.            | Read-only | `TEXT`    | `$eq`,`$ne`,`$in`, `$nin`                  |          |
-| `info.extendedFields.emailSubscriptions.effectiveEmail`       |                                                                                | Read-only | `TEXT`    | `$exists`                                  | Sortable |
-| `info.extendedFields.emailSubscriptions.subscriptionStatus`   | Supported values: `SUBSCRIBED`, `UNSUBSCRIBED`, `NOT_SET`, `PENDING`.          | Read-only | `TEXT`    | `$eq`,`$ne`,`$in`, `$nin`                  |          |
-| `info.extendedFields.invoices.vatId`                          | Government-issued VAT ID.                                                      |           | `TEXT`    |                                            |          |
-| `info.extendedFields.members.membershipStatus`                | Supported values: `APPROVED`, `DENIED`, `PENDING`, `INACTIVE`.                 | Read-only | `TEXT`    | `$eq`,`$ne`,`$in`, `$nin`                  |          |
-| `info.extendedFields.members.mobile`                          | Supported values: `true`, `false`.                                             |           | `TEXT`    |                                            |          |
+| Field                                                         | Description                                                                                            | Read-Only | Data Type | Supported Filters | Sortable |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | --------- | --------- | ----------------- | -------- |
+| `info.extendedFields.emailSubscriptions.deliverabilityStatus` | Supported values: `VALID`, `BOUNCED`, `SPAM_COMPLAINT`, `NOT_SET`, `INACTIVE`.                         | Read-only | `TEXT`    | `$eq`,`$ne`,`$in` |          |
+| `info.extendedFields.emailSubscriptions.effectiveEmail`       | First email that has `VALID/NOT_SET` deliverability status and subscription status isn't `UNSUBSCRIBED`| Read-only | `TEXT`    | `$exists`         | Sortable |
+| `info.extendedFields.emailSubscriptions.subscriptionStatus`   | Supported values: `SUBSCRIBED`, `UNSUBSCRIBED`, `NOT_SET`, `PENDING`.                                  | Read-only | `TEXT`    | `$eq`,`$ne`,`$in` |          |
+| `info.extendedFields.invoices.vatId`                          | Government-issued VAT ID.                                                                              |           | `TEXT`    |                   |          |
+| `info.extendedFields.members.membershipStatus`                | Supported values: `APPROVED`, `DENIED`, `PENDING`, `INACTIVE`.                                         | Read-only | `TEXT`    | `$eq`,`$ne`,`$in` |          |
+| `info.extendedFields.members.mobile`                          | Supported values: `true`, `false`.                                                                     |           | `BOOLEAN` |                   |          |
 
 [wix-ext-fields]: #extended-fields-managed-by-wix
 [svc-fields]: https://dev.wix.com/api/rest/contacts/extended-fields
