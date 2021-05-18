@@ -67,7 +67,7 @@ think about how your app will handle these flows:
     ```json
     {
       "displayName": "externalCrmId",
-      "dataType": "TEXT",
+      "dataType": "TEXT"
     }
     ```
 
