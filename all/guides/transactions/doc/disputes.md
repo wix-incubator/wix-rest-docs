@@ -42,35 +42,19 @@ Once the review is complete, the chargeback status will be updated to **WON** or
 ### Responding to disputes using the API
 **Step 1: Find out when a dispute is opened**
 
-There are 7 transaction events related to the dispute. Each event includes a `disputeId`. 
+Register the [Transaction Updated Webhook](https://dev.wix.com/api/rest/wix-payments/transactions/transaction-updated-webhook) to receive a transaction object with all the disputes statuses. All the transaction's disputes and their current status will be returned under `updatedEvent` > `currentEntity` > `disputes`.
 
-Types of dispute related events:
+**Step 2: Decide how to deal with the dispute (accept or submit evidence).**
 
-- DisputeRfiOpen
-- DisputeRfiUnderReview
-- DisputeRfiClosed
-- DisputeChargebackOpen
-- DisputeChargebackUnderReview
-- DisputeChargebackLost
-- DisputeChargebackWon
+To accept the dispute, skip to step 4. To submit evidence, go to step 3.
 
-1. Register to receive the [Transaction Webhook](https://dev.wix.com/api/rest/transactions/transaction-webhook).
-2. Upon receipt of the webhook with a dispute-related event, retrieve the `disputeId`, `transactionId`, and `accountId`.
-
-**Step 2: Call the transaction**
-Call [GetTransaction](https://dev.wix.com/api/rest/drafts/transactions/get-transaction) and pass the `transactionId` and `accountId` retrieved from the webhook. All the transaction's disputes and their current status will be returned under `transaction.disputes`.
-
-**Step 3: Decide how to deal with the dispute (accept or submit evidence).**
-
-To accept the dispute, skip to step 5. To submit evidence, go to step 4.
-
-**Step 4: Respond to the dispute with evidence**
+**Step 3: Respond to the dispute with evidence**
 
 To respond to the RFI/chargeback, you should upload evidence, associate it with the correct dispute and submit the evidence to the issuing bank.
 
 To upload evidence:
 
-1. Call [Generate Evidence Upload Url](https://dev.wix.com/api/rest/drafts/transactions/generate-evidence-upload-url). 
+1. Call [Generate Evidence Upload Url](https://dev.wix.com/api/rest/wix-payments/transactions/generate-evidence-upload-url). 
 2. Retrieve the `upload_url` and `upload_token`.
 3. Call the retrieved `upload_url` as an HTTP POST, and pass the `upload_token` as a path parameter.
 
@@ -84,7 +68,7 @@ curl --location --request POST 'https://wixmp-90ef227251107558e3a6a71f.appspot.c
 ![Evidence Upload](https://s3.amazonaws.com/wixplorer-readme-images/transactions%2Fevidence_upload.png "Evidence Upload")
 
 
-3. Retrieve the `payload.id` from the JSON response.  
+4. Retrieve the `payload.id` from the JSON response.  
 For example:
 
 ```
@@ -112,10 +96,10 @@ For example:
 
 > **Important:** The evidence still needs to be associated with the relevant dispute after upload.
 
-4. Call [Add Evidence](https://dev.wix.com/api/rest/drafts/transactions/add-evidence) to associate the evidence you uploaded with the relevant dispute. Pass the `disputeId`, `transactionId`, and `accountId` retrieved in step 1, and map the `payload.id` retrieved above to `evidence.fileId`.
-5. When all the evidence has been uploaded and associated with the dispute, call [Submit Evidence](https://dev.wix.com/api/rest/drafts/transactions/submit-evidence) to trigger the submission of the evidence to the issuing bank.
+5. Call [Add Evidence](https://dev.wix.com/api/rest/wix-payments/transactions/add-evidence) to associate the evidence you uploaded with the relevant dispute. Pass the `disputeId`, `transactionId`, and `accountId` retrieved in step 1, and map the `payload.id` retrieved above to `evidence.fileId`.
+6. When all the evidence has been uploaded and associated with the dispute, call [Submit Evidence](https://dev.wix.com/api/rest/wix-payments/transactions/submit-evidence) to trigger the submission of the evidence to the issuing bank.
 
-**Step 5: Responding to a chargeback by accepting the dispute.**
+**Step 4: Responding to a chargeback by accepting the dispute.**
 
-Accept the dispute by calling [Accept Dispute](https://dev.wix.com/api/rest/drafts/transactions/accept-dispute) - relevant only when the dispute status is *CHARGEBACK_OPEN*. This action moves the dispute status to *LOST*.
+Accept the dispute by calling [Accept Dispute](https://dev.wix.com/api/rest/wix-payments/transactions/accept-dispute) - relevant only when the dispute status is *CHARGEBACK_OPEN*. This action moves the dispute status to *LOST*.
 
