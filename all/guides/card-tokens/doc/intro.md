@@ -6,8 +6,8 @@ You can use tokens for:
 - **One-time payment**: Customer can either store their payment details or pay in the website or app later using their saved details.
 - **Recurring transaction**: Periodic automatic payments during a set amount of time for a product or a service.
 
-> **Note:** Tokens cannot be stored or used more than once. Create a new `card_token` for each transaction request. Create and pass a card token to [CreateTransaction](/doc/needs link to endpoint) when a credit/debit card is the chosen payment method.
-> If you are creating a recurring transaction (MIT/CIT) you only need to tokenize the `card_number` and pass it in the [CreateTransaction](/doc/needs link to endpoint) request together with [COF](/doc/link needed) flags.
+> **Note:** Tokens cannot be stored or used more than once. Create a new `card_token` for each transaction request. Create and pass a card token to [CreateTransaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) when a credit/debit card is the chosen payment method.
+> If you are creating a recurring transaction (MIT/CIT) you only need to tokenize the `card_number` and pass it in the [CreateTransaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) request together with [COF](https://dev.wix.com/api/rest/wix-payments/transactions/introduction#wix-payments_transactions_introduction_interaction-types) flags.
 
 ### PCI Compliance
 To collect credit or debit card data, you need to be fully PCI DSS compliant. If you are accepting card payments, you need to validate your PCI DSS compliance annually. According to the PCI DSS guidelines, services are not allowed to store credit card information outside of the secured PCI environment. 
