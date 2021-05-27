@@ -26,7 +26,7 @@ Wix Payments supports the following payment methods:
 -   **Merchant**: A party selling goods or services to customers via an eCommerce website, a mobile app, on the point of sale, or across all three channels. Wix Payments enable a merchant to accept payments from customers made with cards or local payment methods and manage payouts.
 -   **Customer**: Someone who buys goods or services from a merchant. In terms of Transactions API, a customer makes a cashless online payment by using either cards or local payment methods to pay.
 -   **Cardholder**: Customer who uses a card issued by a bank to make cashless online payments to a merchant. 
--   **Transaction**: Agreement between a merchant and a customer to exchange goods, services, or financial instruments. The [transaction object](https://bo.wix.com/wix-docs/rest/drafts/wix-payments-transactions/transaction-object) contains the basic information required to securely process the payment, execute related actions (delivery, analytics, inventory management) and comply with financial regulations.
+-   **Transaction**: Agreement between a merchant and a customer to exchange goods, services, or financial instruments. The [transaction object](https://dev.wix.com/api/rest/wix-payments/transactions/transaction-object) contains the basic information required to securely process the payment, execute related actions (delivery, analytics, inventory management) and comply with financial regulations.
 -   **Merchant Initiated Transaction** (MIT): Payment or a series of payments with fixed or variable amounts that the merchant performs without direct involvement of a customer, such as automatic account top-ups, and installments.
 -   **Cardholder Initiated Transaction** (CIT): Payment initiated by the cardholder on their own after the initial successful transaction.
 -   **Authorization**: Process of card issuer verifying payment details and reserving funds to capture them later. When the card is verified with the issuer, the funds are reserved for the transaction.
@@ -40,14 +40,14 @@ Wix Payments supports the following payment methods:
 -   **Evidence**: Documentation in response to the dispute (RFI or chargeback steps), appropriate to the reason for the dispute. For example, evidence responding to a dispute with the reason “product not received” can include shipping information and any screenshots of package tracking. Weblogs, email communications, shipment tracking numbers, delivery confirmation, proof of prior refunds, or replacement shipments can all be helpful.
 
 ## Recurring transactions
-Wix Payments API allows merchants to set up recurring payments. It adds flexibility and full control of the entire business flow. For subsequent transactions, only the `card_number` should be tokenized using the [Create Card Token](https://bo.wix.com/wix-docs/rest/drafts/card-tokens/create-card-token) endpoint, and the appropriate token passed to the [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/wix-payments-transactions/create-transaction).
+Wix Payments API allows merchants to set up recurring payments. It adds flexibility and full control of the entire business flow. For subsequent transactions, only the `card_number` should be tokenized using the [Create Card Token](https://dev.wix.com/api/rest/wix-payments/card-tokens/create-card-token) endpoint, and the appropriate token passed to the [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction).
 
 >**Note** to achieve the best approve ratio, the correct MIT/CIT flag must be passed as well.
 > To achieve the best approve ratio, pass all possible values received from the card schemes:
 >-   __Network_transaction_id__
 >-   __ds_transaction_id__ (in case the initial transaction was performed by the 3DS2 regulations)
 
-> [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/wix-payments-transactions/create-transaction) endpoint is fully compatible with the new PSD2 regulations and supports 3DS 2 mechanism.
+> [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) endpoint is fully compatible with the new PSD2 regulations and supports 3DS 2 mechanism.
 
 ## Interaction types
 | Interaction Type        | Additional Parameters           |Comments  |
@@ -72,9 +72,9 @@ Create and manage transactions with the following flows:
 ### 1. Create a one-time payment and simultaneously authorize and capture funds.
 
 Transaction info: $10 USD, one-time credit card transaction, using a card token. A new `card_token` must be generated for each transaction request.   
-(A card token must be passed to [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction) when a credit/debit card is the chosen payment method.) 
+(A card token must be passed to [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) when a credit/debit card is the chosen payment method.) 
 
-To create a transaction, call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction). 
+To create a transaction, call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction). 
 
 Parameters to include:
 ```
@@ -99,9 +99,9 @@ Parameters to include:
 ### 2. Create a one-time payment. Authorize and Capture the funds separately.
 
 Transaction info: $10 USD, one-time credit card transaction, using a card token. A new `card_token` must be generated for each transaction request.   
-(A card token must be passed to [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction) when a credit/debit card is the chosen payment method.)
+(A card token must be passed to [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) when a credit/debit card is the chosen payment method.)
 
-1. Call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction).
+1. Call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction).
 
 Parameters to include:
 ```
@@ -123,7 +123,7 @@ POST https://www.wixapis.com/payments/v3/transactions
 }
 ```
 
-2. Call [Capture Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/capture-transaction). Retrieve the transactionId from the step 1.
+2. Call [Capture Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/capture-transaction). Retrieve the transactionId from the step 1.
 
 Parameters to include:
 ```
@@ -137,10 +137,10 @@ POST https://www.wixapis.com/payments/v3/transactions/2ac75a2-91d5-4752-6h96-6aj
 ### 3. Create a first/initial recurring payment and subsequent one when the cardholder is not present - authorization and capture in one step.
 
 Transaction info: $10 USD, one-time credit card transaction, using a card token. A new card_token must be generated for each transaction request.   
-(A card token must be passed to [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction) when a credit/debit card is the chosen payment method.)   
+(A card token must be passed to [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) when a credit/debit card is the chosen payment method.)   
 When creating a recurring transaction (MIT/CIT), you only need to tokenize the `card_number` and pass it in the Create Transaction request together with COF.
 
-1. Call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction).
+1. Call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction).
 
 Parameters to include:
 ```
@@ -163,7 +163,7 @@ Parameters to include:
 
 2. Retrieve the `transactionId` of the created transaction from the response from step 1. (In this example, `transactionId` = 01csa932-9bd5-38d2-91d6-6jf5c640f1ef). You’ll need to pass it as the `transactionReference` in all subsequent transactions.
 
-3. When a subsequent payment is due, call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction) and pass the `transactionId` from step 1 as the `transactionReference`.
+3. When a subsequent payment is due, call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) and pass the `transactionId` from step 1 as the `transactionReference`.
 
 Parameters to include:
 ```
@@ -190,10 +190,10 @@ Parameters to include:
 ### 4. Create an initial “on session” (cardholder present) payment and notify Wix of credential storage to execute a subsequent one in the future when the cardholder is present.
 
 Transaction info: $10 USD, one-time credit card transaction, using a card token. A new card_token must be generated for each transaction request.  
-(A card token must be passed to [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction) when a credit/debit card is the chosen payment method.)   
+(A card token must be passed to [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction) when a credit/debit card is the chosen payment method.)   
 When creating a recurring transaction (MIT/CIT), you only need to tokenize the `card_number` and pass it in the Create Transaction request together with COF.
 
-1. Call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction).
+1. Call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction).
 
 Parameters to include:
 ```
@@ -216,7 +216,7 @@ Parameters to include:
 
 2. Retrieve the transactionId (in this example, `transactionId` = 01csa932-9bd5-38d2-91d6-6jf5c640f1ef). You’ll need to pass it as the `transactionReference` in all subsequent transactions.
 
-3. Call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction). 
+3. Call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction). 
 `transactionReference` is the ID of the transaction in the response from step 1.
 
 Parameters to include:
@@ -246,7 +246,7 @@ Parameters to include:
 
 Transaction info: $50 USD, one-time credit card transaction, using a card token.
 
-1. Call [Create Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/create-transaction).
+1. Call [Create Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/create-transaction).
 
 Parameters to include:
 ```
@@ -267,7 +267,7 @@ Parameters to include:
 }
 ```
 
-2. Call [VoidOrRefund Transaction](https://bo.wix.com/wix-docs/rest/drafts/transactions/void-or-refund-transaction).
+2. Call [VoidOrRefund Transaction](https://dev.wix.com/api/rest/wix-payments/transactions/void-or-refund-transaction).
 
 a. For a full refund:
 ```
