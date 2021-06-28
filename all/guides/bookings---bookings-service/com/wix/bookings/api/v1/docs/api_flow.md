@@ -32,7 +32,7 @@ Each booking has a status. Statuses include:
 ## Use Cases
 
 ### Book a visitor (i.e., anyone, not necessarily known to the site owner in advance) to a given service, including payment
-![image](https://s3.amazonaws.com/wixplorer-readme-images/bookings---bookings-service/BookWithID-Slot.png)
+![image](https://s3.amazonaws.com/wixplorer-readme-images/bookings---bookings-service%2FBookWithID-Slot.png)
 1. To display the various services available for booking on your platform, call the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) endpoint.  
 2. When a visitor selects a service, call [List Slots](https://dev.wix.com/api/rest/wix-bookings/calendar/list-slots) to display the sessions available for booking.  
 2a. Provide the visitor with a form to fill out that matches the data required in this session's form, as returned in the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) response.
