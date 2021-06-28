@@ -5,3 +5,5 @@ The event’s data is included in the body of the request as a [JSON Web Token (
 The data received will vary by the type of event, but the following will always be included:
 * **instanceId**: The App Instance ID. This is the unique identifier of the app within the website.
 * **eventType**: A description of the event type, e.g., OrderEvent.
+
+Return a 2xx response upon the successful receipt of a webhook.
