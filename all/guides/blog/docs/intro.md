@@ -12,3 +12,5 @@ Learn more [about Wix Blog](https://support.wix.com/en/article/wix-blog-about-th
   An article written by the site owner and published in their blog. Also called publication.
 - **Category**
   A logical group that the site writer assigns their publication(s) to in their blog.
+- **Tag**
+  A subset of categories for organizing blog posts.
