@@ -328,3 +328,48 @@ The response will be an array of the categories that passed the query:
   }
 }
 ```
+
+## Tag API
+
+#### Query Tags
+
+To get a list of tags, use [Query Tags](https://dev.wix.com/api/rest/community/blog/tag/query-tags).
+In the example below we're going to request only tags that have a labe; starting with letter "B":
+
+```
+curl 'https://www.wixapis.com/blog/v2/tags/query' --data-binary '{"filter":{"label":{"$startsWith": "B"}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+```
+
+The response will be an array of the tags that passed the query:
+```
+{
+    "tags": [
+        {
+            "id": "43b7a30f-ca8a-4678-84c4-0bab5e3ebf63",
+            "label": "books",
+            "slug": "books",
+            "createdDate": "2021-06-21T08:27:09.764Z",
+            "updatedDate": "2021-06-21T08:27:09.764Z",
+            "publicationCount": 0,
+            "postCount": 1,
+            "language": "en"
+        },
+        {
+            "id": "efd1a67d-59b8-4c1c-9ef1-1275e053a47b",
+            "label": "breakfast",
+            "slug": "breakfast",
+            "createdDate": "2021-06-21T08:04:23.726Z",
+            "updatedDate": "2021-06-21T08:04:23.726Z",
+            "publicationCount": 5,
+            "postCount": 8,
+            "language": "en"
+        }
+    ],
+    "metaData": {
+        "count": 2,
+        "offset": 0,
+        "total": 2
+    }
+}
+```
+
