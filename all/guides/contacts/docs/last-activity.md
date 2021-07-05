@@ -6,7 +6,7 @@ the interaction is captured in `lastActivity` in the Contact object.
 The table below shows the possible `activityType` values
 and describes the interactions each activity type represents:
 
-| activityType | Description |
+| Activity Type | Description |
 |---|---|
 | `GENERAL` | Visited the site. |
 | `CONTACT_CREATED` | Became a new contact. |
