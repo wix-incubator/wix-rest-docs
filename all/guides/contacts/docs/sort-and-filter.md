@@ -31,28 +31,28 @@ and free-text searching.
 > including fields managed by other Wix apps —
 > see [Extended Fields][md-ext-fields].
 
-| Field                              | Data Type/Format                                        | Supported Filters                          | Sortable | Searchable |
-| ---------------------------------- | ------------------------------------------------------- | ------------------------------------------ | -------- | ---------- |
-| `id`                               | GUID string                                             | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `createdDate`                      | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `updatedDate`                      | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` |          |            |
-| `lastActivity.activityDate`        | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `primaryInfo.email`                | Valid email string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `primaryInfo.phone`                | Valid phone string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.name.first`                  | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable | Searchable |
-| `info.name.last`                   | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable | Searchable |
-| `info.emails.email`                | Valid email string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          | Searchable |
-| `info.phones.phone`                | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          | Searchable |
-| `info.addresses.street`            | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.addresses.city`              | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.addresses.subdivision`       | ISO 3166-2 subdivision code (e.g., `US-NY`)             | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.addresses.country`           | Country ISO 2 letter code                               | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.company`                     | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `info.jobTitle`                    | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `info.birthdate`                   | Date string in `YYYY-MM-DD` format.                     | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `info.locale`                      | Locale code (Example: `en-us` for U.S. English)         | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.labelKeys`                   | String                                                  | `$hasSome`, `$hasAll`                      |          |            |
-| `info.locations`                   | GUID string                                             | `$hasSome`, `$hasAll`                      |          |            |
+| Field                        | Data Type/Format                                                                                                                 | Supported Filters                             | Sortable | Searchable |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------- | ---------- |
+| `id`                         | GUID string.                                                                                                                     | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `createdDate`                | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format.                                                                         | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `updatedDate`                | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format.                                                                         | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    |          |            |
+| `lastActivity.activityDate`  | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format.                                                                         | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `primaryInfo.email`          | Valid email string.                                                                                                              | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `primaryInfo.phone`          | Valid phone string.                                                                                                              | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.name.first`            | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.name.last`             | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.emails.email`          | Valid email string.                                                                                                              | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.phones.phone`          | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.addresses.street`      | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.city`        | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.subdivision` | Code for a subdivision (such as state, prefecture, or province) in [ISO 3166-2](https://www.iso.org/standard/72483.html) format. | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.addresses.country`     | Two-letter country code in [ISO-3166 alpha-2](https://www.iso.org/obp/ui/#search/code/) format.                                  | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.company`               | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.jobTitle`              | String.                                                                                                                          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.birthdate`             | Date string in `YYYY-MM-DD` format.                                                                                              | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `info.locale`                | Locale code (for example, `en-us` for U.S. English).                                                                             | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.labelKeys`             | String.                                                                                                                          | `$hasSome`, `$hasAll`                         |          |            |
+| `info.locations`             | GUID string.                                                                                                                     | `$hasSome`, `$hasAll`                         |          |            |
 
 ## Examples
 
@@ -60,25 +60,53 @@ and free-text searching.
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter":{"info.name.first": "John"}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "info.name.first": "John"
+      }
+    }
+  }'
 ```
 
 **Get contacts with last name 'Smith', sorted by date of creation**
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter": {"info.name.last": "Smith"}, \
-  "sort": {"fieldName": "createdDate","order" : "ASC"}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "info.name.last": "Smith"
+      },
+      "sort": [
+        {
+          "fieldName": "createdDate",
+          "order": "ASC"
+        }
+      ]
+    }
+  }'
 ```
 
 **Get contacts by IDs**
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter":{"id": {"$in": ["CONTACT_ID_1","CONTACT_ID_2"]}}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "id": {
+          "$in": [
+            "de73c8ad-fbaf-490d-a385-2d53b26b3777",
+            "4511f1d2-c129-4b4f-a17c-99dcf07e2a2e"
+          ]
+        }
+      }
+    }
+  }'
 ```
 
 [iso-4217-currency]: https://www.iso.org/iso-4217-currency-codes.html
