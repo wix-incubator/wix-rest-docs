@@ -3,15 +3,15 @@ SortOrder: 0
 
 When a visitor first interacts with a site in a number of ways —
 such as submitting a contact form or subscribing to a newsletter —
-they're captured in the site's Contact List as a new contact.
-and their details will be available through the contacts APIs.
+they're added to the site's [Contact List][contact-list-deeplink]
+and their details are available through the Contacts APIs.
 Here are some examples for how a visitor could be converted to a contact:
 
-- A site visitor fills in a form with their communication details
+- A site visitor fills in a form with their contact details
 - A site visitor signs up as a member of the site
 - A site contributor [imports a contact][kb-import-contacts] or
   [adds a contact manually][kb-add-contacts]
-- A third party app adds a contact via the Contacts API
+- A 3rd-party app adds a contact via the Contacts API
 
 Site owners can use the Contact List to manage information about their contacts.
 Read more about how site owners can
@@ -20,8 +20,7 @@ Read more about how site owners can
 ## Terminology
 
 - **Extended fields**
-  can be added to the Contact List by site contributors or apps.
-  Extended fields store information beyond the default fields,
+  Extended fields store information beyond the default contact fields,
   and apps can create and manage their own extended fields.
   To view and manage extended field _data_,
   use the Contacts API.
@@ -36,6 +35,7 @@ Read more about how site owners can
 [kb-import-contacts]: https://support.wix.com/en/article/importing-contacts-by-uploading-a-csv-file-1066522
 [kb-add-contacts]: https://support.wix.com/en/article/manually-adding-contacts
 [kb-manage-contacts]: https://support.wix.com/en/article/about-your-contact-list
+[contact-list-deeplink]: https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts
 
 [svc-fields]: https://dev.wix.com/api/rest/contacts/extended-fields
 [svc-labels]: https://dev.wix.com/api/rest/contacts/labels
