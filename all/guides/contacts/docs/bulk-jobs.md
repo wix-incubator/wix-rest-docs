@@ -3,7 +3,7 @@ SortOrder: 3
 
 The Contacts API allows you to perform these actions in bulk:
 
-- [Bulk Add and Remove Labels][bulk-add-remove]
+- [Bulk Label and Unlabel Contacts][bulk-label-unlabel]
 - [Bulk Update Contacts][bulk-update]
 - [Bulk Delete Contacts][bulk-delete]
 
@@ -25,7 +25,7 @@ by running a [query][query] with the intended filter and search options.
 You can show the query results to the user
 and ask them to confirm that they want to continue with the bulk action.
 
-[bulk-add-remove]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-add-and-remove-labels
+[bulk-label-unlabel]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-label-and-unlabel-contacts
 [bulk-update]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contacts
 [bulk-delete]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-delete-contacts
 [get-bulk-job]: https://dev.wix.com/api/rest/contacts/contacts/bulk-jobs/get-bulk-job
