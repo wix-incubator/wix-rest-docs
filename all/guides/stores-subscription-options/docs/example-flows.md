@@ -8,7 +8,7 @@ This article shares some possible flows when using the Subscription Options API.
 ### Part 1: Creating a Subscription Option
 
 For this use case we're creating an 8 week-long subscription that provides a 10% discount off the original price.
-Using [Create Subscription Option](/docs/link), your request would look something like this:
+Using [Create Subscription Option](https://dev.wix.com/api/rest/wix-stores/subscription-options/create-subscription-option), your request would look something like this:
 
   ```json
     {
@@ -51,7 +51,7 @@ The response is the newly created subscription option with its auto-generated ID
 ### Part 2: Assigning the Subscription Option to a Product
 
 Now that we've created the subscription option,
-we can use [Assign Subscription Options To Product](/docs/link).
+we can use [Assign Subscription Options To Product](https://dev.wix.com/api/rest/wix-stores/subscription-options/assign-subscription-options-to-product).
 1. Pass the `productId` of the designated product for assignment as a path parameter in the url:
     ```
     https://www.wixapis.com/stores/v1/subscription-options/product/{productId}/assign
@@ -75,7 +75,7 @@ we can use [Assign Subscription Options To Product](/docs/link).
 
 ### Part 3: Checking that the Subscription Option was assigned to the Product
 
-To check that the subscription option has been assigned to the product, use the [Get Subscription Options For Product](/docs/link) endpoint.
+To check that the subscription option has been assigned to the product, use the [Get Subscription Options For Product](https://dev.wix.com/api/rest/wix-stores/subscription-options/get-subscription-options-for-product) endpoint.
 1. Pass the same `productId` as the one used in part 2. To retrieve all the subscription options assigned to the product include the path parameter `includeHiddenSubscriptionOptions=true`:
 
     ```curl
@@ -125,7 +125,7 @@ To check that the subscription option has been assigned to the product, use the 
 ## Allowing a Product to be Sold as a One-Time Purchase
 When a subscription option is assigned to a product, by default that product will only be available for purchase as a subscription. To allow for one-time purchase in addition to a subscription, you could use a flow like this:
 
-1. Using [Get One Time Purchases Status](/docs/link), pass the `productId` of the product you'd like to check as a path parameter:
+1. Using [Get Product One Time Purchases Status](https://dev.wix.com/api/rest/wix-stores/subscription-options/get-product-one-time-purchases-status), pass the `productId` of the product you'd like to check as a path parameter:
 
     ```curl
     curl -X GET \
@@ -140,7 +140,7 @@ When a subscription option is assigned to a product, by default that product wil
     {"allowed": false}
     ```
 
-2. Using [Allow One Time Purchases](/docs/link), pass the `productId` as a path parameter, and `"allowed": true` in the body
+2. Using [Allow One Time Purchases of Product](https://dev.wix.com/api/rest/wix-stores/subscription-options/allow-one-time-purchases-of-product), pass the `productId` as a path parameter, and `"allowed": true` in the body
 
     ```curl
     curl -X PATCH \
