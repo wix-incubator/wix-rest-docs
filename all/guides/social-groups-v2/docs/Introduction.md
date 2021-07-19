@@ -93,3 +93,27 @@ Sample request body:
 }
 ```
 5. Prepare and display the report.
+
+### Search members by provided membership answers
+
+You can build an app that will search members by keywords in the answers given to membership questions.
+
+1. Add membership questions that users have to answer before joining by calling the [Replace All Membership Questions](https://dev.wix.com/api/rest/community/social-groups/membership-questions/replace-all-membership-questions) endpoint.
+2. Create answers by providing `membershipQuestionAnswers` either in [Join Group](https://dev.wix.com/api/rest/community/social-groups/group-member/join-group) endpoint.
+3. List membership answers by calling [List Answers](https://dev.wix.com/api/rest/community/social-groups/membership-questions/list-answers) endpoint. You will get a map with provided answers.
+
+### Enable weekly digest to improve retention for your users
+
+You can change group settings to toggle different features such as a weekly digest with top posts. This digest will be send to group members weekly based on latest activities in the given group.
+
+1. Check if digest is disabled by calling the [Get Settings](https://dev.wix.com/api/rest/community/social-groups/settings/get-settings) endpoint.
+2. If it's disabled, update group setting with `{"emailDigestEnabled": true}` by calling the [Update Settings](https://dev.wix.com/api/rest/community/social-groups/settings/update-settings) endpoint.
+
+## Copy group rules from one group and use them for all other groups on the website
+
+Group rules can be seen in your group. You can apply rules from one group to all others with following:
+
+1. Get the group rules by calling the [Get Group Rules](https://dev.wix.com/api/rest/community/social-groups/group-rules/get-group-rules) endpoint.
+2. Save and update rules if needed.
+3. Get the list of group ids you want to update by calling the [List Groups](https://dev.wix.com/api/rest/community/social-groups/group/list-groups) endpoint.
+4. Iterate over all group ids and call the [Replace Group Rules](https://dev.wix.com/api/rest/community/social-groups/group-rules/replace-group-rules) endpoint for each group id.
