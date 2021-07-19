@@ -44,6 +44,7 @@ Table which describes how [v1.MembersService](https://github.com/wix-private/crm
 |HydraContactsFacade.FindMemberByContactId|Members.GetMember|
 |MemberAreaFacade.CountActiveProfiles|Members.QueryMembers|
 |HydraUsersFacade.getMemberStatusByMemberId|Members.GetMember & fieldSet=FULL to get the status|
+|SiteMembersService.getMembersByUser|Members.QueryMembers & userId in the filter|
 |SiteMembersService.GetMemberOrOwnerByIdWithRecovery|Members.GetMember|
 |MembersService.BatchGet|Members.QueryMembers|
 |SiteMembersService.GetMembersByUser|Members.QueryMembers with member ids from SiteMembersService.GetMembersByUser response if you need more than member ids|
@@ -143,7 +144,7 @@ Which fields will be returned using which fieldset property
 |id|id|id|
 | | |login_email|
 | | |status|
-| |contact.contact_id|contact.contact_id|
+|contact_id|contact_id|contact_id|
 | | |contact.first_name|
 | | |contact.last_name|
 | | |contact.phones|
