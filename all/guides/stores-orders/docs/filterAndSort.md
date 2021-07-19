@@ -16,7 +16,7 @@ Endpoints that allow querying follow these format [guidelines](https://github.co
 | number |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
 | fulfillmentStatus |$eq,$ne,$hasSome|
 | id |$eq,$ne,$hasSome|
-| lineItems.productId|$eq,$ne,$hasSome,$hasAll| 
+| lineItems.productId|$eq,$ne,$hasSome,$hasAll|
 | lineItems.name|$eq,$ne,$hasSome,$hasAll|
 | billingInfo.address.fullName|$eq,$ne,$hasSome,$contains,$startsWith|
 | buyerInfo.id|$eq,$ne,$hasSome|
