@@ -34,7 +34,7 @@ Verify that the code was generated with the fields you added. To do that - exami
 
 <details><summary>Show Solution</summary>
 
-```proto
+```
 message ContactForm {
     google.protobuf.StringValue id = 1 [(wix.api.format) = GUID, (wix.api.readOnly) = true];    // ContactForm's unique ID
     google.protobuf.StringValue name = 2 [(wix.api.maxLength) = 150];                           // ContactForm's name
@@ -129,7 +129,7 @@ ____________
 
     <details><summary>Show Solution</summary>
 
-    ```proto
+    ```
     rpc IncrementCounter (IncrementCounterRequest) returns (IncrementCounterResponse) {
         option (google.api.http).post = "/v1/contactForm/{contact_form_id}/increment";
         option (.wix.api.maturity) = ALPHA;
