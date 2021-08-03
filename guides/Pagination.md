@@ -113,7 +113,7 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
 
 1. Did you do some thinking? Great! The test spec that you have thought of should have the following structure in the `ContactUsIT` class. Create the test spec. 
     
-    ```scala
+    ```
     class ContactUsIT ... {
     ...
     
@@ -129,7 +129,7 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
     
     <details><summary>Show Solution</summary>
     
-    ```scala
+    ```
     "incrementCounter" should {
       "increment the contact form's counter by 1" in new BaseContext {
       val siteId = UUID.randomUUID().toString
@@ -155,7 +155,7 @@ It's now time to write the code that actually increments the counter upon a call
 
 <details><summary>Show Solution</summary>
     
-```scala
+```
 class ContactUsImpl ... {
     ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
