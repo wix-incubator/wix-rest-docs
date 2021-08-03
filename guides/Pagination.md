@@ -225,23 +225,23 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
 
 1. Implement your test. When finished, look at the solution below.
 
-<details><summary>Show Solution</summary>
-    
-```scala
-    "incrementCounter" should {
-      "increment the contact form's counter by 1" in new BaseContext {
-      val siteId = UUID.randomUUID().toString
-      val contactForm = givenContactForm(randomContactForm())
-    
-      contactUs.incrementCounter(IncrementCounterRequest(contactForm.id.get, siteId)).shortAwait
-    
-      contactUs.getContactForm(GetContactFormRequest(contactForm.id.get)).map(_.contactForm) must
-        beSome(contactForm.copy(siteCounters = Seq(SiteCounter(siteId, 1)))).await.eventually
-      }
-    }
-    
-```
-</details>
+    <details><summary>Show Solution</summary>
+        
+    ```scala
+        "incrementCounter" should {
+        "increment the contact form's counter by 1" in new BaseContext {
+        val siteId = UUID.randomUUID().toString
+        val contactForm = givenContactForm(randomContactForm())
+        
+        contactUs.incrementCounter(IncrementCounterRequest(contactForm.id.get, siteId)).shortAwait
+        
+        contactUs.getContactForm(GetContactFormRequest(contactForm.id.get)).map(_.contactForm) must
+            beSome(contactForm.copy(siteCounters = Seq(SiteCounter(siteId, 1)))).await.eventually
+        }
+        }
+        
+    ```
+    </details>
     
 1. Run the test - it fails. 
    If you look at the test log (outputted to your console) you'll find a `NotImplementedError` exception. This is because you did not yet implement the `ContactUsImpl#incrementCounter` method. You'll do that next.
