@@ -251,7 +251,30 @@ It's now time to write the code that actually increments the counter upon a call
 * Change the `ContactUsImpl#incrementCounter` from `???` to a proper implementation so that the test will pass.
 * If you're new to Scala, it might be a good time to read about [for comprehension and Future](https://stackoverflow.com/questions/19045936/scalas-for-comprehension-with-futures)
 
+<details><summary>Show Solution</summary>
+    
+```scala
+class ContactUsImpl ... {
+    ...
+    override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
+        val context = contextResolver.getContext
+        for {
+            contactForm <- contactUsDao.findByIdOrFail(ContactFormEntityId(ContactFormId.guidOf(request.contactFormId), TenantId.guidOf(context.instanceId)))
+            updatedContactForm = contactForm.copy(siteCounters = incrementCounterForSite(contactForm.siteCounters, request.metaSiteId))
+            _ <- contactUsDao.update(updatedContactForm)
+        } yield IncrementCounterResponse()
+     }
 
+     private def incrementCounterForSite(siteCounters: Seq[SiteCounterEntity], metaSiteId: String): Seq[SiteCounterEntity] = {
+        val (beforeMsId, afterMsId) = siteCounters.span(_.metaSiteId != metaSiteId)
+        (beforeMsId :+
+            afterMsId.headOption.map(c => c.copy(counter = c.counter + 1))
+                .getOrElse(SiteCounterEntity(metaSiteId, 1))) ++
+            afterMsId.drop(1)
+  }   
+}
+```
+</details>
 
 
 ## Get the code to production <a name="get-production"></a>
