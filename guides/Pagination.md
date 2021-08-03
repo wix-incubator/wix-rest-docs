@@ -58,7 +58,7 @@ You've modified the proto API objects, but didn't actually change the implementa
 <details><summary>Show Solution</summary>
 Update <code>ContactFormEntity</code> case class in <code>dao.scala</code>
 
-```scala
+```
 case class SiteCounterEntity(metaSiteId: String, counter: Int)
 case class ContactFormEntity(id: ContactFormEntityId,
                          @searchable name: String,
@@ -76,7 +76,7 @@ Based on the [AutoMapper](https://github.com/wix-private/server-infra/tree/maste
 
 <details><summary>Show Solution</summary>   
 
-```scala
+```
 def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
   in.mappingFor[ContactFormEntity]
     .withFieldComputed(_.id, s => ContactFormEntityId(forCreate.getOrElse(ContactFormId.guidOf(s.id.get)), TenantId.guidOf(tenantId)))
@@ -99,7 +99,7 @@ We wanted the <code>Mapper</code> to properly convert all fields from proto to d
 >  Notice that the default value for the  `siteCounters` argument (in `ContactFormRandoms#randomContactForm`) could be `Nil`. Why? Because it's  marked as `read-only` in your proto API and should not be sent by the client when calling your service.
 <details><summary>Show Solution</summary>
 
-```scala
+```
 trait ContactFormRandoms extends RandomTestUtils {
     ...
     ...
@@ -154,7 +154,7 @@ Since we want to write the code in TDD (test-driven development), we will use Sc
 
     <details><summary>Show Solution</summary>
 
-    ```scala
+    ```
     "incrementCounter" should {
       "increment the contact form's counter by 1" in new BaseContext {
       val siteId = UUID.randomUUID().toString
@@ -179,7 +179,7 @@ It's now time to write the code that actually increments the counter upon a call
 
 <details><summary>Show Solution</summary>
 
-```scala
+```
 class ContactUsImpl ... {
     ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
