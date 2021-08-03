@@ -77,7 +77,20 @@ Find the domain object and add the missing fields (with respect to the change of
 When adding the missing fields to your domain object:
 * Use Scala's `Option` for optional fields.
 
+<details><summary>Show Solution</summary>
+Update <code>ContactFormEntity</code> case class in <code>dao.scala</code>
 
+```scala
+case class SiteCounterEntity(metaSiteId: String, counter: Int)
+case class ContactFormEntity(id: ContactFormEntityId,
+                         @searchable name: String,
+                         description: Option[String],
+                         phone: Option[String],
+                         email: Option[String],
+                         siteCounters: Seq[SiteCounterEntity],
+                         version: Option[Long] = None) extends Entity[ContactFormEntityId]                         
+```
+</details>
 
 ### 3. Update the AutoMapper<a name="update-the-automapper"></a>
 The `Mapper` object was created for you, it's a utility that uses [AutoMapper](https://github.com/wix-private/server-infra/tree/master/aglianico/automapper) for converting api objects to domain objects and vice versa.
