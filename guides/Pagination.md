@@ -131,7 +131,31 @@ You can also update the ITs.
 * See the `ContactUsIT#create#create contactForm` test. It creates a contactForm and make sure it's properly saved. To make sure your added properties are properly saved, you need to update the `ContactFormRandoms#randomContactForm` function (which the test uses) to also populate the newly added properties. 
 >  Notice that the default value for the  `siteCounters` argument (in `ContactFormRandoms#randomContactForm`) could be `Nil`. Why? Because it's  marked as `read-only` in your proto API and should not be sent by the client when calling your service.
 
+<details><summary>Show Solution</summary>
 
+```scala
+trait ContactFormRandoms extends RandomTestUtils {
+    ...
+    ...
+    ...
+    def randomContactForm(id: Option[String] = None,
+                    name: Option[String] = randomStrOpt,
+                    description: Option[String] = Some(randomStr),
+                    phone: Option[String] = Some(s"${randomNumberWith(3)}-${randomNumberWith(7)}"),
+                    email: Option[String] = Some(randomEmail),
+                    siteCounters: Seq[SiteCounter] = Nil): ContactForm = {
+        ContactForm(
+          id = id,
+          name = name,
+          description = description,
+          phone = phone,
+          email = email
+        )
+    }
+
+}
+```
+</details>
 
 ____________
 > **NOTE**: This is a good time to commit + merge + deploy your changes.
