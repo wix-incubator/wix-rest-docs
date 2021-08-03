@@ -42,26 +42,6 @@ Let's also add some proto validations:
 After you edit the `contact_us.proto` file, build your project using Bazel (either from CLI, Intellij Bazel icon or hitting <kbd>CMD</kbd>+<kbd>F9</kbd>.<br>  
 Verify that the code was generated with the fields you added. To do that - examine the `ContactForm.class` that was generated based on your `ContactForm` proto message.
 
-<details><summary>Show Solution</summary>
-
-```
-message ContactForm {
-    google.protobuf.StringValue id = 1 [(wix.api.format) = GUID, (wix.api.readOnly) = true];    // ContactForm's unique ID
-    google.protobuf.StringValue name = 2 [(wix.api.maxLength) = 150];                           // ContactForm's name
-    google.protobuf.StringValue description = 3 [(wix.api.maxLength) = 500];                    // ContactForm description
-    google.protobuf.StringValue phone = 4 [(wix.api.format) = PHONE];
-    google.protobuf.StringValue email = 5 [(wix.api.format) = EMAIL];
-    repeated SiteCounter site_counters = 6 [(wix.api.readOnly) = true];
-}
-
-message SiteCounter {
-    string meta_site_id = 1 [(wix.api.format) = GUID];
-    int32 counter = 2 [(wix.api.readOnly) = true];
-}
-```
-
-</details>
-
 ### 2. Modify the domain objects <a name="domain-objects"></a>
 You've modified the proto API objects, but didn't actually change the implementation.
 Now, we will modify the implementation so we can actually save the data that was added.
@@ -77,48 +57,12 @@ Find the domain object and add the missing fields (with respect to the change of
 When adding the missing fields to your domain object:
 * Use Scala's `Option` for optional fields.
 
-<details><summary>Show Solution</summary>
-Update <code>ContactFormEntity</code> case class in <code>dao.scala</code>
-
-```
-case class SiteCounterEntity(metaSiteId: String, counter: Int)
-case class ContactFormEntity(id: ContactFormEntityId,
-                         @searchable name: String,
-                         description: Option[String],
-                         phone: Option[String],
-                         email: Option[String],
-                         siteCounters: Seq[SiteCounterEntity],
-                         version: Option[Long] = None) extends Entity[ContactFormEntityId]                         
-```
-</details>
 
 ### 3. Update the AutoMapper<a name="update-the-automapper"></a>
 The `Mapper` object was created for you, it's a utility that uses [AutoMapper](https://github.com/wix-private/server-infra/tree/master/aglianico/automapper) for converting api objects to domain objects and vice versa.
 
 Based on the [AutoMapper](https://github.com/wix-private/server-infra/tree/master/aglianico/automapper) readme, try to change the `Mapper#toDomain(ContactForm, String, Option[ContactFormId])` function, to disregard the `ContactForm.siteCounters` field.
 
-<details><summary>Show Solution</summary>   
-
-```
-def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
-  in.mappingFor[ContactFormEntity]
-    .withFieldComputed(_.id, s => ContactFormEntityId(forCreate.getOrElse(ContactFormId.guidOf(s.id.get)), TenantId.guidOf(tenantId)))
-    .withFieldConst(_.version, None)
-    .withFieldConst(_.siteCounters, Nil)
-    .transform
-```
-
-<h4>Let's explain what we just did here</h4>
-We wanted the <code>Mapper</code> to properly convert all fields from proto to domain object and vice versa.<br>
-Because we've added <code>phone</code>, <code>email</code> and <code>siteCounters</code> fields (to both proto and domain objects) we need to map between them respectively.
-<ul>
-<li><code>phone</code> and <code>email</code> fields have the same type of proto and entity counterparts (<code>String</code>). Therefore, we do not need to explicitly add them to the mapping. They will be auto mapped for us, this is <a href="https://github.com/wix-private/server-infra/tree/master/aglianico/automapper#basic-usage"> Auto Mapper</a>'s guarantee.
-<li><code>SiteCounter</code> field will be correctly mapped too, as AutoMapper automatically derives transformations for simple case classes.
-    <ul>
-<li>For mapping between a proto to an entity, notice that we've stated <code>.withFieldConst(_.siteCounters, Nil)</code>, this is because the proto states that <code>siteCounters</code> is a read-only property. Therefore, the server should disregard requests from client that try to update this property.</li></ul>
-</li></ul>
-
-</details>
 
 ### 4. Fix the tests <a name="fix-the-tests"></a>
 If you compile now you will see some tests still don't pass (specifically `ContactUsDaoIT`). This is because the created a `ContactFormEntity` is missing a few new fields. Try to fix the compilation errors and make sure all tests pass.
@@ -130,32 +74,6 @@ _____________
 You can also update the ITs. 
 * See the `ContactUsIT#create#create contactForm` test. It creates a contactForm and make sure it's properly saved. To make sure your added properties are properly saved, you need to update the `ContactFormRandoms#randomContactForm` function (which the test uses) to also populate the newly added properties. 
 >  Notice that the default value for the  `siteCounters` argument (in `ContactFormRandoms#randomContactForm`) could be `Nil`. Why? Because it's  marked as `read-only` in your proto API and should not be sent by the client when calling your service.
-
-<details><summary>Show Solution</summary>
-
-```
-trait ContactFormRandoms extends RandomTestUtils {
-    ...
-    ...
-    ...
-    def randomContactForm(id: Option[String] = None,
-                    name: Option[String] = randomStrOpt,
-                    description: Option[String] = Some(randomStr),
-                    phone: Option[String] = Some(s"${randomNumberWith(3)}-${randomNumberWith(7)}"),
-                    email: Option[String] = Some(randomEmail),
-                    siteCounters: Seq[SiteCounter] = Nil): ContactForm = {
-        ContactForm(
-          id = id,
-          name = name,
-          description = description,
-          phone = phone,
-          email = email
-        )
-    }
-
-}
-```
-</details>
 
 ____________
 > **NOTE**: This is a good time to commit + merge + deploy your changes.
@@ -180,23 +98,6 @@ The first thing to do in order to expose a new API is to define it.
 
 1. Follow the [proto guidenline doc](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/protobuf#platformization-guidelines_protobuf_services) and add an API to your service.
 
-    <details><summary>Show Solution</summary>
-
-    ```
-    rpc IncrementCounter (IncrementCounterRequest) returns (IncrementCounterResponse) {
-        option (google.api.http).post = "/v1/contactForm/{contact_form_id}/increment";
-        option (.wix.api.maturity) = ALPHA;
-        option (.wix.api.required) = "IncrementCounterRequest.contact_form_id";
-        option (.wix.api.required) = "IncrementCounterRequest.meta_site_id";
-    }
-   
-    message IncrementCounterRequest {
-        string contact_form_id = 1 [(.wix.api.format) = GUID];
-        string meta_site_id = 2 [(.wix.api.format) = GUID];
-    }
-    message IncrementCounterResponse {}
-    ```
-    </details>
 
 1. After you add the API to the proto, compile the code. To do this, you need to implement the new method to enable compilation to pass. 
 Since we want to write the code in TDD (test-driven development), we will use Scala's placeholder [`???`](https://stackoverflow.com/questions/31302524/what-does-the-triple-question-mark-mean-in-scala).  
@@ -225,23 +126,6 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
 
 1. Implement your test. When finished, look at the solution below.
     
-    <details><summary>Show Solution</summary>
-    
-    ```
-    "incrementCounter" should {
-      "increment the contact form's counter by 1" in new BaseContext {
-      val siteId = UUID.randomUUID().toString
-      val contactForm = givenContactForm(randomContactForm())
-    
-      contactUs.incrementCounter(IncrementCounterRequest(contactForm.id.get, siteId)).shortAwait
-    
-      contactUs.getContactForm(GetContactFormRequest(contactForm.id.get)).map(_.contactForm) must
-        beSome(contactForm.copy(siteCounters = Seq(SiteCounter(siteId, 1)))).await.eventually
-      }
-    }
-    
-    ```
-    </details>
 
 1. Run the test - it fails. 
    If you look at the test log (outputted to your console) you'll find a `NotImplementedError` exception. This is because you did not yet implement the `ContactUsImpl#incrementCounter` method. You'll do that next.
@@ -250,31 +134,6 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
 It's now time to write the code that actually increments the counter upon a call to your service's `incrementCounter` endpoint.
 * Change the `ContactUsImpl#incrementCounter` from `???` to a proper implementation so that the test will pass.
 * If you're new to Scala, it might be a good time to read about [for comprehension and Future](https://stackoverflow.com/questions/19045936/scalas-for-comprehension-with-futures)
-
-<details><summary>Show Solution</summary>
-    
-```
-class ContactUsImpl ... {
-    ...
-    override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
-        val context = contextResolver.getContext
-        for {
-            contactForm <- contactUsDao.findByIdOrFail(ContactFormEntityId(ContactFormId.guidOf(request.contactFormId), TenantId.guidOf(context.instanceId)))
-            updatedContactForm = contactForm.copy(siteCounters = incrementCounterForSite(contactForm.siteCounters, request.metaSiteId))
-            _ <- contactUsDao.update(updatedContactForm)
-        } yield IncrementCounterResponse()
-     }
-
-     private def incrementCounterForSite(siteCounters: Seq[SiteCounterEntity], metaSiteId: String): Seq[SiteCounterEntity] = {
-        val (beforeMsId, afterMsId) = siteCounters.span(_.metaSiteId != metaSiteId)
-        (beforeMsId :+
-            afterMsId.headOption.map(c => c.copy(counter = c.counter + 1))
-                .getOrElse(SiteCounterEntity(metaSiteId, 1))) ++
-            afterMsId.drop(1)
-  }   
-}
-```
-</details>
 
 
 ## Get the code to production <a name="get-production"></a>
