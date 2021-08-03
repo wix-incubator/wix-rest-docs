@@ -1,7 +1,7 @@
 
 <details><summary>Show Solution</summary>
 
-```
+```proto
 message ContactForm {
     google.protobuf.StringValue id = 1 [(wix.api.format) = GUID, (wix.api.readOnly) = true];    // ContactForm's unique ID
     google.protobuf.StringValue name = 2 [(wix.api.maxLength) = 150];                           // ContactForm's name
@@ -22,7 +22,7 @@ message SiteCounter {
 <details><summary>Show Solution</summary>
 Update <code>ContactFormEntity</code> case class in <code>dao.scala</code>
 
-```
+```scala
 case class SiteCounterEntity(metaSiteId: String, counter: Int)
 case class ContactFormEntity(id: ContactFormEntityId,
                          @searchable name: String,
@@ -37,7 +37,7 @@ case class ContactFormEntity(id: ContactFormEntityId,
 
 <details><summary>Show Solution</summary>   
 
-```
+```scala
 def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
   in.mappingFor[ContactFormEntity]
     .withFieldComputed(_.id, s => ContactFormEntityId(forCreate.getOrElse(ContactFormId.guidOf(s.id.get)), TenantId.guidOf(tenantId)))
@@ -60,7 +60,7 @@ Because we've added <code>phone</code>, <code>email</code> and <code>siteCounter
 
 <details><summary>Show Solution</summary>
 
-```
+```scala
 trait ContactFormRandoms extends RandomTestUtils {
     ...
     ...
@@ -86,7 +86,7 @@ trait ContactFormRandoms extends RandomTestUtils {
 
 <details><summary>Show Solution</summary>
 
-```
+```proto
     rpc IncrementCounter (IncrementCounterRequest) returns (IncrementCounterResponse) {
         option (google.api.http).post = "/v1/contactForm/{contact_form_id}/increment";
         option (.wix.api.maturity) = ALPHA;
@@ -105,7 +105,7 @@ trait ContactFormRandoms extends RandomTestUtils {
     
 <details><summary>Show Solution</summary>
     
-```
+```scala
     "incrementCounter" should {
       "increment the contact form's counter by 1" in new BaseContext {
       val siteId = UUID.randomUUID().toString
@@ -123,7 +123,7 @@ trait ContactFormRandoms extends RandomTestUtils {
 
 <details><summary>Show Solution</summary>
     
-```
+```scala
 class ContactUsImpl ... {
     ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
