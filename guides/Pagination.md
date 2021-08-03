@@ -33,7 +33,7 @@ After you edit the `contact_us.proto` file, build your project using Bazel (eith
 Verify that the code was generated with the fields you added. To do that - examine the `ContactForm.class` that was generated based on your `ContactForm` proto message.
 
 <details><summary>Show Solution</summary>
-<pre><code>
+```
 message ContactForm {
     google.protobuf.StringValue id = 1 [(wix.api.format) = GUID, (wix.api.readOnly) = true];    // ContactForm's unique ID
     google.protobuf.StringValue name = 2 [(wix.api.maxLength) = 150];                           // ContactForm's name
@@ -41,12 +41,14 @@ message ContactForm {
     google.protobuf.StringValue phone = 4 [(wix.api.format) = PHONE];
     google.protobuf.StringValue email = 5 [(wix.api.format) = EMAIL];
     repeated SiteCounter site_counters = 6 [(wix.api.readOnly) = true];
-}<br>
+}
+
 message SiteCounter {
     string meta_site_id = 1 [(wix.api.format) = GUID];
     int32 counter = 2 [(wix.api.readOnly) = true];
 }
-</code></pre></details>
+```
+</details>
 
 ### 2. Modify the domain objects <a name="domain-objects"></a>
 You've modified the proto API objects, but didn't actually change the implementation.
@@ -160,7 +162,7 @@ It's now time to write the code that actually increments the counter upon a call
 * Change the `ContactUsImpl#incrementCounter` from `???` to a proper implementation so that the test will pass.
 * If you're new to Scala, it might be a good time to read about [for comprehension and Future](https://stackoverflow.com/questions/19045936/scalas-for-comprehension-with-futures)
 <details><summary>Show Solution</summary>
-```
+<pre><code>
 class ContactUsImpl ... {
 ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
@@ -179,10 +181,7 @@ class ContactUsImpl ... {
                 .getOrElse(SiteCounterEntity(metaSiteId, 1))) ++
             afterMsId.drop(1)
   }
-}
-```
-
-</details>
+}</code></pre></details>
 
 ## Get the code to production <a name="get-production"></a>
 Now we would like to test our new API in production
