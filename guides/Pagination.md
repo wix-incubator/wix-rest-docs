@@ -97,7 +97,28 @@ The `Mapper` object was created for you, it's a utility that uses [AutoMapper](h
 
 Based on the [AutoMapper](https://github.com/wix-private/server-infra/tree/master/aglianico/automapper) readme, try to change the `Mapper#toDomain(ContactForm, String, Option[ContactFormId])` function, to disregard the `ContactForm.siteCounters` field.
 
+<details><summary>Show Solution</summary>   
 
+```scala
+def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
+  in.mappingFor[ContactFormEntity]
+    .withFieldComputed(_.id, s => ContactFormEntityId(forCreate.getOrElse(ContactFormId.guidOf(s.id.get)), TenantId.guidOf(tenantId)))
+    .withFieldConst(_.version, None)
+    .withFieldConst(_.siteCounters, Nil)
+    .transform
+```
+
+<h4>Let's explain what we just did here</h4>
+We wanted the <code>Mapper</code> to properly convert all fields from proto to domain object and vice versa.<br>
+Because we've added <code>phone</code>, <code>email</code> and <code>siteCounters</code> fields (to both proto and domain objects) we need to map between them respectively.
+<ul>
+<li><code>phone</code> and <code>email</code> fields have the same type of proto and entity counterparts (<code>String</code>). Therefore, we do not need to explicitly add them to the mapping. They will be auto mapped for us, this is <a href="https://github.com/wix-private/server-infra/tree/master/aglianico/automapper#basic-usage"> Auto Mapper</a>'s guarantee.
+<li><code>SiteCounter</code> field will be correctly mapped too, as AutoMapper automatically derives transformations for simple case classes.
+    <ul>
+<li>For mapping between a proto to an entity, notice that we've stated <code>.withFieldConst(_.siteCounters, Nil)</code>, this is because the proto states that <code>siteCounters</code> is a read-only property. Therefore, the server should disregard requests from client that try to update this property.</li></ul>
+</li></ul>
+
+</details>
 
 ### 4. Fix the tests <a name="fix-the-tests"></a>
 If you compile now you will see some tests still don't pass (specifically `ContactUsDaoIT`). This is because the created a `ContactFormEntity` is missing a few new fields. Try to fix the compilation errors and make sure all tests pass.
