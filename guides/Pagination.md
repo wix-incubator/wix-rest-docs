@@ -42,25 +42,6 @@ Let's also add some proto validations:
 After you edit the `contact_us.proto` file, build your project using Bazel (either from CLI, Intellij Bazel icon or hitting <kbd>CMD</kbd>+<kbd>F9</kbd>.<br>
 Verify that the code was generated with the fields you added. To do that - examine the `ContactForm.class` that was generated based on your `ContactForm` proto message.
 
-<details><summary>Show Solution</summary>
-
-```
-message ContactForm {
-    google.protobuf.StringValue id = 1 [(wix.api.format) = GUID, (wix.api.readOnly) = true];    // ContactForm's unique ID
-    google.protobuf.StringValue name = 2 [(wix.api.maxLength) = 150];                           // ContactForm's name
-    google.protobuf.StringValue description = 3 [(wix.api.maxLength) = 500];                    // ContactForm description
-    google.protobuf.StringValue phone = 4 [(wix.api.format) = PHONE];
-    google.protobuf.StringValue email = 5 [(wix.api.format) = EMAIL];
-    repeated SiteCounter site_counters = 6 [(wix.api.readOnly) = true];
-}
-
-message SiteCounter {
-    string meta_site_id = 1 [(wix.api.format) = GUID];
-    int32 counter = 2 [(wix.api.readOnly) = true];
-}
-```
-
-</details>
 
 ### 2. Modify the domain objects <a name="domain-objects"></a>
 You've modified the proto API objects, but didn't actually change the implementation.
