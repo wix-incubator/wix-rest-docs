@@ -180,9 +180,9 @@ The first thing to do in order to expose a new API is to define it.
 
 1. Follow the [proto guidenline doc](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/protobuf#platformization-guidelines_protobuf_services) and add an API to your service.
 
-    <details><summary>Show Solution</summary>
+<details><summary>Show Solution</summary>
 
-    ```proto
+```proto
     rpc IncrementCounter (IncrementCounterRequest) returns (IncrementCounterResponse) {
         option (google.api.http).post = "/v1/contactForm/{contact_form_id}/increment";
         option (.wix.api.maturity) = ALPHA;
@@ -195,8 +195,8 @@ The first thing to do in order to expose a new API is to define it.
         string meta_site_id = 2 [(.wix.api.format) = GUID];
     }
     message IncrementCounterResponse {}
-    ```
-    </details>
+```
+</details>
 
 1. After you add the API to the proto, compile the code. To do this, you need to implement the new method to enable compilation to pass. 
 Since we want to write the code in TDD (test-driven development), we will use Scala's placeholder [`???`](https://stackoverflow.com/questions/31302524/what-does-the-triple-question-mark-mean-in-scala).  
@@ -224,10 +224,10 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
     ```
 
 1. Implement your test. When finished, look at the solution below.
+
+<details><summary>Show Solution</summary>
     
-    <details><summary>Show Solution</summary>
-    
-    ```scala
+```scala
     "incrementCounter" should {
       "increment the contact form's counter by 1" in new BaseContext {
       val siteId = UUID.randomUUID().toString
@@ -240,9 +240,9 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
       }
     }
     
-    ```
-    </details>
-
+```
+</details>
+    
 1. Run the test - it fails. 
    If you look at the test log (outputted to your console) you'll find a `NotImplementedError` exception. This is because you did not yet implement the `ContactUsImpl#incrementCounter` method. You'll do that next.
 
