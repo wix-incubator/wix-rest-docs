@@ -8,7 +8,7 @@
 ## Your mission in this step
 We want to expand the `ContactForm` entity to contain more information about a contact.<br>
 Currently the only information a `ContactForm` has are the following properties: `id`, `name` and a `description`. This is not a proper `ContactForm` representation. So, we will add more fields to the `ContactForm` proto message and make sure our service handles them properly. Meaning, we will need to expand the representation of a `ContactForm` and also make sure all information is properly persisted to MySQL DB.
-## In this topic you will: 
+## In this topic you will:
 * [Expand the `ContactForm` entity](#contactform-entity)
 * [Implement simple counting by exposing a new API](#simple-counting)
 * [Get the code to production](#get-production)
@@ -29,7 +29,7 @@ Let's also add some proto validations:
 * `name` should have a max Length of 150
 * `description` should have a max length of 500
 * `site_counter` should be Read Only (that is, it cannot be updated by a request)
-After you edit the `contact_us.proto` file, build your project using Bazel (either from CLI, Intellij Bazel icon or hitting <kbd>CMD</kbd>+<kbd>F9</kbd>.<br>  
+After you edit the `contact_us.proto` file, build your project using Bazel (either from CLI, Intellij Bazel icon or hitting <kbd>CMD</kbd>+<kbd>F9</kbd>.<br>
 Verify that the code was generated with the fields you added. To do that - examine the `ContactForm.class` that was generated based on your `ContactForm` proto message.
 
 <details><summary>Show Solution</summary>
@@ -62,7 +62,7 @@ case class ContactFormEntity(id: ContactFormEntityId,
 	@@ -85,22 +89,24 @@ case class ContactFormEntity(id: ContactFormEntityId,
                          email: Option[String],
                          siteCounters: Seq[SiteCounterEntity],
-                         version: Option[Long] = None) extends Entity[ContactFormEntityId]                         
+                         version: Option[Long] = None) extends Entity[ContactFormEntityId]
 </code></pre></details>
 
 ### 3. Update the AutoMapper<a name="update-the-automapper"></a>
@@ -70,7 +70,7 @@ The `Mapper` object was created for you, it's a utility that uses our [Chimney](
 
 Based on the [AutoMapper](https://github.com/wix-private/server-infra/tree/master/iptf/automapper) readme, try to change the `Mapper#toDomain(ContactForm, String, Option[ContactFormId])` function, to disregard the `ContactForm.siteCounters` field.
 
-<details><summary>Show Solution</summary>   
+<details><summary>Show Solution</summary>
 <pre>
 <code>  def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
           in.mappingFor[ContactFormEntity]
@@ -134,8 +134,8 @@ ____________
     message IncrementCounterResponse {}
     </code></pre></details>
 
-1. After you add the API to the proto, compile the code. To do this, you need to implement the new method to enable compilation to pass. 
-Since we want to write the code in TDD (test-driven development), we will use Scala's placeholder [`???`](https://stackoverflow.com/questions/31302524/what-does-the-triple-question-mark-mean-in-scala).  
+1. After you add the API to the proto, compile the code. To do this, you need to implement the new method to enable compilation to pass.
+Since we want to write the code in TDD (test-driven development), we will use Scala's placeholder [`???`](https://stackoverflow.com/questions/31302524/what-does-the-triple-question-mark-mean-in-scala).
 	@@ -212,18 +224,24 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
     ```
 
@@ -153,14 +153,14 @@ Since we want to write the code in TDD (test-driven development), we will use Sc
       }
     }</code></pre></details>
 
-1. Run the test - it fails. 
+1. Run the test - it fails.
    If you look at the test log (outputted to your console) you'll find a `NotImplementedError` exception. This is because you did not yet implement the `ContactUsImpl#incrementCounter` method. You'll do that next.
 	@@ -232,27 +250,32 @@ Since we are practicing TDD (Test Driven Development), we will write the tests b
 It's now time to write the code that actually increments the counter upon a call to your service's `incrementCounter` endpoint.
 * Change the `ContactUsImpl#incrementCounter` from `???` to a proper implementation so that the test will pass.
 * If you're new to Scala, it might be a good time to read about [for comprehension and Future](https://stackoverflow.com/questions/19045936/scalas-for-comprehension-with-futures)
 <details><summary>Show Solution</summary>
-<pre><code>
+```
 class ContactUsImpl ... {
 ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
@@ -178,8 +178,11 @@ class ContactUsImpl ... {
             afterMsId.headOption.map(c => c.copy(counter = c.counter + 1))
                 .getOrElse(SiteCounterEntity(metaSiteId, 1))) ++
             afterMsId.drop(1)
-  }   
-}</code></pre></details>
+  }
+}
+```
+
+</details>
 
 ## Get the code to production <a name="get-production"></a>
 Now we would like to test our new API in production
