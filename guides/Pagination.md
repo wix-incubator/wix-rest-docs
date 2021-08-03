@@ -58,7 +58,7 @@ You've modified the proto API objects, but didn't actually change the implementa
 <details><summary>Show Solution</summary>
 Update <code>ContactFormEntity</code> case class in <code>dao.scala</code>
 
-```scala
+<pre><code>
 case class SiteCounterEntity(metaSiteId: String, counter: Int)
 case class ContactFormEntity(id: ContactFormEntityId,
                          @searchable name: String,
@@ -66,7 +66,7 @@ case class ContactFormEntity(id: ContactFormEntityId,
                          email: Option[String],
                          siteCounters: Seq[SiteCounterEntity],
                          version: Option[Long] = None) extends Entity[ContactFormEntityId]
-```
+</code></pre>
 </details>
 
 ### 3. Update the AutoMapper<a name="update-the-automapper"></a>
@@ -76,14 +76,14 @@ Based on the [AutoMapper](https://github.com/wix-private/server-infra/tree/maste
 
 <details><summary>Show Solution</summary>
 
-```scala
+<pre><code>
 def toDomain(in: ContactForm, tenantId: String, forCreate: Option[ContactFormId] = None): ContactFormEntity =
   in.mappingFor[ContactFormEntity]
     .withFieldComputed(_.id, s => ContactFormEntityId(forCreate.getOrElse(ContactFormId.guidOf(s.id.get)), TenantId.guidOf(tenantId)))
     .withFieldConst(_.version, None)
     .withFieldConst(_.siteCounters, Nil)
     .transform
-```
+</code></pre>
 
 <h4>Let's explain what we just did here</h4>
 We wanted the <code>Mapper</code> to properly convert all fields from proto to domain object and vice versa.<br>
@@ -99,7 +99,7 @@ We wanted the <code>Mapper</code> to properly convert all fields from proto to d
 >  Notice that the default value for the  `siteCounters` argument (in `ContactFormRandoms#randomContactForm`) could be `Nil`. Why? Because it's  marked as `read-only` in your proto API and should not be sent by the client when calling your service.
 <details><summary>Show Solution</summary>
 
-```scala
+<pre><code>
 trait ContactFormRandoms extends RandomTestUtils {
     ...
     ...
@@ -119,7 +119,7 @@ trait ContactFormRandoms extends RandomTestUtils {
         )
     }
 }
-```
+</code></pre>
 </details>
 
 ____________
@@ -154,7 +154,7 @@ Since we want to write the code in TDD (test-driven development), we will use Sc
 
     <details><summary>Show Solution</summary>
 
-    ```scala
+    <pre><code>
     "incrementCounter" should {
       "increment the contact form's counter by 1" in new BaseContext {
       val siteId = UUID.randomUUID().toString
@@ -167,7 +167,7 @@ Since we want to write the code in TDD (test-driven development), we will use Sc
       }
     }
 
-    ```
+    </code></pre>
     </details>
 
 1. Run the test - it fails.
@@ -179,7 +179,7 @@ It's now time to write the code that actually increments the counter upon a call
 
 <details><summary>Show Solution</summary>
 
-```scala
+<pre><code>
 class ContactUsImpl ... {
     ...
     override def incrementCounter(request: IncrementCounterRequest)(implicit callScope: CallScope): Future[IncrementCounterResponse] = {
@@ -198,7 +198,7 @@ class ContactUsImpl ... {
             afterMsId.drop(1)
   }
 }
-```
+</code></pre>
 </details>
 
 
