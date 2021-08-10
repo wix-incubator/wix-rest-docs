@@ -4,7 +4,7 @@ At this point you're ready to build your new project.
 To remind you, our mission is to implement a simple *Contact service* that will allow managing contacts.
 
 ## In this topic you will: 
-* [Cloning the repo](#clone-repo)
+* [Cloning the repo](#cloning-the-wix-academy-repository)
 * [Generating a server project using the wix-wnp-cruderator tool](#generate-project)
 * [Building the generated skeleton](#skeleton-build)
 * [Overview the generated skeleton](#skeleton-overview)
