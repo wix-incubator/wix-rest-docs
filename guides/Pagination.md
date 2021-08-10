@@ -22,7 +22,7 @@ So we are going to clone the `wix-academy` repository, create a new branch, and 
 
 You are now ready to generate your new project there.
 
-## Generating a server project using [@wix/wix-wnp-cruderator](https://github.com/wix-platform/wix-node-platform/tree/master/cruderator/wix-wnp-cruderator) <a name="generate-project"></a>
+## Generating a server project using [@wix/wix-wnp-cruderator](https://github.com/wix-platform/wix-node-platform/tree/master/cruderator/wix-wnp-cruderator)
 When you have done the [Creating a node or client-side project](https://github.com/wix-private/fed-handbook/blob/master/ZERO_TO_PRODUCTION.md) task, you have used `yoshi` to generate an empty project.<br/>
 Now we will use a **different tool** to generate a service skeleton - `@wix/wix-wnp-cruderator` (not `yoshi`). <br/>
 `@wix/wix-wnp-cruderator` is suitable for bootstrapping **server-side** apps exposing platformized API (services).       
