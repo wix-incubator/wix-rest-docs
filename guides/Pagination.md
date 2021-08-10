@@ -5,7 +5,7 @@ To remind you, our mission is to implement a simple *Contact service* that will 
 
 ## In this topic you will: 
 * [Cloning the repo](#cloning-the-wix-academy-repository)
-* [Generating a server project using the wix-wnp-cruderator tool](#generate-project)
+* [Generating a server project using the wix-wnp-cruderator tool](#generating-a-server-project-using-wixwix-wnp-cruderator)
 * [Building the generated skeleton](#skeleton-build)
 * [Overview the generated skeleton](#skeleton-overview)
 * [Updating API](#update-api)
