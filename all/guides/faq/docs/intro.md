@@ -22,7 +22,15 @@ It is not possible to look up questions by their text (i.e. free text search is 
 
 The API will return up to 100 questions or categories with default pagination.
 
-## Understanding Labels, Categories and Sort Order
+## Use Cases
+
+The FAQ API supports integration of FAQ site content into third-party developers' applications.
+
+Examples could be:
+ - enable a customer service agent to create, update, and share curated standard answers to customers' questions in a dedicated, chat channel or help center, without having to edit the main site (while having the site reflect those changes)
+ - allow a site owner or developer to reuse and manage shared FAQ content across multiple sites to maintain consistency, separately from the look and feel of each different site
+
+Reusing modular content like FAQs so it is relevant to different audiences takes some planning, so here we give some examples of how to set up and keep track of your content using the API.
 
 ### Categories and Labels
 Labels and categories are similar, but they have very different use cases.
