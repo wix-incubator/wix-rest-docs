@@ -84,7 +84,7 @@ Once the user completes the installation process and gives your app permission t
   </p>
 </blockquote>  
 
-Exchange the temporary authorization code for an access token using the [OAuth > Access Token Request](https://dev.wix.com/api/authorization#oauth-2.access-token-request) API method:  
+Exchange the temporary authorization code for an access token using the [OAuth > Access Token Request](https://dev.wix.com/api/rest/authorization/oauth-2/request-an-access-token) API method:  
 
 ```  
 curl -X POST \
