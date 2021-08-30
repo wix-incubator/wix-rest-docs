@@ -23,8 +23,8 @@ For discussions, bug reports, announcements and other bits please use the
 
 Coupled with Site Properties, is the General Info tab under Settings in the Business Manager
 
-![General Info](https://s3.amazonaws.com/wixplorer-readme-images/site-properties/general_info1.png)
-![General Info](https://s3.amazonaws.com/wixplorer-readme-images/site-properties/general_info2.png)
+![General Info](https://s3.amazonaws.com/wixplorer-readme-images/site-properties%2Fgeneral_info1.png)
+![General Info](https://s3.amazonaws.com/wixplorer-readme-images/site-properties%2Fgeneral_info2.png)
 
 ## Common use cases
 
@@ -38,7 +38,7 @@ Coupled with Site Properties, is the General Info tab under Settings in the Busi
         * Remove the update option in your product, and direct the users to update in the General Info
 * “We don’t support a specific language. How can we inform the user?”
     * We have [specific API in the Business Manager](https://github.com/wix-private/business-settings-api#api) to warn the user in the General Info before saving a change in certain fields such as language and currency: 
-       ![Regional Settings](https://s3.amazonaws.com/wixplorer-readme-images/site-properties/general_info3.png)
+       ![Regional Settings](https://s3.amazonaws.com/wixplorer-readme-images/site-properties%2Fgeneral_info3.png)
 
 ## Common Questions
 
