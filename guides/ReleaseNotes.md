@@ -1,6 +1,6 @@
-# Release Notes
-
-
+# Release Notes  
+ 
+  
 
 August 24, 2021  
 New Release: [FAQ API](https://dev.wix.com/api/rest/site-content/faq)  
@@ -9,7 +9,7 @@ The [FAQ API](https://dev.wix.com/api/rest/site-content/faq) provides the abilit
 
 August 8, 2021  
 New Data: [App Instance API](https://dev.wix.com/api/rest/app-management/apps/app-instance)  
-The `ownerEmail` field is now returned in the [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance) endpoint.
+`ownerEmail` field added to [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance) endpoint response.
 
 
 July 25, 2021  
