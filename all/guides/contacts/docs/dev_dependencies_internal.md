@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 8
 # Dev Dependencies
 
 ### Bazel target
