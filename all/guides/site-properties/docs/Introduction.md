@@ -40,23 +40,40 @@ It also used in the html of the site for SEO and browser support purposes.
 
 Wix saves and supports both, in order to support all locales, even though Wix doesn't support all languages, and to allow special combinations, such as a site in Japanese for users in the US.
 
-### Site Categories 
-A category that the site owner selected when they set up their site.
-
-**Examples:**   
+### Site Categories Examples
 Business  
 Online Store  
-Music  
+Photography 
+Music & Culture  
 Design  
-Blog  
-Beauty & Wellness  
+Restaurants & Food 
+Accommodation   
+Travel & Tourism  
 Portfolio & CV  
-Events  
-Photography  
-Restaurants & Food  
-Fitness  
-Technology Company  
-Real Estate Agency  
-Yoga Studio  
-Financial Consultant  
-Makeup Blog  
+Health & Wellness  
+Fashion & Lifstyle  
+Community & Education  
+Consulting & Coaching   
+Advertising & Marketing  
+Automotive & Cars  
+Real Estate  
+Finance & Law  
+Technology & Apps  
+Pets & Animals  
+Home & Electronics  
+Travel & Documentary 
+Weddings & Celebrations  
+Conferences & Meetups  
+Sport & Recreation  
+Religion & Non Profit  
+Creative Arts  
+Performing Arts  
+Promotional Page
+Sports & Outdoors  
+Kids & Babies 
+Parenthood  
+Art & Culture  
+Leisure & Activities  
+News & Opinions  
+Business & Management  
+Lifestyle  
