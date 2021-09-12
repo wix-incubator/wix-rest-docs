@@ -1,4 +1,4 @@
-SortOrder: 7
+SortOrder: 10
 # Merge Contacts
 
 Nowadays, many site owners are suffering from duplicated contacts.

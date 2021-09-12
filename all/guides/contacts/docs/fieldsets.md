@@ -1,4 +1,4 @@
-SortOrder: 4
+SortOrder: 3
 # Fieldsets and Projected Fields
 
 Some endpoints allow you to return a partial `contact` object
@@ -32,7 +32,6 @@ by specifying them in `fields`:
 - `createdDate`
 - `updatedDate`
 - `lastActivity`
-- `picture`
 - `primaryInfo`
 - `info.name`
 - `info.emails`
@@ -40,9 +39,11 @@ by specifying them in `fields`:
 - `info.addresses`
 - `info.company`
 - `info.jobTitle`
+- `info.picture`
 - `info.birthdate`
 - `info.locale`
 - `info.labelKeys`
+- `info.locations`
 - [`info.extendedFields`][md-ext-fields]
 
 ## Contact Fieldsets
