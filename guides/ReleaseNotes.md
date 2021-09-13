@@ -12,20 +12,6 @@ This deprecates the
 webhooks.
 (September 13, 2021)
 
-## Deprecated Items: [Contacts v4](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object)
-
-The following
-[Contacts v4 extended fields](https://dev.wix.com/api/rest/contacts/contacts/sorting,-filtering,-and-searching#contacts_contacts_sorting,-filtering,-and-searching_extended-fields-filtering-sorting-and-searching)
-are being deprecated:
-`contacts.displayByFirstName`, `contacts.displayByLastName`, `ecom.lastPurchaseDate`, `ecom.numOfPurchases`, `ecom.totalSpentAmount`, `ecom.totalSpentCurrency`, `members.mobile`
-
-The following
-[Contacts v4 contact attributes](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object)
-are being deprecated:
-`picture`, `source.wixAppId`
-
-(September 13, 2021)
-
 ## New Release: [Query Bookings Resources](https://dev.wix.com/api/rest/wix-bookings/resources/query-resources)
 
 The Query Resources endpoint replaces
