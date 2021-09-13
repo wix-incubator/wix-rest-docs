@@ -6,7 +6,7 @@ The Contacts v4 API introduces the
 [Contact Created](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-created-webhook),
 [Contact Updated](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-updated-webhook),
 and [Contact Deleted](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-deleted-webhook)
-webhooks.
+webhooks.  
 This deprecates the
 [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts/contacts-v1-(deprecated)/contact-object)
 webhooks.
@@ -21,7 +21,7 @@ which has been deprecated.
 
 ## New Data: [Bookings Resources](https://dev.wix.com/api/rest/wix-bookings/resources)
 
-`location.businessLocation` field added to [Resource](https://dev.wix.com/api/rest/wix-bookings/resources/resource-object) object.
+`location.businessLocation` field added to [Resource](https://dev.wix.com/api/rest/wix-bookings/resources/resource-object) object.  
 Note that the `location.businessLocation.businessSchedule` object is not supported by Wix Bookings.
 (September 13, 2021)
 
@@ -37,6 +37,6 @@ The [FAQ API](https://dev.wix.com/api/rest/site-content/faq) provides the abilit
 
 ## New Data: [Stores Orders API](https://dev.wix.com/api/rest/wix-stores/orders)
 
-`order.shippingInfo.code` field added to [Wix Stores Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object) object.
+`order.shippingInfo.code` field added to [Wix Stores Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object) object.  
 The `code` field can be used by carrier services / fulfillers to see orders shipped by them.
 (July 25, 2021)
