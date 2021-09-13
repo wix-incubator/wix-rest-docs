@@ -1,11 +1,12 @@
 # Release Notes  
  
 **September 13 2021**  
-New Release:[Query Resources](https://dev.wix.com/api/rest/wix-bookings/resources/query-resources)  
-The Query Resources endpoint replaces [List Resources](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources) which has been deprecated.  
-  
-Clarification: [Bookings API](https://dev.wix.com/api/rest/wix-bookings/about-wix-bookings)  
-The `location.businessLocation.businessSchedule` object is not supported by Wix Bookings.  
+New Release:[Query Bookings Resources](https://dev.wix.com/api/rest/wix-bookings/resources/query-resources)  
+The Query Resources endpoint replaces [List Resources](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources) which has been deprecated. 
+
+New Data: [Bookings Resources](https://dev.wix.com/api/rest/wix-bookings/resources)   
+`location.businessLocation` field added to [Resource](https://dev.wix.com/api/rest/wix-bookings/resources/resource-object) object.  
+Note: The `location.businessLocation.businessSchedule` object is not supported by Wix Bookings.    
  
 **August 24, 2021**  
 New Release: [FAQ API](https://dev.wix.com/api/rest/site-content/faq)  
