@@ -1,7 +1,9 @@
 # Release Notes  
  
-  
-
+September 13 2021  
+Clarification: [Bookings API](https://dev.wix.com/api/rest/wix-bookings/about-wix-bookings)  
+The `location.businessLocation.businessSchedule` object is not supported by Wix Bookings.  
+ 
 August 24, 2021  
 New Release: [FAQ API](https://dev.wix.com/api/rest/site-content/faq)  
 The [FAQ API](https://dev.wix.com/api/rest/site-content/faq) provides the ability to view and manage the questions and answers in the FAQ app.
