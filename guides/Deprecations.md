@@ -1,20 +1,9 @@
-# End of Life Notices
+# Deprecations and End of Life Notices
 
-The following items have been deprecated:
+The following have been deprecated:  
 
-## End of Life: March 31, 2022
 
-- [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All webhooks
-  (Announced September 13, 2021)
-
-- [Contacts v4 extended fields](https://dev.wix.com/api/rest/contacts/contacts/sorting,-filtering,-and-searching#contacts_contacts_sorting,-filtering,-and-searching_extended-fields-filtering-sorting-and-searching):
-  `contacts.displayByFirstName`, `contacts.displayByLastName`, `ecom.lastPurchaseDate`, `ecom.numOfPurchases`, `ecom.totalSpentAmount`, `ecom.totalSpentCurrency`, `members.mobile`
-  (Announced September 13, 2021)
-
-- [Contacts v4 contact attributes](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object):
-  `picture`, `source.wixAppId`
-  (Announced September 13, 2021)
-
-## End of Life: June 30, 2021
-
-- [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All endpoints
+|Endpoint| Deprecation date|App Instance API| End of life date|
+|--|--|--|--|
+|[List Resources](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources)|August 1, 2021|N/A|March 31, 2022|
+|[List Bookings](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings-reader/list-bookings)|August 1, 2021|N/A|March 31, 2022|
