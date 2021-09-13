@@ -1,6 +1,8 @@
 # End of Life Notices
 
-The following items have been deprecated:
+This article contains the items being deprecated across Wix REST APIs.
+Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
+at least 6 months after their announced deprecation.
 
 ## End of Life: March 31, 2022
 
