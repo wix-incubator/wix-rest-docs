@@ -23,6 +23,9 @@ at least 6 months after their announced deprecation.
 
 - Bookings: [List Bookings](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings-reader/list-bookings) 
  (Announced August 1, 2021)
+ 
+- Bookings Service Catalog:[List Bookings](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-serviceshttps://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services)
+(Announced September 14, 2021)
 
 
 ## End of Life: June 30, 2021
