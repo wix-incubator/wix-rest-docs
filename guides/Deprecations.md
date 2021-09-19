@@ -4,6 +4,9 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+
+
+
 ## End of Life: March 31, 2022
 
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All webhooks
@@ -31,3 +34,19 @@ at least 6 months after their announced deprecation.
 ## End of Life: June 30, 2021
 
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All endpoints
+
+
+## Deprecated With Continued Support (No End of Life):
+Stores Products: `price` parameter (replaced with `priceData`)
+Stores Products: `ribbons` parameter (replaced with `ribbon`)
+Stores Inventory: `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)
+Stores Orders: `read` parameter
+Stores Orders: `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)
+Stores Orders: `billingInfo.externalTransactionId` parameter (replaced with `billingInfo.paymentProviderTransactionId`)
+Stores Orders: `shippingInfo.shippingDetails.trackingInfo` parameter (replaced with `fulfillments.trackingInfo`)
+Stores Orders: `shippingInfo.pickupDetails.buyerDetails` parameter (replaced with `buyerInfo`)
+Stores Orders: `lineItems.price` parameter (replaced with `lineItems.priceData`)
+Stores Orders: `lineItems.totalPrice` parameter (replaced with `lineItems.priceData`)
+Stores Orders: `lineItems.taxIncludedInPrice` parameter (replaced with `lineItems.priceData`)
+Stores Orders: `lineItems.mediaItem.mediaId` parameter (replaced with `lineItems.mediaItem.Id`)
+Stores Orders: `discounts.value` parameter (replaced with `totals.discount`)
