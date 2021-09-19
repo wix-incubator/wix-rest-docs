@@ -37,8 +37,8 @@ at least 6 months after their announced deprecation.
 
 
 ## Deprecated With Continued Support (No End of Life):
-Stores Products: `price` parameter (replaced with `priceData`)
-Stores Products: `ribbons` parameter (replaced with `ribbon`)
+Stores Catalog Products: `price` parameter (replaced with `priceData`)
+Stores Catalog Products: `ribbons` parameter (replaced with `ribbon`)
 Stores Inventory: `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)
 Stores Orders: `read` parameter
 Stores Orders: `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)
