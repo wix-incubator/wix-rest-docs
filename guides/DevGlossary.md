@@ -42,7 +42,7 @@
 
 - **Preview**: Site view mode inside the Editor. Allows the user to view the current state of the website as the site visitors will see it and to interact with it.
 
-- **Publis**h: An action inside the Editor which generates a URL for the site so it can be viewed by anyone.
+- **Publish**: An action inside the Editor which generates a URL for the site so it can be viewed by anyone.
 
 - **SDK**: Software Development Kit, a collection of development tools you can use to build your app for a specific platform. Wix's JavaScript SDK exposes methods that enable your app to communicate with the Wix platform – including the Editor, Dashboard, live site, and preview.
 
