@@ -36,17 +36,17 @@ at least 6 months after their announced deprecation.
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All endpoints
 
 
-## Deprecated With Continued Support (No End of Life):
-Stores Catalog Products: `price` parameter (replaced with `priceData`)
-Stores Catalog Products: `ribbons` parameter (replaced with `ribbon`)
-Stores Inventory: `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)
-Stores Orders: `read` parameter
-Stores Orders: `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)
-Stores Orders: `billingInfo.externalTransactionId` parameter (replaced with `billingInfo.paymentProviderTransactionId`)
-Stores Orders: `shippingInfo.shippingDetails.trackingInfo` parameter (replaced with `fulfillments.trackingInfo`)
-Stores Orders: `shippingInfo.pickupDetails.buyerDetails` parameter (replaced with `buyerInfo`)
-Stores Orders: `lineItems.price` parameter (replaced with `lineItems.priceData`)
-Stores Orders: `lineItems.totalPrice` parameter (replaced with `lineItems.priceData`)
-Stores Orders: `lineItems.taxIncludedInPrice` parameter (replaced with `lineItems.priceData`)
-Stores Orders: `lineItems.mediaItem.mediaId` parameter (replaced with `lineItems.mediaItem.Id`)
-Stores Orders: `discounts.value` parameter (replaced with `totals.discount`)
+## Deprecated With Continued Support (No End of Life):  
+Stores Catalog Products: `price` parameter (replaced with `priceData`)  
+Stores Catalog Products: `ribbons` parameter (replaced with `ribbon`)  
+Stores Inventory: `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)  
+Stores Orders: `read` parameter  
+Stores Orders: `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)  
+Stores Orders: `billingInfo.externalTransactionId` parameter (replaced with `billingInfo.paymentProviderTransactionId`)  
+Stores Orders: `shippingInfo.shippingDetails.trackingInfo` parameter (replaced with `fulfillments.trackingInfo`)  
+Stores Orders: `shippingInfo.pickupDetails.buyerDetails` parameter (replaced with `buyerInfo`)  
+Stores Orders: `lineItems.price` parameter (replaced with `lineItems.priceData`)  
+Stores Orders: `lineItems.totalPrice` parameter (replaced with `lineItems.priceData`)  
+Stores Orders: `lineItems.taxIncludedInPrice` parameter (replaced with `lineItems.priceData`)  
+Stores Orders: `lineItems.mediaItem.mediaId` parameter (replaced with `lineItems.mediaItem.Id`)  
+Stores Orders: `discounts.value` parameter (replaced with `totals.discount`)  
