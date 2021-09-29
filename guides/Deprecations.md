@@ -37,16 +37,16 @@ at least 6 months after their announced deprecation.
 
 
 ## Deprecated With Continued Support (No End of Life):  
-Stores Catalog Products: `price` parameter (replaced with `priceData`)  
-Stores Catalog Products: `ribbons` parameter (replaced with `ribbon`)  
-Stores Inventory: `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)  
-Stores Orders: `read` parameter  
-Stores Orders: `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)  
-Stores Orders: `billingInfo.externalTransactionId` parameter (replaced with `billingInfo.paymentProviderTransactionId`)  
-Stores Orders: `shippingInfo.shippingDetails.trackingInfo` parameter (replaced with `fulfillments.trackingInfo`)  
-Stores Orders: `shippingInfo.pickupDetails.buyerDetails` parameter (replaced with `buyerInfo`)  
-Stores Orders: `lineItems.price` parameter (replaced with `lineItems.priceData`)  
-Stores Orders: `lineItems.totalPrice` parameter (replaced with `lineItems.priceData`)  
-Stores Orders: `lineItems.taxIncludedInPrice` parameter (replaced with `lineItems.priceData`)  
-Stores Orders: `lineItems.mediaItem.mediaId` parameter (replaced with `lineItems.mediaItem.Id`)  
-Stores Orders: `discounts.value` parameter (replaced with `totals.discount`)  
+- Stores [Catalog Products](https://dev.wix.com/api/rest/wix-stores/catalog/products/product-object): `price` parameter (replaced with `priceData`)  
+- Stores [Catalog Products](https://dev.wix.com/api/rest/wix-stores/catalog/products/product-object): `ribbons` parameter (replaced with `ribbon`)  
+- Stores [Inventory](https://dev.wix.com/api/rest/wix-stores/inventory/get-inventory-variants): `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `read` parameter  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `buyerInfo.type` parameter (replaced with `buyerInfo.identityType`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `billingInfo.externalTransactionId` parameter (replaced with `billingInfo.paymentProviderTransactionId`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `shippingInfo.shippingDetails.trackingInfo` parameter (replaced with `fulfillments.trackingInfo`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `shippingInfo.pickupDetails.buyerDetails` parameter (replaced with `buyerInfo`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `lineItems.price` parameter (replaced with `lineItems.priceData`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `lineItems.totalPrice` parameter (replaced with `lineItems.priceData`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `lineItems.taxIncludedInPrice` parameter (replaced with `lineItems.priceData`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `lineItems.mediaItem.mediaId` parameter (replaced with `lineItems.mediaItem.Id`)  
+- Stores [Orders](https://dev.wix.com/api/rest/wix-stores/orders/order-object): `discounts.value` parameter (replaced with `totals.discount`)  
