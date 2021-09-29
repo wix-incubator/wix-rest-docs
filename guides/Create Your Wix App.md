@@ -41,7 +41,7 @@ Remember to replace <NGROK_STRING> with the string from the forwarding URL in st
 
 ## Step 4: Register For a Webhook
 1. Go to **Webhooks** in the side menu (under Build Your App) and click **+ Add Webhook**.
-2. Select the **App Management** webhook category and the **APP INSTALLED** event.  
+2. Select the **Wix Developers** webhook category and the **APP INSTALLED** event.  
 ![New webhook](../media/add-webhook.png)
 
 3. Set up the webhook callback URL to https://<12345678>.ngrok.io/webhook-callback.  
