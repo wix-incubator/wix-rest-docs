@@ -31,7 +31,7 @@ The Marketing Tags APIs allow your app to:
 
 * **Domain:** Specifies which website is associated with the marketing tag.
 
-    > **Note:** When the site owner changes the domain of a Wix site, the embedded marketing tags won’t load anymore. To update the domain use the [Upsert Marketing Tags](https://dev.wix.com/api/rest/marketing/marketing-tags/upsert-marketing-tags) endpoint. Currently, there is no way to sign up for notifications when a site owner changes their domain name.
+    > **Note:** When the site owner changes the domain of a Wix site, the embedded marketing tags won’t load anymore. To update the domain use the [Upsert Marketing Tag](https://dev.wix.com/api/rest/marketing/marketing-tags/upsert-marketing-tag) endpoint. Currently, there is no way to sign up for notifications when a site owner changes their domain name.
 * **Tracking ID:** Specifies which external ID is associated with the site owner. Learn more about each tracking ID in the corresponding object description. These are the supported external IDs:
 
     | Marketing Tag | External ID Name | ID Format| 
