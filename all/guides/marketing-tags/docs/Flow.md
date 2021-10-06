@@ -50,7 +50,7 @@ In the response of the call, you can see that the associated domains are out-dat
 
 ### Step 2: Update an Embedded Marketing Tag
 
-Then, you’ll do a separate call of the [Upsert Marketing Tags endpoint](https://dev.wix.com/api/rest/marketing/marketing-tags/upsert-marketing-tags) for each tag to change the associated domain. You’ll need to pass the new domain in the body of each call, as shown in the example below for the Google Ads Conversion tag.
+Then, you’ll do a separate call of the [Upsert Marketing Tag endpoint](https://dev.wix.com/api/rest/marketing/marketing-tags/upsert-marketing-tag) for each tag to change the associated domain. You’ll need to pass the new domain in the body of each call, as shown in the example below for the Google Ads Conversion tag.
 
 ```sh
 curl -X POST \
