@@ -1,0 +1,1825 @@
+{
+  "name": "Payment Provider Platform",
+  "client_id": "https://github.com/wix-private/cashier/tree/master/payment-services/provider-platform-modules/payment-plugin-spi/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Integrate your payment provider with payment methods into WIX to allow merchants process payments on WIX",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Account",
+      "entity": null
+    },
+        {
+      "name": "Transaction",
+      "entity": null
+    },
+        {
+      "name": "Event",
+      "entity": null
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/payment-provider-platform/docs/payment-plugin.md",
+      "name": "Payment Plugin"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/required-fields.md",
+      "name": "Required Fields"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/refunding-payments.md",
+      "name": "Refunding Payments"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/idempotency.md",
+      "name": "Idempotency"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/provider-use-case.md",
+      "name": "Use Cases"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/reason-codes.md",
+      "name": "Reason Codes"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/payment-methods.md",
+      "name": "Payment Methods"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/terminology.md",
+      "name": "Terminology"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/currencies.md",
+      "name": "Currencies"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/making-payments.md",
+      "name": "Making Payments"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/getting-started.md",
+      "name": "Getting Started"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/connecting-account.md",
+      "name": "Connecting Account"
+    },
+        {
+      "path": "../guides/payment-provider-platform/docs/webhooks.md",
+      "name": "Webhooks"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Connect Account",
+      "methodName": "ConnectAccount",
+      "serviceName": "ProviderAccountsService",
+      "tag": "Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "credentials",
+        "wixMerchantId"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "credentials",
+          "type": "All APIs.Payment Provider Platform.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Free format of the fields that describes merchant credentials for Payment Provider. The format must be specified in  [Wix DevCenter](https://dev.wix.com/) beforehand or notified manually. It will be filled by merchant according to JSON schema during onboarding process and will be passed to Payment Provider as is.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "country",
+          "type": "string",
+          "doc": " The country in which the merchant will provide their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": " Code for the merchant's preferred [currency](https://en.wikipedia.org/wiki/ISO_4217).\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Connection mode. Identifies whether an account is live or for testing purposes. \n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "wixMerchantId",
+          "type": "string",
+          "doc": " Wix merchant ID.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ConnectAccount",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Payment Provider Platform._wix_payments_v1_provider_ConnectAccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThis endpoint is triggered when a merchant provides the required data to connect a payment provider account to their Wix site.\nThis allows you to verify the merchant's credentials as provided to Wix, and confirm that the merchant is registered to your service.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/connect",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ConnectAccountRequest",
+        "rpcResponseName": "ConnectAccountResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Transaction",
+      "methodName": "CreateTransaction",
+      "serviceName": "ProviderTransactionsService",
+      "tag": "Transaction",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": "\nPayment method supported by the payment provider.\nThese values will be displayed to the end-user upon checkout and will be passed to the payment provider to understand what payment method a user selected on the Wix side.\nIn case `paymentMethod:creditCard` field `paymentMethodData` will be initialized with `card`data.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "merchantCredentials",
+          "type": "All APIs.Payment Provider Platform.merchantCredentialsMapEntry",
+          "doc": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "order",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Order",
+          "doc": " Order information.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Connection mode. Identifies whether an account is live or for testing purposes.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "installments",
+          "type": "integer",
+          "doc": " Number of payment installments.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "wixMerchantId",
+          "type": "string",
+          "doc": " Wix merchant ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethodData",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_PaymentMethodData",
+          "doc": "\nPayment method data information. Currently this data will be accessible in case `paymentMethod` equals to `creditCard`.\nPlease note that this call initiated in case you added *creditCard* as a payment method at [DevCenter](https://dev.wix.com).\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "fraudInformation",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_FraudInformation",
+          "doc": " Information in case of fraud.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateTransaction",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Payment Provider Platform._wix_payments_v1_provider_TransactionResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThis endpoint is triggered when a transaction is recorded in Wix. Initiate payment upon receipt of this call.\nMake sure to use the wixTransactionId parameter as an idempotency key, as Wix will retry the call in case of failure.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/sale",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateTransactionRequest",
+        "rpcResponseName": "TransactionResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Refund Transaction",
+      "methodName": "RefundTransaction",
+      "serviceName": "ProviderRefundsService",
+      "tag": "Transaction",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "wixtransactionId",
+        "wixrefundId",
+        "plugintransactionId",
+        "merchantCredentials"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "wixRefundId",
+          "type": "string",
+          "doc": " Refund ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " Provider transaction ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "merchantCredentials",
+          "type": "All APIs.Payment Provider Platform.merchantCredentialsMapEntry",
+          "doc": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "refundAmount",
+          "type": "string",
+          "doc": "\nTotal amount to pay in a currency’s smallest unit. In the example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Transaction mode. Identifies whether an account is live or for testing purposes.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "reason",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_CreateRefundRequest_RefundReason",
+          "doc": " Reason for refund. Defined by the merchant.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "RefundTransaction",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Payment Provider Platform._wix_payments_v1_provider_CreateRefundResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThe call from the Wix server should initiate a payment refund process on the provider's side.\nIt must be idempotent, so that if a conncection is lost, Wix platform will retry the same call with the same parameters.\nThe `wixRefundId` parameter must be used as an idempotent key in order to identify the call invocation.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/refund",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateRefundRequest",
+        "rpcResponseName": "CreateRefundResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Submit Event",
+      "methodName": "SubmitEvent",
+      "serviceName": "ProviderPlatformEventsService",
+      "tag": "Event",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["event.pluginId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "event",
+        "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+        "doc": " Provider platform event.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "SubmitEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_SubmitEventResponse"]
+        },
+        "doc": " Submit event response\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This method must be used by payment plugins to update payment status on the side of Wix.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/payments/v1/provider-platform-events",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SubmitEventRequest",
+        "rpcResponseName": "SubmitEventResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "credentialsMapEntry",
+      "displayName": "credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Free format of the fields that describes merchant credentials for Payment Provider. The format must be specified in  [Wix DevCenter](https://dev.wix.com/) beforehand or notified manually. It will be filled by merchant according to JSON schema during onboarding process and will be passed to Payment Provider as is.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_ConnectAccountRequest",
+      "displayName": "Connect Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "credentials",
+          "type": "All APIs.Payment Provider Platform.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Free format of the fields that describes merchant credentials for Payment Provider. The format must be specified in  [Wix DevCenter](https://dev.wix.com/) beforehand or notified manually. It will be filled by merchant according to JSON schema during onboarding process and will be passed to Payment Provider as is.\n"
+        },
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " The country in which the merchant will provide their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Code for the merchant's preferred [currency](https://en.wikipedia.org/wiki/ISO_4217).\n"
+        },
+                {
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Connection mode. Identifies whether an account is live or for testing purposes. \n"
+        },
+                {
+          "name": "wixMerchantId",
+          "type": "string",
+          "doc": " Wix merchant ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "credentialsMapEntry",
+      "displayName": "credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_ConnectAccountResponse",
+      "displayName": "Connect Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "credentials",
+          "type": "All APIs.Payment Provider Platform.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Merchant account ID. This must not be changed over the lifetime of their account.\n"
+        },
+                {
+          "name": "accountName",
+          "type": "string",
+          "doc": " Merchant account name.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Reason code predefined by Wix that indicates call result.\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Error code specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Error description specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "result",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_ConnectAccountResponse_result",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_ConnectAccountResponse_result",
+      "displayName": "result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "credentialsMapEntry",
+      "displayName": "credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_ConnectAccountResult",
+      "displayName": "Connect Account Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "credentials",
+          "type": "All APIs.Payment Provider Platform.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Merchant account ID. This must not be changed over the lifetime of their account.\n"
+        },
+                {
+          "name": "accountName",
+          "type": "string",
+          "doc": " Merchant account name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_ConnectAccountError",
+      "displayName": "Connect Account Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "merchantCredentialsMapEntry",
+      "displayName": "merchant Credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundRequest",
+      "displayName": "Create Refund Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+                {
+          "name": "wixRefundId",
+          "type": "string",
+          "doc": " Refund ID.\n"
+        },
+                {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " Provider transaction ID.\n"
+        },
+                {
+          "name": "merchantCredentials",
+          "type": "All APIs.Payment Provider Platform.merchantCredentialsMapEntry",
+          "doc": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n"
+        },
+                {
+          "name": "refundAmount",
+          "type": "string",
+          "doc": "\nTotal amount to pay in a currency’s smallest unit. In the example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n"
+        },
+                {
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Transaction mode. Identifies whether an account is live or for testing purposes.\n"
+        },
+                {
+          "name": "reason",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_CreateRefundRequest_RefundReason",
+          "doc": " Reason for refund. Defined by the merchant.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundResponse",
+      "displayName": "Create Refund Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pluginRefundId",
+          "type": "string",
+          "doc": " Refund identifier on the side of a *Payment Provider*.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Reason code predefined by Wix that indicates call result.\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Error code specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Error description specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "result",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_CreateRefundResponse_result",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundResponse_result",
+      "displayName": "result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundResult",
+      "displayName": "Create Refund Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "pluginRefundId",
+        "type": "string",
+        "doc": " Provider refund ID.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundError",
+      "displayName": "Create Refund Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Wix predefined reason code.\n"
+        },
+                {
+          "name": "pluginRefundId",
+          "type": "string",
+          "doc": " Provider refund ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Provider error code.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Provider error description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "merchantCredentialsMapEntry",
+      "displayName": "merchant Credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateTransactionRequest",
+      "displayName": "Create Transaction Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+                {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": "\nPayment method supported by the payment provider.\nThese values will be displayed to the end-user upon checkout and will be passed to the payment provider to understand what payment method a user selected on the Wix side.\nIn case `paymentMethod:creditCard` field `paymentMethodData` will be initialized with `card`data.\n"
+        },
+                {
+          "name": "merchantCredentials",
+          "type": "All APIs.Payment Provider Platform.merchantCredentialsMapEntry",
+          "doc": "Set of key-value pairs. Payment Provider own credentials that were connected during the onboarding process.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Order",
+          "doc": " Order information.\n"
+        },
+                {
+          "name": "mode",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Mode",
+          "doc": " Connection mode. Identifies whether an account is live or for testing purposes.\n"
+        },
+                {
+          "name": "installments",
+          "type": "integer",
+          "doc": " Number of payment installments.\n"
+        },
+                {
+          "name": "wixMerchantId",
+          "type": "string",
+          "doc": " Wix merchant ID.\n"
+        },
+                {
+          "name": "paymentMethodData",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_PaymentMethodData",
+          "doc": "\nPayment method data information. Currently this data will be accessible in case `paymentMethod` equals to `creditCard`.\nPlease note that this call initiated in case you added *creditCard* as a payment method at [DevCenter](https://dev.wix.com).\n"
+        },
+                {
+          "name": "fraudInformation",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_FraudInformation",
+          "doc": " Information in case of fraud.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_PaymentMethodData",
+      "displayName": "Payment Method Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "payment",
+        "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_PaymentMethodData_payment",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_PaymentMethodData_payment",
+      "displayName": "payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "card",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Card",
+          "doc": " Credit card information.\n"
+        },
+                {
+          "name": "ideal",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_IDeal",
+          "doc": " IDeal payment information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_Card",
+      "displayName": "Card Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Credit card number.\n"
+        },
+                {
+          "name": "year",
+          "type": "integer",
+          "doc": " Card expiration date - year.\n"
+        },
+                {
+          "name": "month",
+          "type": "integer",
+          "doc": " Card expiration date - month.\n"
+        },
+                {
+          "name": "cvv",
+          "type": "string",
+          "doc": " Card verification value (CVV).\n"
+        },
+                {
+          "name": "holderName",
+          "type": "string",
+          "doc": " Card holder's full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_IDeal",
+      "displayName": "I Deal Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "issuerBank",
+        "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_IssuerBank",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_FraudInformation",
+      "displayName": "Fraud Information Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "remoteIp",
+        "type": "string",
+        "doc": " Customer (buyer) IP address.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_Order",
+      "displayName": "Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Merchant order ID. Can be used by a merchant to correlate payment on Wix and on provider side.\n"
+        },
+                {
+          "name": "description",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_OrderDescription",
+          "doc": ""
+        },
+                {
+          "name": "returnUrls",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_OrderReturnUrls",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_OrderDescription",
+      "displayName": "Order Description Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalAmount",
+          "type": "string",
+          "doc": "\nTotal amount to pay in a currency’s smallest unit. In example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Code for the merchant's preferred [currency](https://en.wikipedia.org/wiki/ISO_4217).\n"
+        },
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Payment Provider Platform._wix_payments_v1_provider_OrderItem"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "charges",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_AdditionalCharges",
+          "doc": ""
+        },
+                {
+          "name": "billingAddress",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Address",
+          "doc": ""
+        },
+                {
+          "name": "shippingAddress",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_Address",
+          "doc": ""
+        },
+                {
+          "name": "buyerInfo",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_BuyerInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_OrderItem",
+      "displayName": "Order Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Item name provided by the merchant.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Item quantity.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Item price.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Item description provided by the merchant.\n"
+        },
+                {
+          "name": "weightInKg",
+          "type": "number",
+          "doc": " Item weight in KG provided by the merchant.\n"
+        },
+                {
+          "name": "category",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_OrderItem_OrderItemCategory",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_AdditionalCharges",
+      "displayName": "Additional Charges Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tax",
+          "type": "string",
+          "doc": " Calculated taxes applyed for the full order.\n"
+        },
+                {
+          "name": "shipping",
+          "type": "string",
+          "doc": " Order shipping cost.\n"
+        },
+                {
+          "name": "discount",
+          "type": "string",
+          "doc": " Discount amount applied to order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Buyer's first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Buyer's last name.\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": " Buyer's company name.\n"
+        },
+                {
+          "name": "address",
+          "type": "string",
+          "doc": "\nBilling or delivery address line.\nThis field represents a street and house number concatenation.\n"
+        },
+                {
+          "name": "street",
+          "type": "string",
+          "doc": " Street name.\n"
+        },
+                {
+          "name": "houseNumber",
+          "type": "string",
+          "doc": " House number.\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City.\n"
+        },
+                {
+          "name": "state",
+          "type": "string",
+          "doc": " State.\n"
+        },
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Zip code.\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Country of a buyer.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone of a buyer.\n"
+        },
+                {
+          "name": "fax",
+          "type": "string",
+          "doc": " Fax of a buyer in free form format.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email of a buyer.\n"
+        },
+                {
+          "name": "taxIdentifier",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_TaxIdentifier",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_TaxIdentifier",
+      "displayName": "Tax Identifier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Specific Tax id for merchant country.\n"
+        },
+                {
+          "name": "type",
+          "type": "string",
+          "doc": " Specific Tax type for merchant country.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_BuyerInfo",
+      "displayName": "Buyer Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "buyerId",
+          "type": "string",
+          "doc": " Free format unique buyer identifier assigned by Wix.\n"
+        },
+                {
+          "name": "buyerLanguage",
+          "type": "string",
+          "doc": " Buyer language in [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)) format.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_OrderReturnUrls",
+      "displayName": "Order Return Urls Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "successUrl",
+          "type": "string",
+          "doc": " URL destination to merchants site in case of successful payment.\n"
+        },
+                {
+          "name": "errorUrl",
+          "type": "string",
+          "doc": " URL destination to merchants site in case of failed payment.\n"
+        },
+                {
+          "name": "cancelUrl",
+          "type": "string",
+          "doc": " URL destination to merchants site in case of payment cancellation.\n"
+        },
+                {
+          "name": "pendingUrl",
+          "type": "string",
+          "doc": " URL destination to merchants site in case of pending payment.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionResponse",
+      "displayName": "Transaction Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " Transaction identifier on the side of a *Payment Provider*.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Reason code predefined by Wix that indicates call result.\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Error code specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Error description specific for a *Payment Provider*.\n"
+        },
+                {
+          "name": "redirectUrl",
+          "type": "string",
+          "doc": " Web page URL where a buyer can proceed with a payment.\n"
+        },
+                {
+          "name": "result",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_TransactionResponse_result",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionResponse_result",
+      "displayName": "result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionResult",
+      "displayName": "Transaction Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " `Payment Provider` transaction identifier.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " `Wix` predefined reasonCode that specifies actual error.\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " `Payment provider` own error code\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " `Payment Provider` error description with details of the decline\n"
+        },
+                {
+          "name": "details",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_TransactionResult_details",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionResult_details",
+      "displayName": "details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_RedirectResponse",
+      "displayName": "Redirect Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "redirectUrl",
+          "type": "string",
+          "doc": " URL of the `Payment Provider` where buyer will be forwarded in order to make a payment.\n"
+        },
+                {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " `Payment Provider` transaction identifier.\n"
+        },
+                {
+          "name": "details",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_RedirectResponse_details",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_RedirectResponse_details",
+      "displayName": "details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "card",
+        "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_CardDetails",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionError",
+      "displayName": "Transaction Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "reasonCode",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CardDetails",
+      "displayName": "Card Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bin",
+          "type": "string",
+          "doc": " Card bin, first six digits\n"
+        },
+                {
+          "name": "lastFour",
+          "type": "string",
+          "doc": " Card last four digits\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_SubmitEventRequest",
+      "displayName": "Submit Event Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Submit event request\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "event",
+        "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+        "doc": " Provider platform event.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
+      "displayName": "Provider Platform Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pluginId",
+          "type": "string",
+          "doc": " Provider `clientId` provided during app registration in the [DevCenter](https://dev.wix.com).\n"
+        },
+                {
+          "name": "resource",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource",
+          "doc": " Resource specifies event type based on its content.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_ProviderPlatformEvent_resource",
+      "displayName": "resource Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "refund",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_RefundEvent",
+          "doc": " Refund event type.\n"
+        },
+                {
+          "name": "transaction",
+          "type": "All APIs.Payment Provider Platform._wix_payments_v1_provider_platform_events_TransactionEvent",
+          "doc": " Transaction event type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_RefundEvent",
+      "displayName": "Refund Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+                {
+          "name": "pluginRefundId",
+          "type": "string",
+          "doc": " Payment provider refund ID.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Refunded amount.\n"
+        },
+                {
+          "name": "wixRefundId",
+          "type": "string",
+          "doc": " Wix refund ID. In case refund was performed via Wix admin panel by merchant.\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Payment provider's own error code.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Payment provider's error description with details of the decline.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_TransactionEvent",
+      "displayName": "Transaction Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "wixTransactionId",
+          "type": "string",
+          "doc": " Wix transaction ID.\n"
+        },
+                {
+          "name": "pluginTransactionId",
+          "type": "string",
+          "doc": " Payment Provider transaction ID.\n"
+        },
+                {
+          "name": "reasonCode",
+          "type": "integer",
+          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Payment provider's error code.\n"
+        },
+                {
+          "name": "errorMessage",
+          "type": "string",
+          "doc": " Payment provider's error description with details of the decline.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_SubmitEventResponse",
+      "displayName": "Submit Event Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Submit event response\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_Mode",
+      "displayName": "Mode Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> undefined <\/code><\/li><li><code> live <\/code><\/li><li><code> sandbox <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "undefined",
+        "live",
+        "sandbox"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundRequest_RefundReason",
+      "displayName": "Refund Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> DUPLICATE <\/code><\/li><li><code> FRAUDULENT <\/code><\/li><li><code> REQUESTED_BY_CUSTOMER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "DUPLICATE",
+        "FRAUDULENT",
+        "REQUESTED_BY_CUSTOMER"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CreateRefundResponse_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "APPROVED",
+        "PENDING",
+        "CANCELED",
+        "DECLINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_IssuerBank",
+      "displayName": "Issuer Bank Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ING <\/code><\/li><li><code> RABOBANK <\/code><\/li><li><code> ABN_AMRO <\/code><\/li><li><code> SNS_BANK <\/code><\/li><li><code> BUNQ <\/code><\/li><li><code> ASN_BANK <\/code><\/li><li><code> REGIOBANK <\/code><\/li><li><code> TRIODOS_BANK <\/code><\/li><li><code> KNAB <\/code><\/li><li><code> VAN_LANSCHOT <\/code><\/li><li><code> HANDELSBANKEN <\/code><\/li><li><code> REVOLUT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ING",
+        "RABOBANK",
+        "ABN_AMRO",
+        "SNS_BANK",
+        "BUNQ",
+        "ASN_BANK",
+        "REGIOBANK",
+        "TRIODOS_BANK",
+        "KNAB",
+        "VAN_LANSCHOT",
+        "HANDELSBANKEN",
+        "REVOLUT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_TransactionStatus",
+      "displayName": "Transaction Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "APPROVED",
+        "PENDING",
+        "CANCELED",
+        "DECLINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_OrderItem_OrderItemCategory",
+      "displayName": "Order Item Category Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> undefined <\/code><\/li><li><code> physical <\/code><\/li><li><code> digital <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "undefined",
+        "physical",
+        "digital"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.payment.payment-services-web"}
+}
