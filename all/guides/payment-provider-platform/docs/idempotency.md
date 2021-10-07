@@ -1,0 +1,9 @@
+SortOrder: 6
+# Idempotency
+*Idempotency*, when applied to HTTP endpoints, means they can be called multiple times with the same *idempotency key* but only the first invocation should have the effect intended. This property allows for safe retries when calls can be interrupted due to network issues.
+
+Regarding `CreateTransaction`, it means only the first invocation with particular `wixTransactionId` should perform a payment and create a corresponding *Transaction* entity with a unique `pluginTransactionId` on the side of a *Payment Provider*. All subsequent invocation must return the latest state of that *Transaction* regardless if the first invocation has been successful or not. If the state changes between invocations, then the latest state should be returned. For example, if the first invocation returns `redirectUrl` but the transaction fails soon after, the second invocation should not return `redirectUrl` but `reasonCode`.
+
+Regarding `RefundTransaction`, it means only the first invocation with particular `wixRefundId` should perform a refund and create a corresponding *Refund* entity with a unique `pluginRefundId` on the side of a *Payment Provider*. All subsequent invocation should return the latest state of the *Refund* regardless if the first invocation has been successful or not. If the state changes between invocations, then the latest state should be returned.
+
+If `SubmitEvent'was called to notify Wix about a refund on the *Payment Provider's* side, only the first invocation with a particular `pluginRefundId` creates a corresponding *Refund* entity on Wix side. All subsequent invocations can only update the details of that refund.
