@@ -1,5 +1,12 @@
 # Release Notes
 
+## New Release: [Query Service Catalog](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/query-service-catalog)
+
+The Query Service Catalog endpoint replaces
+[List services](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services),
+which has been deprecated.
+(October 13, 2021)
+
 ## New Webhooks: [Contacts v4](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object)
 
 The Contacts v4 API introduces the
