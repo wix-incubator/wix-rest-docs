@@ -50,8 +50,6 @@ The following operators are supported:
 * _$ne_ - Matches all values that are not equal to a specified value.
 * _$nin_ - Matches none of the values specified in an array.
 * _$begins_ - Matches strings that begin with a specified value (NOT case sensitive).
-* _$ends_ - Matches strings that ends with a specified value (NOT case insensitive).
-* _$contains_ - Matches strings that contain a specified value (NOT case sensitive).
 
 ##### Logical
 * _$and_ - Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
