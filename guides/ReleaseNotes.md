@@ -1,5 +1,15 @@
 # Release Notes
 
+## New Release: [Wix Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders)
+
+The [Wix Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders) provides the ability to retrieve orders and update their statuses.
+(October 26, 2021)
+
+## New Release: [Marketing Tags API](https://dev.wix.com/api/rest/marketing/marketing-tags)
+
+The [Marketing Tags API](https://dev.wix.com/api/rest/marketing/marketing-tags) provides the ability to manage embedded marketing tags.
+(October 26, 2021)
+
 ## New Release: [Query Service Catalog](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/query-service-catalog)
 
 The Query Service Catalog endpoint replaces
