@@ -10,5 +10,9 @@ Learn more [about Wix Blog](https://support.wix.com/en/article/wix-blog-about-th
 
 - **Post**
   An article written by the site owner and published in their blog. Also called publication.
+- **Draft Post**
+  An article written by the site owner and not yet published in their blog. It is only accessible internally.
 - **Category**
   A logical group that the site writer assigns their publication(s) to in their blog.
+- **Tag**
+  A subset of categories for organizing blog posts.
