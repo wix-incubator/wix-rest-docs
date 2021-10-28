@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Wix Blog Post Stats API](https://dev.wix.com/api/rest/wix-blog/blog/post-stats/get-total-posts)
+
+The [Wix Blog Post Stats API](https://dev.wix.com/api/rest/wix-blog/blog/post-stats/get-total-posts) provides the ability to get the total number of posts published to a blog, and to filter for number of posts published per month. (October 28, 2021)
+
 ## New Release: [Wix Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders)
 
 The [Wix Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders) provides the ability to retrieve orders and update their statuses.
