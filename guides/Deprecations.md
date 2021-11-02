@@ -6,8 +6,8 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
-- App Management - [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance),
-`ownerEmail` field, replaced with `ownerInfo`.
+- App Management - [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance):
+`ownerEmail` field, replaced by `ownerInfo`.
 (Announced November 1, 2021)
 
 ## End of Life: March 31, 2022
