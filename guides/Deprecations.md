@@ -4,8 +4,11 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: June 30, 2022
 
-
+- App Management - [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance),
+`ownerEmail` field, replaced with `ownerInfo`.
+(Announced November 1, 2021)
 
 ## End of Life: March 31, 2022
 
@@ -29,7 +32,6 @@ at least 6 months after their announced deprecation.
  
 - Bookings Service Catalog: [List services](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services)
 (Announced September 14, 2021)
-
 
 ## End of Life: June 30, 2021
 
