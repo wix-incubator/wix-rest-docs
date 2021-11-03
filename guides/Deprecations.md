@@ -25,16 +25,15 @@ at least 6 months after their announced deprecation.
 - [Contacts v4 contact attributes](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object):
   `picture`, `source.wixAppId`
   (Announced September 13, 2021)
-  
+
 - Bookings: [List Resources](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources)
   (Announced August 1, 2021)
 
-
 - Bookings: [List Bookings](https://dev.wix.com/api/rest/wix-bookings/bookings/bookings-reader/list-bookings) 
- (Announced August 1, 2021)
- 
+  (Announced August 1, 2021)
+
 - Bookings Service Catalog: [List services](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services)
-(Announced September 14, 2021)
+  (Announced September 14, 2021)
 
 ## End of Life: June 30, 2021
 
