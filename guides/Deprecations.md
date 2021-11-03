@@ -6,8 +6,12 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
+- Member Authentication [Send Set Password Email](https://dev.wix.com/api/rest/members/member-authentication/send-set-password-email):
+  `requestedByMember` parameter replaced by `hideIgnoreMessage`.
+  (Announced November 3, 2021)
+
 - App Management - [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance):`ownerEmail` field replaced by `ownerInfo` object.
-(Announced November 1, 2021)
+  (Announced November 1, 2021)
 
 ## End of Life: March 31, 2022
 
