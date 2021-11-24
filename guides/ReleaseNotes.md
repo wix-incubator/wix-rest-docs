@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Wix Members Activity Counters API](https://dev.wix.com/api/rest/members/activity-counters)
+
+The [Wix Members Activity Counters API](https://dev.wix.com/api/rest/members/activity-counters) provides third parties with the ability to read public counts of member activities from Wix apps, and read and set public and private counts of member activities from their own apps. (November 24, 2021)
+
 ## New Release: [Wix Blog Post Stats API](https://dev.wix.com/api/rest/wix-blog/blog/post-stats/get-total-posts)
 
 The [Wix Blog Post Stats API](https://dev.wix.com/api/rest/wix-blog/blog/post-stats/get-total-posts) provides the ability to get the total number of posts published to a blog, and to filter for number of posts published per month. (October 28, 2021)
