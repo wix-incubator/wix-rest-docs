@@ -43,18 +43,18 @@ Third-party developers can
 ## Initializing a counter
 
 To create a new counter for a third-party app, use the [Set Activity Counters
- endpoint.](https://dev.wix.com/api/rest/activity-counters/set-activity-counters)
+ endpoint.](https://dev.wix.com/api/rest/members/activity-counters/set-activity-counters)
 
 ## Use cases
 
 **Most active writer widget.** 
 A developer wants to add a "most active writer" widget to their home page, based on the number of posts each member creates.
 
-1. Get per-member post numbers for blog or forum app using the [Get Activity Counters endpoint.](https://dev.wix.com/api/rest/activity-counters/get-activity-counters)
+1. Get per-member post numbers for blog or forum app using the [Get Activity Counters endpoint.](https://dev.wix.com/api/rest/members/activity-counters/get-activity-counters)
 2. Process counts and display in widget.
  
 **Most influential member widget.** 
 A developer wants to add a "most influential members" widget to his community, based on how many likes and comments each member's posts get.
 
-1. Get per-member reaction numbers for blog/forum app using [Get Activity Counters endpoint.](https://dev.wix.com/api/rest/activity-counters/get-activity-counters)
+1. Get per-member reaction numbers for blog/forum app using [Get Activity Counters endpoint.](https://dev.wix.com/api/rest/members/activity-counters/get-activity-counters)
 2. Process counts and display in widget.
