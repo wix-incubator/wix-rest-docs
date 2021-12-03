@@ -6,6 +6,14 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
+- Forum [Category object](https://dev.wix.com/api/rest/communities/wix-forum/category/category-object):
+  `postTypes` parameter deprecated without replacement.
+  (Announced December 3, 2021)
+
+- Forum [Post object](https://dev.wix.com/api/rest/communities/wix-forum/post/post-object):
+  `postType` parameter deprecated without replacement.
+  (Announced December 3, 2021)
+
 - Member Authentication [Send Set Password Email](https://dev.wix.com/api/rest/members/member-authentication/send-set-password-email):
   `requestedByMember` parameter replaced by `hideIgnoreMessage`.
   (Announced November 3, 2021)
