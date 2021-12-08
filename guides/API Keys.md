@@ -16,11 +16,11 @@ The API request is constructed in the same way as with regular API requests, but
 
 ## Finding Account and Site ID's
 
-#### Finding an Account ID
+### Finding an Account ID
 
 tbd
 
-#### Finding a Site ID
+### Finding a Site ID
 
 Site ID’s can be retrieved using Site List’s **Query Sites** API, described [here](https://bo.wix.com/wix-docs/rest/site-list/site-list/query-sites). This API requires authorization with the API key and an account ID.
 
@@ -28,7 +28,7 @@ Site ID’s can be retrieved using Site List’s **Query Sites** API, described 
 
 Construct the header for the API by using the API key for authorization instead of the OAuth token. Note that the API key does not need to be refreshed like the OAuth token.
 
-In addition to authorization, API calls made with an API key require the header to contain the account ID and the site ID. 
+In addition to authorization, API calls made with an API key require the header to contain the account ID and/or the site ID. 
 
 A complete header for an API request looks like this:
 
@@ -38,10 +38,9 @@ curl <GET/POST>\
 -H 'Authorization: <APIKEY>’ \
 -H wix-account-id:<ACCOUNTID>’ \
 -H ‘wix-site-id:<SITEID>’ \
-
 ```
 
-The body of the request is the same as for the standard API requests as per the documentation.
+The body of the request is the same as for the standard API requests as per the documentation for each.
 
 ## Account-Level and Site-Level API Requests
 
@@ -55,7 +54,7 @@ With site-level API requests, the account ID may be ommitted.
 
 This API creates a new Wix account as a sub-accoun of the targetAccountId and a new Wix user in this account who is defined as the account owner.
 
-Request:
+**Request:**
 
 ```
 curl POST \
@@ -71,10 +70,9 @@ curl POST \
 }}' \
 ```
 
-Response:
+**Response (JSON):**
 
-```
-json:
+```json
 {
   Account: [
     “accountId”: “0c87cd5d-4059-4e86-8f6e-d185b1e4a1bd”
@@ -83,7 +81,7 @@ json:
 
 ### Example: Site Level “Query Products” API in Wix Stores
 
-Request:
+**Request**:
 
 ```
 curl POST \
@@ -101,10 +99,9 @@ curl POST \
 }}' \
 ```
 
-Response:
+**Response (JSON)**:
 
-```
-json:
+```json
 {
   products: [
    {
