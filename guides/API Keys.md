@@ -52,7 +52,7 @@ With site-level API requests, the account ID may be ommitted.
 
 ### Example: Account-Level “Create Account” API
 
-This API creates a new Wix account as a sub-accoun of the targetAccountId and a new Wix user in this account who is defined as the account owner.
+This API creates a new Wix account as a sub-account of the targetAccountId and a new Wix user in this account who is defined as the account owner.
 
 **Request:**
 
