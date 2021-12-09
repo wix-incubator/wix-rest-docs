@@ -6,5 +6,9 @@ The data received will vary by the type of event, but the following will always 
 * **instanceId**: The App Instance ID. This is the unique identifier of the app within the website.
 * **eventType**: A description of the event type, e.g., OrderEvent.
 
-> **Note:**
-> You must return a 200 response upon successful receipt of a webhook. The timeout for the response is 1250 ms. Additional attempts to send the request are made after a timeout as described in this [article](https://devforum.wix.com/kb/en/article/about-webhooks#resend-policy).
+<blockquote class='important'>
+  <p>
+    <strong>Important:</strong><br/>
+    You must return a 200 response upon successful receipt of a webhook. The timeout for the response is 1250 ms. Additional attempts to send the request are made after a timeout as described in this [article](https://devforum.wix.com/kb/en/article/about-webhooks#resend-policy).
+  </p>
+</blockquote>  
