@@ -4,9 +4,10 @@
 
 API keys allow users to make API calls to an account or individual site without needing OUath authentication. In addition to the key itself, a set of permissions assigned when the key is created limit the types of API’s that can be accessed with the particular key.
 
-Learn about creating and managing API keys by reading this [article](https://support.wix.com/en/article/about-wix-api-keys).
+Learn about creating and managing API keys at this [article](https://support.wix.com/en/article/about-wix-api-keys).
 
-**Note**: API keys and this documentation are currently in beta.
+> **Note:**
+> API keys and this documentation are currently in beta.
 
 ## API Requests with API Keys
 
