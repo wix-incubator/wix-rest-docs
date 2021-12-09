@@ -9,6 +9,6 @@ The data received will vary by the type of event, but the following will always 
 <blockquote class='important'>
   <p>
     <strong>Important:</strong><br/>
-    You must return a 200 response upon successful receipt of a webhook. The timeout for the response is 1250 ms. Additional attempts to send the request are made after a timeout as described in this [article](https://devforum.wix.com/kb/en/article/about-webhooks#resend-policy).
+    You must return a 200 response upon successful receipt of a webhook. The timeout for the response is 1250 ms. Additional attempts to send the request are made after a timeout as described in this <a href="https://devforum.wix.com/kb/en/article/about-webhooks#resend-policy">article</a>.
   </p>
 </blockquote>  
