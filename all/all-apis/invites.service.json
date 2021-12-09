@@ -1,0 +1,4453 @@
+{
+    "name": "Invites",
+    "client_id": "https://github.com/wix-private/wixos/tree/master/invites/invites-api/src/main/proto#public",
+    "memberOf": "All APIs",
+    "category": "core",
+    "mixes": [],
+    "labels": [],
+    "docs": {
+        "summary": "This service manages all invites related actions (site level or account level)",
+        "description": []
+    },
+    "properties": [],
+    "tags": [
+        {
+            "name": "SiteInvitesApi",
+            "entity": null
+        },
+        {
+            "name": "AccountInvitesApi",
+            "entity": null
+        }
+    ],
+    "relatedGuides": [],
+    "operations": [
+        {
+            "name": "Bulk Invite",
+            "methodName": "BulkInvite",
+            "serviceName": "SiteInvitesApi",
+            "tag": "SiteInvitesApi",
+            "permissions": [
+                {
+                    "name": "Manage Contributors",
+                    "description": "Manage Contributors for 3rd party developers."
+                }
+            ],
+            "events": [],
+            "labels": [],
+            "nameParams": [],
+            "requiredFields": [
+                "policyIds",
+                "emails"
+            ],
+            "params": [
+                {
+                    "in": "BODY",
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " An array of policy ids to be assigned to the users\n",
+                    "required": true
+                },
+                {
+                    "in": "BODY",
+                    "name": "emails",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " An array of new the invited users email addresses.\n",
+                    "required": true
+                },
+                {
+                    "in": "BODY",
+                    "name": "invitePurpose",
+                    "type": "string",
+                    "doc": " Optional field representing the purpose of the invite\n",
+                    "required": false
+                }
+            ],
+            "ret": {
+                "type": {
+                    "name": "BulkInvite",
+                    "statusCode": 200,
+                    "typeParams": [
+                        "All APIs.Invites._com_wixpress_invites_api_BulkSiteInviteResponse"
+                    ]
+                },
+                "doc": ""
+            },
+            "locations": [],
+            "docs": {
+                "summary": " Create and send an invite to an array of potential users via email to become contributors on this site.\n \n",
+                "description": [],
+                "request": "POST",
+                "url": "https://manage.wix.com/invites/invites/site/bulk",
+                "links": [],
+                "examples": [],
+                "extra": {}
+            },
+            "extra": {
+                "hasRest": true,
+                "rpcRequestName": "BulkSiteInviteRequest",
+                "rpcResponseName": "BulkSiteInviteResponse"
+            },
+            "customLabels": [
+                {
+                    "id": "maturity-alpha"
+                }
+            ]
+        },
+        {
+            "name": "Create Invite",
+            "methodName": "CreateInvite",
+            "serviceName": "AccountInvitesApi",
+            "tag": "AccountInvitesApi",
+            "permissions": [],
+            "events": [],
+            "labels": [],
+            "nameParams": [],
+            "requiredFields": [
+                "subjectsAssignments"
+            ],
+            "params": [
+                {
+                    "in": "BODY",
+                    "name": "subjectsAssignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_SubjectInviteAssignments"
+                        ]
+                    },
+                    "doc": " An array of new team members' email addresses and their corresponding new assignments to be assigned to it when their invite is accepted.\n",
+                    "required": true
+                }
+            ],
+            "ret": {
+                "type": {
+                    "name": "CreateInvite",
+                    "statusCode": 200,
+                    "typeParams": [
+                        "All APIs.Invites._com_wixpress_invites_api_CreateInviteResponse"
+                    ]
+                },
+                "doc": ""
+            },
+            "locations": [],
+            "docs": {
+                "summary": " Create and send an invite to an array of potential users via email to become team members on this account.\n The invite may be limited to a specific resource.\n The caller identity must have sufficient permissions to send invites to the account and to any additional site\n contexts.\n Maximum amount of new users per invite is 50.\n \n",
+                "description": [],
+                "request": "POST",
+                "url": "https://manage.wix.com/invites/invites/account/create",
+                "links": [],
+                "examples": [],
+                "extra": {}
+            },
+            "extra": {
+                "hasRest": true,
+                "rpcRequestName": "CreateInviteRequest",
+                "rpcResponseName": "CreateInviteResponse"
+            },
+            "customLabels": [
+                {
+                    "id": "maturity-alpha"
+                }
+            ]
+        }
+    ],
+    "events": [],
+    "callbacks": [],
+    "messages": [
+        {
+            "name": "_com_wixpress_authorization_abac_FullNameResource",
+            "displayName": "Full Name Resource Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "ResourceContext",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_FullNameResource_ResourceContext",
+                    "doc": ""
+                },
+                {
+                    "name": "resource",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_Resource",
+                    "doc": " A specific resource. We will determine the resource type based on the action.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_FullNameResource_ResourceContext",
+            "displayName": "Resource Context Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "siteContext",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_SiteResourceContext",
+                    "doc": " A specific site (we will retrieve the account that the site belongs to)\n"
+                },
+                {
+                    "name": "accountContext",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_AccountResourceContext",
+                    "doc": " A specific account\n"
+                },
+                {
+                    "name": "organizationContext",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_OrganizationResourceContext",
+                    "doc": " A specific organization\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_Resource",
+            "displayName": "Resource Object",
+            "locations": [],
+            "docs": {
+                "summary": " A custom resource. Is used to represent some asset that is not a direct resource context (site or account), but something custom.\n For example: payment method, blog post, domain, logo.\n",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": " The resource id.\n"
+                },
+                {
+                    "name": "type",
+                    "type": "string",
+                    "doc": " The resource type\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_SiteResourceContext",
+            "displayName": "Site Resource Context Object",
+            "locations": [],
+            "docs": {
+                "summary": " Site resource context. It indicates that the resource is under a site (can be the site itself or some asset of a site, like a blog post)\n",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "metasiteId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_AccountResourceContext",
+            "displayName": "Account Resource Context Object",
+            "locations": [],
+            "docs": {
+                "summary": " Account resource contexts. It indicates that the resource is under the account (can be the account itself or some asset of an account, like a logo or a domain)\n",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "accountId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_OrganizationResourceContext",
+            "displayName": "Organization Resource Context Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_Subject",
+            "displayName": "Subject Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "subjectType",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectType",
+                    "doc": ""
+                },
+                {
+                    "name": "context",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectContext",
+                    "doc": " The context of the subject. For example - the context of a user subject is his account.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SubjectContext",
+            "displayName": "Subject Context Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "contextType",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectContextType",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_PolicyCondition",
+            "displayName": "Policy Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "condition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType",
+                    "doc": " The type of the condition\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionType",
+            "displayName": "Condition Type Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "of",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType_of",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionType_of",
+            "displayName": "of Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "simpleCondition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleCondition",
+                    "doc": "",
+                    "deprecated": true
+                },
+                {
+                    "name": "joinedConditions",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_JoinedCondition",
+                    "doc": " A logic combination between several conditions, with an operator between them\n"
+                },
+                {
+                    "name": "environmentCondition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EnvironmentCondition",
+                    "doc": "",
+                    "deprecated": true
+                },
+                {
+                    "name": "condition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_Condition",
+                    "doc": " A single condition\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_JoinedCondition",
+            "displayName": "Joined Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "op",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_JoinedConditionOperator",
+                    "doc": " The operator that should be used when evaluating the condition\n"
+                },
+                {
+                    "name": "conditions",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType"
+                        ]
+                    },
+                    "doc": " The conditions that should be evaluated, and then joined using the operator provided\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_Condition",
+            "displayName": "Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "conditionModelId",
+                    "type": "string",
+                    "doc": " The unique identifier of the condition model. Indicates which actions the condition is working on\n"
+                },
+                {
+                    "name": "operator",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionOperator",
+                    "doc": " The operator that should be evaluated\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionOperator",
+            "displayName": "Condition Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "operators",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionOperator_operators",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionOperator_operators",
+            "displayName": "operators Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "equals",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EqualOperator",
+                    "doc": " Comparison of equality - will be evaluated to true if the given parties are equal\n"
+                },
+                {
+                    "name": "like",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_LikeOperator",
+                    "doc": " Regex operator - will be evaluated to true if the given value matches the provided regex\n"
+                },
+                {
+                    "name": "experiment",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ExperimentOperator",
+                    "doc": " Petri experiment - will be evaluated using petri.\n"
+                },
+                {
+                    "name": "dependOn",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_DependOnOperator",
+                    "doc": " Operator that indicates a dependency on another subject being allowed to perform something.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_EqualOperator",
+            "displayName": "Equal Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "attrName",
+                    "type": "string",
+                    "doc": " The attribute which should be compared. The attribute will be first evaluated to a value, and then compared the other side (attribute/value)\n"
+                },
+                {
+                    "name": "value",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionValue",
+                    "doc": " The value to compare to. If the two parties are equal - we will return true.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_LikeOperator",
+            "displayName": "Like Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "attrName",
+                    "type": "string",
+                    "doc": " The attribute which should be compared. The attribute will be first evaluated to a value, and then compared the regex values provided.\n"
+                },
+                {
+                    "name": "values",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " The regex values which the attribute value should be evaluated on. If the attribute value matches at least one of the regular expressions provided - we will return true\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ExperimentOperator",
+            "displayName": "Experiment Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "spec",
+                    "type": "string",
+                    "doc": " The spec to conduct the experiment on.\n"
+                },
+                {
+                    "name": "fallbackValue",
+                    "type": "string",
+                    "doc": " The value to use if the experiment could not be conducted\n"
+                },
+                {
+                    "name": "expectedValue",
+                    "type": "string",
+                    "doc": " The expected value of the experiment conduction. If it matches the actual value - true will be returned. Otherwise - false.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_DependOnOperator",
+            "displayName": "Depend On Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": " Implies that the policy takes affect only if the depend on subject is permitted as well.\n",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "dependOnSubject",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_Subject",
+                    "doc": " The subject on which the current entry depends on. If the subject is allowed to perform what the query was about - the condition will be evaluated to true. Otherwise - false\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SimpleCondition",
+            "displayName": "Simple Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "attrName",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "value",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionValue",
+                    "doc": ""
+                },
+                {
+                    "name": "op",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionOperator",
+                    "doc": ""
+                },
+                {
+                    "name": "conditionModelId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_EnvironmentCondition",
+            "displayName": "Environment Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "condition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EnvironmentCondition_condition",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_EnvironmentCondition_condition",
+            "displayName": "condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "experimentCondition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ExperimentCondition",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SimpleConditionValue",
+            "displayName": "Simple Condition Value Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "Value",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionValue_Value",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SimpleConditionValue_Value",
+            "displayName": "Value Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "attrName",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "stringValue",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "boolValue",
+                    "type": "boolean",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionValue",
+            "displayName": "Condition Value Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "Value",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionValue_Value",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ConditionValue_Value",
+            "displayName": "Value Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "attrName",
+                    "type": "string",
+                    "doc": " an attribute. We'll first retrieve the value of the attribute (from the request or from pre-indexed values), and then compare to what it needs to be compared with.\n"
+                },
+                {
+                    "name": "stringValue",
+                    "type": "string",
+                    "doc": " a value with a string type. Will be compared to the attribute provided, and be true only if they match the operator.\n"
+                },
+                {
+                    "name": "boolValue",
+                    "type": "boolean",
+                    "doc": " a value with a boolean type. Will be compared to the attribute provided, and be true only if they match the operator.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "oneOf": true
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_ExperimentCondition",
+            "displayName": "Experiment Condition Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "spec",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "fallbackValue",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "expectedValue",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_invite_service_InviteResourceAssignment",
+            "displayName": "Invite Resource Assignment Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "policyId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "assignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_authorization_invite_service_InviteAssignment"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_invite_service_InviteAssignment",
+            "displayName": "Invite Assignment Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "fullNameResource",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_FullNameResource",
+                    "doc": " The resource of the invite assignment\n"
+                },
+                {
+                    "name": "condition",
+                    "type": "All APIs.Invites._com_wixpress_authorization_abac_management_PolicyCondition",
+                    "doc": " A condition that will be applied on the assignment\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_AccountInvite",
+            "displayName": "Account Invite Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true
+                },
+                {
+                    "name": "accountId",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "role",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "inviterId",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true,
+                    "deprecated": true
+                },
+                {
+                    "name": "status",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+                    "doc": ""
+                },
+                {
+                    "name": "acceptLink",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "inviterAccountId",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true
+                },
+                {
+                    "name": "acceptedByAccountId",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true
+                },
+                {
+                    "name": "dateCreated",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "dateUpdated",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "assignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "brandDomain",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_SiteInvite",
+            "displayName": "Site Invite Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": " The invite id\n",
+                    "readOnly": true
+                },
+                {
+                    "name": "siteId",
+                    "type": "string",
+                    "doc": " The site id that the invitee was invited to\n",
+                    "readOnly": true
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "doc": " Invitee email\n"
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " Invited policies ids\n"
+                },
+                {
+                    "name": "inviterId",
+                    "type": "string",
+                    "doc": "",
+                    "readOnly": true,
+                    "deprecated": true
+                },
+                {
+                    "name": "status",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+                    "doc": " Status of the invite\n"
+                },
+                {
+                    "name": "acceptLink",
+                    "type": "string",
+                    "doc": " Invite's acceptance link URL\n"
+                },
+                {
+                    "name": "inviterAccountId",
+                    "type": "string",
+                    "doc": " The inviting account id\n",
+                    "readOnly": true
+                },
+                {
+                    "name": "acceptedByAccountId",
+                    "type": "string",
+                    "doc": " The account which accepted the invite\n",
+                    "readOnly": true
+                },
+                {
+                    "name": "dateCreated",
+                    "type": "string",
+                    "doc": " Invite creation date\n"
+                },
+                {
+                    "name": "staffId",
+                    "type": "string",
+                    "doc": " Booking staff id if exists\n"
+                },
+                {
+                    "name": "brandDomain",
+                    "type": "string",
+                    "doc": " The invite brand domain\n"
+                },
+                {
+                    "name": "invitePurpose",
+                    "type": "string",
+                    "doc": " Optional field representing the purpose of the invite\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetAccountInvitesRequest",
+            "displayName": "Get Account Invites Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetAccountInvitesResponse",
+            "displayName": "Get Account Invites Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetAccountInviteRequest",
+            "displayName": "Get Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetAccountInviteResponse",
+            "displayName": "Get Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invite",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_AccountInvite",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_CreateInviteRequest",
+            "displayName": "Create Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "subjectsAssignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_SubjectInviteAssignments"
+                        ]
+                    },
+                    "doc": " An array of new team members' email addresses and their corresponding new assignments to be assigned to it when their invite is accepted.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_SubjectInviteAssignments",
+            "displayName": "Subject Invite Assignments Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "subjectEmail",
+                    "type": "string",
+                    "doc": " invitee email.\n"
+                },
+                {
+                    "name": "assignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+                        ]
+                    },
+                    "doc": " an array of assignments to be assigned when the invitee accepts the invite.\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_CreateInviteResponse",
+            "displayName": "Create Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "successfulInvites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "failedInvites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_InviteFailure"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_InviteFailure",
+            "displayName": "Invite Failure Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "subjectEmail",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "errorMessage",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_AccountInviteRequest",
+            "displayName": "Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "role",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_AccountInviteResponse",
+            "displayName": "Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invite",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_AccountInvite",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_ResendAccountInviteRequest",
+            "displayName": "Resend Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_BulkAccountInviteRequest",
+            "displayName": "Bulk Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "role",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "emails",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_BulkAccountInviteResponse",
+            "displayName": "Bulk Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "failedEmails",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_AcceptAccountInviteRequest",
+            "displayName": "Accept Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteToken",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_AcceptAccountInviteResponse",
+            "displayName": "Accept Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_RevokeAccountInviteRequest",
+            "displayName": "Revoke Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_RevokeAccountInviteResponse",
+            "displayName": "Revoke Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateAccountInviteRequest",
+            "displayName": "Update Account Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "role",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateAccountInviteResponse",
+            "displayName": "Update Account Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": [],
+            "deprecated": true
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateAccountInviteAssignmentsRequest",
+            "displayName": "Update Account Invite Assignments Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "assignments",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateAccountInviteAssignmentsResponse",
+            "displayName": "Update Account Invite Assignments Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ParseAccountInviteTokenRequest",
+            "displayName": "Parse Account Invite Token Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteToken",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ParseAccountInviteTokenResponse",
+            "displayName": "Parse Account Invite Token Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "accountId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "status",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetSiteInvitesRequest",
+            "displayName": "Get Site Invites Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetSiteInvitesResponse",
+            "displayName": "Get Site Invites Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_SiteInvite"
+                        ]
+                    },
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetSiteInviteRequest",
+            "displayName": "Get Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetSiteInviteResponse",
+            "displayName": "Get Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invite",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_SiteInvite",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_SiteInviteRequest",
+            "displayName": "Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "staffId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "invitePurpose",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_SiteInviteResponse",
+            "displayName": "Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invite",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_SiteInvite",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ResendSiteInviteRequest",
+            "displayName": "Resend Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_BulkSiteInviteRequest",
+            "displayName": "Bulk Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " An array of policy ids to be assigned to the users\n"
+                },
+                {
+                    "name": "emails",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " An array of new the invited users email addresses.\n"
+                },
+                {
+                    "name": "invitePurpose",
+                    "type": "string",
+                    "doc": " Optional field representing the purpose of the invite\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_BulkSiteInviteResponse",
+            "displayName": "Bulk Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "invites",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "All APIs.Invites._com_wixpress_invites_api_SiteInvite"
+                        ]
+                    },
+                    "doc": " created invites\n"
+                },
+                {
+                    "name": "failedEmails",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": " invitees mails which failed to be sent\n"
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_AcceptSiteInviteRequest",
+            "displayName": "Accept Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteToken",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_AcceptSiteInviteResponse",
+            "displayName": "Accept Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_RevokeSiteInviteRequest",
+            "displayName": "Revoke Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_RevokeSiteInviteResponse",
+            "displayName": "Revoke Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateSiteInviteRequest",
+            "displayName": "Update Site Invite Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "policyIds",
+                    "type": {
+                        "name": "array",
+                        "typeParams": [
+                            "string"
+                        ]
+                    },
+                    "doc": ""
+                },
+                {
+                    "name": "staffId",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_UpdateSiteInviteResponse",
+            "displayName": "Update Site Invite Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ParseSiteInviteTokenRequest",
+            "displayName": "Parse Site Invite Token Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteToken",
+                    "type": "string",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ParseSiteInviteTokenResponse",
+            "displayName": "Parse Site Invite Token Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "inviteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "siteId",
+                    "type": "string",
+                    "doc": ""
+                },
+                {
+                    "name": "status",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetContributorLimitRequest",
+            "displayName": "Get Contributor Limit Request Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_GetContributorLimitResponse",
+            "displayName": "Get Contributor Limit Response Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "contributorLimitation",
+                    "type": "All APIs.Invites._com_wixpress_invites_api_ContributorLimitation",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_ContributorLimitation",
+            "displayName": "Contributor Limitation Object",
+            "locations": [],
+            "docs": {
+                "summary": "",
+                "links": [],
+                "examples": []
+            },
+            "members": [
+                {
+                    "name": "contributorLimit",
+                    "type": "integer",
+                    "doc": ""
+                },
+                {
+                    "name": "leftInvites",
+                    "type": "integer",
+                    "doc": ""
+                }
+            ],
+            "enum": null,
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SubjectType",
+            "displayName": "Subject Type Object",
+            "locations": [],
+            "docs": {
+                "summary": " \n Possible values are: <li><code> UNKNOWN </code></li><li><code> ACCOUNT </code></li><li><code> USER </code></li><li><code> USER_GROUP </code></li><li><code> MEMBER_GROUP </code></li><li><code> VISITOR_GROUP </code></li><li><code> EXTERNAL_APP </code></li>",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": [
+                "UNKNOWN",
+                "ACCOUNT",
+                "USER",
+                "USER_GROUP",
+                "MEMBER_GROUP",
+                "VISITOR_GROUP",
+                "EXTERNAL_APP"
+            ],
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SubjectContextType",
+            "displayName": "Subject Context Type Object",
+            "locations": [],
+            "docs": {
+                "summary": " \n Possible values are: <li><code> UNKNOWN_CTX </code></li><li><code> ORG_CTX </code></li><li><code> ACCOUNT_CTX </code></li>",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": [
+                "UNKNOWN_CTX",
+                "ORG_CTX",
+                "ACCOUNT_CTX"
+            ],
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_SimpleConditionOperator",
+            "displayName": "Simple Condition Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": " \n Possible values are: <li><code> UNKNOWN_SIMPLE_OP </code></li><li><code> EQUAL </code></li>",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": [
+                "UNKNOWN_SIMPLE_OP",
+                "EQUAL"
+            ],
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_authorization_abac_management_JoinedConditionOperator",
+            "displayName": "Joined Condition Operator Object",
+            "locations": [],
+            "docs": {
+                "summary": " \n Possible values are: <li><code> UNKNOWN_JOIN_OP </code></li><li><code> OR </code></li><li><code> AND </code></li>",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": [
+                "UNKNOWN_JOIN_OP",
+                "OR",
+                "AND"
+            ],
+            "extra": {},
+            "labels": []
+        },
+        {
+            "name": "_com_wixpress_invites_api_InviteStatus",
+            "displayName": "Invite Status Object",
+            "locations": [],
+            "docs": {
+                "summary": " Invite status stating whether the invite was accepted, waiting to be accepted, deleted etc..\n \n Possible values are: <li><code> Pending </code></li><li><code> Used </code></li><li><code> Deleted </code></li><li><code> Declined </code></li><li><code> Expired </code></li>",
+                "links": [],
+                "examples": []
+            },
+            "members": [],
+            "enum": [
+                "Pending",
+                "Used",
+                "Deleted",
+                "Declined",
+                "Expired"
+            ],
+            "extra": {},
+            "labels": []
+        }
+    ],
+    "extra": {
+        "artifactId": "com.wixpress.invites-web"
+    }
+}
+  "name": "Invites",
+  "client_id": "https://github.com/wix-private/wixos/tree/master/invites/invites-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs": {
+  "summary": "This service manages all invites related actions (site level or account level)",
+  "description": []
+  },
+  "properties": [],
+  "tags": [
+  {
+  "name": "SiteInvitesApi",
+  "entity": null
+  },
+  {
+  "name": "AccountInvitesApi",
+  "entity": null
+  }
+  ],
+  "relatedGuides": [],
+  "operations": [
+  {
+  "name": "Bulk Invite",
+  "methodName": "BulkInvite",
+  "serviceName": "SiteInvitesApi",
+  "tag": "SiteInvitesApi",
+  "permissions": [
+  {
+  "name": "Manage Contributors",
+  "description": "Manage Contributors for 3rd party developers."
+  }
+  ],
+  "events": [],
+  "labels": [],
+  "nameParams": [],
+  "requiredFields": [
+  "policyIds",
+  "emails"
+  ],
+  "params": [
+  {
+  "in": "BODY",
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " An array of policy ids to be assigned to the users\n",
+  "required": true
+  },
+  {
+  "in": "BODY",
+  "name": "emails",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " An array of new the invited users email addresses.\n",
+  "required": true
+  },
+  {
+  "in": "BODY",
+  "name": "invitePurpose",
+  "type": "string",
+  "doc": " Optional field representing the purpose of the invite\n",
+  "required": false
+  }
+  ],
+  "ret": {
+  "type": {
+  "name": "BulkInvite",
+  "statusCode": "200",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_BulkSiteInviteResponse"
+  ]
+  },
+  "doc": ""
+  },
+  "locations": [],
+  "docs": {
+  "summary": " Create and send an invite to an array of potential users via email to become contributors on this site.\n \n",
+  "description": [],
+  "request": "POST",
+  "url": "https://manage.wix.com/invites/invites/site/bulk",
+  "links": [],
+  "examples": [],
+  "extra": {}
+  },
+  "extra": {
+  "hasRest": true,
+  "rpcRequestName": "BulkSiteInviteRequest",
+  "rpcResponseName": "BulkSiteInviteResponse"
+  },
+  "customLabels": [
+  {
+  "id": "maturity-alpha"
+  }
+  ]
+  },
+  {
+  "name": "Create Invite",
+  "methodName": "CreateInvite",
+  "serviceName": "AccountInvitesApi",
+  "tag": "AccountInvitesApi",
+  "permissions": [],
+  "events": [],
+  "labels": [],
+  "nameParams": [],
+  "requiredFields": [
+  "subjectsAssignments"
+  ],
+  "params": [
+  {
+  "in": "BODY",
+  "name": "subjectsAssignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_SubjectInviteAssignments"
+  ]
+  },
+  "doc": " An array of new team members' email addresses and their corresponding new assignments to be assigned to it when their invite is accepted.\n",
+  "required": true
+  }
+  ],
+  "ret": {
+  "type": {
+  "name": "CreateInvite",
+  "statusCode": "200",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_CreateInviteResponse"
+  ]
+  },
+  "doc": ""
+  },
+  "locations": [],
+  "docs": {
+  "summary": " Create and send an invite to an array of potential users via email to become team members on this account.\n The invite may be limited to a specific resource.\n The caller identity must have sufficient permissions to send invites to the account and to any additional site\n contexts.\n Maximum amount of new users per invite is 50.\n \n",
+  "description": [],
+  "request": "POST",
+  "url": "https://manage.wix.com/invites/invites/account/create",
+  "links": [],
+  "examples": [],
+  "extra": {}
+  },
+  "extra": {
+  "hasRest": true,
+  "rpcRequestName": "CreateInviteRequest",
+  "rpcResponseName": "CreateInviteResponse"
+  },
+  "customLabels": [
+  {
+  "id": "maturity-alpha"
+  }
+  ]
+  }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages": [
+  {
+  "name": "_com_wixpress_authorization_abac_FullNameResource",
+  "displayName": "Full Name Resource Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "ResourceContext",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_FullNameResource_ResourceContext",
+  "doc": ""
+  },
+  {
+  "name": "resource",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_Resource",
+  "doc": " A specific resource. We will determine the resource type based on the action.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_FullNameResource_ResourceContext",
+  "displayName": "Resource Context Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "siteContext",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_SiteResourceContext",
+  "doc": " A specific site (we will retrieve the account that the site belongs to)\n"
+  },
+  {
+  "name": "accountContext",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_AccountResourceContext",
+  "doc": " A specific account\n"
+  },
+  {
+  "name": "organizationContext",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_OrganizationResourceContext",
+  "doc": " A specific organization\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_Resource",
+  "displayName": "Resource Object",
+  "locations": [],
+  "docs": {
+  "summary": " A custom resource. Is used to represent some asset that is not a direct resource context (site or account), but something custom.\n For example: payment method, blog post, domain, logo.\n",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": " The resource id.\n"
+  },
+  {
+  "name": "type",
+  "type": "string",
+  "doc": " The resource type\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_SiteResourceContext",
+  "displayName": "Site Resource Context Object",
+  "locations": [],
+  "docs": {
+  "summary": " Site resource context. It indicates that the resource is under a site (can be the site itself or some asset of a site, like a blog post)\n",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "metasiteId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_AccountResourceContext",
+  "displayName": "Account Resource Context Object",
+  "locations": [],
+  "docs": {
+  "summary": " Account resource contexts. It indicates that the resource is under the account (can be the account itself or some asset of an account, like a logo or a domain)\n",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "accountId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_OrganizationResourceContext",
+  "displayName": "Organization Resource Context Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_Subject",
+  "displayName": "Subject Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "subjectType",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectType",
+  "doc": ""
+  },
+  {
+  "name": "context",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectContext",
+  "doc": " The context of the subject. For example - the context of a user subject is his account.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SubjectContext",
+  "displayName": "Subject Context Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "contextType",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SubjectContextType",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_PolicyCondition",
+  "displayName": "Policy Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "condition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType",
+  "doc": " The type of the condition\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionType",
+  "displayName": "Condition Type Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "of",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType_of",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionType_of",
+  "displayName": "of Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "simpleCondition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleCondition",
+  "doc": "",
+  "deprecated": true
+  },
+  {
+  "name": "joinedConditions",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_JoinedCondition",
+  "doc": " A logic combination between several conditions, with an operator between them\n"
+  },
+  {
+  "name": "environmentCondition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EnvironmentCondition",
+  "doc": "",
+  "deprecated": true
+  },
+  {
+  "name": "condition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_Condition",
+  "doc": " A single condition\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_JoinedCondition",
+  "displayName": "Joined Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "op",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_JoinedConditionOperator",
+  "doc": " The operator that should be used when evaluating the condition\n"
+  },
+  {
+  "name": "conditions",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionType"
+  ]
+  },
+  "doc": " The conditions that should be evaluated, and then joined using the operator provided\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_Condition",
+  "displayName": "Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "conditionModelId",
+  "type": "string",
+  "doc": " The unique identifier of the condition model. Indicates which actions the condition is working on\n"
+  },
+  {
+  "name": "operator",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionOperator",
+  "doc": " The operator that should be evaluated\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionOperator",
+  "displayName": "Condition Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "operators",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionOperator_operators",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionOperator_operators",
+  "displayName": "operators Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "equals",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EqualOperator",
+  "doc": " Comparison of equality - will be evaluated to true if the given parties are equal\n"
+  },
+  {
+  "name": "like",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_LikeOperator",
+  "doc": " Regex operator - will be evaluated to true if the given value matches the provided regex\n"
+  },
+  {
+  "name": "experiment",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ExperimentOperator",
+  "doc": " Petri experiment - will be evaluated using petri.\n"
+  },
+  {
+  "name": "dependOn",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_DependOnOperator",
+  "doc": " Operator that indicates a dependency on another subject being allowed to perform something.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_EqualOperator",
+  "displayName": "Equal Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "attrName",
+  "type": "string",
+  "doc": " The attribute which should be compared. The attribute will be first evaluated to a value, and then compared the other side (attribute/value)\n"
+  },
+  {
+  "name": "value",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionValue",
+  "doc": " The value to compare to. If the two parties are equal - we will return true.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_LikeOperator",
+  "displayName": "Like Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "attrName",
+  "type": "string",
+  "doc": " The attribute which should be compared. The attribute will be first evaluated to a value, and then compared the regex values provided.\n"
+  },
+  {
+  "name": "values",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " The regex values which the attribute value should be evaluated on. If the attribute value matches at least one of the regular expressions provided - we will return true\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ExperimentOperator",
+  "displayName": "Experiment Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "spec",
+  "type": "string",
+  "doc": " The spec to conduct the experiment on.\n"
+  },
+  {
+  "name": "fallbackValue",
+  "type": "string",
+  "doc": " The value to use if the experiment could not be conducted\n"
+  },
+  {
+  "name": "expectedValue",
+  "type": "string",
+  "doc": " The expected value of the experiment conduction. If it matches the actual value - true will be returned. Otherwise - false.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_DependOnOperator",
+  "displayName": "Depend On Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": " Implies that the policy takes affect only if the depend on subject is permitted as well.\n",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "dependOnSubject",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_Subject",
+  "doc": " The subject on which the current entry depends on. If the subject is allowed to perform what the query was about - the condition will be evaluated to true. Otherwise - false\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SimpleCondition",
+  "displayName": "Simple Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "attrName",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "value",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionValue",
+  "doc": ""
+  },
+  {
+  "name": "op",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionOperator",
+  "doc": ""
+  },
+  {
+  "name": "conditionModelId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_EnvironmentCondition",
+  "displayName": "Environment Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "condition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_EnvironmentCondition_condition",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_EnvironmentCondition_condition",
+  "displayName": "condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "experimentCondition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ExperimentCondition",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SimpleConditionValue",
+  "displayName": "Simple Condition Value Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "Value",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_SimpleConditionValue_Value",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SimpleConditionValue_Value",
+  "displayName": "Value Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "attrName",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "stringValue",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "boolValue",
+  "type": "boolean",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionValue",
+  "displayName": "Condition Value Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "Value",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_ConditionValue_Value",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ConditionValue_Value",
+  "displayName": "Value Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "attrName",
+  "type": "string",
+  "doc": " an attribute. We'll first retrieve the value of the attribute (from the request or from pre-indexed values), and then compare to what it needs to be compared with.\n"
+  },
+  {
+  "name": "stringValue",
+  "type": "string",
+  "doc": " a value with a string type. Will be compared to the attribute provided, and be true only if they match the operator.\n"
+  },
+  {
+  "name": "boolValue",
+  "type": "boolean",
+  "doc": " a value with a boolean type. Will be compared to the attribute provided, and be true only if they match the operator.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "oneOf": true
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_ExperimentCondition",
+  "displayName": "Experiment Condition Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "spec",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "fallbackValue",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "expectedValue",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_invite_service_InviteResourceAssignment",
+  "displayName": "Invite Resource Assignment Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "policyId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "assignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_authorization_invite_service_InviteAssignment"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_invite_service_InviteAssignment",
+  "displayName": "Invite Assignment Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "fullNameResource",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_FullNameResource",
+  "doc": " The resource of the invite assignment\n"
+  },
+  {
+  "name": "condition",
+  "type": "All APIs.Invites._com_wixpress_authorization_abac_management_PolicyCondition",
+  "doc": " A condition that will be applied on the assignment\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_AccountInvite",
+  "displayName": "Account Invite Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": "",
+  "readOnly": true
+  },
+  {
+  "name": "accountId",
+  "type": "string",
+  "doc": "",
+  "readOnly": true
+  },
+  {
+  "name": "email",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "role",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "inviterId",
+  "type": "string",
+  "doc": "",
+  "readOnly": true,
+  "deprecated": true
+  },
+  {
+  "name": "status",
+  "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+  "doc": ""
+  },
+  {
+  "name": "acceptLink",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "inviterAccountId",
+  "type": "string",
+  "doc": "",
+  "readOnly": true
+  },
+  {
+  "name": "acceptedByAccountId",
+  "type": "string",
+  "doc": "",
+  "readOnly": true
+  },
+  {
+  "name": "dateCreated",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "dateUpdated",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "assignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "brandDomain",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_SiteInvite",
+  "displayName": "Site Invite Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": " The invite id\n",
+  "readOnly": true
+  },
+  {
+  "name": "siteId",
+  "type": "string",
+  "doc": " The site id that the invitee was invited to\n",
+  "readOnly": true
+  },
+  {
+  "name": "email",
+  "type": "string",
+  "doc": " Invitee email\n"
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " Invited policies ids\n"
+  },
+  {
+  "name": "inviterId",
+  "type": "string",
+  "doc": "",
+  "readOnly": true,
+  "deprecated": true
+  },
+  {
+  "name": "status",
+  "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+  "doc": " Status of the invite\n"
+  },
+  {
+  "name": "acceptLink",
+  "type": "string",
+  "doc": " Invite's acceptance link URL\n"
+  },
+  {
+  "name": "inviterAccountId",
+  "type": "string",
+  "doc": " The inviting account id\n",
+  "readOnly": true
+  },
+  {
+  "name": "acceptedByAccountId",
+  "type": "string",
+  "doc": " The account which accepted the invite\n",
+  "readOnly": true
+  },
+  {
+  "name": "dateCreated",
+  "type": "string",
+  "doc": " Invite creation date\n"
+  },
+  {
+  "name": "staffId",
+  "type": "string",
+  "doc": " Booking staff id if exists\n"
+  },
+  {
+  "name": "brandDomain",
+  "type": "string",
+  "doc": " The invite brand domain\n"
+  },
+  {
+  "name": "invitePurpose",
+  "type": "string",
+  "doc": " Optional field representing the purpose of the invite\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetAccountInvitesRequest",
+  "displayName": "Get Account Invites Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetAccountInvitesResponse",
+  "displayName": "Get Account Invites Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetAccountInviteRequest",
+  "displayName": "Get Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetAccountInviteResponse",
+  "displayName": "Get Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invite",
+  "type": "All APIs.Invites._com_wixpress_invites_api_AccountInvite",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_CreateInviteRequest",
+  "displayName": "Create Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "subjectsAssignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_SubjectInviteAssignments"
+  ]
+  },
+  "doc": " An array of new team members' email addresses and their corresponding new assignments to be assigned to it when their invite is accepted.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_SubjectInviteAssignments",
+  "displayName": "Subject Invite Assignments Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "subjectEmail",
+  "type": "string",
+  "doc": " invitee email.\n"
+  },
+  {
+  "name": "assignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+  ]
+  },
+  "doc": " an array of assignments to be assigned when the invitee accepts the invite.\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_CreateInviteResponse",
+  "displayName": "Create Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "successfulInvites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "failedInvites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_InviteFailure"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_InviteFailure",
+  "displayName": "Invite Failure Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "subjectEmail",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "errorMessage",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_AccountInviteRequest",
+  "displayName": "Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "role",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "email",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_AccountInviteResponse",
+  "displayName": "Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invite",
+  "type": "All APIs.Invites._com_wixpress_invites_api_AccountInvite",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_ResendAccountInviteRequest",
+  "displayName": "Resend Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_BulkAccountInviteRequest",
+  "displayName": "Bulk Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "role",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "emails",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_BulkAccountInviteResponse",
+  "displayName": "Bulk Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_AccountInvite"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "failedEmails",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_AcceptAccountInviteRequest",
+  "displayName": "Accept Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteToken",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_AcceptAccountInviteResponse",
+  "displayName": "Accept Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_RevokeAccountInviteRequest",
+  "displayName": "Revoke Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_RevokeAccountInviteResponse",
+  "displayName": "Revoke Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateAccountInviteRequest",
+  "displayName": "Update Account Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "role",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateAccountInviteResponse",
+  "displayName": "Update Account Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": [],
+  "deprecated": true
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateAccountInviteAssignmentsRequest",
+  "displayName": "Update Account Invite Assignments Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "assignments",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_authorization_invite_service_InviteResourceAssignment"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateAccountInviteAssignmentsResponse",
+  "displayName": "Update Account Invite Assignments Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ParseAccountInviteTokenRequest",
+  "displayName": "Parse Account Invite Token Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteToken",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ParseAccountInviteTokenResponse",
+  "displayName": "Parse Account Invite Token Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "accountId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "status",
+  "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetSiteInvitesRequest",
+  "displayName": "Get Site Invites Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetSiteInvitesResponse",
+  "displayName": "Get Site Invites Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_SiteInvite"
+  ]
+  },
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetSiteInviteRequest",
+  "displayName": "Get Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "id",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetSiteInviteResponse",
+  "displayName": "Get Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invite",
+  "type": "All APIs.Invites._com_wixpress_invites_api_SiteInvite",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_SiteInviteRequest",
+  "displayName": "Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "email",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "staffId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "invitePurpose",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_SiteInviteResponse",
+  "displayName": "Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invite",
+  "type": "All APIs.Invites._com_wixpress_invites_api_SiteInvite",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ResendSiteInviteRequest",
+  "displayName": "Resend Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_BulkSiteInviteRequest",
+  "displayName": "Bulk Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " An array of policy ids to be assigned to the users\n"
+  },
+  {
+  "name": "emails",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " An array of new the invited users email addresses.\n"
+  },
+  {
+  "name": "invitePurpose",
+  "type": "string",
+  "doc": " Optional field representing the purpose of the invite\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_BulkSiteInviteResponse",
+  "displayName": "Bulk Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "invites",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "All APIs.Invites._com_wixpress_invites_api_SiteInvite"
+  ]
+  },
+  "doc": " created invites\n"
+  },
+  {
+  "name": "failedEmails",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": " invitees mails which failed to be sent\n"
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_AcceptSiteInviteRequest",
+  "displayName": "Accept Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteToken",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_AcceptSiteInviteResponse",
+  "displayName": "Accept Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_RevokeSiteInviteRequest",
+  "displayName": "Revoke Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_RevokeSiteInviteResponse",
+  "displayName": "Revoke Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateSiteInviteRequest",
+  "displayName": "Update Site Invite Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "policyIds",
+  "type": {
+  "name": "array",
+  "typeParams": [
+  "string"
+  ]
+  },
+  "doc": ""
+  },
+  {
+  "name": "staffId",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_UpdateSiteInviteResponse",
+  "displayName": "Update Site Invite Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ParseSiteInviteTokenRequest",
+  "displayName": "Parse Site Invite Token Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteToken",
+  "type": "string",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ParseSiteInviteTokenResponse",
+  "displayName": "Parse Site Invite Token Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "inviteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "siteId",
+  "type": "string",
+  "doc": ""
+  },
+  {
+  "name": "status",
+  "type": "All APIs.Invites._com_wixpress_invites_api_InviteStatus",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetContributorLimitRequest",
+  "displayName": "Get Contributor Limit Request Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_GetContributorLimitResponse",
+  "displayName": "Get Contributor Limit Response Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "contributorLimitation",
+  "type": "All APIs.Invites._com_wixpress_invites_api_ContributorLimitation",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_ContributorLimitation",
+  "displayName": "Contributor Limitation Object",
+  "locations": [],
+  "docs": {
+  "summary": "",
+  "links": [],
+  "examples": []
+  },
+  "members": [
+  {
+  "name": "contributorLimit",
+  "type": "integer",
+  "doc": ""
+  },
+  {
+  "name": "leftInvites",
+  "type": "integer",
+  "doc": ""
+  }
+  ],
+  "enum": null,
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SubjectType",
+  "displayName": "Subject Type Object",
+  "locations": [],
+  "docs": {
+  "summary": " \n Possible values are: <li><code> UNKNOWN </code></li><li><code> ACCOUNT </code></li><li><code> USER </code></li><li><code> USER_GROUP </code></li><li><code> MEMBER_GROUP </code></li><li><code> VISITOR_GROUP </code></li><li><code> EXTERNAL_APP </code></li>",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": [
+  "UNKNOWN",
+  "ACCOUNT",
+  "USER",
+  "USER_GROUP",
+  "MEMBER_GROUP",
+  "VISITOR_GROUP",
+  "EXTERNAL_APP"
+  ],
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SubjectContextType",
+  "displayName": "Subject Context Type Object",
+  "locations": [],
+  "docs": {
+  "summary": " \n Possible values are: <li><code> UNKNOWN_CTX </code></li><li><code> ORG_CTX </code></li><li><code> ACCOUNT_CTX </code></li>",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": [
+  "UNKNOWN_CTX",
+  "ORG_CTX",
+  "ACCOUNT_CTX"
+  ],
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_SimpleConditionOperator",
+  "displayName": "Simple Condition Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": " \n Possible values are: <li><code> UNKNOWN_SIMPLE_OP </code></li><li><code> EQUAL </code></li>",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": [
+  "UNKNOWN_SIMPLE_OP",
+  "EQUAL"
+  ],
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_authorization_abac_management_JoinedConditionOperator",
+  "displayName": "Joined Condition Operator Object",
+  "locations": [],
+  "docs": {
+  "summary": " \n Possible values are: <li><code> UNKNOWN_JOIN_OP </code></li><li><code> OR </code></li><li><code> AND </code></li>",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": [
+  "UNKNOWN_JOIN_OP",
+  "OR",
+  "AND"
+  ],
+  "extra": {},
+  "labels": []
+  },
+  {
+  "name": "_com_wixpress_invites_api_InviteStatus",
+  "displayName": "Invite Status Object",
+  "locations": [],
+  "docs": {
+  "summary": " Invite status stating whether the invite was accepted, waiting to be accepted, deleted etc..\n \n Possible values are: <li><code> Pending </code></li><li><code> Used </code></li><li><code> Deleted </code></li><li><code> Declined </code></li><li><code> Expired </code></li>",
+  "links": [],
+  "examples": []
+  },
+  "members": [],
+  "enum": [
+  "Pending",
+  "Used",
+  "Deleted",
+  "Declined",
+  "Expired"
+  ],
+  "extra": {},
+  "labels": []
+  }
+  ],
+  "extra": {
+  "artifactId": "com.wixpress.invites-web"
+  }
+  }
