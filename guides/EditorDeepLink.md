@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This API generates a link to a user’s Editor and then opens to  your app.
+This API generates a link to a user’s Editor that then opens to your app.
 
 ### Authorization
 
