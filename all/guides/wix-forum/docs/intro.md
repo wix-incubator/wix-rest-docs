@@ -21,6 +21,6 @@ The Forum API allows developers to reuse forum content in a modular fashion.
 
 Example:
  - Set up an automated feed of new posts and sub-forums based on news, events, or other topics so that members and admins don't have to do it manually:
-    1. Decide criteria for selecting forum posts to display, e.g. based on keywords or listing all categories, and retrieve these categories using the [Query Categories endpoint](https://dev.wix.com/api/rest/community/wix-forum/category/query-categories).
-   2. Consume the [Post Created Domain Event](https://dev.wix.com/api/rest/community/wix-forum/post/post-created-domain-event) to get all new posts.
+    1. Decide criteria for selecting forum posts to display, e.g. based on keywords or listing all categories, and retrieve these categories using the [Query Categories endpoint](https://dev.wix.com/api/rest/wix-forum/category/query-categories).
+   2. Consume the [Post Created Domain Event](https://dev.wix.com/api/rest/wix-forum/post/post-created-domain-event) to get all new posts.
    3. Filter the new posts by their `categoryId`, or by keywords found in `contentText`, and link back to them using `url` and `title` to create links.
