@@ -26,10 +26,9 @@ https://wixapis.com/apps/v1/editor-deep-link \
 
 ```json
 {
-   "url": <url> 
+   "url": <url>
 }
 ```
 
 * If successful, the response contains the url you need to send users to the your app in the editor.
-* If not successful, the url returned is is just the string '1'.
-
+* If not successful, the url returned will be the string '1'.
