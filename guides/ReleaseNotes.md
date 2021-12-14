@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges)
+
+The [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges) provides third parties with the ability to read existing site members’ badges used on Wix apps, and create and assign badges to site members from their own apps. (December 14, 2021)
+
 ## New Release: [Wix Forums API](https://dev.wix.com/api/rest/wix-forum/)
 
 The [Wix Forums API](https://dev.wix.com/api/rest/wix-forum/) provides third parties with the ability to read a site’s Wix Forums and members’ posts, and receive updates on new Wix Forum activities via webhooks from their own apps. (December 14, 2021)
