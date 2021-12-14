@@ -1,0 +1,2180 @@
+{
+  "name": "Badges",
+  "client_id": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "business-service",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Allows site owners to create badges and assign them to site members.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Badge",
+    "entity": "_com_wixpress_badges_v3_Badge",
+    "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/com/wixpress/badges/v3/badges-service.proto"
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/badges/docs/intro.md",
+    "name": "Introduction"
+  }],
+  "operations":   [
+        {
+      "name": "Assign Badge to Members",
+      "methodName": "AssignBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "id",
+        "memberIds"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of member IDs to assign to the badge.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "AssignBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_AssignBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigns a badge to the specified members.\nThe members inherit the badge's permissions when they receive the badge, if applicable.\nBadge permissions are added to previous member permissions (they don't replace existing permissions).\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v3/badges/{id}/members",
+        "links": [],
+        "examples": [        {
+          "title": "Assign members to badge",
+          "body": ["curl -X POST \\\n    'https://www.wixapis.com/members/v3/badges/80d5e4aa-0ab2-4bab-b941-a7459239a02e/members' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"memberIds\": [\n                \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n                \"b32b708e-d531-42fb-846b-f23c367d9c92\"\n            ]\n      }'"],
+          "response": ["{\"memberIds\": [\n  \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n  \"b32b708e-d531-42fb-846b-f23c367d9c92\"\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "AssignBadgeRequest",
+        "rpcResponseName": "AssignBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Badge",
+      "methodName": "CreateBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "badge",
+        "badge.title",
+        "badge.backgroundColor",
+        "badge.textColor"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Badge to create.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_CreateBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates a new badge.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v3/badges",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Create a badge",
+            "body": ["curl -X POST \\\n    'https://www.wixapis.com/members/v3/badges/members' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"title\": \"Awesome Badge\",\n            \"description\": \"Badge for awesome people\",\n            \"backgroundColor\": \"#FFFFFF\",\n            \"textColor\": \"#FF0000\",\n            \"icon\": \"https://my-icons.example/awesome.svg\"\n      }'"],
+            "response": ["{\"badge\": {\n  \"id\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n  \"title\": \"Awesome Badge\",\n  \"description\": \"Badge for awesome people\",\n  \"backgroundColor\": \"#FFFFFF\",\n  \"textColor\": \"#FF0000\",\n  \"icon\": \"https://my-icons.example/awesome.svg\",\n  \"permissionsEnabled\": false,\n  \"slug\": \"awesome-badge\",\n  \"createdDate\": \"2020-05-28T09:26:17.699Z\",\n  \"updatedDate\": \"2020-05-28T09:26:17.699Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Create a badge with enabled permissions",
+            "body": ["curl -X POST \\\n    'https://www.wixapis.com/members/v3/badges/members' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"title\": \"Awesome Badge\",\n            \"description\": \"Badge for awesome people\",\n            \"backgroundColor\": \"#FFFFFF\",\n            \"textColor\": \"#FF0000\",\n            \"icon\": \"https://my-icons.example/awesome.svg\",\n            \"permissionsEnabled\": true\n      }'"],
+            "response": ["{\"badge\": {\n  \"id\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n  \"title\": \"Awesome Badge\",\n  \"description\": \"Badge for awesome people\",\n  \"backgroundColor\": \"#FFFFFF\",\n  \"textColor\": \"#FF0000\",\n  \"icon\": \"https://my-icons.example/awesome.svg\",\n  \"permissionsEnabled\": true,\n  \"slug\": \"awesome-badge\",\n  \"createdDate\": \"2020-05-28T09:26:17.699Z\",\n  \"updatedDate\": \"2020-05-28T09:26:17.699Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateBadgeRequest",
+        "rpcResponseName": "CreateBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Badge",
+      "methodName": "DeleteBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " Badge ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_DeleteBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Deletes a badge.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/members/v3/badges/{id}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete a badge",
+          "body": ["curl -X DELETE \\\n    'https://www.wixapis.com/members/v3/badges/80d5e4aa-0ab2-4bab-b941-a7459239a02e' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteBadgeRequest",
+        "rpcResponseName": "DeleteBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Badge",
+      "methodName": "GetBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " Badge ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_GetBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a badge.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v3/badges/{id}",
+        "links": [],
+        "examples": [        {
+          "title": "Get a badge",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v3/badges/80d5e4aa-0ab2-4bab-b941-a7459239a02e' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\"badge\": {\n  \"id\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n  \"title\": \"Awesome Badge\",\n  \"description\": \"Badge for awesome people\",\n  \"backgroundColor\": \"#FFFFFF\",\n  \"textColor\": \"#FF0000\",\n  \"icon\": \"https://my-icons.example/awesome.svg\",\n  \"permissionsEnabled\": false,\n  \"slug\": \"awesome-badge\",\n  \"createdDate\": \"2020-05-28T09:26:17.699Z\",\n  \"updatedDate\": \"2020-05-28T09:26:17.699Z\"\n}} "],
+          "type": "curl",
+          "extra": {"description": "Retrieving a badge by ID"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetBadgeRequest",
+        "rpcResponseName": "GetBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Member Counts per Badge",
+      "methodName": "GetMemberCountsPerBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "GetMemberCountsPerBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_GetMemberCountsPerBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves member count per badge.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v3/badges/members/count",
+        "links": [],
+        "examples": [        {
+          "title": "Get member counts per badge",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v3/badges/members/count' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\"badgeMemberCounts\": [\n    {\n    \"badgeId\": \"930c2ef8-ef04-4397-8825-a4b231b43d0a\",\n    \"memberCount\": 1\n  },\n    {\n    \"badgeId\": \"99b12184-d3c3-441a-8659-789e0007b634\",\n    \"memberCount\": 1\n  },\n    {\n    \"badgeId\": \"ffdc5c7d-d080-4c7c-869e-a8c4478532c0\",\n    \"memberCount\": 2\n  },\n    {\n    \"badgeId\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n    \"memberCount\": 1\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetMemberCountsPerBadgeRequest",
+        "rpcResponseName": "GetMemberCountsPerBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Badges",
+      "methodName": "ListBadges",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListBadges",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_ListBadgesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves up to 1000 badges, given the requested paging.\nDefault `paging.limit` is 100, `paging.offset` - 0.\nFor more information, see\n[API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v3/badges",
+        "links": [],
+        "examples": [        {
+          "title": "List badges",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v3/badges?paging.limit=4&paging.offset=1' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\n  \"badges\":   [\n        {\n      \"id\": \"ce700e2e-ded6-4e30-9638-6be7a9eec91b\",\n      \"title\": \"VIP\",\n      \"description\": \"\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"vip\",\n      \"createdDate\": \"2020-05-27T12:19:06.978Z\",\n      \"updatedDate\": \"2020-05-27T12:19:06.978Z\"\n    },\n        {\n      \"id\": \"99b12184-d3c3-441a-8659-789e0007b634\",\n      \"title\": \"Moderator\",\n      \"description\": \"Moderator\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"moderator\",\n      \"createdDate\": \"2020-05-27T12:18:08.329Z\",\n      \"updatedDate\": \"2020-05-27T12:18:08.329Z\"\n    },\n        {\n      \"id\": \"ffdc5c7d-d080-4c7c-869e-a8c4478532c0\",\n      \"title\": \"MVP\",\n      \"description\": \"Most valuable player\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"mvp\",\n      \"createdDate\": \"2020-05-27T12:17:54.024Z\",\n      \"updatedDate\": \"2020-05-27T12:17:54.024Z\"\n    },\n        {\n      \"id\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n      \"title\": \"Awesome Badge\",\n      \"description\": \"Badge for awesome people\",\n      \"backgroundColor\": \"#FFFFFF\",\n      \"textColor\": \"#FF0000\",\n      \"icon\": \"https://my-icons.example/awesome.svg\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"awesome-badge\",\n      \"createdDate\": \"2020-05-28T09:26:17.699Z\",\n      \"updatedDate\": \"2020-05-28T09:26:17.699Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 1,\n    \"total\": 10,\n    \"tooManyToCount\": false\n  }\n} "],
+          "type": "curl",
+          "extra": {"description": "Retrieving badges"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListBadgesRequest",
+        "rpcResponseName": "ListBadgesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Badges per Member",
+      "methodName": "ListMembersBadgeIds",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["memberIds"],
+      "params": [      {
+        "in": "BODY",
+        "name": "memberIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of members.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListMembersBadgeIds",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_ListMembersBadgeIdsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves badges assigned to the requested members.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v3/badges/members",
+        "links": [],
+        "examples": [        {
+          "title": "List members badge ids",
+          "body": ["curl -X POST \\\n    'https://www.wixapis.com/members/v3/badges/members' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"memberIds\": [\n                \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n                \"b32b708e-d531-42fb-846b-f23c367d9c92\"\n            ]\n      }'"],
+          "response": ["{\"memberBadgeIds\": [\n    {\n    \"memberId\": \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n    \"badgeIds\":     [\n      \"ce700e2e-ded6-4e30-9638-6be7a9eec91b\",\n      \"ffdc5c7d-d080-4c7c-869e-a8c4478532c0\"\n    ]\n  },\n    {\n    \"memberId\": \"b32b708e-d531-42fb-846b-f23c367d9c92\",\n    \"badgeIds\": [\"ce700e2e-ded6-4e30-9638-6be7a9eec91b\"]\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "Retrieving badge ids assigned to members"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMembersBadgeIdsRequest",
+        "rpcResponseName": "ListMembersBadgeIdsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Members by Badge",
+      "methodName": "ListMembers",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMembers",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_ListMembersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves up to 1000 site members\nwho have a specified badge.\nDefault `paging.limit` is 100, `paging.offset` - 0.\nFor more details on how to use paging, see documentation\n[here](https://dev.wix.com/api/rest/getting-started/pagination).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v3/badges/{id}/members",
+        "links": [],
+        "examples": [        {
+          "title": "List members",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v3/badges/ffdc5c7d-d080-4c7c-869e-a8c4478532c0/members?paging.limit=2&paging.offset=1' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\n  \"memberIds\":   [\n    \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n    \"b32b708e-d531-42fb-846b-f23c367d9c92\"\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 1,\n    \"total\": 10,\n    \"tooManyToCount\": false\n  }\n} "],
+          "type": "curl",
+          "extra": {"description": "Retrieving members assigned to a badge"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMembersRequest",
+        "rpcResponseName": "ListMembersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Badges",
+      "methodName": "QueryBadges",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "filter",
+          "type": "struct",
+          "doc": "\nFilter options.\nCurrently supported fields for filtering:\n- id\n- title\n- slug\nFor more details on how to use filter, see [API Query Language: The Filter Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-filter-section).\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Badges._wix_common_Sorting"]
+          },
+          "doc": "\nSorting options.\nFor more details on how to use sorting,\nsee [API Query Language: The Sort Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-sort-section)\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paging",
+          "type": "All APIs.Badges._wix_common_Paging",
+          "doc": " Pagination options. For more information, see\n [API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QueryBadges",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_QueryBadgesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves up to 1000 badges, given the requested query options, paging, and sorting.\nDefault `paging.limit` is 100, `paging.offset` - 0.\nFor more information, see\n[API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v3/badges/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query badges",
+            "body": ["curl -X POST 'https://www.wixapis.com/members/v3/badges/query' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"filter\": {\n            \t\"$or\": [\n            \t    {\"title\": \"VIP\"},\n            \t    {\"title\": \"MVP\"}\n                ]\n            },\n            \"sorting\": [\n                {\"fieldName\":\"title\", \"direction\": \"DESC\"}\n            ]\n      }'"],
+            "response": ["{\n  \"badges\":   [\n        {\n      \"id\": \"ffdc5c7d-d080-4c7c-869e-a8c4478532c0\",\n      \"title\": \"MVP\",\n      \"description\": \"Most valuable player\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"mvp\",\n      \"createdDate\": \"2020-05-27T12:17:54.024Z\",\n      \"updatedDate\": \"2020-05-27T12:17:54.024Z\"\n    },\n        {\n      \"id\": \"ce700e2e-ded6-4e30-9638-6be7a9eec91b\",\n      \"title\": \"VIP\",\n      \"description\": \"\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"vip\",\n      \"createdDate\": \"2020-05-27T12:19:06.978Z\",\n      \"updatedDate\": \"2020-05-27T12:19:06.978Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2,\n    \"tooManyToCount\": false\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving badges with filter and sorting"}
+          },
+                    {
+            "title": "Query for all badges",
+            "body": ["curl -X POST 'https://www.wixapis.com/members/v3/badges/query' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n  \"filter\": {},\n  \"sorting\": [],\n  \"paging\": {}\n}'"],
+            "response": ["{\n  \"badges\":   [\n        {\n      \"id\": \"91e9c1ac-aea4-4329-84ef-093c55595cde\",\n      \"title\": \"Top Contributor\",\n      \"description\": \"Contributed most posts this month\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"top-contributor\",\n      \"createdDate\": \"2021-10-18T12:07:43.560Z\",\n      \"updatedDate\": \"2021-10-18T12:07:43.560Z\"\n    },\n        {\n      \"id\": \"0f223639-56a5-4e09-b785-d80392c413ed\",\n      \"title\": \"Conversation Starter\",\n      \"description\": \"Added the first comment on a post.\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"conversation-starter\",\n      \"createdDate\": \"2021-10-18T12:08:13.191Z\",\n      \"updatedDate\": \"2021-10-18T12:08:13.191Z\"\n    },\n        {\n      \"id\": \"fdcbd071-f943-4bb2-bf6d-001bbb9dc495\",\n      \"title\": \"Community Builder\",\n      \"description\": \"Special access and moderation permissions.\",\n      \"backgroundColor\": \"#796EFF\",\n      \"textColor\": \"#FFFFFF\",\n      \"icon\": \"\",\n      \"permissionsEnabled\": false,\n      \"slug\": \"community-builder\",\n      \"createdDate\": \"2021-10-18T12:08:44.930Z\",\n      \"updatedDate\": \"2021-10-18T12:08:44.930Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 3,\n    \"total\": 3\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving all badges by passing an empty filter"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryBadgesRequest",
+        "rpcResponseName": "QueryBadgesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Remove Members from Badge",
+      "methodName": "UnassignBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "id",
+        "memberIds"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of members to remove.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UnassignBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_UnassignBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRemoves the requested members from a badge.\nMembers removed from a badge lose the badge's permissions, if applicable.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/members/v3/badges/{id}/members",
+        "links": [],
+        "examples": [        {
+          "title": "Unassign badge from members",
+          "body": ["curl -X DELETE \\\n    'https://www.wixapis.com/members/v3/badges/80d5e4aa-0ab2-4bab-b941-a7459239a02e/members' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"memberIds\": [\n                \"cdd1993d-811e-453d-8a0e-b9e0f7780b96\",\n                \"b32b708e-d531-42fb-846b-f23c367d9c92\"\n            ]\n      }'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UnassignBadgeRequest",
+        "rpcResponseName": "UnassignBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Badge",
+      "methodName": "UpdateBadge",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "badge",
+        "badge.id"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "badge.id",
+          "type": "string",
+          "doc": " Badge ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "badge",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+          "doc": " Badge to update.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateBadge",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_UpdateBadgeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Updates a badge's specified properties.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/members/v3/badges/{badge.id}",
+        "links": [],
+        "examples": [        {
+          "title": "Update a badge",
+          "body": ["curl -X PATCH \\\n    'https://www.wixapis.com/members/v3/badges/members/80d5e4aa-0ab2-4bab-b941-a7459239a02e' \\\n    -H 'Authorization: <AUTH>'\n    -d '{\n            \"title\": \"The Awesome Badge\",\n            \"description\": \"Badge for awesome people\",\n            \"backgroundColor\": \"#FFFFFF\",\n            \"textColor\": \"#FF0000\"\n      }'"],
+          "response": ["{\"badge\": {\n  \"id\": \"80d5e4aa-0ab2-4bab-b941-a7459239a02e\",\n  \"title\": \"The Awesome Badge\",\n  \"description\": \"Badge for awesome people\",\n  \"backgroundColor\": \"#FFFFFF\",\n  \"textColor\": \"#FF0000\",\n  \"icon\": \"https://my-icons.example/awesome.svg\",\n  \"permissionsEnabled\": false,\n  \"slug\": \"the-awesome-badge\",\n  \"createdDate\": \"2020-05-28T09:26:17.699Z\",\n  \"updatedDate\": \"2020-05-28T10:21:18.975Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateBadgeRequest",
+        "rpcResponseName": "UpdateBadgeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Badges Display Order",
+      "methodName": "UpdateBadgesDisplayOrder",
+      "serviceName": "BadgesServiceV3",
+      "tag": "Badge",
+      "permissions": [      {
+        "name": "Manage Badges",
+        "description": "Request permission to manage the site's member badges."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "badgeIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Ordered badge IDs.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "UpdateBadgesDisplayOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_UpdateBadgesDisplayOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Updates badges' display order.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/members/v3/badges/order",
+        "links": [],
+        "examples": [        {
+          "title": "Update badges display order",
+          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/members/v3/badges/order' \\\n  -H 'Authorization: <AUTH>' \\\n  -d '{\n\t\"badgeIds\":\n\t\t[\n\t\t\t\"647519df-c6e8-462e-8f9d-a8f9f5939105\",\n\t\t\t\"f2cefbf1-4180-40cb-9a9c-95cdafd82ab3\"\n\t\t]\n}'"],
+          "response": ["{\"badges\": [\n    {\n    \"id\": \"647519df-c6e8-462e-8f9d-a8f9f5939105\",\n    \"title\": \"Worker\",\n    \"description\": \"\",\n    \"backgroundColor\": \"#796EFF\",\n    \"textColor\": \"#FFFFFF\",\n    \"icon\": \"https://static.wixstatic.com/shapes/085c76e4c35843b3a72da08ad42cde7d.svg\",\n    \"permissionsEnabled\": false,\n    \"slug\": \"worker\",\n    \"createdDate\": \"2021-08-05T11:34:17.987Z\",\n    \"updatedDate\": \"2021-08-05T11:34:17.987Z\"\n  },\n    {\n    \"id\": \"f2cefbf1-4180-40cb-9a9c-95cdafd82ab3\",\n    \"title\": \"Player\",\n    \"description\": \"\",\n    \"backgroundColor\": \"#14AAF5\",\n    \"textColor\": \"#FFF9D1\",\n    \"icon\": \"https://static.wixstatic.com/shapes/658e7145548148ee9a621666fc8f4717.svg\",\n    \"permissionsEnabled\": false,\n    \"slug\": \"player\",\n    \"createdDate\": \"2021-08-05T11:32:36.616Z\",\n    \"updatedDate\": \"2021-08-05T11:32:36.616Z\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateBadgesDisplayOrderRequest",
+        "rpcResponseName": "UpdateBadgesDisplayOrderResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_badges_v3_BadgeUpdatedDomainEvent",
+      "name": "Badge Updated Webhook",
+      "docs":       {
+        "summary": " Triggered when a badge is updated.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto/com/wixpress/badges/v3/badges-service.proto"
+      },
+      "topic": "domain_events_wix.badges.v3.badge",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.badges.v3.badge_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_badges_v3_BadgeDeletedDomainEvent",
+      "name": "Badge Deleted Webhook",
+      "docs":       {
+        "summary": " Triggered when a badge is deleted.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto/com/wixpress/badges/v3/badges-service.proto"
+      },
+      "topic": "domain_events_wix.badges.v3.badge",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.badges.v3.badge_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_badges_v3_BadgeCreatedDomainEvent",
+      "name": "Badge Created Webhook",
+      "docs":       {
+        "summary": " Triggered when a badge is created.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto/com/wixpress/badges/v3/badges-service.proto"
+      },
+      "topic": "domain_events_wix.badges.v3.badge",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.badges.v3.badge_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_badges_v3_BadgeAssignedDomainEvent",
+      "name": "Badge Assigned Webhook",
+      "docs":       {
+        "summary": " Triggered when a member receives a badge.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto/com/wixpress/badges/v3/badges-service.proto"
+      },
+      "topic": "domain_events_wix.badges.v3.badge",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.badges.v3.badge_badge_assigned",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_badges_v3_BadgeUnassignedDomainEvent",
+      "name": "Badge Unassigned Webhook",
+      "docs":       {
+        "summary": " Triggered when a member's badge is removed.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/badges/members-badges-api/src/main/proto/com/wixpress/badges/v3/badges-service.proto"
+      },
+      "topic": "domain_events_wix.badges.v3.badge",
+      "tag": "Badge",
+      "permissions":       [
+                {
+          "name": "Manage Badges",
+          "description": "Request permission to manage the site's member badges."
+        },
+                {
+          "name": "Read Badges",
+          "description": "Request permission to read the site's member badges."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.badges.v3.badge_badge_unassigned",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_badges_v3_BadgeUpdatedDomainEvent",
+      "displayName": "Badge Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.badges.v3.badge`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Badge ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeEntityUpdatedEvent",
+      "displayName": "Badge Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeDeletedDomainEvent",
+      "displayName": "Badge Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.badges.v3.badge`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Badge ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeEntityDeletedEvent",
+      "displayName": "Badge Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeCreatedDomainEvent",
+      "displayName": "Badge Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.badges.v3.badge`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Badge ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeEntityCreatedEvent",
+      "displayName": "Badge Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entity",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeAssignedDomainEvent",
+      "displayName": "Badge Assigned Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.badges.v3.badge`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `badge_assigned`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeAssignedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BadgeAssigned ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeAssignedActionEvent",
+      "displayName": "Badge Assigned Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeAssigned",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeUnassignedDomainEvent",
+      "displayName": "Badge Unassigned Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.badges.v3.badge`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `badge_unassigned`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeUnassignedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BadgeUnassigned ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeUnassignedActionEvent",
+      "displayName": "Badge Unassigned Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_BadgeUnassigned",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Badges._wix_common_SortOrder",
+          "doc": " Sort order.\n\n Defaults to `ASC`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_Badge",
+      "displayName": "Badge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge id\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Badge title\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Badge description\n"
+        },
+                {
+          "name": "backgroundColor",
+          "type": "string",
+          "doc": " Badge background color in 6-digit color hex (e.g. #FFFFFF)\n"
+        },
+                {
+          "name": "textColor",
+          "type": "string",
+          "doc": " Badge text color in 6-digit color hex (e.g. #FFFFFF)\n"
+        },
+                {
+          "name": "icon",
+          "type": "string",
+          "doc": " Badge icon SVG as 'https://...'\n"
+        },
+                {
+          "name": "roleId",
+          "type": "string",
+          "doc": " Id of role/group in groups service that badge assignee belongs to\n"
+        },
+                {
+          "name": "hasPermissions",
+          "type": "boolean",
+          "doc": " Indicates whether badge has permissions\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Badge url keyword operator\n"
+        },
+                {
+          "name": "dateCreated",
+          "type": "string",
+          "doc": " Date when badge was created\n"
+        },
+                {
+          "name": "dateUpdated",
+          "type": "string",
+          "doc": " Date when badge was last updated\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v2_Badge",
+      "displayName": "Badge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge id\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Badge title\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Badge description\n"
+        },
+                {
+          "name": "backgroundColor",
+          "type": "string",
+          "doc": " Badge background color in 6-digit color hex in upper case (e.g. #FFFFFF)\n"
+        },
+                {
+          "name": "textColor",
+          "type": "string",
+          "doc": " Badge text color in 6-digit color hex in upper case (e.g. #FFFFFF)\n"
+        },
+                {
+          "name": "icon",
+          "type": "string",
+          "doc": " Badge icon SVG as 'https://...'\n"
+        },
+                {
+          "name": "roleId",
+          "type": "string",
+          "doc": " Id of role/group in groups service that badge assignee belongs to\n"
+        },
+                {
+          "name": "hasPermissions",
+          "type": "boolean",
+          "doc": "\nIndicates whether badge has permissions.\n\nBadges can have special permissions to access specific members-only pages.\n\nWhen the value is set to **true**, badge permissions can be managed in\n[permissions table](https://www.wix.com/my-account/site-selector/?buttonText=Manage%20Permissions&amp;title=Select%20a%20Site&amp;autoSelectOnSingleSite=true&amp;actionUrl=https://www.wix.com/dashboard/{{metaSiteId}}/member-permissions/roles/manage-permissions).\nSite members will receive relevant permissions once assigned such badge.\n\nWhen the value is set to **false**, badge has no associated permissions\nand is not visible in permissions table.\nSite member will not receive any permissions once assigned such badge.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Badge url keyword operator\n"
+        },
+                {
+          "name": "createDate",
+          "type": "string",
+          "doc": " Date when badge was created\n"
+        },
+                {
+          "name": "updateDate",
+          "type": "string",
+          "doc": " Date when badge was last updated\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_Badge",
+      "displayName": "Badge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Text displayed on the badge in the Wix UI.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Badge description.\n"
+        },
+                {
+          "name": "backgroundColor",
+          "type": "string",
+          "doc": "\nBadge background color in hexadecimal RGB format.\nUppercase letters only.\nExample: `#FFFFFF`.\n"
+        },
+                {
+          "name": "textColor",
+          "type": "string",
+          "doc": "\nBadge text color in hexadecimal RGB format.\nUppercase letters only.\nExample: `#C81B53`.\n"
+        },
+                {
+          "name": "icon",
+          "type": "string",
+          "doc": "\nURL of the badge icon image.\n_Recommended_ to use `SVG` image format as it is resolution independent and looks great at any scale.\n"
+        },
+                {
+          "name": "permissionsEnabled",
+          "type": "boolean",
+          "doc": "\nWhether the badge has special permissions\nto access specific members-only pages.\nWhen `true`, members with the badge receive special permissions,\nand site contributors can\n[manage badge permissions](https://support.wix.com/en/article/setting-permissions-for-a-member-badge)\nin the site dashboard.\nWhen `false`, members with the badge receive no special permissions.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Slugified name. Used to represent the badge in a URL.\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date the badge was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date the badge was updated.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeMemberCount",
+      "displayName": "Badge Member Count Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "badgeId",
+          "type": "string",
+          "doc": " Badge ID.\n"
+        },
+                {
+          "name": "memberCount",
+          "type": "integer",
+          "doc": " Badge member count.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_CreateBadgeRequest",
+      "displayName": "Create Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Badge to create.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_CreateBadgeResponse",
+      "displayName": "Create Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Created badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UpdateBadgeRequest",
+      "displayName": "Update Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Badge to update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UpdateBadgeResponse",
+      "displayName": "Update Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Updated badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_GetBadgeRequest",
+      "displayName": "Get Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " Badge ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_GetBadgeResponse",
+      "displayName": "Get Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badge",
+        "type": "All APIs.Badges._com_wixpress_badges_v3_Badge",
+        "doc": " Badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListBadgesRequest",
+      "displayName": "List Badges Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.Badges._wix_common_Paging",
+        "doc": " Pagination options. For more information, see\n [API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListBadgesResponse",
+      "displayName": "List Badges Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "badges",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_Badge"]
+          },
+          "doc": " List of badges.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Badges._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_QueryBadgesRequest",
+      "displayName": "Query Badges Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": "\nFilter options.\nCurrently supported fields for filtering:\n- id\n- title\n- slug\nFor more details on how to use filter, see [API Query Language: The Filter Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-filter-section).\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Badges._wix_common_Sorting"]
+          },
+          "doc": "\nSorting options.\nFor more details on how to use sorting,\nsee [API Query Language: The Sort Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-sort-section)\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Badges._wix_common_Paging",
+          "doc": " Pagination options. For more information, see\n [API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_QueryBadgesResponse",
+      "displayName": "Query Badges Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "badges",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_Badge"]
+          },
+          "doc": " List of badges.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Badges._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_DeleteBadgeRequest",
+      "displayName": "Delete Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " Badge ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_DeleteBadgeResponse",
+      "displayName": "Delete Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_CountBadgesRequest",
+      "displayName": "Count Badges Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "struct",
+        "doc": "\nFilter options.\nCurrently supported fields for filtering:\n- id\n- title\n- slug\nFor more details on how to use filter, see [API Query Language: The Filter Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-filter-section).\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_CountBadgesResponse",
+      "displayName": "Count Badges Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "count",
+        "type": "string",
+        "doc": " Badge count.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_AssignBadgeRequest",
+      "displayName": "Assign Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n"
+        },
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of member IDs to assign to the badge.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_AssignBadgeResponse",
+      "displayName": "Assign Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of member IDs assigned to the badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListMembersBadgeIdsRequest",
+      "displayName": "List Members Badge Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of members.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_MemberBadgeIds",
+      "displayName": "Member Badge Ids Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n"
+        },
+                {
+          "name": "badgeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of badges the member is assigned to.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListMembersBadgeIdsResponse",
+      "displayName": "List Members Badge Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberBadgeIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_MemberBadgeIds"]
+        },
+        "doc": " List of members and the badges they're assigned to.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListMembersRequest",
+      "displayName": "List Members Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Badges._wix_common_Paging",
+          "doc": " Pagination options. For more information, see\n [API Query Language: The Paging Section](https://dev.wix.com/api/rest/getting-started/api-query-language#getting-started_api-query-language_the-paging-section).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_ListMembersResponse",
+      "displayName": "List Members Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Member IDs assigned to the badge.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Badges._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UnassignBadgeRequest",
+      "displayName": "Unassign Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Badge ID.\n"
+        },
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of members to remove.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UnassignBadgeResponse",
+      "displayName": "Unassign Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_GetMemberCountsPerBadgeRequest",
+      "displayName": "Get Member Counts Per Badge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_GetMemberCountsPerBadgeResponse",
+      "displayName": "Get Member Counts Per Badge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badgeMemberCounts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_BadgeMemberCount"]
+        },
+        "doc": " List of badges and counts of members who have each badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UpdateBadgesDisplayOrderRequest",
+      "displayName": "Update Badges Display Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badgeIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Ordered badge IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_UpdateBadgesDisplayOrderResponse",
+      "displayName": "Update Badges Display Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "badges",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Badges._com_wixpress_badges_v3_Badge"]
+        },
+        "doc": " Reordered badges list.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeAssigned",
+      "displayName": "Badge Assigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " ID of the member who received the badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_badges_v3_BadgeUnassigned",
+      "displayName": "Badge Unassigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " ID of the member who lost the badge.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.badges.members-badges-server"}
+}
