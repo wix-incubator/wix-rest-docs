@@ -26,7 +26,7 @@ https://wixapis.com/apps/v1/editor-deep-link \
 
 ```json
 {
-  "url": \<link to user stage\>
+  "url": '<link to stage>'
 }
 ```
 
