@@ -18,13 +18,15 @@ To make an API request using API keys, you will need:
 
 #### Finding an Account ID
 
-Your account ID is a string that identifies your account.You can find it on the main page of your API Keys Manager. Learn more about locating your account ID here.
+Your account ID can be found on the main page of the [API Keys Manager](https://manage.wix.com/account/api-keys).
 
 #### Finding a Site ID
 
-Site ID’s are retrieved with Site List’s **Query Sites** API, described [here](https://bo.wix.com/wix-docs/rest/site-list/site-list/query-sites). This API requires authorization with the API key and an account ID.
+Site ID’s are retrieved with Site List’s **Query Sites** API. This API requires authorization with the API key and an account ID.
 
-The site ID for a site currently being viewed can be obtained from the site url in your browser (for example, after the /dashboard/ portion of the url).
+The site ID for a current site can be obtained from the site url in your browser. For example, the site ID appears after the '/dashboard/' part of this url:
+
+![site Id in URL](./../media/siteid.png)
 
 ## Constructing the Header of an API Request
 
@@ -43,11 +45,11 @@ curl <GET/POST>\
 
 ```
 
-Add this header to the body of any of our API's.
+Add this header to the body of any of your API's.
 
 ## Account-Level and Site-Level API Requests
 
-Depending on the API, an account ID and/or site ID must be includwd in the header of the API request.
+Depending on the API, an account ID and/or site ID must be included in the header of the API request.
 
 For requests made at the account level, you must include the account ID in the header along with the API key for authentication. Some API’s will  require the site ID as well. This is indicated in the documentation for each account-level API.
 
