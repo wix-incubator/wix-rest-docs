@@ -39,9 +39,9 @@ A complete header for an API request looks like this:
 ```
 curl <GET/POST>\
 ‘<endpoint>’ \
--H 'Authorization: <APIKEY>’ \
--H wix-account-id:<ACCOUNTID>’ \
--H ‘wix-site-id:<SITEID>’ \
+-H 'Authorization: <APIKEY>' \
+-H 'wix-account-id: <ACCOUNTID>' \
+-H 'wix-site-id: <SITEID>' \
 
 ```
 
@@ -82,6 +82,7 @@ json:
 {
   Account: [
     “accountId”: “0c87cd5d-4059-4e86-8f6e-d185b1e4a1bd”
+  ]
 }
 ```
 
