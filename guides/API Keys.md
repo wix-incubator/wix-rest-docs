@@ -39,10 +39,10 @@ A complete header for an API request looks like this:
 ```
 curl <GET/POST>\
 ‘<endpoint>’ \
--H 'Authorization: <APIKEY>’ \
--H wix-account-id:<ACCOUNTID>’ \
--H ‘wix-site-id:<SITEID>’ \
 
+-H 'Authorization: <APIKEY>' \
+-H 'wix-account-id: <ACCOUNTID>' \
+-H 'wix-site-id: <SITEID>' \
 ```
 
 Add this header to the body of any of your API's.
@@ -63,11 +63,11 @@ This API creates a new Wix account as a sub-account of a targetAccountId. It als
 
 ```
 curl POST \
-‘https://www.wixapis.com/accounts/v1/accounts/create’ \
--H 'Authorization: <APIKEY>’ \
--H ‘wix-account-id: <ACCOUNTID>’\
+'https://www.wixapis.com/accounts/v1/accounts/create' \
+-H 'Authorization: <APIKEY>' \
+-H 'wix-account-id: <ACCOUNTID>\
 
---data-binary '{
+-d '{
 “User”: {
      “Email”: [{“emailAddress”: “test@example.com”, “isVerified”: “true”}],
      “ssoIdentities”: [{“ssoid”: “test123”, “userid”: “test1234”}]
@@ -82,6 +82,7 @@ json:
 {
   Account: [
     “accountId”: “0c87cd5d-4059-4e86-8f6e-d185b1e4a1bd”
+  ]
 }
 ```
 
@@ -91,13 +92,13 @@ json:
 
 ```
 curl POST \
-‘https://www.wixapis.com/stores/v1/products/query’ \
+'https://www.wixapis.com/stores/v1/products/query' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json, text/plain, */*' \
--H 'Authorization: <APIKEY>’ \
--H ‘wix-site-id: <SITEID>’\
+-H 'Authorization: <APIKEY>' \
+-H 'wix-site-id: <SITEID>'\
 
---data-raw '{
+-d '{
 "query": {
      "filter":"{\paymentStatus\":\"PAID\"},
      "sort':"{\"number\": \"desc\"}",
