@@ -39,6 +39,7 @@ A complete header for an API request looks like this:
 ```
 curl <GET/POST>\
 ‘<endpoint>’ \
+
 -H 'Authorization: <APIKEY>' \
 -H 'wix-account-id: <ACCOUNTID>' \
 -H 'wix-site-id: <SITEID>' \
