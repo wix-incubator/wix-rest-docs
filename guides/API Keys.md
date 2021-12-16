@@ -8,11 +8,21 @@ Learn about creating and managing API keys in this [article](https://support.wix
 
 >**Note**: API keys and this documentation are currently in beta.
 
-## API Requests with API Keys
+## Authentication
+
+API requests require an authorization header. You can authenticate with either OAuth 2 or with an API key.
+
+1. If authenticating with [OAuth 2](https://dev.wix.com/api/rest/getting-started/authentication), insert the access token received from the Authentication flow in the authorization header.
+2. Alternatively, use an API key generated in the [API Keys Manager](https://manage.wix.com/account/api-keys) in the authorization header.
+
+## API Requests
+
+API requests with API keys have the same format as with OAuth 2 with the following differences:
 
 To make an API request using API keys, you will need:
-- An API key token used for authentication.
-- An account ID and/or site ID for the header as described below.
+1. The API key for the authentication header
+2. A site ID header added for site-level API requests
+3. An account ID header that may be required for account-level API requests.
 
 ## Finding Account and Site ID's
 
