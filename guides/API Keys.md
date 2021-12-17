@@ -12,7 +12,7 @@ Learn about creating and managing API keys in this [article](https://support.wix
 
 API requests require an authorization header. You can authenticate with either OAuth 2 or with an API key.
 
-1. If authenticating with [OAuth 2](https://dev.wix.com/api/rest/getting-started/authentication), insert the access token received from the Authentication flow in the authorization header.
+1. If authenticating with [OAuth 2](https://dev.wix.com/api/rest/getting-started/authentication), use the access token received from the Authentication flow in the authorization header.
 2. Alternatively, use an API key generated in the [API Keys Manager](https://manage.wix.com/account/api-keys) in the authorization header.
 
 ## API Requests
