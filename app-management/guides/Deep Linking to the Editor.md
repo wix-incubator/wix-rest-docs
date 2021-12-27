@@ -19,7 +19,7 @@ Custom parameters in the form of key-value pairs can be sent in the body of the 
 ### Request
 
 ```curl
-Curl -X  GET \
+Curl -X GET \
 https://wixapis.com/apps/v1/editor-deep-link \
 -H 'Authorization: <AUTH>'
 ```
