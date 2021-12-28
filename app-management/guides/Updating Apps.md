@@ -12,7 +12,7 @@ The version number can be retrieved using the [Get App Instance](https://dev.wix
 
 When you first submit an app, it is designated ‘v1’ with an Actual Version of “Draft”. Once it is approved, it is given the version number ‘1.0.0’. At the same time, a new version ‘v2’ is created as a copy of ‘v1’ and it is given the Actual Version of Draft. This means that v1 is now frozen and any changes you make will occur in v2 Draft.
 
-![App Submissions](./../app-submissions.png)
+![App Submissions](./../app-submission.png)
 
 ## App Updates
 
