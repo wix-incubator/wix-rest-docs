@@ -26,6 +26,8 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 
 The simple request is used to place a custom element on the user’s stage along with its Settings panel, as described below. It is also possible to pass custom parameters by adding the parameters to the body of the request.
 
+### Request with Custom Parameters
+
 ```curl
 curl -X  POST \
 https://wixapis.com/apps/v1/post-installation/editor-deep-link \
