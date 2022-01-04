@@ -72,9 +72,9 @@ Major versions are not automatically sent to users. Instead, users are informed 
 > **Note:**
 > Only site owners can update an app, not contributors. Be sure to [test your app as a contributor](https://devforum.wix.com/kb/en/article/test-your-app-as-a-contributor) to see how this flow works for them.
 
-<blockquote class='tip'><p>
+<blockquote class='important'><p>
 <strong>Important:</strong>
-> A major update essentially takes the user through the [OAuth flow](https://dev.wix.com/api/rest/getting-started/authentication). You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use with the user's instance ID.
+A major update essentially takes the user through the [OAuth flow](https://dev.wix.com/api/rest/getting-started/authentication). You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use with the user's instance ID.
 </blockquote>
 
 ![Manage Apps](./../app-manager-update.png)
