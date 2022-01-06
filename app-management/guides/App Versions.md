@@ -3,19 +3,18 @@
 ## Introduction
 
 Wix manages versioning of apps. Minor updates are given to users automatically. Major versions require notifying users who must then click to accept the update.
-Version Numbers
+
+## Version Numbers
 
 The list of app submissions shows the history of your app’s versions, v1, v2, v3, etc. Whenever a new version is published, for example v2 in the image below, a copy is made, designated v3 and this is the draft that you will work on next. Older versions are archived.
 
-![Version Submissions](./../app-submissions2.png)
+![Version Submissions](./../../../app-submissions2.png)
 
-Wix reviews the submission and determines the version number to give it. This is an internal  versioning system that contains major and minor version information. The format of this version is:
+Wix reviews the submission and determines the version number to give it. This is an internal  versioning system that contains major and minor version information, and its format is:
 
-<div align="center">
-1.2.0
-</div>
+> <font size="+1">&nbsp;&nbsp; **Version 1.2.0**</font>
 
-Where 1 is the major version, 2 is the minor version, and 0 is for internal use while the version is still a draft.
+where 1 is the major version, 2 is the minor version, and 0 is for internal use while the version is still a draft.
 
 ## Retrieve the App Version
 
@@ -74,9 +73,9 @@ Major versions are not automatically sent to users. Instead, users are informed 
 
 <blockquote class='important'><p>
 <strong>Important:</strong>
-A major update essentially takes the user through the [OAuth flow](https://dev.wix.com/api/rest/getting-started/authentication). You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use with the user's instance ID.
+A major update essentially takes the user through the <a href="https://dev.wix.com/api/rest/getting-started/authentication">OAuth flow</a>. You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use with the user's instance ID.
 </blockquote>
 
-![Manage Apps](./../app-manager-update.png)
+![Manage Apps](./../../../app-manager-update.png)
 
 For major updates, Wix recommends letting users know that they should update your app. Sending an email to site owners or placing a banner in the app are good ways to do that. You may also include a link to the Wix installer as described [here](https://dev.wix.com/api/rest/getting-started/authentication#getting-started_authentication_step-2-app-sends-users-to-authorize-the-app) so they can easily update the app.
