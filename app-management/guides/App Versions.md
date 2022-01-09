@@ -12,11 +12,11 @@ The list of app submissions shows the history of your app’s versions, v1, v2, 
 
 Wix reviews the submission and determines the version number to give it. This is an internal  versioning system that contains major and minor version information, and its format is:
 
-> <font size="+1">&nbsp;&nbsp; **Version 1.2.0**</font>
+> <font size="+2">&nbsp;&nbsp; **Version 1.2.0**</font>
 
 where 1 is the major version, 2 is the minor version, and 0 is for internal use while the version is still a draft.
 
-## Retrieve the App Version
+## Retrieving the App Version
 
 Use the [Get App Instance](https://dev.wix.com/api/rest/app-management/apps/app-instance/get-app-instance) API to retrieve the version of your app running on each of your user’s sites. The response contains app information:
 
