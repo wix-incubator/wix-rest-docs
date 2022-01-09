@@ -36,7 +36,7 @@ Site ID’s are retrieved with Site List’s **Query Sites** API. This API requi
 
 The site ID for a current site can be obtained from the site url in your browser. For example, the site ID appears after the '/dashboard/' part of this url:
 
-![site Id in URL](./../media/siteid.png)
+![site Id in URL](./../../media/siteid.png)
 
 ## Constructing the Header of an API Request
 
