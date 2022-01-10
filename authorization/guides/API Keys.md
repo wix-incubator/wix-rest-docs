@@ -6,8 +6,7 @@ API keys allow users to make API calls to an account or individual site without 
 
 Learn about creating and managing API keys in this [article](https://support.wix.com/en/article/about-wix-api-keys).
 
->**Note**: API keys and this documentation are currently in beta.
-
+>**Note**: API keys and this documentation are currently in beta
 
 ## API Requests with API Keys
 
