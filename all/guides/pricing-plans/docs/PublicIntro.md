@@ -39,5 +39,10 @@ Pricing Plans can be used together with the following Wix business solutions:
 - *Wix Bookings* - services from Wix Bookings (classes, treatments, workshops, etc.) can be included as a part of a plan (e.g. a plan for 10 private yoga classes).
 - *Wix Blog* - blog (list of posts or a single complete post) can be limited to paying members who purchase a particular membership.
 - *Wix Forum* - allow some forum categories to be accessible only for paying members.
+- *Wix Events* - offer discounts on event tickets to paying members who purchase a particular membership.
+- *Wix File Share* - access to files in your shared library can be limited to paying members.
+- *Wix Online Programs* - access to an online program can be accessible only to paying members who purchase a particular membership.
+- *Wix Video* - video channel access can be limited to paying members.
+- *Wix Groups* - group membership can be accessible only to paying members who purchase a particular membership.
 
 To learn more about Pricing Plans Integrations with another Wix business solutions, read [this article](https://support.wix.com/en/article/about-pricing-plans#connect-wix-bookings-services-to-a-pricing-plan).
