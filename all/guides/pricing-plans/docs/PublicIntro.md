@@ -5,16 +5,6 @@ With [Wix Pricing Plans](https://support.wix.com/en/article/about-pricing-plans)
 Wix Pricing Plans provides a customizable pricing page where customers can view the plan perks, prices and other features including free trials, purchase limitations and more. 
 All plans either have a duration or can be valid until canceled by a customer. 
 
-Use the Plans API to:
-- Create & update plans
-- Get Statistics about the plans
-- Get specific plan info 
-- Query all plans info
-- Mark a plan as primary
-- Arrange plan display order
-- Hide plans
-- Archive plans
-
 ## Terminology
 
 - **Plan**: A membership plan or package, offering bundles of features or “perks”. 
