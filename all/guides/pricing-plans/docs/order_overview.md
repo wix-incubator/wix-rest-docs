@@ -1,4 +1,4 @@
-SortOrder: 4
+SortOrder: 5
 # About the Orders API
 
 The Order entity includes all the details of Paid Plans Orders and their status. Using the Orders API, you can create and manage orders or change access to content on Wix or external apps upon plan purchase or cancellation.
@@ -32,7 +32,7 @@ Below are some possible use cases your app could support, as well as an example 
 
 ### Send an Email on Plan Purchase
 
-1. Sign up for the [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/order-v2/order-created-webhook) webhook.
+1. Sign up for the [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-created-webhook) webhook.
 2. Create an email template.
 3. When the webhook is triggered, collect one of the customer identifiers:
     - `buyer.contactId`
@@ -52,7 +52,7 @@ Below are some possible use cases your app could support, as well as an example 
 2. Create an email template.  
 3. When the webhook is triggered, check that the wixAppId = 1522827f-c56c-a5c9-2ac9-00f9e6ae12d3.  
 4. Collect the `wixAppOrderId`.  
-5. Call the [Get Order]((https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/order-v2/get-order) endpoint and pass the `wixAppOrderId` collected above as the `orderId`.  
+5. Call the [Get Order](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/get-order) endpoint and pass the `wixAppOrderId` collected above as the `orderId`.  
 6. Collect the `order.buyer.contactId`.  
 7. Call [Get Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/get-contact) and pass the contact ID collected above.  
 8. Collect the returned email address.  
