@@ -34,9 +34,9 @@ This endpoint requires an authorization header. Pass the access token from the [
 
 ### Permissions
 
-This endpoint requires the **Manage Your App** [permission scope](https://devforum.wix.com/en/article/available-permissions).
+This endpoint requires the Manage Your App [permission scope](https://devforum.wix.com/en/article/available-permissions).
 
-### Use Case 1 - Adding Components
+### Use Case 1: Adding Components
 
 The authorization token containing your App ID is used to generate a URL that adds the app’s components to a user’s page. No body is required.
 
@@ -92,8 +92,8 @@ Response
 
 Each Custom Element web component has its own Settings panel. Parameters may be added to the panel using the tabbed layout and a variety of UI controls that make it easy for your users.
 
-![alt_text](./../../media/custom-element-settings-panel.png "Settings panel")
+![Settings panel](./../../media/custom-element-settings-panel.png "Settings panel")
 
 When users install your app they have access to the same settings panel. Values set while developing the app are presented to users as default settings.
 
-![alt_text](./../../media/custom-plus-settings.png "Custom elemnet on page")
+![Custom element on page](./../../media/custom-plus-settings.png "Custom element on page")
