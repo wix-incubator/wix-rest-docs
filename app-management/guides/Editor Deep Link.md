@@ -22,7 +22,7 @@ The Deep Link API generates a URL that adds components to a site. It can be used
 2. Add an app’s Custom Element to a user’s site, where parameters for the Custom Element are contained in the body of the request.
 3. In the Wix Developers Center, add parameters and UI controls to the Settings panel of an app’s Custom Element, then use the Deep Link to add the Custom Element together with its Settings panel to a user’s site.
 
-## Example of How to Use a Custom Element
+## An Example of Using a Custom Element
 
 Consider an app that adds a lead generation form. Users create forms via the app's dashboard, and each form has a unique id. Next to each form in the dashboard the developer adds an “Add to Site'' button. It uses the Deep Link API together with the unique form id that is passed as a custom key-value pair into a Settings panel field with the same key. When users click the button, they are taken to the editor, and the component with that form id is added to the page.
 

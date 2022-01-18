@@ -77,4 +77,4 @@ as well as site information:
    }
 ```
 
-On this user’s site, for example, the app’s major version is 2 and minor version is 10. Users will get minor updates automatically, for example to 2.11 and 2.12. However, the next major version, 3.0.0,  will require the user to click the Update button or follow the instructions in your email or banner.
+On this user’s site, for example, the app’s major version is 2 and minor version is 10. The user will get minor updates automatically, for example to 2.11 and 2.12. However, the next major version, 3.0.0,  will require a click on the Update button or following the instructions in your email or banner.
