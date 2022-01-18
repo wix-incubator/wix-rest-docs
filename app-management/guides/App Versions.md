@@ -34,7 +34,7 @@ Major updates are not automatically sent to users. Instead, users are informed t
 <blockquote class='important'>
   <p>
     <strong>Important:</strong><br/>
-    A major update essentially takes the user through the OAuth flow. You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use together with the user's instance ID.
+    A major update essentially takes the user through the same OAuth flow as with normal app installation. You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use together with the user's instance ID.
   </p>
 </blockquote>
 
