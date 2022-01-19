@@ -3,9 +3,9 @@ SortOrder: 1
 
 
 
-With Wix Locations, site owners can define multiple physical locations for their business. This allows them to set individual opening hours for each location.
+With Locations, site owners can define multiple physical locations for their business. This allows them to set individual opening hours for each location.
 
-The Multi Location API allows your app to:
+The Locations API allows your app to:
 
 * List existing locations
 * Create, update, and archive locations
