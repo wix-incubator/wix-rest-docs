@@ -30,7 +30,12 @@ Major updates are not automatically sent to users. Instead, users are informed t
 
 > **Note:** Only site owners can update an app, not contributors. Be sure to test your app as a contributor to see how this flow works for them.
 
-| Important: A major update is similar to installing the app, taking the user through the OAuth flow. You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use together with the user's instance ID.
+<blockquote class='important'>
+  <p>
+    <strong>Important:</strong><br/>
+    A major update is similar to installing the app, taking the user through the OAuth flow. You will receive an authorization code with which you must request a new refresh token. Store the refresh token in your database for later use together with the user's instance ID.
+  </p>
+</blockquote>
 
 With major updates, Wix recommends you let users know that they should update your app. Sending an email to site owners or placing a banner in the app are good ways to do that. You may include a link to the Wix installer as described [here](https://dev.wix.com/api/rest/getting-started/authentication#getting-started_authentication_step-2-app-sends-users-to-authorize-the-app) so they can easily update the app.
 
@@ -70,4 +75,4 @@ As well as site information:
    }
 ```
 
-On this user’s site, for example, the app’s major version is 2 and minor version is 10. Users will get minor updates automatically, to 2.11, 2.12 and so on. However, the next major version, 3.0.0,  will require the user to click the Update button or follow the instructions in your email or banner.
+On this user’s site the app’s major version is 2 and minor version is 10. Users will get minor updates automatically, to 2.11, 2.12 and so on. However, the next major version, 3.0.0,  will require the user to click the Update button or follow the instructions in your email or banner.
