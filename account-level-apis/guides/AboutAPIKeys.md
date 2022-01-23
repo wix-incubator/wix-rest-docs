@@ -1,92 +1,78 @@
 # About API Keys
 
-API keys allow users to make API calls to an account or individual site without needing OAuth authentication. Users assign a set of permissions to each key they create. Those permissions determine the types of APIs the key can access.
+Account level APIs require dedicated authorization - API keys. API keys allow you to make API calls at the account and site level while bybassing OAuth authentication. 
+[API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where you can assign a set of permissions that determine the types of APIs the key can access.
 
-Learn about creating and managing API keys in this [article](https://support.wix.com/en/article/about-wix-api-keys).
+!image
 
->**Note**: API keys and this documentation are currently in beta
+> **Note**: 
+> API keys and this documentation are currently in beta.
 
-## API Requests with API Keys
+## Creating and Using API Keys
 
-To make an API request using API keys, you will need:
-- an API key token used for authentication.
-- an account ID and/or site ID for the header as described below.
+1. Create or request an API key
+     a. If you have direct access to the site, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.
+     b. If you don't have direct access to the site, request the key and the account ID from the site owner.
+2. Call the Site API's **Query Sites** endpoint to collect all the account's associated site IDs.
 
-## Finding Account and Site IDs
+     > **Note**: The site ID for a current site can be obtained from the site URL in your browser. For example, the site ID appears after the '/dashboard/' part of this URL:
 
-#### Finding an Account ID
+          ![site Id in URL](./../../media/siteid.png)
+     
 
-Your account ID can be found on the main page of the [API Keys Manager](https://manage.wix.com/account/api-keys).
+     a. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
+     b. Enter the account ID in the account ID header, as shown below. (In other calls, the site ID header may be required. Refer to the documentation for each specific call.)
 
-#### Finding a Site ID
+     A complete header for an API request looks like this:
 
-Site IDs are retrieved with Site List’s **Query Sites** API. This API requires authorization with the API key and an account ID.
+     ```
+     curl <GET/POST>\
+     ‘<endpoint>’ \
 
-The site ID for a current site can be obtained from the site URL in your browser. For example, the site ID appears after the '/dashboard/' part of this URL:
-
-![site Id in URL](./../../media/siteid.png)
-
-## Constructing the Header of an API Request
-
-Construct the header for the API by using the API key for authorization instead of the OAuth token. Note that the API key does not need to be refreshed like the OAuth token.
-
-In addition to authorization, API calls made with an API key require the header to contain the account ID and/or the site ID.
-
-A complete header for an API request looks like this:
-
-```
-curl <GET/POST>\
-‘<endpoint>’ \
-
--H 'Authorization: <APIKEY>' \
--H 'wix-account-id: <ACCOUNTID>' \
--H 'wix-site-id: <SITEID>' \
-```
-
-Add this header to the body of any of your API's to form a complete request.
+     -H 'Authorization: <APIKEY>' \
+     -H 'wix-account-id: <ACCOUNTID>' \
+     -H 'wix-site-id: <SITEID>' \
+     ```
+3. Make all following calls using the account ID and/or site ID, as required.
 
 ## Account-Level and Site-Level API Requests
+     
+Depending on the call, an account ID and/or site ID must be included in the header of the API request.
 
-Depending on the API, an account ID and/or site ID must be included in the header of the API request.
-
-For requests made at the account level, you must include the account ID in the header along with the API key for authentication. Some API’s will  require the site ID as well. This is indicated in the documentation for each account-level API.
+For requests made exclusively at the account level, you must include the account ID in the header along with the API key for authentication. Some endpoints will require the site ID as well. This is indicated in the documentation for each account-level API.
 
 With site-level API requests, the account ID can be ommitted.
 
-### Account-Level Request Example: “Create Account” API
+### Sample Request: Site Folders API - Create Folder
 
-This API creates a new Wix account as a sub-account of a targetAccountId. It also creates a new Wix user who is defined as the account owner. The ID of the new account is returned.
+This API creates a new folder that can hold Wix sites. 
 
 **Request:**
 
 ```
 curl POST \
-'https://www.wixapis.com/accounts/v1/accounts/create' \
+'https://www.wixapis.com/site-folders/v2/folders \
 -H 'Authorization: <APIKEY>' \
 -H 'wix-account-id: <ACCOUNTID>\
-
--d '{
-“User”: {
-     “Email”: [{“emailAddress”: “test@example.com”, “isVerified”: “true”}],
-     “ssoIdentities”: [{“ssoid”: “test123”, “userid”: “test1234”}]
-     “targetAccountId”: “0g44jm7b-4059-4e86-8k3e-d185b1d5s1g7”
-}}' \
+{ "folder": {"name": "My Folder", "parentId": "root"}}' \
 ```
 
 **Response:**
 
 ```
-json:
-{
-  Account: [
-    “accountId”: “0c87cd5d-4059-4e86-8f6e-d185b1e4a1bd”
-  ]
-}
+{"folder": {
+  "id": "283f4660-8f6f-462b-94a1-160a57338032",
+  "name": "My Folder",
+  "createdDate": "2021-12-13T11:33:56.973Z",
+  "updatedDate": "2021-12-13T11:33:56.973Z",
+  "siteCount": 0,
+  "parentId": ""
+}} 
 ```
 
-### Site Level Request Example: “Query Products” API
+### Sample Request: “Query Products” API
 
-This API lets you request a list of products from one of your sites. To query the API, you'll need an API key and the ID of the site you want to query.
+This API retrieves a list of products from one of the account's sites. To make this call, you'll need an API key and the ID of the site you want to query.
 
 **Request:**
 
