@@ -52,7 +52,7 @@ at least 6 months after their announced deprecation.
 
 - [Contact Updated webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-updated-webhook),
   [Marketing Tag Updated webhook](https://dev.wix.com/api/rest/marketing/marketing-tags/marketing-tag-updated-webhook):
-  `updatedEvent.previousEntity` stopped being sent.
+  `updatedEvent.previousEntity` no longer supported for 3rd-party apps.
 
 ## End of Life: June 30, 2021
 
