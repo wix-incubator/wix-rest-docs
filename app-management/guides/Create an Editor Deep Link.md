@@ -12,7 +12,7 @@ This endpoint requires an authorization header. Pass the access token from the [
 
 ### Syntax: REST
 
-<span style="color:#fff;background-color:#46d895;">&nbsp;POST&nbsp;</span><span style="background-color:#fff;">http://www.wixapis.com/apps/v1/post-installation/editor-deep-link</span>
+<span style="color:#fff;background-color:#46d895;">&nbsp;POST&nbsp;</span><span style="background-color:#fff;">&nbsp;http://www.wixapis.com/apps/v1/post-installation/editor-deep-link</span>
 
 ### Body Params
 
