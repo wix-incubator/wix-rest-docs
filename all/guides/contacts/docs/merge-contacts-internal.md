@@ -12,6 +12,24 @@ Any contact that is not a site member can be merged into another contact.
 You can find `Merge Contacts` under the
 [Contacts Service API][contacts-service-proto].
 
+## Events
+
+When some contacts are merged, the following events will be published:
+
+* [Merged Contact Domain Event][contact-merged-event]
+   *  (type = `Action`, slug = `merged`).
+   *  Payload will contain the `targetContactId` and `sourceContactIds`.
+  
+  
+* [Updated Contact Domain Event][contact-updated-event] for the target contact.
+    * Payload will containt the updated info.
+
+
+* [Deleted Contact Domain Event][contact-deleted-event] for all source contacts.
+  *  (type = `Deleted`, originatedFrom = `merge`).
+
+
+
 ## Integration
 
 If your vertical keeps track of the site's contact IDs,
@@ -26,17 +44,23 @@ val domainEventConsumer = com.wixpress.greyhound.MessageHandler.aMessageHandler[
 
   implicit val mapper: JsonMapper = ProtobufIdlObjectMapper.configure(JsonMapper.objectMapperFromTemplate)
 
-  msg.body match {
-    case Body.ActionEvent(event)=> {
+  (msg.body, msg.originatedFrom) match {
+    case (Body.ActionEvent(event), _) => {
       msg.slug match{
         case "merged"=> {
           val contactMerged = event.bodyAsJson.as[ContactMerged]
-          //your logic
+          //your logic for contact merged
         }
         case _ => //doNothing
       }
     }
-   case _ => // doNothing
+    case (Body.DeletedEvent(_), Some("merge")) =>
+      //doNothing, keep this to skip Deleted as a result of Merge
+    
+    case (Body.DeletedEvent(_), originatedFrom) =>
+      //your logic for contact deleted
+    
+    case _ => // doNothing
   }
 
 }).withMapper(mapper).build
@@ -47,6 +71,9 @@ GreyhoundConsumerSpec.aGreyhoundConsumerSpec("domain_events_wix.contacts.v4.cont
 Your task is to scan your database
 and make sure all the `contactMerged.sourceContactIds`
 are replaced with `contactMerged.targetContactId`.
+
+Also, make sure, if you have any logic for deleted contacts, 
+to skip it if the **DELETED** events have `originatedFrom="merge"`.
 
 ## Fallbacks
 
@@ -70,4 +97,6 @@ feel free to contact us on [#contacts-merge][slack-contacts-merge] on Slack.
 
 [contacts-service-proto]: https://github.com/wix-private/crm/blob/master/contacts/core/contacts-api/src/main/proto/v4/contacts_service.proto
 [contact-merged-event]: crm.contacts.contacts-v4.contact-merged-domain-event
+[contact-updated-event]: crm.contacts.contacts-v4.contact-updated-domain-event
+[contact-deleted-event]: crm.contacts.contacts-v4.contact-deleted-domain-event
 [slack-contacts-merge]: https://wix.slack.com/archives/C019MHAFV50
