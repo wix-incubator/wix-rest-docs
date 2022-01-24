@@ -6,7 +6,7 @@ This endpoint requires an authorization header. Pass the access token from the [
 <blockquote class='important'>
   <p>
     <strong>Permissions</strong><br/>
-    This endpoint requires the Manage Your App [permission scope](https://devforum.wix.com/en/article/available-permissions).
+    This endpoint requires the Manage Your App <a href="https://devforum.wix.com/en/article/available-permissions">permission scope</a>).
   </p>
 </blockquote>
 
