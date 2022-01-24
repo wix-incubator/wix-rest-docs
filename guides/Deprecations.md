@@ -6,11 +6,6 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
-- Contacts v4 [Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/update-contact)
-  and [Bulk Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contact):
-  `fieldMask` parameter deprecated without replacement.
-  (Announced January 24, 2022)
-
 - Forum [Category object](https://dev.wix.com/api/rest/communities/wix-forum/category/category-object):
   `postTypes` parameter deprecated without replacement.
   (Announced December 3, 2021)
@@ -27,6 +22,11 @@ at least 6 months after their announced deprecation.
   (Announced November 1, 2021)
 
 ## End of Life: March 31, 2022
+
+- Contacts v4 [Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/update-contact)
+  and [Bulk Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contact):
+  `fieldMask` parameter deprecated without replacement.
+  (Announced September 13, 2021)
 
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All webhooks
   (Announced September 13, 2021)
