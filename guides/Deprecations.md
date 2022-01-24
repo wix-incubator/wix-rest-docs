@@ -23,6 +23,11 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: March 31, 2022
 
+- Contacts v4 [Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/update-contact)
+  and [Bulk Update Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contact):
+  `fieldMask` parameter deprecated without replacement.
+  (Announced September 13, 2021)
+
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All webhooks
   (Announced September 13, 2021)
 
@@ -43,12 +48,18 @@ at least 6 months after their announced deprecation.
 - Bookings Service Catalog: [List services](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services)
   (Announced September 14, 2021)
 
+## End of Life: July 2021
+
+- [Contact Updated webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-updated-webhook),
+  [Marketing Tag Updated webhook](https://dev.wix.com/api/rest/marketing/marketing-tags/marketing-tag-updated-webhook):
+  `updatedEvent.previousEntity` no longer supported for 3rd-party apps.
+
 ## End of Life: June 30, 2021
 
 - [Contacts v1](https://dev.wix.com/api/rest/contacts/contacts): All endpoints
 
+## Deprecated With Continued Support (No End of Life)
 
-## Deprecated With Continued Support (No End of Life):  
 - Stores [Catalog Products](https://dev.wix.com/api/rest/wix-stores/catalog/products/product-object): `price` parameter (replaced with `priceData`)  
 - Stores [Catalog Products](https://dev.wix.com/api/rest/wix-stores/catalog/products/product-object): `ribbons` parameter (replaced with `ribbon`)  
 - Stores [Inventory](https://dev.wix.com/api/rest/wix-stores/inventory/get-inventory-variants): `inventoryItem.externalId` parameter (replaced with `inventoryItem.productId`)  
