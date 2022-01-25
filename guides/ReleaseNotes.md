@@ -1,5 +1,20 @@
 # Release Notes
 
+## New Webhooks and Endpoints: [Contacts API](https://dev.wix.com/api/rest/contacts/)
+
+The new [Contact Merged Webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-merged-webhook)
+is triggered when source contacts are merged to a target contact.
+The new `originatedFrom` property is sent as `merge` when
+[Contact Updated Webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-updated-webhook)
+or [Contact Deleted Webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-deleted-webhook)
+are triggered as the result of merging, allowing you to ignore redundant events.
+
+The [Query Labels](https://dev.wix.com/api/rest/contacts/labels/query-labels)
+and [Query Extended Fields](https://dev.wix.com/api/rest/contacts/extended-fields/query-extended-fields)
+endpoints are also now available.
+
+(January 25, 2022)
+
 ## New Release: [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges)
 
 The [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges) provides third parties with the ability to read existing site members’ badges used on Wix apps, and create and assign badges to site members from their own apps. (December 14, 2021)
