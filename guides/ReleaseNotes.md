@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Webhooks and Endpoints: [Contacts](https://dev.wix.com/api/rest/contacts/)
+## New Webhooks and Endpoints: [Contacts API](https://dev.wix.com/api/rest/contacts/)
 
 The new [Contact Merged Webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-merged-webhook)
 is triggered when source contacts are merged to a target contact.
