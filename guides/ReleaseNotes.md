@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Webhook: [Contact Merged](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-merged-webhook)
+
+The [Contacts v4 API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object)
+introduces a new webhook that's triggered when source contacts are merged to a target contact.
+(January 25, 2022)
+
 ## New Release: [Wix Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders)  
 
 The [Wix  Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders) provides third parties with the ability to read and manage existing pricing plans orders and create new orders (limited to offline payment). (January 12, 2022)
