@@ -1,9 +1,5 @@
 # Release Notes
 
-## New Release: [Wix Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders)  
-
-The [Wix  Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders) provides third parties with the ability to read and manage existing pricing plans orders and create new orders (limited to offline payment). (January 12, 2022)
-
 ## New Release: [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges)
 
 The [Wix Members Badges API](https://dev.wix.com/api/rest/members/badges) provides third parties with the ability to read existing site members’ badges used on Wix apps, and create and assign badges to site members from their own apps. (December 14, 2021)
