@@ -1,6 +1,7 @@
 # Create an Editor Deep Link
 
 ### Authorization
+
 This endpoint requires an authorization header. Pass the access token from the [OAuth installation flow](https://dev.wix.com/api/rest/getting-started/authentication).
 
 <blockquote class='important'>
@@ -18,17 +19,19 @@ This endpoint requires an authorization header. Pass the access token from the [
 
 Name | Type | Description
 ---------|----------|---------
- custom_params | Array |Array of key-value pairs
- &nbsp;&nbsp;&nbsp;&nbsp;key | string |
- &nbsp;&nbsp;&nbsp;&nbsp;value | string |
+ <img src="./../../media/arrow-down.png" width=20 style="vertical-align:middle">&nbsp;&nbsp;**custom_params** | object |Array of key-value pairs
+ <span style="margin-left:25%">&vert; **key** | string |</span>
+ <span style="margin-left:25%">&vert; **value** | string |</span>
 
 ### Response Object
 
 Name | Type | Description
 ---------|----------|---------
-url | URL | url that places App components on the page
+**url** | URL | Deep Link URL
 
 ### Example
+
+#### Request
 
 ```CURL
 Curl -X  POST \
@@ -46,11 +49,13 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 ```
 
 #### Response
+
 ```
 {
-   "url": <url>
+   "url": "https://www.wix.com/editor/8d157c7a-2cb8-4ea9-bf6f-3039e30099a3?appMarketParams=eyJraWQiOiJ5R0xVRVlVTiIsImFsZy.."
 }
 ```
 
 ### Status/Error Codes
+
 The response will include an [HTTP status code](https://dev.wix.com/api/rest/getting-started/errors).

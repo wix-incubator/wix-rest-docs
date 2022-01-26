@@ -1,23 +1,23 @@
 # About the Editor Deep Link API
 
-This API generates a URL that adds an app’s components to a site owner’s site directly in the Editor. The API can be used to add a Custom Element together with its Settings panel.
+This API generates a URL that will open the Editor and add an App's [Custom Element](https://devforum.wix.com/kb/en/article/create-a-custom-element) component to the user's page. If the App doesn't have a Custom Element component, the URL just opens the Editor.
 
 > Note:
 > The Custom Element is currently in beta testing, and is not available to all users. If you would like to request access, please submit a proposal.
 
 ## Terminology
 
-**Editor Deep Link** - A link that sends a site owner to the Editor, adding an app’s components directly to the page.
+- **Custom Element** - A website component that contains a custom script as well as custom parameters with UI control elements in a Settings panel.
 
-[Custom Element](https://devforum.wix.com/kb/en/article/create-a-custom-element) - A website component that contains a custom script as well as custom parameters with UI control elements in a Settings panel.
+- **Editor Deep Link** - A link that sends a site owner to the Editor, adding a Custom Element components directly to the page.
 
 ## Use Cases
 
-The Editor Deep Link API generates a URL that adds components to a site. It can be used in the following ways.
+The Editor Deep Link API generates a URL that opens the Editor and adds Custom Element components to a page. It can be used in the following ways.
 
-### Use Case 1: Add Components to a Page
+### Use Case 1: Open the Editor
 
-The authorization token containing your App ID is used to generate a URL that adds the app’s components to a site owner's page. No body is required.
+Calling the API for an App that doesn't have a Custom Element component generates a URL that just opens the Editor. It isn't nececasry to include any paramteters in the body of the request.
 
 #### Request
 
@@ -34,9 +34,15 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 }
 ```
 
-### Use Case 2: Use the Deep Link With a Custom Element
+### Use Case 2: Use the Deep Link to Add a Custom Element
 
-Parameters for the Custom Element are passed in the body of the request and they are added to the Settings panel, described below.
+Add a Custom Element component to your app. Edit the component, and enter the URL for your script in the **Basic Info** section. Click the **Settings Panel** tab and add custom  paramters to the Settings panel of the component, adding keys and values for each parameter. Values depend on the type of parameter - default text, toggle on/off, slider value and so on.
+
+![Settings Panel](./../../media/custom-element-settings-panel.png)
+
+Use the API to create a URL that will open the user's Editor and then add the Custom Element component to a page.
+
+You can further customize each generated URL by adjusting the values of the custom parameters. This is done passing new values in the body of the request.
 
 #### Request
 
@@ -66,14 +72,6 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 > **Note:**
 > Parameters passed in the body of the API request will only populate the Settings panel if their keys match the keys already present in the settings panel.
 
-### Use Case 3: Use the Custom Element’s Settings Panel
-
-Each Custom Element web component has its own Settings panel. Parameters may be added to the panel using the tabbed layout and a variety of UI controls that make it easy for your users.
-
-![Settings Panel](./../../media/custom-element-settings-panel.png)
-
-When users install your app they have access to the same settings panel. Values set while developing the app are presented to users as default settings.
+When users install your app they have access to the same settings panel. The values you set, either in the Settings panel or in the body of the API request, are presented to users as defaul or initial settings that can be changed by the user.
 
 ![Custom Element](./../../media/custom-plus-settings.png)
-
-All key-value pairs are passed directly to the Settings panel of the custom element, and they don't need to be passed in the body of the API request.
