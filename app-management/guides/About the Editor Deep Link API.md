@@ -9,7 +9,7 @@ This API generates a URL that will open the Editor and add an App's [Custom Elem
 
 - **Custom Element** - A website component that contains a custom script as well as custom parameters with UI control elements in a Settings panel.
 
-- **Editor Deep Link** - A link that sends a site owner to the Editor, adding a Custom Element components directly to the page.
+- **Editor Deep Link** - A link that sends a user to the Editor, adding a Custom Element components directly to the page.
 
 ## Use Cases
 
