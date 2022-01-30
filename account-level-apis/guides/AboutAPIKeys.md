@@ -17,7 +17,7 @@ Account level APIs require dedicated authorization - API keys. API keys allow yo
 
      > **Note**: The site ID for a current site can be obtained from the site URL in your browser. For example, the site ID appears after the '/dashboard/' part of this URL:
 
-          ![site Id in URL](./../../media/siteid.png)
+     ![site Id in URL](./../../media/siteid.png)
      
 
      a. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
