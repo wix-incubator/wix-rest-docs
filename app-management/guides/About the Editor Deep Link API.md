@@ -52,7 +52,7 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 -H 'Authorization: <AUTH>'
 
 -data-raw '{
-  "custom_params": [
+  "customParams": [
     {
       "key1": "value1",
       "key2": "value2"

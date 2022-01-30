@@ -4,22 +4,20 @@
 
 This endpoint requires an authorization header. Pass the access token from the [OAuth installation flow](https://dev.wix.com/api/rest/getting-started/authentication).
 
-<blockquote class='important'>
+<blockquote class='important' style="margin-bottom:20px">
   <p>
     <strong>Permissions</strong><br/>
-    This endpoint requires the Manage Your App <a href="https://devforum.wix.com/en/article/available-permissions">permission scope</a>).
+    This endpoint requires the Manage Your App <a href="https://devforum.wix.com/en/article/available-permissions">permission scope</a>.
   </p>
 </blockquote>
 
-### Syntax: REST
-
-<span style="color:#fff;background-color:#46d895;">&nbsp;POST&nbsp;</span><span style="background-color:#fff;">&nbsp;http://www.wixapis.com/apps/v1/post-installation/editor-deep-link</span>
+<span style="padding:6px;color:#fff;background-color:#46d895;">&nbsp;&nbsp;POST&nbsp;&nbsp;</span><span style="padding:6px;color:#000;background-color:#f2f3f4;font-size:12px;pointer-events:none;cursor:default;text-decoration:none;color:#000;">&nbsp;https://www.wixapis.com/apps/v1/post-installation/editor-deep-link</span>
 
 ### Body Params
 
 Name | Type | Description
 ---------|----------|---------
- <img src="./../../media/arrow-down.png" width=20 style="vertical-align:middle">&nbsp;&nbsp;**custom_params** | object |Array of key-value pairs
+ <img src="./../../media/arrow-down.png" width=20 style="vertical-align:middle">&nbsp;&nbsp;**customParams** | object |Array of key-value pairs
  <span style="margin-left:25%">&vert; **key** | string |</span>
  <span style="margin-left:25%">&vert; **value** | string |</span>
 
@@ -39,7 +37,7 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 -H 'Authorization: <AUTH>'
 
 -data-raw '{
-  "custom_params": [
+  "customParams": [
     {
       "key1": "value1",
       "key2": "value2"
