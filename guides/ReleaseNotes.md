@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Editor Deep Link API](https://dev.wix.com/api/rest/app-management/about-the-editor-deep-link-api)
+
+The [Editor Deep Link API](https://dev.wix.com/api/rest/app-management/about-the-editor-deep-link-api) generates a URL for an app that navigates to a user's Editor and places the app's components on a page.
+
 ## New Webhooks and Endpoints: [Contacts API](https://dev.wix.com/api/rest/contacts/)
 
 The new [Contact Merged Webhook](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-merged-webhook)
