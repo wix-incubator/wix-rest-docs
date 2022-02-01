@@ -36,7 +36,7 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 
 ### Use Case 2: Use the Deep Link to Add a Custom Element
 
-Add a Custom Element component to your app. Edit the component, and enter the URL for your script in the **Basic Info** section. Click the **Settings Panel** tab and add custom  paramters to the Settings panel of the component, adding keys and values for each parameter. Values depend on the type of parameter - default text, toggle on/off, slider value and so on.
+Add a Custom Element component to your app. Edit the component, and enter the URL for your script in the **Basic Info** section. Click the **Settings Panel** tab and add custom  parameters to the Settings panel, adding keys and values for each parameter. Values depend on the type of parameter - default text, toggle on/off, slider value and so on.
 
 ![Settings Panel](./../../media/custom-element-settings-panel.png)
 
@@ -75,3 +75,7 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 When users install your app they have access to the same settings panel. The values you set, either in the Settings panel or in the body of the API request, are presented to users as defaul or initial settings that can be changed by the user.
 
 ![Custom Element](./../../media/custom-plus-settings.png)
+
+## An Example of Using the Custom Element
+
+Consider an app that adds a lead generation form. Site owners create forms via the app's dashboard, and each form has a unique id. Next to each form in the dashboard the developer adds an “Add to Site" button. It uses the Editor Deep Link API together with the unique form id as a custom key-value pair into a Settings panel field with the same key. When site owners click the button, they are taken to the Editor and the form is added to the page.
