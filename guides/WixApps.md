@@ -2,7 +2,8 @@
 
 Wix Business Solution (aka Wix app) data is returned in many of the API calls. Each solution is identified by its `appId`:
 
-- Wix Stores: 1380b703-ce81-ff05-f115-39571d94dfcd
+- Wix Stores (soon to be New eCom Platform): 1380b703-ce81-ff05-f115-39571d94dfcd
+- New Wix Stores: 215238eb-22a5-4c36-9e7b-e7c08025e04e
 - Wix Bookings: 13d21c63-b5ec-5912-8397-c3a5ddb27a97
 - Wix Events: 140603ad-af8d-84a5-2c80-a0f60cb47351
 - Wix Paid Plans: 1522827f-c56c-a5c9-2ac9-00f9e6ae12d3
