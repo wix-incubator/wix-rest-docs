@@ -1,8 +1,8 @@
 # Release Notes
 
-## New Release: [Editor Deep Link API](https://dev.wix.com/api/rest/app-management/about-the-editor-deep-link-api)
+## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
-The [Editor Deep Link API](https://dev.wix.com/api/rest/app-management/about-the-editor-deep-link-api) generates a URL for an app that navigates to a user's Editor and places the app's components on a page. (January 30, 2022)
+The [Editor Deep Link API](app-management/about-the-editor-deep-link-api) generates a URL for an app that navigates to a user's Editor and places the app's components on a page. (January 30, 2022)
 
 ## New Webhooks and Endpoints: [Contacts API](contacts/)
 
