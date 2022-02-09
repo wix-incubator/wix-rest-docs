@@ -15,6 +15,6 @@ Wix Business Solution (aka Wix app) data is returned in many of the API calls. E
 - Wix Blog: 14bcded7-0066-7c35-14d7-466cb3f09103
 - Wix Subscriptions: 8725b255-2aa2-4a53-b76d-7d3c363aaeea
 - Wix Restaurants Orders: 13e8d036-5516-6104-b456-c8466db39542
-- Wix Challenges: 2936472a-a1ed-4ae5-9f71-614313a9f4e7
+- Wix Online Programs: 2936472a-a1ed-4ae5-9f71-614313a9f4e7
 - Wix Forms: 14ce1214-b278-a7e4-1373-00cebd1bef7c
 - Wix Inbox: 141fbfae-511e-6817-c9f0-48993a7547d1
