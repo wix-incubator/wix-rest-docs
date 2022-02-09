@@ -6,11 +6,11 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
-- Forum [Category object](communities/wix-forum/category/category-object):
+- Forum [Category object](wix-forum/wix-forum/category/category-object):
   `postTypes` parameter deprecated without replacement.
   (Announced December 3, 2021)
 
-- Forum [Post object](communities/wix-forum/post/post-object):
+- Forum [Post object](wix-forum/wix-forum/post/post-object):
   `postType` parameter deprecated without replacement.
   (Announced December 3, 2021)
 
