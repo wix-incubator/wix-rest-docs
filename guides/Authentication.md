@@ -112,7 +112,7 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 
 ## Step 5a: App Completes the OAuth Flow
 
->**Note**
+> **Note:**
 >This step is only required for apps that display their consent in a new window, not a new tab. This is primarily for apps with a dashboard component that opens inside of Wix as an iframe, or another internal component.
 
 ![how does your consent appear](./../media/how-does-your-consent.png)
@@ -146,7 +146,7 @@ curl -X POST \
 \
 ```
 
->Note:
+>**Note:**
 >Until the endpoint is called, the app is marked as "Setup Incomplete" in the Wix database.
 
 ![note to complete setup](./../media/auth-step7.png)
