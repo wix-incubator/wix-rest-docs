@@ -5,8 +5,7 @@ Account level APIs require dedicated authorization - API keys. API keys allow yo
 
 !image
 
-> **Note**: 
-> API keys and this documentation are currently in beta.
+> **Important**: API Keys are currently available to selected beta users only. You will not be able to access any APIs documented in this section with a standard Auth header.
 
 ## Creating and Using API Keys
 
