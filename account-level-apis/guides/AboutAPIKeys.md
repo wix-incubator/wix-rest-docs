@@ -3,7 +3,7 @@
 Account level APIs require dedicated authorization - API keys. API keys allow you to make API calls at the account and site level while bybassing OAuth authentication. 
 [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where you can assign a set of permissions that determine the types of APIs the key can access.
 
-!image
+![API Keys Manager](./../../media/APIKeysManager.jpg)
 
 > **Important**: API Keys are currently available to selected beta users only. You will not be able to access any APIs documented in this section with a standard Auth header.
 
