@@ -130,7 +130,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
   "pluginTransactionId": "e89b-12d3-a456-42665",
   "reasonCode": 3012,
   "errorCode": "INSUFFICIENT_FUNDS",
-  "errorDescription": "Insufficient funds"
+  "errorMessage": "Insufficient funds"
 }
 ```
 
@@ -146,7 +146,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3012,
       "errorCode": "INSUFFICIENT_FUNDS",
-      "errorDescription": "Insufficient funds"
+      "errorMessage": "Insufficient funds"
     }
   }
 }'
@@ -224,7 +224,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 5001,
       "errorCode": "RISK_MANAGEMENT_DECLINED",
-      "errorDescription": "Risk management declined"
+      "errorMessage": "Risk management declined"
     }
   }
 }'
@@ -289,7 +289,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3004,
       "errorCode": "THREE_D_SECURE_FAILED",
-      "errorDescription": "3D Secure failed"
+      "errorMessage": "3D Secure failed"
     }
   }
 }'
@@ -323,7 +323,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3030,
       "errorCode": "BUYER_CANCELED",
-      "errorDescription": "Buyer canceled"
+      "errorMessage": "Buyer canceled"
     }
   }
 }'
@@ -398,7 +398,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 5001,
       "errorCode": "RISK_MANAGEMENT_DECLINED",
-      "errorDescription": "Risk management declined"
+      "errorMessage": "Risk management declined"
     }
   }
 }'
@@ -512,7 +512,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3012,
       "errorCode": "INSUFFICIENT_FUNDS",
-      "errorDescription": "Insufficient funds"
+      "errorMessage": "Insufficient funds"
     }
   }
 }'
@@ -546,7 +546,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3030,
       "errorCode": "BUYER_CANCELED",
-      "errorDescription": "Buyer canceled"
+      "errorMessage": "Buyer canceled"
     }
   }
 }'
@@ -621,7 +621,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 5001,
       "errorCode": "RISK_MANAGEMENT_DECLINED",
-      "errorDescription": "Risk management declined"
+      "errorMessage": "Risk management declined"
     }
   }
 }'
@@ -641,7 +641,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
   "pluginTransactionId": "e89b-12d3-a456-42665",
   "reasonCode": 3003,
   "errorCode": "CURRENCY_IS_NOT_SUPPORTED",
-  "errorDescription": "Currency USD is not supported"
+  "errorMessage": "Currency USD is not supported"
 }
 ```
 
@@ -657,7 +657,7 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
       "pluginTransactionId": "e89b-12d3-a456-42665",
       "reasonCode": 3003,
       "errorCode": "CURRENCY_IS_NOT_SUPPORTED",
-      "errorDescription": "Currency USD is not supported"
+      "errorMessage": "Currency USD is not supported"
     }
   }
 }'
