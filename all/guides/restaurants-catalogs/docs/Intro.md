@@ -39,4 +39,4 @@ You can read more about setting up and managing multiple locations for a busines
 * Each location has a single catalog.
 * A section belongs to a single menu.
 * You can create discounts for catalogs, sections, or dishes. You can't create a discount that applies to a menu.
-* Currently, the [Catalog Changed](https://dev.wix.com/api/rest/wix-restaurants/catalogs/catalog-changed-webhook) webhook doesn't return information about what has changed. In order to update an external POS upon changes to a Wix Restaurants catalog you may need to create your own logic to identify the changes.
+* Currently, the [Catalog Changed](https://dev.wix.com/api/rest/wix-restaurants/catalogs/catalogs/catalog-changed-webhook) webhook doesn't return information about what has changed. In order to update an external POS upon changes to a Wix Restaurants catalog you may need to create your own logic to identify the changes.
