@@ -18,10 +18,8 @@ chat sessions, or any other online or offline communication.
 To do this, your app can follow this basic flow:
 
 1. Set up the external service's webhooks.
-    When a message webhook is triggered,
-    parse the payload data for an email address.
-
-    Save the message and any other relevant data.
+    When a "message sent" or "message received" webhook is triggered,
+    parse the event data for an email address.
 
 2. Use [Query Contacts][query-contacts]
     to find a contact with the email address you extracted in step 1.
@@ -87,8 +85,8 @@ To do this, your app can follow this basic flow:
     }
     ```
 
-Your app can also store messages sent on behalf of the business
-in the external chat tool.
+Your app can also send messages sent on behalf of the business
+from the external chat tool.
 In those cases, change the visibility settings to match your requirements,
 and set `direction` to `BUSINESS_TO_PARTICIPANT`.
 
@@ -100,8 +98,8 @@ and display them in the contact's conversation in Inbox.
 To do this, your app can follow this basic flow:
 
 1. Set up the external service's webhooks.
-    When a webhook is triggered,
-    parse the payload data for an email address.
+    When an event webhook is triggered,
+    parse the event data for an email address.
 
 2. Use [Query Contacts][query-contacts]
     to find a contact with the email address you extracted in step 1.
