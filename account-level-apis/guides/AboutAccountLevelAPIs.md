@@ -5,6 +5,8 @@ While some of these calls may take action at the site level, they all require ac
 
 > **Note**: When using an API key, it completely replaces OAuth authentication.
 
+> **Important**: API Keys are currently available to selected beta users only. You will not be able to access any APIs documented in this section with a standard Auth header.
+
 ## Terminology:
 - **Account**: Wix account, including access to associated Wix sites. 
   - **Team Account**: Resellers and other platforms can create a team account to manage a large number of their customers’ sites, and share access with customers.
