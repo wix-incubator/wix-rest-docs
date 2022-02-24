@@ -1,5 +1,10 @@
 # Release Notes
 
+## New Release: [Account Level APIs](account-level-apis/)
+
+The Account Level APIs are accessible only using API keys, which are currently available to selected beta users only.
+APIs exposed include Sites, Site Folders and Resellers. (February 24, 2022)  
+
 ## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
 The [Editor Deep Link API](app-management/about-the-editor-deep-link-api) generates a URL for an app that navigates to a user's Editor and places the app's components on a page. (January 30, 2022)
