@@ -1,13 +1,13 @@
 SortOrder: 0
-# About the Site API
+# About the Sites API
 
-The Site API is a service that holds public information about Wix sites that is accessible to the site's owner, including the site's name, its URL, its publish status, its owner, display thumbnail, when it was created, if the site has a premium plan attached to it, and more.
+The Sites API is a service that holds public information about Wix sites that is accessible to the site's owner, including the site's name, its URL, its publish status, its owner, display thumbnail, when it was created, if the site has a premium plan attached to it, and more.
 Site owners can view their sites via the `My Sites` page, at https://manage.wix.com/account/sites.
 
 Third party resellers, agencies and others can use the Site API to sync their external platform with Wix to allow customers to view and access their Wix sites.
 Sites can be filtered by their folder ID, premium status, installed applications, domain connection status and more.
 
-> **Important**: This API is accessible via API keys, which is currently available to selected beta users only. You will not be able to access this API with a standard Auth header.
+> **Important**: This API is accessible via API keys, which are currently available to selected beta users only. You will not be able to access this API with a standard Auth header.
 
 
 ## Terminology
