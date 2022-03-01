@@ -1,4 +1,3 @@
-SortOrder: 0
 # About Inbox
 
 With Wix Inbox, site contributors
