@@ -1,3 +1,4 @@
+SortOrder: 1
 # Example Flows
 
 This article shares some possible use cases your app could support,
@@ -161,7 +162,7 @@ To do this, your app can follow this basic flow:
     ```
 
 [query-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts
-[get-or-create-conversation]: conversations/get-or-create-conversation
-[send-message]: messages/send-message
-[plain-message-type]: messages/message-types#basic-messages
-[minimal-message-type]: messages/message-types#minimal-messages
+[get-or-create-conversation]: https://dev.wix.com/api/rest/inbox/conversations/get-or-create-conversation
+[send-message]: https://dev.wix.com/api/rest/inbox/messages/send-message
+[plain-message-type]: https://dev.wix.com/api/rest/inbox/messages/message-types#basic-messages
+[minimal-message-type]: https://dev.wix.com/api/rest/inbox/messages/message-types#minimal-messages
