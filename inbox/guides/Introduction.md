@@ -9,9 +9,9 @@ can also be displayed in Inbox conversations.
 The Inbox APIs expose functionality for working with a site's inbox.
 With the Inbox APIs, your app can:
 
-- [Send messages](messages/send-message) on behalf of the business or a visitor.
-- [Retrieve conversations](conversations/get-or-create-conversation) between a visitor and the business.
-- Handle webhooks when messages are sent to [a visitor](messages/message-sent-to-participant-webhook) or [the business](messages/message-sent-to-business-webhook), when a [message button is clicked](messages/button-interacted-webhook), or when [conversations are merged](conversations/conversations-merged-webhook).
+- [Send messages](../messages/send-message) on behalf of the business or a visitor.
+- [Retrieve conversations](../conversations/get-or-create-conversation) between a visitor and the business.
+- Handle webhooks when messages are sent to [a visitor](../messages/message-sent-to-participant-webhook) or [the business](../messages/message-sent-to-business-webhook), when a [message button is clicked](../messages/button-interacted-webhook), or when [conversations are merged](../conversations/conversations-merged-webhook).
 
 [Read more about how site contributors work with Wix Inbox][kb-inbox].
 
