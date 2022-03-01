@@ -6,7 +6,7 @@ The new Inbox API introduces functionality
 for managing [conversations](inbox/conversations) and [messages](inbox/messages)
 between the site and its visitors, contacts, and members.
 
-This deprecates the [Wix Chat API](wix-chat/wix-chat). \
+This deprecates the [Wix Chat API](wix-chat/wix-chat).
 (March 1, 2022)
 
 ## New Release: [Account Level APIs](account-level-apis/)
