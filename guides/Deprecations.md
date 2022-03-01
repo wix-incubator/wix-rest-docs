@@ -4,6 +4,12 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: September 30, 2022
+
+- [Wix Chat](wix-chat/wix-chat):
+  The entire Wix Chat API is replaced by the [Inbox API](inbox/).
+  (Announced March 1, 2022)
+
 ## End of Life: June 30, 2022
 
 - Forum [Category object](wix-forum/wix-forum/category/category-object):
