@@ -1,5 +1,5 @@
 
-# Authentication
+# Authentication 
 When a site owner installs your app, they will grant you permission to collect their site data during the installation flow, which is based on the settings you provide in the Wix Developers Center. You will then receive an authorization code which you will use to request an access token and a refresh token. Then you’ll pass the access token as an authorization header in the API call.
 > **Note:**  
 > Access and refresh tokens are user-specific. [Access tokens](https://dev.wix.com/api/rest/authorization/oauth-2/refresh-an-access-token) are valid for 5 minutes. Refresh tokens are valid as long as the app is installed on the user's site. 
