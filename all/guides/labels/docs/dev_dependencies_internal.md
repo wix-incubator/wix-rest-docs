@@ -50,24 +50,22 @@ In Bootstrap:
 ```
 
 ### REST Client
-
 ```bash
-npm i @wix/ambassador-contacts-labels-app
+npm i --save @wix/ambassador-contacts-v4-label
 ```
 
 ```typescript
-import { ContactsLabelsApp } from '@wix/ambassador-contacts-labels-app/http';
+import { listLabels } from '@wix/ambassador-contacts-v4-label/http';
+import { HttpClient } from '@wix/http-client';
 import { appDefIds, getCurrentInstance } from '@wix/business-manager-api';
 
-const contactLabelsServiceV4 = (instance: string) => {
-    return ContactsLabelsApp('/_api/contacts/')
-        .ContactLabelsServiceV4()({
-            Authorization: instance,
-        });
-};
 
-const listLabels = () => {
+const doListLabels = () => {
     const instance = getCurrentInstance(appDefIds.metaSite);
-    return contactLabelsServiceV4(instance).listLabels({});
+    const httpClient = new HttpClient({ getAppToken: () => instance });
+  
+    return httpClient.request(
+      listLabels({})
+    );
 }
 ```

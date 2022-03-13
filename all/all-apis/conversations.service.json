@@ -1,0 +1,1020 @@
+{
+  "name": "Conversations",
+  "client_id": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-conversations#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Get or create conversations between the site and visitors, contacts, or members.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Conversations",
+    "entity": "_com_wixpress_inbox_v2_Conversation",
+    "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-conversations/proto//com/wixpress/inbox/v2/entities/conversation.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/conversations/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/conversations/docs/conversationid.md",
+      "name": "Conversation ID"
+    },
+        {
+      "path": "../guides/conversations/docs/example-flows.md",
+      "name": "Example Flows"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Conversation",
+      "methodName": "GetConversation",
+      "serviceName": "ConversationsService",
+      "tag": "Conversations",
+      "permissions":       [
+                {
+          "name": "Manage Inbox Messages",
+          "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+        },
+                {
+          "name": "Read Inbox Messages",
+          "description": "Request permission to read chat messages."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["conversationId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "conversationId",
+        "type": "string",
+        "doc": " Conversation ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetConversation",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Conversations._com_wixpress_inbox_v2_GetConversationResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a conversation by conversation ID.\n\nIf you don't have the conversation ID,\nuse [Get Or Create Conversation](#get-or-create-conversation)\nto retrieve the conversation with the visitor, contact, or member ID.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/inbox/v2/conversations/{conversationId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST \\\n'https://www.wixapis.com/inbox/v2/conversations' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\"participantId\":{\"anonymousVisitorId\":\"40096143-3643-4cc1-8329-30a7fc2c595e\"}}'"],
+          "response": ["{\"conversation\": {\n  \"id\": \"6202c3bb-f263-3c16-8c90-d6387d9ed420\",\n  \"participant\": {\"anonymousVisitorId\": \"40096143-3643-4cc1-8329-30a7fc2c595e\"},\n  \"channels\": [\"CHAT\"],\n  \"businessDisplayData\": {\"name\": \"cherry-productions\"}\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetConversationRequest",
+        "rpcResponseName": "GetConversationResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Or Create Conversation",
+      "methodName": "GetOrCreateConversation",
+      "serviceName": "ConversationsService",
+      "tag": "Conversations",
+      "permissions": [      {
+        "name": "Manage Inbox Messages",
+        "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "participantId",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_ParticipantId",
+        "doc": " ID of the visitor, contact, or member chatting with the business.\n\n Required for 3rd-party apps.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetOrCreateConversation",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Conversations._com_wixpress_inbox_v2_GetOrCreateConversationResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a conversation for the specified visitor, contact, or member ID,\n or creates one if it doesn't exist.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/inbox/v2/conversations",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST \\\n    'https://www.wixapis.com/inbox/v2/conversations' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\"participantId\":{\"anonymousVisitorId\":\"40096143-3643-4cc1-8329-30a7fc2c595e\"}}'"],
+          "response": ["{\n  \"conversation\":   {\n    \"id\": \"6202c3bb-f263-3c16-8c90-d6387d9ed420\",\n    \"participant\": {\"anonymousVisitorId\": \"40096143-3643-4cc1-8329-30a7fc2c595e\"},\n    \"channels\": [\"CHAT\"],\n    \"businessDisplayData\": {\"name\": \"cherry-productions\"}\n  },\n  \"newConversation\": true\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetOrCreateConversationRequest",
+        "rpcResponseName": "GetOrCreateConversationResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [  {
+    "type": "_com_wixpress_inbox_v2_ConversationsMergedDomainEvent",
+    "name": "Conversations Merged Webhook",
+    "docs":     {
+      "summary": "\nTriggered when the conversation\nis merged, for example when contacts are merged\nor when a visitor becomes a contact.\n\nIf messages exist in both conversations when they merge,\nthe messages are preserved in chronological order.\n",
+      "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-conversations/proto/src/main/proto/com/wixpress/inbox/v2/services/conversations_service.proto"
+    },
+    "topic": "domain_events_wix.crm.inbox.v2.conversation",
+    "tag": "Conversations",
+    "permissions":     [
+            {
+        "name": "Manage Inbox Messages",
+        "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+      },
+            {
+        "name": "Read Inbox Messages",
+        "description": "Request permission to read chat messages."
+      }
+    ],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.crm.inbox.v2.conversation_conversations_merged",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationDeletedDomainEvent",
+      "displayName": "Conversation Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.conversation`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Conversation ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationEntityDeletedEvent",
+      "displayName": "Conversation Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationCreatedDomainEvent",
+      "displayName": "Conversation Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.conversation`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Conversation ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationEntityCreatedEvent",
+      "displayName": "Conversation Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_Conversation",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationsMergedDomainEvent",
+      "displayName": "Conversations Merged Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"a59fcada-5c1b-48c9-ae10-72fdb468d606\",\n  \"entityFqdn\" : \"wix.crm.inbox.v2.conversation\",\n  \"slug\" : \"conversations_merged\",\n  \"entityId\" : \"e0ab51b4-c997-422e-b5f3-77eb60687171\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"oldConversationIds\" : [ \"ef4437da-9ccd-39db-b96e-19b9d3b5d6c2\" ],\n      \"targetConversationId\" : \"09e56fa9-4668-3250-a245-11cf1e398132\"\n    }\n  },\n  \"eventTime\" : \"2021-12-29T10:03:22.019696Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.conversation`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `conversations_merged`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationsMergedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ConversationsMerged ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationsMergedActionEvent",
+      "displayName": "Conversations Merged Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationsMerged",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_upstream_conversations_wix_common_IdentificationData",
+      "displayName": "Identification Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " ID of a site\n [contact](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).\n",
+          "readOnly": true
+        },
+                {
+          "name": "id",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_upstream_conversations_wix_common_IdentificationData_id",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_upstream_conversations_wix_common_IdentificationData_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": " ID of an anonymous site visitor.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of a site\n [member](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fmember-permissions/members).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Conversation",
+      "displayName": "Conversation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Conversation ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "participant",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_upstream_conversations_wix_common_IdentificationData",
+          "doc": " ID of the visitor, contact, or member who is chatting with the business.\n",
+          "readOnly": true
+        },
+                {
+          "name": "channels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Conversations._com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType"]
+          },
+          "doc": " List of communication channels where the visitor, contact, or member can receive messages.\n",
+          "readOnly": true
+        },
+                {
+          "name": "businessDisplayData",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationDisplayData",
+          "doc": " Display name and avatar for the business.\n"
+        },
+                {
+          "name": "participantDisplayData",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ConversationDisplayData",
+          "doc": " Display name and avatar for the visitor, contact, or member.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationDisplayData",
+      "displayName": "Conversation Display Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Display name.\n",
+          "readOnly": true
+        },
+                {
+          "name": "imageUrl",
+          "type": "string",
+          "doc": " Avatar image URL.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationsMerged",
+      "displayName": "Conversations Merged Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldConversationIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of old conversation IDs.\n"
+        },
+                {
+          "name": "targetConversationId",
+          "type": "string",
+          "doc": " New conversation ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Conversations._wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Conversations._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_merge_ChatroomsMerged",
+      "displayName": "Chatrooms Merged Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldChatroomIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " old chatroom ids\n"
+        },
+                {
+          "name": "targetChatroomId",
+          "type": "string",
+          "doc": " new chatroom id\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_GetConversationRequest",
+      "displayName": "Get Conversation Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "conversationId",
+        "type": "string",
+        "doc": " Conversation ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_GetConversationResponse",
+      "displayName": "Get Conversation Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "conversation",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_Conversation",
+        "doc": " Retrieved conversation.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_GetOrCreateConversationRequest",
+      "displayName": "Get Or Create Conversation Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "participantId",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_ParticipantId",
+        "doc": " ID of the visitor, contact, or member chatting with the business.\n\n Required for 3rd-party apps.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ParticipantId",
+      "displayName": "Participant Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "All APIs.Conversations._com_wixpress_inbox_v2_ParticipantId_id",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ParticipantId_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " ID of a site\n [contact](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).\n"
+        },
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": " ID of an anonymous site visitor.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of a site\n [member](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fmember-permissions/members).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_GetOrCreateConversationResponse",
+      "displayName": "Get Or Create Conversation Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversation",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_Conversation",
+          "doc": " Created or retrieved conversation.\n"
+        },
+                {
+          "name": "newConversation",
+          "type": "boolean",
+          "doc": " Indicates whether the conversation was just created.\n\n If `true`, the conversation was just created.\n If `false`, the conversation already existed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ListConversationsRequest",
+      "displayName": "List Conversations Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Conversations._wix_common_CursorPaging",
+          "doc": ""
+        },
+                {
+          "name": "sorting",
+          "type": "All APIs.Conversations._wix_common_Sorting",
+          "doc": " only message time is supported for field name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ListConversationsResponse",
+      "displayName": "List Conversations Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Conversations._com_wixpress_inbox_v2_Conversation"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Conversations._wix_common_PagingMetadataV2",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_DeleteConversationRequest",
+      "displayName": "Delete Conversation Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "conversationId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_DeleteConversationResponse",
+      "displayName": "Delete Conversation Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_AddConversationChannelsRequest",
+      "displayName": "Add Conversation Channels Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "conversationChannels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Conversations._com_wixpress_inbox_v2_ConversationChannel"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ConversationChannel",
+      "displayName": "Conversation Channel Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "channel",
+          "type": "All APIs.Conversations._com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType",
+          "doc": ""
+        },
+                {
+          "name": "recipients",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " TODO rename? - Shalom\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_AddConversationChannelsResponse",
+      "displayName": "Add Conversation Channels Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType",
+      "displayName": "Channel Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CHANNEL_TYPE <\/code><\/li><li><code> CHAT <\/code><\/li><li><code> EMAIL <\/code><\/li><li><code> SMS <\/code><\/li><li><code> FACEBOOK <\/code><\/li><li><code> INSTAGRAM <\/code><\/li><li><code> WHATSAPP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CHANNEL_TYPE",
+        "CHAT",
+        "EMAIL",
+        "SMS",
+        "FACEBOOK",
+        "INSTAGRAM",
+        "WHATSAPP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.inbox.inbox-platform-conversations"}
+}

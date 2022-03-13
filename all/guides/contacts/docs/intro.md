@@ -5,13 +5,13 @@ When a visitor first interacts with a site in a number of ways —
 such as submitting a contact form or subscribing to a newsletter —
 they're added to the site's [Contact List][contact-list-deeplink]
 and their details are available through the Contacts APIs.
-Here are some examples for how a visitor could be converted to a contact:
+Here are some examples of how a visitor could be converted to a contact:
 
-- A site visitor fills in a form with their contact details
-- A site visitor signs up as a member of the site
+- A site visitor fills in a form with their contact details.
+- A site visitor signs up as a member of the site.
 - A site contributor [imports a contact][kb-import-contacts] or
-  [adds a contact manually][kb-add-contacts]
-- A 3rd-party app adds a contact via the Contacts API
+  [adds a contact manually][kb-add-contacts].
+- A 3rd-party app adds a contact via the Contacts API.
 
 Site owners can use the Contact List to manage information about their contacts.
 Read more about how site owners can
