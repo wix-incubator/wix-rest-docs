@@ -31,7 +31,7 @@ The `data` claim value is a [JSON object](http://json-schema.org/understanding-j
 > **Note**
 > Use raw bytes of the request body to calculate the message digest. Do not parse the request body before calculating the message digest. JSON parsing or even converting bytes into text can lead to a different message digest and validation failure.
 
-> Wix recommends using [jwt.io](https://jwt.io) for debugging purposes. A JWT must not contain any sensitive information.
+> Wix recommends using [jwt.io](https://jwt.io) for debugging purposes.
 
 ## Validation example
 
