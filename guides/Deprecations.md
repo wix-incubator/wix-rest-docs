@@ -12,6 +12,25 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
+- [Wix Groups](wix-groups/wix-groups):
+  Some fields have been replaced, as shown in this table:
+
+  | Object or Endpoint                                                                                                                                                          | Deprecated Field            | Replaced By                                                                               |
+  | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------- |
+  | [Group Object](wix-groups/wix-groups/groups/groups-object) <br /> (also embedded in the [Group Request Object](wix-groups/wix-groups/create-requests/group-request-object)) | `privacyLevel`              | `privacyStatus`                                                                           |
+  |                                                                                                                                                                             | `title`                     | `name`                                                                                    |
+  |                                                                                                                                                                             | `details`                   | `coverImage` replaces `details.logo` <br /> `memberTitle` replaces `details.membersTitle` |
+  |                                                                                                                                                                             | `createdBy`                 | `ownerId`                                                                                 |
+  |                                                                                                                                                                             | `recentActivityDate`        | `lastActivityDate`                                                                        |
+  | [Group Member Object](wix-groups/wix-groups/members/group-member-object)                                                                                                    | `siteMemberId`              | `memberId`                                                                                |
+  | [Add Group Members](wix-groups/wix-groups/members/add-group-members)                                                                                                        | `siteMemberIds`             | `memberIds`                                                                               |
+  | [List Members](wix-groups/wix-groups/members/list-members)                                                                                                                  | `siteMemberId`              | `memberId`                                                                                |
+  | [Query Memberships](wix-groups/wix-groups/members/query-memberships)                                                                                                        | `siteMemberId` (body param) | `memberId` (moved to path param)                                                          |
+  | [Remove Group Members](wix-groups/wix-groups/members/remove-group-members)                                                                                                  | `siteMemberIds`             | `memberIds`                                                                               |
+  | [Approve Join Group Requests](wix-groups/wix-groups/members/approve-join-group-requests)                                                                                    | `siteMemberIds`             | `memberIds` (will be a required field after June 30, 2022)                                |
+  | [Assign Role](wix-groups/wix-groups/members/assign-role)                                                                                                                    | `siteMemberIds`             | `memberIds`                                                                               |
+  | [Unassign Role](wix-groups/wix-groups/members/unassign-role)                                                                                                                | `siteMemberIds`             | `memberIds`                                                                               |
+
 - Forum [Category object](wix-forum/wix-forum/category/category-object):
   `postTypes` parameter deprecated without replacement.
   (Announced December 3, 2021)
