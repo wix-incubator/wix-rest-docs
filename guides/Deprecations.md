@@ -12,6 +12,27 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: June 30, 2022
 
+- [Wix Groups](wix-groups/wix-groups):
+  - [Group Object](wix-groups/wix-groups/groups/groups-object)
+    (also embedded in the
+    [Group Request Object](wix-groups/wix-groups/create-requests/group-request-object)):
+    - `privacyLevel` replaced by `privacyStatus`.
+    - `title` replaced by `name`.
+    - `details` object: <br />
+      `details.logo` replaced by `coverImage`,
+      `details.membersTitle` replaced by `memberTitle`.
+    - `createdBy` replaced by `ownerId`.
+    - `recentActivityDate` replaced by `lastActivityDate`. <br />
+  - [Group Member Object](wix-groups/wix-groups/members/group-member-object): `siteMemberId` replaced by `memberId`.
+  - [Add Group Members](wix-groups/wix-groups/members/add-group-members): `siteMemberIds` replaced by `memberIds`.
+  - [List Members](wix-groups/wix-groups/members/list-members): `siteMemberId` replaced by `memberId`.
+  - [Query Memberships](wix-groups/wix-groups/members/query-memberships): `siteMemberId` (body param) replaced by `memberId` (moved to path param).
+  - [Remove Group Members](wix-groups/wix-groups/members/remove-group-members): `siteMemberIds` replaced by `memberIds`.
+  - [Approve Join Group Requests](wix-groups/wix-groups/members/approve-join-group-requests): `siteMemberIds` replaced by `memberIds` (will be a required field after June 30, 2022).
+  - [Assign Role](wix-groups/wix-groups/members/assign-role): `siteMemberIds` replaced by `memberIds`.
+  - [Unassign Role](wix-groups/wix-groups/members/unassign-role): `siteMemberIds` replaced by `memberIds`. <br />
+    (Announced March 23, 2022)
+
 - Forum [Category object](wix-forum/wix-forum/category/category-object):
   `postTypes` parameter deprecated without replacement.
   (Announced December 3, 2021)
