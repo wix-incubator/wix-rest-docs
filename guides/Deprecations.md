@@ -13,6 +13,7 @@ at least 6 months after their announced deprecation.
 ## End of Life: June 30, 2022
 
 - [Wix Groups](wix-groups/wix-groups):
+
   - [Group Object](wix-groups/wix-groups/groups/groups-object)
     (also embedded in the
     [Group Request Object](wix-groups/wix-groups/create-requests/group-request-object)):
@@ -22,7 +23,9 @@ at least 6 months after their announced deprecation.
       `details.logo` replaced by `coverImage`,
       `details.membersTitle` replaced by `memberTitle`.
     - `createdBy` replaced by `ownerId`.
-    - `recentActivityDate` replaced by `lastActivityDate`.
+    - `recentActivityDate` replaced by `lastActivityDate`. <br />
+      (Announced March 23, 2022)
+
   - [Group Member Object](wix-groups/wix-groups/members/group-member-object): `siteMemberId` replaced by `memberId`.
   - [Add Group Members](wix-groups/wix-groups/members/add-group-members): `siteMemberIds` replaced by `memberIds`.
   - [List Members](wix-groups/wix-groups/members/list-members): `siteMemberId` replaced by `memberId`.
