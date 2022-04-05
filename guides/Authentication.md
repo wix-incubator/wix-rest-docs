@@ -117,7 +117,7 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 
 ![how does your consent appear](./../media/how-does-your-consent.png)
 
-Now that you have access and refresh tokens, you must close the consent window with the following script:
+Now that you have access and refresh tokens, you must close the consent window by redirecting the user to the following URL:
 
 ```
 curl -X GET \
