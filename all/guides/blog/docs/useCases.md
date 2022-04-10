@@ -61,7 +61,6 @@ An example response to both [Get Post](https://dev.wix.com/api/rest/community/bl
 ### Get a Post's Metrics
 
 To get post metrics like the number of comments, likes, and views, use [Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/get-post-metrics) and pass the post ID
-
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd/metrics' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
@@ -74,6 +73,28 @@ The response will look something like this:
     "comments": 5,
     "likes": 8,
     "views": 31
+  }
+}
+```
+
+### Bulk Get Post Metrics
+
+To get post metrics in bulk [Bulk Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/bulk-get-post-metrics) and pass the post IDs
+
+```
+curl 'http://www.wixapis.com/blog/v3/posts/metrics' --data-binary '{"post_ids": ["894a58a2-dc75-422d-9ca6-00a489750dfd"]}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' -X PUT
+```
+
+The response will look something like this:
+
+```json
+{
+  "894a58a2-dc75-422d-9ca6-00a489750dfd": {
+      "metrics": {
+        "comments": 5,
+        "likes": 8,
+        "views": 31
+      }
   }
 }
 ```
@@ -201,11 +222,97 @@ The response we got looked like this:
 }
 ```
 
+
 ## Category API
+
+### Create a Category
+
+To create a category, use [Create Category](https://dev.wix.com/api/rest/wix-blog/blog/category/create-category)
+
+```
+curl --location --request POST 'http://www.wixapis.com/blog/v3/categories' \
+    -H 'Content-Type: application/json'  \
+    -H 'Authorization: <AUTH>' \
+    --data-raw '{
+      "category": {
+        "label": "Summer",
+        "description": "Posts about my summer",
+        "title": "Summer",
+        "rank": 1,
+        "language": "en",
+        "slug": "summer-slug"
+      },
+      "fieldsToInclude": ["URL"]
+}'
+```
+
+The response will contain a category object:
+
+```json
+{
+  "category": {
+    "id": "894a58a2-dc75-422d-9ca6-10a489750dfd",
+    "label": "Summer",
+    "postCount": 0,
+    "url": {
+      "base": "https://some-user.wixsite.com/my-site",
+      "path": "/blog/categories/summer-slug"
+    },
+    "description": "Posts about my summer",
+    "title": "Summer",
+    "coverMedia": {
+      "enabled": true,
+      "displayed": true,
+      "custom": true
+    },
+    "rank": 1,
+    "language": "en",
+    "slug": "summer-slug"
+  }
+}
+```
+
+### Update a Category
+
+To update a category, use [Update Category](https://dev.wix.com/api/rest/wix-blog/blog/category/update-category)
+
+```
+curl --location --request PATCH 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' \
+    -H 'Content-Type: application/json'  \
+    -H 'Authorization: <AUTH>' \
+    --data-raw '{
+      "category": {
+        "description": "Posts about my summer and adventures",
+      },
+      "fieldMask": "category.description"
+}'
+```
+
+The response will contain a category object:
+
+```json
+{
+  "category": {
+    "id": "894a58a2-dc75-422d-9ca6-10a489750dfd",
+    "label": "Summer",
+    "postCount": 0,
+    "description": "Posts about my summer and adventures",
+    "title": "Summer",
+    "coverMedia": {
+      "enabled": true,
+      "displayed": true,
+      "custom": true
+    },
+    "rank": 1,
+    "language": "en",
+    "slug": "summer-slug"
+  }
+}
+```
 
 ### Get a Category
 
-To get a specific category, use [Get Category](https://dev.wix.com/api/rest/community/blog/category/get-category) to retrieve a category by its ID:
+To get a specific category, use [Get Category](https://dev.wix.com/api/rest/wix-blog/blog/category/get-category) to retrieve a category by its ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -328,6 +435,229 @@ The response will be an array of the categories that passed the query:
   }
 }
 ```
+
+### Delete a Category
+
+To delete a specific category, use [Delete Category](https://dev.wix.com/api/rest/wix-blog/blog/category/delete-category):
+
+```
+curl --location --request DELETE 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' \
+    -H 'Content-Type: application/json'  \
+    -H 'Authorization: <AUTH>' \
+}'
+```
+
+The response is empt
+
+## Tag API
+Tags, just like categories, provide a way to aggregate and group your posts. Tags are more lightweight and granular compared to categories.
+
+### Create a Tag
+
+To create a tag use [Create Tag](https://dev.wix.com/api/rest/community/blog/tag/create-tag)
+
+```
+curl -X POST \
+  'http://www.wixapis.com/blog/v3/tags/' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: <AUTH>'
+  -d '{
+       "label": "vacation",
+       "language": "en"
+     }'
+```
+
+The response structure is a tag object:
+```json
+{
+  "tag": {
+    "id": "0c20a033-bcdb-42af-a793-84a83f4a5bf1",
+    "label": "vacation",
+    "slug": "vacation",
+    "createdDate": "2021-09-08T11:11:15.949Z",
+    "updatedDate": "2021-09-08T11:11:15.949Z",
+    "publicationCount": 0,
+    "postCount": 0,
+    "language": "en"
+  }
+}
+```
+
+### Query Blog Posts by Tag
+
+Imagine you have a cooking blog where you write your recipes as posts and group them by recipe type using categories. Additionally, you want to provide information about the main ingredients with the ability to list recipes (i.e. posts) based on them. You can add multiple tags to your recipe post, like `chicken`, `mushrooms`, `fresh pasta`, `etc`.
+
+#### Retrieving multiple tags
+To fetch all the tags representing ingredients from you blog, [Query Tags](https://dev.wix.com/api/rest/community/blog/tag/query-tags) endpoint should be used.
+
+Let's be more specific in the example below and request all tags that have a label starting with word "coriander":
+
+```
+curl 'https://www.wixapis.com/blog/v2/tags/query' --data-binary '{"filter":{"label":{"$startsWith": "coriander"}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+```
+
+The response will be an array of the tags that passed the query:
+```json
+{
+  "tags": [
+    {
+      "id": "f0ad2e22-2cfd-49ff-aa3a-eae68a9d5008",
+      "label": "coriander leaves",
+      "slug": "coriander-leaves",
+      "createdDate": "2021-11-17T11:26:53.987Z",
+      "updatedDate": "2021-11-17T11:26:53.987Z",
+      "publicationCount": 1,
+      "postCount": 1,
+      "url": {
+        "base": "https://fantastic-cooking.com",
+        "path": "/recipes/tags/coriander-leaves"
+      },
+      "language": "en"
+    },
+    {
+      "id": "fec0b26b-fdcd-4662-badb-fd23a123f0ec",
+      "label": "coriander seeds",
+      "slug": "coriander-seeds",
+      "createdDate": "2021-11-17T11:31:45.892Z",
+      "updatedDate": "2021-11-17T11:31:45.892Z",
+      "publicationCount": 1,
+      "postCount": 1,
+      "url": {
+        "base": "https://fantastic-cooking.com",
+        "path": "/recipes/tags/coriander-seeds"
+      },
+      "language": "en"
+    }
+  ],
+  "metaData": {
+    "count": 2,
+    "offset": 0,
+    "total": 2
+  }
+}
+```
+The returned tag IDs can be used in the Query Posts endpoint get all the posts with specified tag assigned:
+
+```
+curl 'https://www.wixapis.com/blog/v3/posts/query' --data-binary '{"fieldsToInclude": ["URL"], "filter":{"tagIds":{"$hasSome": ["f0ad2e22-2cfd-49ff-aa3a-eae68a9d5008", "fec0b26b-fdcd-4662-badb-fd23a123f0ec"]}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+```
+
+The response we got looked like this:
+
+```json
+{
+  "posts": [
+    {
+      "id": "ccedcbe1-5588-4833-b2d7-7d33b9c24d15",
+      "title": "Pepper and Coriander Crusted Tuna",
+      "excerpt": "Pepper and Coriander Crusted Tuna",
+      "firstPublishedDate": "2021-11-17T11:30:59.861Z",
+      "lastPublishedDate": "2021-11-17T11:30:59.861Z",
+      "slug": "pepper-and-coriander-crusted-tuna",
+      "featured": false,
+      "pinned": false,
+      "categoryIds": [],
+      "memberId": "2d24cb8a-adcc-466a-ab59-fa74e0889a37",
+      "hashtags": [],
+      "commentingEnabled": true,
+      "minutesToRead": 1,
+      "tagIds": [
+        "f7a2fa4d-c3b3-48a6-91bf-9b6a422971fe",
+        "d45f3110-00e0-4339-8619-7b6863002e37",
+        "fec0b26b-fdcd-4662-badb-fd23a123f0ec",
+        "215f3038-2a7a-460f-b876-fe1e17dea1cd"
+      ],
+      "relatedPostIds": [],
+      "pricingPlanIds": [],
+      "language": "en"
+    },
+    {
+      "id": "20b6a0a9-8492-406a-898b-a793b09048a9",
+      "title": "Pico de gallo salsa",
+      "excerpt": "Pico de gallo salsa",
+      "firstPublishedDate": "2021-11-17T11:27:34.603Z",
+      "lastPublishedDate": "2021-11-17T11:27:34.603Z",
+      "slug": "pico-de-gallo-salsa",
+      "featured": false,
+      "pinned": false,
+      "categoryIds": [],
+      "memberId": "2d24cb8a-adcc-466a-ab59-fa74e0889a37",
+      "hashtags": [],
+      "commentingEnabled": true,
+      "minutesToRead": 1,
+      "tagIds": [
+        "0a57ac1a-1733-4fd3-8a17-123b1578399b",
+        "f0ad2e22-2cfd-49ff-aa3a-eae68a9d5008",
+        "c0dac587-0963-43dd-ae48-9afa432bab22",
+        "4f801cd8-47d3-4434-81ff-5ff9178ae40e"
+      ],
+      "relatedPostIds": [],
+      "pricingPlanIds": [],
+      "language": "en"
+    }
+  ],
+  "metaData": {
+    "count": 2,
+    "offset": 0,
+    "total": 2
+  }
+}
+```
+
+#### Retrieve single tag
+If you want to be more specific you can fetch single tag either by id, slug or label.
+
+To fetch tag by id use [Get Tag](https://dev.wix.com/api/rest/community/blog/tag/get-tag) endpoint:
+```
+curl \
+'http://www.wixapis.com/blog/v3/tags/6d72a3bb-053c-4de5-a897-5ef6be30b1b0' \
+-H 'Content-Type: application/json' \
+-H 'Authorization: <AUTH>'
+```
+[Get Tag By Label](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-label) endpoint can be used to fetch tag
+when the label is known:
+```
+curl \
+  'http://www.wixapis.com/blog/v3/tags/labels/eggplant' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: <AUTH>'
+```
+
+And to fetch tag using slug use [Get Tag By Slug](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-slug):
+```
+curl \
+  'http://www.wixapis.com/blog/v3/tags/slugs/eggplant' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: <AUTH>'
+```
+
+The response structure is the same for all three request which is a single tag object:
+```json
+{
+  "tag": {
+    "id": "6d72a3bb-053c-4de5-a897-5ef6be30b1b0",
+    "label": "eggplant",
+    "slug": "eggplant",
+    "createdDate": "2021-08-13T08:58:20.145Z",
+    "updatedDate": "2021-08-13T08:58:20.145Z",
+    "publicationCount": 2,
+    "postCount": 1,
+    "language": "en"
+  }
+}
+```
+
+### Delete a Tag
+
+To delete a tag use [Delete Tag](https://dev.wix.com/api/rest/community/blog/tag/delete-tag)
+
+```
+curl -X DELETE \
+  'http://www.wixapis.com/blog/v3/tags/0c20a033-bcdb-42af-a793-84a83f4a5bf1' \
+  -H 'Authorization: <AUTH>'
+```
+
+The response is empty
 
 ## Post Stats API
 #### Get Total Posts
