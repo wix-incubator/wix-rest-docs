@@ -14,21 +14,22 @@
         {
       "name": "Post",
       "entity": "_com_wixpress_npm_communities_platformized_blog_v3_Post",
-      "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto//v3/post.proto"
+      "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post.proto"
     },
         {
       "name": "Draft post",
-      "entity": null
+      "entity": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+      "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/draft-post.proto"
     },
         {
       "name": "Category",
       "entity": "_com_wixpress_npm_communities_platformized_blog_v3_Category",
-      "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto//v3/category.proto"
+      "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/category.proto"
     },
         {
-      "name": "Tag",
+      "name": "Tags",
       "entity": "_com_wixpress_npm_communities_platformized_blog_Tag",
-      "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto//tag.proto"
+      "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/tag.proto"
     },
         {
       "name": "Post Stats",
@@ -41,15 +42,63 @@
       "name": "Use cases"
     },
         {
-      "path": "../guides/blog/docs/filterAndSort.md",
-      "name": "Filter and sort"
-    },
-        {
       "path": "../guides/blog/docs/intro.md",
       "name": "Introduction"
+    },
+        {
+      "path": "../guides/blog/docs/filterAndSort.md",
+      "name": "Filter and sort"
     }
   ],
   "operations":   [
+        {
+      "name": "Bulk Get Post Metrics",
+      "methodName": "BulkGetPostMetrics",
+      "serviceName": "PostService",
+      "tag": "Post",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["postIds"],
+      "params": [      {
+        "in": "BODY",
+        "name": "postIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Post IDs.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "BulkGetPostMetrics",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_BulkGetPostMetricsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a specified posts metrics.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/blog/v3/posts/metrics",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkGetPostMetricsRequest",
+        "rpcResponseName": "BulkGetPostMetricsResponse"
+      },
+      "customLabels": []
+    },
         {
       "name": "Get Category",
       "methodName": "GetCategory",
@@ -111,7 +160,7 @@
         "rpcRequestName": "GetCategoryRequest",
         "rpcResponseName": "GetCategoryResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Get Category By Slug",
@@ -174,7 +223,7 @@
         "rpcRequestName": "GetCategoryBySlugRequest",
         "rpcResponseName": "GetCategoryBySlugResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Get Post",
@@ -237,7 +286,7 @@
         "rpcRequestName": "GetPostRequest",
         "rpcResponseName": "GetPostResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Get Post By Slug",
@@ -300,7 +349,7 @@
         "rpcRequestName": "GetPostBySlugRequest",
         "rpcResponseName": "GetPostBySlugResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Get Post Metrics",
@@ -351,14 +400,17 @@
         "rpcRequestName": "GetPostMetricsRequest",
         "rpcResponseName": "GetPostMetricsResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Get Tag",
       "methodName": "GetTag",
       "serviceName": "TagService",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -417,8 +469,11 @@
       "name": "Get Tag By Label",
       "methodName": "GetTagByLabel",
       "serviceName": "TagService",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -484,8 +539,11 @@
       "name": "Get Tag By Slug",
       "methodName": "GetTagBySlug",
       "serviceName": "TagService",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -657,7 +715,7 @@
         "rpcRequestName": "ListCategoriesRequest",
         "rpcResponseName": "ListCategoriesResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "List Posts",
@@ -676,7 +734,7 @@
           "in": "QUERY",
           "name": "featured",
           "type": "boolean",
-          "doc": "  Whether to return only featured posts.\n",
+          "doc": " Whether to return only featured posts.\n",
           "required": false
         },
                 {
@@ -739,6 +797,13 @@
           },
           "doc": " List of post fields to be included in the response. Note: `COUNTERS` is deprecated, use `METRICS` instead.\n",
           "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "language",
+          "type": "string",
+          "doc": " Language filter.\n Pass language to only receive posts that are in that language.\n",
+          "required": false
         }
       ],
       "ret":       {
@@ -770,7 +835,7 @@
         "rpcRequestName": "ListPostsRequest",
         "rpcResponseName": "ListPostsResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Query Categories",
@@ -849,10 +914,10 @@
         "rpcRequestName": "QueryCategoriesRequest",
         "rpcResponseName": "QueryCategoriesResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
-      "name": "Query Post Count",
+      "name": "Query Post Count (Additional Binding 1)",
       "methodName": "QueryPostCountStats",
       "serviceName": "BlogStatsService",
       "tag": "Post Stats",
@@ -865,42 +930,42 @@
       "nameParams": [],
       "params":       [
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "rangeStart",
           "type": "string",
           "doc": " Start of time range to return, in ISO 8601 date and time format.\n",
           "required": false
         },
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "rangeEnd",
           "type": "string",
           "doc": " Non-inclusive end of time range to return, in ISO 8601 date and time format.\n",
           "required": false
         },
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "order",
           "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_QueryPostCountStatsRequest_Order",
           "doc": " Order of returned results.\n",
           "required": false
         },
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "months",
           "type": "integer",
           "doc": " Number of months to include in response.\n",
           "required": false
         },
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "language",
           "type": "string",
           "doc": " Language filter\n",
           "required": false
         },
                 {
-          "in": "BODY",
+          "in": "QUERY",
           "name": "timeZone",
           "type": "string",
           "doc": " Timezone of the client\n",
@@ -917,9 +982,9 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves the number of posts per month published within a specified time span, from first day of a month - ignoring days value in period start field.  \n > Note: If `periodStart` value is set to `2018-11-10` and `months` value is set to `1`, the day value is ignored and statistic are returned for one month from `2018-11-01` until `2018-11-30`, and not between `2018-11-10` and `2018-12-10`.\n\n \n",
+        "summary": " Retrieves the number of posts per month published within a specified time span, from first day of a month - ignoring days value in period start field.\n > Note: If `periodStart` value is set to `2018-11-10` and `months` value is set to `1`, the day value is ignored and statistic are returned for one month from `2018-11-01` until `2018-11-30`, and not between `2018-11-10` and `2018-12-10`.\n\n \n",
         "description": [],
-        "request": "POST",
+        "request": "GET",
         "url": "https://www.wixapis.com/blog/v2/stats/post/count",
         "links": [],
         "examples": [        {
@@ -1015,14 +1080,17 @@
         "rpcRequestName": "QueryPostsRequest",
         "rpcResponseName": "QueryPostsResponse"
       },
-      "customLabels": [{"id": "maturity-beta"}]
+      "customLabels": []
     },
         {
       "name": "Query Tags",
       "methodName": "QueryTags",
       "serviceName": "TagService",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1047,7 +1115,7 @@
                 {
           "in": "BODY",
           "name": "paging",
-          "type": "All APIs.Blog._wix_common_Paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_upstream_tag_Paging",
           "doc": " Pagination options.\n",
           "required": false
         },
@@ -1072,7 +1140,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves up to 100 tags, given the provided paging, filtering, and sorting.\n To learn how to query tags, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
+        "summary": " Retrieves up to 500 tags, given the provided paging, filtering, and sorting.\n To learn how to query tags, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/blog/v3/tags/query",
@@ -1097,8 +1165,11 @@
       "name": "Query Tags (Additional Binding 1)",
       "methodName": "QueryTags",
       "serviceName": "TagService",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1123,7 +1194,7 @@
                 {
           "in": "BODY",
           "name": "paging",
-          "type": "All APIs.Blog._wix_common_Paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_upstream_tag_Paging",
           "doc": " Pagination options.\n",
           "required": false
         },
@@ -1148,7 +1219,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves up to 100 tags, given the provided paging, filtering, and sorting.\n To learn how to query tags, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
+        "summary": " Retrieves up to 500 tags, given the provided paging, filtering, and sorting.\n To learn how to query tags, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/blog/v2/tags/query",
@@ -1176,16 +1247,16 @@
       "name": "Category Created Webhook",
       "docs":       {
         "summary": " Triggered when a category is created.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/category-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/category-service.proto"
       },
-      "topic": "domain_events_wix.blog.category",
+      "topic": "domain_events_wix.blog.v3.category",
       "tag": "Category",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.category_created",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.category_created",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1193,16 +1264,16 @@
       "name": "Category Updated Webhook",
       "docs":       {
         "summary": " Triggered when a category is updated.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/category-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/category-service.proto"
       },
-      "topic": "domain_events_wix.blog.category",
+      "topic": "domain_events_wix.blog.v3.category",
       "tag": "Category",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.category_updated",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.category_updated",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1210,16 +1281,16 @@
       "name": "Category Deleted Webhook",
       "docs":       {
         "summary": " Triggered when a category is deleted.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/category-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/category-service.proto"
       },
-      "topic": "domain_events_wix.blog.category",
+      "topic": "domain_events_wix.blog.v3.category",
       "tag": "Category",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.category_deleted",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.category_deleted",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1227,16 +1298,16 @@
       "name": "Post Created Webhook",
       "docs":       {
         "summary": " Triggered when a post is created.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/post-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
       },
-      "topic": "domain_events_wix.blog.post",
+      "topic": "domain_events_wix.blog.v3.post",
       "tag": "Post",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.post_created",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_created",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1244,16 +1315,16 @@
       "name": "Post Updated Webhook",
       "docs":       {
         "summary": " Triggered when a post is updated.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/post-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
       },
-      "topic": "domain_events_wix.blog.post",
+      "topic": "domain_events_wix.blog.v3.post",
       "tag": "Post",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.post_updated",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_updated",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1261,16 +1332,16 @@
       "name": "Post Deleted Webhook",
       "docs":       {
         "summary": " Triggered when a post is deleted.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/post-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
       },
-      "topic": "domain_events_wix.blog.post",
+      "topic": "domain_events_wix.blog.v3.post",
       "tag": "Post",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.post_deleted",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_deleted",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1278,16 +1349,16 @@
       "name": "Post Liked Webhook",
       "docs":       {
         "summary": " Triggered when a post is liked.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/post-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
       },
-      "topic": "domain_events_wix.blog.post",
+      "topic": "domain_events_wix.blog.v3.post",
       "tag": "Post",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.post_liked",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_liked",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1295,16 +1366,50 @@
       "name": "Post Unliked Webhook",
       "docs":       {
         "summary": " Triggered when a post is unliked.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/v3/post-service.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
       },
-      "topic": "domain_events_wix.blog.post",
+      "topic": "domain_events_wix.blog.v3.post",
       "tag": "Post",
       "permissions": [      {
         "name": "Read Blog",
         "description": "Request permission to read blog posts and category data."
       }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.blog.post_unliked",
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_unliked",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedDomainEvent",
+      "name": "Post Counters Updated Webhook",
+      "docs":       {
+        "summary": " Triggered when a post metrics counters are updated (throttled when the counters reach a high number).\n",
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/v3/post-service.proto"
+      },
+      "topic": "domain_events_wix.blog.v3.post",
+      "tag": "Post",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
+      "customLabels": [],
+      "eventType": "wix.blog.v3.post_counters_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_npm_communities_platformized_blog_TagCreatedDomainEvent",
+      "name": "Tag Created Webhook",
+      "docs":       {
+        "summary": " Triggered when a tag is created.\n",
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/tag.proto"
+      },
+      "topic": "domain_events_wix.blog.v3.tag",
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.blog.v3.tag_created",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1312,11 +1417,14 @@
       "name": "Tag Deleted Webhook",
       "docs":       {
         "summary": " Triggered when a tag is deleted.\n",
-        "src": "https://github.com/wix-private/app-market/tree/master/communities/communities-blog-platformized-proto/src/main/proto/tag.proto"
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/tag.proto"
       },
       "topic": "domain_events_wix.blog.v3.tag",
-      "tag": "Tag",
-      "permissions": [],
+      "tag": "Tags",
+      "permissions": [      {
+        "name": "Read Blog",
+        "description": "Request permission to read blog posts and category data."
+      }],
       "customLabels": [{"id": "maturity-alpha"}],
       "eventType": "wix.blog.v3.tag_deleted",
       "extra": {"isDomainEvent": true}
@@ -1347,7 +1455,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.category`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.category`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1373,6 +1481,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1420,7 +1533,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.category`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.category`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1446,6 +1559,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1493,7 +1611,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.category`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.category`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1519,6 +1637,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1535,79 +1658,6 @@
         "examples": []
       },
       "members": [],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostUpdatedDomainEvent",
-      "displayName": "Draft Post Updated Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"entityId\" : \"75e7fa83-91fc-4501-b711-c9da7527df14\",\n  \"slug\" : \"updated\",\n  \"id\" : \"e390b383-ed1f-4466-8981-ef7bdd9963a0\",\n  \"entityFqdn\" : \"wix.blog.draft\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"id\\\":\\\"3bceaccb-ddfc-4078-84bf-50699b4d3f83\\\",\\\"title\\\":\\\"MANCHURIAN CANDIDATE\\\",\\\"excerpt\\\":\\\"By sacrificing Stormy, you made available the power of the storm. So, when a position is available... you take it, if it’s to your liking...\\\",\\\"featured\\\":false,\\\"categoryIds\\\":[],\\\"coverMedia\\\":{\\\"enabled\\\":true,\\\"image\\\":{\\\"id\\\":\\\"1a245d_98065284cc0c4b16a72f8397d817eef9~mv2.png\\\",\\\"url\\\":\\\"https://static.wixstatic.com/media/1a245d_98065284cc0c4b16a72f8397d817eef9~mv2.png\\\",\\\"height\\\":1606,\\\"width\\\":2728},\\\"memberId\\\":\\\"1a245d8a-a400-4b37-9e20-88171beab277\\\",\\\"hashtags\\\":[],\\\"commentingEnabled\\\":true,\\\"minutesToRead\\\":2,\\\"heroImage\\\":null,\\\"tagIds\\\":[],\\\"relatedPostIds\\\":[],\\\"pricingPlanIds\\\":[],\\\"translationId\\\":\\\"1a245d8a-8888-4b37-9e20-88171beab277\\\",\\\"language\\\":\\\"en\\\",\\\"changeOrigin\\\":\\\"manual_save\\\",\\\"editingSessionId\\\":\\\"51b74190-1568-11ec-82a8-0242ac130003\\\"}\"\n  },\n  \"eventTime\" : \"2021-03-02T08:40:52.287Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.blog.v3.draft`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `updated`.\nEvent name."
-        },
-                {
-          "name": "updatedEvent",
-          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityUpdatedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "DraftPost ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityUpdatedEvent",
-      "displayName": "Draft Post Entity Updated Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "currentEntityAsJson",
-        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
-        "doc": "Event body as a stringified JSON"
-      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1661,6 +1711,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1678,6 +1733,84 @@
       },
       "members": [      {
         "name": "entityAsJson",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostUpdatedDomainEvent",
+      "displayName": "Draft Post Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"entityId\" : \"75e7fa83-91fc-4501-b711-c9da7527df14\",\n  \"slug\" : \"updated\",\n  \"id\" : \"e390b383-ed1f-4466-8981-ef7bdd9963a0\",\n  \"entityFqdn\" : \"wix.blog.draft\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"id\\\":\\\"3bceaccb-ddfc-4078-84bf-50699b4d3f83\\\",\\\"title\\\":\\\"MANCHURIAN CANDIDATE\\\",\\\"excerpt\\\":\\\"By sacrificing Stormy, you made available the power of the storm. So, when a position is available... you take it, if it’s to your liking...\\\",\\\"featured\\\":false,\\\"categoryIds\\\":[],\\\"coverMedia\\\":{\\\"enabled\\\":true,\\\"image\\\":{\\\"id\\\":\\\"1a245d_98065284cc0c4b16a72f8397d817eef9~mv2.png\\\",\\\"url\\\":\\\"https://static.wixstatic.com/media/1a245d_98065284cc0c4b16a72f8397d817eef9~mv2.png\\\",\\\"height\\\":1606,\\\"width\\\":2728},\\\"memberId\\\":\\\"1a245d8a-a400-4b37-9e20-88171beab277\\\",\\\"hashtags\\\":[],\\\"commentingEnabled\\\":true,\\\"minutesToRead\\\":2,\\\"heroImage\\\":null,\\\"tagIds\\\":[],\\\"relatedPostIds\\\":[],\\\"pricingPlanIds\\\":[],\\\"translationId\\\":\\\"1a245d8a-8888-4b37-9e20-88171beab277\\\",\\\"language\\\":\\\"en\\\",\\\"changeOrigin\\\":\\\"manual_save\\\",\\\"editingSessionId\\\":\\\"51b74190-1568-11ec-82a8-0242ac130003\\\"}\"\n  },\n  \"eventTime\" : \"2021-03-02T08:40:52.287Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.blog.v3.draft`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DraftPost ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityUpdatedEvent",
+      "displayName": "Draft Post Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
         "doc": "Event body as a stringified JSON"
       }],
@@ -1734,6 +1867,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1777,7 +1915,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.post`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1803,6 +1941,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1850,7 +1993,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.post`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1876,6 +2019,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1923,7 +2071,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.post`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -1949,6 +2097,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -1992,7 +2145,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.post`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -2018,6 +2171,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -2065,7 +2223,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.blog.post`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -2091,6 +2249,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -2109,6 +2272,79 @@
       "members": [      {
         "name": "body",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostUnliked",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedDomainEvent",
+      "displayName": "Post Counters Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.blog.v3.post`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `counters_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "PostCountersUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedActionEvent",
+      "displayName": "Post Counters Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdated",
         "doc": "Event body"
       }],
       "enum": null,
@@ -2164,6 +2400,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -2180,9 +2421,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -2237,6 +2478,11 @@
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
           "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
       "enum": null,
@@ -2253,6 +2499,31 @@
         "examples": []
       },
       "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_upstream_tag_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2322,7 +2593,8 @@
                 {
           "name": "filename",
           "type": "string",
-          "doc": " Image filename. Optional.\n"
+          "doc": " Image filename. Optional.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -2391,6 +2663,11 @@
           "name": "displayed",
           "type": "boolean",
           "doc": " Whether cover media is displayed.\n"
+        },
+                {
+          "name": "custom",
+          "type": "boolean",
+          "doc": " Whether cover media is custom, i.e. not resolved as first media item appearing in content.\n"
         }
       ],
       "enum": null,
@@ -2733,31 +3010,6 @@
       "labels": []
     },
         {
-      "name": "_wix_common_Paging",
-      "displayName": "Paging Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "limit",
-          "type": "integer",
-          "doc": " Number of items to load.\n"
-        },
-                {
-          "name": "offset",
-          "type": "integer",
-          "doc": " Number of items to skip in the current sort order.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_Sorting",
       "displayName": "Sorting Object",
       "locations": [],
@@ -2775,7 +3027,102 @@
                 {
           "name": "order",
           "type": "All APIs.Blog._wix_common_SortOrder",
-          "doc": " Sort order.\n\n Defaults to `ASC`.\n"
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " For how many items the requested action was successful \n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " For how many items the requested action was not successful \n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " total number of failures without details because detailed-failure-threshold exceeded\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item id. Should always be provided, unless it's impossible (e.g when failing to create an item)\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " The index of the item within the request array to allow the caller to correlate the request and response items\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the action requested was successful for this item. When this value is false, error should be populated\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Blog._wix_api_ApplicationError",
+          "doc": " In case of failure, details about the error\n"
         }
       ],
       "enum": null,
@@ -2800,49 +3147,48 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Tag ID\n",
+          "doc": " Tag ID.\n",
           "readOnly": true
         },
                 {
           "name": "label",
           "type": "string",
-          "doc": " Tag name. Unique per blog\n",
+          "doc": " Tag name. Unique per blog.\n",
           "readOnly": true
         },
                 {
           "name": "slug",
           "type": "string",
-          "doc": " Tag slug. For example, 'category-slug'\n",
-          "readOnly": true
+          "doc": " Tag slug. For example, 'tag-slug'.\n"
         },
                 {
           "name": "createdDate",
           "type": "string",
-          "doc": " Date the tag was created\n",
+          "doc": " Date the tag was created.\n",
           "readOnly": true
         },
                 {
           "name": "updatedDate",
           "type": "string",
-          "doc": " Date the tag was updated\n",
-          "readOnly": true
-        },
-                {
-          "name": "publicationCount",
-          "type": "integer",
-          "doc": " Number of published posts with this tag\n",
+          "doc": " Date the tag was updated.\n",
           "readOnly": true
         },
                 {
           "name": "postCount",
           "type": "integer",
-          "doc": " Number of posts with this tag\n",
+          "doc": " Number of posts with this tag, including unpublished draft posts.\n",
           "readOnly": true
         },
                 {
           "name": "url",
           "type": "All APIs.Blog._wix_common_PageUrl",
-          "doc": " Tag page URL\n"
+          "doc": " Tag page URL.\n"
+        },
+                {
+          "name": "publishedPostCount",
+          "type": "integer",
+          "doc": " Number of published posts with this tag.\n",
+          "readOnly": true
         },
                 {
           "name": "translationId",
@@ -2852,7 +3198,32 @@
                 {
           "name": "language",
           "type": "string",
-          "doc": " Tag language\n"
+          "doc": " Tag language.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_BulkTagResult",
+      "displayName": "Bulk Tag Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Blog._wix_common_ItemMetadata",
+          "doc": " Bulk actions metadata for tag.\n"
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
+          "doc": " Optional created tag.\n"
         }
       ],
       "enum": null,
@@ -2872,12 +3243,20 @@
                 {
           "name": "label",
           "type": "string",
-          "doc": " Tag name. Unique per blog\n"
+          "doc": " Tag name. Unique per blog.\n"
         },
                 {
           "name": "language",
           "type": "string",
-          "doc": " Tag language\n"
+          "doc": " Tag language.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_TagField_Field"]
+          },
+          "doc": " List of tag fields to be included in the response.\n"
         }
       ],
       "enum": null,
@@ -2896,7 +3275,7 @@
       "members": [      {
         "name": "tag",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
-        "doc": " Tag info\n"
+        "doc": " Tag info.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2915,12 +3294,25 @@
                 {
           "name": "label",
           "type": "string",
-          "doc": " Tag label. Unique per blog\n"
+          "doc": " Tag label. Unique per blog.\n"
         },
                 {
           "name": "language",
           "type": "string",
-          "doc": " Tag language\n"
+          "doc": " Tag language.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Preferred tag slug. For example, 'tag-slug'\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_TagField_Field"]
+          },
+          "doc": " List of tag fields to be included in the response.\n"
         }
       ],
       "enum": null,
@@ -2941,6 +3333,70 @@
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
         "doc": " Tag info\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_BulkCreateTagRequest",
+      "displayName": "Bulk Create Tag Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tags",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag"]
+          },
+          "doc": " Tags to create.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the full created tag entities in the response.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_TagField_Field"]
+          },
+          "doc": " List of tag fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_BulkCreateTagResponse",
+      "displayName": "Bulk Create Tag Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_BulkTagResult"]
+          },
+          "doc": " Tags created by bulk action.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Blog._wix_common_BulkActionMetadata",
+          "doc": " Bulk action metadata.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3036,7 +3492,7 @@
       "members": [      {
         "name": "tag",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
-        "doc": " Tag info\n"
+        "doc": " Returned tag information.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3082,7 +3538,7 @@
       "members": [      {
         "name": "tag",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag",
-        "doc": " Tag info\n"
+        "doc": " Returned tag information.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3113,7 +3569,7 @@
         },
                 {
           "name": "paging",
-          "type": "All APIs.Blog._wix_common_Paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_upstream_tag_Paging",
           "doc": " Pagination options.\n"
         },
                 {
@@ -3141,7 +3597,7 @@
       "members": [      {
         "name": "includeUrl",
         "type": "boolean",
-        "doc": " Includes Tag url on TRUE. Default FALSE\n"
+        "doc": " Includes tag URL whenn TRUE. Defaults to FALSE.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3163,7 +3619,7 @@
             "name": "array",
             "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag"]
           },
-          "doc": " List of tags\n"
+          "doc": " List of tags.\n"
         },
                 {
           "name": "metaData",
@@ -3171,6 +3627,102 @@
           "doc": " Details on the paged set of results returned.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_ListTagsRequest",
+      "displayName": "List Tags Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._wix_common_Sorting"]
+          },
+          "doc": " Sorting options. For a list of sortable fields, see [Field Support for Filtering and Sorting](https://dev.wix.com/api/rest/community/blog/filter-and-sort).\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_upstream_tag_Paging",
+          "doc": " Pagination options.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_TagField_Field"]
+          },
+          "doc": " List of tag fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_ListTagsResponse",
+      "displayName": "List Tags Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tags",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Tag"]
+          },
+          "doc": " List of tags.\n"
+        },
+                {
+          "name": "metaData",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_MetaData",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_DeleteTagRequest",
+      "displayName": "Delete Tag Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "tagId",
+        "type": "string",
+        "doc": " Tag ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_DeleteTagResponse",
+      "displayName": "Delete Tag Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3333,6 +3885,127 @@
           "doc": " SEO general settings.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "fieldsMapEntry",
+      "displayName": "fields Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Unordered map of dynamically typed values.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Blog._wix_rich_content_v1_Value",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_Struct",
+      "displayName": "Struct Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fields",
+        "type": "All APIs.Blog.fieldsMapEntry",
+        "doc": "Set of key-value pairs. Unordered map of dynamically typed values.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Blog._wix_rich_content_v1_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Blog._wix_rich_content_v1_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "All APIs.Blog._wix_rich_content_v1_Struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type": "All APIs.Blog._wix_rich_content_v1_ListValue",
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_rich_content_v1_ListValue",
+      "displayName": "List Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "values",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Blog._wix_rich_content_v1_Value"]
+        },
+        "doc": " Repeated field of dynamically typed values.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3709,6 +4382,11 @@
           "name": "height",
           "type": "integer",
           "doc": ""
+        },
+                {
+          "name": "duration",
+          "type": "number",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -4077,6 +4755,36 @@
       "labels": []
     },
         {
+      "name": "_wix_rich_content_v1_FileData_PDFSettings",
+      "displayName": "PDF Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "viewMode",
+          "type": "All APIs.Blog._wix_rich_content_v1_FileData_PDFSettings_ViewMode",
+          "doc": ""
+        },
+                {
+          "name": "disableDownload",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "disablePrint",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_rich_content_v1_FileData",
       "displayName": "File Data Object",
       "locations": [],
@@ -4109,6 +4817,11 @@
                 {
           "name": "size",
           "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "pdfSettings",
+          "type": "All APIs.Blog._wix_rich_content_v1_FileData_PDFSettings",
           "doc": ""
         }
       ],
@@ -4143,6 +4856,11 @@
         },
                 {
           "name": "numberOfColumns",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "mobileNumberOfColumns",
           "type": "integer",
           "doc": ""
         }
@@ -4191,7 +4909,7 @@
       "displayName": "Thumbnails Object",
       "locations": [],
       "docs":       {
-        "summary": " relevant only when has thumbnails\n",
+        "summary": "",
         "links": [],
         "examples": []
       },
@@ -5172,11 +5890,17 @@
                 {
           "name": "imageSrc",
           "type": "string",
-          "doc": ""
+          "doc": "TODO: use image.src.url instead\n",
+          "deprecated": true
         },
                 {
           "name": "url",
           "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "image",
+          "type": "All APIs.Blog._wix_rich_content_v1_Media",
           "doc": ""
         },
                 {
@@ -5500,6 +6224,110 @@
       "labels": []
     },
         {
+      "name": "_wix_rich_content_v1_AudioData",
+      "displayName": "Audio Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "containerData",
+          "type": "All APIs.Blog._wix_rich_content_v1_PluginContainerData",
+          "doc": ""
+        },
+                {
+          "name": "audio",
+          "type": "All APIs.Blog._wix_rich_content_v1_Media",
+          "doc": ""
+        },
+                {
+          "name": "disableDownload",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "coverImage",
+          "type": "All APIs.Blog._wix_rich_content_v1_Media",
+          "doc": ""
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "authorName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "html",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_OrderedListData",
+      "displayName": "Ordered List Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "indentation",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_BulletedListData",
+      "displayName": "Bulleted List Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "indentation",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_BlockquoteData",
+      "displayName": "Blockquote Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "indentation",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_rich_content_v1_RichContent",
       "displayName": "Rich Content Object",
       "locations": [],
@@ -5520,6 +6348,11 @@
                 {
           "name": "metadata",
           "type": "All APIs.Blog._wix_rich_content_v1_Metadata",
+          "doc": ""
+        },
+                {
+          "name": "documentStyle",
+          "type": "All APIs.Blog._wix_rich_content_v1_DocumentStyle",
           "doc": ""
         }
       ],
@@ -5545,7 +6378,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Node unique indentifier\n"
+          "doc": " Node unique identifier\n"
         },
                 {
           "name": "nodes",
@@ -5679,6 +6512,31 @@
           "name": "tableCellData",
           "type": "All APIs.Blog._wix_rich_content_v1_TableCellData",
           "doc": ""
+        },
+                {
+          "name": "externalData",
+          "type": "All APIs.Blog._wix_rich_content_v1_Struct",
+          "doc": ""
+        },
+                {
+          "name": "audioData",
+          "type": "All APIs.Blog._wix_rich_content_v1_AudioData",
+          "doc": ""
+        },
+                {
+          "name": "orderedListData",
+          "type": "All APIs.Blog._wix_rich_content_v1_OrderedListData",
+          "doc": ""
+        },
+                {
+          "name": "bulletedListData",
+          "type": "All APIs.Blog._wix_rich_content_v1_BulletedListData",
+          "doc": ""
+        },
+                {
+          "name": "blockquoteData",
+          "type": "All APIs.Blog._wix_rich_content_v1_BlockquoteData",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -5803,6 +6661,21 @@
           "name": "fontSizeData",
           "type": "All APIs.Blog._wix_rich_content_v1_FontSizeData",
           "doc": ""
+        },
+                {
+          "name": "fontWeightValue",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "italicData",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "underlineData",
+          "type": "boolean",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -5835,6 +6708,345 @@
           "name": "updatedTimestamp",
           "type": "string",
           "doc": " Time of latest edit\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_TextNodeStyle",
+      "displayName": "Text Node Style Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "decorations",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Blog._wix_rich_content_v1_Decoration"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_DocumentStyle",
+      "displayName": "Document Style Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "headerOne",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "headerTwo",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "headerThree",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "headerFour",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "headerFive",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "headerSix",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        },
+                {
+          "name": "paragraph",
+          "type": "All APIs.Blog._wix_rich_content_v1_TextNodeStyle",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+      "displayName": "Draft Post Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"draftPost\" : {\n    \"id\" : \"448d1238-0072-4458-a280-bf81c2dd8af1\",\n    \"title\" : \"Places to visit in europe\",\n    \"featured\" : false,\n    \"categoryIds\" : [ ],\n    \"memberId\" : \"2d24cb8a-adcc-466a-ab59-fa74e0889a37\",\n    \"hashtags\" : [ ],\n    \"commentingEnabled\" : true,\n    \"minutesToRead\" : 0,\n    \"tagIds\" : [ ],\n    \"relatedPostIds\" : [ ],\n    \"pricingPlanIds\" : [ ],\n    \"language\" : \"en\",\n    \"changeOrigin\" : \"AUTO_SAVE\",\n    \"contentId\" : \"622f285f7952527f485bc138\",\n    \"editingSessionId\" : \"0aca7f65-1237-482e-bf51-6d14102ee691\",\n    \"status\" : \"UNPUBLISHED\",\n    \"mostRecentContributorId\" : \"2d24cb8a-adcc-466a-ab59-fa74e0889a37\",\n    \"hasUnpublishedChanges\" : true,\n    \"editedDate\" : \"2022-03-14T11:34:55.121Z\",\n    \"seoData\" : {\n      \"tags\" : [ ]\n    },\n    \"seoShowInSearch\" : true,\n    \"seoShowSnippetInSearch\" : true,\n    \"slugs\" : [ ],\n    \"createdDate\" : \"2022-03-14T11:34:55.121Z\"\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Post ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Post title.\n"
+        },
+                {
+          "name": "excerpt",
+          "type": "string",
+          "doc": " Post excerpt.\n Can be selected by site owner or extracted from the post's text.\n"
+        },
+                {
+          "name": "featured",
+          "type": "boolean",
+          "doc": " Whether the post is marked as featured.\n"
+        },
+                {
+          "name": "categoryIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of categories this post belongs to.\n"
+        },
+                {
+          "name": "coverMedia",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_CoverMedia",
+          "doc": " Post cover media.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Post owner's member ID.\n"
+        },
+                {
+          "name": "hashtags",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Hashtags extracted from the post's content.\n"
+        },
+                {
+          "name": "commentingEnabled",
+          "type": "boolean",
+          "doc": " Whether commenting on the post is enabled.\n"
+        },
+                {
+          "name": "minutesToRead",
+          "type": "integer",
+          "doc": " Estimated reading time (calculated automatically).\n",
+          "readOnly": true
+        },
+                {
+          "name": "heroImage",
+          "type": "All APIs.Blog._wix_common_Image",
+          "doc": " Hero image, as displayed at the top of the blog page.\n"
+        },
+                {
+          "name": "tagIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of tags the post is tagged with.\n"
+        },
+                {
+          "name": "relatedPostIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of posts that are related to this post.\n"
+        },
+                {
+          "name": "pricingPlanIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Pricing plans IDs.\n"
+        },
+                {
+          "name": "translationId",
+          "type": "string",
+          "doc": " ID of the post's translations. Translations of a single post into multiple languages will all share the same `translationId`.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language the post is written in.\n"
+        },
+                {
+          "name": "changeOrigin",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ChangeOrigin_Origin",
+          "doc": " Origin on how the current draft post state was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "richContent",
+          "type": "All APIs.Blog._wix_rich_content_v1_RichContent",
+          "doc": " Post rich content.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostStatus_Status",
+          "doc": " Post status.\n",
+          "readOnly": true
+        },
+                {
+          "name": "moderationDetails",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ModerationDetails",
+          "doc": " Details about post moderation. Relevant only to posts submitted by guest writers.\n"
+        },
+                {
+          "name": "hasUnpublishedChanges",
+          "type": "boolean",
+          "doc": " Indicates if draft post have changes that are not yet published to the public.\n",
+          "readOnly": true
+        },
+                {
+          "name": "editedDate",
+          "type": "string",
+          "doc": " Last edited date\n",
+          "readOnly": true
+        },
+                {
+          "name": "scheduledPublishDate",
+          "type": "string",
+          "doc": " Scheduled publish date\n",
+          "readOnly": true
+        },
+                {
+          "name": "firstPublishedDate",
+          "type": "string",
+          "doc": " Date the post was first published.\n"
+        },
+                {
+          "name": "seoData",
+          "type": "All APIs.Blog._com_wixpress_advanced_seo_SeoSchema",
+          "doc": " SEO data.\n"
+        },
+                {
+          "name": "paidContentParagraph",
+          "type": "integer",
+          "doc": " Paid content paragraph.\n"
+        },
+                {
+          "name": "slugs",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of post historical slugs. For example, ['post-slug'].\n",
+          "readOnly": true
+        },
+                {
+          "name": "url",
+          "type": "All APIs.Blog._wix_common_PageUrl",
+          "doc": " Draft post preview URL (how URL will look like when post will be published).\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date the post was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "seoSlug",
+          "type": "string",
+          "doc": " SEO slug.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ModerationDetails",
+      "displayName": "Moderation Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "submittedBy",
+          "type": "string",
+          "doc": " Member Id of person submitting the post to moderation\n"
+        },
+                {
+          "name": "submittedDate",
+          "type": "string",
+          "doc": " Date of post submission to moderation\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ModerationStatus_Status",
+          "doc": " Status indicating whether submission was approved or rejected by moderator\n"
+        },
+                {
+          "name": "moderatedBy",
+          "type": "string",
+          "doc": " Member Id of person who approved or rejected the post\n"
+        },
+                {
+          "name": "moderationDate",
+          "type": "string",
+          "doc": " Date of post approval or rejection from moderation\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkDraftPostResult",
+      "displayName": "Bulk Draft Post Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Blog._wix_common_ItemMetadata",
+          "doc": " Bulk actions metadata for draft post.\n"
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+          "doc": " Optional full draft post.\n"
         }
       ],
       "enum": null,
@@ -6001,7 +7213,8 @@
                 {
           "name": "metrics",
           "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Metrics",
-          "doc": " Post metrics.\n"
+          "doc": " Post metrics.\n Deprecated on '2022-02-15', data can be inconsistent, for consistent data please use 'PostService#GetPostMetrics' API instead\n",
+          "deprecated": true
         },
                 {
           "name": "seoData",
@@ -6012,6 +7225,12 @@
           "name": "contactId",
           "type": "string",
           "doc": " Post owner's contact ID.\n"
+        },
+                {
+          "name": "moderationDetails",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ModerationDetails",
+          "doc": " Details about post moderation. Relevant only to posts submitted by guest writers.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -6019,121 +7238,22 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
-      "displayName": "Draft Post Object",
+      "name": "_google_protobuf_FieldMask",
+      "displayName": "Field Mask Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": " Post ID.\n",
-          "readOnly": true
+      "members": [      {
+        "name": "paths",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
         },
-                {
-          "name": "title",
-          "type": "string",
-          "doc": " Post title.\n"
-        },
-                {
-          "name": "excerpt",
-          "type": "string",
-          "doc": " Post excerpt.\n Can be selected by site owner or extracted from the post's text.\n"
-        },
-                {
-          "name": "featured",
-          "type": "boolean",
-          "doc": " Whether the post is marked as featured.\n"
-        },
-                {
-          "name": "categoryIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " IDs of categories this post belongs to.\n"
-        },
-                {
-          "name": "coverMedia",
-          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_CoverMedia",
-          "doc": " Post cover media.\n"
-        },
-                {
-          "name": "memberId",
-          "type": "string",
-          "doc": "/ Post owner's member ID.\n"
-        },
-                {
-          "name": "hashtags",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " Hashtags extracted from the post's content.\n",
-          "readOnly": true
-        },
-                {
-          "name": "commentingEnabled",
-          "type": "boolean",
-          "doc": " Whether commenting on the post is enabled.\n"
-        },
-                {
-          "name": "minutesToRead",
-          "type": "integer",
-          "doc": " Estimated reading time (calculated automatically).\n"
-        },
-                {
-          "name": "heroImage",
-          "type": "All APIs.Blog._wix_common_Image",
-          "doc": " Hero image, as displayed at the top of the blog page.\n"
-        },
-                {
-          "name": "tagIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " IDs of tags the post is tagged with.\n",
-          "readOnly": true
-        },
-                {
-          "name": "relatedPostIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " IDs of posts that are related to this post.\n",
-          "readOnly": true
-        },
-                {
-          "name": "pricingPlanIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " Pricing plans IDs.\n",
-          "readOnly": true
-        },
-                {
-          "name": "translationId",
-          "type": "string",
-          "doc": " ID of the post's translations. Translations of a single post into multiple languages will all share the same `translationId`.\n"
-        },
-                {
-          "name": "language",
-          "type": "string",
-          "doc": " Language the post is written in.\n"
-        },
-                {
-          "name": "changeOrigin",
-          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ChangeOrigin_Origin",
-          "doc": " Origin on how the current draft post state was created.\n"
-        }
-      ],
+        "doc": " The set of field mask paths.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -6147,7 +7267,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"category\" : {\n    \"id\" : \"1270f522-edd6-4f71-ac41-e4d6d66edfd6\",\n    \"label\" : \"Espresso\",\n    \"postCount\" : 1,\n    \"url\" : {\n      \"base\" : \"https://best-blog.com\",\n      \"path\" : \"/blog/categories/espresso\"\n    },\n    \"description\" : \"For espresso lovers\",\n    \"title\" : \"Espresso\",\n    \"coverMedia\" : {\n      \"displayed\" : true\n    },\n    \"rank\" : 0,\n    \"language\" : \"en\",\n    \"slug\" : \"espresso-slug\"\n  }\n} "],
+          "body": ["{\n  \"category\" : {\n    \"id\" : \"5f2bcaa0879ad500173577f3\",\n    \"label\" : \"Summer\",\n    \"postCount\" : 1,\n    \"url\" : {\n      \"base\" : \"https://some-user.wixsite.com/my-site\",\n      \"path\" : \"/blog/categories/summer-slug\"\n    },\n    \"description\" : \"Posts about my summer\",\n    \"title\" : \"Summer\",\n    \"coverMedia\" : {\n      \"displayed\" : true\n    },\n    \"rank\" : 1,\n    \"language\" : \"en\",\n    \"slug\" : \"summer-slug\"\n  }\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -6167,12 +7287,14 @@
                 {
           "name": "postCount",
           "type": "integer",
-          "doc": " Number of posts in the category.\n"
+          "doc": " Number of posts in the category.\n",
+          "readOnly": true
         },
                 {
           "name": "url",
           "type": "All APIs.Blog._wix_common_PageUrl",
-          "doc": " Category page URL.\n"
+          "doc": " Category page URL.\n",
+          "readOnly": true
         },
                 {
           "name": "description",
@@ -6215,6 +7337,141 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkCategoryResult",
+      "displayName": "Bulk Category Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Blog._wix_common_ItemMetadata",
+          "doc": " Bulk actions metadata for category.\n"
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category",
+          "doc": " Optional created category.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_CreateCategoryRequest",
+      "displayName": "Create Category Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "category",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category",
+          "doc": " Category info.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_CategoryField_Field"]
+          },
+          "doc": " List of category fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_CreateCategoryResponse",
+      "displayName": "Create Category Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "category",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category",
+        "doc": " Category info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkCreateCategoryRequest",
+      "displayName": "Bulk Create Category Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "categories",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category"]
+          },
+          "doc": " Categories to create.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the full created category entities in the response.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_CategoryField_Field"]
+          },
+          "doc": " List of category fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkCreateCategoryResponse",
+      "displayName": "Bulk Create Category Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_BulkCategoryResult"]
+          },
+          "doc": " Categories created by bulk action.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Blog._wix_common_BulkActionMetadata",
+          "doc": " Bulk action metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetCategoryRequest",
       "displayName": "Get Category Request Object",
       "locations": [],
@@ -6245,6 +7502,57 @@
         {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetCategoryResponse",
       "displayName": "Get Category Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "category",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category",
+        "doc": " Category info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateCategoryRequest",
+      "displayName": "Update Category Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "category",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Category",
+          "doc": " Category info.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_CategoryField_Field"]
+          },
+          "doc": " List of category fields to be included in the response.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Blog._google_protobuf_FieldMask",
+          "doc": " Field mask of fields to update.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateCategoryResponse",
+      "displayName": "Update Category Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -6432,6 +7740,170 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteCategoryRequest",
+      "displayName": "Delete Category Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "categoryId",
+        "type": "string",
+        "doc": " Category ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteCategoryResponse",
+      "displayName": "Delete Category Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_CreateDraftPostRequest",
+      "displayName": "Create Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPost",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+          "doc": " Draft post to create.\n"
+        },
+                {
+          "name": "shouldPublish",
+          "type": "boolean",
+          "doc": " Should publish after creation.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Blog._google_protobuf_FieldMask",
+          "doc": " Field mask of fields to be used for draft post creation.\n",
+          "deprecated": true
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
+          },
+          "doc": " List of draft post fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_CreateDraftPostResponse",
+      "displayName": "Create Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPost",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+        "doc": " Created draft post info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkCreateDraftPostRequest",
+      "displayName": "Bulk Create Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPosts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost"]
+          },
+          "doc": " Draft posts to create.\n"
+        },
+                {
+          "name": "shouldPublish",
+          "type": "boolean",
+          "doc": " Should publish after creation.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Blog._google_protobuf_FieldMask",
+          "doc": " Field mask of fields to be used for draft post creation.\n",
+          "deprecated": true
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the full created draft post entities in the response.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
+          },
+          "doc": " List of draft post fields to be included if entities are present in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkCreateDraftPostResponse",
+      "displayName": "Bulk Create Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_BulkDraftPostResult"]
+          },
+          "doc": " Draft posts created by bulk action.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Blog._wix_common_BulkActionMetadata",
+          "doc": " Bulk action metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetDraftPostRequest",
       "displayName": "Get Draft Post Request Object",
       "locations": [],
@@ -6452,6 +7924,42 @@
         {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetDraftPostResponse",
       "displayName": "Get Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPost",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+        "doc": " Draft post info\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetDeletedDraftPostRequest",
+      "displayName": "Get Deleted Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetDeletedDraftPostResponse",
+      "displayName": "Get Deleted Draft Post Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -6491,6 +7999,14 @@
           "name": "changeOrigin",
           "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_ChangeOrigin_Origin",
           "doc": " Change origin\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
+          },
+          "doc": " List of draft post fields to be included in the response.\n"
         }
       ],
       "enum": null,
@@ -6510,6 +8026,518 @@
         "name": "draftPost",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
         "doc": " Updated draft post info\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateDraftPostRequest",
+      "displayName": "Update Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPost",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+          "doc": " Draft post to update.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Blog._google_protobuf_FieldMask",
+          "doc": " Field mask of fields to update.\n"
+        },
+                {
+          "name": "shouldPublish",
+          "type": "boolean",
+          "doc": " Should publish after update.\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
+          },
+          "doc": " List of draft post fields to be included in the response.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateDraftPostResponse",
+      "displayName": "Update Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPost",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+        "doc": " Updated draft post info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteDraftPostRequest",
+      "displayName": "Delete Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteDraftPostResponse",
+      "displayName": "Delete Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ListDeletedDraftPostsRequest",
+      "displayName": "List Deleted Draft Posts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language filter.\n"
+        },
+                {
+          "name": "sort",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_GetDraftPostsSort",
+          "doc": " Sort by descending or ascending edited date.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_BlogPaging",
+          "doc": " Pagination options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ListDeletedDraftPostsResponse",
+      "displayName": "List Deleted Draft Posts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPosts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost"]
+          },
+          "doc": " List of draft posts.\n"
+        },
+                {
+          "name": "metaData",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_MetaData",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_RestoreDeletedDraftPostRequest",
+      "displayName": "Restore Deleted Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_RestoreDeletedDraftPostResponse",
+      "displayName": "Restore Deleted Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPost",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
+        "doc": " Restored draft post info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteDraftPostPermanentlyRequest",
+      "displayName": "Delete Draft Post Permanently Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DeleteDraftPostPermanentlyResponse",
+      "displayName": "Delete Draft Post Permanently Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ListDraftPostsRequest",
+      "displayName": "List Draft Posts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostStatus_Status",
+          "doc": " Draft post status filter\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language filter.\n"
+        },
+                {
+          "name": "sort",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_GetDraftPostsSort",
+          "doc": " Sort by descending or ascending edited date.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_BlogPaging",
+          "doc": " Pagination options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ListDraftPostsResponse",
+      "displayName": "List Draft Posts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPosts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost"]
+          },
+          "doc": " List of draft posts.\n"
+        },
+                {
+          "name": "metaData",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_MetaData",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PublishDraftPostRequest",
+      "displayName": "Publish Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PublishDraftPostResponse",
+      "displayName": "Publish Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "postId",
+        "type": "string",
+        "doc": " Published post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UnPublishDraftPostRequest",
+      "displayName": "Un Publish Draft Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "draftPostId",
+        "type": "string",
+        "doc": " Draft post id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UnPublishDraftPostResponse",
+      "displayName": "Un Publish Draft Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_QueryDraftPostsRequest",
+      "displayName": "Query Draft Posts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_BlogPaging",
+          "doc": " Pagination options.\n"
+        },
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object.\n For a detailed list of supported filters, see [Field Support for Filtering and Sorting](https://dev.wix.com/api/rest/wix-blog/blog/filter-and-sort).\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._wix_common_Sorting"]
+          },
+          "doc": " Sorting options. For a list of sortable fields, see [Field Support for Filtering and Sorting](https://dev.wix.com/api/rest/wix-blog/blog/filter-and-sort).\n"
+        },
+                {
+          "name": "fieldsToInclude",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
+          },
+          "doc": " List of draft post fields to be included in the response\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_QueryDraftPostsResponse",
+      "displayName": "Query Draft Posts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "draftPosts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost"]
+          },
+          "doc": " List of posts.\n"
+        },
+                {
+          "name": "metaData",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_MetaData",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetTotalDraftPostsRequest",
+      "displayName": "Get Total Draft Posts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_TotalDraftPostsGrouping_Field"]
+          },
+          "doc": " Group results by fields (defaults to grouping by status).\n If, for example, grouping by language is passed, language values in response will be filled.\n If, for example, grouping by language is not passed, null values will be filled in language field in response.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Optional language filter. Useful in multilingual context.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_TotalDraftPosts",
+      "displayName": "Total Draft Posts Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Draft post totals in that group.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostStatus_Status",
+          "doc": " Draft post status (only has value when grouping by status, otherwise null).\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Draft post language code (only has value when grouping by language, otherwise null).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetTotalDraftPostsResponse",
+      "displayName": "Get Total Draft Posts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "totalDraftPosts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_TotalDraftPosts"]
+        },
+        "doc": " Draft post totals.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_Reactions",
+      "displayName": "Reactions Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "liked",
+        "type": "boolean",
+        "doc": " Is post liked by the current user\n",
+        "readOnly": true
       }],
       "enum": null,
       "extra": {},
@@ -6620,7 +8648,7 @@
                 {
           "name": "featured",
           "type": "boolean",
-          "doc": "  Whether to return only featured posts.\n"
+          "doc": " Whether to return only featured posts.\n"
         },
                 {
           "name": "hashtags",
@@ -6663,6 +8691,11 @@
             "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostField_Field"]
           },
           "doc": " List of post fields to be included in the response. Note: `COUNTERS` is deprecated, use `METRICS` instead.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language filter.\n Pass language to only receive posts that are in that language.\n"
         }
       ],
       "enum": null,
@@ -6803,6 +8836,27 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkGetPostMetricsRequest",
+      "displayName": "Bulk Get Post Metrics Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "postIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Post IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetPostCountInfoResponse",
       "displayName": "Get Post Count Info Response Object",
       "locations": [],
@@ -6821,6 +8875,63 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkGetPostReactionsRequest",
+      "displayName": "Bulk Get Post Reactions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "postIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Post IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "reactionsMapMapEntry",
+      "displayName": "reactions Map Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Map of post.id to reactions\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Reactions",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkGetPostReactionsResponse",
+      "displayName": "Bulk Get Post Reactions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "reactionsMap",
+        "type": "All APIs.Blog.reactionsMapMapEntry",
+        "doc": "Set of key-value pairs. Map of post.id to reactions\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetPostMetricsResponse",
       "displayName": "Get Post Metrics Response Object",
       "locations": [],
@@ -6833,6 +8944,42 @@
         "name": "metrics",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Metrics",
         "doc": " Post metrics.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "metricsMapEntry",
+      "displayName": "metrics Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Map of post.id to metrics\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Metrics",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_BulkGetPostMetricsResponse",
+      "displayName": "Bulk Get Post Metrics Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "metrics",
+        "type": "All APIs.Blog.metricsMapEntry",
+        "doc": "Set of key-value pairs. Map of post.id to metrics\n"
       }],
       "enum": null,
       "extra": {},
@@ -6908,6 +9055,36 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdated",
+      "displayName": "Post Counters Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "postId",
+          "type": "string",
+          "doc": " ID of the post which counters were updated.\n"
+        },
+                {
+          "name": "updatedCounterField",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedField_Field",
+          "doc": " Field of the updated counter.\n"
+        },
+                {
+          "name": "counter",
+          "type": "integer",
+          "doc": " New counter value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_QueryPublicationsCountStatsRequest_Order",
       "displayName": "Order Object",
       "locations": [],
@@ -6965,7 +9142,7 @@
       "displayName": "Field Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> URL -  Includes Tag url when present\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> URL -  Includes Tag URL when present.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -6974,6 +9151,20 @@
         "UNKNOWN",
         "URL"
       ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_rich_content_v1_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
       "extra": {},
       "labels": []
     },
@@ -7126,6 +9317,24 @@
       "labels": []
     },
         {
+      "name": "_wix_rich_content_v1_FileData_PDFSettings_ViewMode",
+      "displayName": "View Mode Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> FULL <\/code><\/li><li><code> MINI <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "FULL",
+        "MINI"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_rich_content_v1_GalleryOptions_Layout_Type",
       "displayName": "Type Object",
       "locations": [],
@@ -7189,7 +9398,7 @@
       "displayName": "Alignment Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> TOP <\/code><\/li><li><code> RIGHT <\/code><\/li><li><code> BOTTOM <\/code><\/li><li><code> LEFT <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> TOP <\/code><\/li><li><code> RIGHT <\/code><\/li><li><code> BOTTOM <\/code><\/li><li><code> LEFT <\/code><\/li><li><code> NONE <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -7198,7 +9407,8 @@
         "TOP",
         "RIGHT",
         "BOTTOM",
-        "LEFT"
+        "LEFT",
+        "NONE"
       ],
       "extra": {},
       "labels": []
@@ -7402,7 +9612,7 @@
       "displayName": "Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> PARAGRAPH <\/code><\/li><li><code> TEXT <\/code><\/li><li><code> HEADING <\/code><\/li><li><code> BULLETED_LIST <\/code><\/li><li><code> ORDERED_LIST <\/code><\/li><li><code> LIST_ITEM <\/code><\/li><li><code> BLOCKQUOTE <\/code><\/li><li><code> CODE_BLOCK <\/code><\/li><li><code> VIDEO <\/code><\/li><li><code> DIVIDER <\/code><\/li><li><code> FILE <\/code><\/li><li><code> GALLERY <\/code><\/li><li><code> GIF <\/code><\/li><li><code> HTML <\/code><\/li><li><code> IMAGE <\/code><\/li><li><code> LINK_PREVIEW <\/code><\/li><li><code> MAP <\/code><\/li><li><code> POLL <\/code><\/li><li><code> APP_EMBED <\/code><\/li><li><code> BUTTON <\/code><\/li><li><code> COLLAPSIBLE_LIST <\/code><\/li><li><code> TABLE <\/code><\/li><li><code> EMBED <\/code><\/li><li><code> COLLAPSIBLE_ITEM <\/code><\/li><li><code> COLLAPSIBLE_ITEM_TITLE <\/code><\/li><li><code> COLLAPSIBLE_ITEM_BODY <\/code><\/li><li><code> TABLE_CELL <\/code><\/li><li><code> TABLE_ROW <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> PARAGRAPH <\/code><\/li><li><code> TEXT <\/code><\/li><li><code> HEADING <\/code><\/li><li><code> BULLETED_LIST <\/code><\/li><li><code> ORDERED_LIST <\/code><\/li><li><code> LIST_ITEM <\/code><\/li><li><code> BLOCKQUOTE <\/code><\/li><li><code> CODE_BLOCK <\/code><\/li><li><code> VIDEO <\/code><\/li><li><code> DIVIDER <\/code><\/li><li><code> FILE <\/code><\/li><li><code> GALLERY <\/code><\/li><li><code> GIF <\/code><\/li><li><code> HTML <\/code><\/li><li><code> IMAGE <\/code><\/li><li><code> LINK_PREVIEW <\/code><\/li><li><code> MAP <\/code><\/li><li><code> POLL <\/code><\/li><li><code> APP_EMBED <\/code><\/li><li><code> BUTTON <\/code><\/li><li><code> COLLAPSIBLE_LIST <\/code><\/li><li><code> TABLE <\/code><\/li><li><code> EMBED <\/code><\/li><li><code> COLLAPSIBLE_ITEM <\/code><\/li><li><code> COLLAPSIBLE_ITEM_TITLE <\/code><\/li><li><code> COLLAPSIBLE_ITEM_BODY <\/code><\/li><li><code> TABLE_CELL <\/code><\/li><li><code> TABLE_ROW <\/code><\/li><li><code> EXTERNAL <\/code><\/li><li><code> AUDIO <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -7435,7 +9645,9 @@
         "COLLAPSIBLE_ITEM_TITLE",
         "COLLAPSIBLE_ITEM_BODY",
         "TABLE_CELL",
-        "TABLE_ROW"
+        "TABLE_ROW",
+        "EXTERNAL",
+        "AUDIO"
       ],
       "extra": {},
       "labels": []
@@ -7445,7 +9657,7 @@
       "displayName": "Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> BOLD <\/code><\/li><li><code> ITALIC <\/code><\/li><li><code> UNDERLINE <\/code><\/li><li><code> SPOILER <\/code><\/li><li><code> ANCHOR <\/code><\/li><li><code> MENTION <\/code><\/li><li><code> LINK <\/code><\/li><li><code> COLOR <\/code><\/li><li><code> FONT_SIZE <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> BOLD <\/code><\/li><li><code> ITALIC <\/code><\/li><li><code> UNDERLINE <\/code><\/li><li><code> SPOILER <\/code><\/li><li><code> ANCHOR <\/code><\/li><li><code> MENTION <\/code><\/li><li><code> LINK <\/code><\/li><li><code> COLOR <\/code><\/li><li><code> FONT_SIZE <\/code><\/li><li><code> EXTERNAL <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -7459,7 +9671,8 @@
         "MENTION",
         "LINK",
         "COLOR",
-        "FONT_SIZE"
+        "FONT_SIZE",
+        "EXTERNAL"
       ],
       "extra": {},
       "labels": []
@@ -7469,7 +9682,7 @@
       "displayName": "Origin Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ADMIN -  Changed by admin\n <\/code><\/li><li><code> ADD_CATEGORIES -  Categories were changed\n <\/code><\/li><li><code> AUTO_SAVE -  Saved automatically\n <\/code><\/li><li><code> COPY_TEMPLATE -  Copied from template\n <\/code><\/li><li><code> IMPORT -  Imported\n <\/code><\/li><li><code> IMPORT_BULK -  Imported in bulk\n <\/code><\/li><li><code> IMPORT_HTML -  Imported with html import\n <\/code><\/li><li><code> IMPORT_PATCH -  Patch import\n <\/code><\/li><li><code> LANGUAGE_CHANGE -  Changed language\n <\/code><\/li><li><code> MANUAL_SAVE -  Saved manually\n <\/code><\/li><li><code> MIGRATION -  Affected by migration\n <\/code><\/li><li><code> MODERATION -  Affected by moderation\n <\/code><\/li><li><code> MOVE_TO_TRASH -  Moved to trash\n <\/code><\/li><li><code> PRICING_PLANS_CHANGE -  Pricing plans were changed\n <\/code><\/li><li><code> PROVISION -  Was provisioned\n <\/code><\/li><li><code> PUBLISH -  Was published\n <\/code><\/li><li><code> REASSIGN_OWNER -  Owner was reassigned\n <\/code><\/li><li><code> REBLOG -  Was reblogged\n <\/code><\/li><li><code> RESTORE -  Was restored\n <\/code><\/li><li><code> REVERT_TO_DRAFT -  Reverted to draft\n <\/code><\/li><li><code> TRANSLATION -  Was translated\n <\/code><\/li><li><code> UNPUBLISH -  Was unpublished\n <\/code><\/li><li><code> UNSCHEDULE -  Was unscheduled\n <\/code><\/li><li><code> NEW_EDIT_SESSION -  New edit session started which updated editing_session_id id\n <\/code><\/li><li><code> SCHEDULING_SERVICE_SCHEDULE -  Was scheduled by Later\n <\/code><\/li><li><code> SCHEDULING_SERVICE_UNSCHEDULE -  Was unscheduled by Later\n <\/code><\/li><li><code> SCHEDULING_SERVICE_PUBLISH -  Was published by Later\n <\/code><\/li><li><code> SCHEDULE -  Was scheduled\n <\/code><\/li><li><code> REMOVE_FROM_MODERATION -  Was removed from moderation\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ADMIN -  Changed by admin\n <\/code><\/li><li><code> ADD_CATEGORIES -  Categories were changed\n <\/code><\/li><li><code> AUTO_SAVE -  Saved automatically\n <\/code><\/li><li><code> COPY_TEMPLATE -  Copied from template\n <\/code><\/li><li><code> IMPORT -  Imported\n <\/code><\/li><li><code> IMPORT_BULK -  Imported in bulk\n <\/code><\/li><li><code> IMPORT_HTML -  Imported with html import\n <\/code><\/li><li><code> IMPORT_PATCH -  Patch import\n <\/code><\/li><li><code> LANGUAGE_CHANGE -  Changed language\n <\/code><\/li><li><code> MANUAL_SAVE -  Saved manually\n <\/code><\/li><li><code> MIGRATION -  Affected by migration\n <\/code><\/li><li><code> MODERATION -  Affected by moderation\n <\/code><\/li><li><code> MOVE_TO_TRASH -  Moved to trash\n <\/code><\/li><li><code> PRICING_PLANS_CHANGE -  Pricing plans were changed\n <\/code><\/li><li><code> PROVISION -  Was provisioned\n <\/code><\/li><li><code> PUBLISH -  Was published\n <\/code><\/li><li><code> REASSIGN_OWNER -  Owner was reassigned\n <\/code><\/li><li><code> REBLOG -  Was reblogged\n <\/code><\/li><li><code> RESTORE -  Was restored\n <\/code><\/li><li><code> REVERT_TO_DRAFT -  Reverted to draft\n <\/code><\/li><li><code> TRANSLATION -  Was translated\n <\/code><\/li><li><code> UNPUBLISH -  Was unpublished\n <\/code><\/li><li><code> UNSCHEDULE -  Was unscheduled\n <\/code><\/li><li><code> NEW_EDIT_SESSION -  New edit session started which updated editing_session_id id\n <\/code><\/li><li><code> SCHEDULING_SERVICE_SCHEDULE -  Was scheduled by Later\n <\/code><\/li><li><code> SCHEDULING_SERVICE_UNSCHEDULE -  Was unscheduled by Later\n <\/code><\/li><li><code> SCHEDULING_SERVICE_PUBLISH -  Was published by Later\n <\/code><\/li><li><code> SCHEDULE -  Was scheduled\n <\/code><\/li><li><code> REMOVE_FROM_MODERATION -  Was removed from moderation\n <\/code><\/li><li><code> REJECT_FROM_MODERATION -  Was rejected from moderation\n <\/code><\/li><li><code> APPROVE_IN_MODERATION -  Was approved in moderation\n <\/code><\/li><li><code> DELETE_TAG -  Tag was deleted\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -7504,7 +9717,69 @@
         "SCHEDULING_SERVICE_UNSCHEDULE",
         "SCHEDULING_SERVICE_PUBLISH",
         "SCHEDULE",
-        "REMOVE_FROM_MODERATION"
+        "REMOVE_FROM_MODERATION",
+        "REJECT_FROM_MODERATION",
+        "APPROVE_IN_MODERATION",
+        "DELETE_TAG"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostStatus_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PUBLISHED <\/code><\/li><li><code> UNPUBLISHED <\/code><\/li><li><code> SCHEDULED <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> IN_MODERATION <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "PUBLISHED",
+        "UNPUBLISHED",
+        "SCHEDULED",
+        "DELETED",
+        "IN_MODERATION"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_ModerationStatus_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> REJECTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "APPROVED",
+        "REJECTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field",
+      "displayName": "Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> URL -  Includes draft post preview URL.\n <\/code><\/li><li><code> INTERNAL_ID -  Includes internal id field.\n <\/code><\/li><li><code> CONTENT -  Includes content field.\n <\/code><\/li><li><code> RICH_CONTENT -  Includes rich content field.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "URL",
+        "INTERNAL_ID",
+        "CONTENT",
+        "RICH_CONTENT"
       ],
       "extra": {},
       "labels": []
@@ -7523,6 +9798,60 @@
         "UNKNOWN",
         "URL",
         "INTERNAL_ID"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_GetDraftPostsSort",
+      "displayName": "Get Draft Posts Sort Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> EDITING_DATE_DESC -  Sorting by editing date descending\n <\/code><\/li><li><code> EDITING_DATE_ASC -  Sorting by editing date ascending\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "EDITING_DATE_DESC",
+        "EDITING_DATE_ASC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostSaveType_Type",
+      "displayName": "Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> MANUAL -  Manually saved.\n <\/code><\/li><li><code> AUTO_SAVE -  Triggered by autosave.\n <\/code><\/li><li><code> PROVISIONING -  Copied from template during provisioning flow.\n <\/code><\/li><li><code> IMPORT -  Imported from another blog.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "MANUAL",
+        "AUTO_SAVE",
+        "PROVISIONING",
+        "IMPORT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_TotalDraftPostsGrouping_Field",
+      "displayName": "Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> STATUS -  Groups results by status.\n <\/code><\/li><li><code> LANGUAGE -  Groups results by language.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "STATUS",
+        "LANGUAGE"
       ],
       "extra": {},
       "labels": []
@@ -7567,6 +9896,25 @@
         "INTERNAL_ID",
         "CONTACT_ID",
         "RICH_CONTENT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PostCountersUpdatedField_Field",
+      "displayName": "Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TOTAL_COMMENTS -  Total comments field.\n <\/code><\/li><li><code> LIKE_COUNT -  Like count field.\n <\/code><\/li><li><code> VIEW_COUNT -  View count field.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "TOTAL_COMMENTS",
+        "LIKE_COUNT",
+        "VIEW_COUNT"
       ],
       "extra": {},
       "labels": []
