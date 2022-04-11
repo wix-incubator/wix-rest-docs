@@ -1,9 +1,10 @@
 SortOrder: 2
 # Use cases
 
-This articles shares some possible uses of the Blog API endpoints and their respective responses.
+This article shares some possible uses of the Blog API endpoints and their responses.
 
 ## Post API
+
 ### Get a Post by ID or by Slug
 
 To get a specific post, use [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) to retrieve a post by its ID:
@@ -12,14 +13,13 @@ To get a specific post, use [Get Post](https://dev.wix.com/api/rest/community/bl
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-
-Another option for retrieving a specific post is by using [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug):
+Another option for retrieving a specific post is [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug):
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/slugs/my-vacation' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-An example response to both [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) and [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug) will look something like this:
+An example response to both [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) and [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug) will look this:
 
 ```json
 {
@@ -60,12 +60,13 @@ An example response to both [Get Post](https://dev.wix.com/api/rest/community/bl
 
 ### Get a Post's Metrics
 
-To get post metrics like the number of comments, likes, and views, use [Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/get-post-metrics) and pass the post ID
+To get post metrics (the number of comments, likes, and views) use [Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/get-post-metrics) and pass the post ID:
+
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd/metrics' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-The response will look something like this:
+The response will look like this:
 
 ```json
 {
@@ -79,13 +80,13 @@ The response will look something like this:
 
 ### Bulk Get Post Metrics
 
-To get post metrics in bulk [Bulk Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/bulk-get-post-metrics) and pass the post IDs
+To get post metrics for multiple posts, use [Bulk Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/bulk-get-post-metrics) and pass the post IDs:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/metrics' --data-binary '{"post_ids": ["894a58a2-dc75-422d-9ca6-00a489750dfd"]}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' -X PUT
 ```
 
-The response will look something like this:
+The response will look like this:
 
 ```json
 {
@@ -105,13 +106,13 @@ To retrieve more than one post, use either the [List Posts](https://dev.wix.com/
 
 #### List Posts
 
-Using the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) endpoint, list the posts that belong to the category with the provided ID:
+Using the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) endpoint, you can list all posts belonging to a category by providing the category ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts?categoryIds=5f2bcaa5940a02003488af3e' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-An example response to the call above will look something like this:
+An example response to the call above will look like this:
 
 ```json
 {
@@ -158,15 +159,18 @@ An example response to the call above will look something like this:
 ```
 
 ### Query Posts
-If a more detailed query is needed, use [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts).
+
+If you need a more detailed query, use [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts).
+
 In the example below we're going to request only posts that have a title starting with "My vacation".
+
 Note that we're also requesting to include the `"URL"`, `"COUNTERS"`, and `"CONTENT_TEXT"` fields in the response:
 
 ```
 curl 'https://www.wixapis.com/blog/v3/posts/query' --data-binary '{"fieldsToInclude": ["URL", "COUNTERS", "CONTENT_TEXT"], "filter":{"title":{"$startsWith": "My vacation"}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-The response we got looked like this:
+The response will look like this:
 
 ```json
 {
@@ -222,93 +226,8 @@ The response we got looked like this:
 }
 ```
 
-
 ## Category API
 
-### Create a Category
-
-To create a category, use [Create Category](https://dev.wix.com/api/rest/wix-blog/blog/category/create-category)
-
-```
-curl --location --request POST 'http://www.wixapis.com/blog/v3/categories' \
-    -H 'Content-Type: application/json'  \
-    -H 'Authorization: <AUTH>' \
-    --data-raw '{
-      "category": {
-        "label": "Summer",
-        "description": "Posts about my summer",
-        "title": "Summer",
-        "rank": 1,
-        "language": "en",
-        "slug": "summer-slug"
-      },
-      "fieldsToInclude": ["URL"]
-}'
-```
-
-The response will contain a category object:
-
-```json
-{
-  "category": {
-    "id": "894a58a2-dc75-422d-9ca6-10a489750dfd",
-    "label": "Summer",
-    "postCount": 0,
-    "url": {
-      "base": "https://some-user.wixsite.com/my-site",
-      "path": "/blog/categories/summer-slug"
-    },
-    "description": "Posts about my summer",
-    "title": "Summer",
-    "coverMedia": {
-      "enabled": true,
-      "displayed": true,
-      "custom": true
-    },
-    "rank": 1,
-    "language": "en",
-    "slug": "summer-slug"
-  }
-}
-```
-
-### Update a Category
-
-To update a category, use [Update Category](https://dev.wix.com/api/rest/wix-blog/blog/category/update-category)
-
-```
-curl --location --request PATCH 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' \
-    -H 'Content-Type: application/json'  \
-    -H 'Authorization: <AUTH>' \
-    --data-raw '{
-      "category": {
-        "description": "Posts about my summer and adventures",
-      },
-      "fieldMask": "category.description"
-}'
-```
-
-The response will contain a category object:
-
-```json
-{
-  "category": {
-    "id": "894a58a2-dc75-422d-9ca6-10a489750dfd",
-    "label": "Summer",
-    "postCount": 0,
-    "description": "Posts about my summer and adventures",
-    "title": "Summer",
-    "coverMedia": {
-      "enabled": true,
-      "displayed": true,
-      "custom": true
-    },
-    "rank": 1,
-    "language": "en",
-    "slug": "summer-slug"
-  }
-}
-```
 
 ### Get a Category
 
@@ -341,7 +260,7 @@ To retrieve more than one category, use either the [List Categories](https://dev
 
 #### List Categories
 
-Using the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) endpoint, retrieve all existing categories:
+Using the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) endpoint, you can retrieve all existing categories:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/categories' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -403,13 +322,14 @@ The response will be an array of the retrieved categories:
 #### Query Categories
 
 If a more detailed query is needed, use [Query Categories](https://dev.wix.com/api/rest/community/blog/category/query-categories).
-In the example below we're going to request only categories that have a title starting with "Summer":
+
+In the example below we request only categories that have a title starting with "Summer":
 
 ```
 curl 'https://www.wixapis.com/blog/v3/categories/query' --data-binary '{"fieldsToInclude": ["URL"], "filter":{"title":{"$startsWith": "Summer"}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-The response will be an array of the categories that passed the query:
+The response will be an array of the categories that matched the query:
 
 ```json
 {
@@ -436,67 +356,32 @@ The response will be an array of the categories that passed the query:
 }
 ```
 
-### Delete a Category
 
-To delete a specific category, use [Delete Category](https://dev.wix.com/api/rest/wix-blog/blog/category/delete-category):
-
-```
-curl --location --request DELETE 'http://www.wixapis.com/blog/v3/categories/894a58a2-dc75-422d-9ca6-10a489750dfd' \
-    -H 'Content-Type: application/json'  \
-    -H 'Authorization: <AUTH>' \
-}'
-```
-
-The response is empt
 
 ## Tag API
-Tags, just like categories, provide a way to aggregate and group your posts. Tags are more lightweight and granular compared to categories.
 
-### Create a Tag
-
-To create a tag use [Create Tag](https://dev.wix.com/api/rest/community/blog/tag/create-tag)
-
-```
-curl -X POST \
-  'http://www.wixapis.com/blog/v3/tags/' \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: <AUTH>'
-  -d '{
-       "label": "vacation",
-       "language": "en"
-     }'
-```
-
-The response structure is a tag object:
-```json
-{
-  "tag": {
-    "id": "0c20a033-bcdb-42af-a793-84a83f4a5bf1",
-    "label": "vacation",
-    "slug": "vacation",
-    "createdDate": "2021-09-08T11:11:15.949Z",
-    "updatedDate": "2021-09-08T11:11:15.949Z",
-    "publicationCount": 0,
-    "postCount": 0,
-    "language": "en"
-  }
-}
-```
+Tags, like categories, provide a way to group your posts. Tags are more lightweight and granular than categories.
 
 ### Query Blog Posts by Tag
 
-Imagine you have a cooking blog where you write your recipes as posts and group them by recipe type using categories. Additionally, you want to provide information about the main ingredients with the ability to list recipes (i.e. posts) based on them. You can add multiple tags to your recipe post, like `chicken`, `mushrooms`, `fresh pasta`, `etc`.
+Imagine a cooking blog where a site owner writes recipes as posts, and groups them by recipe type using categories.
 
-#### Retrieving multiple tags
-To fetch all the tags representing ingredients from you blog, [Query Tags](https://dev.wix.com/api/rest/community/blog/tag/query-tags) endpoint should be used.
+Additional information about the main ingredients is also found in tags like `chicken`, `mushrooms`, `fresh pasta`, `etc`.
 
-Let's be more specific in the example below and request all tags that have a label starting with word "coriander":
+This allows the site owner to layer multiple classifications onto their posts, which you can then retrieve in more flexible ways.
+
+1. **Retrieve List of Desired Tags**
+
+To fetch all the tags representing ingredients from the blog, use the [Query Tags](https://dev.wix.com/api/rest/community/blog/tag/query-tags) endpoint.
+
+In the specific example below, we request all tags with a label starting with word "coriander":
 
 ```
 curl 'https://www.wixapis.com/blog/v2/tags/query' --data-binary '{"filter":{"label":{"$startsWith": "coriander"}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-The response will be an array of the tags that passed the query:
+The response will be an array of the tags that matched the query:
+
 ```json
 {
   "tags": [
@@ -536,13 +421,15 @@ The response will be an array of the tags that passed the query:
   }
 }
 ```
-The returned tag IDs can be used in the Query Posts endpoint get all the posts with specified tag assigned:
+1. **Retrieve Posts Matching the Tags**
+  
+The returned tag IDs can be used in the [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts) endpoints, to get all the posts with the specified tag:
 
 ```
 curl 'https://www.wixapis.com/blog/v3/posts/query' --data-binary '{"fieldsToInclude": ["URL"], "filter":{"tagIds":{"$hasSome": ["f0ad2e22-2cfd-49ff-aa3a-eae68a9d5008", "fec0b26b-fdcd-4662-badb-fd23a123f0ec"]}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-The response we got looked like this:
+The response will look like this:
 
 ```json
 {
@@ -605,17 +492,20 @@ The response we got looked like this:
 ```
 
 #### Retrieve single tag
-If you want to be more specific you can fetch single tag either by id, slug or label.
 
-To fetch tag by id use [Get Tag](https://dev.wix.com/api/rest/community/blog/tag/get-tag) endpoint:
+You can also retrieve a single tag either by ID, slug or label.
+
+To fetch a tag by ID, use the [Get Tag](https://dev.wix.com/api/rest/community/blog/tag/get-tag) endpoint:
+
 ```
 curl \
 'http://www.wixapis.com/blog/v3/tags/6d72a3bb-053c-4de5-a897-5ef6be30b1b0' \
 -H 'Content-Type: application/json' \
 -H 'Authorization: <AUTH>'
 ```
-[Get Tag By Label](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-label) endpoint can be used to fetch tag
-when the label is known:
+
+The [Get Tag By Label](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-label) endpoint can be used to fetch tag when the label is known:
+
 ```
 curl \
   'http://www.wixapis.com/blog/v3/tags/labels/eggplant' \
@@ -623,7 +513,8 @@ curl \
   -H 'Authorization: <AUTH>'
 ```
 
-And to fetch tag using slug use [Get Tag By Slug](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-slug):
+To fetch a tag using its URL slug, use [Get Tag By Slug](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-slug):
+
 ```
 curl \
   'http://www.wixapis.com/blog/v3/tags/slugs/eggplant' \
@@ -631,7 +522,8 @@ curl \
   -H 'Authorization: <AUTH>'
 ```
 
-The response structure is the same for all three request which is a single tag object:
+The response structure is the same for all three requests; a single tag object.
+
 ```json
 {
   "tag": {
@@ -647,33 +539,28 @@ The response structure is the same for all three request which is a single tag o
 }
 ```
 
-### Delete a Tag
-
-To delete a tag use [Delete Tag](https://dev.wix.com/api/rest/community/blog/tag/delete-tag)
-
-```
-curl -X DELETE \
-  'http://www.wixapis.com/blog/v3/tags/0c20a033-bcdb-42af-a793-84a83f4a5bf1' \
-  -H 'Authorization: <AUTH>'
-```
-
-The response is empty
-
 ## Post Stats API
+
 #### Get Total Posts
-Retrieves total post count by given language. For example to get total count for publications written in english language use request: 
+
+Retrieves total post count by given language. For example to get total count for publications written in english language use request:
+
 ```
 curl 'www.wixapis.com/blog/v2/stats/posts/total?language=en' \
     -H 'Content-Type: application/json' \
     -H 'Authorization: <AUTH>'
 ```
+
 The response will be a json object with `total` field which represents total publication count for given language:
+
 ```json
 { "total": 9 }
 ```
+
 `language` parameter is optional and when is not present post count for all languages will be present
 
 #### Query Post Count
+
 Retrieves the number of posts per month published from first day of a month, ignoring days value in period start field.  
 For example, to retrieve statistics for posts in English language for last 3 months starting from `2018-11-01` ordered by oldest month first:
 
@@ -688,7 +575,9 @@ curl --request POST 'http://social-blog.wix.com/_api/communities-blog-node-api/v
                   "language": "en"
                 }'
 ```
-The response will be a json object with `stats` array field where each entry represents statistic of posts in english language count for a single month 
+
+The response will be a json object with `stats` array field where each entry represents statistic of posts in english language count for a single month
+
 ```json
 { "stats": [
     {
