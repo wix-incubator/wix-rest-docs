@@ -13,7 +13,7 @@ at least 6 months after their announced deprecation.
 ## End of Life: June 30, 2022
 
 - [Wix Groups](wix-groups/wix-groups):
-  - In the [Group Object](wix-groups/wix-groups/groups/groups-object)
+  - In the [Group Object](wix-groups/wix-groups/groups/group-object)
     (which is also embedded in the
     [Group Request Object](wix-groups/wix-groups/create-requests/group-request-object)):
     - `privacyLevel` replaced by `privacyStatus`.
