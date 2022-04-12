@@ -1,5 +1,17 @@
 # Release Notes
 
+## New Fields: [Wix Groups API](wix-groups/)
+
+The Wix Groups API has renamed some fields,
+resulting in deprecating some existing fields.
+The deprecated fields will be removed on June 30, 2022.
+In addition, the `memberIds` parameter in
+[Approve Join Group Requests](wix-groups/wix-groups/join-requests/approve-join-group-requests)
+will be required after June 30, 2022.
+
+For more information, see [End-of-Life Notices](./Deprecations.md#end-of-life-june-30-2022).  
+(March 23, 2022)
+
 ## New Release: [Inbox API](inbox/)
 
 The new Inbox API introduces functionality
