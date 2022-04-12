@@ -504,7 +504,7 @@ curl \
 -H 'Authorization: <AUTH>'
 ```
 
-The [Get Tag By Label](https://dev.wix.com/api/rest/wix-blog/blog/tag/get-tag-by-label) endpoint can be used to fetch tag when the label is known:
+The [Get Tag By Label](https://dev.wix.com/api/rest/wix-blog/blog/tags/get-tag-by-label) endpoint can be used to fetch tag when the label is known:
 
 ```
 curl \
