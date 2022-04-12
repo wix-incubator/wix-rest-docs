@@ -7,19 +7,19 @@ This article shares some possible uses of the Blog API endpoints and their respo
 
 ### Get a Post by ID or by Slug
 
-To get a specific post, use [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) to retrieve a post by its ID:
+To get a specific post, use [Get Post](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post) to retrieve a post by its ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-Another option for retrieving a specific post is [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug):
+Another option for retrieving a specific post is [Get Post by Slug](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post-by-slug):
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/slugs/my-vacation' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
 ```
 
-An example response to both [Get Post](https://dev.wix.com/api/rest/community/blog/post/get-post) and [Get Post by Slug](https://dev.wix.com/api/rest/community/blog/post/get-post-by-slug) will look this:
+An example response to both [Get Post](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post) and [Get Post by Slug](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post-by-slug) will look this:
 
 ```json
 {
@@ -60,7 +60,7 @@ An example response to both [Get Post](https://dev.wix.com/api/rest/community/bl
 
 ### Get a Post's Metrics
 
-To get post metrics (the number of comments, likes, and views) use [Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/get-post-metrics) and pass the post ID:
+To get post metrics (the number of comments, likes, and views) use [Get Post Metrics](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post-metrics), passing the post ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/894a58a2-dc75-422d-9ca6-00a489750dfd/metrics' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -80,7 +80,7 @@ The response will look like this:
 
 ### Bulk Get Post Metrics
 
-To get post metrics for multiple posts, use [Bulk Get Post Metrics](https://dev.wix.com/api/rest/community/blog/post/bulk-get-post-metrics) and pass the post IDs:
+To get post metrics for multiple posts, use [Bulk Get Post Metrics](https://dev.wix.com/api/rest/wix-blog/blog/post/get-post-metrics) and pass the post IDs:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts/metrics' --data-binary '{"post_ids": ["894a58a2-dc75-422d-9ca6-00a489750dfd"]}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' -X PUT
@@ -102,11 +102,11 @@ The response will look like this:
 
 ### Retrieving Multiple Posts
 
-To retrieve more than one post, use either the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) or [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts) endpoints.
+To retrieve more than one post, use either the [List Posts](https://dev.wix.com/api/rest/wix-blog/blog/post/list-posts) or [Query Posts](https://dev.wix.com/api/rest/wix-blog/blog/post/query-posts) endpoints.
 
 #### List Posts
 
-Using the [List Posts](https://dev.wix.com/api/rest/community/blog/post/list-posts) endpoint, you can list all posts belonging to a category by providing the category ID:
+Using the [List Posts](https://dev.wix.com/api/rest/wix-blog/blog/post/list-posts) endpoint, you can list all posts belonging to a category by providing the category ID:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/posts?categoryIds=5f2bcaa5940a02003488af3e' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -160,7 +160,7 @@ An example response to the call above will look like this:
 
 ### Query Posts
 
-If you need a more detailed query, use [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts).
+If you need a more detailed query, use [Query Posts](https://dev.wix.com/api/rest/wix-blog/blog/post/query-posts).
 
 In the example below we're going to request only posts that have a title starting with "My vacation".
 
@@ -256,11 +256,11 @@ The response will contain a category object:
 
 ### Retrieving Multiple Categories
 
-To retrieve more than one category, use either the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) or [Query Categories](https://dev.wix.com/api/rest/community/blog/category/query-categories) endpoints.
+To retrieve more than one category, use either the [List Categories](https://dev.wix.com/api/rest/wix-blog/blog/category/list-categories) or [Query Categories](https://dev.wix.com/api/rest/wix-blog/blog/category/query-categories) endpoints.
 
 #### List Categories
 
-Using the [List Categories](https://dev.wix.com/api/rest/community/blog/category/list-categories) endpoint, you can retrieve all existing categories:
+Using the [List Categories](https://dev.wix.com/api/rest/wix-blog/blog/category/list-categories) endpoint, you can retrieve all existing categories:
 
 ```
 curl 'http://www.wixapis.com/blog/v3/categories' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -321,7 +321,7 @@ The response will be an array of the retrieved categories:
 
 #### Query Categories
 
-If a more detailed query is needed, use [Query Categories](https://dev.wix.com/api/rest/community/blog/category/query-categories).
+If a more detailed query is needed, use [Query Categories](https://dev.wix.com/api/rest/wix-blog/blog/category/query-categories).
 
 In the example below we request only categories that have a title starting with "Summer":
 
@@ -370,9 +370,9 @@ Additional information about the main ingredients is also found in tags like `ch
 
 This allows the site owner to layer multiple classifications onto their posts, which you can then retrieve in more flexible ways.
 
-1. **Retrieve List of Desired Tags**
+Step 1. **Retrieve List of Desired Tags**
 
-To fetch all the tags representing ingredients from the blog, use the [Query Tags](https://dev.wix.com/api/rest/community/blog/tag/query-tags) endpoint.
+To fetch all the tags representing ingredients from the blog, use the [Query Tags](https://dev.wix.com/api/rest/wix-blog/blog/tags/query-tags) endpoint.
 
 In the specific example below, we request all tags with a label starting with word "coriander":
 
@@ -421,9 +421,9 @@ The response will be an array of the tags that matched the query:
   }
 }
 ```
-1. **Retrieve Posts Matching the Tags**
+Step 2. **Retrieve Posts Matching the Tags**
   
-The returned tag IDs can be used in the [Query Posts](https://dev.wix.com/api/rest/community/blog/post/query-posts) endpoints, to get all the posts with the specified tag:
+The returned tag IDs can be used in the [Query Posts](https://dev.wix.com/api/rest/wix-blog/blog/post/query-posts) endpoints, to get all the posts with the specified tag:
 
 ```
 curl 'https://www.wixapis.com/blog/v3/posts/query' --data-binary '{"fieldsToInclude": ["URL"], "filter":{"tagIds":{"$hasSome": ["f0ad2e22-2cfd-49ff-aa3a-eae68a9d5008", "fec0b26b-fdcd-4662-badb-fd23a123f0ec"]}}}' -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
@@ -495,7 +495,7 @@ The response will look like this:
 
 You can also retrieve a single tag either by ID, slug or label.
 
-To fetch a tag by ID, use the [Get Tag](https://dev.wix.com/api/rest/community/blog/tag/get-tag) endpoint:
+To fetch a tag by ID, use the [Get Tag](https://dev.wix.com/api/rest/wix-blog/blog/tags/get-tag) endpoint:
 
 ```
 curl \
@@ -504,7 +504,7 @@ curl \
 -H 'Authorization: <AUTH>'
 ```
 
-The [Get Tag By Label](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-label) endpoint can be used to fetch tag when the label is known:
+The [Get Tag By Label](https://dev.wix.com/api/rest/wix-blog/blog/tag/get-tag-by-label) endpoint can be used to fetch tag when the label is known:
 
 ```
 curl \
@@ -513,7 +513,7 @@ curl \
   -H 'Authorization: <AUTH>'
 ```
 
-To fetch a tag using its URL slug, use [Get Tag By Slug](https://dev.wix.com/api/rest/community/blog/tag/get-tag-by-slug):
+To fetch a tag using its URL slug, use [Get Tag By Slug](https://dev.wix.com/api/rest/wix-blog/blog/tags/get-tag-by-slug):
 
 ```
 curl \
