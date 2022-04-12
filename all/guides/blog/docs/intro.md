@@ -16,3 +16,7 @@ Learn more [about Wix Blog](https://support.wix.com/en/article/wix-blog-about-th
   A logical group that the site writer assigns their publication(s) to in their blog.
 - **Tag**
   A subset of categories for organizing blog posts.
+
+## Limitations
+
+The Blog API supports **only read** access to Wix Blog data.
