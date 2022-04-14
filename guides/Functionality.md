@@ -1,11 +1,9 @@
 # About XXX
 
 
-**REST APIs**: a collection of APIs and events that can be used by any integration using standard HTTPS terminology 
-and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication), including installation on your user's site.
+**REST APIs**: a collection of API calls and events that can be used by any integration that is installed on a site using standard HTTPS terminology 
+and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication).
 
-**REST SPIs**: a collection of SPIs that can be implemented by any integration XXX
+**REST SPIs**: a collection of SPI calls that can be implemented by any integration that is installed on a site using [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication) as well as SPI configuration XXX.
 
-**Client-side JS APIs**: a collection of events and APIs that can be used by any integration 
-that injects JavaScript into a Wix site using the [Embedded Script component](https://devforum.wix.com/en/article/about-embedded-script-components).
-
+**Client-side JS APIs**: a collection of events and APIs that can be used by any integration that is installed on a site using standard HTTPS terminology and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication) and that injects JavaScript into a Wix site using the [Embedded Script component](https://devforum.wix.com/en/article/about-embedded-script-components).
