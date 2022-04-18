@@ -3,7 +3,7 @@
 ## New Webhook: [Restaurants Orders API](restaurants/orders)
 
 The new [New Order Webhook](restaurants/orders/new-order-webhook)
-is triggered when an order is successfully created. This means
+is triggered when an order is created. This means
 the order has been validated and the payment has cleared,
 and now the site owner can accept or cancel the order.
 
