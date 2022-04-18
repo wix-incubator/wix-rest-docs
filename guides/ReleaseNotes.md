@@ -1,5 +1,18 @@
 # Release Notes
 
+## New Webhook: [Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders)
+
+The new [New Order Webhook](https://dev.wix.com/api/rest/wix-restaurants/orders/new-order-webhook)
+is triggered when an order is created. This means
+the order has been validated and the payment has cleared,
+and now the site owner can accept or cancel the order.
+
+This replaces the [Order Created](https://dev.wix.com/api/rest/wix-restaurants/orders/order-created-webhook) webhook, 
+which has been deprecated and will be removed on 
+September 30, 2022.
+
+(April 18, 2022)
+
 ## New Fields: [Wix Groups API](wix-groups/)
 
 The Wix Groups API has renamed some fields,
