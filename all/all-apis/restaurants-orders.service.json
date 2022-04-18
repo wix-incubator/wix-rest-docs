@@ -413,10 +413,10 @@
   ],
   "events":   [
         {
-      "type": "_com_wixpress_restaurants_orders_v3_NewOrderDomainEvent",
-      "name": "New Order Webhook",
+      "type": "_com_wixpress_restaurants_orders_v3_OrderCreatedDomainEvent",
+      "name": "Order Created Webhook",
       "docs":       {
-        "summary": " Triggered on an new order.\n",
+        "summary": " > **Deprecation Notice**\n >  \n > **The Order Created webhook has been replaced with**\n > **the [New Order webhook](https://dev.wix.com/api/rest/wix-restaurants/orders/new-order-webhook)**\n > **and will be removed on September 30, 2022. If your**\n > **app uses this webhook, we recommend updating your**\n > **code as soon as possible.**\n",
         "src": "https://github.com/wix-private/restaurants-bazel/tree/master/restaurants-orders/src/main/proto/com/wixpress/restaurants/orders/v3/orders_api.proto"
       },
       "topic": "domain_events_wix.restaurants.v3.order",
@@ -425,7 +425,24 @@
         "name": "Read Orders",
         "description": "Request permission to read site's Wix Restaurants orders."
       }],
-      "customLabels": [{"id": "maturity-alpha"}],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.restaurants.v3.order_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_restaurants_orders_v3_NewOrderDomainEvent",
+      "name": "New Order Webhook",
+      "docs":       {
+        "summary": " Triggered on successful creation of a new order. This means\n the order has been validated and the payment has cleared,\n and now the site owner can accept or cancel the order.\n",
+        "src": "https://github.com/wix-private/restaurants-bazel/tree/master/restaurants-orders/src/main/proto/com/wixpress/restaurants/orders/v3/orders_api.proto"
+      },
+      "topic": "domain_events_wix.restaurants.v3.order",
+      "tag": "Order",
+      "permissions": [      {
+        "name": "Read Orders",
+        "description": "Request permission to read site's Wix Restaurants orders."
+      }],
+      "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.restaurants.v3.order_new_order",
       "extra": {"isDomainEvent": true}
     },
@@ -787,9 +804,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Restaurants Orders._com_wixpress_restaurants_orders_v3_Order",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
