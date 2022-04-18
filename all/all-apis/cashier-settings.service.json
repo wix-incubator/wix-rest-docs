@@ -1,0 +1,2979 @@
+{
+  "name": "Cashier Settings",
+  "client_id": "https://github.com/wix-private/cashier/tree/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "business-service",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "API for setting, getting and updating payment methods and providers configurations.",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Merchant",
+      "entity": "_wix_cashier_v2_settings_Merchant",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/wix/cashier/v2/settings/merchant_domain.proto"
+    },
+        {
+      "name": "Payment Method Type",
+      "entity": "_wix_cashier_v2_settings_PaymentMethodType",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/wix/cashier/v2/settings/payment_method_type_domain.proto"
+    },
+        {
+      "name": "Payment Provider",
+      "entity": "_wix_cashier_v2_settings_PaymentProvider",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/wix/cashier/v2/settings/payment_provider_domain.proto"
+    },
+        {
+      "name": "Payment Provider Account",
+      "entity": "_wix_cashier_v2_settings_ProviderAccount",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/wix/cashier/v2/settings/provider_account_domain.proto"
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/cashier-settings/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/cashier-settings/docs/use-cases.md",
+      "name": "Use Cases"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Add Provider Account Payment Method Type Setup",
+      "methodName": "AddProviderAccountPaymentMethodTypeSetup",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "providerAccountId",
+        "paymentMethodTypeId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method type Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "enabled",
+          "type": "boolean",
+          "doc": " Information on whether merchant enabled payment method for making purchases.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "instructions",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetupInstructions",
+          "doc": " Text instructions for a customer how to use a payment method.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "AddProviderAccountPaymentMethodTypeSetup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_AddProviderAccountPaymentMethodTypeSetupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nAdd payment method within the provider's account to enable it at checkout.\n\nReturns provider account entity with created payment method.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/payment-method-type-setup",
+        "links": [],
+        "examples": [        {
+          "title": "Create payment method inside the providers account to enable it on checkout.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/239e7846-6f6c-4801-86bc-d14b9151c534/payment-method-type-setup/creditCard\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"paymentMethodTypeId\": \"creditCard\",\n          \"paymentMethodTypeSetup\": {\n              \"enabled\": true,\n              \"paymentMethodTypeId\": \"pinWheel\"\n          },\n          \"providerAccountId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"\n      }'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Test******\",\n  \"additional\": {},\n  \"paymentMethodTypeSetups\":   [\n        {\n      \"paymentMethodTypeId\": \"pinWheel\",\n      \"enabled\": true\n    },\n        {\n      \"paymentMethodTypeId\": \"creditCard\",\n      \"enabled\": true\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "AddProviderAccountPaymentMethodTypeSetupRequest",
+        "rpcResponseName": "AddProviderAccountPaymentMethodTypeSetupResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Claim Provider Account O Auth",
+      "methodName": "ClaimProviderAccountOAuth",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "paymentProviderId",
+        "returnUrl"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after oAuth flow completed.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ClaimProviderAccountOAuth",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ClaimProviderAccountOAuthResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nInitiate provider account claim on the provider's side via OAuth.\n\nReturns OAuth URL prepared for redirect.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-claim",
+        "links": [],
+        "examples": [        {
+          "title": "Initiate provider account claim on a provider side via oAuth.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-claim\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"returnUrl\": \"https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\",\n          \"paymentProviderId\": \"com.stripe\"\n      }'"],
+          "response": ["{\"redirectUrl\": \"https://www.wix.com/_api/payment-services-web/merchant/stripe/activation/claim?appDefId=14bca956-e09f-f4d6-14d7-466cb3f09103&appInstanceId=66056ce8-c750-4e00-ae43-0313d26ebdb1&paymentMethod=&returnUrl=https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\"} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ClaimProviderAccountOAuthRequest",
+        "rpcResponseName": "ClaimProviderAccountOAuthResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Connect Provider Account Directly",
+      "methodName": "ConnectProviderAccountDirectly",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["paymentProviderId"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethodTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Payment method type Ids.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "credentials",
+          "type": "All APIs.Cashier Settings.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Credentials.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "installments",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountInstallments",
+          "doc": " Installments.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ConnectProviderAccountDirectly",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ConnectProviderAccountDirectlyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nConnect providers account directly.\n\nReturns connected provider account entity.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/direct-connect",
+        "links": [],
+        "examples": [        {
+          "title": "Connect providers account directly.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/direct-connect\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"installments\": null,\n          \"credentials\": {\n              \"username\": \"merchant@example.com\",\n              \"password\": \"xxxxxxxxxxxxxxxxxxx\"\n          },\n          \"paymentMethodTypeIds\": [\"creditCard\"],\n          \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"\n      }'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Test******\",\n  \"additional\": {},\n  \"paymentMethodTypeSetups\": [  {\n    \"paymentMethodTypeId\": \"creditCard\",\n    \"enabled\": true\n  }]\n}} "],
+          "type": "curl",
+          "extra": {"description": "Connect providers account directly."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ConnectProviderAccountDirectlyRequest",
+        "rpcResponseName": "ConnectProviderAccountDirectlyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Connect Provider Account O Auth",
+      "methodName": "ConnectProviderAccountOAuth",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "paymentProviderId",
+        "returnUrl"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethodTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Payment method type Ids.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n TODO: PAY-! ProductDebt. Phase2. Document success and failure urls (cancel, success, failure)\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ConnectProviderAccountOAuth",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ConnectProviderAccountOAuthResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nInitiate provider account connect via OAuth.\n\nReturns OAuth URL prepared for redirect.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-connect",
+        "links": [],
+        "examples": [        {
+          "title": "Initiate provider account connect via oAuth.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-connect\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"returnUrl\": \"https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\",\n          \"paymentMethodTypeIds\": [\n              \"creditCard\"\n          ],\n          \"paymentProviderId\": \"com.stripe\"\n      }'"],
+          "response": ["{\"redirectUrl\": \"/_api/payment-services-web/merchant/stripe/connect/start/login?appDefId=14bca956-e09f-f4d6-14d7-466cb3f09103&appInstanceId=66056ce8-c750-4e00-ae43-0313d26ebdb1&paymentMethod=creditCard&returnUrl=https://manage.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\"} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ConnectProviderAccountOAuthRequest",
+        "rpcResponseName": "ConnectProviderAccountOAuthResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Create Provider Account O Auth",
+      "methodName": "CreateProviderAccountOAuth",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "paymentProviderId",
+        "returnUrl"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateProviderAccountOAuth",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_CreateProviderAccountOAuthResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nInitiate provider account creation on the provider's side via OAuth.\n\nReturns OAuth URL prepared for redirect.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-create",
+        "links": [],
+        "examples": [        {
+          "title": "Initiate provider account creation on a provider side via oAuth.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/oauth-create\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"returnUrl\": \"https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\",\n          \"paymentProviderId\": \"com.stripe\"\n      }'"],
+          "response": ["{\"redirectUrl\": \"/_api/payment-services-web/merchant/stripe/connect/start/register?appDefId=14bca956-e09f-f4d6-14d7-466cb3f09103&appInstanceId=66056ce8-c750-4e00-ae43-0313d26ebdb1&paymentMethod=&returnUrl=https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\"} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateProviderAccountOAuthRequest",
+        "rpcResponseName": "CreateProviderAccountOAuthResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Disconnect Provider Account",
+      "methodName": "DisconnectProviderAccount",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["providerAccountId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DisconnectProviderAccount",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_DisconnectProviderAccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDisconnect provider account by its Id.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}",
+        "links": [],
+        "examples": [        {
+          "title": "Disconnect provider account by its Id.",
+          "body": ["curl  -X DELETE \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/com.stripe\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n   }'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DisconnectProviderAccountRequest",
+        "rpcResponseName": "DisconnectProviderAccountResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Merchant",
+      "methodName": "GetMerchant",
+      "serviceName": "MerchantServiceV2",
+      "tag": "Merchant",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "GetMerchant",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_GetMerchantResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGet merchant information.\n\nA response returns full merchant entity.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/merchant",
+        "links": [],
+        "examples": [        {
+          "title": "Get merchant info",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/merchant\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"merchant\": {\n  \"country\": \"USA\",\n  \"paymentsAllowed\": true,\n  \"email\": \"merchant@example.com\"\n}} "],
+          "type": "curl",
+          "extra": {"description": "Merchant info"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetMerchantRequest",
+        "rpcResponseName": "GetMerchantResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Payment Method Type",
+      "methodName": "GetPaymentMethodType",
+      "serviceName": "PaymentMethodTypesServiceV2",
+      "tag": "Payment Method Type",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["paymentMethodTypeId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "paymentMethodTypeId",
+        "type": "string",
+        "doc": " Payment method type Id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetPaymentMethodType",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_GetPaymentMethodTypeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGet payment method type by its Id.\n\nReturns Payment method type entity.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/payment-method-types/{paymentMethodTypeId}",
+        "links": [],
+        "examples": [        {
+          "title": "Payment methods type.",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/payment-method-types/creditCard\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"methodType\": {\n  \"id\": \"creditCard\",\n  \"title\": \"Credit/Debit Cards\",\n  \"description\": \"Accept payments with credit and debit cards. Fees vary between payment providers.\",\n  \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/creditCard.svg\"},\n  \"paymentProviderInfos\":   [\n    {\"paymentProviderId\": \"com.wix.wixpay.us\"},\n    {\"paymentProviderId\": \"com.stripe\"},\n    {\"paymentProviderId\": \"com.square\"},\n    {\"paymentProviderId\": \"com.braintreegateway\"},\n    {\"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"}\n  ],\n  \"promoted\": true\n}} "],
+          "type": "curl",
+          "extra": {"description": "Get payment method type by its id."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetPaymentMethodTypeRequest",
+        "rpcResponseName": "GetPaymentMethodTypeResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Payment Provider",
+      "methodName": "GetPaymentProvider",
+      "serviceName": "PaymentProvidersServiceV2",
+      "tag": "Payment Provider",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["paymentProviderId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "paymentProviderId",
+        "type": "string",
+        "doc": " Payment provider type id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetPaymentProvider",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_GetPaymentProviderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGet payment provider by its Id.\n\nReturns payment provider type entity.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/payment-providers/{paymentProviderId}",
+        "links": [],
+        "examples": [        {
+          "title": "Payment providers.",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/payment-providers/com.square\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"provider\": {\n  \"id\": \"com.square\",\n  \"title\": \"Square\",\n  \"paymentMethodTypeInfos\":   [\n        {\n      \"paymentMethodTypeId\": \"creditCard\",\n      \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n      \"brands\":       [\n                {\n          \"title\": \"Visa\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n        },\n                {\n          \"title\": \"MasterCard\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n        },\n                {\n          \"title\": \"Amex\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n        },\n                {\n          \"title\": \"ChinaUnionPay\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n        },\n                {\n          \"title\": \"Jcb\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n        },\n                {\n          \"title\": \"Diners\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n        },\n                {\n          \"title\": \"CartesBancaires\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-cartesbancaires.svg\"}\n        },\n                {\n          \"title\": \"Discover\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n        },\n                {\n          \"title\": \"Electron\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-electron.svg\"}\n        },\n                {\n          \"title\": \"Maestro\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-maestro.svg\"}\n        }\n      ]\n    },\n        {\n      \"paymentMethodTypeId\": \"pos\",\n      \"fee\": {\"formattedMinimumFee\": \"2.75%\"}\n    }\n  ],\n  \"accountConnection\":   {\n    \"oauthConnect\": {},\n    \"oauthCreate\": {}\n  },\n  \"links\":   {\n    \"wixHelpUrl\": \"https://support.wix.com/en/article/setting-up-square-as-a-payment-gateway-3600420\",\n    \"providerHelpUrl\": \"https://squareup.com/t/f_partnerships/d_partnerships/p_wix/c_general/o_none/u_supportpaymentgateway?route=square-support\"\n  },\n  \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/com.square.svg\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Get payment provider by its id."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetPaymentProviderRequest",
+        "rpcResponseName": "GetPaymentProviderResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Provider Account",
+      "methodName": "GetProviderAccount",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["providerAccountId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetProviderAccount",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_GetProviderAccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGet provider account by its Id.\n\nReturns provider account entity.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}",
+        "links": [],
+        "examples": [        {
+          "title": "Get provider account by its Id.",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/com.stripe\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"com.stripe\",\n  \"paymentProviderId\": \"com.stripe\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Stri******\",\n  \"additional\": {},\n  \"paymentMethodTypeSetups\": [  {\n    \"paymentMethodTypeId\": \"creditCard\",\n    \"enabled\": true\n  }]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetProviderAccountRequest",
+        "rpcResponseName": "GetProviderAccountResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Payment Method Types",
+      "methodName": "ListPaymentMethodTypes",
+      "serviceName": "PaymentMethodTypesServiceV2",
+      "tag": "Payment Method Type",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListPaymentMethodTypes",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ListPaymentMethodTypesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nList payment methods types, available in the country of merchant.\n\nReturns a list of payment method type entities.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/payment-method-types",
+        "links": [],
+        "examples": [        {
+          "title": "Payment methods types",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/payment-method-types\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"methodTypes\": [\n    {\n    \"id\": \"creditCard\",\n    \"title\": \"Credit/Debit Cards\",\n    \"description\": \"Accept payments with credit and debit cards. Fees vary between payment providers.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/creditCard.svg\"},\n    \"paymentProviderInfos\":     [\n      {\"paymentProviderId\": \"com.wix.wixpay.us\"},\n      {\"paymentProviderId\": \"com.stripe\"},\n      {\"paymentProviderId\": \"com.square\"},\n      {\"paymentProviderId\": \"com.braintreegateway\"},\n      {\"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"}\n    ],\n    \"promoted\": true\n  },\n    {\n    \"id\": \"payPal\",\n    \"title\": \"PayPal\",\n    \"description\": \"Accept payments from customers with a PayPal account.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/payPal.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"payPal\"}],\n    \"promoted\": true\n  },\n    {\n    \"id\": \"afterpay\",\n    \"title\": \"Afterpay\",\n    \"description\": \"Partner with the most loved way to pay. Afterpay provides your shoppers the ability to pay for their orders in 4 instalments with no interest charged.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/afterpay.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"385bfbe3-01cb-4544-86aa-41f3828b50ad\"}],\n    \"promoted\": false\n  },\n    {\n    \"id\": \"alipay\",\n    \"title\": \"AliPay\",\n    \"description\": \"Alipay is a the largest third-party online payment solution for Chinese websites.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/alipay.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"com.stripe\"}],\n    \"promoted\": false\n  },\n    {\n    \"id\": \"pinWheel\",\n    \"title\": \"Pinwheel\",\n    \"description\": \"Accept credit/debit cards from customers around the world, including for high-risk businesses.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/pinWheel.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"}],\n    \"promoted\": false\n  },\n    {\n    \"id\": \"offline\",\n    \"title\": \"Manual\",\n    \"description\": \"Accept cash, check or other custom forms of payment.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/offline.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"NA\"}],\n    \"promoted\": true\n  },\n    {\n    \"id\": \"pos\",\n    \"title\": \"Point of Sale (POS)\",\n    \"description\": \"Use a point of sale card reader to accept credit cards on the go with the Wix Mobile app.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/pos.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"com.square\"}],\n    \"promoted\": false\n  },\n    {\n    \"id\": \"fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629\",\n    \"title\": \"Affirm\",\n    \"description\": \"With Affirm, you can offer quick, simple, and transparent financing that allows shoppers to pay over time for their purchases.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629\"}],\n    \"promoted\": false\n  },\n    {\n    \"id\": \"f420f6d2-f895-439e-b28e-b9ba90157013\",\n    \"title\": \"Sezzle\",\n    \"description\": \"Sezzle is the highest-rated Buy Now, Pay Later solution for your shoppers. We enable your shoppers to pay using interest free installment payments over the course of 6 weeks.\",\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-methods/onboarding/svg/f420f6d2-f895-439e-b28e-b9ba90157013.svg\"},\n    \"paymentProviderInfos\": [{\"paymentProviderId\": \"f420f6d2-f895-439e-b28e-b9ba90157013\"}],\n    \"promoted\": false\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "List payment methods types, available in a country of Merchant."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListPaymentMethodTypesRequest",
+        "rpcResponseName": "ListPaymentMethodTypesResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Payment Providers",
+      "methodName": "ListPaymentProviders",
+      "serviceName": "PaymentProvidersServiceV2",
+      "tag": "Payment Provider",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListPaymentProviders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ListPaymentProvidersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nList of payment providers, available in the country of merchant.\n\nReturns list of payment provider entities.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/payment-providers",
+        "links": [],
+        "examples": [        {
+          "title": "List Provider accounts",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/payment-providers\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"providers\": [\n    {\n    \"id\": \"payPal\",\n    \"title\": \"PayPal\",\n    \"paymentMethodTypeInfos\":     [\n            {\n        \"paymentMethodTypeId\": \"payPal\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n        \"supportRecurring\": true,\n        \"brands\":         [\n                    {\n            \"title\": \"PayPal\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-paypal.svg\"}\n          },\n                    {\n            \"title\": \"Venmo\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-venmo.svg\"}\n          }\n        ]\n      },\n      {\"paymentMethodTypeId\": \"venmo\"},\n      {\"paymentMethodTypeId\": \"payPalCredit\"}\n    ],\n    \"accountConnection\":     {\n      \"oauthConnect\": {},\n      \"oauthCreate\": {},\n      \"directClaim\": {\"directUrl\": \"https://www.paypal.com/us/merchantsignup/applicationChecklist?signupType=CREATE_NEW_ACCOUNT&productIntentId=wp_standard\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/connecting-paypal-as-a-payment-provider\",\n      \"providerHelpUrl\": \"https://www.paypal.com/US/selfhelp/home\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/payPal.svg\"}\n  },\n    {\n    \"id\": \"com.stripe\",\n    \"title\": \"Stripe\",\n    \"paymentMethodTypeInfos\":     [\n            {\n        \"paymentMethodTypeId\": \"creditCard\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n        \"supportRecurring\": true,\n        \"brands\":         [\n                    {\n            \"title\": \"Visa\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n          },\n                    {\n            \"title\": \"MasterCard\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n          },\n                    {\n            \"title\": \"Amex\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n          },\n                    {\n            \"title\": \"ChinaUnionPay\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n          },\n                    {\n            \"title\": \"Jcb\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n          },\n                    {\n            \"title\": \"Diners\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n          },\n                    {\n            \"title\": \"CartesBancaires\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-cartesbancaires.svg\"}\n          },\n                    {\n            \"title\": \"Discover\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n          },\n                    {\n            \"title\": \"Electron\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-electron.svg\"}\n          },\n                    {\n            \"title\": \"Maestro\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-maestro.svg\"}\n          }\n        ]\n      },\n      {\"paymentMethodTypeId\": \"iDeal\"},\n      {\"paymentMethodTypeId\": \"sofort\"},\n            {\n        \"paymentMethodTypeId\": \"alipay\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"}\n      },\n      {\"paymentMethodTypeId\": \"bancontact\"}\n    ],\n    \"accountConnection\":     {\n      \"oauthConnect\": {},\n      \"oauthCreate\": {},\n      \"oauthClaim\": {}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/setting-up-stripe-as-a-payment-gateway-2085625\",\n      \"providerHelpUrl\": \"https://support.stripe.com/\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/com.stripe.svg\"}\n  },\n    {\n    \"id\": \"f420f6d2-f895-439e-b28e-b9ba90157013\",\n    \"title\": \"Sezzle\",\n    \"paymentMethodTypeInfos\": [    {\n      \"paymentMethodTypeId\": \"f420f6d2-f895-439e-b28e-b9ba90157013\",\n      \"fee\": {\"formattedMinimumFee\": \"6%\"}\n    }],\n    \"accountConnection\":     {\n      \"directConnect\": {\"credentialsFields\":       [\n                {\n          \"name\": \"public_key\",\n          \"description\": \"Public Key\"\n        },\n                {\n          \"name\": \"private_key\",\n          \"description\": \"Private Key\"\n        }\n      ]},\n      \"directCreate\": {\"directUrl\": \"https://sezzle.com/signup\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"\",\n      \"providerHelpUrl\": \"https://sezzle.com/contact-us/merchant-support\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/f420f6d2-f895-439e-b28e-b9ba90157013.svg\"}\n  },\n    {\n    \"id\": \"385bfbe3-01cb-4544-86aa-41f3828b50ad\",\n    \"title\": \"Afterpay\",\n    \"paymentMethodTypeInfos\": [{\"paymentMethodTypeId\": \"afterpay\"}],\n    \"accountConnection\":     {\n      \"directConnect\": {\"credentialsFields\":       [\n                {\n          \"name\": \"merchant_id\",\n          \"description\": \"Merchant ID\"\n        },\n                {\n          \"name\": \"secret_key\",\n          \"description\": \"Secret Key\"\n        }\n      ]},\n      \"directCreate\": {\"directUrl\": \"https://get.afterpay.com/\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"\",\n      \"providerHelpUrl\": \"https://help.afterpay.com/hc/en-au/requests/new\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/385bfbe3-01cb-4544-86aa-41f3828b50ad.svg\"}\n  },\n    {\n    \"id\": \"NA\",\n    \"title\": \"Offline Payments\",\n    \"paymentMethodTypeInfos\":     [\n      {\"paymentMethodTypeId\": \"offline\"},\n      {\"paymentMethodTypeId\": \"cash\"},\n      {\"paymentMethodTypeId\": \"inPerson\"},\n      {\"paymentMethodTypeId\": \"posCash\"}\n    ],\n    \"accountConnection\": {\"directConnect\": {}},\n    \"links\":     {\n      \"wixHelpUrl\": \"\",\n      \"providerHelpUrl\": \"\"\n    }\n  },\n    {\n    \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n    \"title\": \"Pinwheel\",\n    \"paymentMethodTypeInfos\":     [\n            {\n        \"paymentMethodTypeId\": \"pinWheel\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 20¢\"}\n      },\n            {\n        \"paymentMethodTypeId\": \"creditCard\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 20¢\"},\n        \"brands\":         [\n                    {\n            \"title\": \"Visa\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n          },\n                    {\n            \"title\": \"MasterCard\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n          },\n                    {\n            \"title\": \"Amex\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n          },\n                    {\n            \"title\": \"ChinaUnionPay\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n          },\n                    {\n            \"title\": \"Jcb\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n          },\n                    {\n            \"title\": \"Diners\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n          },\n                    {\n            \"title\": \"Discover\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n          }\n        ]\n      }\n    ],\n    \"accountConnection\":     {\n      \"directConnect\": {\"credentialsFields\":       [\n                {\n          \"name\": \"creditCard\",\n          \"description\": \"Username\"\n        },\n                {\n          \"name\": \"password\",\n          \"description\": \"Password\"\n        }\n      ]},\n      \"directCreate\": {\"directUrl\": \"https://pinwheelpay.com/\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/connecting-pinwheel-as-a-payment-provider\",\n      \"providerHelpUrl\": \"https://pinwheelpay.com/contact-us.php\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/239e7846-6f6c-4801-86bc-d14b9151c534.svg\"}\n  },\n    {\n    \"id\": \"fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629\",\n    \"title\": \"Affirm\",\n    \"paymentMethodTypeInfos\": [    {\n      \"paymentMethodTypeId\": \"fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629\",\n      \"fee\": {\"formattedMinimumFee\": \"4.99%\"}\n    }],\n    \"accountConnection\":     {\n      \"directConnect\": {\"credentialsFields\":       [\n                {\n          \"name\": \"public_key\",\n          \"description\": \"Public Key\"\n        },\n                {\n          \"name\": \"private_key\",\n          \"description\": \"Private Key\"\n        }\n      ]},\n      \"directCreate\": {\"directUrl\": \"https://www.affirm.com/business\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"\",\n      \"providerHelpUrl\": \"https://docs.affirm.com/affirm-developers/docs#questions\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/fa75e2c4-1ba3-4cb1-91e0-f28e8c29c629.svg\"}\n  },\n    {\n    \"id\": \"com.wix.wixpay.us\",\n    \"title\": \"Wix Payments\",\n    \"paymentMethodTypeInfos\":     [\n            {\n        \"paymentMethodTypeId\": \"creditCard\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n        \"supportRecurring\": true,\n        \"brands\":         [\n                    {\n            \"title\": \"Visa\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n          },\n                    {\n            \"title\": \"MasterCard\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n          },\n                    {\n            \"title\": \"Amex\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n          },\n                    {\n            \"title\": \"ChinaUnionPay\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n          },\n                    {\n            \"title\": \"Jcb\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n          },\n                    {\n            \"title\": \"Diners\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n          },\n                    {\n            \"title\": \"CartesBancaires\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-cartesbancaires.svg\"}\n          },\n                    {\n            \"title\": \"Discover\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n          },\n                    {\n            \"title\": \"Electron\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-electron.svg\"}\n          },\n                    {\n            \"title\": \"Maestro\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-maestro.svg\"}\n          }\n        ]\n      },\n      {\"paymentMethodTypeId\": \"iDeal\"},\n      {\"paymentMethodTypeId\": \"sofort\"},\n            {\n        \"paymentMethodTypeId\": \"applePay\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"}\n      },\n            {\n        \"paymentMethodTypeId\": \"cardReader\",\n        \"fee\": {\"formattedMinimumFee\": \"2.6%\"}\n      },\n      {\"paymentMethodTypeId\": \"giropay\"}\n    ],\n    \"accountConnection\":     {\n      \"directConnect\": {},\n      \"directClaim\": {\"directUrl\": \"/wix-payments/US/dashboard/bf7fd516-a6ab-4a0d-813a-dc8a3f57e17c\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/contacting-wix-payments\",\n      \"providerHelpUrl\": \"https://support.wix.com/en/article/contacting-wix-payments\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/com.wix.wixpay.us.svg\"}\n  },\n    {\n    \"id\": \"com.square\",\n    \"title\": \"Square\",\n    \"paymentMethodTypeInfos\":     [\n            {\n        \"paymentMethodTypeId\": \"creditCard\",\n        \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n        \"brands\":         [\n                    {\n            \"title\": \"Visa\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n          },\n                    {\n            \"title\": \"MasterCard\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n          },\n                    {\n            \"title\": \"Amex\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n          },\n                    {\n            \"title\": \"ChinaUnionPay\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n          },\n                    {\n            \"title\": \"Jcb\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n          },\n                    {\n            \"title\": \"Diners\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n          },\n                    {\n            \"title\": \"CartesBancaires\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-cartesbancaires.svg\"}\n          },\n                    {\n            \"title\": \"Discover\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n          },\n                    {\n            \"title\": \"Electron\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-electron.svg\"}\n          },\n                    {\n            \"title\": \"Maestro\",\n            \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-maestro.svg\"}\n          }\n        ]\n      },\n            {\n        \"paymentMethodTypeId\": \"pos\",\n        \"fee\": {\"formattedMinimumFee\": \"2.75%\"}\n      }\n    ],\n    \"accountConnection\":     {\n      \"oauthConnect\": {},\n      \"oauthCreate\": {}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/setting-up-square-as-a-payment-gateway-3600420\",\n      \"providerHelpUrl\": \"https://squareup.com/t/f_partnerships/d_partnerships/p_wix/c_general/o_none/u_supportpaymentgateway?route=square-support\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/com.square.svg\"}\n  },\n    {\n    \"id\": \"com.braintreegateway\",\n    \"title\": \"Braintree\",\n    \"paymentMethodTypeInfos\": [    {\n      \"paymentMethodTypeId\": \"creditCard\",\n      \"fee\": {\"formattedMinimumFee\": \"2.9% + 30¢\"},\n      \"brands\":       [\n                {\n          \"title\": \"Visa\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-visa.svg\"}\n        },\n                {\n          \"title\": \"MasterCard\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-mastercard.svg\"}\n        },\n                {\n          \"title\": \"Amex\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-amex.svg\"}\n        },\n                {\n          \"title\": \"ChinaUnionPay\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-chinaunionpay.svg\"}\n        },\n                {\n          \"title\": \"Jcb\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-jcb.svg\"}\n        },\n                {\n          \"title\": \"Diners\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-diners.svg\"}\n        },\n                {\n          \"title\": \"CartesBancaires\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-cartesbancaires.svg\"}\n        },\n                {\n          \"title\": \"Discover\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-discover.svg\"}\n        },\n                {\n          \"title\": \"Electron\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-electron.svg\"}\n        },\n                {\n          \"title\": \"Maestro\",\n          \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-brands/svg/brand-maestro.svg\"}\n        }\n      ]\n    }],\n    \"accountConnection\":     {\n      \"directConnect\": {\"credentialsFields\":       [\n        {\"name\": \"merchantId\"},\n        {\"name\": \"publicKey\"},\n        {\"name\": \"privateKey\"},\n        {\"name\": \"merchantAccountId\"}\n      ]},\n      \"directCreate\": {\"directUrl\": \"https://signups.braintreepayments.com/\"}\n    },\n    \"links\":     {\n      \"wixHelpUrl\": \"https://support.wix.com/en/article/setting-up-braintree-as-a-payment-gateway\",\n      \"providerHelpUrl\": \"https://developers.braintreepayments.com/forms/contact\"\n    },\n    \"icon\": {\"url\": \"https://images-wixmp-6613fa290e8c1ac70a0297b6.wixmp.com/payment-providers/svg/com.braintreegateway.svg\"}\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "List of provider accounts, connected by Merchant."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListPaymentProvidersRequest",
+        "rpcResponseName": "ListPaymentProvidersResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Provider Accounts",
+      "methodName": "ListProviderAccounts",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListProviderAccounts",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ListProviderAccountsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nList of provider accounts, connected by the merchant.\n\nReturns list of provider accounts entities.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts",
+        "links": [],
+        "examples": [        {
+          "title": "Payment providers",
+          "body": ["curl  -X GET \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"providerAccounts\": [\n    {\n    \"id\": \"payPal\",\n    \"paymentProviderId\": \"payPal\",\n    \"payinsAllowed\": true,\n    \"payoutsAllowed\": true,\n    \"status\": \"OK\",\n    \"providerAccountName\": \"wixc******\",\n    \"additional\": {\"data\": {\"permissionsGranted\": \"true\"}},\n    \"paymentMethodTypeSetups\": [    {\n      \"paymentMethodTypeId\": \"payPal\",\n      \"enabled\": true\n    }]\n  },\n    {\n    \"id\": \"NA\",\n    \"paymentProviderId\": \"NA\",\n    \"payinsAllowed\": true,\n    \"payoutsAllowed\": true,\n    \"status\": \"OK\",\n    \"additional\": {},\n    \"paymentMethodTypeSetups\": [    {\n      \"paymentMethodTypeId\": \"offline\",\n      \"enabled\": true,\n      \"instructions\":       {\n        \"title\": \"settings.offlineTitleOptionDefault\",\n        \"description\": \"<p>offline payments<\\/p>\"\n      }\n    }]\n  },\n    {\n    \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n    \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n    \"payinsAllowed\": true,\n    \"payoutsAllowed\": true,\n    \"status\": \"OK\",\n    \"providerAccountName\": \"Test******\",\n    \"additional\": {},\n    \"paymentMethodTypeSetups\":     [\n            {\n        \"paymentMethodTypeId\": \"pinWheel\",\n        \"enabled\": true\n      },\n            {\n        \"paymentMethodTypeId\": \"creditCard\",\n        \"enabled\": true\n      }\n    ]\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "List payment providers, available in a country of Merchant."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListProviderAccountsRequest",
+        "rpcResponseName": "ListProviderAccountsResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Reconnect Provider Account Directly",
+      "methodName": "ReconnectProviderAccountDirectly",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["providerAccountId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "credentials",
+          "type": "All APIs.Cashier Settings.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Credentials.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ReconnectProviderAccountDirectly",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ReconnectProviderAccountDirectlyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nReconnect provider's account directly.\n\nReturns reconnected provider account entity.\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/direct-reconnect",
+        "links": [],
+        "examples": [        {
+          "title": "Reconnect providers account directly.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/{provider_account_id}/direct-reconnect\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"credentials\": {\n              \"username\": \"merchant@example.com\",\n              \"password\": \"xxxxxxxxxxxxxxxxxxx\"\n          },\n          \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"\n      }'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Test******\",\n  \"additional\": {},\n  \"paymentMethodTypeSetups\": [  {\n    \"paymentMethodTypeId\": \"pinWheel\",\n    \"enabled\": true\n  }]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ReconnectProviderAccountDirectlyRequest",
+        "rpcResponseName": "ReconnectProviderAccountDirectlyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Reconnect Provider Account O Auth",
+      "methodName": "ReconnectProviderAccountOAuth",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "returnUrl",
+        "providerAccountId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ReconnectProviderAccountOAuth",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ReconnectProviderAccountOAuthResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nInitiate provider account reconnect via OAuth.\n\nReturns OAuth URL prepared for redirect.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/oauth-reconnect",
+        "links": [],
+        "examples": [        {
+          "title": "Initiate provider account reconnect via oAuth.",
+          "body": ["curl  -X POST \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/{provider_account_id}/oauth-reconnect\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"returnUrl\": \"https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\",\n          \"paymentProviderId\": \"com.stripe\"\n      }'"],
+          "response": ["{\"redirectUrl\": \"/_api/payment-services-web/merchant/stripe/connect/start/login?appDefId=14bca956-e09f-f4d6-14d7-466cb3f09103&appInstanceId=66056ce8-c750-4e00-ae43-0313d26ebdb1&paymentMethod=creditCard&returnUrl=https://www.wix.com/dashboard/2xxxx-28f3-4154-b27c-xxxxxx/payments/methods\"} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ReconnectProviderAccountOAuthRequest",
+        "rpcResponseName": "ReconnectProviderAccountOAuthResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Remove Provider Account Payment Method Type Setup",
+      "methodName": "RemoveProviderAccountPaymentMethodTypeSetup",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "providerAccountId",
+        "paymentMethodTypeId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method type Id.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "RemoveProviderAccountPaymentMethodTypeSetup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_RemoveProviderAccountPaymentMethodTypeSetupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDelete payment method within the provider's account.\n\nReturns provider account entity.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/payment-method-type-setup/{paymentMethodTypeId}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete payment method inside the providers account.",
+          "body": ["curl  -X DELETE \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/239e7846-6f6c-4801-86bc-d14b9151c534/payment-method-type-setup/creditCard\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n   }'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RemoveProviderAccountPaymentMethodTypeSetupRequest",
+        "rpcResponseName": "RemoveProviderAccountPaymentMethodTypeSetupResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Update Provider Account",
+      "methodName": "UpdateProviderAccount",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["providerAccount.id"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "providerAccount.id",
+          "type": "string",
+          "doc": " Same as provider id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "providerAccount",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+          "doc": " Payment provider account entity.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateProviderAccount",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_UpdateProviderAccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdate provider account by its Id.\n\nReturns updated provider account entity.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccount.id}",
+        "links": [],
+        "examples": [        {
+          "title": "Update provider account by its Id.",
+          "body": ["curl  -X PATCH \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/{provider_account.id}\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"providerAccount\": {\n              \"installments\": {\n                  \"enabled\": true,\n                  \"minAmount\": {\n                      \"currency\": \"USD\",\n                      \"value\": \"100\"\n                  },\n                  \"maxInstallments\": 10,\n                  \"minInstallments\": 2\n              },\n              \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"\n          }\n      }'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Test******\",\n  \"additional\": {},\n  \"installments\":   {\n    \"enabled\": true,\n    \"minInstallments\": 2,\n    \"maxInstallments\": 10,\n    \"minAmount\":     {\n      \"value\": \"100.0\",\n      \"currency\": \"USD\"\n    }\n  },\n  \"paymentMethodTypeSetups\":   [\n        {\n      \"paymentMethodTypeId\": \"pinWheel\",\n      \"enabled\": true\n    },\n        {\n      \"paymentMethodTypeId\": \"creditCard\",\n      \"enabled\": false\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateProviderAccountRequest",
+        "rpcResponseName": "UpdateProviderAccountResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Update Provider Account Payment Method Type Setup",
+      "methodName": "UpdateProviderAccountPaymentMethodTypeSetup",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "providerAccountId",
+        "paymentMethodTypeSetup.paymentMethodTypeId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "paymentMethodTypeSetup.paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method id. For example, `creditCard` or `payPal`.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "paymentMethodTypeSetup",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetup",
+          "doc": " Provider account payment method type setup.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateProviderAccountPaymentMethodTypeSetup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_UpdateProviderAccountPaymentMethodTypeSetupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdate payment method within the provider's account.\n\nReturns provider account entity with updated payment method.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/payment-method-type-setup/{paymentMethodTypeSetup.paymentMethodTypeId}",
+        "links": [],
+        "examples": [        {
+          "title": "Update payment method inside the providers account.",
+          "body": ["curl  -X PATCH \\\nhttps://www.wixapis.com/cashier/v2/settings/provider-accounts/239e7846-6f6c-4801-86bc-d14b9151c534/payment-method-type-setup/creditCard\n  -H 'Content-Type: application/json'\n  -H 'Authorization: <AUTH>'\n  -d '{\n          \"paymentMethodTypeId\": \"creditCard\",\n          \"paymentMethodTypeSetup\": {\n              \"enabled\": false,\n              \"paymentMethodTypeId\": \"creditCard\"\n          },\n          \"providerAccountId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\"\n      }'"],
+          "response": ["{\"providerAccount\": {\n  \"id\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"paymentProviderId\": \"239e7846-6f6c-4801-86bc-d14b9151c534\",\n  \"payinsAllowed\": true,\n  \"payoutsAllowed\": true,\n  \"status\": \"OK\",\n  \"providerAccountName\": \"Test******\",\n  \"additional\": {},\n  \"paymentMethodTypeSetups\":   [\n        {\n      \"paymentMethodTypeId\": \"pinWheel\",\n      \"enabled\": true\n    },\n        {\n      \"paymentMethodTypeId\": \"creditCard\",\n      \"enabled\": false\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateProviderAccountPaymentMethodTypeSetupRequest",
+        "rpcResponseName": "UpdateProviderAccountPaymentMethodTypeSetupResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [  {
+    "type": "_wix_cashier_v2_settings_ProviderAccountDeletedDomainEvent",
+    "name": "Provider Account Deleted Webhook",
+    "docs":     {
+      "summary": "",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto/wix/cashier/v2/settings/provider_accounts_service.proto"
+    },
+    "topic": "domain_events_wix.cashier.settings.v2.provider_account",
+    "tag": "Payment Provider Account",
+    "permissions": [],
+    "customLabels": [{"id": "maturity-alpha"}],
+    "eventType": "wix.cashier.settings.v2.provider_account_deleted",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountDeletedDomainEvent",
+      "displayName": "Provider Account Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.cashier.settings.v2.provider_account`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ProviderAccount ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountEntityDeletedEvent",
+      "displayName": "Provider Account Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountCreatedDomainEvent",
+      "displayName": "Provider Account Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.cashier.settings.v2.provider_account`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ProviderAccount ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountEntityCreatedEvent",
+      "displayName": "Provider Account Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountUpdatedDomainEvent",
+      "displayName": "Provider Account Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.cashier.settings.v2.provider_account`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ProviderAccount ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountEntityUpdatedEvent",
+      "displayName": "Provider Account Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Field_Option",
+      "displayName": "Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Value\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description\n"
+        },
+                {
+          "name": "default",
+          "type": "boolean",
+          "doc": " Is default value\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Field",
+      "displayName": "Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Name\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_Field_FieldType",
+          "doc": " Type of a field\n"
+        },
+                {
+          "name": "validationRegexp",
+          "type": "string",
+          "doc": " Validation regexp for a field\n"
+        },
+                {
+          "name": "options",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_Field_Option"]
+          },
+          "doc": " Options\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Merchant",
+      "displayName": "Merchant Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Merchant information includes details about the country of merchant, email, and ability to accept payments.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Resolved country in ISO 3166-1 alpha-2 format.\n",
+          "readOnly": true
+        },
+                {
+          "name": "paymentsAllowed",
+          "type": "boolean",
+          "doc": " True when a business is allowed to accept payments.\n",
+          "readOnly": true
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email of the merchant. It's either the business email (configured per site)\n or the registration email.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetMerchantRequest",
+      "displayName": "Get Merchant Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetMerchantResponse",
+      "displayName": "Get Merchant Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "merchant",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_Merchant",
+        "doc": " Merchant entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia image ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Image URL.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text. Optional.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename. Optional.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentMethodType_PaymentProviderInfo",
+      "displayName": "Payment Provider Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paymentProviderId",
+        "type": "string",
+        "doc": " Provider id recommended to connect with this payment method type.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentMethodType",
+      "displayName": "Payment Method Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Payment method is a way that a customer chooses to pay the merchant.\nIt can either be cash, credit card, PayPal account, or another available payment method.\nThe list of supported payment methods varies from country by country.\nThe site owner can choose what payment method to accept on their website.\nPayment providers provide payment methods. Every payment provider supports at least one payment method.\nFor example, Wix Payments supports credit cards, iDeal, Sofort, and Apple Pay. Square supports credit cards and point of sale (PoS).\nAt the checkout, a customer can choose one payment method per one payment provider. During the checkout flow, customers deal only with payment methods, not with payment providers.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Internal name of the payment method type: credit card, PayPal, any other supported payment method type.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Displayed localized name of the payment method.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Displayed detailed description of how the payment method type works.\n"
+        },
+                {
+          "name": "icon",
+          "type": "All APIs.Cashier Settings._wix_common_Image",
+          "doc": " Standard wix media object.\n"
+        },
+                {
+          "name": "paymentProviderInfos",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodType_PaymentProviderInfo"]
+          },
+          "doc": " Provider Ids recommended to connect with this payment method type.\n Sorted from most recommended ones.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Money",
+      "displayName": "Money Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Money.\n Default format to use. Sufficiently compliant with majority of standards: w3c, ISO 4217, ISO 20022, ISO 8583:2003.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string with a period as a decimal separator (e.g., 3.99). Optionally, a single (-), to indicate that the amount is negative.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency code. Must be valid ISO 4217 currency code (e.g., USD).\n"
+        },
+                {
+          "name": "formattedValue",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string in local format (e.g., 1 000,30). Optionally, a single (-), to indicate that the amount is negative.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentMethodTypeInfo",
+      "displayName": "Payment Method Type Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method type id.\n"
+        },
+                {
+          "name": "fee",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_Fee",
+          "doc": " Provider's fee based on payment method type.\n"
+        },
+                {
+          "name": "supportRecurring",
+          "type": "boolean",
+          "doc": " Recurring payments supported by payment provider.\n"
+        },
+                {
+          "name": "brands",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentBrand"]
+          },
+          "doc": " Payment brands supported by payment provider.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Fee",
+      "displayName": "Fee Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "minimum",
+          "type": "boolean",
+          "doc": " Starting fee amount.\n"
+        },
+                {
+          "name": "formattedMinimumFee",
+          "type": "string",
+          "doc": " Fee description for the merchant.\n TODO:PAY-!!! Rename it to formatted_fee or something else\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentBrand",
+      "displayName": "Payment Brand Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Displayed localized name of the payment method.\n"
+        },
+                {
+          "name": "icon",
+          "type": "All APIs.Cashier Settings._wix_common_Image",
+          "doc": " Standard wix media object.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AccountConnection",
+      "displayName": "Account Connection Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "connect",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_AccountConnection_connect",
+          "doc": " Connect provider account.\n"
+        },
+                {
+          "name": "create",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_AccountConnection_create",
+          "doc": " Create provider account on provider's side.\n"
+        },
+                {
+          "name": "claim",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_AccountConnection_claim",
+          "doc": " Claim provider account.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AccountConnection_connect",
+      "displayName": "connect Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "directConnect",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_DirectConnect",
+          "doc": " Credentials required to connect.\n"
+        },
+                {
+          "name": "oauthConnect",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_OAuthConnect",
+          "doc": " OAuth API is used to connect.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AccountConnection_create",
+      "displayName": "create Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "directCreate",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_DirectCreate",
+          "doc": " URL to create a new account of provider's side.\n"
+        },
+                {
+          "name": "oauthCreate",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_OAuthCreate",
+          "doc": " OAuth API is used to create new account on provider's side.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AccountConnection_claim",
+      "displayName": "claim Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "directClaim",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_DirectClaim",
+          "doc": " URL to claim an existing account of provider's side.\n"
+        },
+                {
+          "name": "oauthClaim",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_OAuthClaim",
+          "doc": " OAuth API is used to claim an existing account of provider's side.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_cashier_v2_settings_DirectConnect",
+      "displayName": "Direct Connect Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "credentialsFields",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_Field"]
+        },
+        "doc": " Credentials required to connect an existing provider account.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_OAuthConnect",
+      "displayName": "O Auth Connect Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_DirectCreate",
+      "displayName": "Direct Create Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "directUrl",
+        "type": "string",
+        "doc": " URL to create a new account of provider's side.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_OAuthCreate",
+      "displayName": "O Auth Create Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_DirectClaim",
+      "displayName": "Direct Claim Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "directUrl",
+        "type": "string",
+        "doc": " URL to claim an existing account of provider's side.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_OAuthClaim",
+      "displayName": "O Auth Claim Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentProvider",
+      "displayName": "Payment Provider Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Service that authorizes payment method processing. The gateway may be provided by a bank or by a specialised financial service provider as a separate service.\nIn a nutshell, a payment provider is a service that moves money from a buyer to the merchant.\nHere are few examples of payment providers:\n- Wix Payments\n- PayPal\n- Stripe\n- [See full list](https://support.wix.com/en/article/available-payment-providers-6803928)\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Internal name of the payment method type: credit card, PayPal, any other supported payment method type.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Displayed localized name of the payment method.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Displayed detailed description of how the payment method type works.\n"
+        },
+                {
+          "name": "paymentMethodTypeInfos",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeInfo"]
+          },
+          "doc": " Supported payment method types information.\n"
+        },
+                {
+          "name": "accountConnection",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_AccountConnection",
+          "doc": " Provider account onboarding information.\n"
+        },
+                {
+          "name": "links",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_Links",
+          "doc": " Useful links\n"
+        },
+                {
+          "name": "installments",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_Installments",
+          "doc": " Installments\n TODO: PAY-!! ProductDebt. Phase2. Installments are stored in meta per method, need to aggregate it here somehow\n"
+        },
+                {
+          "name": "icon",
+          "type": "All APIs.Cashier Settings._wix_common_Image",
+          "doc": " Standard wix media object.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Links",
+      "displayName": "Links Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "wixHelpUrl",
+          "type": "string",
+          "doc": " Wix help page.\n"
+        },
+                {
+          "name": "providerHelpUrl",
+          "type": "string",
+          "doc": " Help page on the provider's web site.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Installments",
+      "displayName": "Installments Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "supported",
+          "type": "boolean",
+          "doc": " Provider supports installments.\n"
+        },
+                {
+          "name": "minInstallments",
+          "type": "integer",
+          "doc": "  Minimum installments supported.\n"
+        },
+                {
+          "name": "maxInstallments",
+          "type": "integer",
+          "doc": "  Maximum installments supported.\n"
+        },
+                {
+          "name": "minAmount",
+          "type": "All APIs.Cashier Settings._wix_common_Money",
+          "doc": "  Minimum amount supported.\n"
+        },
+                {
+          "name": "maxAmount",
+          "type": "All APIs.Cashier Settings._wix_common_Money",
+          "doc": "  Maximum amount supported.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListPaymentMethodTypesRequest",
+      "displayName": "List Payment Method Types Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListPaymentMethodTypesResponse",
+      "displayName": "List Payment Method Types Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "methodTypes",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodType"]
+        },
+        "doc": " List of payment method type entities.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetPaymentMethodTypeRequest",
+      "displayName": "Get Payment Method Type Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paymentMethodTypeId",
+        "type": "string",
+        "doc": " Payment method type Id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetPaymentMethodTypeResponse",
+      "displayName": "Get Payment Method Type Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "methodType",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodType",
+        "doc": " Payment method type entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListPaymentProvidersRequest",
+      "displayName": "List Payment Providers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListPaymentProvidersResponse",
+      "displayName": "List Payment Providers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentProvider"]
+        },
+        "doc": " List of payment provider entities.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetPaymentProviderRequest",
+      "displayName": "Get Payment Provider Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paymentProviderId",
+        "type": "string",
+        "doc": " Payment provider type id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetPaymentProviderResponse",
+      "displayName": "Get Payment Provider Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "provider",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentProvider",
+        "doc": " Payment provider entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccount",
+      "displayName": "Provider Account Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Payment Provider Account represents the connection to the payment provider that provides a specific list of payment methods.\nFrom merchant's perspective, the connection can be established in different ways:\n- **Direct**: Merchant provides required keys directly to Wix. Note that every provider requires a different set of keys in its credentials: they may have different names, and their quantity varies (for example, 1, 2 or more).\n- **OAuth**: Merchant is redirected to the payment provider site, where the merchant can confirm connection.\nThe exact way depends on the way a payment provider operates.\n### Statuses of Payment Provider Account\nEach Payment Provider Account has a status. Statuses include:\n- **UNDEFINED**: Status is unknown.\n- **OK**: Account has been successfully connected, can process payments and receive payouts.\n- **ACCEPTING_PAYINS_ONLY**: Account has been successfully connected, can process payments, but cannot receive payouts.\n- **PAYMENTS_BLOCKED**: Account has been successfully connected, but pay-ins and pay-outs are disabled because an action from the merchant is required on the payment provider's side.\n- **ACCOUNT_CREATION_PENDING**: Account hasn't been created yet.\n- **ACCOUNT_CREATION_FAILED**: Account creation failed.\n- **SUSPENDED**: Both pay-ins and pay-outs are blocked because of the issue with the Account.\n- **BLOCKED**: Account is not functional and was closed by the payment provider.\n### Action items of the Payment Provider Account\nEach Payment Provider Account has a status. Statuses include:\n- **NONE**: No action item provided.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYOUT**: Merchant must claim their account on the provider's side to enable pay-outs.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYOUT_AND_AVOID_SUSPENSION**: Merchant must claim their account on the provider's side to enable pay-outs and prevent refund since one has some pay-ins.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYIN**: Merchant should claim account on a provider side to enable pay-ins.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Same as provider id.\n",
+          "readOnly": true
+        },
+                {
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider id. For example, `com.wix.wixpay.us`, `payPal` or `com.stripe`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "payinsAllowed",
+          "type": "boolean",
+          "doc": " Merchant can accept payments.\n",
+          "readOnly": true
+        },
+                {
+          "name": "payoutsAllowed",
+          "type": "boolean",
+          "doc": " Merchant can receive payouts.\n",
+          "readOnly": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount_Status",
+          "doc": " Status of the account on the provider's side.\n- **UNDEFINED**: Status is unknown.\n- **OK**: Account has been successfully connected, can process payments and receive payouts.\n- **ACCEPTING_PAYINS_ONLY**: Account has been successfully connected, can process payments, but cannot receive payouts.\n- **PAYMENTS_BLOCKED**: Account has been successfully connected, but pay-ins and pay-outs are disabled because an action from the merchant is required on the payment provider's side.\n- **ACCOUNT_CREATION_PENDING**: Account hasn't been created yet.\n- **ACCOUNT_CREATION_FAILED**: Account creation failed.\n- **SUSPENDED**: Both pay-ins and pay-outs are blocked because of the issue with the Account.\n- **BLOCKED**: Account is not functional and was closed by the payment provider.\n",
+          "readOnly": true
+        },
+                {
+          "name": "requiredAction",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount_RequiredAction",
+          "doc": " Action required from the merchant on the provider's side.\n- **NONE**: No action item provided.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYOUT**: Merchant must claim their account on the provider's side to enable pay-outs.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYOUT_AND_AVOID_SUSPENSION**: Merchant must claim their account on the provider's side to enable pay-outs and prevent refund since one has some pay-ins.\n- **CLAIM_ACCOUNT_TO_ENABLE_PAYIN**: Merchant must claim their account on the provider's side to enable pay-ins.\n",
+          "readOnly": true
+        },
+                {
+          "name": "providerAccountName",
+          "type": "string",
+          "doc": " Name of the account on the provider's side. In some cases, it is an email, but it\n can be anything. Safe to show to the users.\n",
+          "readOnly": true
+        },
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Id of the account on the provider's side.\n Safe to show to the users.\n",
+          "readOnly": true
+        },
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Country of the account on the provider's side.\n",
+          "readOnly": true
+        },
+                {
+          "name": "installments",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountInstallments",
+          "doc": " Installments settings. When they are not available, it means that either the merchant has disabled this feature, or\n the provider does not support it.\n"
+        },
+                {
+          "name": "paymentMethodTypeSetups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetup"]
+          },
+          "doc": " Payment method type setups connected to the provider's account.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountInstallments",
+      "displayName": "Provider Account Installments Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "enabled",
+          "type": "boolean",
+          "doc": " Installment enabled for a customer.\n"
+        },
+                {
+          "name": "minInstallments",
+          "type": "integer",
+          "doc": " Minimum installments available for a customer.\n"
+        },
+                {
+          "name": "maxInstallments",
+          "type": "integer",
+          "doc": " Maximum installments available for a customer.\n"
+        },
+                {
+          "name": "minAmount",
+          "type": "All APIs.Cashier Settings._wix_common_Money",
+          "doc": " Minimum installment amount available for a customer.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentMethodTypeSetup",
+      "displayName": "Payment Method Type Setup Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method id. For example, `creditCard` or `payPal`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "payinsAllowed",
+          "type": "boolean",
+          "doc": " Information on whether payment method is available for making purchases.\n",
+          "readOnly": true
+        },
+                {
+          "name": "enabled",
+          "type": "boolean",
+          "doc": " Information on whether merchant enabled payment method for making purchases.\n"
+        },
+                {
+          "name": "instructions",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetupInstructions",
+          "doc": " Text instructions for a customer on how to use payment method.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_PaymentMethodTypeSetupInstructions",
+      "displayName": "Payment Method Type Setup Instructions Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Key-value provider-specific additional information.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountAdditional",
+      "displayName": "Provider Account Additional Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "data",
+        "type": "All APIs.Cashier Settings.dataMapEntry",
+        "doc": "Set of key-value pairs. Key-value provider-specific additional information.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListProviderAccountsRequest",
+      "displayName": "List Provider Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ListProviderAccountsResponse",
+      "displayName": "List Provider Accounts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccounts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount"]
+        },
+        "doc": " List of provider accounts entities.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "credentialsMapEntry",
+      "displayName": "credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Credentials.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ConnectProviderAccountDirectlyRequest",
+      "displayName": "Connect Provider Account Directly Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "paymentMethodTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Payment method type Ids.\n"
+        },
+                {
+          "name": "credentials",
+          "type": "All APIs.Cashier Settings.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Credentials.\n"
+        },
+                {
+          "name": "installments",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountInstallments",
+          "doc": " Installments.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ConnectProviderAccountDirectlyResponse",
+      "displayName": "Connect Provider Account Directly Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ConnectProviderAccountOAuthRequest",
+      "displayName": "Connect Provider Account O Auth Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "paymentMethodTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Payment method type Ids.\n"
+        },
+                {
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n TODO: PAY-! ProductDebt. Phase2. Document success and failure urls (cancel, success, failure)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ConnectProviderAccountOAuthResponse",
+      "displayName": "Connect Provider Account O Auth Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "redirectUrl",
+        "type": "string",
+        "doc": " OAuth URL prepared for redirect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_CreateProviderAccountOAuthRequest",
+      "displayName": "Create Provider Account O Auth Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_CreateProviderAccountOAuthResponse",
+      "displayName": "Create Provider Account O Auth Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "redirectUrl",
+        "type": "string",
+        "doc": " OAuth URL prepared for redirect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ClaimProviderAccountOAuthRequest",
+      "displayName": "Claim Provider Account O Auth Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentProviderId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after oAuth flow completed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ClaimProviderAccountOAuthResponse",
+      "displayName": "Claim Provider Account O Auth Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "redirectUrl",
+        "type": "string",
+        "doc": " OAuth URL prepared for redirect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetProviderAccountRequest",
+      "displayName": "Get Provider Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_GetProviderAccountResponse",
+      "displayName": "Get Provider Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_UpdateProviderAccountRequest",
+      "displayName": "Update Provider Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_UpdateProviderAccountResponse",
+      "displayName": "Update Provider Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_DisconnectProviderAccountRequest",
+      "displayName": "Disconnect Provider Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_DisconnectProviderAccountResponse",
+      "displayName": "Disconnect Provider Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "credentialsMapEntry",
+      "displayName": "credentials Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Credentials.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ReconnectProviderAccountDirectlyRequest",
+      "displayName": "Reconnect Provider Account Directly Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "credentials",
+          "type": "All APIs.Cashier Settings.credentialsMapEntry",
+          "doc": "Set of key-value pairs. Credentials.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ReconnectProviderAccountDirectlyResponse",
+      "displayName": "Reconnect Provider Account Directly Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ReconnectProviderAccountOAuthRequest",
+      "displayName": "Reconnect Provider Account O Auth Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "returnUrl",
+          "type": "string",
+          "doc": " URL return to after OAuth flow completed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ReconnectProviderAccountOAuthResponse",
+      "displayName": "Reconnect Provider Account O Auth Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "redirectUrl",
+        "type": "string",
+        "doc": " OAuth URL prepared for redirect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AddProviderAccountPaymentMethodTypeSetupRequest",
+      "displayName": "Add Provider Account Payment Method Type Setup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method type Id.\n"
+        },
+                {
+          "name": "enabled",
+          "type": "boolean",
+          "doc": " Information on whether merchant enabled payment method for making purchases.\n"
+        },
+                {
+          "name": "instructions",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetupInstructions",
+          "doc": " Text instructions for a customer how to use a payment method.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_AddProviderAccountPaymentMethodTypeSetupResponse",
+      "displayName": "Add Provider Account Payment Method Type Setup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_UpdateProviderAccountPaymentMethodTypeSetupRequest",
+      "displayName": "Update Provider Account Payment Method Type Setup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "paymentMethodTypeSetup",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_PaymentMethodTypeSetup",
+          "doc": " Provider account payment method type setup.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_UpdateProviderAccountPaymentMethodTypeSetupResponse",
+      "displayName": "Update Provider Account Payment Method Type Setup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_RemoveProviderAccountPaymentMethodTypeSetupRequest",
+      "displayName": "Remove Provider Account Payment Method Type Setup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerAccountId",
+          "type": "string",
+          "doc": " Payment provider Id.\n"
+        },
+                {
+          "name": "paymentMethodTypeId",
+          "type": "string",
+          "doc": " Payment method type Id.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_RemoveProviderAccountPaymentMethodTypeSetupResponse",
+      "displayName": "Remove Provider Account Payment Method Type Setup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_Field_FieldType",
+      "displayName": "Field Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> STRING -  Plain string\n <\/code><\/li><li><code> CHECKBOX -  Boolean checkbox\n <\/code><\/li><li><code> DROPDOWN -  Dropdown\n <\/code><\/li><li><code> RICH_TEXT -  Multiline text\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "STRING",
+        "CHECKBOX",
+        "DROPDOWN",
+        "RICH_TEXT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccount_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OK <\/code><\/li><li><code> ACCEPTING_PAYINS_ONLY <\/code><\/li><li><code> PAYMENTS_BLOCKED <\/code><\/li><li><code> ACCOUNT_CREATION_PENDING <\/code><\/li><li><code> BLOCKED <\/code><\/li><li><code> SUSPENDED <\/code><\/li><li><code> ACCOUNT_CREATION_FAILED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "OK",
+        "ACCEPTING_PAYINS_ONLY",
+        "PAYMENTS_BLOCKED",
+        "ACCOUNT_CREATION_PENDING",
+        "BLOCKED",
+        "SUSPENDED",
+        "ACCOUNT_CREATION_FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccount_RequiredAction",
+      "displayName": "Required Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> CLAIM_ACCOUNT_TO_ENABLE_PAYOUT <\/code><\/li><li><code> CLAIM_ACCOUNT_TO_ENABLE_PAYOUT_AND_AVOID_SUSPENSION -  CLAIM_ACCOUNT                                    = 2; // Merchant should submit Know Your Customer form.\n <\/code><\/li><li><code> CLAIM_ACCOUNT_TO_ENABLE_PAYIN -  UPDATE_KYC                                       = 4; // Merhcant should update Know Your Customer form.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "CLAIM_ACCOUNT_TO_ENABLE_PAYOUT",
+        "CLAIM_ACCOUNT_TO_ENABLE_PAYOUT_AND_AVOID_SUSPENSION",
+        "CLAIM_ACCOUNT_TO_ENABLE_PAYIN"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.payment.payment-settings-web"}
+}
