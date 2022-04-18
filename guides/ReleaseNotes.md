@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Webhook: [Restaurants Orders API](restaurants/orders)
+## New Webhook: [Restaurants Orders API](https://dev.wix.com/api/rest/wix-restaurants/orders)
 
 The new [New Order Webhook](https://dev.wix.com/api/rest/wix-restaurants/orders/new-order-webhook)
 is triggered when an order is created. This means
