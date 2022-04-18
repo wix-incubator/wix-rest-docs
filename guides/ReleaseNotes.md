@@ -7,7 +7,7 @@ is triggered when an order is created. This means
 the order has been validated and the payment has cleared,
 and now the site owner can accept or cancel the order.
 
-This replaces the [Order Created](restaurants/orders/order-created-webhook), 
+This replaces the [Order Created](restaurants/orders/order-created-webhook) webhook, 
 which has been deprecated and will be removed on 
 September 30, 2022.
 
