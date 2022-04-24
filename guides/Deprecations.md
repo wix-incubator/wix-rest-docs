@@ -6,6 +6,9 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: September 30, 2022
 
+- [Order Created webhook](wix-restaurants/orders/order-created-webhook)
+  replaced by [New Order](wix-restaurants/orders/new-order-webhook).
+  (Announced April 18, 2022)
 - [Wix Chat](wix-chat/wix-chat):
   The entire Wix Chat API is replaced by the [Inbox API](inbox/).
   (Announced March 1, 2022)
