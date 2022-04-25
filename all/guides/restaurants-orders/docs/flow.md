@@ -11,8 +11,7 @@ In order to enable site owners to sync their external POS with Wix Restaurants O
 data, your app will need to retrieve each new order that is placed in Wix Restaurants. 
 Then you can create a mapping to keep the order statuses synced.  
 
-
-1. Sign up for the [Order Created Domain Event](https://dev.wix.com/api/rest/wix-restaurants/orders/order-created-webhook).
+1. Sign up for the [New Order Domain Event](https://dev.wix.com/api/rest/wix-restaurants/orders/new-order-webhook).
 2. Create a mapping between Wix Restaurants and the external POS. Store the mapping on your servers.
 3. Get notified when a new order has been placed on Wix Restaurants and add it to the mapping.
 4. Add the order to the external POS.

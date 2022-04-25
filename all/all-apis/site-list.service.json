@@ -1,0 +1,494 @@
+{
+  "name": "Site List",
+  "client_id": "https://github.com/wix-private/npm-proto-bazel/tree/master/com_wixpress_proto_sites-list-proto-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Site List Service",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Site",
+    "entity": "_com_wixpress_sitelist_api_Site",
+    "src": "https://github.com/wix-private/sites-list/tree/master/sites-list-proto-api/com/wixpress/sitelist/api/site.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/site-list/docs/filter-and-sort.md",
+      "name": "Filter & Sort"
+    },
+        {
+      "path": "../guides/site-list/docs/README.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Count Sites",
+      "methodName": "CountSites",
+      "serviceName": "SiteListServiceV2",
+      "tag": "Site",
+      "permissions": [      {
+        "name": "Read Site Data",
+        "description": "Request permission to read the account's basic site info."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "filter",
+        "type": "struct",
+        "doc": " Filter object. See [Filter and Sort](https://dev.wix.com/api/rest/account-level-apis/sites/filter-&-sort) documentation.  \n Note: the `premium` and `appIds` filters are not supported in this endpoint.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CountSites",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Site List._com_wixpress_sitelist_api_CountSitesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves the number of sites, given the provided [filtering](https://dev.wix.com/api/rest/account-level-apis/sites/filter-&-sort).\n\n  > **Important**: This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only. \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/site-list/v2/sites/count",
+        "links": [],
+        "examples": [        {
+          "title": "Count sites",
+          "body": ["curl -X POST 'https://www.wixapis.com/site-list/v2/sites/count' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Accept: application/json, text/plain, */*' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'wix-account-id: <ACCOUNT ID>'\n  --data-raw '{\n    \"filter\":{\"editorType\":\"EDITOR\"}}' \\"],
+          "response": ["{\"count\": 210} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CountSitesRequest",
+        "rpcResponseName": "CountSitesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Sites",
+      "methodName": "QuerySites",
+      "serviceName": "SiteListServiceV2",
+      "tag": "Site",
+      "permissions": [      {
+        "name": "Read Site Data",
+        "description": "Request permission to read the account's basic site info."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "query",
+        "type": "All APIs.Site List._com_wixpress_sitelist_api_QueryV2",
+        "doc": "",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "QuerySites",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Site List._com_wixpress_sitelist_api_QuerySitesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a list of up to 1,000 sites, given the provided [paging, sorting and filtering](https://dev.wix.com/api/rest/account-level-apis/sites/filter-&-sort).\n\n > **Important**: This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.   \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/site-list/v2/sites/query",
+        "links": [],
+        "examples": [        {
+          "title": "Query sites",
+          "body": ["curl -X POST 'https://www.wixapis.com/site-list/v2/sites/query' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Accept: application/json, text/plain, */*' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'wix-account-id: <ACCOUNT ID>'\n --data-raw '{\n    \"query\": {\n      \"filter\":{\"editorType\":\"EDITOR\"},\n      \"sort\":[{ \"fieldName\": \"createdDate\", \"order\": \"ASC\" }],\n      \"cursorPaging\": {\"limit\": 2}\n    }}' \\"],
+          "response": ["{\n  \"sites\":   [\n        {\n      \"id\": \"0c87cd5d-4059-4e86-8f6e-d185b1e4a1bd\",\n      \"htmlAppId\": \"cdb52656-4acf-409a-a59a-953d91eb9332\",\n      \"name\": \"abc\",\n      \"displayName\": \"abc\",\n      \"createdDate\": \"2015-04-19T15:22:42.498Z\",\n      \"published\": true,\n      \"premium\": false,\n      \"viewUrl\": \"https://example-user.wixsite.com/abc\",\n      \"editUrl\": \"/editor/0c87cd5d-4059-4e86-8f6e-d185b124a1bd?editorSessionId=2b550f0c-5ff7-49fd-80ed-fb2eb7d7bbe5\",\n      \"thumbnail\": \"/site-thumbnail/0c87cd5d-4059-4e86-826e-d185b1e4a1bd\",\n      \"ownerAccountId\": \"99714651-d974-4878-aa0a-1cd1d7341156\",\n      \"contributorAccountIds\":       [\n        \"ffd39125-a3e7-3aca-8c53-ca4ad1c55044\",\n        \"cc2df366-9402-4e19-aa4a-4857e6d55280\"\n      ],\n      \"editorType\": \"EDITOR\",\n      \"blocked\": false,\n      \"folderId\": \"cc2df366-9402-4e19-aa4a-4857e6d55230\",\n      \"namespace\": \"WIX\",\n      \"domainConnected\": false\n    },\n        {\n      \"id\": \"79f8da2d-d56e-4962-b999-548f7bad2c41\",\n      \"htmlAppId\": \"cf12cd75-08b0-4d33-8a42-9c13dd5c188e\",\n      \"name\": \"test\",\n      \"displayName\": \"test\",\n      \"createdDate\": \"2015-06-01T11:04:44.024Z\",\n      \"published\": true,\n      \"premium\": false,\n      \"viewUrl\": \"https://example-user.wixsite.com/test\",\n      \"editUrl\": \"/editor/79f8da2d-d53e-4962-b999-548f7bad4c41?editorSessionId=962a38e4-ae8b-47c6-918e-8ae19505b82f\",\n      \"thumbnail\": \"/site-thumbnail/71f8da2d-d56e-4962-b999-548f7bad4c41\",\n      \"ownerAccountId\": \"99714651-d968-4878-aa0a-1cd1d73f1156\",\n      \"contributorAccountIds\": [\"99714651-d974-4878-aa0a-1cded73f1156\"],\n      \"editorType\": \"EDITOR\",\n      \"blocked\": false,\n      \"namespace\": \"WIX\",\n      \"domainConnected\": false\n    }\n  ],\n  \"cursorPaging\": {\"cursor\":   {\n    \"id\": \"79f4da2d-d56e-4962-b999-548f7bad4c41\",\n    \"createDate\": 1433156684024,\n    \"updateDate\": 1609363244895,\n    \"siteDisplayName\": \"test\"\n  }}\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QuerySitesRequest",
+        "rpcResponseName": "QuerySitesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Site List._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object with the following format:\n`\"filter\" : {\n              \"displayName\": \"my-site\",\n              \"namespace\":{\"$in\":[\"value1\", \"value2\"]},\n              \"folderId\": {\"$exists\": false}\n  }`\n Example of operators: `$in`, `$hasSome`, `$hasAll`, `$exists`\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Site List._wix_common_Sorting"]
+          },
+          "doc": " Sort object with the following format:\n`[{\"fieldName\":\"displayName\",\"order\":\"ASC\"},{\"fieldName\":\"createdDate\",\"order\":\"DESC\"}]`\n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.Site List._com_wixpress_sitelist_api_QueryV2_pagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_QueryV2_pagingMethod",
+      "displayName": "paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cursorPaging",
+        "type": "All APIs.Site List._wix_common_CursorPaging",
+        "doc": "Paging options to limit and offset the number of items.\n wix.common.Paging paging = 3;\n Cursor token pointing to a page of results. Used in all calls following the first request. \n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_Site",
+      "displayName": "Site Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Site ID.\n"
+        },
+                {
+          "name": "htmlAppId",
+          "type": "string",
+          "doc": "  HTML app ID for the site.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Site name. Used in the site's URL.\n"
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Site display name. Used for display purposes, such as in the browser's tab name.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Site creation date.\n"
+        },
+                {
+          "name": "trashedDate",
+          "type": "string",
+          "doc": " Site trashed date. \n"
+        },
+                {
+          "name": "published",
+          "type": "boolean",
+          "doc": " Whether the site is published.\n"
+        },
+                {
+          "name": "premium",
+          "type": "boolean",
+          "doc": " Whether the site has a Wix Premium (paid) plan.\n"
+        },
+                {
+          "name": "viewUrl",
+          "type": "string",
+          "doc": " Live site URL.\n"
+        },
+                {
+          "name": "editUrl",
+          "type": "string",
+          "doc": " Editor site URL.\n"
+        },
+                {
+          "name": "thumbnail",
+          "type": "string",
+          "doc": " Site thumbnail.\n"
+        },
+                {
+          "name": "ownerAccountId",
+          "type": "string",
+          "doc": " Site owner's account ID.\n"
+        },
+                {
+          "name": "contributorAccountIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Site contributors' account IDs.\n"
+        },
+                {
+          "name": "editorType",
+          "type": "All APIs.Site List._com_wixpress_metasite_search_api_v2_EditorProperties_EditorType",
+          "doc": " Site's Wix editor type.\n"
+        },
+                {
+          "name": "blocked",
+          "type": "boolean",
+          "doc": " Whether Wix has blocke this site due to legal issues.\n"
+        },
+                {
+          "name": "folderId",
+          "type": "string",
+          "doc": " Folder ID that contains this site. Empty if site is at root level.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "All APIs.Site List._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": " Namespace of the site, for internal use.\n"
+        },
+                {
+          "name": "domainConnected",
+          "type": "boolean",
+          "doc": " Whether the site has a connected domain.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_QuerySitesRequest",
+      "displayName": "Query Sites Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Site List._com_wixpress_sitelist_api_QueryV2",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_QuerySitesResponse",
+      "displayName": "Query Sites Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sites",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Site List._com_wixpress_sitelist_api_Site"]
+          },
+          "doc": " List of retrieved sites.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Site List._wix_common_CursorPaging",
+          "doc": " Paging information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_CountSitesRequest",
+      "displayName": "Count Sites Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "struct",
+        "doc": " Filter object. See [Filter and Sort](https://dev.wix.com/api/rest/account-level-apis/sites/filter-&-sort) documentation.  \n Note: the `premium` and `appIds` filters are not supported in this endpoint.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_sitelist_api_CountSitesResponse",
+      "displayName": "Count Sites Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "count",
+        "type": "integer",
+        "doc": " Number of sites retrieved basd on the filter.\n Free Wix accounts are limited to max 1,000 sites.\n Premium accounts can have an unlimited number of sites.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSite_Namespace",
+      "displayName": "Namespace Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to Fstrategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_NAMESPACE",
+        "WIX",
+        "SHOUT_OUT",
+        "ALBUMS",
+        "WIX_STORES_TEST_DRIVE",
+        "HOTELS",
+        "CLUBS",
+        "ONBOARDING_DRAFT",
+        "DEV_SITE",
+        "LOGOS",
+        "VIDEO_MAKER",
+        "PARTNER_DASHBOARD",
+        "DEV_CENTER_COMPANY",
+        "HTML_DRAFT",
+        "SITELESS_BUSINESS",
+        "CREATOR_ECONOMY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_search_api_v2_EditorProperties_EditorType",
+      "displayName": "Editor Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> EDITOR <\/code><\/li><li><code> ADI <\/code><\/li><li><code> EDITORX <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "EDITOR",
+        "ADI",
+        "EDITORX"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.sites-list.sites-list"}
+}

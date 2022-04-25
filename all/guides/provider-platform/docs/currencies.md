@@ -5,6 +5,22 @@ Currencies supported by Wix and their fraction digits that represent minor units
 
 | Code| Name | Number of Fraction Digits |
 |---|---|---|
+| BIF | Burundian Franc | 0 |
+| CLP | Chilean Peso | 0 |
+| DJF | Djiboutian Franc | 0 |
+| GNF | Guinean Franc | 0 |
+| ISK | Icelandic Króna | 0 |
+| JPY | Japanese Yen | 0 |
+| KMF | Comorian Franc | 0 |
+| KRW | South Korean Won | 0 |
+| PYG | Paraguayan Guarani | 0 |
+| RWF | Rwandan Franc | 0 |
+| UGX | Ugandan Shilling | 0 |
+| VND | Vietnamese Dong | 0 |
+| VUV | Vanuatu Vatu | 0 |
+| XAF | Central African CFA Franc | 0 |
+| XOF | West African CFA Franc | 0 |
+| XPF | CFP Franc | 0 |
 | AED | United Arab Emirates Dirham | 2 |
 | AFN | Afghan Afghani | 2 |
 | ALL | Albanian Lek | 2 |
@@ -19,8 +35,6 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | BBD | Barbadian Dollar | 2 |
 | BDT | Bangladeshi Taka | 2 |
 | BGN | Bulgarian Lev | 2 |
-| BHD | Bahraini Dinar | 3 |
-| BIF | Burundian Franc | 0 |
 | BMD | Bermudan Dollar | 2 |
 | BND | Brunei Dollar | 2 |
 | BOB | Bolivian Boliviano | 2 |
@@ -36,7 +50,6 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | CHE | WIR Euro | 2 |
 | CHF | Swiss Franc | 2 |
 | CHW | WIR Franc | 2 |
-| CLP | Chilean Peso | 0 |
 | CNY | Chinese Yuan | 2 |
 | COP | Colombian Peso | 2 |
 | COU | Colombian Real Value Unit | 2 |
@@ -45,7 +58,6 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | CUP | Cuban Peso | 2 |
 | CVE | Cape Verdean Escudo | 2 |
 | CZK | Czech Koruna | 2 |
-| DJF | Djiboutian Franc | 0 |
 | DKK | Danish Krone | 2 |
 | DOP | Dominican Peso | 2 |
 | DZD | Algerian Dinar | 2 |
@@ -60,7 +72,6 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | GHS | Ghanaian Cedi | 2 |
 | GIP | Gibraltar Pound | 2 |
 | GMD | Gambian Dalasi | 2 |
-| GNF | Guinean Franc | 0 |
 | GTQ | Guatemalan Quetzal | 2 |
 | GYD | Guyanaese Dollar | 2 |
 | HKD | Hong Kong Dollar | 2 |
@@ -71,19 +82,12 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | IDR | Indonesian Rupiah | 2 |
 | ILS | Israeli New Shekel | 2 |
 | INR | Indian Rupee | 2 |
-| IQD | Iraqi Dinar | 3 |
 | IRR | Iranian Rial | 2 |
-| ISK | Icelandic Króna | 0 |
 | JMD | Jamaican Dollar | 2 |
-| JOD | Jordanian Dinar | 3 |
-| JPY | Japanese Yen | 0 |
 | KES | Kenyan Shilling | 2 |
 | KGS | Kyrgystani Som | 2 |
 | KHR | Cambodian Riel | 2 |
-| KMF | Comorian Franc | 0 |
 | KPW | North Korean Won | 2 |
-| KRW | South Korean Won | 0 |
-| KWD | Kuwaiti Dinar | 3 |
 | KYD | Cayman Islands Dollar | 2 |
 | KZT | Kazakhstani Tenge | 2 |
 | LAK | Laotian Kip | 2 |
@@ -91,7 +95,6 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | LKR | Sri Lankan Rupee | 2 |
 | LRD | Liberian Dollar | 2 |
 | LSL | Lesotho Loti | 2 |
-| LYD | Libyan Dinar | 3 |
 | MAD | Moroccan Dirham | 2 |
 | MDL | Moldovan Leu | 2 |
 | MGA | Malagasy Ariary | 2 |
@@ -113,19 +116,16 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | NOK | Norwegian Krone | 2 |
 | NPR | Nepalese Rupee | 2 |
 | NZD | New Zealand Dollar | 2 |
-| OMR | Omani Rial | 3 |
 | PAB | Panamanian Balboa | 2 |
 | PEN | Peruvian Sol | 2 |
 | PGK | Papua New Guinean Kina | 2 |
 | PHP | Philippine Piso | 2 |
 | PKR | Pakistani Rupee | 2 |
 | PLN | Polish Zloty | 2 |
-| PYG | Paraguayan Guarani | 0 |
 | QAR | Qatari Rial | 2 |
 | RON | Romanian Leu | 2 |
 | RSD | Serbian Dinar | 2 |
 | RUB | Russian Rouble | 2 |
-| RWF | Rwandan Franc | 0 |
 | SAR | Saudi Riyal | 2 |
 | SBD | Solomon Islands Dollar | 2 |
 | SCR | Seychellois Rupee | 2 |
@@ -144,25 +144,25 @@ Currencies supported by Wix and their fraction digits that represent minor units
 | THB | Thai Baht | 2 |
 | TJS | Tajikistani Somoni | 2 |
 | TMT | Turkmenistani Manat | 2 |
-| TND | Tunisian Dinar | 3 |
 | TOP | Tongan Paʻanga | 2 |
 | TRY | Turkish Lira | 2 |
 | TTD | Trinidad & Tobago Dollar | 2 |
 | TWD | New Taiwan Dollar | 2 |
 | TZS | Tanzanian Shilling | 2 |
 | UAH | Ukrainian Hryvnia | 2 |
-| UGX | Ugandan Shilling | 0 |
 | USD | US Dollar | 2 |
 | UYU | Uruguayan Peso | 2 |
 | UZS | Uzbekistani Som | 2 |
 | VES | Venezuelan Bolívar | 2 |
-| VND | Vietnamese Dong | 0 |
-| VUV | Vanuatu Vatu | 0 |
 | WST | Samoan Tala | 2 |
-| XAF | Central African CFA Franc | 0 |
 | XCD | East Caribbean Dollar | 2 |
-| XOF | West African CFA Franc | 0 |
-| XPF | CFP Franc | 0 |
 | YER | Yemeni Rial | 2 |
 | ZMW | Zambian Kwacha | 2 |
 | ZAR | South African Rand | 2 |
+| BHD | Bahraini Dinar | 3 |
+| IQD | Iraqi Dinar | 3 |
+| JOD | Jordanian Dinar | 3 |
+| KWD | Kuwaiti Dinar | 3 |
+| LYD | Libyan Dinar | 3 |
+| OMR | Omani Rial | 3 |
+| TND | Tunisian Dinar | 3 |
