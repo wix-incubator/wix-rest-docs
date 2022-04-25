@@ -15,7 +15,7 @@ Learn more [about Wix Blog](https://support.wix.com/en/article/wix-blog-about-th
 - **Category**
   A logical group that the site writer assigns their publication(s) to in their blog.
 - **Tag**
-  A subset of categories for organizing blog posts.
+  A subset of categories for organizing blog posts. Tags can also be subdivided using a `/` separator. For example, you may divide `dessert` into, e.g. `dessert/icecream` and `dessert/pie`.
 
 ## Limitations
 
