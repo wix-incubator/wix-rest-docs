@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Endpoints: [Wix Blog API](wix-blog/)
+
+The [Tags](wix-blog/blog/tags/tag-object)
+endpoints are now available.
+
+(April 25, 2022)
 ## New Webhook: [Restaurants Orders API](wix-restaurants/orders)
 
 The new [New Order Webhook](wix-restaurants/orders/new-order-webhook)
