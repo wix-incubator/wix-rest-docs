@@ -42,15 +42,15 @@ Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https:
 
 ## Test Absolute links to the same site
 
-[Absolute link to rich-text](https://bo.wix.com/wix-docs/development/wix-stores/rich-text)
+[Absolute link to rich-text](https://dev.wix.com/api/rest/app-management/about-app-management)
 
-[Absolute link to  get-cart](https://bo.wix.com/wix-docs/development/wix-stores/carts/carts/get-cart)
+[Absolute link to  get-cart](https://dev.wix.com/api/rest/app-management/about-app-management)
 
-[Absolute link to  cart-completed](https://bo.wix.com/wix-docs/development/wix-stores/carts/carts/cart-completed)
+[Absolute link to  cart-completed](https://dev.wix.com/api/rest/app-management/about-app-management)
 
-[Absolute link to  Wix-stores/print-orders/transactions-list](https://bo.wix.com/wix-docs/development/wix-payments/payments/transactions-list)
+[Absolute link to  Wix-stores/print-orders/transactions-list](https://dev.wix.com/api/rest/app-management/about-app-management)
 
-[Absolute link to  Wix-stores/catalog/collection/create-collection](https://bo.wix.com/wix-docs/development/wix-stores/catalog/collection/create-collection)
+[Absolute link to  Wix-stores/catalog/collection/create-collection](https://dev.wix.com/api/rest/app-management/about-app-management)
 
 ## Test Absolute links that should not replace
 
