@@ -11,4 +11,5 @@ This makes it ideal for identifying your users and their needs/requirements.
 If your app follows the standard installation flow with [OAuth 2.0](https://dev.wix.com/api/rest/getting-started/authentication), 
 this instanceId is embedded in the access token your app uses to access or modify site data.
 
-If your app uses [API keys](https://dev.wix.com/api/rest/account-level-apis/about-api-keys), you
+If your app uses [API keys](https://dev.wix.com/api/rest/account-level-apis/about-api-keys), there is no instance embedded in the key, 
+as they are based on accounts, not instances. To take any site-specific action, you will need to pass a site ID.
