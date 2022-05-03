@@ -5,16 +5,6 @@ With [Wix Pricing Plans](https://support.wix.com/en/article/about-pricing-plans)
 Wix Pricing Plans provides a customizable pricing page where customers can view the plan perks, prices and other features including free trials, purchase limitations and more. 
 All plans either have a duration or can be valid until canceled by a customer. 
 
-Use the Plans API to:
-- Create & update plans
-- Get Statistics about the plans
-- Get specific plan info 
-- Query all plans info
-- Mark a plan as primary
-- Arrange plan display order
-- Hide plans
-- Archive plans
-
 ## Terminology
 
 - **Plan**: A membership plan or package, offering bundles of features or “perks”. 
@@ -39,5 +29,10 @@ Pricing Plans can be used together with the following Wix business solutions:
 - *Wix Bookings* - services from Wix Bookings (classes, treatments, workshops, etc.) can be included as a part of a plan (e.g. a plan for 10 private yoga classes).
 - *Wix Blog* - blog (list of posts or a single complete post) can be limited to paying members who purchase a particular membership.
 - *Wix Forum* - allow some forum categories to be accessible only for paying members.
+- *Wix Events* - offer discounts on event tickets to paying members who purchase a particular membership.
+- *Wix File Share* - access to files in your shared library can be limited to paying members.
+- *Wix Online Programs* - access to an online program can be accessible only to paying members who purchase a particular membership.
+- *Wix Video* - video channel access can be limited to paying members.
+- *Wix Groups* - group membership can be accessible only to paying members who purchase a particular membership.
 
 To learn more about Pricing Plans Integrations with another Wix business solutions, read [this article](https://support.wix.com/en/article/about-pricing-plans#connect-wix-bookings-services-to-a-pricing-plan).

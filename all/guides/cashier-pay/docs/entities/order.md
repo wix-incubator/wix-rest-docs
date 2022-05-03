@@ -17,16 +17,16 @@ Order can have one of the following statues:
 
 ### Order Status Flow (one-time)
 
-![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay/OrdersnapshotStatusFlowchartOneTime.png)
+![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay%2FOrdersnapshotStatusFlowchartOneTime.png)
 
 ### Order Status Flow (recurring)
 
-![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay/OrdersnapshotStatusFlowchartRecurring.png)
+![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay%2FOrdersnapshotStatusFlowchartRecurring.png)
 
 ## Order event hooks
 
 In most cases TPA want to get notifications when something changes with the order. For such cases one must setup an
-event hook when [creating an order](/cashier-pay/reference/order/.wix.payment.api.pay.v2.-order-service.-create).
+event hook when [creating an order](/docs/entities//cashier-pay/reference/order/.wix.payment.api.pay.v2.-order-service.-create).
 
 Event hook is either a Web URL (starting with `https://`) or an RPC endpoint (`rpc:${groupId.artifactId}`). In order to
 use RPC hook, your TPA must be registered on cashier side as rpc service.
