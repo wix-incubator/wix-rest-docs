@@ -19,8 +19,8 @@ Loyalty APIs allow your app to:
 * **Point name:** Customizable name for the points used in the program.
 * **Point Icon:** Customizable icon for the points used in the program.
 * **Reward:** Defines how many points are needed to get a specific benefit.
-* **Program description: ** Customizable description of the program that can include text, rich content text, links, pictures, and buttons.
-*  **Account:** Every customer has an account that tracks the point balance, earned and redeemed points. 
+* **Program description:** Customizable description of the program that can include text, rich content text, links, pictures, and buttons.
+* **Account:** Every customer has an account that tracks the point balance, earned and redeemed points. 
 
 ## Limitations
 
