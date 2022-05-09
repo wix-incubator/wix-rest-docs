@@ -1,9 +1,13 @@
 SortOrder: 0
 # Getting started
-As a payment service provider, you can integrate various payment methods and make them available to merchants and their buyers on Wix, including:
+As a Payment Service Provider, you can integrate various payment methods and make them available to merchants and their buyers on Wix, including:
 - Cards
 - Alternative payment methods (APM) such as iDEAL or PayPal
 - Hosted page, a third-party web page for secure processing of electronic transactions
+
+Before taking any technical efforts or tasks involving the API exposed on this page, every Payment Service Provider needs to go through an onboarding process with the business development team at Wix.com.
+The onboarding flow includes getting to know the Payment Service Provider and how they can benefit merchants. 
+The first step in the onboarding process is to gather details of the provider via an onboarding form that is being sent by the Wix Business Development team. Following that action is the completion of the legal agreements that mark the start of the business relationship between Wix and Payment Service Provider.
 
 Part of the integration process is working with [Wix Developer Center](https://dev.wix.com/) - an environment used to set up new payment service providers and focused on app integrations.
 
