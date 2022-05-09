@@ -1,6 +1,6 @@
 # About Account Level APIs
 
-The APIs in this category all require an [API key](https://dev.wix.com/api/rest/account-level-APIs/about-api-keys) as their authorization header.
+The APIs in this category all require an [API key](https://dev.wix.com/api/rest/account-level-apis/about-api-keys) as their authorization header.
 While some of these calls may take action at the site level, they all require account-level access.
 
 > **Note**: When using an API key, it completely replaces OAuth authentication.

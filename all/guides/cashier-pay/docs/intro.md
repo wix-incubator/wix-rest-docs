@@ -15,7 +15,7 @@ In order to better understand the Cashier Pay API and Payment in general, let’
     Types of payment methods are:
 
     - Credit / Debit / Prepaid Cards
-    - eWallets (PayPal, PagSeguro, MercadoPago, Yandex etc.)
+    - eWallets (PayPal, PagSeguro, MercadoPago etc.)
     - Local Payments (iDeal, Sofort, Przelewy24, Klarna, Giropay, Kombini etc.)
     - Mobile Carrier Billing
     - Online Banking (ACH, SEPA)
@@ -40,13 +40,13 @@ In order to better understand the Cashier Pay API and Payment in general, let’
     - Pending - transaction pending approval. It could be "Pending Merchant" while the merchant (our user) need to do something like manually approve the transaction OR "Pending user" while the provider might be reviewing the transaction because of fraud. As soon as the transaction is approved, we will send an IPN to the Cashier Pay API consumer for sync.
     - Error - transaction failed to be processed. It can happen due to several causes.  The flow should redirect the user back to checkout with a clear error message (we will be providing) for him to retry with a different card or by selecting a different payment method.
 
-    You can find more information in [Order Overview document](./Order%20overview).
+    You can find more information in [Order Overview document](/docs/./Order%20overview).
 
 ## What is it?
 
 The "Cashier Pay" service is a service for business applications in Wix to initiate a payment for their users and be able to charge a visitor of the user’s website.
 
-"Cashier Pay" includes one-time and recurring payment (limited to Stripe and PayPal for now) and support over 25 payment providers covering Credit Cards acceptance is almost all countries worldwide, with in addition some local payment methods (iDeal, Sofort and Alipay) and the most popular e-Wallets (PayPal, PagSeguro, MercadoPago and Yandex)
+"Cashier Pay" includes one-time and recurring payment (limited to Stripe and PayPal for now) and support over 25 payment providers covering Credit Cards acceptance is almost all countries worldwide, with in addition some local payment methods (iDeal, Sofort and Alipay) and the most popular e-Wallets (PayPal, PagSeguro and MercadoPago)
 
 The list of supported payment provider can be found on [support page](https://support.wix.com/en/article/changing-your-payment-provider-3305157). 
 
@@ -93,11 +93,11 @@ The main workflow for the users and especially for their buyers is the following
 
     1. Accordeon Version - where the details of the payment method are display below the selection.
 
-        ![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay/CashierPaymentsWidget.png)
+        ![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay%2FCashierPaymentsWidget.png)
 
     2. Separated Version - where the details of the payment method are display below the payment method selection area.
     
-        ![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay/CashierPaymentsComponent.png)
+        ![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay%2FCashierPaymentsComponent.png)
     
 ### Client side wrapper SDK
 
@@ -115,7 +115,7 @@ The Cashier Pay service can be integrated in several way
 
 Integration documentation can be found in more details [Cashier Payments Widget™](https://bo.wix.com/cashier-docs#/?id=cashier-docs) documentation.
 
-![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay/TPACashierIntegrationSimplified.png)
+![](https://s3.amazonaws.com/wixplorer-readme-images/cashier-pay%2FTPACashierIntegrationSimplified.png)
 
 ### Standard Integration
 

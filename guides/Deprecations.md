@@ -6,11 +6,34 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: September 30, 2022
 
+- [Order Created webhook](wix-restaurants/orders/order-created-webhook)
+  replaced by [New Order](wix-restaurants/orders/new-order-webhook).
+  (Announced April 18, 2022)
 - [Wix Chat](wix-chat/wix-chat):
   The entire Wix Chat API is replaced by the [Inbox API](inbox/).
   (Announced March 1, 2022)
 
 ## End of Life: June 30, 2022
+
+- [Wix Groups](wix-groups/wix-groups):
+  - In the [Group Object](wix-groups/wix-groups/groups/group-object)
+    (which is also embedded in the
+    [Group Request Object](wix-groups/wix-groups/create-requests/group-request-object)):
+    - `privacyLevel` replaced by `privacyStatus`.
+    - `title` replaced by `name`.
+    - `details` object: <br />
+      `details.logo` replaced by `coverImage`,
+      `details.membersTitle` replaced by `memberTitle`.
+    - `createdBy` replaced by `ownerId`.
+    - `recentActivityDate` replaced by `lastActivityDate`. <br />
+  - [Group Member Object](wix-groups/wix-groups/members/group-member-object): `siteMemberId` replaced by `memberId`.
+  - [Add Group Members](wix-groups/wix-groups/members/add-group-members): `siteMemberIds` replaced by `memberIds`.
+  - [List Group Members](wix-groups/wix-groups/members/list-group-members): `siteMemberId` replaced by `memberId`.
+  - [Remove Group Members](wix-groups/wix-groups/members/remove-group-members): `siteMemberIds` replaced by `memberIds`.
+  - [Approve Join Group Requests](wix-groups/wix-groups/join-requests/approve-join-group-requests): `siteMemberIds` replaced by `memberIds` (will be a required field after June 30, 2022).
+  - [Assign Role](wix-groups/wix-groups/roles/assign-role): `siteMemberIds` replaced by `memberIds`.
+  - [Unassign Role](wix-groups/wix-groups/roles/unassign-role): `siteMemberIds` replaced by `memberIds`. <br />
+    (Announced March 23, 2022)
 
 - Forum [Category object](wix-forum/wix-forum/category/category-object):
   `postTypes` parameter deprecated without replacement.
