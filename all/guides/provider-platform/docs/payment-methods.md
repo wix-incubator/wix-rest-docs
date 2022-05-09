@@ -12,7 +12,6 @@ Payment methods supported by WIX
 | pagSeguro | Popular Brazilian payment method for accepting credit and debit cards, bank transfers, and Boleto Bancario. |
 | payPal | Accept payments from customers with a PayPal account. |
 | sofort | Online Bank Transfer payment method for European websites that lets you accept payment from customers via direct online bank transfer. |
-| yandex | Accept credit and debit cards, Yandex.Money, WebMoney, Qiwi, and online bank transfers via Yandex.Checkout. |
 | convenienceStore | Allow customers to make payments at their local convenience store. |
 | payEasy | Allow customers to make payments at their ATM machine and online with their bank. |
 | privat24 | Accept payments from Visa and Mastercard debit/credit cards. Simple integration, comprehensive anti-fraud system, 24/7 support. |
