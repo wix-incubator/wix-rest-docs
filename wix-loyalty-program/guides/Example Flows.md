@@ -139,81 +139,11 @@ Your app could help businesses with an external loyalty program keep their progr
     > **Note:** Make sure to include logic that ignores webhooks triggered as the result of a sync. This will prevent your app from getting caught in an endless loop.
  
  
-## Let Customers Earn Loyalty Points for Liking a Social Media Post
  
+## Notify Customers Nearing a Milestone and Assign Milestone Badges When They Reach It
  
-You could help customers earn Loyalty points when they like one of the site owner’s social media posts. To do so, your app will listen to an external webhook that is triggered for this event, identify the relevant Loyalty account and add points to it.
- 
- 
-### Step 1: Listen to the Social Media’s Webhooks
- 
-First, your app will listen to an external webhook that is triggered when a customer likes a specific social media post.
- 
-> **Note:** Your app could also let customers earn loyalty points for following a social media channel, registering to a webinar, writing a product review, or similar actions.
- 
- 
-### Step 2: Retrieve the Customer’s Wix `contactId`
- 
-Then you’ll retrieve the relevant customer’s email address from the webhook’s parsed data. You’ll use the email address to look up the `contactID` as described in step 3 of the [Set up a Site’s Loyalty Program](https://www.dev.wix.com/api/rest/loyalty/example_flows#set_up_a_sites_loyalty_program) flow.
- 
- 
-### Step 3: Check that the Customer has a Loyalty Account
- 
-Then you’ll retrieve the customer’s `accountId`. To do so, your app will call the [Get Account endpoint](https://www.dev.wix.com/api/rest/loyalty/get-account).
- 
-```sh
-curl -X GET \
- https://www.wixapis.com/loyalty/v1/accounts/fetch-by
- --data-binary '{
-   "_id": {
-     "contactId": "a string"
-   }
- }'
- -H 'Authorization: <AUTH>'
-```
- 
-If the response is empty, the customer doesn’t yet have a Loyalty account.
- 
- 
-### Step 4 (Optional): Create a Loyalty Account
- 
-> **Note:** This step is only needed when the customer doesn’t yet have a Loyalty account.
- 
-In this case, your app will create a Loyalty account by calling the [Create Account endpoint](https://www.dev.wix.com/api/rest/loyalty/create-account).
- 
-```sh
-curl -X POST \
- https://www.wixapis.com/loyalty/v1/accounts
- --data-binary '{
-   "contactId": "a string"
- }'
- -H 'Authorization: <AUTH>'
-```
- 
- 
-### Step 5: Add Points to the Account
- 
-Finally, your app can call the [Earn Points endpoint](https://www.dev.wix.com/api/rest/loyalty/earn-points). You’ll need to pass the `accountID` and point amount as part of the call’s body.
- 
-```sh
-curl -X POST \
- https://www.wixapis.com/loyalty/v1/accounts/{account_id}/earn-points
- --data-binary '{
-   "accountId": "a string",
-   "amount": 42,
-   "description": "a string",
-   "appId": "a string",
-   "idempotencyKey": "a string"
- }'
- -H 'Authorization: <AUTH>'
- ```
- 
- 
-## Create a Wix Coupon for Reaching a Milestone
- 
-Your app can check which customers are close to reaching a 1000 Loyalty points. Then you could email them that they’ll get a coupon for reaching this milestone. Finally, your app could get notified when a customer actually reaches this mark and create the coupon.
- 
- 
+Your app can check which customers are close to reaching a 1000 Loyalty points. Then you could email them that they are close to reaching this milestone, and the benefits they'll receive when they do. Finally, your app could get notified when a customer actually reaches this mark and assign them a badge for that milestone.
+  
 ### Step 1: Identify Customers Who are Close to Reaching a Loyalty Milestone
  
 As part of this flow, you’ll first identify which Loyalty accounts have between 900 and 999 points by calling the [List Accounts](https://www.dev.wix.com/api/rest/loyalty/list-accounts) endpoint.
@@ -229,7 +159,7 @@ From the response, you’ll retrieve all accounts in the relevant point range an
  
 ### Step 2: Contact the Customers
  
-Then, your app will email every identified customer. You’ll let them know how many points they need to reach the 1000-point-milestone, and that they’ll get a coupon for reaching it.
+Then, your app will email every identified customer. You’ll let them know how many points they need to reach the 1000-point-milestone, and what they will receive for reaching it.
  
 >**Notes:**
 > + Make sure to check whether the customers have agreed to receive emails from the site owners by calling the [Query Email Subscriptions](https://dev.wix.com/api/rest/marketing/email-subscriptions/query-email-subscriptions) endpoint.
@@ -238,24 +168,8 @@ Then, your app will email every identified customer. You’ll let them know how 
  
 ### Step 3: Get Notified When a Customer Reaches the Milestone
  
-Listen to [Account Updated Domain Event](https://www.dev.wix.com/api/rest/loyalty/account-updated). Parse every event body’s data to check whether the new point balance is higher than 1000 while the previous balance was below. Make sure to save the relevant `accountId`.
+Listen to [Account Updated Domain Event](https://www.dev.wix.com/api/rest/loyalty/account-updated). Parse the event body’s data to check whether the new point balance is higher than 1000 while the previous balance was below. Make sure to save the relevant `accountId`.
  
+### Step 4: Assign a Badge
  
-### Step 4: Create the Coupon
- 
-Now, your app will create the coupon using the [Create Coupon endpoint] (https://dev.wix.com/api/rest/wix-coupons/coupons/coupon/create-a-coupon).
- 
-> **Note:** Learn more about the [Wix Coupons API](https://dev.wix.com/api/rest/wix-coupons/about-wix-coupons).
- 
- 
- 
- 
-## Assign Milestone Badges
- 
-### Step 1: Get Notified When a Customer Reaches a Loyalty Milestone 
- 
-Listen to [Account Updated Domain Event](https://www.dev.wix.com/api/rest/loyalty/account-updated). Parse the event body’s data to check whether the new point balance is higher than your threshold and save the `accountId`.
- 
-### Step 2: Assign a Badge
- 
-Your app will use the ... API to assign a member badge. (https://www.wix.com/velo/reference/wix-users-backend/badges-obj/assignmembers)
+Your app will use the [Assign Badge to Members](https://dev.wix.com/api/rest/members/badges/assign-badge-to-members) API to assign a member badge to the .
