@@ -16,22 +16,19 @@ By default, every Wix site includes a loyalty program in `DRAFT` status. Until i
 >**Note:** The call will set up Loyalty with your customizations, but the program will stay in `DRAFT` status. Thus, customers cannot earn points or redeem rewards.
  
 ```sh
-curl -X PATCH \
- https://www.wixapis.com/loyalty/v1/program
- --data-binary '{
-   "loyaltyProgram": {
-     "name": "Loyalty rewarded",
-     "pointDefinition": {
-       "custom_name": "stars",
-       "icon": {
-         "_id": "1bf8c6_2528eb509c0a4bcea5c39b923%7Emv2.jpg",
-         "url": "https://my-icons.example/star.svg",
-         "altText": "star icon"
-       }
-     }
-   }
- }'
- -H 'Authorization: <AUTH>'
+{
+  "loyaltyProgram": {
+    "name": "Loyalty rewarded",
+    "pointDefinition": {
+      "custom_name": "stars",
+      "icon": {
+        "_id": "1bf8c6_2528eb509c0a4bcea5c39b923%7Emv2.jpg",
+        "url": "https://my-icons.example/star.svg",
+        "altText": "star icon"
+      }
+    }
+  }
+}
 ```
  
  
@@ -40,9 +37,7 @@ curl -X PATCH \
 To activate the program, call the [Activate Loyalty Program](https://www.dev.wix.com/api/rest/loyalty/activate-program) endpoint.
  
 ```sh
-curl -X POST \
  https://www.wixapis.com/loyalty/v1/program/activate
- -H 'Authorization: <AUTH>'
 ```
  
  
@@ -76,23 +71,17 @@ Now, your app could create a Loyalty account for every customer. To do so, call 
 Example call using a `contactId`:
  
 ```sh
-curl -X POST \
- https://www.wixapis.com/loyalty/v1/accounts
- --data-binary '{
-   "contactId": "8046df3c-7575-4098-a5ab-c91ad8f33c47"
- }'
- -H 'Authorization: <AUTH>'
+{
+  "contactId": "8046df3c-7575-4098-a5ab-c91ad8f33c47"
+}
 ```
  
 Example call using a `memberId`:
  
 ```sh
-curl -X POST \
- https://www.wixapis.com/loyalty/v1/accounts
- --data-binary '{
-   "memberId": "e62e3011-55cf-4de3-a497-e097b52d86b7"
- }'
- -H 'Authorization: <AUTH>'
+{
+  "memberId": "e62e3011-55cf-4de3-a497-e097b52d86b7"
+}
 ```
  
  
@@ -110,17 +99,14 @@ If the site owners already have an external loyalty program, your app needs to c
 Finally, your app could help the site owners sync their customers’ point balances from an external loyalty program. To do so, call the [Adjust Points endpoint](https://www.dev.wix.com/api/rest/loyalty/adjust-points). You’ll need to perform one call for every customer and include the `accountID` and point balance in the body of the request.
  
 ```sh
-curl -X POST \
- https://www.wixapis.com/loyalty/v1/accounts/{account_id}/adjust-points
- --data-binary '{
-   "accountId": "01e34b81-4e48-43e4-b178-c84f3b968574",
-   "description": "Sync from external program",
-   "type": {
-     "balance": 42
-   },
-   "revision": "3"
- }'
- -H 'Authorization: <AUTH>'
+{
+  "accountId": "01e34b81-4e48-43e4-b178-c84f3b968574",
+  "description": "Sync from external program",
+  "type": {
+    "balance": 42
+  },
+  "revision": "3"
+}
 ```
  
  
@@ -149,9 +135,7 @@ Your app can check which customers are close to reaching a 1000 Loyalty points. 
 As part of this flow, you’ll first identify which Loyalty accounts have between 900 and 999 points by calling the [List Accounts](https://www.dev.wix.com/api/rest/loyalty/list-accounts) endpoint.
  
 ```sh
-curl -X GET \
- https://www.wixapis.com/loyalty/v1/accounts/
-  -H 'Authorization: <AUTH>'
+https://www.wixapis.com/loyalty/v1/accounts/
 ```
  
 From the response, you’ll retrieve all accounts in the relevant point range and save their email addresses.
