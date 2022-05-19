@@ -1,5 +1,35 @@
 # Release Notes
 
+## New Release: [Wix Blog Tags](wix-blog/blog/tags/tag-object/)
+The new Blog [Tags API](wix-blog/blog/tags/tag-object/) introduces read functionality for blog tags.
+
+(April 25, 2022)
+
+## New Webhook: [Restaurants Orders API](wix-restaurants/orders)
+
+The new [New Order Webhook](wix-restaurants/orders/new-order-webhook)
+is triggered when an order is created. This means
+the order has been validated and the payment has cleared,
+and now the site owner can accept or cancel the order.
+
+This replaces the [Order Created](wix-restaurants/orders/order-created-webhook) webhook, 
+which has been deprecated and will be removed on 
+September 30, 2022.
+
+(April 18, 2022)
+
+## New Fields: [Wix Groups API](wix-groups/)
+
+The Wix Groups API has renamed some fields,
+resulting in deprecating some existing fields.
+The deprecated fields will be removed on June 30, 2022.
+In addition, the `memberIds` parameter in
+[Approve Join Group Requests](wix-groups/wix-groups/join-requests/approve-join-group-requests)
+will be required after June 30, 2022.
+
+For more information, see [End-of-Life Notices](./Deprecations.md#end-of-life-june-30-2022).  
+(March 23, 2022)
+
 ## New Release: [Inbox API](inbox/)
 
 The new Inbox API introduces functionality
