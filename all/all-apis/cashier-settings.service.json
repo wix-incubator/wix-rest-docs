@@ -430,6 +430,48 @@
       "customLabels": [{"id": "maturity-alpha"}]
     },
         {
+      "name": "Enable Recurring Payments",
+      "methodName": "EnableRecurringPayments",
+      "serviceName": "ProviderAccountsServiceV2",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["providerAccountId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "EnableRecurringPayments",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Cashier Settings._wix_cashier_v2_settings_EnableRecurringPaymentsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRequest recurring payments for specific provider account.\n\nReturns provider account entity with updated recurringOptions for requested provider account\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/cashier/v2/settings/provider-accounts/{providerAccountId}/enable-recurring-payments",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "EnableRecurringPaymentsRequest",
+        "rpcResponseName": "EnableRecurringPaymentsResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
       "name": "Get Merchant",
       "methodName": "GetMerchant",
       "serviceName": "MerchantServiceV2",
@@ -1039,20 +1081,50 @@
       "customLabels": [{"id": "maturity-alpha"}]
     }
   ],
-  "events": [  {
-    "type": "_wix_cashier_v2_settings_ProviderAccountDeletedDomainEvent",
-    "name": "Provider Account Deleted Webhook",
-    "docs":     {
-      "summary": "",
-      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto/wix/cashier/v2/settings/provider_accounts_service.proto"
+  "events":   [
+        {
+      "type": "_wix_cashier_v2_settings_ProviderAccountCreatedDomainEvent",
+      "name": "Provider Account Created Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto/wix/cashier/v2/settings/provider_accounts_service.proto"
+      },
+      "topic": "domain_events_wix.cashier.settings.v2.provider_account",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.cashier.settings.v2.provider_account_created",
+      "extra": {"isDomainEvent": true}
     },
-    "topic": "domain_events_wix.cashier.settings.v2.provider_account",
-    "tag": "Payment Provider Account",
-    "permissions": [],
-    "customLabels": [{"id": "maturity-alpha"}],
-    "eventType": "wix.cashier.settings.v2.provider_account_deleted",
-    "extra": {"isDomainEvent": true}
-  }],
+        {
+      "type": "_wix_cashier_v2_settings_ProviderAccountUpdatedDomainEvent",
+      "name": "Provider Account Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto/wix/cashier/v2/settings/provider_accounts_service.proto"
+      },
+      "topic": "domain_events_wix.cashier.settings.v2.provider_account",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.cashier.settings.v2.provider_account_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_wix_cashier_v2_settings_ProviderAccountDeletedDomainEvent",
+      "name": "Provider Account Deleted Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/cashier/blob/master/payment-services/payment-settings-modules/payment-settings-api-v2/src/main/proto/wix/cashier/v2/settings/provider_accounts_service.proto"
+      },
+      "topic": "domain_events_wix.cashier.settings.v2.provider_account",
+      "tag": "Payment Provider Account",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.cashier.settings.v2.provider_account_deleted",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
   "callbacks": [],
   "messages":   [
         {
@@ -1189,9 +1261,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -1262,9 +1334,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "currentEntityAsJson",
+        "name": "currentEntity",
         "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -2177,6 +2249,12 @@
           "doc": " Installments settings. When they are not available, it means that either the merchant has disabled this feature, or\n the provider does not support it.\n"
         },
                 {
+          "name": "recurringPaymentOptions",
+          "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountRecurringPaymentOptions",
+          "doc": " Provider recurring payment options in case provider requires additional options for recurring payments\n",
+          "readOnly": true
+        },
+                {
           "name": "paymentMethodTypeSetups",
           "type":           {
             "name": "array",
@@ -2318,6 +2396,25 @@
         "name": "data",
         "type": "All APIs.Cashier Settings.dataMapEntry",
         "doc": "Set of key-value pairs. Key-value provider-specific additional information.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountRecurringPaymentOptions",
+      "displayName": "Provider Account Recurring Payment Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "status",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccountRecurringPaymentOptions_Status",
+        "doc": " Recurring Status\n",
         "readOnly": true
       }],
       "enum": null,
@@ -2914,6 +3011,42 @@
       "labels": []
     },
         {
+      "name": "_wix_cashier_v2_settings_EnableRecurringPaymentsRequest",
+      "displayName": "Enable Recurring Payments Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccountId",
+        "type": "string",
+        "doc": " Payment provider Id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_EnableRecurringPaymentsResponse",
+      "displayName": "Enable Recurring Payments Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "providerAccount",
+        "type": "All APIs.Cashier Settings._wix_cashier_v2_settings_ProviderAccount",
+        "doc": " Payment provider account entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_cashier_v2_settings_Field_FieldType",
       "displayName": "Field Type Object",
       "locations": [],
@@ -2970,6 +3103,26 @@
         "CLAIM_ACCOUNT_TO_ENABLE_PAYOUT",
         "CLAIM_ACCOUNT_TO_ENABLE_PAYOUT_AND_AVOID_SUSPENSION",
         "CLAIM_ACCOUNT_TO_ENABLE_PAYIN"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_cashier_v2_settings_ProviderAccountRecurringPaymentOptions_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> NOT_REQUESTED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> ACTIVE <\/code><\/li><li><code> REJECTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "NOT_REQUESTED",
+        "PENDING",
+        "ACTIVE",
+        "REJECTED"
       ],
       "extra": {},
       "labels": []
