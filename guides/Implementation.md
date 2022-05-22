@@ -1,4 +1,6 @@
-# Implementation
+# Best Practices
+
+## Adapters
 
 When designing your app's functionality, you might choose to build an adapter to manage your app's communication with Wix and with any other platforms.
 
