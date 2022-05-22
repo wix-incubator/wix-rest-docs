@@ -7,7 +7,7 @@ and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authenti
 OR
 - using [API Keys]()
 
-**REST SPIs**: a collection of SPI calls, based on SPI hosts' databases, that can be implemented by any integration that is:
+**REST SPIs**: a collection of SPI calls, based on the SPI hosts' databases, that can be implemented by any integration that is:
  - installed on a site using [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication) 
  - set up SPI configuration XXX.
 
