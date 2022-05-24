@@ -8,3 +8,5 @@ If you are implementing a Wix SPI, an adapter is expected.
 
 An adapter takes requests and responses from Wix and converts them into something another platform's service can receive. 
 It also takes requests and responses from other platforms and converts it into something Wix can receive.
+
+## Working with SPIs
