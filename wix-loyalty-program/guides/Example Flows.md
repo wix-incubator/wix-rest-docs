@@ -1,19 +1,19 @@
-# Example Use Cases and Flow: Loyalty
+# Example Flow
  
  
 This article shares possible use cases your app could support, as well as example flows. You're certainly not limited to these use cases, but it can be a helpful jumping off point as you plan your app's implementation.
  
  
-## Set Up Loyalty (Optional: by Syncing From an External Program)
- 
-Your app can help site owners set up Loyalty, add customer accounts, and help them sync their customers’ accounts from an external loyalty program.
- 
+## Set Up and Activate a Loyalty Program (Optional: by Syncing From an External Program)
+
+Your app can help site owners set up Wix Loyalty, add customer accounts, and help them sync their customers’ accounts from an external loyalty program.
+
  
 ### Step 1: Set Up Loyalty
  
-By default, every Wix site includes a loyalty program in `DRAFT` status. Until it has been activated, customers cannot earn points or redeem rewards. Retrieving such a program will return dummy data. Your app can help the site owners customize their program by calling the [Update Loyalty Program endpoint](https://dev.wix.com/api/rest/loyalty/update-loyalty-program). In the body of the call, you’ll need pass a program name and its point definition, as well as a URL of the point icon.
- 
->**Note:** The call will set up Loyalty with your customizations, but the program will stay in `DRAFT` status. Thus, customers cannot earn points or redeem rewards.
+By default, every Wix site includes a loyalty program in `DRAFT` status. Until it has been activated, customers cannot earn points or redeem rewards. Retrieving such a program will return sample data. Your app can help the site owners customize their program by calling [Update Loyalty Program](https://dev.wix.com/api/rest/loyalty/update-loyalty-program).
+
+>**Note:** The call will set up Loyalty with your customizations, but the program will stay in `DRAFT` status. Therefore, customers cannot earn points or redeem rewards at this stage.
  
 ```sh
 {
@@ -31,21 +31,15 @@ By default, every Wix site includes a loyalty program in `DRAFT` status. Until i
 }
 ```
  
+### Step 2: Activate the loyalty program
  
-### Step 2: Activate Loyalty
- 
-To activate the program, call the [Activate Loyalty Program](https://www.dev.wix.com/api/rest/loyalty/activate-program) endpoint.
- 
-```sh
- https://www.wixapis.com/loyalty/v1/program/activate
-```
- 
+To activate the program, call [Activate Loyalty Program](https://www.dev.wix.com/api/rest/loyalty/activate-program).
  
 ### Step 3 (Optional): Prepare a Mapping Between Loyalty and the External Program
  
 > **Note:** This step is only needed when syncing from an external loyalty program.
  
-If the site owners already have an external loyalty program, your app could prepare a mapping between the two programs. Make sure to include the customers’ email addresses, their external loyalty account IDs, as well as the point balances in the mapping. Later, you’ll add the Loyalty account Ids. To allow future two-way syncs, you can save this mapping on your servers.
+If the site owners already have an external loyalty program, your app could prepare a mapping between the two programs. Make sure to include the customers’ email addresses, their external loyalty account IDs, as well as the point balances. Later, you’ll add the Loyalty account IDs. To allow future 2-way syncs, you can save this mapping on your servers.
  
  
 ### Step 4: Retrieve a Customer’s Wix Contact or Member ID
@@ -63,27 +57,9 @@ You’ll use each email address to retrieve either the corresponding `contactId`
 > + Call the [Query Members endpoint](https://dev.wix.com/api/rest/members/members/query-members) passing the customer’s email address.
 > + Learn more about the [Wix Members API](https://dev.wix.com/api/rest/members).
  
- 
 ### Step 5: Create a Loyalty Account for Every Customer
  
-Now, your app could create a Loyalty account for every customer. To do so, call the [Create Account endpoint](https://www.dev.wix.com/api/rest/loyalty/create-account) once per customer. Each call needs to include either a `contact ID` or `member ID` as part of its body.
- 
-Example call using a `contactId`:
- 
-```sh
-{
-  "contactId": "8046df3c-7575-4098-a5ab-c91ad8f33c47"
-}
-```
- 
-Example call using a `memberId`:
- 
-```sh
-{
-  "memberId": "e62e3011-55cf-4de3-a497-e097b52d86b7"
-}
-```
- 
+Now, your app could create a Loyalty account for every customer. To do so, call the [Create Account endpoint](https://www.dev.wix.com/api/rest/loyalty/create-account) once per customer. Each call needs to include either a `contactID` or `memberID` as part of its body.
  
 ### Step 6 (Optional): Retrieve the Customer’s Point Balance From the External Program
  
@@ -96,7 +72,7 @@ If the site owners already have an external loyalty program, your app needs to c
  
 > **Note:** This step is only needed when syncing from an external loyalty program.
  
-Finally, your app could help the site owners sync their customers’ point balances from an external loyalty program. To do so, call the [Adjust Points endpoint](https://www.dev.wix.com/api/rest/loyalty/adjust-points). You’ll need to perform one call for every customer and include the `accountID` and point balance in the body of the request.
+Finally, your app could help the site owners sync their customers’ point balances from an external loyalty program. To do so, call the [Adjust Points endpoint](https://www.dev.wix.com/api/rest/loyalty/adjust-points). Perform one call for every customer, and include the `accountId` and `balance` in the body of the request.
  
 ```sh
 {
@@ -110,25 +86,25 @@ Finally, your app could help the site owners sync their customers’ point balan
 ```
  
  
-## Two-way Sync Loyalty with an External Program
+## 2-way sync loyalty with an external program
  
 Your app could help businesses with an external loyalty program keep their programs synced.
  
 1. Create a mapping between the external program and Loyalty.
-	> **Note:** Make sure to include the customer’s email, both account IDs, and current point balance in the mapping. Store the mapping on your servers. You can see one example how to set up such a mapping in the [Set Up Loyalty Flow](https://dev.wix.com/api/rest/loyalty/example_flows#set_up_loyalty).
-1. Listen to all relevant Loyalty and external webhooks:
+	> **Note:** Make sure to include the customer’s email, both account IDs, and current point balance in the mapping. Store the mapping on your server. You can see one example of how to set up such a mapping in the [Set Up Loyalty Flow](#set-up-loyalty).
+1. Listen for all relevant Loyalty and external webhooks:
     * Account created
     * Account deleted
     * Balance updated
 1. Update the point balance, and add or delete accounts in the mapping accordingly.
-1. Adjust Loyalty or the external program accordingly.
+1. Adjust Wix Loyalty or the external program accordingly.
     > **Note:** Make sure to include logic that ignores webhooks triggered as the result of a sync. This will prevent your app from getting caught in an endless loop.
  
  
  
-## Notify Customers Nearing a Milestone and Assign Milestone Badges When They Reach It
+## Notify customers nearing a milestone and assign milestone badges when they reach it
  
-Your app can check which customers are close to reaching a 1000 Loyalty points. Then you could email them that they are close to reaching this milestone, and the benefits they'll receive when they do. Finally, your app could get notified when a customer actually reaches this mark and assign them a badge for that milestone.
+Your app can check which customers are close to reaching 1,000 loyalty points. Then you could email them that they are close to reaching this milestone, and the benefits they'll receive when they do. Finally, your app could get notified when a customer actually reaches this mark and assign them a badge for that milestone.
   
 ### Step 1: Identify Customers Who are Close to Reaching a Loyalty Milestone
  
