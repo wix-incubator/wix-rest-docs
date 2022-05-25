@@ -15,7 +15,6 @@ Endpoints that allow for querying follow the [API Query Language](https://dev.wi
 | id |$eq, $ne, $hasSome|Allowed|
 | title |$eq, $ne, $contains, $hasSome, $urlized, $startsWith, $endsWith, $hasSome|Allowed|
 | excerpt |$eq, $ne, $contains, $hasSome, $urlized, $startsWith, $endsWith, $hasSome|Allowed|
-| contentText |$eq, $ne, $contains, $hasSome, $urlized, $startsWith, $endsWith, $hasSome|Allowed|
 | firstPublishedDate |$eq, $ne, $lt, $lte, $gt, $gte|Allowed|
 | lastPublishedDate |$eq, $ne, $lt, $lte, $gt, $gte|Allowed|
 | url |$eq, $ne, $lt, $lte, $gt, $gte||

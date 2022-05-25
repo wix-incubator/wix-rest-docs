@@ -3,7 +3,7 @@ SortOrder: 1
 
 ## Query Language
 
-Endpoints that allow querying follow these format [guidelines](https://github.com/wix-private/platformization-guidelines/blob/master/Server/API-Query.md).
+Endpoints that allow querying follow these format [guidelines](https://dev.wix.com/api/rest/getting-started/api-query-language).
 
 ## Fields That Allow Filtering
 
@@ -16,7 +16,7 @@ Endpoints that allow querying follow these format [guidelines](https://github.co
 | number |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
 | fulfillmentStatus |$eq,$ne,$hasSome|
 | id |$eq,$ne,$hasSome|
-| lineItems.productId|$eq,$ne,$hasSome,$hasAll| 
+| lineItems.productId|$eq,$ne,$hasSome,$hasAll|
 | lineItems.name|$eq,$ne,$hasSome,$hasAll|
 | billingInfo.address.fullName|$eq,$ne,$hasSome,$contains,$startsWith|
 | buyerInfo.id|$eq,$ne,$hasSome|
@@ -32,13 +32,13 @@ Endpoints that allow querying follow these format [guidelines](https://github.co
 
 ```
 curl 'https://www.wixapis.com/stores/v2/orders/query' --data-binary '{"query":{"filter":"{\"paymentStatus\": \"PAID\"}"}}' -H 'Content-Type: application/json' -H 'Authorization: XXX'
-``` 
+```
 
 **Get all orders, sorted by creation time**
 
 ```
 curl 'https://www.wixapis.com/stores/v2/orders/query' --data-binary '{"query":{"sort":"[{\"dateCreated\": \"asc\"}]"}}' -H 'Content-Type: application/json' -H 'Authorization: XXX'
-``` 
+```
 
 **Get orders updated within a specific timeframe**
 ```
@@ -49,4 +49,4 @@ curl 'https://www.wixapis.com/stores/v2/orders/query' --data-binary '{"query": {
 
 ```
 curl 'https://www.wixapis.com/stores/v2/orders/query' --data-binary '{"query":{"filter":"{\"id\": {\"$hasSome\": [\"ORDER_ID_1\",\"ORDER_ID_2\"]}}"}}' -H 'Content-Type: application/json' -H 'Authorization: xxx'
-``` 
+```

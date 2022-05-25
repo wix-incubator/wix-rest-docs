@@ -1,58 +1,134 @@
-SortOrder: 9
-# Sort and Filter
+SortOrder: 6
+# Sorting, Filtering, and Searching
 
-_List_ and _Query_ endpoints allow sorting results by field.
-Use `field:ASC` to sort results in ascending order,
-and `field:DESC` to sort in descending order.
+_List_ and _Query_ endpoints allow you to filter and sort results
+based on some contact properties and extended field values.
+This article covers field support for filtering and sorting.
 
-For example, to sort contacts by first name in descending order:
+## Sorting
+
+The method you use to sort results depends
+on whether you're calling a
+[List endpoint](#sorting-list-endpoints)
+or a
+[Query endpoint](#sorting-query-endpoints).
+Instructions for both methods are covered below.
+
+By default, contacts are sorted by `createdDate` in ascending order.
+
+### Sorting List Endpoints
+
+_List_ endpoints are designed to be lightweight. They support basic functionality
+for specifying which results you want returned.
+For this reason, when working with a _List_ endpoint,
+sorting is applied through the `sort.fieldName` and `sort.order` query parameters.
+
+For example, to list contacts by last name in ascending order,
+append these query parameters to the request:
+
+```txt
+?sort.fieldName=info.name.last&sort.order=DESC
+```
+
+### Sorting Query Endpoints
+
+_Query_ endpoints contain more robust filtering capabilities
+than _List_ endpoints.
+When working with a _Query_ endpoint,
+sorting is specified in the request body
+with the `query.sort.fieldName` and `query.sort.order` parameters.
+
+For example, to list contacts by last name in ascending order,
+include this code in the request body:
 
 ```json
 {
-  "sort": {
-    "fieldName": "info.name.first",
-    "order": "DESC"
+  "query": {
+    "sort": {
+      "fieldName": "info.name.last",
+      "order": "ASC"
+    }
   }
 }
 ```
 
-The default sort is `createdDate:ASC`.
-
-Refer to the table below to check which fields support sorting.
-
-## Field Support for Filtering, Sorting, and Searching
+## Contact Properties: Filtering, Sorting, and Searching
 
 The table below shows field support for filters, sorting,
 and free-text searching.
 
-> **Note:**
-> This table lists only the core Contact List fields.
-> For information on working with extended fields —
-> including fields managed by other Wix apps —
-> see [Extended Fields][md-ext-fields].
+| Field                        | Supported Filters                             | Sortable | Searchable |
+| ---------------------------- | --------------------------------------------- | -------- | ---------- |
+| `id`                         | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `createdDate`                | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `updatedDate`                | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    |          |            |
+| `lastActivity.activityDate`  | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `primaryInfo.email`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `primaryInfo.phone`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.name.first`            | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.name.last`             | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.emails.email`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.phones.phone`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.addresses.street`      | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.city`        | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.subdivision` | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.addresses.country`     | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.company`               | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.jobTitle`              | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.birthdate`             | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `info.locale`                | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.labelKeys`             | `$hasSome`, `$hasAll`                         |          |            |
+| `info.locations`             | `$hasSome`, `$hasAll`                         |          |            |
 
-| Field                              | Data Type/Format                                        | Supported Filters                          | Sortable | Searchable |
-| ---------------------------------- | ------------------------------------------------------- | ------------------------------------------ | -------- | ---------- |
-| `id`                               | GUID string                                             | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `createdDate`                      | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `updatedDate`                      | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` |          |            |
-| `lastActivity.activityDate`        | UTC datetime string in `YYYY-MM-DDThh:mm:ss.sss` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `primaryInfo.email`                | Valid email string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `primaryInfo.phone`                | Valid phone string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.name.first`                  | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable | Searchable |
-| `info.name.last`                   | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable | Searchable |
-| `info.emails.email`                | Valid email string                                      | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          | Searchable |
-| `info.phones.phone`                | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          | Searchable |
-| `info.addresses.street`            | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.addresses.city`              | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` |          |            |
-| `info.addresses.subdivision`       | ISO 3166-2 subdivision code (e.g., `US-NY`)             | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.addresses.country`           | Country ISO 2 letter code                               | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.company`                     | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `info.jobTitle`                    | String                                                  | `$eq`, `$ne`, `$in`, `$nin`, `$startsWith` | Sortable |            |
-| `info.birthdate`                   | Date string in `YYYY-MM-DD` format.                     | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| `info.locale`                      | Locale code (Example: `en-us` for U.S. English)         | `$eq`, `$ne`, `$in`, `$nin`                |          |            |
-| `info.labelKeys`                   | String                                                  | `$hasSome`, `$hasAll`                      |          |            |
-| `info.locations`                   | GUID string                                             | `$hasSome`, `$hasAll`                      |          |            |
+## Extended Fields: Filtering, Sorting, and Searching
+
+> **Deprecation Notice**
+>
+> These extended fields have been deprecated
+> and will be removed on March 31, 2022:
+>
+> - `contacts.displayByFirstName`
+> - `contacts.displayByLastName`
+> - `ecom.lastPurchaseDate`
+> - `ecom.numOfPurchases`
+> - `ecom.totalSpentAmount`
+> - `ecom.totalSpentCurrency`
+> - `members.mobile`
+
+[Extended fields](https://dev.wix.com/api/rest/contacts/contacts/extended-fields)
+allow apps to add to the available data in the Contact List.
+In addition to the default fields, some Wix apps manage their own extended fields.
+
+> **Note:**
+> When working directly with the [contact object](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object),
+> data in extended fields must be accessed using bracket notation, like this:
+> `info.extendedFields["{key}"]`.
+> However, when querying or sorting,
+> extended field names are flattened with dot notation, like this:
+> `"info.extendedFields.{key}"`.
+
+| Field                                     | Supported Filters         | Sortable | Searchable |
+| ----------------------------------------- | ------------------------- | -------- | ---------- |
+| `invoices.vatId`                          |                           |          |            |
+| `members.membershipStatus`                | `$eq`,`$ne`,`$in`, `$nin` |          |            |
+| `emailSubscriptions.deliverabilityStatus` | `$eq`,`$ne`,`$in`, `$nin` |          |            |
+| `emailSubscriptions.subscriptionStatus`   | `$eq`,`$ne`,`$in`, `$nin` |          |            |
+| `emailSubscriptions.effectiveEmail`       | `$exists`                 | Sortable |            |
+
+## Custom Fields: Filtering, Sorting, and Searching
+
+Extended fields that are created by 3rd-party apps and site contributors
+are known as _custom fields_.
+Site contributors can add, remove, and change custom field names
+from the
+[Contact List](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts)
+in their site's Dashboard.
+
+| Data Type/Format                   | Supported Filters                          | Sortable | Searchable |
+| ---------------------------------- | ------------------------------------------ | -------- | ---------- |
+| String                             | `$eq`, `$ne`, `$in`, `$startsWith`         | Sortable |            |
+| Number                             | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
+| Date string in `YYYY-MM-DD` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
 
 ## Examples
 
@@ -60,26 +136,51 @@ and free-text searching.
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter":{"info.name.first": "John"}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "info.name.first": "John"
+      }
+    }
+  }'
 ```
 
 **Get contacts with last name 'Smith', sorted by date of creation**
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter": {"info.name.last": "Smith"}, \
-  "sort": {"fieldName": "createdDate","order" : "ASC"}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "info.name.last": "Smith"
+      },
+      "sort": [
+        {
+          "fieldName": "createdDate",
+          "order": "ASC"
+        }
+      ]
+    }
+  }'
 ```
 
 **Get contacts by IDs**
 
 ```sh
 curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  --data-binary '{"filter":{"id": {"$in": ["CONTACT_ID_1","CONTACT_ID_2"]}}}' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>'
+  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
+  --data-binary '{
+    "query": {
+      "filter": {
+        "id": {
+          "$in": [
+            "de73c8ad-fbaf-490d-a385-2d53b26b3777",
+            "4511f1d2-c129-4b4f-a17c-99dcf07e2a2e"
+          ]
+        }
+      }
+    }
+  }'
 ```
-
-[iso-4217-currency]: https://www.iso.org/iso-4217-currency-codes.html
-[md-ext-fields]: ./extended-fields.md

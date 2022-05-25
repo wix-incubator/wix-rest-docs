@@ -1,5 +1,9 @@
-SortOrder: 5
+SortOrder: 4
 # Field Masks in Update Requests
+
+> **Deprecation Notice:**
+> Field masks will be removed on March 31, 2022.
+> If your app uses field masks, update your code as soon as possible.
 
 When updating a contact,
 the Contacts API uses field masks.
