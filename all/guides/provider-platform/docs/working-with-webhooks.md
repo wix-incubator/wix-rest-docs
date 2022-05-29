@@ -28,7 +28,7 @@ When requesting an *Access Token*, pass `grant_type`=`client_credentials`, `scop
 Given the *Payment Plugin*'s *App ID*=`00000000-0000-0000-000000000000` and *App Secret Key*=`11111111-1111-1111-111111111111`. Make the following call to obtain an access token:
 ```bash
 curl -v -X POST \
-  'https://www.wix.com/oauth/access' \
+  'https://www.wixapis.com/oauth/access' \
   -H 'Content-Type: application/json' \
   -d '{
     "grant_type": "client_credentials",
