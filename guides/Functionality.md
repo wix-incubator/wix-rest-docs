@@ -1,19 +1,25 @@
 # About XXX
 
 
-**REST APIs**: a collection of API calls and events, based on Wix's databases, that can be used by any integration that is:
+## REST APIs 
+A collection of API calls and events, based on Wix's databases, that can be used by any integration that is:
 - installed on a site using standard HTTPS terminology 
 and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication)
 OR
-- using [API Keys]().
-*Why this is avaialable as an API:*
+- using [API Keys]().  
 
-**REST SPIs**: a collection of SPI calls, based on the SPI hosts' databases, that can be implemented by any integration that is:
+**Why this is available as an API**: Because the relevant information is stored in Wix's databases, which we're making available to you.
+
+## REST SPIs 
+A collection of SPI calls, based on the SPI hosts' databases, that can be implemented by any integration that is:
  - installed on a site using [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication) 
- - set up SPI configuration XXX.
-*Why this is avaialable as an SPI:*
+ - set up SPI configuration **XXX**.  
 
-**Client-side JS APIs**: a collection of APIs and events, based on Wix's databases, that can be used by any integration that is:
+**Why this is available as an SPI**: Because we want you to be able to push information from your databases into the Wix platform. There is no Wix database storing the relevant information. 
+
+## Client-side JS APIs
+A collection of APIs and events, based on Wix's databases, that can be used by any integration that is:
 - installed on a site using standard HTTPS terminology and [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication) 
-- injects JavaScript into a Wix site using the [Embedded Script component](https://devforum.wix.com/en/article/about-embedded-script-components).
-*Why this is avaialable as a client-side API:*
+- injects JavaScript into a Wix site using the [Embedded Script component](https://devforum.wix.com/en/article/about-embedded-script-components).  
+
+**Why this is available as a client-side API**: Because the relevant information is triggered directly in the live Wix site.
