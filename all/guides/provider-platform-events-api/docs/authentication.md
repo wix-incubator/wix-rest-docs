@@ -4,7 +4,7 @@ In order to authenticate with Wix's server during an event request you'll need t
 The request might look like this:
 ```bash
 curl -v -X POST \
-  'https://www.wix.com/oauth/access' \
+  'https://www.wixapis.com/oauth/access' \
   -H 'Content-Type: application/json' \
   -d '{
     "grant_type": "client_credentials",
