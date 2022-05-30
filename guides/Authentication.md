@@ -88,7 +88,7 @@ Exchange the temporary authorization code for an access token using the [OAuth >
 
 ```  
 curl -X POST \
-  https://www.wix.com/oauth/access \
+  https://www.wixapis.com/oauth/access \
   -H 'Content-Type: application/json' \
   -d '{
     "grant_type": "authorization_code",
