@@ -28,7 +28,7 @@ From the result, you can see whether inventory is being tracked for this product
 }
 ```
 
-## Step 2 - Update a specific variants on a product ([Update Inventory Status](https://dev.wix.com/api/rest/wix-stores/inventory/update-inventory-variants) endpoint)
+## Step 2 - Update a specific variant of a product ([Update Inventory Status](https://dev.wix.com/api/rest/wix-stores/inventory/update-inventory-variants) endpoint)
 
 Update whether the product inventory is tracked:
 ```
