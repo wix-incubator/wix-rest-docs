@@ -4,7 +4,7 @@
 ## REST APIs 
 A collection of API calls and events, based on Wix's databases, that can be used by any integration that is:
 - installed on a site using standard HTTPS terminology   
-AND 
+AND EITHER
 - [OAuth authentication](https://dev.wix.com/api/rest/getting-started/authentication),  
 OR
 - using [API Keys]().  
