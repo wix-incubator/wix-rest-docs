@@ -1,29 +1,27 @@
 SortOrder: 0
-# About Wix Loyalty Program
+# About Wix Loyalty
 
-With Wix Loyalty Program, site owners can create a loyalty program to increase customer retention. It allows customers to earn points they can redeem for rewards. Each Wix site can have one loyalty program.
+Wix site owners can install the Wix Loyalty Program app to their site to create a loyalty program for their customers. It allows customers to earn points that they can redeem for rewards.
 
-Wix Loyalty APIs allow you to set up and manage a site’s loyalty program, including program details and customer accounts. In your Dashboard, you can define automations to give customers points for certain actions that are not accessible via the API. See [Wix Loyalty Program: An Overview](https://support.wix.com/en/article/wix-loyalty-program-an-overview) for more details.
+Wix Loyalty APIs allow you to activate, update, and manage a site’s loyalty program, including details about the overall loyalty program and customer accounts. Additionally, from [a site owner's Dashboard](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Floyalty-accounts/wizard/), they can define automations that give their customers points based on certain actions that are currently not available via the API. See [Wix Loyalty Program: An Overview](https://support.wix.com/en/article/wix-loyalty-program-an-overview) for more details.
 
 Wix Loyalty APIs allow your app to:
 
-* Set up the program.
-* Customize the program, point name, point icon, and description.
+* Activate the program.
+* Customize the program, point name, and point icon.
 * Create customer accounts.
 * Manage account point balances.
 
 ## Terminology
 
 * **Program name:** Customizable name of the program.
-* **Point:** The 
-* **Program description:** Customizable description of the program that can include text, rich content text, links, pictures, and buttons.
-* **Account:** Every customer has an account that tracks their point balance, points earned and points redeemed. 
+* **Point:** The collectible unit of the program.
+* **Account:** Every customer has an account that tracks their point balance, points earned and points redeemed.
+* **Customer:** Can be a site member or a contact.
 
 ## Limitations
 
 * There can only be one loyalty program per Wix site.
-* Every Wix site comes with a pre-installed loyalty program in `DRAFT` status.
-* Customers cannot earn or redeem points while the program is not `ACTIVE`.
-* Only programs that have been set up can be activated.
+* Only a program that has been installed in a Wix site can be activated.
 * Each customer can have only one loyalty account.
-* Currently, your app cannot set automatic earning rules for purchases. You can set them up in the UI, see [this article](https://support.wix.com/en/article/wix-loyalty-program-an-overview) to learn how.
+* Currently, your app cannot set automatic earning rules for purchases. A site owner can set them up through their dashboard. To learn how, check out this article for an [overview on the Wix Loyalty Program](https://support.wix.com/en/article/wix-loyalty-program-an-overview).
