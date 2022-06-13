@@ -17,6 +17,7 @@ The Resellers APIs allow you to:
 * **Reseller:** Strategic partner that offers Wix services to their customers.
 * **Product Instance:** Wix service that the reseller offers to their customers.
 * **Service Type:** Wix service type. For example, `Website Plan`, `Business & eCommerce Plan`, or `Ascend`. See [Wix Premium Subscriptions](/docs/link) for more details.
+* **Voucher:** Time-limited benefit for non-Wix services that comes with some products.
 * **Package:** Group of Wix services that the reseller offers to the customer as part of a single transaction. 
 * **Site ID:** Unique identifier of a customer's Wix site. See the [Sites API](https://dev.wix.com/api/rest/account-level-apis/sites/query-sites) for more details.
 * **DIY:** Do-it-yourself business model. The resellers' customers will actively build and manage their sites in the Wix platform.
