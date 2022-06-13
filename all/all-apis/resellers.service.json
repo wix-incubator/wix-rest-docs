@@ -6,7 +6,7 @@
   "mixes": [],
   "labels": [],
   "docs":   {
-    "summary": "Partners and Resellers of wix services can use this API to provide their clients with wix premium features.",
+    "summary": "Manage Wix services that you offer to your customers.",
     "description": []
   },
   "properties": [],
@@ -272,15 +272,88 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a package of Wix services.\n\n> **Note:** Currently, you cannot use the Resellers API to assign a service to a specific Wix site after a package has been created.  \n> **Important**: This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.  \n \n",
+        "summary": "\nCreates a package of Wix services.\n\n<blockquote class='warning'>\n\n__Deprecation Notice:__\n\nThis endpoint has been replaced with\n[Create Package V2](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2)\nand will be removed on December 31, 2022.\n\n<\/blockquote>\n\n\n> **Note:** Currently, you cannot use the Resellers API to assign a service to a specific Wix site after a package has been created.\n\n> **Important**: This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.  \n\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v1/packages",
         "links": [],
         "examples": [        {
-          "title": "Create a package and assign",
+          "title": "Create a package",
           "body": ["curl --request POST 'https://www.wixapis.com/resellers/v1/packages' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"products\": [\n        {\n            \"catalogProductId\": \"00ba7923-2655-402a-852d-2b2100568bcf\",\n            \"siteId\": \"918aa943-ab4f-40bc-88c3-8dfd02fae7cd\",\n            \"billingInfo\": {\n                \"type\": \"RECURRING\",\n                \"cycleDuration\": {\n                    \"unit\": \"YEAR\",\n                    \"count\": 1\n                }\n            }\n        }\n    ],\n    \"external_id\": \"some-external-id\"\n}'"],
           "response": ["{\"package\": {\n  \"id\": \"828b98fb-7114-4b3c-90fd-8d0db76aa72b\",\n  \"accountId\": \"<ACCOUNT_ID>\",\n  \"externalId\": \"some-external-id\",\n  \"productInstances\": [  {\n    \"instanceId\": \"d3b88a39-f62e-4164-8b29-08369b9ea71c\",\n    \"siteId\": \"918aa943-ab4f-40bc-88c3-8dfd02fae7cd\",\n    \"catalogProductId\": \"00ba7923-2655-402a-852d-2b2100568bcf\",\n    \"status\": \"PENDING\",\n    \"billingInfo\":     {\n      \"type\": \"RECURRING\",\n      \"cycleDuration\":       {\n        \"unit\": \"YEAR\",\n        \"count\": 1\n      }\n    },\n    \"createdDate\": \"2021-12-02T15:45:30.941Z\",\n    \"updatedDate\": \"2021-12-02T15:45:30.941Z\"\n  }],\n  \"createdDate\": \"2021-12-02T15:45:31.815Z\",\n  \"updatedDate\": \"2021-12-02T15:45:31.815Z\"\n}} "],
+          "type": "curl",
+          "extra": {"description": "Create a package with single product assigned to a site"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreatePackageRequest",
+        "rpcResponseName": "CreatePackageResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Package V2",
+      "methodName": "CreatePackageV2",
+      "serviceName": "Packages",
+      "tag": "Packages",
+      "permissions": [      {
+        "name": "Manage Reseller Packages",
+        "description": "Request permission to read, create and modify the account's packages and assign products to a site."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "products",
+        "products.countryCode"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "idempotencyKey",
+          "type": "string",
+          "doc": " Idempotency key.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "externalId",
+          "type": "string",
+          "doc": " External reference. For example, an external subscription ID. **Note:** This field is not validated by Wix.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "products",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance"]
+          },
+          "doc": " Wix services that are resold.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreatePackageV2",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_CreatePackageResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a package of Wix services.    \n\nYou need to pass a `countryCode` to specify where customers can claim vouchers that may come with a product. \nContact the Wix B2B sales team at bizdev@wix.com to get information about vouchers and supported locations. \n\n> **Note:** Currently, you cannot use the Resellers API to assign a service to a specific Wix site after a package has been created.\n\n> **Important**: This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/resellers/v2/packages",
+        "links": [],
+        "examples": [        {
+          "title": "Create a package",
+          "body": ["curl --request POST 'https://www.wixapis.com/resellers/v1/packages' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"products\": [\n        {\n            \"catalogProductId\": \"00ba7923-2655-402a-852d-2b2100568bcf\",\n            \"siteId\": \"918aa943-ab4f-40bc-88c3-8dfd02fae7cd\",\n            \"billingInfo\": {\n                \"type\": \"RECURRING\",\n                \"cycleDuration\": {\n                    \"unit\": \"YEAR\",\n                    \"count\": 1\n                }\n            },\n            \"countryCode\": \"BR\"\n        }\n    ],\n    \"external_id\": \"some-external-id\"\n}'"],
+          "response": ["{\"package\": {\n  \"id\": \"828b98fb-7114-4b3c-90fd-8d0db76aa72b\",\n  \"accountId\": \"<ACCOUNT_ID>\",\n  \"externalId\": \"some-external-id\",\n  \"productInstances\": [  {\n    \"instanceId\": \"d3b88a39-f62e-4164-8b29-08369b9ea71c\",\n    \"siteId\": \"918aa943-ab4f-40bc-88c3-8dfd02fae7cd\",\n    \"catalogProductId\": \"00ba7923-2655-402a-852d-2b2100568bcf\",\n    \"status\": \"PENDING\",\n    \"billingInfo\":     {\n      \"type\": \"RECURRING\",\n      \"cycleDuration\":       {\n        \"unit\": \"YEAR\",\n        \"count\": 1\n      }\n    },\n    \"countryCode\": \"BR\",\n    \"createdDate\": \"2021-12-02T15:45:30.941Z\",\n    \"updatedDate\": \"2021-12-02T15:45:30.941Z\"\n  }],\n  \"createdDate\": \"2021-12-02T15:45:31.815Z\",\n  \"updatedDate\": \"2021-12-02T15:45:31.815Z\"\n}} "],
           "type": "curl",
           "extra": {"description": "Create a package with single product assigned to a site"}
         }],
@@ -466,6 +539,79 @@
       "members": [      {
         "name": "bodyAsJson",
         "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstanceFailed",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_reseller_packages_v1_PackageCreatedDomainEvent",
+      "displayName": "Package Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.reseller.v1.packages`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_PackageEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Package ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_reseller_packages_v1_PackageEntityCreatedEvent",
+      "displayName": "Package Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_Package",
         "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
@@ -907,79 +1053,6 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_premium_reseller_packages_v1_PackageCreatedDomainEvent",
-      "displayName": "Package Created Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.premium.reseller.v1.packages`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `created`.\nEvent name."
-        },
-                {
-          "name": "createdEvent",
-          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_PackageEntityCreatedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "Package ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_premium_reseller_packages_v1_PackageEntityCreatedEvent",
-      "displayName": "Package Entity Created Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "entityAsJson",
-        "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_Package",
-        "doc": "Event body as a stringified JSON"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_com_wixpress_premium_reseller_packages_v1_UnassignedProductInstanceFromSiteDomainEvent",
       "displayName": "Unassigned Product Instance From Site Domain Event Object",
       "locations": [],
@@ -1156,7 +1229,7 @@
                 {
           "name": "status",
           "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Status",
-          "doc": " Package status.\n",
+          "doc": "\nPackage status.\n",
           "readOnly": true
         },
                 {
@@ -1168,7 +1241,7 @@
                 {
           "name": "contractDetails",
           "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_ContractDetails",
-          "doc": " Information about the contract between the reseller and wix.\n"
+          "doc": " Information about the contract between the reseller and Wix.\n"
         },
                 {
           "name": "createdDate",
@@ -1181,6 +1254,11 @@
           "type": "string",
           "doc": " Date and time the product instance was last updated.\n",
           "readOnly": true
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": "\nTwo-letter country code in\n[ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\nformat. Specifies where customers can claim vouchers that may come with the product. \nContact the Wix B2B sales team to get more information about vouchers and supported locations. \n"
         }
       ],
       "enum": null,
@@ -1199,7 +1277,7 @@
       "members": [      {
         "name": "billingInfo",
         "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Cycle",
-        "doc": " Billing information for the contract between the reseller and wix.\n"
+        "doc": " Billing information for the contract between the reseller and Wix.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1211,7 +1289,7 @@
       "displayName": "Package Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": "\nA package is group of Wix services that the reseller offers to the customer as part of a single transaction.\n",
         "links": [],
         "examples": []
       },
@@ -2052,6 +2130,11 @@
           "name": "metadata",
           "type": "All APIs.Resellers.metadataMapEntry",
           "doc": "Set of key-value pairs. custom metadata associated with the subscription\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " the country code to which the subscription was provisioned\n"
         }
       ],
       "enum": null,
@@ -2351,6 +2434,11 @@
           "name": "previousProductTypeId",
           "type": "string",
           "doc": " previous product type ID of the product\n"
+        },
+                {
+          "name": "contractSwitchType",
+          "type": "All APIs.Resellers._com_wixpress_premium_billingnotifications_api_v1_ContractSwitchType",
+          "doc": " Type of contract switch\n"
         }
       ],
       "enum": null,
@@ -3049,6 +3137,31 @@
         "MANUAL_RECURRING",
         "CANCELLED",
         "TRANSFERRED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_billingnotifications_api_v1_ContractSwitchType",
+      "displayName": "Contract Switch Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Copied from SBS\n \n Possible values are: <li><code> NOT_APPLICABLE <\/code><\/li><li><code> ADDITIONAL_QUANTITY <\/code><\/li><li><code> CREDIT_UNUSED_PERIOD <\/code><\/li><li><code> REFUND_PRICE_DIFF <\/code><\/li><li><code> ADJUST_PERIOD_END <\/code><\/li><li><code> DOWNGRADE_GRACE_PERIOD <\/code><\/li><li><code> FULL_AMOUNT_PERIOD <\/code><\/li><li><code> END_OF_PERIOD <\/code><\/li><li><code> PENDING_CHANGES <\/code><\/li><li><code> DOWNGRADE_RENEWAL <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NOT_APPLICABLE",
+        "ADDITIONAL_QUANTITY",
+        "CREDIT_UNUSED_PERIOD",
+        "REFUND_PRICE_DIFF",
+        "ADJUST_PERIOD_END",
+        "DOWNGRADE_GRACE_PERIOD",
+        "FULL_AMOUNT_PERIOD",
+        "END_OF_PERIOD",
+        "PENDING_CHANGES",
+        "DOWNGRADE_RENEWAL"
       ],
       "extra": {},
       "labels": []
