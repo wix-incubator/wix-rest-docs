@@ -16,7 +16,7 @@ in `DESC` (descending) order by `createdDate` by default.
 You can override the default sort order by specifying a new sorting field
 and sort order.
 
-### Sort _List_ Endpoints
+### Sort _List_ endpoints
 
 _List_ endpoints are designed to be lightweight HTTP GET requests.
 For this reason, sorting is applied through the query parameters,
@@ -37,7 +37,7 @@ for each sort field:
 ?sort.fieldName=info.name.last&sort.order=ASC&sort.fieldName=createdDate&sort.order=ASC
 ```
 
-### Sort _Query_ Endpoints
+### Sort _Query_ endpoints
 
 _Query_ endpoints offer more robust filtering capabilities.
 When working with a _Query_ endpoint,
