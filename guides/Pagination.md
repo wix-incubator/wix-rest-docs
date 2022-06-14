@@ -11,10 +11,10 @@ including which fields are sortable.
 
 ## Sorting
 
-Returned items are typically sorted
-in `DESC` (descending) order by `createdDate` by default.
-You can override the default sort order by specifying a new sorting field
-and sort order.
+Most APIs default to sorting by `createdDate` in `DESC` (descending) order,
+although some APIs have a different default sort order.
+You can override the default sorting by specifying
+a new field and order.
 
 ### Sort _List_ endpoints
 
@@ -41,7 +41,7 @@ for each sort field:
 
 _Query_ endpoints offer more robust filtering capabilities.
 When working with a _Query_ endpoint,
-sorting is specified in an array the request body,
+sorting is specified in an array in the request body,
 typically `query.sort`.
 For each `sort` object,
 sorting is applied with the `fieldName` and `order` parameters.
