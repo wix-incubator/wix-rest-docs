@@ -1,6 +1,6 @@
 # Sorting and Paging
 
-_List_ and _Query_ Endpoints that return a list of entities
+_List_ and _Query_ endpoints that return a list of entities
 allow you to specify sorting and paging options in the request.
 
 This articles gives a general overview of sorting and paging.
