@@ -13,6 +13,7 @@ the contact's name, primary email, and primary phone number.
 
 The default fieldset is typically the full object,
 although your API may specify a different default fieldset.
+See your API's documentation for specific details.
 
 **Projected fields**, on the other hand,
 allow you to supply a list of fields to return.
@@ -24,6 +25,3 @@ all fields included in the `BASIC` fieldset and `info.birthdate` are returned.
 
 If neither fieldsets nor projected fields are specified,
 the default fieldset is returned.
-Typically, the default fieldset is the full object,
-but some APIs default to a different fieldset.
-See your API's documentation for specific details.
