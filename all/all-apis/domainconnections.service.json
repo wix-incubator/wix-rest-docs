@@ -1,0 +1,493 @@
+{
+  "name": "DomainConnections",
+  "client_id": "https://github.com/wix-private/premium/tree/master/domains/domain-connect#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Connects a domain to a Wix site.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "DomainConnections",
+    "entity": "_com_wixpress_premium_domain_connect_DomainConnection"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/domainconnections/docs/README.md",
+      "name": "READ ME"
+    },
+        {
+      "path": "../guides/domainconnections/docs/UseCases.md",
+      "name": "Internal Use Cases"
+    },
+        {
+      "path": "../guides/domainconnections/docs/PublicIntro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/domainconnections/docs/Intro.md",
+      "name": "Internal Introduction"
+    }
+  ],
+  "operations": [  {
+    "name": "Connect Domain",
+    "methodName": "ConnectDomain",
+    "serviceName": "ConnectDomainService",
+    "tag": "DomainConnections",
+    "permissions":     [
+            {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      },
+            {
+        "name": "Manage Reseller Packages",
+        "description": "Request permission to read, create and modify the account's packages and assign products to a site."
+      }
+    ],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields":     [
+      "domainConnection",
+      "domainConnection.domain"
+    ],
+    "params": [    {
+      "in": "BODY",
+      "name": "domainConnection",
+      "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_DomainConnection",
+      "doc": "\nDomain to connect.\n",
+      "required": true
+    }],
+    "ret":     {
+      "type":       {
+        "name": "ConnectDomain",
+        "statusCode": "200",
+        "typeParams": ["All APIs.DomainConnections._com_wixpress_premium_domain_connect_ConnectDomainResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": "\nConnects a domain or subdomain to a Wix site.\n\nThe domain can be assigned as a primary domain or a redirect. \nYou can read more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\n\n> __Note:__ You can't pass the default nameserver record in the `dnsRecords` array of the call's body. \n> This results in an error.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.\n\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/domain-connect/v1/connect-domain",
+      "links": [],
+      "examples":       [
+                {
+          "title": "Connect a domain using nameservers",
+          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"NAMESERVERS\",\n    \"assignAs\": \"PRIMARY\",\n    \"nameserverInfo\": {\n        \"dnsRecords\": [\n            {\n                  \"type\": \"MX\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"10 aspmx.l.google.com\"\n                  ]\n            },\n            {\n                  \"type\": \"TXT\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"\n                  ]\n            }\n        ]\n    }\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"assignAs\": \"PRIMARY\",\n  \"nameserverInfo\":   {\n    \"nsRecord\":     {\n      \"type\": \"NS\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 86400,\n      \"values\":       [\n        \"ns13.wixdns.net\",\n        \"ns12.wixdns.net\"\n      ]\n    },\n    \"dnsRecords\":     [\n            {\n        \"type\": \"MX\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"10 aspmx.l.google.com\"]\n      },\n            {\n        \"type\": \"TXT\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"]\n      }\n    ]\n  }\n}} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Connect a domain by pointing",
+          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"POINTING\",\n    \"assignAs\": \"PRIMARY\",\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"POINTING\",\n  \"assignAs\": \"PRIMARY\",\n  \"pointingInfo\":   [\n        {\n      \"type\": \"A\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"23.236.62.147\"]\n    },\n        {\n      \"type\": \"CNAME\",\n      \"hostName\": \"www.mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"www182.wixdns.net\"]\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Connect a subdomain",
+          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"sub.mysite.com\",\n    \"suppressNotifications\": true,\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"sub.mysite.com\",\n  \"connectionType\": \"UNKNOWN\",\n  \"assignAs\": \"UNKNOWN\",\n  \"suppressNotifications\": true,\n  \"subdomainInfo\": {\"cnameRecords\":   [\n        {\n      \"hostName\": \"sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    },\n        {\n      \"hostName\": \"www.sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    }\n  ]}\n}} "],
+          "type": "curl",
+          "extra": {}
+        }
+      ],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "ConnectDomainRequest",
+      "rpcResponseName": "ConnectDomainResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_premium_domain_connect_DnsRecord",
+      "displayName": "Dns Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_DnsRecord_RecordType",
+          "doc": " DNS record type.\n"
+        },
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": " Domain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " DNS record values.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_ARecord",
+      "displayName": "A Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": " Domain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " DNS record values.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_CnameRecord",
+      "displayName": "Cname Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": "\nDomain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " DNS record value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_NsRecord",
+      "displayName": "Ns Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": " Domain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " DNS record values.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_DomainConnection",
+      "displayName": "Domain Connection Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "domain",
+          "type": "string",
+          "doc": " Domain name. Both root domains and subdomains are supported.\n"
+        },
+                {
+          "name": "connectionType",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_ConnectionTypeEnum_ConnectionType",
+          "doc": "\nHow the domain is connected to the Wix site. \n__Note:__ When you connect a domain, you can only pass `POINTING` or `NAMESERVERS` in the request. For subdomains, you aren't allowed to pass any connection type.\n"
+        },
+                {
+          "name": "assignAs",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_AssignAsEnum_AssignAs",
+          "doc": "\nWhether the domain is assigned as a primary domain or a redirect. \nRead more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains). \n__Note:__ When you connect a domain or subdomain, you aren't allowed to pass `UNKNOWN` in the request.\n"
+        },
+                {
+          "name": "suppressNotifications",
+          "type": "boolean",
+          "doc": " Whether the site owner receives standard email notifications from Wix about the domain connection. Defaults to `false`.\n"
+        },
+                {
+          "name": "connectionInfo",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_DomainConnection_ConnectionInfo",
+          "doc": " dns records according to the connection type\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_DomainConnection_ConnectionInfo",
+      "displayName": "Connection Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nameserverInfo",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_NameserverInfo",
+          "doc": " Information about domains connected using nameservers.\n"
+        },
+                {
+          "name": "pointingInfo",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_PointingInfo",
+          "doc": " Information about domains connected by pointing.\n",
+          "readOnly": true
+        },
+                {
+          "name": "subdomainInfo",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_SubdomainInfo",
+          "doc": " Information about subdomains.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_NameserverInfo",
+      "displayName": "Nameserver Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about domains connected by nameservers.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "dnsRecords",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainConnections._com_wixpress_premium_domain_connect_DnsRecord"]
+          },
+          "doc": "\nDNS records. __Note:__ Doesn't include the default nameserver record.\n"
+        },
+                {
+          "name": "nsRecord",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_NsRecord",
+          "doc": " Default [nameserver record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#NS).\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_PointingInfo",
+      "displayName": "Pointing Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about domains connected by pointing.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "aRecord",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_ARecord",
+          "doc": " [Address record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#A).\n",
+          "readOnly": true
+        },
+                {
+          "name": "cnameRecord",
+          "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_CnameRecord",
+          "doc": " [Canonical Name record](https://en.wikipedia.org/wiki/CNAME_record).\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_SubdomainInfo",
+      "displayName": "Subdomain Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about subdomains.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cnameRecords",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.DomainConnections._com_wixpress_premium_domain_connect_CnameRecord"]
+        },
+        "doc": " [Canonical Name records](https://en.wikipedia.org/wiki/CNAME_record).\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_ConnectDomainRequest",
+      "displayName": "Connect Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainConnection",
+        "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_DomainConnection",
+        "doc": "\nDomain to connect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_ConnectDomainResponse",
+      "displayName": "Connect Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainConnection",
+        "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_DomainConnection",
+        "doc": "\nConnected domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_DnsRecord_RecordType",
+      "displayName": "Record Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> CNAME <\/code><\/li><li><code> TXT <\/code><\/li><li><code> MX <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "CNAME",
+        "TXT",
+        "MX"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_ConnectionTypeEnum_ConnectionType",
+      "displayName": "Connection Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> POINTING <\/code><\/li><li><code> NAMESERVERS <\/code><\/li><li><code> INTERNAL - *\ninternal used by photography company.\nwhen a customer creates a photo album, each album has its sub domain and this sub domain\nis not visible in my domains page.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "POINTING",
+        "NAMESERVERS",
+        "INTERNAL"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connect_AssignAsEnum_AssignAs",
+      "displayName": "Assign As Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PRIMARY <\/code><\/li><li><code> REDIRECT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "PRIMARY",
+        "REDIRECT"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.domain.connect.domain-connect"}
+}
