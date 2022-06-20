@@ -27,7 +27,7 @@ If the user chooses to install your app from within the Wix App Market, we redir
   </p>
 </blockquote>
 
-## Step 2: App Sends Users to Authorize the App
+## Step 2: App Sends Users to Authorize the App 
 Your app should redirect users to the URL below so that we can ask them to approve a list of permissions your app is requesting (based on the [permissions](https://dev.wix.com/api/getting-started#permissions) you added in the Wix Developers Center).  
 
 <br/>
