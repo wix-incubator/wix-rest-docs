@@ -4,15 +4,16 @@
 
 SPIs are APIs that are defined by Wix, which you may choose to implement.
 By doing so, you will become  a _service provider_, and then Wix will call your application during a certain flow, wait for your response, 
-and continue the flow with your response.
+and continue the flow with your response.  
+
 For example, a _Local Delivery Provider_ application may implement the _Restaurants Local Delivery SPI_ that includes a `Get Delivery Estimate` endpoint. 
 Once installed and enabled on a site, this provider will be called to fetch applicable delivery estimates during the customer’s checkout flow on that site.
 
 ## Terminology
 * _SPI_ - Service Provider Interface - the API specification that has to be implemented by _Service Providers_.
-* _SPI Host_ - the Wix service that calls your application during one of its business flows
-* _Service Provider_  (a.k.a. _implementer_) - the application that implements the _SPI_.
-*_Public Key_ - a key available to you in the Wix Developers Center to very Wix’s request signatures.
+* _SPI Host_ - the Wix service that calls your application during one of its business flows.  
+* _Service Provider_  (a.k.a. _implementer_) - the application that implements the _SPI_.  
+* _Public Key_ - a key available to you in the Wix Developers Center to very Wix’s request signatures.  
 * _Events_ - asynchronous events sent from the _service provider_ to the _SPI host_ (the equivalent of an API call under other circumstances, and using the standard OAuth2 authorization).
 
 ## Setup
@@ -44,7 +45,7 @@ The `metadata` in the envelope is common to all SPI endpoints, although some att
 The following envelope attributes are:
 * `requestId` - a unique identifier of the request. You may print this ID to your logs to help with future debugging and easier correlation with Wix' logs.
 * `currency` - [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3 letter currency code.
-* `locale` - a string that represents the country and language in which the response from the Service Provider is expected to be returned, in  `<[ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)>-<[ISO 3166-1: 2 Alpha code](https://en.wikipedia.org/wiki/ISO_3166-1): country-code>` format. E.g. `en-US`.
+* `locale` - a string that represents the country and language in which the response from the Service Provider is expected to be returned in concatenated  [ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and [ISO 3166-1: 2 Alpha country-code](https://en.wikipedia.org/wiki/ISO_3166-1) format. E.g. `en-US`.
 * `identity` - An object that describes the identity that triggered this request, with the following structure:
 
 ```json
