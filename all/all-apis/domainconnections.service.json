@@ -37,16 +37,10 @@
     "methodName": "ConnectDomain",
     "serviceName": "ConnectDomainService",
     "tag": "DomainConnections",
-    "permissions":     [
-            {
-        "name": "Manage Domains",
-        "description": "Request permission to read, create and modify the account's connected domains."
-      },
-            {
-        "name": "Manage Reseller Packages",
-        "description": "Request permission to read, create and modify the account's packages and assign products to a site."
-      }
-    ],
+    "permissions": [    {
+      "name": "Manage Domains",
+      "description": "Request permission to read, create and modify the account's connected domains."
+    }],
     "events": [],
     "labels": [],
     "nameParams": [],
@@ -79,21 +73,21 @@
       "examples":       [
                 {
           "title": "Connect a domain using nameservers",
-          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"NAMESERVERS\",\n    \"assignAs\": \"PRIMARY\",\n    \"nameserverInfo\": {\n        \"dnsRecords\": [\n            {\n                  \"type\": \"MX\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"10 aspmx.l.google.com\"\n                  ]\n            },\n            {\n                  \"type\": \"TXT\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"\n                  ]\n            }\n        ]\n    }\n}'"],
+          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"NAMESERVERS\",\n    \"assignAs\": \"PRIMARY\",\n    \"nameserverInfo\": {\n        \"dnsRecords\": [\n            {\n                  \"type\": \"MX\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"10 aspmx.l.google.com\"\n                  ]\n            },\n            {\n                  \"type\": \"TXT\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"\n                  ]\n            }\n        ]\n    }\n}'"],
           "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"assignAs\": \"PRIMARY\",\n  \"nameserverInfo\":   {\n    \"nsRecord\":     {\n      \"type\": \"NS\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 86400,\n      \"values\":       [\n        \"ns13.wixdns.net\",\n        \"ns12.wixdns.net\"\n      ]\n    },\n    \"dnsRecords\":     [\n            {\n        \"type\": \"MX\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"10 aspmx.l.google.com\"]\n      },\n            {\n        \"type\": \"TXT\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"]\n      }\n    ]\n  }\n}} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Connect a domain by pointing",
-          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"POINTING\",\n    \"assignAs\": \"PRIMARY\",\n}'"],
+          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"POINTING\",\n    \"assignAs\": \"PRIMARY\",\n}'"],
           "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"POINTING\",\n  \"assignAs\": \"PRIMARY\",\n  \"pointingInfo\":   [\n        {\n      \"type\": \"A\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"23.236.62.147\"]\n    },\n        {\n      \"type\": \"CNAME\",\n      \"hostName\": \"www.mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"www182.wixdns.net\"]\n    }\n  ]\n}} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Connect a subdomain",
-          "body": ["curl --location --request POST 'https://www.wixapis.com/v1/connect-domain' \\\n--header 'wix-account-id: <ACCOUNT_ID>' \\\n--header 'wix-site-id: <SITE_ID>' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: <AUTH>' \\\n--data-raw '{\n    \"domain\": \"sub.mysite.com\",\n    \"suppressNotifications\": true,\n}'"],
+          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"sub.mysite.com\",\n    \"suppressNotifications\": true,\n}'"],
           "response": ["{\"domainConnection\": {\n  \"domain\": \"sub.mysite.com\",\n  \"connectionType\": \"UNKNOWN\",\n  \"assignAs\": \"UNKNOWN\",\n  \"suppressNotifications\": true,\n  \"subdomainInfo\": {\"cnameRecords\":   [\n        {\n      \"hostName\": \"sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    },\n        {\n      \"hostName\": \"www.sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    }\n  ]}\n}} "],
           "type": "curl",
           "extra": {}
