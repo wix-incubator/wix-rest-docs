@@ -1,0 +1,2316 @@
+{
+  "name": "Local Delivery Integration SPI",
+  "client_id": "https://github.com/wix-private/restaurants-bazel/tree/master/local-delivery#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Describes the Local Delivery integration to be called by Wix and received by the relevant registered local delivery provider third-party. This integration is used to get a delivery estimate or to create a delivery. Here we describe the endpoints you need to implement in your app.",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Internal",
+      "entity": null
+    },
+        {
+      "name": "SPI v1",
+      "entity": null
+    },
+        {
+      "name": "Local Delivery",
+      "entity": null
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/local-delivery-integration-spi/docs/GetStarted.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/local-delivery-integration-spi/docs/Terms.md",
+      "name": "Terminology"
+    },
+        {
+      "path": "../guides/local-delivery-integration-spi/docs/BestPractices.md",
+      "name": "Best Practices"
+    },
+        {
+      "path": "../guides/local-delivery-integration-spi/docs/Flow.md",
+      "name": "Flows"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Business Status",
+      "methodName": "BusinessStatus",
+      "serviceName": "LocalDeliveryProvider",
+      "tag": "SPI v1",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "instanceId",
+        "accountId"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BusinessStatus",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_BusinessStatusResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves the delivery vendor business status\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/business-status",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BusinessStatusRequest",
+        "rpcResponseName": "BusinessStatusResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Create Delivery",
+      "methodName": "CreateDelivery",
+      "serviceName": "LocalDeliveryProvider",
+      "tag": "SPI v1",
+      "permissions": [      {
+        "name": "Manage Orders",
+        "description": "Request permission to read and update site's Wix Restaurants orders."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "instanceId",
+        "accountId",
+        "storeLocationId",
+        "pickupBusinessName",
+        "pickupAddress",
+        "dropoffAddress",
+        "orderTotal",
+        "orderTip",
+        "pickupPhoneNumber",
+        "customer",
+        "customer.firstName",
+        "customer.lastName",
+        "customer.phoneNumber",
+        "customer.email",
+        "orderId",
+        "dispatchTime"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": " Unique identifier of the specific store that the delivery is for.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupBusinessName",
+          "type": "string",
+          "doc": " The name of the business where the order should be picked up from.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "estimateId",
+          "type": "string",
+          "doc": " Estimate ID.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_CreateDeliveryRequest_DispatchTime",
+          "doc": "",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery dropoff address.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupPhoneNumber",
+          "type": "string",
+          "doc": " Phone number of the store where the order should be picked up from.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "customer",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_Customer",
+          "doc": " Customer details.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupInstructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the pickup location.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dropoffInstructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the dropoff location.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "contactlessDelivery",
+          "type": "boolean",
+          "doc": " Is contactless delivery.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " The subtotal for all items in the order, excluding tax/tip.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "orderTip",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount that will be paid to the courier.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateDelivery",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_CreateDeliveryResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates a new delivery order\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/create-delivery",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Create delivery with a pickup time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/create-delivery \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"pickupTime\": \"2023-01-01T00:00:00Z\",\n              \"pickupInfo\": {\n                \"configurationId\": \"fc169827-2d06-4277-baeb-958694c5435f\",\n                \"storeName\": \"My Restaurant (Basel Street)\",\n                \"address\": {\n                  \"country\": \"US\",\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"11234\",\n                    \"name\": \"122 Border St. Bronx\",\n                    \"apt\": \"\"\n                  },\n                  \"geocode\": {\n                    \"latitude\": 32.0811222,\n                    \"longitude\": 34.8329123\n                  }\n                },\n                \"phone\": \"+18005551111\"\n              },\n              \"dropOffInfo\": {\n                \"address\": {\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"10456\",\n                    \"name\": \"944 Border St. Bronx\",\n                    \"apt\": \"1\"\n                  },\n                  \"country\": \"US\",\n                  \"postalCode\": \"123456\",\n                  \"geocode\": {\n                    \"latitude\": 23,\n                    \"longitude\": 21\n                  },\n                  \"subdivision\": \"NY\"\n                },\n                \"instructions\": \"Drop off counter is on the side of the building\"\n              },\n              \"accountId\": \"287e7e9c-b802-43b4-b9ef-b876d2831bfe\",\n              \"estimateId\": \"0ebcd08d-231c-4823-8ace-56903fffa3cf\",\n              \"order\": {\n                \"id\": \"a3cac1a3-7626-4b5a-b5c5-c3be230096d6\",\n                \"customer\": {\n                  \"firstName\": \"John\",\n                  \"lastName\": \"Doe\",\n                  \"phone\": \"+12345678\",\n                  \"email\": \"johndoe@mycompany.com\"\n                },\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                },\n                \"lineItems\": [\n                  {\n                    \"quantity\": 1,\n                    \"catalogReference\": {\n                      \"catalogItemName\": \"Onion soup\"\n                    }\n                  }\n                ]\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655811823.1928374758182939182\",\n              \"instanceId\": \"010a82dc-facd-4945-afa9-bb83c2a2c66e\"\n            }\n          },\n          \"aud\": \"a6e68bdf-b2a6-4f44-b08c-8a77b37149f5\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655818582,\n          \"exp\": 1659418582\n        }'"],
+            "response": ["{\n  \"deliveryId\": \"384122d3-fad3-4227-afe9-f9f65225e5e1\",\n  \"pickupWindowStartTime\": \"2023-06-21T12:50:02.943Z\",\n  \"pickupWindowEndTime\": \"2023-06-21T12:50:02.943Z\",\n  \"dropOffWindowStartTime\": \"2023-06-21T13:33:01.123Z\",\n  \"dropOffWindowEndTime\": \"2023-06-21T13:35:05.183Z\",\n  \"deliveryFee\":   {\n    \"value\": \"7\",\n    \"currency\": \"USD\"\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          },
+                    {
+            "title": "Create delivery with a dropoff time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/create-delivery \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"dropoffTime\": \"2023-01-01T00:00:00Z\",\n              \"pickupInfo\": {\n                \"configurationId\": \"fc169827-2d06-4277-baeb-958694c5435f\",\n                \"storeName\": \"My Restaurant (Basel Street)\",\n                \"address\": {\n                  \"country\": \"US\",\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"11234\",\n                    \"name\": \"122 Border St. Bronx\",\n                    \"apt\": \"\"\n                  },\n                  \"geocode\": {\n                    \"latitude\": 32.0811222,\n                    \"longitude\": 34.8329123\n                  }\n                },\n                \"phone\": \"+18005551111\"\n              },\n              \"dropOffInfo\": {\n                \"address\": {\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"10456\",\n                    \"name\": \"944 Border St. Bronx\",\n                    \"apt\": \"1\"\n                  },\n                  \"country\": \"US\",\n                  \"postalCode\": \"123456\",\n                  \"geocode\": {\n                    \"latitude\": 23,\n                    \"longitude\": 21\n                  },\n                  \"subdivision\": \"NY\"\n                },\n                \"instructions\": \"Drop off counter is on the side of the building\"\n              },\n              \"accountId\": \"287e7e9c-b802-43b4-b9ef-b876d2831bfe\",\n              \"estimateId\": \"0ebcd08d-231c-4823-8ace-56903fffa3cf\",\n              \"order\": {\n                \"id\": \"a3cac1a3-7626-4b5a-b5c5-c3be230096d6\",\n                \"customer\": {\n                  \"firstName\": \"John\",\n                  \"lastName\": \"Doe\",\n                  \"phone\": \"+12345678\",\n                  \"email\": \"johndoe@mycompany.com\"\n                },\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                },\n                \"lineItems\": [\n                  {\n                    \"quantity\": 1,\n                    \"catalogReference\": {\n                      \"catalogItemName\": \"Onion soup\"\n                    }\n                  }\n                ]\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655811823.1928374758182939182\",\n              \"instanceId\": \"010a82dc-facd-4945-afa9-bb83c2a2c66e\"\n            }\n          },\n          \"aud\": \"a6e68bdf-b2a6-4f44-b08c-8a77b37149f5\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655818582,\n          \"exp\": 1659418582\n        }'"],
+            "response": ["{\n  \"deliveryId\": \"384122d3-fad3-4227-afe9-f9f65225e5e1\",\n  \"pickupWindowStartTime\": \"2023-06-21T12:50:02.943Z\",\n  \"pickupWindowEndTime\": \"2023-06-21T12:50:02.943Z\",\n  \"dropOffWindowStartTime\": \"2023-06-21T13:33:01.123Z\",\n  \"dropOffWindowEndTime\": \"2023-06-21T13:35:05.183Z\",\n  \"deliveryFee\":   {\n    \"value\": \"7\",\n    \"currency\": \"USD\"\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateDeliveryRequest",
+        "rpcResponseName": "CreateDeliveryResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Create Delivery",
+      "methodName": "CreateDelivery",
+      "serviceName": "LocalDeliveryProviderV2",
+      "tag": "Local Delivery",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "accountId",
+        "pickupInfo.configurationId",
+        "pickupInfo.storeName",
+        "pickupInfo.address",
+        "dropOffInfo.address",
+        "pickupInfo.phone",
+        "order.id",
+        "order.subtotal",
+        "order.customer",
+        "order.customer.firstName",
+        "order.customer.lastName",
+        "order.customer.phone",
+        "order.customer.email",
+        "dispatchTime"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupInfo",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_PickupInfo",
+          "doc": " Info for creating a pickup delivery. Can also be specified for drop-off orders, so that the deliverer knows where to pick up the order before dropping it off.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dropOffInfo",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_DropOffInfo",
+          "doc": " Info for creating a drop-off delivery. Can also be specified for pickup orders, so that the deliverer knows where to drop off the order after picking it up.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_CreateDeliveryRequest_DispatchTime",
+          "doc": " Either pickup or drop-off time.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "estimateId",
+          "type": "string",
+          "doc": " Estimate ID, if needed.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "order",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_WixOrder",
+          "doc": " Wix order details.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "contactlessDelivery",
+          "type": "boolean",
+          "doc": " If `true`, the delivery is a contactless delivery. This means that the order is placed outside the customer's door.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateDelivery",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_CreateDeliveryResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This endpoint creates an order for a delivery. \n\n Wix calls this endpoint when \n a customer requests a delivery on the merchant's Wix site.\n\n > You cannot try out this endpoint because it has to be implemented by \n > an app and can have an arbitrary URL. So please ignore the **Authorization** \n > and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/v2/create-delivery",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Create delivery with a pickup time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/create-delivery \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"pickupTime\": \"2023-01-01T00:00:00Z\",\n              \"pickupInfo\": {\n                \"configurationId\": \"fc169827-2d06-4277-baeb-958694c5435f\",\n                \"storeName\": \"My Restaurant (Basel Street)\",\n                \"address\": {\n                  \"country\": \"US\",\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"11234\",\n                    \"name\": \"122 Border St. Bronx\",\n                    \"apt\": \"\"\n                  },\n                  \"geocode\": {\n                    \"latitude\": 32.0811222,\n                    \"longitude\": 34.8329123\n                  }\n                },\n                \"phone\": \"+18005551111\"\n              },\n              \"dropOffInfo\": {\n                \"address\": {\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"10456\",\n                    \"name\": \"944 Border St. Bronx\",\n                    \"apt\": \"1\"\n                  },\n                  \"country\": \"US\",\n                  \"postalCode\": \"123456\",\n                  \"geocode\": {\n                    \"latitude\": 23,\n                    \"longitude\": 21\n                  },\n                  \"subdivision\": \"NY\"\n                },\n                \"instructions\": \"Drop off counter is on the side of the building\"\n              },\n              \"accountId\": \"287e7e9c-b802-43b4-b9ef-b876d2831bfe\",\n              \"estimateId\": \"0ebcd08d-231c-4823-8ace-56903fffa3cf\",\n              \"order\": {\n                \"id\": \"a3cac1a3-7626-4b5a-b5c5-c3be230096d6\",\n                \"customer\": {\n                  \"firstName\": \"John\",\n                  \"lastName\": \"Doe\",\n                  \"phone\": \"+12345678\",\n                  \"email\": \"johndoe@mycompany.com\"\n                },\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                },\n                \"lineItems\": [\n                  {\n                    \"quantity\": 1,\n                    \"catalogReference\": {\n                      \"catalogItemName\": \"Onion soup\"\n                    }\n                  }\n                ]\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655811823.1928374758182939182\",\n              \"instanceId\": \"010a82dc-facd-4945-afa9-bb83c2a2c66e\"\n            }\n          },\n          \"aud\": \"a6e68bdf-b2a6-4f44-b08c-8a77b37149f5\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655818582,\n          \"exp\": 1659418582\n        }'"],
+            "response": ["{\n  \"deliveryId\": \"384122d3-fad3-4227-afe9-f9f65225e5e1\",\n  \"pickupWindowStartTime\": \"2023-06-21T12:50:02.943Z\",\n  \"pickupWindowEndTime\": \"2023-06-21T12:50:02.943Z\",\n  \"dropOffWindowStartTime\": \"2023-06-21T13:33:01.123Z\",\n  \"dropOffWindowEndTime\": \"2023-06-21T13:35:05.183Z\",\n  \"deliveryFee\":   {\n    \"value\": \"7\",\n    \"currency\": \"USD\"\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          },
+                    {
+            "title": "Create delivery with a dropoff time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/create-delivery \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"dropoffTime\": \"2023-01-01T00:00:00Z\",\n              \"pickupInfo\": {\n                \"configurationId\": \"fc169827-2d06-4277-baeb-958694c5435f\",\n                \"storeName\": \"My Restaurant (Basel Street)\",\n                \"address\": {\n                  \"country\": \"US\",\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"11234\",\n                    \"name\": \"122 Border St. Bronx\",\n                    \"apt\": \"\"\n                  },\n                  \"geocode\": {\n                    \"latitude\": 32.0811222,\n                    \"longitude\": 34.8329123\n                  }\n                },\n                \"phone\": \"+18005551111\"\n              },\n              \"dropOffInfo\": {\n                \"address\": {\n                  \"city\": \"New York City\",\n                  \"streetAddress\": {\n                    \"number\": \"10456\",\n                    \"name\": \"944 Border St. Bronx\",\n                    \"apt\": \"1\"\n                  },\n                  \"country\": \"US\",\n                  \"postalCode\": \"123456\",\n                  \"geocode\": {\n                    \"latitude\": 23,\n                    \"longitude\": 21\n                  },\n                  \"subdivision\": \"NY\"\n                },\n                \"instructions\": \"Drop off counter is on the side of the building\"\n              },\n              \"accountId\": \"287e7e9c-b802-43b4-b9ef-b876d2831bfe\",\n              \"estimateId\": \"0ebcd08d-231c-4823-8ace-56903fffa3cf\",\n              \"order\": {\n                \"id\": \"a3cac1a3-7626-4b5a-b5c5-c3be230096d6\",\n                \"customer\": {\n                  \"firstName\": \"John\",\n                  \"lastName\": \"Doe\",\n                  \"phone\": \"+12345678\",\n                  \"email\": \"johndoe@mycompany.com\"\n                },\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                },\n                \"lineItems\": [\n                  {\n                    \"quantity\": 1,\n                    \"catalogReference\": {\n                      \"catalogItemName\": \"Onion soup\"\n                    }\n                  }\n                ]\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655811823.1928374758182939182\",\n              \"instanceId\": \"010a82dc-facd-4945-afa9-bb83c2a2c66e\"\n            }\n          },\n          \"aud\": \"a6e68bdf-b2a6-4f44-b08c-8a77b37149f5\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655818582,\n          \"exp\": 1659418582\n        }'"],
+            "response": ["{\n  \"deliveryId\": \"384122d3-fad3-4227-afe9-f9f65225e5e1\",\n  \"pickupWindowStartTime\": \"2023-06-21T12:50:02.943Z\",\n  \"pickupWindowEndTime\": \"2023-06-21T12:50:02.943Z\",\n  \"dropOffWindowStartTime\": \"2023-06-21T13:33:01.123Z\",\n  \"dropOffWindowEndTime\": \"2023-06-21T13:35:05.183Z\",\n  \"deliveryFee\":   {\n    \"value\": \"7\",\n    \"currency\": \"USD\"\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateDeliveryRequest",
+        "rpcResponseName": "CreateDeliveryResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Estimate Delivery",
+      "methodName": "EstimateDelivery",
+      "serviceName": "LocalDeliveryProvider",
+      "tag": "SPI v1",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "instanceId",
+        "accountId",
+        "orderTotal",
+        "storeLocationId",
+        "dispatchTime"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery dropoff address.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_EstimateDeliveryRequest_DispatchTime",
+          "doc": "",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": " Unique identifier of the specific store that the delivery is for.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " The subtotal for all items in the order, excluding tax/tip.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "EstimateDelivery",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_EstimateDeliveryResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves an estimate of the delivery\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/estimate-delivery",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "EstimateDeliveryRequest",
+        "rpcResponseName": "EstimateDeliveryResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Account Status",
+      "methodName": "GetAccountStatus",
+      "serviceName": "LocalDeliveryProviderV2",
+      "tag": "Local Delivery",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["accountId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "accountId",
+        "type": "string",
+        "doc": " Account ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetAccountStatus",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_GetAccountStatusResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This endpoint retrieves the status of an account with the local delivery \n service provider from your app. The status determines if delivery operations are allowed, \n such as getting an estimate or ordering a delivery.\n\n Wix calls this endpoint, for example, when the Delivery Area dashboard page \n is loaded.\n \n > You cannot try out this endpoint because it has to be implemented by \n > an app and can have an arbitrary URL. So please ignore the **Authorization** \n > and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/v2/get-account-status",
+        "links": [],
+        "examples": [        {
+          "title": "Get account status - decoded JWT",
+          "body": ["curl -X POST https://provider.example.com/v2/get-account-status \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"accountId\": \"accountId\"\n            },\n            \"metadata\": {\n              \"requestId\": \"1655817281.2812834757191238478\",\n              \"instanceId\": \"fed6308a-159b-4f11-b98c-f75ff69b193a\"\n            }\n          },\n          \"aud\": \"ea9cd136-90ef-49b3-9a0c-67c6062aaaa8\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655819679,\n          \"exp\": 1659419679\n        }'"],
+          "response": ["{\"status\": \"ACTIVE\"} "],
+          "type": "curl",
+          "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetAccountStatusRequest",
+        "rpcResponseName": "GetAccountStatusResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Delivery Estimate",
+      "methodName": "GetDeliveryEstimate",
+      "serviceName": "LocalDeliveryProviderV2",
+      "tag": "Local Delivery",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "accountId",
+        "order.subtotal",
+        "configurationId",
+        "dispatchTime"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address. Can also be specified for drop-off orders, so that the deliverer knows where to pick up the order before dropping it off.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dropOffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery drop-off address. Can also be specified for pickup orders, so that the deliverer knows where to drop off the order after picking it up.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateRequest_DispatchTime",
+          "doc": " Either pickup or drop-off time.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "configurationId",
+          "type": "string",
+          "doc": " Unique identifier for the store, restaurant, or business where the order originated from.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "order",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_EstimateOrder",
+          "doc": " Wix order details.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetDeliveryEstimate",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This endpoint retrieves an estimate for a delivery from your app, including the delivery fee \n and when the local delivery service provider can dispatch the delivery.\n\n Wix calls this endpoint when a customer enters their delivery address, \n and again when the order is accepted by the site owner.\n \n > You cannot try out this endpoint because it has to be implemented by \n > an app and can have an arbitrary URL. So please ignore the **Authorization** \n > and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/v2/get-delivery-estimate",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get delivery estimate with pickup time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/get-delivery-estimate \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"pickupTime\": \"1970-01-01T00:00:00Z\",\n              \"configurationId\": \"8345ca38-207c-466c-a256-e4cd93064768\",\n              \"accountId\": \"0c6f1e68-37bb-4869-aa02-27cd1f1b7d48\",\n              \"dropOffAddress\": {\n                \"city\": \"New York City\",\n                \"streetAddress\": {\n                  \"number\": \"10456\",\n                  \"name\": \"944 Border St. Bronx\",\n                  \"apt\": \"1\"\n                },\n                \"country\": \"US\",\n                \"postalCode\": \"123456\",\n                \"geocode\": {\n                  \"latitude\": 23,\n                  \"longitude\": 21\n                },\n                \"subdivision\": \"NY\"\n              },\n              \"pickupAddress\": {\n                \"country\": \"IL\",\n                \"city\": \"Tel Aviv-Yafo\",\n                \"streetAddress\": {\n                  \"number\": \"33\",\n                  \"name\": \"Basel Street\",\n                  \"apt\": \"\"\n                },\n                \"geocode\": {\n                  \"latitude\": 32.0900999,\n                  \"longitude\": 34.7790431\n                }\n              },\n              \"order\": {\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                }\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655818237.1289317294874329875\",\n              \"instanceId\": \"f14b64ae-1162-4d2f-bf5b-bdc564c0b6b3\"\n            }\n          },\n          \"aud\": \"0f8551ba-0724-4c4a-b3b5-f62d54d8ba28\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655819187,\n          \"exp\": 1659419187\n        }'"],
+            "response": ["{\"estimate\": {\n  \"deliveryId\": \"id\",\n  \"deliveryFee\":   {\n    \"value\": \"42.00\",\n    \"currency\": \"USD\"\n  },\n  \"pickupTime\": \"2024-04-02T22:00:00Z\",\n  \"dropOffTime\": \"2024-04-02T22:42:00Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          },
+                    {
+            "title": "Get delivery estimate with dropoff time - decoded JWT",
+            "body": ["curl -X POST https://provider.example.com/v2/get-delivery-estimate \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=utf-8' \\\n    -d '{\n          \"data\": {\n            \"request\": {\n              \"dropoffTime\": \"1970-01-01T00:00:00Z\",\n              \"configurationId\": \"8345ca38-207c-466c-a256-e4cd93064768\",\n              \"accountId\": \"0c6f1e68-37bb-4869-aa02-27cd1f1b7d48\",\n              \"dropOffAddress\": {\n                \"city\": \"New York City\",\n                \"streetAddress\": {\n                  \"number\": \"10456\",\n                  \"name\": \"944 Border St. Bronx\",\n                  \"apt\": \"1\"\n                },\n                \"country\": \"US\",\n                \"postalCode\": \"123456\",\n                \"geocode\": {\n                  \"latitude\": 23,\n                  \"longitude\": 21\n                },\n                \"subdivision\": \"NY\"\n              },\n              \"pickupAddress\": {\n                \"country\": \"IL\",\n                \"city\": \"Tel Aviv-Yafo\",\n                \"streetAddress\": {\n                  \"number\": \"33\",\n                  \"name\": \"Basel Street\",\n                  \"apt\": \"\"\n                },\n                \"geocode\": {\n                  \"latitude\": 32.0900999,\n                  \"longitude\": 34.7790431\n                }\n              },\n              \"order\": {\n                \"subtotal\": {\n                  \"value\": \"42\",\n                  \"currency\": \"USD\",\n                  \"formattedValue\": \"42.0$\"\n                }\n              }\n            },\n            \"metadata\": {\n              \"requestId\": \"1655818237.1289317294874329875\",\n              \"instanceId\": \"f14b64ae-1162-4d2f-bf5b-bdc564c0b6b3\"\n            }\n          },\n          \"aud\": \"0f8551ba-0724-4c4a-b3b5-f62d54d8ba28\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655819187,\n          \"exp\": 1659419187\n        }'"],
+            "response": ["{\"estimate\": {\n  \"deliveryId\": \"id\",\n  \"deliveryFee\":   {\n    \"value\": \"42.00\",\n    \"currency\": \"USD\"\n  },\n  \"pickupTime\": \"2024-04-02T22:00:00Z\",\n  \"dropOffTime\": \"2024-04-02T22:42:00Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetDeliveryEstimateRequest",
+        "rpcResponseName": "GetDeliveryEstimateResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Account Ids",
+      "methodName": "ListAccountIds",
+      "serviceName": "LocalDeliveryProvider",
+      "tag": "SPI v1",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["instanceId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "instanceId",
+        "type": "string",
+        "doc": " Instance ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListAccountIds",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_ListAccountIdsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves list of account belongs to given instance\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/account-ids",
+        "links": [],
+        "examples": [        {
+          "title": "List account ids - decoded JWT",
+          "body": ["curl -X POST https://provider.example.com/v2/account-ids \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=UTF-8' \\\n    -d '{\n          \"data\": {\n            \"metadata\": {\n              \"requestId\": \"1655817281.2812834757191238478\",\n              \"instanceId\": \"fed6308a-159b-4f11-b98c-f75ff69b193a\"\n            }\n          },\n          \"aud\": \"ea9cd136-90ef-49b3-9a0c-67c6062aaaa8\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655819679,\n          \"exp\": 1659419679\n        }'"],
+          "response": ["{\"accountIds\": [\"c07aba0f-369e-4ab0-a4b5-80aaa67cc677\"]} "],
+          "type": "curl",
+          "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAccountIdsRequest",
+        "rpcResponseName": "ListAccountIdsResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Account Ids",
+      "methodName": "ListAccountIds",
+      "serviceName": "LocalDeliveryProviderV2",
+      "tag": "Local Delivery",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListAccountIds",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_ListAccountIdsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " The endpoint retrieves a list of account IDs for a merchant's store, restaurant, or \n business (instance) using your app.\n\n Wix calls this endpoint, for example, when the Delivery Area dashboard page is loaded.\n \n Each account ID in the response represents an account between the store, restaurant, or business (instance) \n and the local delivery serice provider.\n These IDs are used to check if the \n accounts are operational (active) using the `Get Account Status` endpoint.\n \n >**Notes**:\n > + For now, Wix supports one account per merchant. In the future, we will support \n >   multiple accounts, such as one account per location. For example, “TallOrders NY” \n >   could have an account with a local delivery service provider in NY and \n >   “TallOrders CA” could have an account with a different provider.\n > + You cannot try out this endpoint because it has to be implemented by \n >   an app and can have an arbitrary URL. So please ignore the **Authorization** \n >   and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/local-delivery/v2/account-ids",
+        "links": [],
+        "examples": [        {
+          "title": "List account ids - decoded JWT",
+          "body": ["curl -X POST https://provider.example.com/v2/account-ids \\\n    -H 'user-agent: Wix' \\\n    -H 'accept-encoding: gzip, deflate' \\\n    -H 'content-type: text/plain; charset=UTF-8' \\\n    -d '{\n          \"data\": {\n            \"metadata\": {\n              \"requestId\": \"1655817281.2812834757191238478\",\n              \"instanceId\": \"fed6308a-159b-4f11-b98c-f75ff69b193a\"\n            }\n          },\n          \"aud\": \"ea9cd136-90ef-49b3-9a0c-67c6062aaaa8\",\n          \"iss\": \"wix.com\",\n          \"iat\": 1655819679,\n          \"exp\": 1659419679\n        }'"],
+          "response": ["{\"accountIds\": [\"c07aba0f-369e-4ab0-a4b5-80aaa67cc677\"]} "],
+          "type": "curl",
+          "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAccountIdsRequest",
+        "rpcResponseName": "ListAccountIdsResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_localdelivery_upstream_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Physical address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Subdivision. Usually a state, region, prefecture, or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_StreetAddress",
+          "doc": " Street name and number.\n"
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        },
+                {
+          "name": "geocode",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_AddressLocation",
+          "doc": " Coordinates of the physical address.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_upstream_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_upstream_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Money",
+      "displayName": "Money Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Money.\n Default format to use. Sufficiently compliant with majority of standards: w3c, ISO 4217, ISO 20022, ISO 8583:2003.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string with a period as a decimal separator (e.g., 3.99). Optionally, a single (-), to indicate that the amount is negative.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency code. Must be valid ISO 4217 currency code (e.g., USD).\n"
+        },
+                {
+          "name": "formattedValue",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string in local format (e.g., 1 000,30). Optionally, a single (-), to indicate that the amount is negative.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_GetBusinessStatusRequest",
+      "displayName": "Get Business Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_GetBusinessStatusResponse",
+      "displayName": "Get Business Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_api_v1_Tpa_BusinessStatus",
+          "doc": ""
+        },
+                {
+          "name": "failureReasonMessage",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_GetRegistrationUrlRequest",
+      "displayName": "Get Registration Url Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appDefId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_GetRegistrationUrlResponse",
+      "displayName": "Get Registration Url Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "url",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_EstimateDeliveryRequest",
+      "displayName": "Estimate Delivery Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": ""
+        },
+                {
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": ""
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_api_v1_EstimateDeliveryRequest_DispatchTime",
+          "doc": ""
+        },
+                {
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_EstimateDeliveryRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dropoffTime",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_EstimateDeliveryResponse",
+      "displayName": "Estimate Delivery Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Optional. Used as reference to the estimate when creating a new order\n"
+        },
+                {
+          "name": "fee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Delivery fee\n"
+        },
+                {
+          "name": "promisedPickupTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "promisedDropoffTime",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_CreateDeliveryRequest",
+      "displayName": "Create Delivery Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "pickupBusinessName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": ""
+        },
+                {
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": ""
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_api_v1_CreateDeliveryRequest_DispatchTime",
+          "doc": ""
+        },
+                {
+          "name": "estimateId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "pickupPhoneNumber",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "customer",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_api_v1_Customer",
+          "doc": ""
+        },
+                {
+          "name": "pickupInstructions",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dropoffInstructions",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "contactlessDelivery",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": ""
+        },
+                {
+          "name": "orderTip",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_CreateDeliveryRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dropoffTime",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_CreateDeliveryResponse",
+      "displayName": "Create Delivery Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " The vendor new order id\n"
+        },
+                {
+          "name": "pickupWindowStartTime",
+          "type": "string",
+          "doc": " Status of the order creation call\n"
+        },
+                {
+          "name": "pickupWindowEndTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dropoffWindowStartTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dropoffWindowEndTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "fee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_Customer",
+      "displayName": "Customer Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "phoneNumber",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_ListAccountIdsRequest",
+      "displayName": "List Account Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appDefId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_ListAccountIdsResponse",
+      "displayName": "List Account Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_ListAppDefIdsRequest",
+      "displayName": "List App Def Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_ListAppDefIdsResponse",
+      "displayName": "List App Def Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appDefIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_BusinessStatusRequest",
+      "displayName": "Business Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_BusinessStatusResponse",
+      "displayName": "Business Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_BusinessStatusResponse_BusinessStatus",
+          "doc": " List of statue.\n"
+        },
+                {
+          "name": "failureReasonMessage",
+          "type": "string",
+          "doc": " The reason for the error in free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_EstimateDeliveryRequest",
+      "displayName": "Estimate Delivery Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n"
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address.\n"
+        },
+                {
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery dropoff address.\n"
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_EstimateDeliveryRequest_DispatchTime",
+          "doc": ""
+        },
+                {
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": " Unique identifier of the specific store that the delivery is for.\n"
+        },
+                {
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " The subtotal for all items in the order, excluding tax/tip.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_EstimateDeliveryRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": " Estimated pickup time.\n"
+        },
+                {
+          "name": "dropoffTime",
+          "type": "string",
+          "doc": " Estimated dropoff time.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_EstimateDeliveryResponse",
+      "displayName": "Estimate Delivery Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Optional. Used as reference to the estimate when creating a new order.\n"
+        },
+                {
+          "name": "fee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount that is charged for this delivery.\n"
+        },
+                {
+          "name": "promisedPickupTime",
+          "type": "string",
+          "doc": " Estimated pickup time.\n"
+        },
+                {
+          "name": "promisedDropoffTime",
+          "type": "string",
+          "doc": " Estimated dropoff time.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_CreateDeliveryRequest",
+      "displayName": "Create Delivery Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance ID.\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n"
+        },
+                {
+          "name": "storeLocationId",
+          "type": "string",
+          "doc": " Unique identifier of the specific store that the delivery is for.\n"
+        },
+                {
+          "name": "pickupBusinessName",
+          "type": "string",
+          "doc": " The name of the business where the order should be picked up from.\n"
+        },
+                {
+          "name": "estimateId",
+          "type": "string",
+          "doc": " Estimate ID.\n"
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_CreateDeliveryRequest_DispatchTime",
+          "doc": ""
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address.\n"
+        },
+                {
+          "name": "dropoffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery dropoff address.\n"
+        },
+                {
+          "name": "pickupPhoneNumber",
+          "type": "string",
+          "doc": " Phone number of the store where the order should be picked up from.\n"
+        },
+                {
+          "name": "customer",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v1_Customer",
+          "doc": " Customer details.\n"
+        },
+                {
+          "name": "pickupInstructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the pickup location.\n"
+        },
+                {
+          "name": "dropoffInstructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the dropoff location.\n"
+        },
+                {
+          "name": "contactlessDelivery",
+          "type": "boolean",
+          "doc": " Is contactless delivery.\n"
+        },
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "orderTotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " The subtotal for all items in the order, excluding tax/tip.\n"
+        },
+                {
+          "name": "orderTip",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount that will be paid to the courier.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_CreateDeliveryRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": " The requested time at which the order should be picked up.\n"
+        },
+                {
+          "name": "dropoffTime",
+          "type": "string",
+          "doc": " The requested time at which the order should be delivered.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_CreateDeliveryResponse",
+      "displayName": "Create Delivery Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " The vendor new order id\n"
+        },
+                {
+          "name": "pickupWindowStartTime",
+          "type": "string",
+          "doc": " When a delivery is ready to be picked up. This is the start of the pickup window.\n"
+        },
+                {
+          "name": "pickupWindowEndTime",
+          "type": "string",
+          "doc": " When a delivery must be picked up by. This is the end of the pickup window.\n"
+        },
+                {
+          "name": "dropoffWindowStartTime",
+          "type": "string",
+          "doc": " When a delivery is ready to be dropped off. This is the start of the dropoff window.\n"
+        },
+                {
+          "name": "dropoffWindowEndTime",
+          "type": "string",
+          "doc": " When a delivery must be dropped off by. This is the end of the dropoff window.\n"
+        },
+                {
+          "name": "fee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount that is charged for this delivery.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_Customer",
+      "displayName": "Customer Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " First name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Last name.\n"
+        },
+                {
+          "name": "phoneNumber",
+          "type": "string",
+          "doc": " Phone number.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_ListAccountIdsRequest",
+      "displayName": "List Account Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "instanceId",
+        "type": "string",
+        "doc": " Instance ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_ListAccountIdsResponse",
+      "displayName": "List Account Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Account IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetAccountStatusRequest",
+      "displayName": "Get Account Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": " Account ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetAccountStatusResponse",
+      "displayName": "Get Account Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "status",
+        "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_GetAccountStatusResponse_Status",
+        "doc": " Status of the account with the local delivery service provider.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateRequest",
+      "displayName": "Get Delivery Estimate Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n"
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address. Can also be specified for drop-off orders, so that the deliverer knows where to pick up the order before dropping it off.\n"
+        },
+                {
+          "name": "dropOffAddress",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery drop-off address. Can also be specified for pickup orders, so that the deliverer knows where to drop off the order after picking it up.\n"
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateRequest_DispatchTime",
+          "doc": " Either pickup or drop-off time.\n"
+        },
+                {
+          "name": "configurationId",
+          "type": "string",
+          "doc": " Unique identifier for the store, restaurant, or business where the order originated from.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_EstimateOrder",
+          "doc": " Wix order details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": " Estimated pickup time.\n"
+        },
+                {
+          "name": "dropOffTime",
+          "type": "string",
+          "doc": " Estimated drop-off time.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetDeliveryEstimateResponse",
+      "displayName": "Get Delivery Estimate Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "estimate",
+        "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_Estimate",
+        "doc": " The estimate, which includes the delivery fee and estimated pickup and drop-off times.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_EstimateOrder",
+      "displayName": "Estimate Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "subtotal",
+        "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+        "doc": " The subtotal for all items in the order, excluding tax/tip.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_CreateDeliveryRequest",
+      "displayName": "Create Delivery Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Account ID.\n"
+        },
+                {
+          "name": "pickupInfo",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_PickupInfo",
+          "doc": " Info for creating a pickup delivery. Can also be specified for drop-off orders, so that the deliverer knows where to pick up the order before dropping it off.\n"
+        },
+                {
+          "name": "dropOffInfo",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_DropOffInfo",
+          "doc": " Info for creating a drop-off delivery. Can also be specified for pickup orders, so that the deliverer knows where to drop off the order after picking it up.\n"
+        },
+                {
+          "name": "dispatchTime",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_CreateDeliveryRequest_DispatchTime",
+          "doc": " Either pickup or drop-off time.\n"
+        },
+                {
+          "name": "estimateId",
+          "type": "string",
+          "doc": " Estimate ID, if needed.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_WixOrder",
+          "doc": " Wix order details.\n"
+        },
+                {
+          "name": "contactlessDelivery",
+          "type": "boolean",
+          "doc": " If `true`, the delivery is a contactless delivery. This means that the order is placed outside the customer's door.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_CreateDeliveryRequest_DispatchTime",
+      "displayName": "Dispatch Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": " The requested time at which the order should be picked up.\n"
+        },
+                {
+          "name": "dropOffTime",
+          "type": "string",
+          "doc": " The requested time at which the order should be delivered.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_CreateDeliveryResponse",
+      "displayName": "Create Delivery Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "deliveryId",
+          "type": "string",
+          "doc": " The delivery ID supplied by the local delivery service provider.\n"
+        },
+                {
+          "name": "pickupWindowStartTime",
+          "type": "string",
+          "doc": " When a delivery is ready to be picked up. This is the start time of the pickup window.\n"
+        },
+                {
+          "name": "pickupWindowEndTime",
+          "type": "string",
+          "doc": " When a delivery must be picked up by. This is the end time of the pickup window.\n"
+        },
+                {
+          "name": "dropOffWindowStartTime",
+          "type": "string",
+          "doc": " When a delivery is ready to be dropped off. This is the start time of the drop-off window.\n"
+        },
+                {
+          "name": "dropOffWindowEndTime",
+          "type": "string",
+          "doc": " When a delivery must be dropped off by. This is the end time of the drop-off window.\n"
+        },
+                {
+          "name": "deliveryFee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount to charge for this delivery.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_WixOrder_LineItem_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "catalogItemName",
+        "type": "string",
+        "doc": " Line item name as defined in the catalog.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_WixOrder_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Line item quantity.\n"
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_WixOrder_LineItem_CatalogReference",
+          "doc": " References to the line item’s origin catalog.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_WixOrder",
+      "displayName": "Wix Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "customer",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_Customer",
+          "doc": " Customer details.\n"
+        },
+                {
+          "name": "subtotal",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " The subtotal for all items in the order, excluding tax/tip.\n"
+        },
+                {
+          "name": "tip",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Amount to pay the courier.\n"
+        },
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_spi_v2_WixOrder_LineItem"]
+          },
+          "doc": " Dishes and options included in the order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_DropOffInfo",
+      "displayName": "Drop Off Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "address",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery drop-off address.\n"
+        },
+                {
+          "name": "instructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the drop-off location.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_PickupInfo",
+      "displayName": "Pickup Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "configurationId",
+          "type": "string",
+          "doc": " Unique identifier of the store, restaurant, or business location where the order can be picked up.\n"
+        },
+                {
+          "name": "storeName",
+          "type": "string",
+          "doc": " The name of the location where the order should be picked up from.\n"
+        },
+                {
+          "name": "address",
+          "type": "All APIs.Local Delivery Integration SPI._com_wixpress_localdelivery_upstream_wix_common_Address",
+          "doc": " Delivery pickup address.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number of the store, restaurant, or business location where the order should be picked up from.\n"
+        },
+                {
+          "name": "instructions",
+          "type": "string",
+          "doc": " Instructions for the courier at the pickup location.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_Estimate",
+      "displayName": "Estimate Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "deliveryId",
+          "type": "string",
+          "doc": " Used to reference the estimate when creating a new order.\n"
+        },
+                {
+          "name": "deliveryFee",
+          "type": "All APIs.Local Delivery Integration SPI._wix_common_Money",
+          "doc": " Estimated amount to charge for this delivery.\n"
+        },
+                {
+          "name": "pickupTime",
+          "type": "string",
+          "doc": " Estimated pickup time.\n"
+        },
+                {
+          "name": "dropOffTime",
+          "type": "string",
+          "doc": " Estimated drop-off time.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_Customer",
+      "displayName": "Customer Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " First name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Last name.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_ListAccountIdsRequest",
+      "displayName": "List Account Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_ListAccountIdsResponse",
+      "displayName": "List Account Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Account IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_api_v1_Tpa_BusinessStatus",
+      "displayName": "Business Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> READY <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> ERROR <\/code><\/li><li><code> NOT_STARTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "READY",
+        "PENDING",
+        "ERROR",
+        "NOT_STARTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v1_BusinessStatusResponse_BusinessStatus",
+      "displayName": "Business Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Business Status.\n \n Possible values are: <li><code> NONE <\/code><\/li><li><code> READY <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> ERROR <\/code><\/li><li><code> NOT_STARTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "READY",
+        "PENDING",
+        "ERROR",
+        "NOT_STARTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localdelivery_spi_v2_GetAccountStatusResponse_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> CREATED <\/code><\/li><li><code> ACTIVE <\/code><\/li><li><code> INACTIVE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "CREATED",
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {}
+}
