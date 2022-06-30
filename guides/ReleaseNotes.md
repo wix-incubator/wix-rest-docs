@@ -1,5 +1,10 @@
 # Release Notes
 
+## New Release: [Restaurants Local Delivery Integration SPI](wix-restaurants/local-delivery-integration-spi)
+The new Restaurants [Local Delivery SPI](wix-restaurants/local-delivery-integration-spi/local-delivery) introduces the ability to integrate third-party local delivery services with a Wix site. Local delivery services include estimating and creating deliveries.
+
+(June 30, 2022)
+
 ## New Release: [Wix Blog Tags](wix-blog/blog/tags/tag-object/)
 The new Blog [Tags API](wix-blog/blog/tags/tag-object/) introduces read functionality for blog tags.
 
