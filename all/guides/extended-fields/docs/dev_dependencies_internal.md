@@ -52,22 +52,20 @@ In Bootstrap:
 ### REST Client
 
 ```bash
-npm i @wix/ambassador-contacts-fields-app
+npm i --save @wix/ambassador-contacts-v4-extended-field
 ```
 
 ```typescript
-import { ContactsFieldsApp } from '@wix/ambassador-contacts-fields-app/http';
+import { listExtendedFields } from '@wix/ambassador-contacts-v4-extended-field/http';
+import { HttpClient } from '@wix/http-client';
 import { appDefIds, getCurrentInstance } from '@wix/business-manager-api';
 
-const contactExtendedFieldsServiceV4 = (instance: string) => {
-    return ContactsFieldsApp('/_api/contacts/')
-        .ContactExtendedFieldsServiceV4()({
-            Authorization: instance,
-        });
-};
 
-const listFields = () => {
+const doListExtendedFields = () => {
     const instance = getCurrentInstance(appDefIds.metaSite);
-    return contactExtendedFieldsServiceV4(instance).listExtendedFields({});
+    const httpClient = new HttpClient({ getAppToken: () => instance });
+  
+    return httpClient.request(
+      listExtendedFields({})
+    );
 }
-```

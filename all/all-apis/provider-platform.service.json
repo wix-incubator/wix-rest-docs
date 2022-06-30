@@ -26,6 +26,14 @@
   ],
   "relatedGuides":   [
         {
+      "path": "../guides/provider-platform/docs/payment-methods.md",
+      "name": "Payment Methods"
+    },
+        {
+      "path": "../guides/provider-platform/docs/idempotency.md",
+      "name": "Idempotency"
+    },
+        {
       "path": "../guides/provider-platform/docs/required-fields.md",
       "name": "Required Fields"
     },
@@ -34,48 +42,40 @@
       "name": "Refunding Payments"
     },
         {
-      "path": "../guides/provider-platform/docs/idempotency.md",
-      "name": "Idempotency"
-    },
-        {
-      "path": "../guides/provider-platform/docs/working-with-webhooks.md",
-      "name": "Working With Webhooks"
+      "path": "../guides/provider-platform/docs/terminology.md",
+      "name": "Terminology"
     },
         {
       "path": "../guides/provider-platform/docs/reason-codes.md",
       "name": "Reason Codes"
     },
         {
+      "path": "../guides/provider-platform/docs/making-payments.md",
+      "name": "Making Payments"
+    },
+        {
       "path": "../guides/provider-platform/docs/payment-plugins.md",
       "name": "Payment Plugins"
-    },
-        {
-      "path": "../guides/provider-platform/docs/payment-methods.md",
-      "name": "Payment Methods"
-    },
-        {
-      "path": "../guides/provider-platform/docs/terminology.md",
-      "name": "Terminology"
     },
         {
       "path": "../guides/provider-platform/docs/currencies.md",
       "name": "Currencies"
     },
         {
-      "path": "../guides/provider-platform/docs/making-payments.md",
-      "name": "Making Payments"
-    },
-        {
-      "path": "../guides/provider-platform/docs/use-cases.md",
-      "name": "Use Cases"
+      "path": "../guides/provider-platform/docs/connecting-account.md",
+      "name": "Connecting Account"
     },
         {
       "path": "../guides/provider-platform/docs/getting-started.md",
       "name": "Getting Started"
     },
         {
-      "path": "../guides/provider-platform/docs/connecting-account.md",
-      "name": "Connecting Account"
+      "path": "../guides/provider-platform/docs/working-with-webhooks.md",
+      "name": "Working With Webhooks"
+    },
+        {
+      "path": "../guides/provider-platform/docs/use-cases.md",
+      "name": "Use Cases"
     }
   ],
   "operations":   [
@@ -179,7 +179,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ConnectAccountRequest",
-        "rpcResponseName": "ConnectAccountResponse"
+        "rpcResponseName": "ConnectAccountResponse",
+        "artifactId": "com.wixpress.payments.providers.providers-spi-gateway"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -261,6 +262,20 @@
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_FraudInformation",
           "doc": " Information in case of fraud.\n",
           "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "setupCredentialsOnFile",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_SetupCredentialsOnFile",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "offSession",
+          "type": "boolean",
+          "doc": "",
+          "required": false
         }
       ],
       "ret":       {
@@ -289,7 +304,7 @@
                     {
             "title": "Payment declined instantly",
             "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
-            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"reasonCode\": 3012,\n  \"errorCode\": \"INSUFFICIENT_FUNDS\",\n  \"errorDescription\": \"Insufficient funds\"\n} "],
+            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"reasonCode\": 3012,\n  \"errorCode\": \"INSUFFICIENT_FUNDS\",\n  \"errorMessage\": \"Insufficient funds\"\n} "],
             "type": "curl",
             "extra": {}
           },
@@ -465,7 +480,7 @@
           },
                     {
             "title": "Payment declined",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3012,\n      \"errorCode\": \"INSUFFICIENT_FUNDS\",\n      \"errorDescription\": \"Insufficient funds\"\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3012,\n      \"errorCode\": \"INSUFFICIENT_FUNDS\",\n      \"errorMessage\": \"Insufficient funds\"\n    }\n  }\n}'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
@@ -479,7 +494,7 @@
           },
                     {
             "title": "Payment canceled",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3030,\n      \"errorCode\": \"BUYER_CANCELED\",\n      \"errorDescription\": \"Buyer canceled\"\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3030,\n      \"errorCode\": \"BUYER_CANCELED\",\n      \"errorMessage\": \"Buyer canceled\"\n    }\n  }\n}'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
@@ -511,7 +526,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "SubmitEventRequest",
-        "rpcResponseName": "SubmitEventResponse"
+        "rpcResponseName": "SubmitEventResponse",
+        "artifactId": "com.wixpress.payment.payment-services-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -756,6 +772,24 @@
       "labels": []
     },
         {
+      "name": "_wix_payments_v1_provider_SetupCredentialsOnFile",
+      "displayName": "Setup Credentials On File Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "offSession",
+        "type": "boolean",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_payments_v1_provider_PaymentMethodData",
       "displayName": "Payment Method Data Object",
       "locations": [],
@@ -792,6 +826,11 @@
           "name": "ideal",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_IDeal",
           "doc": " IDeal payment information.\n"
+        },
+                {
+          "name": "reference",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodReference",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -833,6 +872,41 @@
           "name": "holderName",
           "type": "string",
           "doc": " Card holder's full name.\n"
+        },
+                {
+          "name": "networkTransactionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dsTransactionId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CardReference",
+      "displayName": "Card Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "networkTransactionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dsTransactionId",
+          "type": "string",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -1085,8 +1159,75 @@
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_TransactionStatus",
           "doc": " This field is ignored, do not send it.\n",
           "deprecated": true
+        },
+                {
+          "name": "credentialsOnFile",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_CredentialsOnFile",
+          "doc": ""
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CredentialsOnFile",
+      "displayName": "Credentials On File Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "info",
+        "type": "All APIs.Provider Platform._wix_payments_v1_provider_CredentialsOnFile_info",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_CredentialsOnFile_info",
+      "displayName": "info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "cardReference",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_CardReference",
+          "doc": ""
+        },
+                {
+          "name": "paymentMethodReference",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodReference",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_PaymentMethodReference",
+      "displayName": "Payment Method Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "token",
+        "type": "string",
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1188,6 +1329,16 @@
           "name": "fraudInformation",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_FraudInformation",
           "doc": " Information in case of fraud.\n"
+        },
+                {
+          "name": "setupCredentialsOnFile",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_SetupCredentialsOnFile",
+          "doc": ""
+        },
+                {
+          "name": "offSession",
+          "type": "boolean",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -1511,8 +1662,100 @@
           "name": "errorMessage",
           "type": "string",
           "doc": " Payment provider's error description with details of the decline.\n"
+        },
+                {
+          "name": "credentialsOnFile",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CredentialsOnFile",
+          "doc": ""
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_CredentialsOnFile",
+      "displayName": "Credentials On File Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "info",
+        "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CredentialsOnFile_info",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_CredentialsOnFile_info",
+      "displayName": "info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "cardReference",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CardReference",
+          "doc": ""
+        },
+                {
+          "name": "paymentMethodReference",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_PaymentMethodReference",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_CardReference",
+      "displayName": "Card Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "networkTransactionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "dsTransactionId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_PaymentMethodReference",
+      "displayName": "Payment Method Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "token",
+        "type": "string",
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1654,5 +1897,5 @@
       "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.payment.payment-services-web"}
+  "extra": {}
 }

@@ -1,1 +1,1516 @@
-{"name":"Labels","memberOf":"All APIs","category":"core","mixes":[],"labels":[],"docs":{"summary":"Manage Contact Labels","description":[]},"properties":[],"tags":[{"name":"Contact Labels Service (v4)","entity":"_com_wixpress_contacts_labels_v4_ContactLabel"}],"relatedGuides":[{"path":"../guides/labels/docs/intro.md","name":"Introduction"},{"path":"../guides/labels/docs/dev_dependencies_internal.md","name":"Dev Dependencies"}],"operations":[{"name":"Delete Label","methodName":"DeleteLabel","serviceName":"ContactLabelsServiceV4","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"events":[],"labels":[],"nameParams":[],"requiredFields":["key"],"params":[{"in":"PATH","name":"key","type":"string","doc":" Label ID.\n","required":true}],"ret":{"type":{"name":"DeleteLabel","statusCode":"200","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_DeleteLabelResponse"]},"doc":""},"locations":[],"docs":{"summary":" Deletes a label and removes it from contacts it applies to.\n \n","description":[],"request":"DELETE","url":"https://www.wixapis.com/contacts/v4/labels/{key}","links":[],"examples":[{"title":"Delete Label","body":["curl -X DELETE 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],"response":["{} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"DeleteLabelRequest","rpcResponseName":"DeleteLabelResponse"},"customLabels":[{"id":"maturity-beta"}]},{"name":"Find Or Create Label","methodName":"FindOrCreateLabel","serviceName":"ContactLabelsServiceV4","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"events":[],"labels":[],"nameParams":[],"requiredFields":["displayName"],"params":[{"in":"BODY","name":"displayName","type":"string","doc":" Human-readable name to retrieve or create\n in the requested `namespace`.\n\n If an existing label is an exact match\n for the requested display name in the requested namespace,\n the existing label is returned.\n If not, a new label is created and returned.\n","required":true},{"in":"BODY","name":"language","type":"string","doc":"Language for localization\n","required":false}],"ret":{"type":{"name":"FindOrCreateLabel","statusCode":"200","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_FindOrCreateLabelResponse"]},"doc":""},"locations":[],"docs":{"summary":" Retrieves a label with a given name, or creates one if it doesn't exist.\n\n Successful calls to this endpoint always return a label,\n which can be passed to downstream API requests.\n For example, in the Contacts API,\n [Add Labels to Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/add-labels-to-contact) and\n [Remove Labels from Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/remove-labels-from-contact)\n requests will fail if you include a nonexistant label.\n To ensure successful calls, you can call this endpoint first,\n and then use the response in the label and unlabel requests.\n\n To find an existing label without potentially creating a new one, use\n [Get Label](https://dev.wix.com/api/rest/contacts/labels/get-label) or\n [List Labels](https://dev.wix.com/api/rest/contacts/labels/list-labels).\n \n","description":[],"request":"POST","url":"https://www.wixapis.com/contacts/v4/labels","links":[],"examples":[{"title":"Find or Create Label","body":["curl -X POST 'https://www.wixapis.com/contacts/v4/labels'  \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{ \"displayName\": \"My Label\" }'"],"response":["{\n  \"label\":   {\n    \"namespace\": \"custom\",\n    \"key\": \"custom.my-label\",\n    \"displayName\": \"My Label\",\n    \"labelType\": \"USER_DEFINED\",\n    \"createdDate\": \"2020-04-20T14:02:20Z\",\n    \"updatedDate\": \"2020-04-20T14:02:20Z\"\n  },\n  \"newLabel\": true\n} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"FindOrCreateLabelRequest","rpcResponseName":"FindOrCreateLabelResponse"},"customLabels":[{"id":"maturity-beta"}]},{"name":"Get Label","methodName":"GetLabel","serviceName":"ContactLabelsServiceV4","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"events":[],"labels":[],"nameParams":[],"requiredFields":["key"],"params":[{"in":"PATH","name":"key","type":"string","doc":" Label ID.\n","required":true},{"in":"QUERY","name":"language","type":"string","doc":"Language for localization\n","required":false}],"ret":{"type":{"name":"GetLabel","statusCode":"200","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_GetLabelResponse"]},"doc":""},"locations":[],"docs":{"summary":" Retrieves a label.\n \n","description":[],"request":"GET","url":"https://www.wixapis.com/contacts/v4/labels/{key}","links":[],"examples":[{"title":"Get Label","body":["curl -X GET 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],"response":["{\"label\": {\n  \"namespace\": \"custom\",\n  \"key\": \"custom.my-label\",\n  \"displayName\": \"My Label\",\n  \"labelType\": \"USER_DEFINED\",\n  \"createdDate\": \"2020-04-20T14:02:20Z\",\n  \"updatedDate\": \"2020-04-20T14:02:20Z\"\n}} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"GetLabelRequest","rpcResponseName":"GetLabelResponse"},"customLabels":[{"id":"maturity-beta"}]},{"name":"List Labels","methodName":"ListLabels","serviceName":"ContactLabelsServiceV4","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"events":[],"labels":[],"nameParams":[],"params":[{"in":"QUERY","name":"labelType","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType","doc":" Filter for labels of the specified type.\n","required":false},{"in":"QUERY","name":"namespace","type":"string","doc":" Filter for labels in the specified namespace.\n","required":false},{"in":"QUERY","name":"startsWith","type":"string","doc":" Filter for labels where `displayName` starts with the specified case-sensitive string.\n","required":false},{"in":"QUERY","name":"sort.fieldName","type":"string","doc":"Name of the field to sort by\n","required":false},{"in":"QUERY","name":"sort.order","type":"All APIs.Labels._wix_common_SortOrder","doc":"Sort order (ASC/DESC). Defaults to ASC\n","required":false},{"in":"QUERY","name":"paging.limit","type":"integer","doc":" The number of items to load\n","required":false},{"in":"QUERY","name":"paging.offset","type":"integer","doc":" number of items to skip in the current sort order\n","required":false},{"in":"QUERY","name":"language","type":"string","doc":"Language for localization\n","required":false}],"ret":{"type":{"name":"ListLabels","statusCode":"200","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_ListLabelsResponse"]},"doc":""},"locations":[],"docs":{"summary":" Lists labels.\n \n","description":[],"request":"GET","url":"https://www.wixapis.com/contacts/v4/labels","links":[],"examples":[{"title":"List All Labels","body":["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/labels' \\\n  -H 'Authorization: <AUTH>'"],"response":["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.customers\",\n      \"displayName\": \"Customers\",\n      \"labelType\": \"SYSTEM\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Contacted Me\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 0,\n    \"total\": 4\n  }\n} "],"type":"curl","extra":{}},{"title":"List Labels Created by Site Contributors","body":["curl -X GET 'https://www.wixapis.com/contacts/v4/labels?labelType=USER_DEFINED' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],"response":["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],"type":"curl","extra":{}},{"title":"List Labels That Start with a String","body":["{\n  \"labels\": [\n    {\n      \"namespace\" : \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    }\n  ],\n  \"metadata\": {\n    \"count\": 1,\n    \"offset\": 0,\n    \"total\": 1\n  }\n}\n"],"response":["{} "],"type":"curl","extra":{"description":"Lists labels whose display names start with the requested string.\n\ncurl -X GET 'https://www.wixapis.com/contacts/v4/labels?startsWith=Ano' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"}},{"title":"List Translated Labels","body":["curl -L -X GET 'https://www.wixapis.com/contacts/v4/labels?language=es' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],"response":["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"contacts.customers\",\n      \"displayName\": \"Clientes\",\n      \"labelType\": \"SYSTEM\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Me contactaron\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 0,\n    \"total\": 4\n  }\n} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"ListLabelsRequest","rpcResponseName":"ListLabelsResponse"},"customLabels":[{"id":"maturity-beta"}]},{"name":"Update Label","methodName":"UpdateLabel","serviceName":"ContactLabelsServiceV4","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"events":[],"labels":[],"nameParams":[],"requiredFields":["label.key","label.displayName"],"params":[{"in":"PATH","name":"label.key","type":"string","doc":" Label ID. Automatically generated from the namespace and display name.\n Formatted as `namespace.display-name-slug`.\n","required":true},{"in":"BODY","name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":" Label.\n","required":false},{"in":"BODY","name":"language","type":"string","doc":"Language for localization\n","required":false}],"ret":{"type":{"name":"UpdateLabel","statusCode":"200","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_UpdateLabelResponse"]},"doc":""},"locations":[],"docs":{"summary":" Renames a label.\n \n","description":[],"request":"PATCH","url":"https://www.wixapis.com/contacts/v4/labels/{label.key}","links":[],"examples":[{"title":"Update Label","body":["curl -X PATCH 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n      \"displayName\": \"My New Label Name\"\n  }'"],"response":["{\"label\": {\n  \"namespace\": \"custom\",\n  \"key\": \"custom.my-label\",\n  \"displayName\": \"My New Label Name\",\n  \"labelType\": \"USER_DEFINED\",\n  \"createdDate\": \"2020-04-20T14:02:20Z\",\n  \"updatedDate\": \"2020-05-20T14:06:20Z\"\n}} "],"type":"curl","extra":{}}],"extra":{}},"extra":{"hasRest":true,"rpcRequestName":"UpdateLabelRequest","rpcResponseName":"UpdateLabelResponse"},"customLabels":[{"id":"maturity-beta"}]}],"events":[{"type":"_com_wixpress_contacts_labels_v4_ContactLabelDeletedDomainEvent","name":"Contact Label Deleted Webhook","docs":{"summary":""},"topic":"domain_events_wix.contacts.v4.label","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"customLabels":[{"id":"maturity-beta"}],"eventType":"wix.contacts.v4.label_deleted","extra":{"isDomainEvent":true}},{"type":"_com_wixpress_contacts_labels_v4_ContactLabelCreatedDomainEvent","name":"Contact Label Created Webhook","docs":{"summary":""},"topic":"domain_events_wix.contacts.v4.label","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"customLabels":[{"id":"maturity-beta"}],"eventType":"wix.contacts.v4.label_created","extra":{"isDomainEvent":true}},{"type":"_com_wixpress_contacts_labels_v4_ContactLabelUpdatedDomainEvent","name":"Contact Label Updated Webhook","docs":{"summary":""},"topic":"domain_events_wix.contacts.v4.label","tag":"Contact Labels Service (v4)","permissions":[{"name":"Manage Contact Labels","description":"Request permission to read and modify labels available in the site contact list and saved to site contacts."}],"customLabels":[{"id":"maturity-beta"}],"eventType":"wix.contacts.v4.label_updated","extra":{"isDomainEvent":true}}],"callbacks":[],"messages":[{"name":"_com_wixpress_contacts_labels_v4_ContactLabelDeletedDomainEvent","displayName":"Contact Label Deleted Domain Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[{"title":"","body":["{\n  \"id\": \"d88d967b-6f46-4476-9a21-0e8ccabd045e\",\n  \"entityFqdn\": \"wix.contacts.v4.label\",\n  \"slug\": \"deleted\",\n  \"entityId\": \"custom.example\",\n  \"deletedEvent\": {},\n  \"eventTime\": \"2020-10-19T07:36:09.022190Z\",\n  \"triggeredByAnonymizeRequest\": false\n} "],"type":"json","extra":{}}]},"members":[{"name":"id","type":"string","doc":"Unique event ID."},{"name":"entityFqdn","type":"string","doc":"Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."},{"name":"slug","type":"string","doc":"Expected `deleted`.\nEvent name."},{"name":"deletedEvent","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityDeletedEvent","doc":"Event Info"},{"name":"entityId","type":"string","doc":"ContactLabel ID associated with this event."},{"name":"eventTime","type":"string","doc":"Event timestamp."},{"name":"triggeredByAnonymizeRequest","type":"boolean","doc":"Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelEntityDeletedEvent","displayName":"Contact Label Entity Deleted Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelCreatedDomainEvent","displayName":"Contact Label Created Domain Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[{"title":"","body":["{\n  \"id\": \"c57122e7-f312-490a-b960-5ac3dfa664b7\",\n  \"entityFqdn\": \"wix.contacts.v4.label\",\n  \"slug\": \"created\",\n  \"entityId\": \"custom.example\",\n  \"createdEvent\": {\"entityAsJson\":   {\n    \"namespace\": \"custom\",\n    \"namespaceDisplayName\": \"Labels\",\n    \"key\": \"custom.example\",\n    \"displayName\": \"example\",\n    \"labelType\": \"USER_DEFINED\",\n    \"createdDate\": \"2020-10-19T07:35:04.518Z\",\n    \"updatedDate\": \"2020-10-19T07:35:04.518Z\",\n    \"legacyId\": \"88f51486-ab80-4e06-be61-4e6ea1645c6d\"\n  }},\n  \"eventTime\": \"2020-10-19T07:35:04.656379Z\",\n  \"triggeredByAnonymizeRequest\": false\n} "],"type":"json","extra":{}}]},"members":[{"name":"id","type":"string","doc":"Unique event ID."},{"name":"entityFqdn","type":"string","doc":"Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."},{"name":"slug","type":"string","doc":"Expected `created`.\nEvent name."},{"name":"createdEvent","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityCreatedEvent","doc":"Event Info"},{"name":"entityId","type":"string","doc":"ContactLabel ID associated with this event."},{"name":"eventTime","type":"string","doc":"Event timestamp."},{"name":"triggeredByAnonymizeRequest","type":"boolean","doc":"Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelEntityCreatedEvent","displayName":"Contact Label Entity Created Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"entity","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":"Event body"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelUpdatedDomainEvent","displayName":"Contact Label Updated Domain Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[{"title":"","body":["{\n  \"id\": \"87394179-c57b-4b43-ae03-d13ac8c598c6\",\n  \"entityFqdn\": \"wix.contacts.v4.label\",\n  \"slug\": \"updated\",\n  \"entityId\": \"custom.example\",\n  \"updatedEvent\": {\"currentEntityAsJson\":   {\n    \"namespace\": \"custom\",\n    \"namespaceDisplayName\": \"Labels\",\n    \"key\": \"custom.example\",\n    \"displayName\": \"example-updated\",\n    \"labelType\": \"USER_DEFINED\",\n    \"createdDate\": \"2020-10-19T07:35:05Z\",\n    \"updatedDate\": \"2020-10-19T07:35:42Z\",\n    \"legacyId\": \"88f51486-ab80-4e06-be61-4e6ea1645c6d\"\n  }},\n  \"eventTime\": \"2020-10-19T07:35:41.913079Z\",\n  \"triggeredByAnonymizeRequest\": false\n} "],"type":"json","extra":{}}]},"members":[{"name":"id","type":"string","doc":"Unique event ID."},{"name":"entityFqdn","type":"string","doc":"Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."},{"name":"slug","type":"string","doc":"Expected `updated`.\nEvent name."},{"name":"updatedEvent","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityUpdatedEvent","doc":"Event Info"},{"name":"entityId","type":"string","doc":"ContactLabel ID associated with this event."},{"name":"eventTime","type":"string","doc":"Event timestamp."},{"name":"triggeredByAnonymizeRequest","type":"boolean","doc":"Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelEntityUpdatedEvent","displayName":"Contact Label Entity Updated Event Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"currentEntity","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":"Event body"},{"name":"previousEntity","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":"Previous event body, (when relevant)."}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabel","displayName":"Contact Label Object","locations":[],"docs":{"summary":"","links":[],"examples":[{"title":"","body":["{\n  \"namespace\": \"custom\",\n  \"key\": \"custom.my-label\",\n  \"displayName\": \"My Label\",\n  \"labelType\": \"USER_DEFINED\",\n  \"createdDate\": \"2020-04-20T14:02:20Z\",\n  \"updatedDate\": \"2020-04-20T14:02:20Z\"\n} "],"type":"json","extra":{}}]},"members":[{"name":"namespace","type":"string","doc":" Label namespace.\n Label keys must be unique within a given namespace.\n\n Currently, labels created through the API\n are automatically assigned to the `custom` namespace.\n","readOnly":true},{"name":"namespaceDisplayName","type":"string","doc":" Human-readable namespace name. Shown in the Wix UI.\n","readOnly":true},{"name":"key","type":"string","doc":" Label ID. Automatically generated from the namespace and display name.\n Formatted as `namespace.display-name-slug`.\n","readOnly":true},{"name":"displayName","type":"string","doc":" Human-readable name. Shown in the Wix UI.\n"},{"name":"labelType","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType","doc":" Label type.\n\n - `SYSTEM` indicates the label is a default system label\n   for the Contact List.\n - `USER_DEFINED` indicates the label was created by a site contributor\n   or third party app.\n - `WIX_APP_DEFINED` indicates the label was created by a Wix app.\n","readOnly":true},{"name":"createdDate","type":"string","doc":" Date the label was created.\n","readOnly":true},{"name":"updatedDate","type":"string","doc":" Date the label was updated.\n","readOnly":true}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabelNamespace","displayName":"Contact Label Namespace Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"key","type":"string","doc":" Namespace key\n","readOnly":true},{"name":"displayName","type":"string","doc":" Namespace display name\n","readOnly":true}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_common_Paging","displayName":"Paging Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"limit","type":"integer","doc":" The number of items to load\n"},{"name":"offset","type":"integer","doc":" number of items to skip in the current sort order\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_common_PagingMetadata","displayName":"Paging Metadata Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"count","type":"integer","doc":" The number of items returned in this response\n"},{"name":"offset","type":"integer","doc":" The offset which was requested\n"},{"name":"total","type":"integer","doc":" The total number of items that match the query\n"},{"name":"tooManyToCount","type":"boolean","doc":" A flag that indicates the server failed to calculate 'total' field\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_wix_common_Sorting","displayName":"Sorting Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"fieldName","type":"string","doc":"Name of the field to sort by\n"},{"name":"order","type":"All APIs.Labels._wix_common_SortOrder","doc":"Sort order (ASC/DESC). Defaults to ASC\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_FindOrCreateLabelRequest","displayName":"Find Or Create Label Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"displayName","type":"string","doc":" Human-readable name to retrieve or create\n in the requested `namespace`.\n\n If an existing label is an exact match\n for the requested display name in the requested namespace,\n the existing label is returned.\n If not, a new label is created and returned.\n"},{"name":"language","type":"string","doc":"Language for localization\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_FindOrCreateLabelResponse","displayName":"Find Or Create Label Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":" Label.\n"},{"name":"newLabel","type":"boolean","doc":" Indicates whether the label was just created or already existed.\n\n If the label was just created, returns `true`.\n If it already existed, returns `false`.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_UpdateLabelRequest","displayName":"Update Label Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":" Label.\n"},{"name":"language","type":"string","doc":"Language for localization\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_UpdateLabelResponse","displayName":"Update Label Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":" Label.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_DeleteLabelRequest","displayName":"Delete Label Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"key","type":"string","doc":" Label ID.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_DeleteLabelResponse","displayName":"Delete Label Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ListLabelsRequest","displayName":"List Labels Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"labelType","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType","doc":" Filter for labels of the specified type.\n"},{"name":"namespace","type":"string","doc":" Filter for labels in the specified namespace.\n"},{"name":"startsWith","type":"string","doc":" Filter for labels where `displayName` starts with the specified case-sensitive string.\n"},{"name":"sort","type":"All APIs.Labels._wix_common_Sorting","doc":"Allow sorting labels by the following fields: displayName, createdDate, updatedDate\n"},{"name":"paging","type":"All APIs.Labels._wix_common_Paging","doc":"Allow paginating, default: limit = 100 and offset = 0\n"},{"name":"language","type":"string","doc":"Language for localization\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ListLabelsResponse","displayName":"List Labels Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"labels","type":{"name":"array","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel"]},"doc":" List of labels.\n"},{"name":"metadata","type":"All APIs.Labels._wix_common_PagingMetadata","doc":" Metadata for the page of results.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GetLabelRequest","displayName":"Get Label Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"key","type":"string","doc":" Label ID.\n"},{"name":"language","type":"string","doc":"Language for localization\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GetLabelResponse","displayName":"Get Label Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":" Label.\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GetLabelByLegacyIdRequest","displayName":"Get Label By Legacy Id Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"legacyId","type":"string","doc":""},{"name":"language","type":"string","doc":"Language for localization\n"}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GetLabelByLegacyIdResponse","displayName":"Get Label By Legacy Id Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"label","type":"All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel","doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_PurgeRequest","displayName":"Purge Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"instanceId","type":"string","doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_PurgeResponse","displayName":"Purge Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"deletedItems","type":"integer","doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GdprListRequest","displayName":"Gdpr List Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"instanceId","type":"string","doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_GdprListResponse","displayName":"Gdpr List Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"labels","type":{"name":"array","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel"]},"doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ListLabelNamespacesRequest","displayName":"List Label Namespaces Request Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"language","type":"string","doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ListLabelNamespacesResponse","displayName":"List Label Namespaces Response Object","locations":[],"docs":{"summary":"","links":[],"examples":[]},"members":[{"name":"namespaces","type":{"name":"array","typeParams":["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelNamespace"]},"doc":""}],"enum":null,"extra":{},"labels":[]},{"name":"_com_wixpress_contacts_labels_v4_ContactLabel_LabelType","displayName":"Label Type Object","locations":[],"docs":{"summary":" \n Possible values are: <li><code> UNKNOWN - Need UNKNOWN to be able to fetch all labels\n <\/code><\/li><li><code> SYSTEM <\/code><\/li><li><code> USER_DEFINED <\/code><\/li><li><code> WIX_APP_DEFINED <\/code><\/li>","links":[],"examples":[]},"members":[],"enum":["UNKNOWN","SYSTEM","USER_DEFINED","WIX_APP_DEFINED"],"extra":{},"labels":[]},{"name":"_wix_common_SortOrder","displayName":"Sort Order Object","locations":[],"docs":{"summary":" \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>","links":[],"examples":[]},"members":[],"enum":["ASC","DESC"],"extra":{},"labels":[]}],"extra":{"artifactId":"com.wixpress.contacts.contacts-labels-app"}}
+{
+  "name": "Labels",
+  "client_id": "https://github.com/wix-private/crm/tree/master/contacts/labels/contact-labels-app#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage Contact Labels",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Contact Labels Service (v4)",
+    "entity": "_com_wixpress_contacts_labels_v4_ContactLabel",
+    "src": "https://github.com/wix-private/crm/blob/master/contacts/labels/contact-labels-app/proto/com/wixpress/contacts/labels/v4/contact_label.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/labels/docs/sort-and-filter.md",
+      "name": "Sort and Filter"
+    },
+        {
+      "path": "../guides/labels/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/labels/docs/internal-fields_internal.md",
+      "name": "Internal: Internal Fields"
+    },
+        {
+      "path": "../guides/labels/docs/app-defined-labels_internal.md",
+      "name": "Internal: App Defined Labels Integration"
+    },
+        {
+      "path": "../guides/labels/docs/dev_dependencies_internal.md",
+      "name": "Internal: Dev Dependencies"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Delete Label",
+      "methodName": "DeleteLabel",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["key"],
+      "params": [      {
+        "in": "PATH",
+        "name": "key",
+        "type": "string",
+        "doc": " Label key to delete.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteLabel",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_DeleteLabelResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDeletes a label from the site and removes it from contacts it applies to.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/contacts/v4/labels/{key}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete Label",
+          "body": ["curl -X DELETE 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteLabelRequest",
+        "rpcResponseName": "DeleteLabelResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Find Or Create Label",
+      "methodName": "FindOrCreateLabel",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["displayName"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "displayName",
+          "type": "string",
+          "doc": " Display name to retrieve or create.\n\n If an existing label is an exact match\n for the specified display name,\n the existing label is returned.\n If not, a new label is created and returned.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "FindOrCreateLabel",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_FindOrCreateLabelResponse"]
+        },
+        "doc": " Label that was found or created.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a label with a given name, or creates one if it doesn't exist.\n\nSuccessful calls to this endpoint always return a label,\nwhich can be passed to subsequent requests.\n\nFor example, in the Contacts API,\n[Label Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/label-contact) and\n[Unlabel Contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/unlabel-contact)\nrequests will fail if you include a nonexistant label.\nTo ensure successful calls, you can call this endpoint first,\nand then use the response in the label and unlabel requests.\n\nTo find an existing label without potentially creating a new one, use\n[Get Label](https://dev.wix.com/api/rest/contacts/labels/get-label) or\n[List Labels](https://dev.wix.com/api/rest/contacts/labels/list-labels).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/contacts/v4/labels",
+        "links": [],
+        "examples": [        {
+          "title": "Find or Create Label",
+          "body": ["curl -X POST 'https://www.wixapis.com/contacts/v4/labels'  \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{ \"displayName\": \"My Label\" }'"],
+          "response": ["{\n  \"label\":   {\n    \"namespace\": \"custom\",\n    \"key\": \"custom.my-label\",\n    \"displayName\": \"My Label\",\n    \"labelType\": \"USER_DEFINED\",\n    \"createdDate\": \"2020-04-20T14:02:20Z\",\n    \"updatedDate\": \"2020-04-20T14:02:20Z\"\n  },\n  \"newLabel\": true\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "FindOrCreateLabelRequest",
+        "rpcResponseName": "FindOrCreateLabelResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Label",
+      "methodName": "GetLabel",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["key"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "key",
+          "type": "string",
+          "doc": "\nLabel key.\n\n`key` is generated when the label is created\nand cannot be modified, even if `displayName` changes.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetLabel",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_GetLabelResponse"]
+        },
+        "doc": " The specified label.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a label.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/contacts/v4/labels/{key}",
+        "links": [],
+        "examples": [        {
+          "title": "Get Label",
+          "body": ["curl -X GET 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"label\": {\n  \"namespace\": \"custom\",\n  \"key\": \"custom.my-label\",\n  \"displayName\": \"My Label\",\n  \"labelType\": \"USER_DEFINED\",\n  \"createdDate\": \"2020-04-20T14:02:20Z\",\n  \"updatedDate\": \"2020-04-20T14:02:20Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetLabelRequest",
+        "rpcResponseName": "GetLabelResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Labels",
+      "methodName": "ListLabels",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "labelType",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType",
+          "doc": " Filter for labels of the specified type.\n\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "namespace",
+          "type": "string",
+          "doc": " Filter for labels in the specified namespace.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "startsWith",
+          "type": "string",
+          "doc": " Filter for labels where `displayName` starts with the specified case-sensitive string.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sort.fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sort.order",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_SortOrder",
+          "doc": "\nSort order. Use `ASC` for ascending order or `DESC` for descending order.\n\nDefaults to `ASC`.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to return.\n\n Defaults to `500`. <br>\n Maximum: `500`.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListLabels",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_ListLabelsResponse"]
+        },
+        "doc": " List of labels.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nLists all contact labels for a site.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/contacts/v4/labels",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "List All Labels",
+            "body": ["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/labels' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.customers\",\n      \"displayName\": \"Customers\",\n      \"labelType\": \"SYSTEM\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Contacted Me\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 0,\n    \"total\": 4\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "List Labels Created by Site Contributors",
+            "body": ["curl -X GET 'https://www.wixapis.com/contacts/v4/labels?labelType=USER_DEFINED' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "List Labels That Start with a String",
+            "body": ["{\n  \"labels\": [\n    {\n      \"namespace\" : \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    }\n  ],\n  \"metadata\": {\n    \"count\": 1,\n    \"offset\": 0,\n    \"total\": 1\n  }\n}\n"],
+            "response": ["{} "],
+            "type": "curl",
+            "extra": {"description": "Lists labels whose display names start with the requested string.\n\ncurl -X GET 'https://www.wixapis.com/contacts/v4/labels?startsWith=Ano' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"}
+          },
+                    {
+            "title": "List Translated Labels",
+            "body": ["curl -L -X GET 'https://www.wixapis.com/contacts/v4/labels?language=es' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"contacts.customers\",\n      \"displayName\": \"Clientes\",\n      \"labelType\": \"SYSTEM\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Me contactaron\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 0,\n    \"total\": 4\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListLabelsRequest",
+        "rpcResponseName": "ListLabelsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Labels",
+      "methodName": "QueryLabels",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "query",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_query_Query",
+          "doc": " Query options.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "language",
+          "type": "string",
+          "doc": "Language for localization.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QueryLabels",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_QueryLabelsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of contact labels. Up to 500 labels can be returned per request.\n\nFor a detailed list of supported operations, see [sorting and filtering for labels](https://dev.wix.com/api/rest/contacts/labels/sort-and-filter). To learn how to query labels, see\n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/contacts/v4/labels/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query All Labels",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/labels/query' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2021-04-20T14:02:20Z\",\n      \"updatedDate\": \"2021-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.customers\",\n      \"displayName\": \"Customers\",\n      \"labelType\": \"SYSTEM\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Contacted Me\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 4,\n    \"offset\": 0,\n    \"total\": 4\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query Labels by Namespace Sorted by CreatedDate Desc",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/labels/query' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary '{ \"filter\": {\"namespace\" : \"custom\"} \"sort\" : [{\"fieldName\": \"createdDate\", \"order\" : \"DESC\"}}]}'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.another-label\",\n      \"displayName\": \"Another Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2021-04-20T14:02:20Z\",\n      \"updatedDate\": \"2021-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query Labels by Keys",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/labels/query' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary '{ \"filter\": {\"keys\" : {\"$in\" : [\"custom.my-label\", \"contacts.contacted-me\"]} }'"],
+            "response": ["{\n  \"labels\":   [\n        {\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"custom.my-label\",\n      \"displayName\": \"My Label\",\n      \"labelType\": \"USER_DEFINED\",\n      \"createdDate\": \"2020-04-20T14:02:20Z\",\n      \"updatedDate\": \"2020-04-20T14:02:20Z\"\n    },\n        {\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"key\": \"contacts.contacted-me\",\n      \"displayName\": \"Contacted Me\",\n      \"labelType\": \"SYSTEM\"\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryLabelsRequest",
+        "rpcResponseName": "QueryLabelsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Label",
+      "methodName": "UpdateLabel",
+      "serviceName": "ContactLabelsServiceV4",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "label.key",
+        "label.displayName"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "label.key",
+          "type": "string",
+          "doc": "\nLabel key.\n\n`key` is generated when the label is created\nand cannot be modified, even if `displayName` changes.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "label",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+          "doc": " Label details to update.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateLabel",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_UpdateLabelResponse"]
+        },
+        "doc": " Updated label.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdates a label's specified properties.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/contacts/v4/labels/{label.key}",
+        "links": [],
+        "examples": [        {
+          "title": "Update Label",
+          "body": ["curl -X PATCH 'https://www.wixapis.com/contacts/v4/labels/custom.my-label' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n      \"displayName\": \"My New Label Name\"\n  }'"],
+          "response": ["{\"label\": {\n  \"namespace\": \"custom\",\n  \"key\": \"custom.my-label\",\n  \"displayName\": \"My New Label Name\",\n  \"labelType\": \"USER_DEFINED\",\n  \"createdDate\": \"2020-04-20T14:02:20Z\",\n  \"updatedDate\": \"2020-05-20T14:06:20Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateLabelRequest",
+        "rpcResponseName": "UpdateLabelResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_contacts_labels_v4_ContactLabelDeletedDomainEvent",
+      "name": "Contact Label Deleted Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/crm/blob/master/contacts/labels/contact-labels-app/proto/com/wixpress/contacts/labels/v4/contact_labels_service.proto"
+      },
+      "topic": "domain_events_wix.contacts.v4.label",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.contacts.v4.label_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_contacts_labels_v4_ContactLabelCreatedDomainEvent",
+      "name": "Contact Label Created Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/crm/blob/master/contacts/labels/contact-labels-app/proto/com/wixpress/contacts/labels/v4/contact_labels_service.proto"
+      },
+      "topic": "domain_events_wix.contacts.v4.label",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.contacts.v4.label_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_contacts_labels_v4_ContactLabelUpdatedDomainEvent",
+      "name": "Contact Label Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/crm/blob/master/contacts/labels/contact-labels-app/proto/com/wixpress/contacts/labels/v4/contact_labels_service.proto"
+      },
+      "topic": "domain_events_wix.contacts.v4.label",
+      "tag": "Contact Labels Service (v4)",
+      "permissions":       [
+                {
+          "name": "Manage Members and Contacts - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix Contacts and Members data, including labels, extended fields and form submissions. This permission scope contains all of the Contacts, Members and CRM permissions."
+        },
+                {
+          "name": "Manage Contact Labels",
+          "description": "Request permission to read and modify labels available in the site contact list and saved to site contacts."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.contacts.v4.label_updated",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelDeletedDomainEvent",
+      "displayName": "Contact Label Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"d88d967b-6f46-4476-9a21-0e8ccabd045e\",\n  \"entityFqdn\" : \"wix.contacts.v4.label\",\n  \"slug\" : \"deleted\",\n  \"entityId\" : \"custom.example\",\n  \"deletedEvent\" : { },\n  \"eventTime\" : \"2020-10-19T07:36:09.022190Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ContactLabel ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelEntityDeletedEvent",
+      "displayName": "Contact Label Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelCreatedDomainEvent",
+      "displayName": "Contact Label Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"c57122e7-f312-490a-b960-5ac3dfa664b7\",\n  \"entityFqdn\" : \"wix.contacts.v4.label\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"custom.example\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"namespace\\\":\\\"custom\\\",\\\"namespaceDisplayName\\\":\\\"Labels\\\",\\\"key\\\":\\\"custom.example\\\",\\\"displayName\\\":\\\"example\\\",\\\"labelType\\\":\\\"USER_DEFINED\\\",\\\"createdDate\\\":\\\"2020-10-19T07:35:04.518Z\\\",\\\"updatedDate\\\":\\\"2020-10-19T07:35:04.518Z\\\",\\\"legacyId\\\":\\\"88f51486-ab80-4e06-be61-4e6ea1645c6d\\\"}\"\n  },\n  \"eventTime\" : \"2020-10-19T07:35:04.656379Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ContactLabel ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelEntityCreatedEvent",
+      "displayName": "Contact Label Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entity",
+        "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelUpdatedDomainEvent",
+      "displayName": "Contact Label Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"87394179-c57b-4b43-ae03-d13ac8c598c6\",\n  \"entityFqdn\" : \"wix.contacts.v4.label\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"custom.example\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"namespace\\\":\\\"custom\\\",\\\"namespaceDisplayName\\\":\\\"Labels\\\",\\\"key\\\":\\\"custom.example\\\",\\\"displayName\\\":\\\"example-updated\\\",\\\"labelType\\\":\\\"USER_DEFINED\\\",\\\"createdDate\\\":\\\"2020-10-19T07:35:05Z\\\",\\\"updatedDate\\\":\\\"2020-10-19T07:35:42Z\\\",\\\"legacyId\\\":\\\"88f51486-ab80-4e06-be61-4e6ea1645c6d\\\"}\"\n  },\n  \"eventTime\" : \"2020-10-19T07:35:41.913079Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.contacts.v4.label`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ContactLabel ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelEntityUpdatedEvent",
+      "displayName": "Contact Label Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabel",
+      "displayName": "Contact Label Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Label that was found or created.\n",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"namespace\" : \"custom\",\n  \"key\" : \"custom.my-label\",\n  \"displayName\" : \"My Label\",\n  \"labelType\" : \"USER_DEFINED\",\n  \"createdDate\" : \"2020-04-20T14:02:20Z\",\n  \"updatedDate\" : \"2020-04-20T14:02:20Z\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "\nLabel namespace.\n\nLabels created by site contributors or 3rd-party apps\nare automatically assigned to the `custom` namespace.\n",
+          "readOnly": true
+        },
+                {
+          "name": "namespaceDisplayName",
+          "type": "string",
+          "doc": " Display name for the namespace,\n used to organize the list of labels in the site Dashboard.\n",
+          "readOnly": true
+        },
+                {
+          "name": "key",
+          "type": "string",
+          "doc": "\nLabel key.\n\n`key` is generated when the label is created\nand cannot be modified, even if `displayName` changes.\n",
+          "readOnly": true
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Label display name shown in the Dashboard.\n"
+        },
+                {
+          "name": "labelType",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType",
+          "doc": "\nLabel type.\n\n- `SYSTEM`: The label is a default system label for the Contact List.\n- `USER_DEFINED`: The label was created by a site contributor or 3rd-party app.\n- `WIX_APP_DEFINED`: The label was created by a Wix app.\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the label was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the label was last updated.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabelNamespace",
+      "displayName": "Contact Label Namespace Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "string",
+          "doc": " Namespace key\n",
+          "readOnly": true
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Namespace display name\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_upstream_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to return.\n\n Defaults to `500`. <br>\n Maximum: `500`.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_upstream_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Requested offset.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Number of items that matched the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Indicates if `total` calculation timed out before the response was sent.\n Typically this happens if there is a large set of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_upstream_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_SortOrder",
+          "doc": "\nSort order. Use `ASC` for ascending order or `DESC` for descending order.\n\nDefaults to `ASC`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_upstream_wix_query_Query",
+      "displayName": "Query Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": "Filter object.\n\nPossible filters: `$eq`, `$gt`, `$gte`, `$in`, `$lt`, `$lte`, `$ne`, `$startsWith`.\n\nFor a detailed list of supported filters, see [sorting and filtering for labels](https://dev.wix.com/api/rest/contacts/labels/sort-and-filter).\n\nExample: `{ \"filter\": {\n\"displayName\": {\n\"$startsWith\": \"Referral\"\n}\n}\n}`\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_Sorting"]
+          },
+          "doc": "\nSorting options. For a list of fields that can be sorted, see [sorting and filtering for labels](https://dev.wix.com/api/rest/contacts/labels/sort-and-filter).\n\nExample: `{ \"sort\": [{\"fieldName\": \"displayName\", \"order\": \"DESC\"}] }`\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_Paging",
+          "doc": " Pagination options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_FindOrCreateLabelRequest",
+      "displayName": "Find Or Create Label Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Label to find or create.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Display name to retrieve or create.\n\n If an existing label is an exact match\n for the specified display name,\n the existing label is returned.\n If not, a new label is created and returned.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_FindOrCreateLabelResponse",
+      "displayName": "Find Or Create Label Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Label that was found or created.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "label",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+          "doc": " Label that was found or created.\n"
+        },
+                {
+          "name": "newLabel",
+          "type": "boolean",
+          "doc": " Indicates whether the label was just created or already existed.\n\n If the label was just created, returns `true`.\n If it already existed, returns `false`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_UpdateLabelRequest",
+      "displayName": "Update Label Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "label",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+          "doc": " Label details to update.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_UpdateLabelResponse",
+      "displayName": "Update Label Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Updated label.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "label",
+        "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+        "doc": " Updated label.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_DeleteLabelRequest",
+      "displayName": "Delete Label Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key",
+        "type": "string",
+        "doc": " Label key to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_DeleteLabelResponse",
+      "displayName": "Delete Label Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ListLabelsRequest",
+      "displayName": "List Labels Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Label filter options.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "labelType",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel_LabelType",
+          "doc": " Filter for labels of the specified type.\n\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": " Filter for labels in the specified namespace.\n"
+        },
+                {
+          "name": "startsWith",
+          "type": "string",
+          "doc": " Filter for labels where `displayName` starts with the specified case-sensitive string.\n"
+        },
+                {
+          "name": "sort",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_Sorting",
+          "doc": " Sorting options.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_Paging",
+          "doc": " Paging options.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ListLabelsResponse",
+      "displayName": "List Labels Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " List of labels.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "labels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel"]
+          },
+          "doc": " List of labels.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_PagingMetadata",
+          "doc": " Metadata for the page of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GetLabelRequest",
+      "displayName": "Get Label Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "string",
+          "doc": "\nLabel key.\n\n`key` is generated when the label is created\nand cannot be modified, even if `displayName` changes.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language for localization.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GetLabelResponse",
+      "displayName": "Get Label Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " The specified label.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "label",
+        "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+        "doc": " The specified label.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GetLabelByLegacyIdRequest",
+      "displayName": "Get Label By Legacy Id Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "legacyId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": "Language for localization\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GetLabelByLegacyIdResponse",
+      "displayName": "Get Label By Legacy Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "label",
+        "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_PurgeRequest",
+      "displayName": "Purge Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "instanceId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_PurgeResponse",
+      "displayName": "Purge Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deletedItems",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GdprListRequest",
+      "displayName": "Gdpr List Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "instanceId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_GdprListResponse",
+      "displayName": "Gdpr List Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "labels",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ListLabelNamespacesRequest",
+      "displayName": "List Label Namespaces Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "language",
+        "type": "string",
+        "doc": "Language for localization\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ListLabelNamespacesResponse",
+      "displayName": "List Label Namespaces Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "namespaces",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabelNamespace"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_QueryLabelsRequest",
+      "displayName": "Query Labels Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_query_Query",
+          "doc": " Query options.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": "Language for localization.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_QueryLabelsResponse",
+      "displayName": "Query Labels Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "labels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Labels._com_wixpress_contacts_labels_v4_ContactLabel"]
+          },
+          "doc": "  List of labels\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Labels._com_wixpress_contacts_labels_v4_upstream_wix_common_PagingMetadata",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_ContactLabel_LabelType",
+      "displayName": "Label Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN - Need UNKNOWN to be able to fetch all labels\n <\/code><\/li><li><code> SYSTEM <\/code><\/li><li><code> USER_DEFINED <\/code><\/li><li><code> WIX_APP_DEFINED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "SYSTEM",
+        "USER_DEFINED",
+        "WIX_APP_DEFINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_labels_v4_upstream_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.contacts.contacts-labels-app"}
+}

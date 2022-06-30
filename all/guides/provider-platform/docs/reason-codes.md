@@ -90,6 +90,7 @@ Reason codes can be divided into four groups:
 | 5004 | Buyer declined and contact provider |
 | 5006 | Risk bank decline |
 | 5007 | Pick up card |
+| 5009 | Pending general |
 | 6000 | General error |
 
 > **Note**:
