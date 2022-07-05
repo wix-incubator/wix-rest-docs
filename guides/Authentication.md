@@ -27,7 +27,7 @@ If the user chooses to install your app from within the Wix App Market, we redir
   </p>
 </blockquote>
 
-## Step 2: App Sends Users to Authorize the App
+## Step 2: App Sends Users to Authorize the App 
 Your app should redirect users to the URL below so that we can ask them to approve a list of permissions your app is requesting (based on the [permissions](https://dev.wix.com/api/getting-started#permissions) you added in the Wix Developers Center).  
 
 <br/>
@@ -75,7 +75,9 @@ After this step, the user is done. However, your app still has some work to do.
 ## Step 4: App Submits the Authorization Code 
 Once the user completes the installation process and gives your app permission to access their data, use the temporary authorization code we sent you, together with your secret key, to request an access token and a refresh token. (The access token is only valid for 5 minutes.) 
 
-> You can find your secret key in the [Wix Developers Center](https://dev.wix.com). 
+> You can find your secret key in the [Wix Developers Center](https://dev.wix.com).
+
+> **Deprecation:** We updated the OAuth endpoint URL in the code below. If you're still using the old URL, then you'll need to change this by December 1st, 2022.
 
 <blockquote class='important'>
   <p>
@@ -84,11 +86,11 @@ Once the user completes the installation process and gives your app permission t
   </p>
 </blockquote>  
 
-Exchange the temporary authorization code for an access token using the [OAuth > Access Token Request](https://dev.wix.com/api/authorization#oauth-2.access-token-request) API method:  
+Exchange the temporary authorization code for an access token using the [OAuth > Access Token Request](https://dev.wix.com/api/rest/authorization/oauth-2/request-an-access-token) API method:  
 
 ```  
 curl -X POST \
-  https://www.wix.com/oauth/access \
+  https://www.wixapis.com/oauth/access \
   -H 'Content-Type: application/json' \
   -d '{
     "grant_type": "authorization_code",
@@ -111,22 +113,41 @@ Wix will respond to your request in step 4 with a JSON response containing an ac
 > Access tokens expire after 5 minutes. Use your refresh token to request a new access token.  
 
 ## Step 5a: App Completes the OAuth Flow
-A. If the user's flow is finished, redirect them to the following endpoint to complete the OAuth flow and close the installation window/tab:
+
+> **Note:**
+>This step is only required for apps that display their consent in a new window, not a new tab. This is primarily for apps with a dashboard component that opens inside of Wix as an iframe, or another internal component.
+
+![how does your consent appear](./../media/how-does-your-consent.png)
+
+Now that you have access and refresh tokens, you must close the consent window by redirecting the user to the following URL with the user's access token after the equals sign (`=`):
+
 ```
-curl -X GET \
-   'https://www.wix.com/installer/token-received?access_token=<ACCESS_TOKEN>' \
+https://www.wix.com/installer/close-window?access_token=<ACCESS_TOKEN>
 ```
-B. If the user can continue using your app, call the following endpoint to let us know that the flow is complete (without taking any visible action):
-```
-curl -X POST \
-   'https://www.wix.com/installer/token-received' \
-   -H 'Authorization: <AUTH>'
-```
-> **Note**:  
-Until one of these endpoints is called, the app will be marked as "pending installation" in Wix's database.
 
 ## Step 6: App Requests Protected Data
 Follow our [API Reference](https://dev.wix.com/api/rest/app-management) section to request the user's protected data, with a fresh access token as the authorization header.
 
 > **Important**:  
 For all future API calls, you will need to [request a new access token](https://dev.wix.com/api/rest/authorization/oauth-2/refresh-an-access-token), using the refresh token you received in step 5. 
+
+## Step 7: App Finishes Installation
+
+At this point your app is designated “**Setup Incomplete**”. This state is useful if your app requires users to create an account or set other configuration parameters in order for the app to become active.
+
+Once your app requires on further setup steps, create the following request to mark the installation as finished:
+
+```
+curl -X POST \
+ https://www.wixapis.com/apps/v1/bi-event \
+ -H 'Authorization: <AUTH>' \
+ -d '{
+   	"eventName": "APP_FINISHED_CONFIGURATION"
+  	}’
+\
+```
+
+>**Note:**
+>Until the endpoint is called, the app is marked as "Setup Incomplete" in the Wix database.
+
+![note to complete setup](./../media/auth-step7.png)

@@ -1,0 +1,929 @@
+{
+  "name": "Member Followers",
+  "client_id": "https://github.com/wix-private/app-market/tree/master/members-area/members-follow-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Members Follow APIs",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Followers",
+    "entity": "_com_wixpress_members_follow_v2_Follower",
+    "src": "https://github.com/wix-private/app-market/tree/master/members-area/members-follow-api/com/wixpress/members/follow/v2/messages.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/member-followers/docs/use-cases.md",
+      "name": "Use Cases"
+    },
+        {
+      "path": "../guides/member-followers/docs/README.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/member-followers/docs/following-and-blocking.md",
+      "name": "Following And Blocking"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "List Member Connections",
+      "methodName": "ListMemberConnections",
+      "serviceName": "MemberFollowersService",
+      "tag": "Followers",
+      "permissions": [      {
+        "name": "Read Member Connections",
+        "description": "Request permission to read any site member's connections."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "connectedMemberIds",
+        "memberId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of the requested member.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "connectedMemberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of member IDs whose connections to the requested member\n will be retrieved.\n For multiple connections, format as\n `?connectedMemberIds=member-1-id&connectedMemberIds=member-2-id`.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMemberConnections",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Followers._com_wixpress_members_follow_v2_ListMemberConnectionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Lists a member's follower or following connections to the other members specified in the request.\n > Note: If no other members' IDs (`connectedMemberIds`) are passed, the call will return successful, but with no data.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v2/followers/{memberId}/connections",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v2/followers/24d1fada-b1fb-44e3-ab31-d48b243b9d34/connections?connectedMemberIds=27142d62-fecd-4607-afe1-05c45cff8d95&connectedMemberIds=abc688da-ff74-43c6-9262-4ce2b5d2606' \\\n    -H 'Content-Type: application/json' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\"connectedMembers\": [\n    {\n    \"connectedMemberId\": \"abc688da-ff74-43c6-9262-4ce2b5d26076\",\n    \"followedByMember\": false,\n    \"followingMember\": false\n  },\n    {\n    \"connectedMemberId\": \"27142d62-fecd-4607-afe1-05c45cff8d95\",\n    \"followedByMember\": true,\n    \"followingMember\": true\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMemberConnectionsRequest",
+        "rpcResponseName": "ListMemberConnectionsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Member Followers",
+      "methodName": "ListMemberFollowers",
+      "serviceName": "MemberFollowersService",
+      "tag": "Followers",
+      "permissions": [      {
+        "name": "Read Member Connections",
+        "description": "Request permission to read any site member's connections."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["memberId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMemberFollowers",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Followers._com_wixpress_members_follow_v2_ListMemberFollowersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Lists members who follow the requested member.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v2/followers/{memberId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v2/followers/24d1fada-b1fb-44e3-ab31-d48b243b9d34' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\n  \"memberIds\":   [\n    \"550993c0-49de-444d-8301-8ac7e3ecdc51\",\n    \"f7e6f0e5-1247-41e5-89d2-99deefbef9c4\"\n  ],\n  \"pagingMetadata\":   {\n    \"count\": \"2\",\n    \"offset\": \"0\",\n    \"total\": \"2\"\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMemberFollowersRequest",
+        "rpcResponseName": "ListMemberFollowersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Member Following",
+      "methodName": "ListMemberFollowing",
+      "serviceName": "MemberFollowersService",
+      "tag": "Followers",
+      "permissions": [      {
+        "name": "Read Member Connections",
+        "description": "Request permission to read any site member's connections."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["memberId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMemberFollowing",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Followers._com_wixpress_members_follow_v2_ListMemberFollowingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Lists members who are followed by the requested member.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v2/followers/{memberId}/following",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    'https://www.wixapis.com/members/v2/followers/24d1fada-b1fb-44e3-ab31-d48b243b9d34/following' \\\n    -H 'Authorization: <AUTH>'"],
+          "response": ["{\n  \"memberIds\":   [\n    \"550993c0-49de-444d-8301-8ac7e3ecdc51\",\n    \"f7e6f0e5-1247-41e5-89d2-99deefbef9c4\"\n  ],\n  \"pagingMetadata\":   {\n    \"count\": \"2\",\n    \"offset\": \"0\",\n    \"total\": \"2\"\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMemberFollowingRequest",
+        "rpcResponseName": "ListMemberFollowingResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_members_follow_v2_MemberFollowedDomainEvent",
+      "name": "Member Followed Webhook",
+      "docs":       {
+        "summary": " Triggered when a member follows another member.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/members-area/members-follow-api/src/main/proto/com/wixpress/members/follow/v2/member-followers-service.proto"
+      },
+      "topic": "domain_events_wix.members.follow",
+      "tag": "Followers",
+      "permissions": [      {
+        "name": "Read Member Connections",
+        "description": "Request permission to read any site member's connections."
+      }],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.members.follow_member_followed",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_members_follow_v2_MemberUnfollowedDomainEvent",
+      "name": "Member Unfollowed Webhook",
+      "docs":       {
+        "summary": " Triggered when a member unfollows another member.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/members-area/members-follow-api/src/main/proto/com/wixpress/members/follow/v2/member-followers-service.proto"
+      },
+      "topic": "domain_events_wix.members.follow",
+      "tag": "Followers",
+      "permissions": [      {
+        "name": "Read Member Connections",
+        "description": "Request permission to read any site member's connections."
+      }],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.members.follow_member_unfollowed",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberFollowedDomainEvent",
+      "displayName": "Member Followed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.members.follow\",\n  \"slug\" : \"member_followed\",\n  \"entityId\" : \"b684ab69-b157-419f-ac29-79878632a97d\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"memberConnection\\\": {\\\"memberId\\\": \\\"f2f267d8-3b46-4af8-991e-a00d9232ef4e\\\",\\\"affectedMemberId\\\": \\\"b458556b-d0bc-4644-a057-bf4db5b0eec9\\\"}}\"\n  },\n  \"eventTime\" : \"2021-08-30T08:44:20.629071Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.members.follow`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `member_followed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_MemberFollowedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MemberFollowed ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberFollowedActionEvent",
+      "displayName": "Member Followed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_MemberFollowed",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberUnfollowedDomainEvent",
+      "displayName": "Member Unfollowed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.members.follow\",\n  \"slug\" : \"member_unfollowed\",\n  \"entityId\" : \"b684ab69-b157-419f-ac29-79878632a97d\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"memberConnection\\\": {\\\"memberId\\\": \\\"f2f267d8-3b46-4af8-991e-a00d9232ef4e\\\",\\\"affectedMemberId\\\": \\\"b458556b-d0bc-4644-a057-bf4db5b0eec9\\\"}}\"\n  },\n  \"eventTime\" : \"2021-08-30T08:44:20.629071Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.members.follow`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `member_unfollowed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_MemberUnfollowedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MemberUnfollowed ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberUnfollowedActionEvent",
+      "displayName": "Member Unfollowed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_MemberUnfollowed",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_FollowMemberRequest",
+      "displayName": "Follow Member Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_FollowMemberResponse",
+      "displayName": "Follow Member Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_UnfollowMemberRequest",
+      "displayName": "Unfollow Member Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_UnfollowMemberResponse",
+      "displayName": "Unfollow Member Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberFollowingRequest",
+      "displayName": "List Member Following Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Member Followers._wix_common_Paging",
+          "doc": " Pagination options. For more information, see\n [Pagination](https://dev.wix.com/api/rest/getting-started/pagination).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberFollowingResponse",
+      "displayName": "List Member Following Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of site members who are followed by the requested member.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Member Followers._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberFollowingRequest",
+      "displayName": "List My Member Following Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.Member Followers._wix_common_Paging",
+        "doc": " Pagination options. For more information, see\n [Pagination](https://dev.wix.com/api/rest/getting-started/pagination).\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberFollowingResponse",
+      "displayName": "List My Member Following Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of site members who are followed by the current member.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Member Followers._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberFollowersRequest",
+      "displayName": "List Member Followers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Member Followers._wix_common_Paging",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberFollowersResponse",
+      "displayName": "List Member Followers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of members who are following the request member.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Member Followers._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberFollowersRequest",
+      "displayName": "List My Member Followers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.Member Followers._wix_common_Paging",
+        "doc": " Metadata for the paginated results.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberFollowersResponse",
+      "displayName": "List My Member Followers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of members who are following the current member.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Member Followers._wix_common_PagingMetadata",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberConnectionsRequest",
+      "displayName": "List Member Connections Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "connectedMemberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of member IDs whose connections to the requested member\n will be retrieved.\n For multiple connections, format as\n `?connectedMemberIds=member-1-id&connectedMemberIds=member-2-id`.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of the requested member.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMemberConnectionsResponse",
+      "displayName": "List Member Connections Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedMembers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Member Followers._com_wixpress_members_follow_v2_ConnectedMembers"]
+        },
+        "doc": " List of site members whose connections to the requested member were retrieved.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberConnectionsRequest",
+      "displayName": "List My Member Connections Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedMemberIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of member IDs whose connections to the current member\n will be retrieved.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ListMyMemberConnectionsResponse",
+      "displayName": "List My Member Connections Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedMembers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Member Followers._com_wixpress_members_follow_v2_ConnectedMembers"]
+        },
+        "doc": " List of site members whose connections to the current member were retrieved.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_Follower",
+      "displayName": "Follower Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"memberId\" : \"e411fe13-9794-42b6-ad62-72c9917f1bac\",\n  \"affectedMemberId\" : \"9374ed3f-c6c2-4d7d-86f6-4208f70568da\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID of the member who performed the action.\n"
+        },
+                {
+          "name": "affectedMemberId",
+          "type": "string",
+          "doc": " Member ID of the member being followed or unfollowed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_ConnectedMembers",
+      "displayName": "Connected Members Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "connectedMemberId",
+          "type": "string",
+          "doc": " Site member ID.\n"
+        },
+                {
+          "name": "followedByMember",
+          "type": "boolean",
+          "doc": " Indicates if the listed member is followed by the requested member.\n"
+        },
+                {
+          "name": "followingMember",
+          "type": "boolean",
+          "doc": " Indicates if the listed member is following the requested member.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberFollowed",
+      "displayName": "Member Followed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberConnection",
+        "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_Follower",
+        "doc": " Member who is following the other member.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_follow_v2_MemberUnfollowed",
+      "displayName": "Member Unfollowed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberConnection",
+        "type": "All APIs.Member Followers._com_wixpress_members_follow_v2_Follower",
+        "doc": " Member who is unfollowing the other member.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.members.members-follow-server"}
+}

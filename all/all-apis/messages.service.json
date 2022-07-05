@@ -1,0 +1,1845 @@
+{
+  "name": "Messages",
+  "client_id": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-messages#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "List or send messages between the site and visitors, contacts, or members.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Messages",
+    "entity": "_com_wixpress_inbox_v2_Message",
+    "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-messages/proto//com/wixpress/inbox/v2/entities/message.proto"
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/messages/docs/message-types.md",
+    "name": "Message Types"
+  }],
+  "operations":   [
+        {
+      "name": "List Messages",
+      "methodName": "ListMessages",
+      "serviceName": "MessagesService",
+      "tag": "Messages",
+      "permissions":       [
+                {
+          "name": "Manage Inbox Messages",
+          "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+        },
+                {
+          "name": "Read Inbox Messages",
+          "description": "Request permission to read chat messages."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["conversationId"],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "conversationId",
+          "type": "string",
+          "doc": " ID of the conversation that contains the intended messages.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "visibility",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageVisibility",
+          "doc": "\n__Required.__\nFilters for messages with the specified visibility setting.\n\n- `BUSINESS_AND_PARTICIPANT`: Return messages visible to the business and the participant.\n- `BUSINESS`: Return all messages.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.order",
+          "type": "All APIs.Messages._wix_common_SortOrder",
+          "doc": " Sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMessages",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_ListMessagesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves messages between the business and participant.\n\nUp to 30 messages are returned per request.\nIf the number of messages is larger than the returned page,\n`pagingMetadata.cursors` is returned in the response,\nindicating that another page of results is available.\nTo retrieve the next page,\npass the `next` cursor value\nin the next request's `paging.cursor` parameter.\n\n> **Important:**\n> To ensure you'll always retrieve the next record,\n> use the same visibility and sorting\n> in the first request and all subsequent requests.\n\nBy default,\n30 messages are retrieved,\nsorted by `sequence` in descending order\n(the most recent messages are first in the list).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/inbox/v2/messages",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n'https://www.wixapis.com/inbox/v2/messages?conversationId=6202c3bb-f263-3c16-8c90-d6387d9ed420&visibility=BUSINESS_AND_PARTICIPANT' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"messages\": [\n    {\n    \"id\": \"1640851963799825\",\n    \"content\":     {\n      \"previewText\": \"Thanks for reaching out 💬. We’ll be right with you.\",\n      \"basic\": {\"items\": [{\"text\": \"Thanks for reaching out 💬. We’ll be right with you.\"}]}\n    },\n    \"sender\": {\"wixUserId\": \"5a0c4737-a2a0-4c37-a07e-d9fd87027023\"},\n    \"badges\": [],\n    \"targetChannels\": [],\n    \"sourceChannel\": \"UNKNOWN_CHANNEL_TYPE\",\n    \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n    \"sequence\": \"1640851963799825\",\n    \"direction\": \"BUSINESS_TO_PARTICIPANT\",\n    \"createdDate\": \"2021-12-30T08:12:43.799Z\"\n  },\n    {\n    \"id\": \"1640851962800972\",\n    \"content\":     {\n      \"previewText\": \"A Template message!\",\n      \"basic\": {\"items\": [{\"text\": \"A text message\"}]}\n    },\n    \"sender\": {\"anonymousVisitorId\": \"40096143-3643-4cc1-8329-30a7fc2c595e\"},\n    \"badges\": [],\n    \"targetChannels\": [\"CHAT\"],\n    \"sourceChannel\": \"CHAT\",\n    \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n    \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n    \"sequence\": \"1640851962800972\",\n    \"direction\": \"PARTICIPANT_TO_BUSINESS\",\n    \"createdDate\": \"2021-12-30T08:12:42.800Z\"\n  },\n    {\n    \"id\": \"1640851398501777\",\n    \"content\":     {\n      \"previewText\": \"A Template message!\",\n      \"template\":       {\n        \"title\": \"A Template Message\",\n        \"buttons\": [        {\n          \"label\": \"click me\",\n          \"postbackProperties\":           {\n            \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n            \"interactionId\": \"inter_id_1\"\n          }\n        }],\n        \"orientation\": \"PORTRAIT\",\n        \"textLines\":         [\n          \"oh\",\n          \"cool\"\n        ],\n        \"imageUrl\": \"https://static.wixstatic.com/media//0df0927d01d641338d1e0c59bbbabfde.jpg/v1/fill/w_315,h_315,q_80/0df0927d01d641338d1e0c59bbbabfde.jpg\"\n      }\n    },\n    \"sender\": {\"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\"},\n    \"badges\": [],\n    \"targetChannels\": [\"CHAT\"],\n    \"sourceChannel\": \"CHAT\",\n    \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n    \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n    \"sequence\": \"1640851398501777\",\n    \"direction\": \"BUSINESS_TO_PARTICIPANT\",\n    \"createdDate\": \"2021-12-30T08:03:18.501Z\"\n  },\n    {\n    \"id\": \"1640849952353627\",\n    \"content\":     {\n      \"previewText\": \"Hey!\",\n      \"basic\": {\"items\": [{\"text\": \"Hey!\"}]}\n    },\n    \"sender\": {\"wixUserId\": \"5a0c4737-a2a0-4c37-a07e-d9fd87027023\"},\n    \"badges\": [],\n    \"targetChannels\": [\"EMAIL\"],\n    \"sourceChannel\": \"CHAT\",\n    \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n    \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n    \"sequence\": \"1640849952353627\",\n    \"direction\": \"BUSINESS_TO_PARTICIPANT\",\n    \"createdDate\": \"2021-12-30T07:39:12.353Z\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMessagesRequest",
+        "rpcResponseName": "ListMessagesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Send Message",
+      "methodName": "SendMessage",
+      "serviceName": "MessagesService",
+      "tag": "Messages",
+      "permissions": [      {
+        "name": "Manage Inbox Messages",
+        "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "conversationId",
+        "message",
+        "message.content"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "conversationId",
+          "type": "string",
+          "doc": " ID of the conversation to add the message to.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "message",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Message",
+          "doc": " Message to send.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "sendNotifications",
+          "type": "boolean",
+          "doc": " Controls whether the message triggers notifications when it's received.\n\n Defaults to `false`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "silent",
+          "type": "boolean",
+          "doc": " Controls whether the unread count and conversation summary\n are updated in the\n [Message List](https://support.wix.com/en/article/wix-inbox-getting-started#view-your-messages).\n\n If `true`, unread count and conversation summary are not updated.\n\n Defaults to `false`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "sendAs",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_SendMessageRequest_OverrideSenderOptions",
+          "doc": "\nControls which identity to use in the message's `sender` property.\n\n- `CALLER`: Uses the identity included in the request header.\n- `PARTICIPANT`: Uses the `anonymousVisitorId`, `contactId`, or `memberId` of the conversation's participant.\n- `BUSINESS_USER`: For internal use. Uses the `wixUserId` of the person sending messages on behalf of the business.\n\nDefaults to `CALLER`.\nFor 3rd-party apps, the app is the caller.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "SendMessage",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_SendMessageResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSends a message to the business or participant.\n\nSpecify the message type in `message.content`\nby including the appropriate object: `basic`, `template`, `minimal`, or `form`.\nFor more information on message types\nand how each type renders in Inbox and the Chat widget,\nsee [Message Types](#message-types).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/inbox/v2/messages",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Send Message Basic",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/inbox/v2/messages' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\"conversation_id\":\"6202c3bb-f263-3c16-8c90-d6387d9ed420\",\"send_notifications\":true,\"silent\":false,\"typing_delay\":0,\"send_as\":\"CALLER\",\"message\":{\"badges\":[{\"text\":\"Email\",\"badge_visibility\":\"BUSINESS\",\"icon_url\":\"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/mailSmallFlat.png\"}],\"target_channels\":[\"EMAIL\"],\"content\":{\"preview_text\":\"Hey!\",\"basic\":{\"items\":[{\"text\":\"Hey!\"}]}},\"source_channel\":\"CHAT\",\"visibility\":\"BUSINESS_AND_PARTICIPANT\",\"direction\":\"BUSINESS_TO_PARTICIPANT\"}}'"],
+            "response": ["{\"message\": {\n  \"id\": \"1640849952353627\",\n  \"content\":   {\n    \"previewText\": \"Hey!\",\n    \"basic\": {\"items\": [{\"text\": \"Hey!\"}]}\n  },\n  \"sender\": {\"wixUserId\": \"5a0c4737-a2a0-4c37-a07e-d9fd87027023\"},\n  \"badges\": [  {\n    \"text\": \"Email\",\n    \"iconUrl\": \"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/mailSmallFlat.png\",\n    \"badgeVisibility\": \"BUSINESS\"\n  }],\n  \"targetChannels\": [\"EMAIL\"],\n  \"sourceChannel\": \"CHAT\",\n  \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n  \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n  \"sequence\": \"1640849952353627\",\n  \"direction\": \"BUSINESS_TO_PARTICIPANT\",\n  \"createdDate\": \"2021-12-30T07:39:12.353Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Send Message Template",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/inbox/v2/messages' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\"conversation_id\":\"6202c3bb-f263-3c16-8c90-d6387d9ed420\",\"send_notifications\":true,\"silent\":false,\"typing_delay\":0,\"send_as\":\"CALLER\",\"message\":{\"badges\":[{\"text\":\"Chat\",\"badge_visibility\":\"BUSINESS\",\"icon_url\":\"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/chat2Small.png\"}],\"target_channels\":[\"CHAT\"],\"content\":{\"preview_text\":\"A Template message!\",\"template\":{\"buttons\":[{\"label\":\"click me\",\"postback_properties\":{\"app_id\":\"9862eeb4-0b2d-4e03-9988-f8390c2bc53c\",\"interaction_id\":\"inter_id_1\"}}],\"text_lines\":[\"oh\",\"cool\"],\"title\":\"A Template Message\",\"image_url\":\"https://static.wixstatic.com/media//0df0927d01d641338d1e0c59bbbabfde.jpg/v1/fill/w_315,h_315,q_80/0df0927d01d641338d1e0c59bbbabfde.jpg\"}},\"source_channel\":\"CHAT\",\"visibility\":\"BUSINESS_AND_PARTICIPANT\",\"direction\":\"BUSINESS_TO_PARTICIPANT\"}}'"],
+            "response": ["{\"message\": {\n  \"id\": \"1640851398501777\",\n  \"content\":   {\n    \"previewText\": \"A Template message!\",\n    \"template\":     {\n      \"title\": \"A Template Message\",\n      \"buttons\": [      {\n        \"label\": \"click me\",\n        \"postbackProperties\":         {\n          \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n          \"interactionId\": \"inter_id_1\"\n        }\n      }],\n      \"orientation\": \"PORTRAIT\",\n      \"textLines\":       [\n        \"oh\",\n        \"cool\"\n      ],\n      \"imageUrl\": \"https://static.wixstatic.com/media//0df0927d01d641338d1e0c59bbbabfde.jpg/v1/fill/w_315,h_315,q_80/0df0927d01d641338d1e0c59bbbabfde.jpg\"\n    }\n  },\n  \"sender\": {\"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\"},\n  \"badges\": [  {\n    \"text\": \"Chat\",\n    \"iconUrl\": \"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/chat2Small.png\",\n    \"badgeVisibility\": \"BUSINESS\"\n  }],\n  \"targetChannels\": [\"CHAT\"],\n  \"sourceChannel\": \"CHAT\",\n  \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n  \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n  \"sequence\": \"1640851398501777\",\n  \"direction\": \"BUSINESS_TO_PARTICIPANT\",\n  \"createdDate\": \"2021-12-30T08:03:18.501Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Send Message Basic As Participant",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/inbox/v2/messages' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\"conversation_id\":\"6202c3bb-f263-3c16-8c90-d6387d9ed420\",\"send_notifications\":true,\"silent\":false,\"typing_delay\":0,\"send_as\":\"PARTICIPANT\",\"message\":{\"badges\":[{\"text\":\"Chat\",\"badge_visibility\":\"BUSINESS\",\"icon_url\":\"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/chat2Small.png\"}],\"target_channels\":[\"CHAT\"],\"content\":{\"preview_text\":\"A Template message!\",\"basic\":{\"items\":[{\"text\":\"A text message\"}]}},\"source_channel\":\"CHAT\",\"visibility\":\"BUSINESS_AND_PARTICIPANT\",\"direction\":\"PARTICIPANT_TO_BUSINESS\"}}'"],
+            "response": ["{\"message\": {\n  \"id\": \"1640851962800972\",\n  \"content\":   {\n    \"previewText\": \"A Template message!\",\n    \"basic\": {\"items\": [{\"text\": \"A text message\"}]}\n  },\n  \"sender\": {\"anonymousVisitorId\": \"40096143-3643-4cc1-8329-30a7fc2c595e\"},\n  \"badges\": [  {\n    \"text\": \"Chat\",\n    \"iconUrl\": \"https://wixmp-9127dea18607b759d29e6784.wixmp.com/badges/chat2Small.png\",\n    \"badgeVisibility\": \"BUSINESS\"\n  }],\n  \"targetChannels\": [\"CHAT\"],\n  \"sourceChannel\": \"CHAT\",\n  \"appId\": \"141fbfae-511e-6817-c9f0-48993a7547d1\",\n  \"visibility\": \"BUSINESS_AND_PARTICIPANT\",\n  \"sequence\": \"1640851962800972\",\n  \"direction\": \"PARTICIPANT_TO_BUSINESS\",\n  \"createdDate\": \"2021-12-30T08:12:42.800Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SendMessageRequest",
+        "rpcResponseName": "SendMessageResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_inbox_v2_MessageSentToParticipantDomainEvent",
+      "name": "Message Sent To Participant Webhook",
+      "docs":       {
+        "summary": " Triggered when the business\n sends a message to a visitor, contact, or member.\n",
+        "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-messages/proto/src/main/proto/com/wixpress/inbox/v2/services/messages_service.proto"
+      },
+      "topic": "domain_events_wix.crm.inbox.v2.message",
+      "tag": "Messages",
+      "permissions":       [
+                {
+          "name": "Manage Inbox Messages",
+          "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+        },
+                {
+          "name": "Read Inbox Messages",
+          "description": "Request permission to read chat messages."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.crm.inbox.v2.message_message_sent_to_participant",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_inbox_v2_MessageSentToBusinessDomainEvent",
+      "name": "Message Sent To Business Webhook",
+      "docs":       {
+        "summary": " Triggered when a visitor, contact, or member\n sends a message to the business.\n",
+        "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-messages/proto/src/main/proto/com/wixpress/inbox/v2/services/messages_service.proto"
+      },
+      "topic": "domain_events_wix.crm.inbox.v2.message",
+      "tag": "Messages",
+      "permissions":       [
+                {
+          "name": "Manage Inbox Messages",
+          "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+        },
+                {
+          "name": "Read Inbox Messages",
+          "description": "Request permission to read chat messages."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.crm.inbox.v2.message_message_sent_to_business",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_inbox_v2_ButtonInteractedDomainEvent",
+      "name": "Button Interacted Webhook",
+      "docs":       {
+        "summary": "Triggered when a postback button is clicked.\n",
+        "src": "https://github.com/wix-private/chat-bazel/tree/master/inbox-platform/inbox-platform-messages/proto/src/main/proto/com/wixpress/inbox/v2/services/messages_service.proto"
+      },
+      "topic": "domain_events_wix.crm.inbox.v2.message",
+      "tag": "Messages",
+      "permissions":       [
+                {
+          "name": "Manage Inbox Messages",
+          "description": "Request permissions to read and send chat messages on behalf of the site and visitors."
+        },
+                {
+          "name": "Read Inbox Messages",
+          "description": "Request permission to read chat messages."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.crm.inbox.v2.message_button_interacted",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToParticipantDomainEvent",
+      "displayName": "Message Sent To Participant Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"3bd83c4f-0456-4180-bf06-f8103e88362e\",\n  \"entityFqdn\" : \"wix.crm.inbox.v2.message\",\n  \"slug\" : \"message_sent_to_participant\",\n  \"entityId\" : \"1640771623903770\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"conversationId\" : \"5f65164f-b373-3cb9-be2e-f1fdc00c86a9\",\n      \"message\" : {\n        \"targetChannels\" : [ ],\n        \"direction\" : \"BUSINESS_TO_PARTICIPANT\",\n        \"id\" : \"1640771623903770\",\n        \"sequence\" : \"1640771623903770\",\n        \"content\" : {\n          \"previewText\" : \"Thanks for booking your spa day with us!\",\n          \"basic\" : {\n            \"items\" : [ {\n              \"image\" : {\n                \"url\" : \"https://static.wixstatic.com/media/f93e3d633e79921f14330f1911fc1139.jpg/v1/fill/w_1200,h_798,al_c,q_85,usm_0.66_1.00_0.01/f93e3d633e79921f14330f1911fc1139.webp\",\n                \"width\" : 1200.0,\n                \"height\" : 798.0\n              }\n            }, {\n              \"text\" : \"Thanks for booking your spa day with us!\"\n            }, {\n              \"text\" : \"We've emailed your invoice. You'll find everything you need to know there.\"\n            } ]\n          }\n        },\n        \"sender\" : {\n          \"wixUserId\" : \"72751428-2743-4bda-acf5-4218a4279cd3\"\n        },\n        \"appId\" : \"a0c38670-6845-41e0-8f41-85a6054ccd98\",\n        \"visibility\" : \"BUSINESS_AND_PARTICIPANT\",\n        \"sourceChannel\" : \"UNKNOWN_CHANNEL_TYPE\",\n        \"badges\" : [ ],\n        \"createdDate\" : \"2021-12-29T09:53:43.903Z\"\n      }\n    }\n  },\n  \"eventTime\" : \"2021-12-29T09:53:44.025614Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.message`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `message_sent_to_participant`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageSentToParticipantActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MessageSentToParticipant ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToParticipantActionEvent",
+      "displayName": "Message Sent To Participant Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageSentToParticipant",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToBusinessDomainEvent",
+      "displayName": "Message Sent To Business Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"95c2f87d-ae78-4df9-aa21-95189231d6f7\",\n  \"entityFqdn\" : \"wix.crm.inbox.v2.message\",\n  \"slug\" : \"message_sent_to_business\",\n  \"entityId\" : \"1640771667091213\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"conversationId\" : \"5f65164f-b373-3cb9-be2e-f1fdc00c86a9\",\n      \"message\" : {\n        \"targetChannels\" : [ ],\n        \"direction\" : \"PARTICIPANT_TO_BUSINESS\",\n        \"id\" : \"1640771667091213\",\n        \"sequence\" : \"1640771667091213\",\n        \"content\" : {\n          \"previewText\" : \"JoJo Doe made an appointment\",\n          \"form\" : {\n            \"title\" : \"New Spa Appointment\",\n            \"description\" : \"JoJo Doe made an appointment\",\n            \"fields\" : [ {\n              \"name\" : \"First Name\",\n              \"value\" : \"JoJo\"\n            }, {\n              \"name\" : \"Last Name\",\n              \"value\" : \"Doe\"\n            }, {\n              \"name\" : \"Treatments\",\n              \"value\" : \"Massage, Mud Bath, Facial\"\n            }, {\n              \"name\" : \"Appointment Date\",\n              \"value\" : \"May 9, 2021\"\n            } ],\n            \"media\" : [ {\n              \"image\" : {\n                \"url\" : \"https://static.wixstatic.com/media/f93e3d633e79921f14330f1911fc1139.jpg/v1/fill/w_1200,h_798,al_c,q_85,usm_0.66_1.00_0.01/f93e3d633e79921f14330f1911fc1139.webp\",\n                \"width\" : 1200.0,\n                \"height\" : 798.0\n              }\n            } ]\n          }\n        },\n        \"sender\" : {\n          \"contactId\" : \"890a3816-85b4-44ab-9085-524972a850ef\"\n        },\n        \"appId\" : \"a0c38670-6845-41e0-8f41-85a6054ccd98\",\n        \"visibility\" : \"BUSINESS\",\n        \"sourceChannel\" : \"UNKNOWN_CHANNEL_TYPE\",\n        \"badges\" : [ ],\n        \"createdDate\" : \"2021-12-29T09:54:27.091Z\"\n      }\n    }\n  },\n  \"eventTime\" : \"2021-12-29T09:54:27.272823Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.message`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `message_sent_to_business`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageSentToBusinessActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MessageSentToBusiness ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToBusinessActionEvent",
+      "displayName": "Message Sent To Business Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageSentToBusiness",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ButtonInteractedDomainEvent",
+      "displayName": "Button Interacted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"690ad087-6530-4f44-a544-f1b29329b389\",\n  \"entityFqdn\" : \"wix.crm.inbox.v2.message\",\n  \"slug\" : \"button_interacted\",\n  \"entityId\" : \"32e63af1-f51b-4e2e-908f-8a5e8ed88650\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"conversationId\" : \"5f65164f-b373-3cb9-be2e-f1fdc00c86a9\",\n      \"appId\" : \"a0c38670-6845-41e0-8f41-85a6054ccd98\",\n      \"interactionId\" : \"spa_day_54321__change_appointment\",\n      \"interactedBy\" : {\n        \"contactId\" : \"890a3816-85b4-44ab-9085-524972a850ef\"\n      }\n    }\n  },\n  \"eventTime\" : \"2021-12-29T09:50:04.918118Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.crm.inbox.v2.message`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `button_interacted`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_ButtonInteractedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ButtonInteracted ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ButtonInteractedActionEvent",
+      "displayName": "Button Interacted Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_ButtonInteracted",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_BasicMessagePayload",
+      "displayName": "Basic Message Payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "items",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_BasicMessageData"]
+        },
+        "doc": " List of plain text messages, images, and/or files.\n List items are displayed as separate messages\n in Inbox and the site's chat widget.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_BasicMessageData",
+      "displayName": "Basic Message Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "data",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_BasicMessageData_data",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_BasicMessageData_data",
+      "displayName": "data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "text",
+          "type": "string",
+          "doc": " Text message.\n"
+        },
+                {
+          "name": "image",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_ImageMessage",
+          "doc": " Image message.\n Can contain an image from Wix Media\n or from an external provider.\n"
+        },
+                {
+          "name": "file",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_FileMessage",
+          "doc": " File attachment.\n Can contain a file from Wix Media or an external provider.\n TODO do we allow it for SMS\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ImageMessage",
+      "displayName": "Image Message Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Wix Media ID.\nTODO make mandatory when media endpoint is ready\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " URL where the image is hosted.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " File name of the original file.\n"
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width, in pixels.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height, in pixels.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_FileMessage",
+      "displayName": "File Message Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Wix Media ID.\nTODO make mandatory when media endpoint is ready\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " URL where the file is hosted.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " File name of the original file.\n"
+        },
+                {
+          "name": "mimeType",
+          "type": "string",
+          "doc": " File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_TemplateMessagePayload",
+      "displayName": "Template Message Payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Title displayed in the message.\n"
+        },
+                {
+          "name": "buttons",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_Button"]
+          },
+          "doc": " List of buttons to display with the message.\n Buttons can either open a URL or pass interaction details to the\n [Button Interacted Webhook](https://dev.wix.com/api/rest/all-apis/inbox/button-interacted-webhook).\n\n Maximum: 10 buttons.\n"
+        },
+                {
+          "name": "orientation",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_TemplateMessagePayload_Orientation",
+          "doc": " Controls whether the message is displayed in portrait or landscape layout.\n\n Defaults to `PORTRAIT`.\n"
+        },
+                {
+          "name": "textLines",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of lines of text. Each item in the array is displayed on a new line.\n\n Maximum: 10 lines, up to 512 characters per line.\n"
+        },
+                {
+          "name": "imageUrl",
+          "type": "string",
+          "doc": " URL where the icon is hosted.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MinimalMessagePayload",
+      "displayName": "Minimal Message Payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "text",
+          "type": "string",
+          "doc": " Message text.\n"
+        },
+                {
+          "name": "iconUrl",
+          "type": "string",
+          "doc": " URL where the icon is hosted.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " If included, URL the user is redirected to when clicking the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_FormMessagePayload",
+      "displayName": "Form Message Payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Form title displayed in the message.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Form description displayed below the title.\n"
+        },
+                {
+          "name": "fields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_FormField"]
+          },
+          "doc": " List of form fields and values.\n"
+        },
+                {
+          "name": "media",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_MediaItem"]
+          },
+          "doc": " List of files and/or images attached to the form.\n\n List items are displayed as separate messages\n in Inbox and the site's chat widget.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_SystemMessagePayload",
+      "displayName": "System Message Payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": " here silent must be true\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "text",
+          "type": "string",
+          "doc": " Text message. `\\n` renders as a line break.\n"
+        },
+                {
+          "name": "buttons",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_Button"]
+          },
+          "doc": " List of buttons to display with the message.\n Buttons can either open a URL or pass interaction details to the\n [Button Interacted Webhook](https://dev.wix.com/api/rest/all-apis/inbox/button-interacted-webhook).\n\n Maximum: 10 buttons.\n"
+        },
+                {
+          "name": "imageUrl",
+          "type": "string",
+          "doc": " URL where the icon is hosted.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_FormField",
+      "displayName": "Form Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Form field display name.\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Submitted value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MediaItem",
+      "displayName": "Media Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "media",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_MediaItem_media",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MediaItem_media",
+      "displayName": "media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "image",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_ImageMessage",
+          "doc": " Image message.\n Can contain an image from Wix Media\n or from an external provider.\n"
+        },
+                {
+          "name": "file",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_FileMessage",
+          "doc": " File attachment.\n Can contain a file from Wix Media or an external provider.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Button",
+      "displayName": "Button Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "label",
+          "type": "string",
+          "doc": " Button label text.\n"
+        },
+                {
+          "name": "launchUrl",
+          "type": "string",
+          "doc": " If included, the button launches the specified URL.\n"
+        },
+                {
+          "name": "postbackProperties",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_PostbackProperties",
+          "doc": " Properties to pass to the\n [Button Interacted webhook](https://dev.wix.com/api/rest/inbox/messages/button-interacted-webhook)\n when the button is clicked.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_PostbackProperties",
+      "displayName": "Postback Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " [Your app's](https://dev.wix.com/dc3/my-apps) App ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "interactionId",
+          "type": "string",
+          "doc": " ID you define for the interaction, to be handled by your server.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_upstream_messages_wix_common_IdentificationData",
+      "displayName": "Identification Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": "\nOptional site\n[contact](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts) ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "id",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_upstream_messages_wix_common_IdentificationData_id",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_upstream_messages_wix_common_IdentificationData_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": " Anonymous site visitor ID.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Site\n [member](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fmember-permissions/members)\n ID.\n"
+        },
+                {
+          "name": "wixUserId",
+          "type": "string",
+          "doc": " User ID of the site owner or a site contributor.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Message",
+      "displayName": "Message Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Message ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageContent",
+          "doc": " Structured message content.\n"
+        },
+                {
+          "name": "sender",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_upstream_messages_wix_common_IdentificationData",
+          "doc": "\nID of the message sender.\n\nDefaults to the caller's ID\nusing the property that matches their identity type.\nFor 3rd-party apps, defaults to using the app's `appId`.\n\nYou can override the default behavior when calling\n[Send Message](https://dev.wix.com/api/rest/inbox/messages/send-message)\nby using the `sendAs` parameter.\n",
+          "readOnly": true
+        },
+                {
+          "name": "badges",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_Badge"]
+          },
+          "doc": " Optional icon and short text\n that give an additional detail about the message,\n such as the app the message was sent from\n or whether the message was an automated response.\n\n Currently only 1 badge is supported.\n"
+        },
+                {
+          "name": "targetChannels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType"]
+          },
+          "doc": " Communication channel to send the message to.\n\n Currently messages can be sent to 1 channel only.\n"
+        },
+                {
+          "name": "sourceChannel",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType",
+          "doc": " Communication channel the message is sent from.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the application that sent the message.\n\n Omitted if the message was sent with the Chat widget.\n",
+          "readOnly": true
+        },
+                {
+          "name": "visibility",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageVisibility",
+          "doc": "\n__Required.__\nControls who can see the message.\n\n- `BUSINESS_AND_PARTICIPANT`: Visible to the participant and site contributors.\n- `BUSINESS`: Visible to site contributors only.\n"
+        },
+                {
+          "name": "sequence",
+          "type": "string",
+          "doc": " Sequential ordering of the message.\n Ensures more accurate sorting than `createdDate`\n if two messages are sent at the same time.\n",
+          "readOnly": true
+        },
+                {
+          "name": "direction",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Message_MessageDirection",
+          "doc": "\n__Required.__\nMessage direction.\n\n- `BUSINESS_TO_PARTICIPANT`: The message was sent from the business to the participant.\n- `PARTICIPANT_TO_BUSINESS`: The message was sent from the participant to the business.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the message was sent.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageContent",
+      "displayName": "Message Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "previewText",
+          "type": "string",
+          "doc": " Summary of message contents.\n Displayed in Inbox in the\n [Message List](https://support.wix.com/en/article/wix-inbox-getting-started#view-your-messages).\n"
+        },
+                {
+          "name": "payload",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageContent_payload",
+          "doc": ""
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Message title.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageContent_payload",
+      "displayName": "payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "basic",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_BasicMessagePayload",
+          "doc": " Plain text, file, or image message.\n"
+        },
+                {
+          "name": "template",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_TemplateMessagePayload",
+          "doc": " Template containing an image, title, text,\n and/or up to 10 call-to-action buttons.\n"
+        },
+                {
+          "name": "minimal",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MinimalMessagePayload",
+          "doc": " Minimal message containing a single line of text\n and an optional icon.\n Often reports an activity that took place.\n"
+        },
+                {
+          "name": "form",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_FormMessagePayload",
+          "doc": " Message containing submitted form data.\n Typically sent with a `direction` of `PARTICIPANT_TO_BUSINESS`\n and message `visibility` of `BUSINESS`.\n"
+        },
+                {
+          "name": "system",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_SystemMessagePayload",
+          "doc": " System message.\n For internal use.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Badge",
+      "displayName": "Badge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "text",
+          "type": "string",
+          "doc": " Display text.\n"
+        },
+                {
+          "name": "iconUrl",
+          "type": "string",
+          "doc": " URL where the icon is hosted.\n"
+        },
+                {
+          "name": "badgeVisibility",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Badge_BadgeVisibility",
+          "doc": " Controls whether the badge is visible to the participant.\n Currently not supported in the Chat widget.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToParticipant",
+      "displayName": "Message Sent To Participant Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": " Conversation ID.\n"
+        },
+                {
+          "name": "message",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Message",
+          "doc": " Sent message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageSentToBusiness",
+      "displayName": "Message Sent To Business Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": " Conversation ID.\n"
+        },
+                {
+          "name": "message",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Message",
+          "doc": " Sent message.\n"
+        },
+                {
+          "name": "interactionInfo",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_InteractionInfo",
+          "doc": "Optional info about interaction with app done by the user\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ButtonInteracted",
+      "displayName": "Button Interacted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": " Conversation ID.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " [Your app's](https://dev.wix.com/dc3/my-apps) app ID.\n"
+        },
+                {
+          "name": "interactionId",
+          "type": "string",
+          "doc": " ID you define for the interaction,\n to be handled by your server.\n"
+        },
+                {
+          "name": "interactedBy",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_upstream_messages_wix_common_IdentificationData",
+          "doc": " ID of the participant who pressed the button.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "appDataMapEntry",
+      "displayName": "app Data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Data set by the sending application\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_CustomMessageData",
+      "displayName": "Custom Message Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appName",
+          "type": "string",
+          "doc": " Name of the app this message belong to\n"
+        },
+                {
+          "name": "appData",
+          "type": "All APIs.Messages.appDataMapEntry",
+          "doc": "Set of key-value pairs. Data set by the sending application\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_InteractionInfo",
+      "displayName": "Interaction Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Source of interaction message, will be available when message originated by interaction with an application.\n like clicking a button.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "interactionId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "fieldsMapEntry",
+      "displayName": "fields Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Unordered map of dynamically typed values.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Messages._google_protobuf_Value",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Struct",
+      "displayName": "Struct Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fields",
+        "type": "All APIs.Messages.fieldsMapEntry",
+        "doc": "Set of key-value pairs. Unordered map of dynamically typed values.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Messages._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Messages._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Messages._wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Messages._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ListMessagesRequest",
+      "displayName": "List Messages Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": " ID of the conversation that contains the intended messages.\n"
+        },
+                {
+          "name": "visibility",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_MessageVisibility",
+          "doc": "\n__Required.__\nFilters for messages with the specified visibility setting.\n\n- `BUSINESS_AND_PARTICIPANT`: Return messages visible to the business and the participant.\n- `BUSINESS`: Return all messages.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Messages._wix_common_CursorPaging",
+          "doc": ""
+        },
+                {
+          "name": "sorting",
+          "type": "All APIs.Messages._wix_common_Sorting",
+          "doc": " only message_sequence is supported for field name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ListMessagesResponse",
+      "displayName": "List Messages Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "messages",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Messages._com_wixpress_inbox_v2_Message"]
+          },
+          "doc": " List of messages between the specified visitor and the site.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Messages._wix_common_PagingMetadataV2",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_SendMessageRequest",
+      "displayName": "Send Message Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conversationId",
+          "type": "string",
+          "doc": " ID of the conversation to add the message to.\n"
+        },
+                {
+          "name": "message",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_Message",
+          "doc": " Message to send.\n"
+        },
+                {
+          "name": "sendNotifications",
+          "type": "boolean",
+          "doc": " Controls whether the message triggers notifications when it's received.\n\n Defaults to `false`.\n"
+        },
+                {
+          "name": "silent",
+          "type": "boolean",
+          "doc": " Controls whether the unread count and conversation summary\n are updated in the\n [Message List](https://support.wix.com/en/article/wix-inbox-getting-started#view-your-messages).\n\n If `true`, unread count and conversation summary are not updated.\n\n Defaults to `false`.\n"
+        },
+                {
+          "name": "sendAs",
+          "type": "All APIs.Messages._com_wixpress_inbox_v2_SendMessageRequest_OverrideSenderOptions",
+          "doc": "\nControls which identity to use in the message's `sender` property.\n\n- `CALLER`: Uses the identity included in the request header.\n- `PARTICIPANT`: Uses the `anonymousVisitorId`, `contactId`, or `memberId` of the conversation's participant.\n- `BUSINESS_USER`: For internal use. Uses the `wixUserId` of the person sending messages on behalf of the business.\n\nDefaults to `CALLER`.\nFor 3rd-party apps, the app is the caller.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_SendMessageResponse",
+      "displayName": "Send Message Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "message",
+        "type": "All APIs.Messages._com_wixpress_inbox_v2_Message",
+        "doc": " Sent message.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_TemplateMessagePayload_Orientation",
+      "displayName": "Orientation Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ORIENTATION <\/code><\/li><li><code> PORTRAIT <\/code><\/li><li><code> LANDSCAPE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ORIENTATION",
+        "PORTRAIT",
+        "LANDSCAPE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_ChannelTypeEnum_ChannelType",
+      "displayName": "Channel Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CHANNEL_TYPE <\/code><\/li><li><code> CHAT <\/code><\/li><li><code> EMAIL <\/code><\/li><li><code> SMS <\/code><\/li><li><code> FACEBOOK <\/code><\/li><li><code> INSTAGRAM <\/code><\/li><li><code> WHATSAPP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CHANNEL_TYPE",
+        "CHAT",
+        "EMAIL",
+        "SMS",
+        "FACEBOOK",
+        "INSTAGRAM",
+        "WHATSAPP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_MessageVisibility",
+      "displayName": "Message Visibility Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_VISIBILITY <\/code><\/li><li><code> BUSINESS_AND_PARTICIPANT <\/code><\/li><li><code> BUSINESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_VISIBILITY",
+        "BUSINESS_AND_PARTICIPANT",
+        "BUSINESS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Message_MessageDirection",
+      "displayName": "Message Direction Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_DIRECTION <\/code><\/li><li><code> BUSINESS_TO_PARTICIPANT <\/code><\/li><li><code> PARTICIPANT_TO_BUSINESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_DIRECTION",
+        "BUSINESS_TO_PARTICIPANT",
+        "PARTICIPANT_TO_BUSINESS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_Badge_BadgeVisibility",
+      "displayName": "Badge Visibility Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_BADGE_VISIBILITY <\/code><\/li><li><code> BUSINESS_AND_PARTICIPANT <\/code><\/li><li><code> BUSINESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_BADGE_VISIBILITY",
+        "BUSINESS_AND_PARTICIPANT",
+        "BUSINESS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_inbox_v2_SendMessageRequest_OverrideSenderOptions",
+      "displayName": "Override Sender Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> CALLER <\/code><\/li><li><code> PARTICIPANT <\/code><\/li><li><code> BUSINESS_USER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "CALLER",
+        "PARTICIPANT",
+        "BUSINESS_USER"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.inbox.inbox-platform-messages"}
+}
