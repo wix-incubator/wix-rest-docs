@@ -14,14 +14,20 @@
     "name": "Program",
     "entity": "_com_wixpress_loyalty_program_LoyaltyProgram"
   }],
-  "relatedGuides": [],
+  "relatedGuides": [  {
+    "path": "../guides/program/docs/introduction.md",
+    "name": "Introduction"
+  }],
   "operations":   [
         {
       "name": "Activate Loyalty Program",
       "methodName": "ActivateLoyaltyProgram",
       "serviceName": "LoyaltyPrograms",
       "tag": "Program",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Loyalty",
+        "description": "Request permission to manage the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -36,15 +42,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Changes the program status to `ACTIVE`.\n\n> **Note:** By default, every Wix site includes a loyalty program in `DRAFT` status. Customers cannot earn or redeem points while the program is not `ACTIVE`.\n\n \n",
+        "summary": " Changes the program status to `ACTIVE`.\n\n> **Note:** When a loyalty program is created it starts in `DRAFT` status. Customers cannot earn or redeem points while the program is not `ACTIVE`.\n \n",
         "description": [],
         "request": "POST",
-        "url": "https://www.wixapis.com/loyalty-program/v1/program/activate",
+        "url": "https://www.wixapis.com/loyalty-programs/v1/program/activate",
         "links": [],
         "examples": [        {
           "title": "Activate loyalty program",
           "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-programs/v1/program/activate' \\\n  -H 'Authorization: <AUTH>'"],
-          "response": ["{\"loyalty_program\": {\n  \"name\": \"Star Loyalty Program\",\n  \"points\":   {\n    \"custom_name\": \"Stars\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0,\n      \"alt_text\": null,\n      \"url_expiration_date\": null,\n      \"filename\": null\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"created_date\": \"2021-10-28T07:25:48.780Z\",\n  \"updated_date\": \"2021-12-07T14:44:42.423Z\"\n}} "],
+          "response": ["{\"loyaltyProgram\": {\n  \"name\": \"Star Loyalty Program\",\n  \"pointDefinition\":   {\n    \"customName\": \"Stars\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"createdDate\": \"2022-05-22T08:18:32.186Z\",\n  \"updatedDate\": \"2022-05-25T10:36:32.430Z\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -63,8 +69,8 @@
       "serviceName": "LoyaltyPrograms",
       "tag": "Program",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "events": [],
       "labels": [],
@@ -80,15 +86,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves the loyalty program.\n\n> **Note:** By default, every Wix site includes a loyalty program in DRAFT status that needs to be activated before it can be used. Retrieving such a program will return dummy data.\n\n \n",
+        "summary": " Retrieves the loyalty program.\n \n",
         "description": [],
         "request": "GET",
-        "url": "https://www.wixapis.com/loyalty-program/v1/program",
+        "url": "https://www.wixapis.com/loyalty-programs/v1/program",
         "links": [],
         "examples": [        {
           "title": "Get loyalty program",
           "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-programs/v1/program' \\\n  -H 'Authorization: <AUTH>'"],
-          "response": ["{\"loyalty_program\": {\n  \"name\": \"Star Loyalty Program\",\n  \"points\":   {\n    \"custom_name\": \"Stars\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0,\n      \"alt_text\": null,\n      \"url_expiration_date\": null,\n      \"filename\": null\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"created_date\": \"2021-10-28T07:25:48.780Z\",\n  \"updated_date\": \"2021-12-07T14:44:42.423Z\"\n}} "],
+          "response": ["{\"loyaltyProgram\": {\n  \"name\": \"Star Loyalty Program\",\n  \"pointDefinition\":   {\n    \"customName\": \"Stars\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"createdDate\": \"2022-05-22T08:18:32.186Z\",\n  \"updatedDate\": \"2022-05-25T10:36:32.430Z\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -102,64 +108,14 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Get Loyalty Program Description",
-      "methodName": "GetLoyaltyProgramDescription",
-      "serviceName": "LoyaltyPrograms",
-      "tag": "Program",
-      "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
-      }],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "params": [      {
-        "in": "QUERY",
-        "name": "fields",
-        "type":         {
-          "name": "array",
-          "typeParams": ["string"]
-        },
-        "doc": " List of description fields to retrieve. Supported values: `description`, `updatedDate`.\n",
-        "required": false
-      }],
-      "ret":       {
-        "type":         {
-          "name": "GetLoyaltyProgramDescription",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Program._com_wixpress_loyalty_program_GetLoyaltyProgramDescriptionResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Retrieves the program description.\n \n",
-        "description": [],
-        "request": "GET",
-        "url": "https://www.wixapis.com/loyalty-program/v1/program/description",
-        "links": [],
-        "examples": [        {
-          "title": "Get loyalty program description",
-          "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-programs/v1/program/description' \\\n  -H 'Authorization: <AUTH>'"],
-          "response": ["{\n  \"description\": \"{\\\"nodes\\\":[{\\\"type\\\":\\\"HEADING\\\",\\\"id\\\":\\\"9wy48800r\\\",\\\"nodes\\\":[{\\\"type\\\":\\\"TEXT\\\",\\\"id\\\":\\\"\\\"...\\\"updatedTimestamp\\\":\\\"2021-10-29T08:00:30.815Z\\\"}}\",\n  \"updated_date\": \"2021-10-29T08:00:31.615Z\"\n} "],
-          "type": "curl",
-          "extra": {}
-        }],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "GetLoyaltyProgramDescriptionRequest",
-        "rpcResponseName": "GetLoyaltyProgramDescriptionResponse"
-      },
-      "customLabels": [{"id": "maturity-beta"}]
-    },
-        {
       "name": "Update Loyalty Program",
       "methodName": "UpdateLoyaltyProgram",
       "serviceName": "LoyaltyPrograms",
       "tag": "Program",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Loyalty",
+        "description": "Request permission to manage the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -180,15 +136,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Updates the loyalty program.\n\n> **Note:** You cannot activate the loyalty program using this endpoint. To do so, use the [Activate Loyalty Program](https://dev.wix.com/api/rest/loyalty/program/activate-loyalty-program) endpoint.\n\n \n",
+        "summary": " Updates the loyalty program.\n\n> **Note:** You cannot activate the loyalty program using this endpoint. To do so, use the [Activate Loyalty Program endpoint](https://dev.wix.com/api/rest/loyalty/program/activate-loyalty-program).\n\n \n",
         "description": [],
         "request": "PATCH",
-        "url": "https://www.wixapis.com/loyalty-program/v1/program",
+        "url": "https://www.wixapis.com/loyalty-programs/v1/program",
         "links": [],
         "examples": [        {
           "title": "Update loyalty program",
-          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/loyalty-programs/v1/program' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n      \"loyalty_program\": {\n        \"name\": \"Northern Star Loyalty Program\",\n        \"points\": {\n          \"custom_name\": \"Northern Star\"\n        }\n      }\n  }'"],
-          "response": ["{\"loyalty_program\": {\n  \"name\": \"Northern Star Loyalty Program\",\n  \"points\":   {\n    \"custom_name\": \"Northern Star\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0,\n      \"alt_text\": null,\n      \"url_expiration_date\": null,\n      \"filename\": null\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"created_date\": \"2021-10-28T07:25:48.780Z\",\n  \"updated_date\": \"2021-12-07T14:48:54.826Z\"\n}} "],
+          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/loyalty-programs/v1/program' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n      \"loyaltyProgram\": {\n        \"name\": \"Northern Star Loyalty Program\",\n        \"points\": {\n          \"customName\": \"Northern Star\"\n        }\n      }\n  }'"],
+          "response": ["{\"loyaltyProgram\": {\n  \"name\": \"Northern Star Loyalty Program\",\n  \"pointDefinition\":   {\n    \"customName\": \"Northern Star\",\n    \"icon\":     {\n      \"id\": \"\",\n      \"url\": \"shapes/39dce0a5d1ce498f95526b1390eaf585.svg\",\n      \"height\": 0,\n      \"width\": 0\n    }\n  },\n  \"status\": \"ACTIVE\",\n  \"createdDate\": \"2022-05-22T08:18:32.186Z\",\n  \"updatedDate\": \"2022-06-07T08:40:47.426Z\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -200,85 +156,22 @@
         "rpcResponseName": "UpdateLoyaltyProgramResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
-    },
-        {
-      "name": "Update Loyalty Program Description",
-      "methodName": "UpdateLoyaltyProgramDescription",
-      "serviceName": "LoyaltyPrograms",
-      "tag": "Program",
-      "permissions": [],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "params": [      {
-        "in": "BODY",
-        "name": "description",
-        "type": "string",
-        "doc": " Loyalty program description to update.\n",
-        "required": false
-      }],
-      "ret":       {
-        "type":         {
-          "name": "UpdateLoyaltyProgramDescription",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Program._com_wixpress_loyalty_program_UpdateLoyaltyProgramDescriptionResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Updates the program description.\n \n",
-        "description": [],
-        "request": "PUT",
-        "url": "https://www.wixapis.com/loyalty-program/v1/program/description",
-        "links": [],
-        "examples": [        {
-          "title": "Update loyalty program description",
-          "body": ["curl -X PUT \\\n  'https://www.wixapis.com/loyalty-programs/v1/program/description' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n      \"description\": \"{\\\"nodes\\\":[{\\\"type\\\":\\\"HEADING\\\",\\\"id\\\":\\\"9wy48800r\\\",\\\"nodes\\\":[{\\\"type\\\":\\\"TEXT\\\",\\\"id\\\":\\\"\\\"...\",\n  }'"],
-          "response": ["{} "],
-          "type": "curl",
-          "extra": {}
-        }],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "UpdateLoyaltyProgramDescriptionRequest",
-        "rpcResponseName": "UpdateLoyaltyProgramDescriptionResponse"
-      },
-      "customLabels": [{"id": "maturity-beta"}]
     }
   ],
-  "events":   [
-        {
-      "type": "_com_wixpress_loyalty_program_LoyaltyProgramUpdatedDomainEvent",
-      "name": "Loyalty Program Updated Webhook",
-      "docs": {"summary": " Triggered when a loyalty program has been updated.\n"},
-      "topic": "domain_events_wix.loyalty.v1.program",
-      "tag": "Program",
-      "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
-      }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.loyalty.v1.program_updated",
-      "extra": {"isDomainEvent": true}
-    },
-        {
-      "type": "_com_wixpress_loyalty_program_LoyaltyProgramDescriptionUpdatedDomainEvent",
-      "name": "Loyalty Program Description Updated Webhook",
-      "docs": {"summary": " Triggered when the program description has been updated.\n"},
-      "topic": "domain_events_wix.loyalty.v1.program",
-      "tag": "Program",
-      "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
-      }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.loyalty.v1.program_loyalty_program_description_updated",
-      "extra": {"isDomainEvent": true}
-    }
-  ],
+  "events": [  {
+    "type": "_com_wixpress_loyalty_program_LoyaltyProgramUpdatedDomainEvent",
+    "name": "Loyalty Program Updated Webhook",
+    "docs": {"summary": " Triggered when a loyalty program is updated.\n"},
+    "topic": "domain_events_wix.loyalty.v1.program",
+    "tag": "Program",
+    "permissions": [    {
+      "name": "Read Loyalty",
+      "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
+    }],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.loyalty.v1.program_updated",
+    "extra": {"isDomainEvent": true}
+  }],
   "callbacks": [],
   "messages":   [
         {
@@ -290,7 +183,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"d136825c-42b8-4df8-a58b-88e6e55e15fb\",\n  \"entityFqdn\" : \"wix.loyalty.v1.program\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"settings\",\n  \"updatedEvent\" : {\n    \"currentEntity\" : {\n      \"name\" : \"Loyalty program\",\n      \"points\" : {\n        \"icon\" : {\n          \"id\" : \"\",\n          \"url\" : \"shapes/cb523e8b3f9b4908b85a4a1c577af32b.svg\",\n          \"height\" : 0,\n          \"width\" : 0\n        }\n      },\n      \"status\" : \"ACTIVE\",\n      \"updatedDate\" : \"2022-01-06T08:18:36.155Z\",\n      \"createdDate\" : \"2021-12-08T08:11:15.303Z\"\n    }\n  },\n  \"eventTime\" : \"2022-01-06T08:18:36.270522Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"entityId\" : \"settings\",\n  \"slug\" : \"updated\",\n  \"id\" : \"d136825c-42b8-4df8-a58b-88e6e55e15fb\",\n  \"entityFqdn\" : \"wix.loyalty.v1.program\",\n  \"updatedEvent\" : {\n    \"currentEntity\" : {\n      \"name\" : \"Loyalty program\",\n      \"status\" : \"ACTIVE\",\n      \"pointDefinition\" : {\n        \"customName\" : \"Northern Star\",\n        \"icon\" : {\n          \"id\" : \"\",\n          \"url\" : \"shapes/cb523e8b3f9b4908b85a4a1c577af32b.svg\",\n          \"height\" : 0,\n          \"width\" : 0\n        }\n      },\n      \"updatedDate\" : \"2022-06-07T08:40:47.426Z\",\n      \"createdDate\" : \"2022-05-22T08:18:32.186Z\"\n    }\n  },\n  \"eventTime\" : \"2022-06-07T08:40:47.426Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -429,9 +322,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "body",
+        "name": "bodyAsJson",
         "type": "All APIs.Program._com_wixpress_loyalty_program_LoyaltyProgramDescriptionUpdated",
-        "doc": "Event body"
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -991,9 +884,14 @@
       "displayName": "Loyalty Program Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": " A loyalty program allows you to maintain customer reward accounts. You can create a\nloyalty program to increase customer retention. Read more about the loyalty program in\n[this overview](https://support.wix.com/en/article/wix-loyalty-program-an-overview).\n",
         "links": [],
-        "examples": []
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"loyaltyProgram\" : {\n    \"name\" : \"Star Loyalty Program\",\n    \"pointDefinition\" : {\n      \"customName\" : \"Stars\",\n      \"icon\" : {\n        \"id\" : \"\",\n        \"url\" : \"shapes/58819f398c36404f8017aa8faa2240b4.svg\",\n        \"height\" : 0,\n        \"width\" : 0\n      }\n    },\n    \"status\" : \"ACTIVE\",\n    \"createdDate\" : \"2022-05-22T08:18:32.186Z\",\n    \"updatedDate\" : \"2022-06-07T08:40:47.426Z\"\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
       },
       "members":       [
                 {
@@ -1002,57 +900,27 @@
           "doc": " Program name.\n"
         },
                 {
-          "name": "points",
-          "type": "All APIs.Program._com_wixpress_loyalty_program_Points",
-          "doc": " Program's point definition.\n"
-        },
-                {
           "name": "pointDefinition",
           "type": "All APIs.Program._com_wixpress_loyalty_program_PointDefinition",
-          "doc": " Information about the program's collectible entity. The default entity is called `Points`.\n"
+          "doc": " Information about the program's collectible entity.\n"
         },
                 {
           "name": "status",
           "type": "All APIs.Program._com_wixpress_loyalty_program_ProgramStatusEnum_ProgramStatus",
-          "doc": " Program status.\n",
+          "doc": " Program status.\n\nDefault: `DRAFT`\n",
           "readOnly": true
         },
                 {
           "name": "createdDate",
           "type": "string",
-          "doc": " Date and time the program was first activated.\n",
+          "doc": " Date and time the program was created.\n",
           "readOnly": true
         },
                 {
           "name": "updatedDate",
           "type": "string",
-          "doc": " Date and time the account was last updated.\n",
+          "doc": " Date and time the program was updated.\n",
           "readOnly": true
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_loyalty_program_Points",
-      "displayName": "Points Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "customName",
-          "type": "string",
-          "doc": " Display name for the program's points.\n"
-        },
-                {
-          "name": "icon",
-          "type": "All APIs.Program._wix_common_Image",
-          "doc": " Information about the point's icon.\n"
         }
       ],
       "enum": null,
@@ -1072,12 +940,12 @@
                 {
           "name": "customName",
           "type": "string",
-          "doc": " Display name for the program's collectible entity. It is recommended to use the plural, for example Stars. If omitted, the default Points appears in the live site.\n Note: In contrast to a customName, the default Points will be translated and adjusted to singular based on the circumstances.\n"
+          "doc": " Display name for the program's collectible entity. It's recommended to use the plural, for example\nStars. In contrast to a custom name, the default `\"Points\"` is translated and adjusted to singular based\non circumstances.\n\nDefault: `\"Points\"`\n\nMax: 20 characters\n"
         },
                 {
           "name": "icon",
           "type": "All APIs.Program._wix_common_Image",
-          "doc": " Information about the point's icon.\n"
+          "doc": " Information about the points icon.\n\n"
         }
       ],
       "enum": null,
@@ -1419,7 +1287,7 @@
       "displayName": "Delete Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TRASH <\/code><\/li><li><code> DELETED <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TRASH <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> PENDING_PURGE <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -1427,7 +1295,8 @@
       "enum":       [
         "UNKNOWN",
         "TRASH",
-        "DELETED"
+        "DELETED",
+        "PENDING_PURGE"
       ],
       "extra": {},
       "labels": []
@@ -1437,7 +1306,7 @@
       "displayName": "Namespace Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -1459,7 +1328,8 @@
         "HTML_DRAFT",
         "SITELESS_BUSINESS",
         "CREATOR_ECONOMY",
-        "DASHBOARD_FIRST"
+        "DASHBOARD_FIRST",
+        "ANYWHERE"
       ],
       "extra": {},
       "labels": []
@@ -1469,7 +1339,7 @@
       "displayName": "Site Created Context Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> OTHER -  A valid option, we don't expose all reasons why site might be created.\n <\/code><\/li><li><code> FROM_TEMPLATE -  A meta site was created from template.\n <\/code><\/li><li><code> DUPLICATE_BY_SITE_TRANSFER -  A meta site was created by copying of the transfferred meta site.\n <\/code><\/li><li><code> DUPLICATE -  A copy of existing meta site.\n <\/code><\/li><li><code> OLD_SITE_TRANSFER -  A meta site was created as a transfferred site (copy of the original), old flow, should die soon.\n <\/code><\/li><li><code> FLASH -  A meta site was created for Flash editor.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> OTHER -  A valid option, we don't expose all reasons why site might be created.\n <\/code><\/li><li><code> FROM_TEMPLATE -  A meta site was created from template.\n <\/code><\/li><li><code> DUPLICATE_BY_SITE_TRANSFER -  A meta site was created by copying of the transfferred meta site.\n <\/code><\/li><li><code> DUPLICATE -  A copy of existing meta site.\n <\/code><\/li><li><code> OLD_SITE_TRANSFER -  A meta site was created as a transfferred site (copy of the original), old flow, should die soon.\n <\/code><\/li><li><code> FLASH - deprecated A meta site was created for Flash editor.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
