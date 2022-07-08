@@ -1,5 +1,12 @@
 # Release Notes
 
+## New Release: [Restaurants Local Delivery Integration SPI](wix-restaurants/local-delivery-integration-spi)
+The new Restaurants [Local Delivery SPI](wix-restaurants/local-delivery-integration-spi/local-delivery) introduces the ability to integrate third-party local delivery services with a Wix site. Local delivery services include estimating and creating deliveries.
+
+New to working with Wix SPIs? [Learn more](https://dev.wix.com/api/rest/getting-started/service-provider-interface)
+
+(June 30, 2022)
+
 ## New Release: [Wix Blog Tags](wix-blog/blog/tags/tag-object/)
 The new Blog [Tags API](wix-blog/blog/tags/tag-object/) introduces read functionality for blog tags.
 
@@ -42,7 +49,7 @@ This deprecates the [Wix Chat API](wix-chat/wix-chat).
 ## New Release: [Account Level APIs](account-level-apis/)
 
 The Account Level APIs are accessible only using API keys, which are currently available to selected beta users only.
-APIs exposed include Sites, Site Folders and Resellers. (February 24, 2022)  
+APIs exposed include Sites, Site Folders, Domains, and Resellers. (February 24, 2022)  
 
 ## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
