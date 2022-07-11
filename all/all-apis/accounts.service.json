@@ -14,14 +14,20 @@
     "name": "Account",
     "entity": "_com_wixpress_loyalty_account_LoyaltyAccount"
   }],
-  "relatedGuides": [],
+  "relatedGuides": [  {
+    "path": "../guides/accounts/docs/introduction.md",
+    "name": "Introduction"
+  }],
   "operations":   [
         {
       "name": "Adjust Points",
       "methodName": "AdjustPoints",
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Loyalty",
+        "description": "Request permission to manage the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -31,14 +37,14 @@
           "in": "PATH",
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n",
+          "doc": " Loyalty account ID.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "description",
           "type": "string",
-          "doc": " Optional description of the `Adjust Points` request.\n",
+          "doc": " Description to explain the reason for the points adjustment.\n",
           "required": false
         },
                 {
@@ -52,7 +58,7 @@
           "in": "BODY",
           "name": "revision",
           "type": "string",
-          "doc": " Revision number. Increments by 1 each time the point balance is adjusted.\nTo prevent conflicting changes, the existing `revision` must be used when adjusting the point balance.\n",
+          "doc": " Each time the loyalty account is updated, `revision` increments by 1.\n\nThe current `revision` must be passed when adjusting points in the loyalty account. This\nensures you're working with the latest version of the loyalty account and prevents unintended overwrites.\n",
           "required": false
         }
       ],
@@ -66,15 +72,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Adjusts the point balance of an account.\n \n",
+        "summary": " Adjusts the point balance of a loyalty account.\n\nYou can adjust the balance in two ways:\n- `balance` allows you to set the total points balance to this new amount.\n- `amount` allows you to adjust the points balance by this amount. This amount can be a positive number to increase the points balance or a negative number to decrease the balance.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{accountId}/adjust-points",
         "links": [],
         "examples": [        {
           "title": "Adjust account balance",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7/adjust-points' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n        \"account_id\": \"01e34b81-4e48-43e4-b178-c84f3b968574\",\n        \"description\": \"Sync from external program\",\n        \"balance\": 15,\n        \"revision\": \"3\"\n  }'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latest_transaction\":   {\n    \"id\": \"9d29cf95-fd2c-4db4-8f4d-2d65c52cacb9\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"created_date\": \"2021-12-07T07:30:23.749Z\",\n    \"reward_id\": null,\n    \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotency_key\": null\n  },\n  \"reward_available\": true,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7/adjust-points' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n        \"accountId\": \"01e34b81-4e48-43e4-b178-c84f3b968574\",\n        \"description\": \"Sync from external program\",\n        \"balance\": 15,\n        \"revision\": \"3\"\n  }'"],
+          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latestTransaction\":   {\n    \"id\": \"9d29cf95-fd2c-4db4-8f4d-2d65c52cacb9\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotencyKey\": null\n  },\n  \"rewardAvailable\": true,\n  \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n  \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -92,7 +98,10 @@
       "methodName": "CreateAccount",
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Loyalty",
+        "description": "Request permission to manage the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -101,7 +110,7 @@
         "in": "BODY",
         "name": "contactId",
         "type": "string",
-        "doc": " Contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n",
+        "doc": " Contact ID for a Wix site contact. See the Contacts API to\n[learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n",
         "required": true
       }],
       "ret":       {
@@ -114,15 +123,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Creates an account.\n \n",
+        "summary": " Creates a loyalty account for one of a site's contacts.\n\nTo create a new loyalty account, the customer must first be a site contact with a contact ID. See the Contacts API to\n[learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object). The site must also\nhave an active loyalty program before loyalty accounts can be created. See the activate loyalty program endpoint\n[to activate a site's loyalty program](https://dev.wix.com/api/rest/wix-loyalty/program/activate-loyalty-program).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts",
         "links": [],
         "examples": [        {
           "title": "Create an account for the contact",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n        \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\"\n  }'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"3c7267de-204d-4f6c-b5a5-5d060bc3b21c\",\n  \"points\":   {\n    \"balance\": 0,\n    \"earned\": 0,\n    \"redeemed\": 0,\n    \"adjusted\": 0\n  },\n  \"latest_transaction\": null,\n  \"reward_available\": false,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-06T14:33:19.114Z\",\n  \"revision\": \"1\"\n}} "],
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n        \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\"\n  }'"],
+          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"memberId\": \"3c7267de-204d-4f6c-b5a5-5d060bc3b21c\",\n  \"points\":   {\n    \"balance\": 0,\n    \"earned\": 0,\n    \"redeemed\": 0,\n    \"adjusted\": 0\n  },\n  \"latestTransaction\": null,\n  \"rewardAvailable\": false,\n  \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n  \"updatedDate\": \"2021-12-06T14:33:19.114Z\",\n  \"revision\": \"1\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -140,7 +149,10 @@
       "methodName": "EarnPoints",
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Loyalty",
+        "description": "Request permission to manage the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -154,35 +166,35 @@
           "in": "PATH",
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n",
+          "doc": " Loyalty account ID.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "amount",
           "type": "integer",
-          "doc": " Amount of points to earn. Must be a whole number integer lower than 10 million.\n",
+          "doc": " Amount of points to earn. Must be a positive, whole number.\n\nMin: `1`\n\nMax: `9,999,999`\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "description",
           "type": "string",
-          "doc": " Optional description of the `Earn Points` request. Maximum supported text length is 100 characters.\n",
+          "doc": " Description of how the points were earned.\n\nMax: 100 characters\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "appId",
           "type": "string",
-          "doc": " ID of the app that initiated the transaction.\nMatches the automation's `sourceUniqueId` if points were earned in an automatic event.\nMatches Loyalty `appDefId` if points were earned manually.\n",
+          "doc": " ID of the app that initiated the transaction.\n\nIf points were earned manually, then the `appId` is the Loyalty app's\n`wixAppId` of `553c79f3-5625-4f38-b14b-ef7c0d1e87df`. If points were earned in an automatic event,\nthen the `appId` is from that automation's `sourceUniqueId`.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "idempotencyKey",
           "type": "string",
-          "doc": " Idempotency key. Only present if points were added manually.\n",
+          "doc": " Unique string identifier generated by the app. Wix uses this identifier to recognize subsequent retries of the same request.\n",
           "required": true
         }
       ],
@@ -196,15 +208,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Adds points to an account.\n \n",
+        "summary": " Adds points to a loyalty account.\n\nOnly a positive amount can be added using the earn points endpoint. To adjust an account's balance \nfor a negative amount, use [Adjust Points](https://dev.wix.com/api/rest/wix-loyalty/accounts/adjust-points).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{accountId}/earn-points",
         "links": [],
         "examples": [        {
           "title": "Add points to account",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7/earn-points' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n          \"account_id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n          \"amount\": 10,\n          \"description\": \"For subscribing to the newsletter\",\n          \"app_id\": \"db9c3016-ff93-4105-bdef-ff852f3c74c0\",\n          \"idempotency_key\": \"baa05589-20d1-45db-ba29-99920bccf37e\"\n  }'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 10,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 0\n  },\n  \"latest_transaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 10,\n    \"type\": \"EARN\",\n    \"description\": \"points earned\",\n    \"created_date\": \"2021-12-07T07:26:56.417Z\",\n    \"reward_id\": null,\n    \"app_id\": \"db9c3016-ff93-4105-bdef-ff852f3c74c0\",\n    \"idempotency_key\": \"baa05589-20d1-45db-ba29-99920bccf37e\"\n  },\n  \"reward_available\": false,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-07T07:26:56.417Z\",\n  \"revision\": \"2\"\n}} "],
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7/earn-points' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n          \"accountId\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n          \"amount\": 10,\n          \"description\": \"For subscribing to the newsletter\",\n          \"appId\": \"db9c3016-ff93-4105-bdef-ff852f3c74c0\",\n          \"idempotencyKey\": \"baa05589-20d1-45db-ba29-99920bccf37e\"\n  }'"],
+          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 10,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 0\n  },\n  \"latestTransaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 10,\n    \"type\": \"EARN\",\n    \"description\": \"points earned\",\n    \"createdDate\": \"2021-12-07T07:26:56.417Z\",\n    \"rewardId\": null,\n    \"appId\": \"db9c3016-ff93-4105-bdef-ff852f3c74c0\",\n    \"idempotencyKey\": \"baa05589-20d1-45db-ba29-99920bccf37e\"\n  },\n  \"rewardAvailable\": false,\n  \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n  \"updatedDate\": \"2021-12-07T07:26:56.417Z\",\n  \"revision\": \"2\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -223,8 +235,8 @@
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "events": [],
       "labels": [],
@@ -247,7 +259,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves an account.\n \n",
+        "summary": " Retrieves an account using the loyalty account ID.\n\nYou can also retrieve an account using a secondary ID, such as a contact ID or a member ID by using\nthe [Get Account by Secondary Id endpoint](https://dev.wix.com/api/rest/wix-loyalty/accounts/get-account-by-secondary-id).\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{id}",
@@ -255,7 +267,7 @@
         "examples": [        {
           "title": "Get an account",
           "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7' \\\n  -H 'Authorization: <AUTH>'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latest_transaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"created_date\": \"2021-12-07T07:30:23.749Z\",\n    \"reward_id\": null,\n    \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotency_key\": null\n  },\n  \"reward_available\": true,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
+          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latestTransaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n    \"rewardId\": null,\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotencyKey\": null\n  },\n  \"rewardAvailable\": true,\n  \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n  \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -274,8 +286,8 @@
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "events": [],
       "labels": [],
@@ -298,7 +310,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves the account belonging to the specified contact or member.\n \n",
+        "summary": " Retrieves the account belonging to the specified contact or member.\n\nThis endpoint retrieves loyalty accounts using the customer's contact ID or member ID. Your app can also retrieve an account\nusing the loyalty account ID by using the [Get Account endpoint](https://dev.wix.com/api/rest/wix-loyalty/accounts/get-account-by-secondary-id).\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/fetch-by",
@@ -306,7 +318,7 @@
         "examples": [        {
           "title": "Get account by contactId or memberId",
           "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/fetch-by' \\\n  -H 'Authorization: <AUTH>' \\\n    --data-raw '{\n            \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\"\n    }'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latest_transaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"created_date\": \"2021-12-07T07:30:23.749Z\",\n    \"reward_id\": null,\n    \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotency_key\": null\n  },\n  \"reward_available\": true,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
+          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 15,\n    \"earned\": 10,\n    \"redeemed\": 0,\n    \"adjusted\": 5\n  },\n  \"latestTransaction\":   {\n    \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n    \"amount\": 5,\n    \"type\": \"ADJUST\",\n    \"description\": \"\",\n    \"created_date\": \"2021-12-07T07:30:23.749Z\",\n    \"rewardId\": null,\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotencyKey\": null\n  },\n  \"rewardAvailable\": true,\n  \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n  \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"4\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -325,8 +337,8 @@
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "events": [],
       "labels": [],
@@ -342,7 +354,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves the program totals.\n \n",
+        "summary": " Retrieves the total amount of points earned, redeemed, and adjusted for the entire loyalty program.\n\nThe `balance` is the current total of points outstanding, while the `earned`, `adjusted`, and `redeemed` amounts\nare the historically accumulated amounts. The totals include the amounts for all loyalty accounts.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/program-totals",
@@ -364,13 +376,64 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "Get Transaction",
+      "methodName": "GetTransaction",
+      "serviceName": "LoyaltyAccounts",
+      "tag": "Account",
+      "permissions": [      {
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " Transaction ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetTransaction",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Accounts._com_wixpress_loyalty_account_GetTransactionResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a transaction using the transaction ID.\n\nLoyalty transactions include activity that changes a loyalty account point balance, such as adjusting, earning, or redeeming loyalty points.\nIf you want to [retrieve all of the transactions for a specific loyalty account](https://dev.wix.com/api/rest/wix-loyalty/accounts/list-transactions), use the List Transactions endpoint.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/loyalty-accounts/v1/transactions/{id}",
+        "links": [],
+        "examples": [        {
+          "title": "Get a transaction",
+          "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/transactions/70f0711b-e16f-44d7-ad03-4301c78d8623' \\\n  -H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"transaction\": {\n  \"id\": \"70f0711b-e16f-44d7-ad03-4301c78d8623\",\n  \"accountId\": \"b04a7524-f0cc-435a-981a-b765f758438b\",\n  \"contactId\": \"8b4ff9ff-2f9a-41de-901d-9f6ecdb91664\",\n  \"amount\": 50,\n  \"type\": \"EARN\",\n  \"description\": \"Shared post on social\",\n  \"createdDate\": \"2022-05-24T09:11:51.274Z\",\n  \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n  \"idempotencyKey\": \"0eb76578-8928-418e-8428-4a330d24186c\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetTransactionRequest",
+        "rpcResponseName": "GetTransactionResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
       "name": "List Accounts",
       "methodName": "ListAccounts",
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "events": [],
       "labels": [],
@@ -383,7 +446,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " List of contact IDs. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n",
+          "doc": " List of contact IDs. See the Contacts API to [learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n",
           "required": false
         },
                 {
@@ -419,15 +482,15 @@
         "examples":         [
                     {
             "title": "Get a list of accounts, given the provided filters",
-            "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n          \"contact_ids\": [],\n          \"cursor_paging\": {\n            \"limit\": 2\n          }\n    }'"],
-            "response": ["{\n  \"accounts\":   [\n    {\"account\":     {\n      \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n      \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n      \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n      \"points\":       {\n        \"balance\": 15,\n        \"earned\": 10,\n        \"redeemed\": 0,\n        \"adjusted\": 5\n      },\n      \"latest_transaction\":       {\n        \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n        \"amount\": 5,\n        \"type\": \"ADJUST\",\n        \"description\": \"\",\n        \"created_date\": \"2021-12-07T07:30:23.749Z\",\n        \"reward_id\": null,\n        \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotency_key\": null\n      },\n      \"reward_available\": true,\n      \"created_date\": \"2021-12-06T14:33:19.114Z\",\n      \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }},\n    {\"account\":     {\n      \"id\": \"73618276-35cc-4d21-8380-bdd2fbebf781\",\n      \"contact_id\": \"fb8f125e-bfc3-4d9a-80c2-215494f24731\",\n      \"member_id\": \"ddd5302e-23cf-4fd6-bf6b-461aaae3ab7d\",\n      \"points\":       {\n        \"balance\": 25,\n        \"earned\": 30,\n        \"redeemed\": 5,\n        \"adjusted\": 0\n      },\n      \"latest_transaction\":       {\n        \"id\": \"95dc5eae-9c55-4a94-96fa-d70793af1a1f\",\n        \"amount\": 5,\n        \"type\": \"EARN\",\n        \"description\": \"\",\n        \"created_date\": \"2021-12-07T07:30:23.749Z\",\n        \"reward_id\": null,\n        \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotency_key\": null\n      },\n      \"reward_available\": true,\n      \"created_date\": \"2021-12-06T14:33:19.114Z\",\n      \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }}\n  ],\n  \"paging_metadata\":   {\n    \"count\": 2,\n    \"offset\": null,\n    \"total\": 6,\n    \"too_many_to_count\": null,\n    \"cursors\":     {\n      \"next\": \"Gh0KDnBvaW50cy5iYWxhbmMlEAEaCREAAAAJJIBhQBorCgxfdXBkYXRlZERhdGUaGyoZChcKCiR0aW1lc3RhbXASCREA4GzcPdl3QiIkYjRkYzAyMzUtMjg2OS00MThjLWJjODQtNDMwNjUxMmMzYjhl\",\n      \"prev\": null\n    }\n  }\n} "],
+            "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n          \"contactIds\": [],\n          \"cursorPaging\": {\n            \"limit\": 2\n          }\n    }'"],
+            "response": ["{\n  \"accounts\":   [\n    {\"account\":     {\n      \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n      \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n      \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n      \"points\":       {\n        \"balance\": 15,\n        \"earned\": 10,\n        \"redeemed\": 0,\n        \"adjusted\": 5\n      },\n      \"latestTransaction\":       {\n        \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n        \"amount\": 5,\n        \"type\": \"ADJUST\",\n        \"description\": \"\",\n        \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n        \"rewardId\": null,\n        \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotencyKey\": null\n      },\n      \"rewardAvailable\": true,\n      \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n      \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }},\n    {\"account\":     {\n      \"id\": \"73618276-35cc-4d21-8380-bdd2fbebf781\",\n      \"contactId\": \"fb8f125e-bfc3-4d9a-80c2-215494f24731\",\n      \"memberId\": \"ddd5302e-23cf-4fd6-bf6b-461aaae3ab7d\",\n      \"points\":       {\n        \"balance\": 25,\n        \"earned\": 30,\n        \"redeemed\": 5,\n        \"adjusted\": 0\n      },\n      \"latestTransaction\":       {\n        \"id\": \"95dc5eae-9c55-4a94-96fa-d70793af1a1f\",\n        \"amount\": 5,\n        \"type\": \"EARN\",\n        \"description\": \"\",\n        \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n        \"rewardId\": null,\n        \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotencyKey\": null\n      },\n      \"rewardAvailable\": true,\n      \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n      \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }}\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"offset\": null,\n    \"total\": 6,\n    \"tooManyToCount\": null,\n    \"cursors\":     {\n      \"next\": \"Gh0KDnBvaW50cy5iYWxhbmMlEAEaCREAAAAJJIBhQBorCgxfdXBkYXRlZERhdGUaGyoZChcKCiR0aW1lc3RhbXASCREA4GzcPdl3QiIkYjRkYzAyMzUtMjg2OS00MThjLWJjODQtNDMwNjUxMmMzYjhl\",\n      \"prev\": null\n    }\n  }\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "Get a list of accounts, given the provided filters",
-            "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n          \"contact_ids\": [\n            \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n            \"fb8f125e-bfc3-4d9a-80c2-215494f24731\"\n          ],\n          \"cursor_paging\": {}\n    }'"],
-            "response": ["{\n  \"accounts\":   [\n    {\"account\":     {\n      \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n      \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n      \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n      \"points\":       {\n        \"balance\": 15,\n        \"earned\": 10,\n        \"redeemed\": 0,\n        \"adjusted\": 5\n      },\n      \"latest_transaction\":       {\n        \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n        \"amount\": 5,\n        \"type\": \"ADJUST\",\n        \"description\": \"\",\n        \"created_date\": \"2021-12-07T07:30:23.749Z\",\n        \"reward_id\": null,\n        \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotency_key\": null\n      },\n      \"reward_available\": true,\n      \"created_date\": \"2021-12-06T14:33:19.114Z\",\n      \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }},\n    {\"account\":     {\n      \"id\": \"73618276-35cc-4d21-8380-bdd2fbebf781\",\n      \"contact_id\": \"fb8f125e-bfc3-4d9a-80c2-215494f24731\",\n      \"member_id\": \"ddd5302e-23cf-4fd6-bf6b-461aaae3ab7d\",\n      \"points\":       {\n        \"balance\": 25,\n        \"earned\": 30,\n        \"redeemed\": 5,\n        \"adjusted\": 0\n      },\n      \"latest_transaction\":       {\n        \"id\": \"95dc5eae-9c55-4a94-96fa-d70793af1a1f\",\n        \"amount\": 5,\n        \"type\": \"EARN\",\n        \"description\": \"\",\n        \"created_date\": \"2021-12-07T07:30:23.749Z\",\n        \"reward_id\": null,\n        \"app_id\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotency_key\": null\n      },\n      \"reward_available\": true,\n      \"created_date\": \"2021-12-06T14:33:19.114Z\",\n      \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }}\n  ],\n  \"paging_metadata\":   {\n    \"count\": 2,\n    \"offset\": null,\n    \"total\": 2,\n    \"too_many_to_count\": null,\n    \"cursors\":     {\n      \"next\": null,\n      \"prev\": null\n    }\n  }\n} "],
+            "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-raw '{\n          \"contactIds\": [\n            \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n            \"fb8f125e-bfc3-4d9a-80c2-215494f24731\"\n          ],\n          \"cursorPaging\": {}\n    }'"],
+            "response": ["{\n  \"accounts\":   [\n    {\"account\":     {\n      \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n      \"contactId\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n      \"memberId\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n      \"points\":       {\n        \"balance\": 15,\n        \"earned\": 10,\n        \"redeemed\": 0,\n        \"adjusted\": 5\n      },\n      \"latestTransaction\":       {\n        \"id\": \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n        \"amount\": 5,\n        \"type\": \"ADJUST\",\n        \"description\": \"\",\n        \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n        \"rewardId\": null,\n        \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotencyKey\": null\n      },\n      \"rewardAvailable\": true,\n      \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n      \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }},\n    {\"account\":     {\n      \"id\": \"73618276-35cc-4d21-8380-bdd2fbebf781\",\n      \"contactId\": \"fb8f125e-bfc3-4d9a-80c2-215494f24731\",\n      \"memberId\": \"ddd5302e-23cf-4fd6-bf6b-461aaae3ab7d\",\n      \"points\":       {\n        \"balance\": 25,\n        \"earned\": 30,\n        \"redeemed\": 5,\n        \"adjusted\": 0\n      },\n      \"latestTransaction\":       {\n        \"id\": \"95dc5eae-9c55-4a94-96fa-d70793af1a1f\",\n        \"amount\": 5,\n        \"type\": \"EARN\",\n        \"description\": \"\",\n        \"createdDate\": \"2021-12-07T07:30:23.749Z\",\n        \"rewardId\": null,\n        \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n        \"idempotencyKey\": null\n      },\n      \"rewardAvailable\": true,\n      \"createdDate\": \"2021-12-06T14:33:19.114Z\",\n      \"updatedDate\": \"2021-12-07T07:30:23.749Z\",\n      \"revision\": \"4\"\n    }}\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"offset\": null,\n    \"total\": 2,\n    \"tooManyToCount\": null,\n    \"cursors\":     {\n      \"next\": null,\n      \"prev\": null\n    }\n  }\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -442,74 +505,60 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Redeem Points",
-      "methodName": "RedeemPoints",
+      "name": "List Transactions",
+      "methodName": "ListTransactions",
       "serviceName": "LoyaltyAccounts",
       "tag": "Account",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields":       [
-        "accountId",
-        "rewardId"
-      ],
+      "requiredFields": ["accountId"],
       "params":       [
                 {
           "in": "PATH",
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n",
+          "doc": " Loyalty account ID.\n",
           "required": true
         },
                 {
-          "in": "BODY",
-          "name": "rewardId",
-          "type": "string",
-          "doc": " Reward ID. See [Rewards API](https://dev.wix.com/api/rest/loyalty/rewards/rewards-object) for more details.\n",
-          "required": true
-        },
-                {
-          "in": "BODY",
-          "name": "count",
+          "in": "QUERY",
+          "name": "cursorPaging.limit",
           "type": "integer",
-          "doc": " Number of times the given reward will be redeemed. Must be a positive whole number.\n",
+          "doc": " Number of items to load.\n",
           "required": false
         },
                 {
-          "in": "BODY",
-          "name": "revision",
+          "in": "QUERY",
+          "name": "cursorPaging.cursor",
           "type": "string",
-          "doc": " Revision number. Increments by 1 each time points are redeemed.\nTo prevent conflicting changes, the existing `revision` must be used when redeeming points.\n",
-          "required": false
-        },
-                {
-          "in": "BODY",
-          "name": "referenceEntityId",
-          "type": "string",
-          "doc": " id of the entity that is being redeemed (e.g. orderId for order discount, couponId for coupon reward)\n",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n",
           "required": false
         }
       ],
       "ret":       {
         "type":         {
-          "name": "RedeemPoints",
+          "name": "ListTransactions",
           "statusCode": "200",
-          "typeParams": ["All APIs.Accounts._com_wixpress_loyalty_account_RedeemPointsResponse"]
+          "typeParams": ["All APIs.Accounts._com_wixpress_loyalty_account_ListTransactionsResponse"]
         },
         "doc": ""
       },
       "locations": [],
       "docs":       {
-        "summary": " Redeems points from an account, given the provided reward.\nTODO implement RedeemCurrentMember points\n \n",
+        "summary": " Retrieves a list of transactions, given the provided filters.\n\nLoyalty transactions include activity that changes a loyalty account point balance, such as adjusting, earning, or redeeming loyalty points.\nIf you want to [retrieve a specific transaction using that transaction's ID](https://dev.wix.com/api/rest/wix-loyalty/accounts/get-transaction), use the Get Transaction endpoint.\n \n",
         "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{accountId}/redeem-points",
+        "request": "GET",
+        "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{accountId}/transactions",
         "links": [],
         "examples": [        {
-          "title": "Redeem points from an account, given the provided reward",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/e6f39a5b-a6d0-4556-b889-0cf09d8a84f7/redeem-points' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\n      \"account_id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n      \"reward_id\": \"382746db-ac95-4cb1-8809-5b960c86573b\",\n      \"count\": 1,\n      \"revision\": \"1\"\n  }'"],
-          "response": ["{\"account\": {\n  \"id\": \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n  \"contact_id\": \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n  \"member_id\": \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n  \"points\":   {\n    \"balance\": 19,\n    \"earned\": 10,\n    \"redeemed\": 6,\n    \"adjusted\": 5\n  },\n  \"latest_transaction\":   {\n    \"id\": \"8822f1f0-0d42-4d7e-bcce-ee011acbd5f4\",\n    \"amount\": -6,\n    \"type\": \"REDEEM\",\n    \"description\": \"Order Discount\",\n    \"created_date\": \"2021-12-07T07:48:44.877Z\",\n    \"reward_id\": \"382746db-ac95-4cb1-8809-5b960c86573b\",\n    \"app_id\": null,\n    \"idempotency_key\": null\n  },\n  \"reward_available\": true,\n  \"created_date\": \"2021-12-06T14:33:19.114Z\",\n  \"updated_date\": \"2021-12-07T07:30:23.749Z\",\n  \"revision\": \"6\"\n}} "],
+          "title": "Get a list of transactions",
+          "body": ["curl -X GET \\\n  'https://www.wixapis.com/loyalty-accounts/v1/accounts/b04a7524-f0cc-435a-981a-b765f758438b/transactions' \\\n  -H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"transactions\": [\n    {\n    \"id\": \"03992fc4-8e8c-4406-8d3c-0292ed3be5d8\",\n    \"accountId\": \"b04a7524-f0cc-435a-981a-b765f758438b\",\n    \"contactId\": \"8b4ff9ff-2f9a-41de-901d-9f6ecdb91664\",\n    \"amount\": 150,\n    \"type\": \"ADJUST\",\n    \"description\": \"Signed up as site member.\",\n    \"createdDate\": \"2022-05-23T22:50:49.366Z\",\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\"\n  },\n    {\n    \"id\": \"70f0711b-e16f-44d7-ad03-4301c78d8623\",\n    \"accountId\": \"b04a7524-f0cc-435a-981a-b765f758438b\",\n    \"contactId\": \"8b4ff9ff-2f9a-41de-901d-9f6ecdb91664\",\n    \"amount\": 50,\n    \"type\": \"EARN\",\n    \"description\": \"Shared post on social\",\n    \"createdDate\": \"2022-05-24T09:11:51.274Z\",\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotencyKey\": \"0eb76578-8928-418e-8428-4a330d24186c\"\n  },\n    {\n    \"id\": \"78a5c76e-fe47-4103-bfda-15e05c2ab003\",\n    \"accountId\": \"b04a7524-f0cc-435a-981a-b765f758438b\",\n    \"contactId\": \"8b4ff9ff-2f9a-41de-901d-9f6ecdb91664\",\n    \"amount\": 50,\n    \"type\": \"EARN\",\n    \"description\": \"Shared post on social\",\n    \"createdDate\": \"2022-06-19T22:09:23.434Z\",\n    \"appId\": \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n    \"idempotencyKey\": \"5a036e48-4188-4200-a42e-de37c273c3c1\"\n  }\n]} "],
           "type": "curl",
           "extra": {}
         }],
@@ -517,8 +566,8 @@
       },
       "extra":       {
         "hasRest": true,
-        "rpcRequestName": "RedeemPointsRequest",
-        "rpcResponseName": "RedeemPointsResponse"
+        "rpcRequestName": "ListTransactionsRequest",
+        "rpcResponseName": "ListTransactionsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -527,12 +576,12 @@
         {
       "type": "_com_wixpress_loyalty_account_LoyaltyAccountCreatedDomainEvent",
       "name": "Loyalty Account Created Webhook",
-      "docs": {"summary": " Triggered when a loyalty account has been created.\n"},
+      "docs": {"summary": " Triggered when a loyalty account is created.\n"},
       "topic": "domain_events_wix.loyalty.v1.account",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.loyalty.v1.account_created",
@@ -541,12 +590,12 @@
         {
       "type": "_com_wixpress_loyalty_account_PointsUpdatedDomainEvent",
       "name": "Points Updated Webhook",
-      "docs": {"summary": " Triggered when the point balance of a loyalty account has been updated.\n"},
+      "docs": {"summary": " Triggered when the points of a loyalty account are adjusted, earned, or redeemed.\n"},
       "topic": "domain_events_wix.loyalty.v1.account",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.loyalty.v1.account_points_updated",
@@ -555,12 +604,12 @@
         {
       "type": "_com_wixpress_loyalty_account_LoyaltyAccountUpdatedDomainEvent",
       "name": "Loyalty Account Updated Webhook",
-      "docs": {"summary": " Triggered when a loyalty account has been updated.\n"},
+      "docs": {"summary": " Triggered when a loyalty account is updated, including when points are adjusted, earned, or redeemed.\n"},
       "topic": "domain_events_wix.loyalty.v1.account",
       "tag": "Account",
       "permissions": [      {
-        "name": "Devcenter Manage Loyalty",
-        "description": "can manage loyalty programs"
+        "name": "Read Loyalty",
+        "description": "Request permission to read the site's installed Wix Loyalty Program, including program and accounts."
       }],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.loyalty.v1.account_updated",
@@ -1142,24 +1191,6 @@
       "labels": []
     },
         {
-      "name": "changedNamespacesMapEntry",
-      "displayName": "changed Namespaces Map Entry Object",
-      "locations": [],
-      "docs":       {
-        "summary": "Set of key-value pairs. Changes per namespaces\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "key:value",
-        "type": "All APIs.Accounts._wix_common_domainevents_ChangedNamespace",
-        "doc": "`key` of type string, `value` of type object"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_domainevents_ExtendedFieldsUpdatedEvent",
       "displayName": "Extended Fields Updated Event Object",
       "locations": [],
@@ -1168,46 +1199,11 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "currentEntityAsJson",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "changedNamespaces",
-          "type": "All APIs.Accounts.changedNamespacesMapEntry",
-          "doc": "Set of key-value pairs. Changes per namespaces\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_domainevents_ChangedNamespace",
-      "displayName": "Changed Namespace Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "fields",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " List of changed field paths\n"
-        },
-                {
-          "name": "hasMoreChanges",
-          "type": "boolean",
-          "doc": " Indicates that more fields changed, this indicator goes along with _has_more_data.\n These other fields are not visible to you in current_entity_as_json\n"
-        }
-      ],
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1313,9 +1309,14 @@
       "displayName": "Loyalty Account Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": " A loyalty account stores a customer's loyalty points balance. A site's customers can earn points to their account\nand redeem those points for rewards.\n",
         "links": [],
-        "examples": []
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"account\" : {\n    \"id\" : \"e6f39a5b-a6d0-4556-b889-0cf09d8a84f7\",\n    \"contactId\" : \"88615e02-3e8a-4297-8939-5d0a432b322a\",\n    \"memberId\" : \"a517751b-a1ca-4423-8d91-aaf8f5b34215\",\n    \"points\" : {\n      \"balance\" : 15,\n      \"earned\" : 10,\n      \"redeemed\" : 0,\n      \"adjusted\" : 5\n    },\n    \"latestTransaction\" : {\n      \"id\" : \"262c8eb0-123e-4117-9fe6-4973a3551688\",\n      \"amount\" : 5,\n      \"type\" : \"ADJUST\",\n      \"description\" : \"\",\n      \"createdDate\" : \"2021-12-07T07:30:23.749Z\",\n      \"appId\" : \"553c79f3-5625-4f38-b14b-ef7c0d1e87df\",\n      \"idempotencyKey\" : null\n    },\n    \"rewardAvailable\" : true,\n    \"createdDate\" : \"2021-12-06T14:33:19.114Z\",\n    \"updatedDate\" : \"2021-12-07T07:30:23.749Z\",\n    \"revision\" : \"4\"\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
       },
       "members":       [
                 {
@@ -1327,13 +1328,13 @@
                 {
           "name": "contactId",
           "type": "string",
-          "doc": " Contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n",
+          "doc": " Account owner's contact ID. See the Contacts API to [learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n",
           "readOnly": true
         },
                 {
           "name": "memberId",
           "type": "string",
-          "doc": " Member ID. See [Members API](https://dev.wix.com/api/rest/members/members/member-object) for more details.\n",
+          "doc": " Account owner's member ID. See the Members API to [learn more about a site's members](https://dev.wix.com/api/rest/members/members/member-object).\n",
           "readOnly": true
         },
                 {
@@ -1349,7 +1350,7 @@
                 {
           "name": "rewardAvailable",
           "type": "boolean",
-          "doc": " Whether the account has an available reward.\n",
+          "doc": " Whether the account has a reward available. `true` if the amount of points in `points.balance` are enough to redeem for a reward.\n",
           "readOnly": true
         },
                 {
@@ -1367,7 +1368,34 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Revision number. Increments by 1 each time the account is updated.\nTo prevent conflicting changes, the existing `revision` must be used when updating an account.\n"
+          "doc": " Revision number, which increments by 1 each time the loyalty account is updated.\n\nTo prevent conflicting changes, the current `revision` must be passed when updating the loyalty account.  \n\nIgnored when creating an account.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_loyalty_account_Tier",
+      "displayName": "Tier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "Date when the last time Tier was recalculated\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -1387,7 +1415,7 @@
                 {
           "name": "balance",
           "type": "integer",
-          "doc": " Point balance. Equal to the sum of earned and adjusted points minus redeemed points.\n"
+          "doc": " Current point balance.\n\nEqual to the sum of `earned` and `adjusted` points, minus `redeemed` points.\n"
         },
                 {
           "name": "earned",
@@ -1442,31 +1470,32 @@
                 {
           "name": "createdDate",
           "type": "string",
-          "doc": " Date and time of the latest transaction.\n",
+          "doc": " Date and time the transaction was created.\n",
           "readOnly": true
         },
                 {
           "name": "rewardId",
           "type": "string",
-          "doc": " Reward ID. Only present if `type`  is `REDEEM`.\n",
-          "readOnly": true
+          "doc": " __Deprecated.__ For `latestTransaction.rewardId`, use `latestTransaction.redeemInfo.rewardId` instead. This property\nwill be removed on September 30, 2022.\n",
+          "readOnly": true,
+          "deprecated": true
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the app that initiated the transaction.\n\n- Only present if `type` is `EARN` or `ADJUST`.\n- Matches the automation's `sourceUniqueId` if points were earned in an automatic event.\n- Matches Loyalty `appDefId` if points were earned manually.\n",
+          "doc": " ID of the app that initiated the transaction.\n\nOnly present if `type` is `EARN` or `ADJUST`.\n\nIf points were earned or adjusted manually, then the `appId` is the Loyalty app's\n`wixAppId` of `553c79f3-5625-4f38-b14b-ef7c0d1e87df`. If points were earned or adjusted in an automatic event,\nthen the `appId` is from that automation's `sourceUniqueId`.\n",
           "readOnly": true
         },
                 {
           "name": "idempotencyKey",
           "type": "string",
-          "doc": " Idempotency key. Only present if points were added manually.\n",
+          "doc": "Unique string identifier generated by the app. Wix uses this identifier to recognize subsequent retries of the same request.\n\nOnly present if points were added manually using the [Earn Points endpoint](https://dev.wix.com/api/rest/wix-loyalty/program/earn-points).\n",
           "readOnly": true
         },
                 {
           "name": "redeemInfo",
           "type": "All APIs.Accounts._com_wixpress_loyalty_account_RedeemInfo",
-          "doc": " Additional redeem information. Only present if `type` is `REDEEM`.\n",
+          "doc": " Additional information for redeemed points.  \n\nOnly present if `type` is `REDEEM`.\n",
           "readOnly": true
         }
       ],
@@ -1493,19 +1522,19 @@
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n",
+          "doc": " Loyalty account ID.\n",
           "readOnly": true
         },
                 {
           "name": "contactId",
           "type": "string",
-          "doc": " Contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n",
+          "doc": " Account owner's contact ID. See the Contacts API to [learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n",
           "readOnly": true
         },
                 {
           "name": "memberId",
           "type": "string",
-          "doc": " Member ID. See [Members API](https://dev.wix.com/api/rest/members/members/member-object) for more details.\n",
+          "doc": " Account owner's member ID. See the Members API to [learn more about a site's members](https://dev.wix.com/api/rest/members/members/member-object).\n",
           "readOnly": true
         },
                 {
@@ -1532,19 +1561,20 @@
                 {
           "name": "rewardId",
           "type": "string",
-          "doc": " Reward ID. Only present if `type` is `REDEEM`.\n",
-          "readOnly": true
+          "doc": " __Deprecated.__ For `transaction.rewardId`, use `transaction.redeemInfo.rewardId` instead. This property\nwill be removed on June 30, 2022.\n",
+          "readOnly": true,
+          "deprecated": true
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the app that initiated the transaction.\n\n- Only present if `type` is `EARN` or `ADJUST`.\n- Matches the automation's `sourceUniqueId` if points were earned in an automatic event.\n- Matches Loyalty `appDefId` if points were earned manually.\n",
+          "doc": " ID of the app that initiated the transaction.\n\nOnly present if `type` is `EARN` or `ADJUST`.\n\nIf points were earned or adjusted manually, then the `appId` is the Loyalty app's\n`wixAppId` of `553c79f3-5625-4f38-b14b-ef7c0d1e87df`. If points were earned or adjusted in an automatic event,\nthen the `appId` is from that automation's `sourceUniqueId`.\n",
           "readOnly": true
         },
                 {
           "name": "idempotencyKey",
           "type": "string",
-          "doc": " Idempotency key. Only present if points were added manually.\n",
+          "doc": " Unique string identifier generated by the app. Wix uses this identifier to recognize subsequent retries of the same request.\n\nOnly present if points were added manually using the [Earn Points endpoint](https://dev.wix.com/api/rest/wix-loyalty/program/earn-points).\n",
           "readOnly": true
         },
                 {
@@ -1571,19 +1601,19 @@
                 {
           "name": "rewardId",
           "type": "string",
-          "doc": "",
+          "doc": " ID of the reward that was redeemed.  \n",
           "readOnly": true
         },
                 {
           "name": "rewardType",
           "type": "string",
-          "doc": "",
+          "doc": " Type of reward that was redeemed.\n",
           "readOnly": true
         },
                 {
           "name": "referenceEntityId",
           "type": "string",
-          "doc": "",
+          "doc": " ID of the specific item that was redeemed in this transaction.  \n\nEach reward that is redeemed has a unique `referenceEntityId`.\n",
           "readOnly": true
         }
       ],
@@ -1651,7 +1681,7 @@
       "members": [      {
         "name": "contactId",
         "type": "string",
-        "doc": " Contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n"
+        "doc": " Contact ID for a Wix site contact. See the Contacts API to\n[learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n"
       }],
       "enum": null,
       "extra": {},
@@ -1808,7 +1838,7 @@
       "members": [      {
         "name": "points",
         "type": "All APIs.Accounts._com_wixpress_loyalty_account_Points",
-        "doc": " Program totals.\n"
+        "doc": " Point totals for the entire program.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1877,12 +1907,12 @@
                 {
           "name": "contactId",
           "type": "string",
-          "doc": " Contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n"
+          "doc": " Account owner's contact ID. See the Contacts API to [learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n"
         },
                 {
           "name": "memberId",
           "type": "string",
-          "doc": " Member ID. See [Members API](https://dev.wix.com/api/rest/members/members/member-object) for more details.\n"
+          "doc": " Account owner's member ID. See the Members API to [learn more about a site's members](https://dev.wix.com/api/rest/members/members/member-object).\n"
         }
       ],
       "enum": null,
@@ -1924,7 +1954,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " List of contact IDs. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object) for more details.\n"
+          "doc": " List of contact IDs. See the Contacts API to [learn more about a site's contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object).\n"
         },
                 {
           "name": "cursorPaging",
@@ -1957,7 +1987,7 @@
                 {
           "name": "pagingMetadata",
           "type": "All APIs.Accounts._wix_common_PagingMetadataV2",
-          "doc": ""
+          "doc": " Details on the paged set of results returned.\n"
         }
       ],
       "enum": null,
@@ -1977,27 +2007,27 @@
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n"
+          "doc": " Loyalty account ID.\n"
         },
                 {
           "name": "amount",
           "type": "integer",
-          "doc": " Amount of points to earn. Must be a whole number integer lower than 10 million.\n"
+          "doc": " Amount of points to earn. Must be a positive, whole number.\n\nMin: `1`\n\nMax: `9,999,999`\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": " Optional description of the `Earn Points` request. Maximum supported text length is 100 characters.\n"
+          "doc": " Description of how the points were earned.\n\nMax: 100 characters\n"
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the app that initiated the transaction.\nMatches the automation's `sourceUniqueId` if points were earned in an automatic event.\nMatches Loyalty `appDefId` if points were earned manually.\n"
+          "doc": " ID of the app that initiated the transaction.\n\nIf points were earned manually, then the `appId` is the Loyalty app's\n`wixAppId` of `553c79f3-5625-4f38-b14b-ef7c0d1e87df`. If points were earned in an automatic event,\nthen the `appId` is from that automation's `sourceUniqueId`.\n"
         },
                 {
           "name": "idempotencyKey",
           "type": "string",
-          "doc": " Idempotency key. Only present if points were added manually.\n"
+          "doc": " Unique string identifier generated by the app. Wix uses this identifier to recognize subsequent retries of the same request.\n"
         }
       ],
       "enum": null,
@@ -2035,12 +2065,12 @@
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n"
+          "doc": " Loyalty account ID.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": " Optional description of the `Adjust Points` request.\n"
+          "doc": " Description to explain the reason for the points adjustment.\n"
         },
                 {
           "name": "type",
@@ -2050,7 +2080,7 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Revision number. Increments by 1 each time the point balance is adjusted.\nTo prevent conflicting changes, the existing `revision` must be used when adjusting the point balance.\n"
+          "doc": " Each time the loyalty account is updated, `revision` increments by 1.\n\nThe current `revision` must be passed when adjusting points in the loyalty account. This\nensures you're working with the latest version of the loyalty account and prevents unintended overwrites.\n"
         }
       ],
       "enum": null,
@@ -2070,12 +2100,12 @@
                 {
           "name": "balance",
           "type": "integer",
-          "doc": " Sets new point balance. Must be a positive whole number lower than 1 billion.\n"
+          "doc": " Sets the account's point balance to this amount. Must be a positive, whole number.\n\nThe net difference between this new balance and the previous balance will be reflected in the `adjusted` field of the customer's account.  \n\nMin: `1`\n\nMax: `999,999,999`\n"
         },
                 {
           "name": "amount",
           "type": "integer",
-          "doc": " Adjusts point balance by the specified amount. Must be a whole number with a maximum of 7 digits. Can be negative, but not `0`.\n"
+          "doc": " Adjusts the account's point balance by this amount. Must be a whole number with a maximum of 7 digits.\nThe amount can be negative, but cannot be `0`.\n\nMin: `-9,999,999`\n\nMax: `9,999,999`\n"
         }
       ],
       "enum": null,
@@ -2114,7 +2144,7 @@
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n"
+          "doc": " Loyalty account ID.\n"
         },
                 {
           "name": "rewardId",
@@ -2129,12 +2159,12 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Revision number. Increments by 1 each time points are redeemed.\nTo prevent conflicting changes, the existing `revision` must be used when redeeming points.\n"
+          "doc": " Revision number, which increments by 1 each time points are redeemed.\nTo prevent conflicting changes, the existing `revision` must be used when redeeming points.\n"
         },
                 {
           "name": "referenceEntityId",
           "type": "string",
-          "doc": " id of the entity that is being redeemed (e.g. orderId for order discount, couponId for coupon reward)\n"
+          "doc": " Id of the entity that is being redeemed (e.g. orderId for order discount, couponId for coupon reward).\n"
         }
       ],
       "enum": null,
@@ -2208,7 +2238,7 @@
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Account ID.\n"
+          "doc": " Loyalty account ID.\n"
         },
                 {
           "name": "cursorPaging",
@@ -2241,7 +2271,7 @@
                 {
           "name": "pagingMetadata",
           "type": "All APIs.Accounts._wix_common_PagingMetadataV2",
-          "doc": ""
+          "doc": " Details on the paged set of results returned.\n"
         }
       ],
       "enum": null,
