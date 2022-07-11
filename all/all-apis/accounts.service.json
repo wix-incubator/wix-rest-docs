@@ -208,7 +208,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Adds points to a loyalty account.\n\nOnly a positive amount can be added using the earn points endpoint.\n \n",
+        "summary": " Adds points to a loyalty account.\n\nOnly a positive amount can be added using the earn points endpoint. To adjust an account's balance \nfor a negative amount, use [Adjust Points](https://dev.wix.com/api/rest/wix-loyalty/accounts/adjust-points).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/loyalty-accounts/v1/accounts/{accountId}/earn-points",
@@ -1350,7 +1350,7 @@
                 {
           "name": "rewardAvailable",
           "type": "boolean",
-          "doc": " Whether the account has an available reward.\n",
+          "doc": " Whether the account has a reward available. `true` if the amount of points in `points.balance` are enough to redeem for a reward.\n",
           "readOnly": true
         },
                 {
@@ -1368,12 +1368,7 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Each time the loyalty account is updated, `revision` increments by 1.\n\nThe current `revision` must be passed when updating the loyalty account. This ensures you're\nworking with the latest version of the loyalty account and prevents unintended overwrites.\n\nIgnored when creating an account.\n"
-        },
-                {
-          "name": "tier",
-          "type": "All APIs.Accounts._com_wixpress_loyalty_account_Tier",
-          "doc": "If Tier exist, loyalty account belongs to specific tier\n"
+          "doc": " Revision number, which increments by 1 each time the loyalty account is updated.\n\nTo prevent conflicting changes, the current `revision` must be passed when updating the loyalty account.  \n\nIgnored when creating an account.\n"
         }
       ],
       "enum": null,
@@ -1481,7 +1476,7 @@
                 {
           "name": "rewardId",
           "type": "string",
-          "doc": " __Deprecated.__ For `latestTransaction.rewardId`, use `latestTransaction.redeemInfo.rewardId` instead. This property\nwill be removed on June 30, 2022.\n",
+          "doc": " __Deprecated.__ For `latestTransaction.rewardId`, use `latestTransaction.redeemInfo.rewardId` instead. This property\nwill be removed on September 30, 2022.\n",
           "readOnly": true,
           "deprecated": true
         },
@@ -1500,7 +1495,7 @@
                 {
           "name": "redeemInfo",
           "type": "All APIs.Accounts._com_wixpress_loyalty_account_RedeemInfo",
-          "doc": " Additional redeem information. Only present if `type` is `REDEEM`.\n",
+          "doc": " Additional information for redeemed points.  \n\nOnly present if `type` is `REDEEM`.\n",
           "readOnly": true
         }
       ],
@@ -1606,13 +1601,19 @@
                 {
           "name": "rewardId",
           "type": "string",
-          "doc": " Reward ID.\n",
+          "doc": " ID of the reward that was redeemed.  \n",
           "readOnly": true
         },
                 {
           "name": "rewardType",
           "type": "string",
           "doc": " Type of reward that was redeemed.\n",
+          "readOnly": true
+        },
+                {
+          "name": "referenceEntityId",
+          "type": "string",
+          "doc": " ID of the specific item that was redeemed in this transaction.  \n\nEach reward that is redeemed has a unique `referenceEntityId`.\n",
           "readOnly": true
         }
       ],
@@ -2099,7 +2100,7 @@
                 {
           "name": "balance",
           "type": "integer",
-          "doc": " Sets the account's point balance to this amount. Must be a positive, whole number.\n\nThe net difference between this new balance and the previous balance will be reflected in the `adjusted` field of the customer's account.\n\nMax: `999,999,999`\n"
+          "doc": " Sets the account's point balance to this amount. Must be a positive, whole number.\n\nThe net difference between this new balance and the previous balance will be reflected in the `adjusted` field of the customer's account.  \n\nMin: `1`\n\nMax: `999,999,999`\n"
         },
                 {
           "name": "amount",
