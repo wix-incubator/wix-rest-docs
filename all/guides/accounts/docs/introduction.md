@@ -13,4 +13,4 @@ With the loyalty accounts API, you can:
 
 > **Note:**
 > Before loyalty accounts can be created, the site's loyalty program must be active.
-> See the activate loyalty program endpoint to [learn how to activate the loyalty program using the API](https://dev.wix.com/api/rest/wix-loyalty/program/activate-loyalty-program).
+> See the activate loyalty program endpoint to [learn how to activate the loyalty program using the API](https://dev.wix.com/api/rest/wix-loyalty-program/program/activate-loyalty-program).
