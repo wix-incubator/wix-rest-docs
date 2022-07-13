@@ -21,7 +21,9 @@ Endpoints that allow querying follow these format [guidelines](https://dev.wix.c
 | slug |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
 | collections.id |$eq,$ne,$hasSome,$hasAll||
 | options.\<option name\> |$eq,$ne,$hasSome,$hasAll||
+| inventoryStatus |$eq,$ne,$hasSome|
 | lastUpdated |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
+| createdDate |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte||
 
 ** Note that "HasSome" is same as the operator "IN" in SQL
 
