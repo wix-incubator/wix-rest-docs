@@ -7,7 +7,7 @@
 + The new [Remove Brand](wix-stores/catalog/products/remove-brand) introduces functionality for deleting a [product's brand](https://support.wix.com/en/article/adding-brand-names-to-boost-product-page-seo-in-wix-stores).
 + The new [Remove Ribbon](wix-stores/catalog/products/remove-ribbon) introduces functionality for deleting a product's ribbon. Ribbons can be used to draw attention to products you want to promote.
 
-#### New Fields
+#### New Data
 + A new query param was added to the [Get Product](wix-stores/catalog/products/get-product) API - `includeMerchantSpecificData`. This boolean determines whether merchant specific data, such as cost and profit data, is included in the response.
 + A new query param was added to the [Get Collection](wix-stores/catalog/collections/get-collection) API - `includeNumberOfProducts`. This boolean determines whether a field named `numberOfProducts` is included in the response.
 + The new `product.costAndProfitData` field holds information about a product's cost of goods, profit, and margin. Learn more about [calculating the cost of goods for a product](https://support.wix.com/en/article/wix-stores-calculating-cost-of-goods).
