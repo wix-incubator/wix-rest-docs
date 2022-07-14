@@ -1,5 +1,20 @@
 # Release Notes
 
+## New Releases: [Stores Catalog API](wix-stores/catalog)
+#### New and Updated APIs
++ The new [Bulk Update Products](wix-stores/catalog/products/bulk-update-products) introduces bulk functionality for updating/setting a certain field for up to 100 products at a time.
++ The new [Bulk Adjust Product Properties](wix-stores/catalog/products/bulk-adjust-product-properties) allows for bulk adjusting a certain numerical property (price, cost, or weight) for up to 100 products at a time.
++ The new [Remove Brand](wix-stores/catalog/products/remove-brand) introduces functionality for deleting a [product's brand](https://support.wix.com/en/article/adding-brand-names-to-boost-product-page-seo-in-wix-stores).
++ The new [Remove Ribbon](wix-stores/catalog/products/remove-ribbon) introduces functionality for deleting a product's ribbon. Ribbons can be used to draw attention to products you want to promote.
++ A new query param was added to the [Get Product](wix-stores/catalog/products/get-product) API - `includeMerchantSpecificData`. This boolean determines whether merchant specific data, such as cost and profit data, is included in the response.
++ A new query param was added to the [Get Collection](wix-stores/catalog/collections/get-collection) API - `includeNumberOfProducts`. This boolean determines whether a field named `numberOfProducts` is included in the response.
+
+#### New Fields
++ The new `product.costAndProfitData` field holds information about a product's cost of goods, profit, and margin. Learn more about [calculating the cost of goods for a product](https://support.wix.com/en/article/wix-stores-calculating-cost-of-goods).
++ The new product `costRange`, `weightRange`, and `priceRange` fields hold information about the minimum and maximum values of each. For example, the lightest and heaviest products/variants in a store's catalog.
+
+(July 14, 2022)
+
 ## New Release: [Restaurants Local Delivery Integration SPI](wix-restaurants/local-delivery-integration-spi)
 The new Restaurants [Local Delivery SPI](wix-restaurants/local-delivery-integration-spi/local-delivery) introduces the ability to integrate third-party local delivery services with a Wix site. Local delivery services include estimating and creating deliveries.
 
