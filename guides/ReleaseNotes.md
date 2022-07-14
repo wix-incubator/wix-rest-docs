@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Wix Loyalty Program](https://dev.wix.com/api/rest/wix-loyalty-program)
+The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
+
+(July 12, 2022)
 ## New Releases: [Stores Catalog API](wix-stores/catalog)
 #### New and Updated APIs
 + The new [Bulk Update Products](wix-stores/catalog/products/bulk-update-products) introduces bulk functionality for updating/setting a certain field for up to 100 products at a time.
