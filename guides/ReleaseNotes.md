@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Release: [Wix Loyalty Program](https://dev.wix.com/api/rest/wix-loyalty-program)
+## New Release: [Wix Loyalty Program](wix-loyalty-program/)
 The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
 
 (July 14, 2022)
