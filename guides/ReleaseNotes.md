@@ -11,7 +11,7 @@
 
 #### New Fields
 + The new `product.costAndProfitData` field holds information about a product's cost of goods, profit, and margin. Learn more about [calculating the cost of goods for a product](https://support.wix.com/en/article/wix-stores-calculating-cost-of-goods).
-+ The new product `costRange`, `weightRange`, and `priceRange` fields hold information about the minimum and maximum values of each. For example, the lightest and heaviest products/variants in a store's catalog.
++ The new `product.costRange`, `product.weightRange`, and `product.priceRange` fields hold information about the minimum and maximum values of each. For example, the lightest and heaviest products/variants in a store's catalog.
 
 (July 14, 2022)
 
