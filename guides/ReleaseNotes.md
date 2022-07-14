@@ -1,5 +1,9 @@
 # Release Notes
 
+## New Release: [Wix Loyalty Program](https://dev.wix.com/api/rest/wix-loyalty-program)
+The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
+
+(July 12, 2022)
 ## New Release: [Wix Blog Tags](wix-blog/blog/tags/tag-object/)
 The new Blog [Tags API](wix-blog/blog/tags/tag-object/) introduces read functionality for blog tags.
 
