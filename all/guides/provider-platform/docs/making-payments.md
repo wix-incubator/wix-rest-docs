@@ -30,7 +30,7 @@ For each `wixTransactionId` a _Payment Plugin_ can only send duplicate events or
 
 ## Card payment examples
 
-If a payment requires _3D Secure_ verification, a _Payment Plugin_ must respond with a redirection URL to a web page where a _buyer_ can proceed with the payment. If a card does not have 3DS enabled, or the 3DS verification is not required, or the payment fails instantly, the _Payment Plugin_ must respond with a final payment state.
+If a payment requires _3D Secure_ verification, a _Payment Plugin_ must respond with a redirection URL to a web page where a _buyer_ can proceed with the payment. If a card does not have 3DS enabled, or the 3DS verification is not required, or flag `moto` is true, or the payment fails instantly, the _Payment Plugin_ must respond with a final payment state.
 
 The following _JWT_ values are fake and used for example purposes. An `installments` field is applicable for card payments only.
 
@@ -1113,3 +1113,89 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
   }
 }'
 ```
+## Mail Order/Telephone Order payment (MOTO) payment example
+
+Mail Order/Telephone Order payment (MOTO) is a card-not-present transaction where a buyer provides a merchant with their order and payment details by post (unlike email), fax, or telephone.
+
+In the following example, Wix initiates a `$10 US` payment and sends a request. The request is the same as the original credit card request except for one thing: it includes the boolean field `moto`:
+
+```bash
+curl -X POST https://psp.example.com/sale \
+ -H 'Content-Type: application/json' \
+ -H 'JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \
+ -d '{
+  "wixMerchantId": "333333-3333-3333-3333-333333333333",
+  "wixTransactionId": "000000-0000-0000-0000-000000000000",
+  "paymentMethod": "creditCard",
+  "merchantCredentials": {
+    "client_id": "MerchantClientId",
+    "client_secret": "MerchantClientSecret"
+  },
+  "order": {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "description": {
+      "totalAmount": 1000,
+      "currency": "USD",
+      "items": [
+        {
+          "id": "it_1",
+          "name": "Digital camera",
+          "quantity": 1,
+          "price": 1000,
+          "description": "Portable digital camera",
+          "category": "physical"
+        }
+      ],
+      "buyerInfo": {
+        "buyerId": "ffc0a971-60cb-4c63-8016-39b1bce41e8d",
+        "buyerLanguage": "en"
+      }
+    },
+    "returnUrls": {
+      "successUrl": "https://merchant.com/success",
+      "errorUrl": "https://merchant.com/error",
+      "cancelUrl": "https://merchant.com/cancel",
+      "pendingUrl": "https://merchant.com/pending"
+    }
+  },
+  "installments": 1,
+  "mode": "live",
+  "moto": true,
+  "paymentMethodData": {
+    "card": {
+      "number": "4111111111111111",
+      "year": 2030,
+      "month": 12,
+      "cvv": "777",
+      "holderName": "John Smith"
+    }
+  }
+}'
+```
+
+### MOTO payment response example
+
+Wix responds with `200` HTTP status code and a _JSON object_:
+
+```json
+{
+  "pluginTransactionId": "e89b-12d3-a456-42665"
+}
+```
+
+And a payment provider must [Submit Event](https://dev.wix.com/api/rest/payment-provider/provider-platform/event/submit-event) with a confirmation:
+
+```bash
+curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
+ -H 'Content-Type: application/json' \
+ -H 'Authorization: <AUTH>' \
+ -d '{
+  "event": {
+    "transaction": {
+      "wixTransactionId": "000000-0000-0000-0000-000000000000",
+      "pluginTransactionId": "e89b-12d3-a456-42665"
+    }
+  }
+}'
+```
+
