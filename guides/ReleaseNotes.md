@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/)
+## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders)
 The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
 
 (July 20, 2022)
