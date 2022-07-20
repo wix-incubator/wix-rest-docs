@@ -1,19 +1,20 @@
 SortOrder: 4
 # About the Plans API
 
-The Plan entity includes all the details of Paid Plans available on a site. 
-Using the Plans API, you can create and manage plans, change the visibility and availability of a plan for purchase, and get plan statistics.
+The Plan entity includes all the details of plans available on a site. 
+Using the Plans API, you can create and manage plans, change the visibility and availability of a plan for purchase, and get plan statistics. Plans provides a customizable pricing page where customers can view the plan perks, prices and other features including free trials, purchase limitations and more. 
+All plans either have a duration or can be valid until canceled by a customer. 
 
 Use the Plans API to:
 
-- Create & update plans
-- Get Statistics about the plans
-- Get specific plan info
-- Query all plans info
-- Mark a plan as primary
-- Arrange plan display order
-- Hide plans
-- Archive plans
+- Create & update plans.
+- Get statistics about the plans.
+- Get specific plan information.
+- Arrange display order for plans.
+- Hide or archive plans.
+
+## Setting usage limits
+Pricing plans can be limited to be purchased only one time by a single customer. By default, customers can make unlimited purchases.
 
 ## Terminology
 
