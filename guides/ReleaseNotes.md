@@ -1,5 +1,10 @@
 # Release Notes
 
+## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders/)
+The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
+
+(July 20, 2022)
+
 ## New Release: [Wix Loyalty Program](wix-loyalty-program/)
 The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
 
