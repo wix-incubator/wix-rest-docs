@@ -68,7 +68,7 @@ This deprecates the [Wix Chat API](wix-chat/wix-chat).
 ## New Release: [Account Level APIs](account-level-apis/)
 
 The Account Level APIs are accessible only using API keys, which are currently available to selected beta users only.
-APIs exposed include Sites, Site Folders, Domains, and Resellers. (February 24, 2022)  
+APIs exposed include Sites, Site Folders, Resellers, B2B Site Management, and Domains. (February 24, 2022)  
 
 ## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
