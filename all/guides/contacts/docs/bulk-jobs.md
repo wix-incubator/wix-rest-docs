@@ -1,9 +1,9 @@
-SortOrder: 3
+SortOrder: 2
 # Working with Bulk Jobs
 
 The Contacts API allows you to perform these actions in bulk:
 
-- [Bulk Add and Remove Labels][bulk-add-remove]
+- [Bulk Label and Unlabel Contacts][bulk-label-unlabel]
 - [Bulk Update Contacts][bulk-update]
 - [Bulk Delete Contacts][bulk-delete]
 
@@ -20,12 +20,12 @@ to specify the target contacts for a bulk job.
 All contacts that meet the filter and search criteria
 will be affected by the bulk operation.
 
-Before running a bulk operation, can optionally perform a dry run
+Before running a bulk operation, you can optionally do a dry run
 by running a [query][query] with the intended filter and search options.
-You can show the query results to the user
-and ask them to confirm that they want to continue with the bulk action.
+This allows you to display the query results
+and ask the user to confirm that they want to continue with the bulk action.
 
-[bulk-add-remove]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-add-and-remove-labels
+[bulk-label-unlabel]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-label-and-unlabel-contacts
 [bulk-update]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-update-contacts
 [bulk-delete]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/bulk-delete-contacts
 [get-bulk-job]: https://dev.wix.com/api/rest/contacts/contacts/bulk-jobs/get-bulk-job

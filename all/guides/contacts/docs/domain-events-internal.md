@@ -1,4 +1,4 @@
-SortOrder: 6
+SortOrder: 9
 # About Domain Events
 
 As of V4 Contacts Service, we started to use Domain Events.

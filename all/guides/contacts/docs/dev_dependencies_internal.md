@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 8
 # Dev Dependencies
 
 ### Bazel target
@@ -52,22 +52,21 @@ In Bootstrap:
 ### REST Client
 
 ```bash
-npm i @wix/ambassador-contacts-app
+npm i --save @wix/ambassador-contacts-v4-contact
 ```
 
 ```typescript
-import { ContactsApp } from '@wix/ambassador-contacts-app/http';
+import { listContacts } from '@wix/ambassador-contacts-v4-contact/http';
+import { HttpClient } from '@wix/http-client';
 import { appDefIds, getCurrentInstance } from '@wix/business-manager-api';
 
-const contactsServiceV4 = (instance: string) => {
-    return ContactsApp('/_api/contacts/')
-        .ContactsServiceV4()({
-            Authorization: instance,
-        });
-};
 
-const listContacts = () => {
+const doListContacts = () => {
     const instance = getCurrentInstance(appDefIds.metaSite);
-    return contactsServiceV4(instance).listContacts({});
+    const httpClient = new HttpClient({ getAppToken: () => instance });
+  
+    return httpClient.request(
+      listContacts({})
+    );
 }
 ```

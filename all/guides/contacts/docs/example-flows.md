@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 1
 # Example Flows
 
 This article shares some possible use cases your app could support,
@@ -67,7 +67,7 @@ think about how your app will handle these flows:
     ```json
     {
       "displayName": "externalCrmId",
-      "dataType": "TEXT",
+      "dataType": "TEXT"
     }
     ```
 

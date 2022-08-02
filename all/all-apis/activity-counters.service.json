@@ -1,0 +1,759 @@
+{
+  "name": "Activity Counters",
+  "client_id": "https://github.com/wix-private/app-market/tree/master/members/activity-counters-api#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Activity Counters service APIs",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "ActivityCounters",
+    "entity": "_com_wixpress_members_activitycounters_ActivityCounter",
+    "src": "https://github.com/wix-private/app-market/tree/master/members/activity-counters-api/proto/com/wixpress/members/activitycounters/activity-counter.proto"
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/activity-counters/docs/README.md",
+    "name": "Introduction"
+  }],
+  "operations":   [
+        {
+      "name": "Get Activity Counters",
+      "methodName": "GetActivityCounters",
+      "serviceName": "ActivityCounters",
+      "tag": "ActivityCounters",
+      "permissions":       [
+                {
+          "name": "Manage Activity Counters",
+          "description": "Request permission to manage the site's member activity counters."
+        },
+                {
+          "name": "Read Activity Counters",
+          "description": "Request permission to read the site's member activity counters."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["memberId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "memberId",
+        "type": "string",
+        "doc": " ID of the site member whose counters will be returned.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetActivityCounters",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_GetActivityCountersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nReturns activity counters for a requested site member.\nA third party can read all the public counters, set by any apps. However, third parties can only read their own private counters, not those from others' apps.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v1/activity-counters/{memberId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    https://www.wixapis.com/members/v1/activity-counters/987110f7-5100-4beb-a948-de610fd18f00 \\\n    -H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"activityCounters\": [\n    {\n    \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n    \"appId\": \"7eb67052-4478-416e-b444-eff7accf6cea\",\n    \"counters\": [    {\n      \"key\": \"This is public key\",\n      \"public\": true,\n      \"count\": 3\n    }]\n  },\n    {\n    \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n    \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n    \"counters\":     [\n            {\n        \"key\": \"This is private key\",\n        \"public\": false,\n        \"count\": 10\n      },\n            {\n        \"key\": \"This is another public key\",\n        \"public\": true,\n        \"count\": 10\n      }\n    ]\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetActivityCountersRequest",
+        "rpcResponseName": "GetActivityCountersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Activity Counters",
+      "methodName": "QueryActivityCounters",
+      "serviceName": "ActivityCounters",
+      "tag": "ActivityCounters",
+      "permissions":       [
+                {
+          "name": "Manage Activity Counters",
+          "description": "Request permission to manage the site's member activity counters."
+        },
+                {
+          "name": "Read Activity Counters",
+          "description": "Request permission to read the site's member activity counters."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "query",
+        "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_Query",
+        "doc": " Query options.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "QueryActivityCounters",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_QueryActivityCountersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nReturns up to 100 activity counters for the provided filter and paging.\n\nService will return only counters that are marked as public, or private counters from apps created by the requesting third party.\n\nSupported fields for filtering:\n- memberId\n\nSupported operations:\nComparison:\n- $eq\n- $ne\n- $in\nLogical:\n- $and\n- $not\n- $or\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v1/activity-counters/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query activity counters",
+            "body": ["curl -X POST \\\n    https://www.wixapis.com/members/v1/activity-counters/query \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"query\": {\n            \"filter\": {}\n        }\n    }'"],
+            "response": ["{\n  \"activityCounters\":   [\n        {\n      \"memberId\": \"bc93bbe5-228e-4468-a9ac-ebc15f90427e\",\n      \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n      \"counters\": [      {\n        \"key\": \"This is my public key\",\n        \"public\": true,\n        \"count\": 1\n      }]\n    },\n        {\n      \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n      \"appId\": \"7eb67052-4478-416e-b444-eff7accf6cea\",\n      \"counters\": [      {\n        \"key\": \"This is public key\",\n        \"public\": true,\n        \"count\": 3\n      }]\n    },\n        {\n      \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n      \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n      \"counters\": [      {\n        \"key\": \"This is another public key\",\n        \"public\": true,\n        \"count\": 10\n      }]\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 3,\n    \"offset\": 0,\n    \"total\": 3\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving counters with empty filter"}
+          },
+                    {
+            "title": "Query activity counters",
+            "body": ["curl -X POST \\\n    https://www.wixapis.com/members/v1/activity-counters/query \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"query\": {\n            \"filter\": {\n                \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\"\n            }\n        }\n    }'"],
+            "response": ["{\n  \"activityCounters\":   [\n        {\n      \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n      \"appId\": \"7eb67052-4478-416e-b444-eff7accf6cea\",\n      \"counters\": [      {\n        \"key\": \"This is public key\",\n        \"public\": true,\n        \"count\": 3\n      }]\n    },\n        {\n      \"memberId\": \"987110f7-5100-4beb-a948-de610fd18f00\",\n      \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n      \"counters\": [      {\n        \"key\": \"This is another public key\",\n        \"public\": true,\n        \"count\": 10\n      }]\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving counters with member id"}
+          },
+                    {
+            "title": "Query activity counters",
+            "body": ["curl -X POST \\\n    https://www.wixapis.com/members/v1/activity-counters/query \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"query\": {\n            \"filter\": {\n                \"memberId\": {\n                    \"$in\": [\n                        \"987110f7-5100-4beb-a948-de610fd18f00\",\n                        \"bc93bbe5-228e-4468-a9ac-ebc15f90427e\"\n                    ]\n                }\n            },\n            \"paging\": {\n                \"limit\": 1\n            }\n        }\n    }'"],
+            "response": ["{\n  \"activityCounters\": [  {\n    \"memberId\": \"bc93bbe5-228e-4468-a9ac-ebc15f90427e\",\n    \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n    \"counters\": [    {\n      \"key\": \"This is my public key\",\n      \"public\": true,\n      \"count\": 1\n    }]\n  }],\n  \"metadata\":   {\n    \"count\": 1,\n    \"offset\": 0,\n    \"total\": 1\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving counters with two member ids and limit one"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryActivityCountersRequest",
+        "rpcResponseName": "QueryActivityCountersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Set Activity Counters",
+      "methodName": "SetActivityCounters",
+      "serviceName": "ActivityCounters",
+      "tag": "ActivityCounters",
+      "permissions": [      {
+        "name": "Manage Activity Counters",
+        "description": "Request permission to manage the site's member activity counters."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "counter",
+        "memberId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "memberId",
+          "type": "string",
+          "doc": "",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "counter",
+          "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_Counter",
+          "doc": " Site member ID whose counter will be set.\n Counter for this site member and app.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "SetActivityCounters",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_SetActivityCountersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSets activity counters for a requested site member.\n\nIf a counter does not yet exist, it will be created.\n\nCounters are set under a custom key, which is an ID for the counter, and is unique per app.\n\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/members/v1/activity-counters/{memberId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X PUT \\\n    https://www.wixapis.com/members/v1/activity-counters/bc93bbe5-228e-4468-a9ac-ebc15f90427e \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n        \"memberId\": \"bc93bbe5-228e-4468-a9ac-ebc15f90427e\",\n        \"counter\": {\n            \"key\": \"My custom key\",\n            \"public\": true,\n            \"count\": 10\n        }\n    }'"],
+          "response": ["{\"activityCounter\": {\n  \"memberId\": \"bc93bbe5-228e-4468-a9ac-ebc15f90427e\",\n  \"appId\": \"fb70a122-6276-4bbd-9cc6-ea9bc452b2a1\",\n  \"counters\":   [\n        {\n      \"key\": \"This is my public key\",\n      \"public\": true,\n      \"count\": 1\n    },\n        {\n      \"key\": \"My custom key\",\n      \"public\": true,\n      \"count\": 10\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SetActivityCountersRequest",
+        "rpcResponseName": "SetActivityCountersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [  {
+    "type": "_com_wixpress_members_activitycounters_ActivityCounterUpdatedDomainEvent",
+    "name": "Activity Counter Updated Webhook",
+    "docs":     {
+      "summary": "\nSet activity counter event\n\nThis event happens after updating a counter.\n",
+      "src": "https://github.com/wix-private/app-market/tree/master/members/activity-counters-api/proto/com/wixpress/members/activitycounters/activity-counters.proto"
+    },
+    "topic": "domain_events_wix.members.v1.activity_counter",
+    "tag": "ActivityCounters",
+    "permissions":     [
+            {
+        "name": "Manage Activity Counters",
+        "description": "Request permission to manage the site's member activity counters."
+      },
+            {
+        "name": "Read Activity Counters",
+        "description": "Request permission to read the site's member activity counters."
+      }
+    ],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.members.v1.activity_counter_updated",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_members_activitycounters_ActivityCounterUpdatedDomainEvent",
+      "displayName": "Activity Counter Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"4916088b-3bde-4666-826b-2f72e239d58c\",\n  \"entityFqdn\" : \"wix.members.v1.activitycounters\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"987110f7-5100-4beb-a948-de610fd18f00\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : {\n      \"memberId\" : \"987110f7-5100-4beb-a948-de610fd18f00\",\n      \"appId\" : \"7eb67052-4478-416e-b444-eff7accf6cea\",\n      \"counters\" : [ {\n        \"key\" : \"This is key\",\n        \"public\" : true,\n        \"count\" : 1\n      } ]\n    }\n  },\n  \"eventTime\" : \"2021-09-16T14:09:25.585986Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.members.v1.activity_counter`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_ActivityCounterEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ActivityCounter ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_ActivityCounterEntityUpdatedEvent",
+      "displayName": "Activity Counter Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_ActivityCounter",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_ActivityCounter",
+      "displayName": "Activity Counter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"memberId\" : \"987110f7-5100-4beb-a948-de610fd18f00\",\n  \"appId\" : \"7eb67052-4478-416e-b444-eff7accf6cea\",\n  \"counters\" : [ {\n    \"key\" : \"This is key\",\n    \"public\" : true,\n    \"count\" : 1\n  } ]\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID.\n"
+        },
+                {
+          "name": "counters",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_Counter"]
+          },
+          "doc": " Counters for this member and this app.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_Counter",
+      "displayName": "Counter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "string",
+          "doc": " Key of the counter. Must be unique within a given app.\n"
+        },
+                {
+          "name": "public",
+          "type": "boolean",
+          "doc": " Whether count is available to all (if `public` is false, the counter is only available to the data owner; the site member, or the third party app that created the counter).\n"
+        },
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Current count of activity.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache_App",
+      "displayName": "App Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache",
+      "displayName": "Invalidate Cache Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "getBy",
+          "type": "All APIs.Activity Counters._com_wixpress_html_cache_invalidate_InvalidateCache_GetBy",
+          "doc": ""
+        },
+                {
+          "name": "reason",
+          "type": "string",
+          "doc": "tell us why you're invalidating the cache. You don't need to add your app name\n"
+        },
+                {
+          "name": "localDc",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache_GetBy",
+      "displayName": "Get By Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "app",
+          "type": "All APIs.Activity Counters._com_wixpress_html_cache_invalidate_InvalidateCache_App",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Activity Counters._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Activity Counters._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Activity Counters._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_Query",
+      "displayName": "Query Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "All APIs.Activity Counters._google_protobuf_Value",
+          "doc": " A filter object.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Activity Counters._wix_common_Paging",
+          "doc": " Limit number of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_SetActivityCountersRequest",
+      "displayName": "Set Activity Counters Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "counter",
+          "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_Counter",
+          "doc": " Site member ID whose counter will be set.\n Counter for this site member and app.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_SetActivityCountersResponse",
+      "displayName": "Set Activity Counters Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "activityCounter",
+        "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_ActivityCounter",
+        "doc": " Updated activity counter.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_GetActivityCountersRequest",
+      "displayName": "Get Activity Counters Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " ID of the site member whose counters will be returned.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_GetActivityCountersResponse",
+      "displayName": "Get Activity Counters Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "activityCounters",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_ActivityCounter"]
+        },
+        "doc": " Activity counters.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_QueryActivityCountersRequest",
+      "displayName": "Query Activity Counters Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Activity Counters._com_wixpress_members_activitycounters_Query",
+        "doc": " Query options.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_activitycounters_QueryActivityCountersResponse",
+      "displayName": "Query Activity Counters Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "activityCounters",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Activity Counters._com_wixpress_members_activitycounters_ActivityCounter"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Activity Counters._wix_common_PagingMetadata",
+          "doc": " Retrieved activity counters.\n Paging metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.members.activity-counters-api"}
+}

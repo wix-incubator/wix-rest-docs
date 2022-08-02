@@ -8,7 +8,7 @@ SortOrder: 3
 `InPerson`, `Klarna`, `MercadoPago`, `Netpay`, `NordeaSolo`, `Offline`,
 `PagSeguro`, `PayEasy`, `PayPal`, `Paysafecard`, `Paysafecash`, `PointOfSale`,
 `Poli`, `Privat24`, `Przelewy24`, `RapidTransfer`, `Sepa`, `Skrill`,
-`Sofort`, `Trustly`,`Neteller`, `Unionpay`, `UniPay`, `Yandex`
+`Sofort`, `Trustly`,`Neteller`, `Unionpay`, `UniPay`
 
 ## Supported Payment Providers
 
@@ -16,8 +16,7 @@ SortOrder: 3
 `Eway`, `Fake`, `FatZebra`, `Interkassa`, `Isracard`, `MercadoPago`,
 `Offline`, `PagSeguro`, `PagueloFacil`, `PaymentExpress`, `PayPal`,
 `PayUCitrus`, `PayUTurkey`, `Skrill`, `Square`, `Stripe`, `SumUp`,
-`TwoCheckout`, `UniPay`, `WireCard`, `WixPayUS`, `WorldPay`, `Yandex`,
-`ZoozShva`
+`TwoCheckout`, `UniPay`, `WixPayUS`, `WorldPay`, `ZoozShva`
 
 ## Supported Currencies
 
@@ -99,16 +98,29 @@ SortOrder: 3
 | `3031` | `Transaction_action_already_commited` |
 | `3032` | `Refund_attempts_exceeded` |
 | `3033` | `Refund_time_limit_exceeded` |
+| `3034` | `Installments_failed` |
+| `3035` | `Transaction expired` |
+| `3036` | `Invalid_PIN` |
+| `3037` | `Terminal_not_available` |
+| `3038` | `Revocation_of_payment` |
+| `3039` | `Payment_account_invalid` |
+| `3040` | `Security_violation` |
+| `3041` | `Invalid_account` |
+| `3042` | `Do_not_try_again` |
 | `4000` | `Cart_amount_do_not_match_order` |
 | `4001` | `Billing_address_missing` |
 | `4002` | `Shipping_address_missing` |
 | `4003` | `Zip_code_missing` |
+| `4004` | `Phone_number_missing_or_invalid` |
 | `5000` | `Lost_or_stolen_card` |
 | `5001` | `Risk_management_decline` |
 | `5002` | `Restricted_or_blocked_card` |
 | `5003` | `Restricted_or_blocked_buyer` |
 | `5004` | `Buyer_declined_and_contact_provider` |
 | `5005` | `Pending_fraudulent_transaction` |
+| `5006` | `Risk_bank_decline` |
+| `5007` | `Pick_up_card` |
+| `5009` | `Pending_general` |
 | `6000` | `General_error` |
 | `6404` | `No_matching_rules` |
 | `6500` | `Error_mapping_unavailable` |

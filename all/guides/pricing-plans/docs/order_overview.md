@@ -1,15 +1,21 @@
-SortOrder: 4
-# Order 
+SortOrder: 5
+# About the Orders API
 
-## What is Order API of a Paid Plan?
-The Order entity includes all the details of Paid Plans Orders and their status.
+With Orders, you can manage orders and create offline orders. You can also change access to content on Wix or external apps upon plan purchase or cancellation.
 
-## Order Status
-Order can have one of the following statuses:
-* ORDER_STATUS_UNDEFINED - status undefined
-* PENDING - order has been purchased offline but it's start date is in the future - it is not valid yet
-* ACTIVE - order is active
-* CANCELED - order has been canceled
-* EXPIRED - order has expired and is no longer active
-* PENDING_CANCELLATION - the site owner has selected to discontinue (cancel) the order, but the plan service remains 
-active until it’s the end of the current payment period
+The Orders API allows your app to:
+- Create an offline order.
+- Preview an order to show price, tax, and other details.
+- Extend an order's duration or cancel an order.
+- Pause and resume an order.
+
+
+## Terminology
+- **Order:** A purchase of a subscription to a Pricing Plan. The order details include price, duration, and billing schedule information. Orders can be free. Orders can also be partially free using free trial days.
+- **Offline Order:** A purchase of a subscription to a Pricing Plan where the payment isn't handled via Wix. This type of order can be created via API.
+- **Online Order:** A purchase of a subscription to a Pricing Plan where the payment is handled via Wix. This type of order can't be created via API.
+- **Buyer:** A customer.
+
+## Limitations
+- This API supports creating offline orders only. Pricing plan orders created via API can't be paid for using the Wix Payment system.
+- The application of tax to orders is defined at the site level, and isn't accessible via API. If site owners need to collect tax, they must [set up tax collection manually](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection).
