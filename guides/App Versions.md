@@ -1,6 +1,6 @@
 # App Versions and Updates
 
-During the normal life cycle of your app, periodic updates will be required. Each update must be submitted to Wix and when the update is approved it can be sent to site owners. Wix determines whether an update is major or minor and manages the versioning of the app accordingly. Minor updates are sent to site owners automatically, while major updates require an opt-int.
+During the normal life cycle of your app, periodic updates will be required. Each update must be submitted to Wix and when the update is approved it can be sent to site owners. Wix determines whether an update is major or minor and manages the versioning of the app accordingly. Minor updates are sent to site owners automatically, while major updates require an opt-in.
 
 This article explains which updates are major, which are minor, and how the versioning and update process differs between them.
 
