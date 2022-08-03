@@ -4,13 +4,13 @@ SortOrder: 1
 > **Note**:
 > The following terms are applicable for the process of integration of various payment methods to Wix and making them available to merchants and their buyers. The terminology documented here may not apply to other Wix APIs.
 
-**Access token**: Contains the security credentials to identify the *Payment Plugin* privileges.
+**Access token**: Contains the security credentials to identify the Payment Plugin privileges.
 
 **Buyer**: Person who makes a purchase.
 
-**Currency minor units**: Smallest fraction of a *currency*. For example, `$1 US` will be `100`, but `1 JPY` will be `1` as it has no fraction digits.
+**Currency minor units**: Smallest fraction of a currency. For example, `$1 US` will be `100`, but `1 JPY` will be `1` as it has no fraction digits.
 
-**Hosted Page**: Type of a payment method that represents *Payment Service Provider* itself. A hosted payment page is a third-party web page for processing electronic transactions, such as payments made with credit or debit cards, and where transactions can be completed securely. This external page enables buyers to submit their payment information to complete the online checkout process. From the customer's viewpoint, the checkout experience happens in just a few seconds.
+**Hosted Page**: Type of a payment method that represents Payment Service Provider itself. A hosted payment page is a 3rd-party web page for processing electronic transactions, such as payments made with credit or debit cards, and where transactions can be completed securely. This external page enables buyers to submit their payment information to complete the online checkout process. From the customer's viewpoint, the checkout experience happens in just a few seconds.
 
 **Idempotency**: Property of specific operations that can be applied multiple times without changing the result beyond the initial application.
 
@@ -20,22 +20,23 @@ SortOrder: 1
 
 **JSON**: JavaScript Object Notation is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute-value pairs and arrays (or other serializable values).
 
-**JSON object**: Contains `key/value` pairs.
-A colon separates keys and values. Keys must be strings, and values must be a valid JSON data type.
+**JSON object**: Contains `key/value` pairs. A colon separates keys and values. Keys must be strings, and values must be a valid JSON data type.
 Each `key/value` pair is separated by a comma and surrounded by curly braces `{}`.
 
-**JWT**: JSON Web Token is a standard for creating data with a signature whose payload holds *JSON* that asserts some number of claims. The server generates a token that has the claims and provided that to a client. The tokens are signed with a private key. The tokens are signed by the private key so that the *Payment Plugin* can subsequently verify that the token is legitimate.
+**JWT**: JSON Web Token is a standard for creating data with a signature whose payload holds JSON that asserts some number of claims. The server generates a token that has the claims and provided that to a client. The tokens are signed with a private key. The tokens are signed by the private key so that the Payment Plugin can subsequently verify that the token is legitimate.
 
 **Merchant**: Person or business who sells goods to the public in relatively small quantities for use or consumption rather than for resale.
 
-**Provider Platform**: Interface between Wix and a *Payment Service Provider* enabling providers to connect payment methods on Wix, make them available to merchants and their buyers, and process transactions made with cards, alternative payment methods, hosted pages.
-
 **Payment Service Provider** (PSP): Service offering online services for accepting electronic payments by a variety of payment methods, including credit card, bank-based payments such as direct debit, bank transfer, and real-time bank transfer based on online banking. Typically, a software as a service model forms a single payment gateway for their clients (merchants) to multiple payment methods.
 
-**Payment Plugin**: Implementation of the 3rd-party provider via *Provider Platform*.
+**Payment Plugin**: Implementation of the 3rd-party provider via Provider Platform.
+
+**Payment Gateway**: Service that processes your business’ card transactions. It is a network through which customers transfer funds. Once your customer has placed an order, the payment gateway verifies the customer’s card details and checks if they have enough funds in their account to pay. A payment gateway receives the payment request from a website or mobile device and sends it to the payment processor or bank (and vice versa). When you integrate a payment gateway with your website, you’re using it to handle all your online payment transactions.
+
+**Provider Platform**: Interface between Wix and a Payment Service Provider enabling providers to connect payment methods on Wix, make them available to merchants and their buyers, and process transactions made with cards, alternative payment methods, hosted pages.
 
 **Transaction**: Agreement, or communication, carried out between a buyer and a merchant to exchange value items, such as information, goods, and services for payment. It involves a change in the status of the finances of two or more businesses or individuals.
 
-**Webhook**: An HTTP callback. It is triggered by an event, such as a transaction status update or a refund initiated.
+**Webhook**: HTTP callback. It is triggered by an event, such as a transaction status update or a refund initiated.
 
 **3D Secure** (3DS): Protocol designed to be an additional security layer for online credit and debit card transactions. "3DS" refers to the "3 domains" which interact using the protocol: the merchant/acquirer domain, the issuer domain, and the interoperability domain.
