@@ -135,7 +135,7 @@ For all future API calls, you will need to [request a new access token](https://
 
 At this point your app is designated “**Setup Incomplete**”. This state is useful if your app requires users to create an account or set other configuration parameters in order for the app to become active.
 
-Once your app requires on further setup steps, create the following request to mark the installation as finished:
+Once your app requires no further setup steps, create the following request to mark the installation as finished:
 
 ```
 curl -X POST \

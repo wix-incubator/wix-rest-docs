@@ -23,7 +23,7 @@ Endpoints that allow querying follow these format [guidelines](https://dev.wix.c
 | options.\<option name\> |$eq,$ne,$hasSome,$hasAll||
 | inventoryStatus |$eq,$ne,$hasSome|
 | lastUpdated |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
-| createdDate |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte||
+| createdDate |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
 
 ** Note that "HasSome" is same as the operator "IN" in SQL
 
