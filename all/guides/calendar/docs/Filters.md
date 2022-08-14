@@ -52,4 +52,4 @@ for the session object:
 
 To learn about working with _Query_ endpoints in general, see
 [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)
-and [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/pagination).
+and [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/sorting-and-paging).
