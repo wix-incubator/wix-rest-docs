@@ -4,7 +4,7 @@ SortOrder: 0
 With Wix Bookings Calendar V2, you can retrieve information about the business calendar. 
 
 Calendar V2 replaces the [List Sessions V1 endpoint](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions) 
-and offers advanced filtering and paging functionality in [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/list-sessions).
+and offers advanced filtering and paging functionality in [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/query-sessions).
 
 You can read more about setting up and managing sessions for a business calendar with the 
 [Sessions API](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session/create-session).
