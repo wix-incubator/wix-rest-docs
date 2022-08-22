@@ -1,5 +1,15 @@
 # Release Notes
 
+## New Endpoints: [Site Properties API](business-info/site-properties)
+The [Site Properties API](https://dev.wix.com/api/rest/business-info/site-properties) now includes three new endpoints:
++ [Update Business Contact](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
++ [Update Business Profile](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-profile) updates a site's business profile.
++ [Update Business Schedule](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-schedule) updates a site's business schedule.
+
+These endpoints complement the existing [Update Consent Policy](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-consent-policy) endpoint.
+
+(August 17, 2022)
+
 ## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders)
 The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
 
