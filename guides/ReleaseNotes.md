@@ -7,7 +7,7 @@ The [Members API](https://dev.wix.com/api/rest/members/members) now includes thr
 + [MemberDeleted](https://dev.wix.com/api/rest/members/members/member-deleted-webhook) is triggered when a member is deleted.
 + [MemberUpdated](https://dev.wix.com/api/rest/members/members/member-updated-webhook) is triggered when a member is updated.
 
-These endpoints complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
+These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
 (August 31, 2022)
 
 ## New Release: [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2)
