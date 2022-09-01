@@ -14,7 +14,7 @@ at least 6 months after their announced deprecation.
   [List Members](members/members/list-members),
   and [Query Members](members/members/query-members)
   `fieldSet` parameter is replaced by `fieldsets`.
-  (Announced August 31, 2022)
+  (Announced September 1, 2022)
 
 ## End of Life: September 30, 2022
 
