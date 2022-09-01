@@ -10,7 +10,8 @@ at least 6 months after their announced deprecation.
   replaced by [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/query-sessions).
   (Announced August 22, 2022)
   
-- Members[Get Members](members/members/get-member), and
+- Members API
+  [Get Members](members/members/get-member), and
   [List Members](members/members/list-members), and
   [Query Members](members/members/query-members),
   `fieldSet` parameter replaced by `fieldsets`.
