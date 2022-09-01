@@ -8,7 +8,7 @@ The [Members API](members/members) now includes three new endpoints:
 + [MemberUpdated](members/members/member-updated-webhook) is triggered when a member is updated.
 
 These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
-(August 31, 2022)
+(September 1, 2022)
 
 ## New Release: [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2)
 The [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
