@@ -2,10 +2,10 @@
 
 
 ## New Webhooks: [Members API](members/members)
-The [Members API](https://dev.wix.com/api/rest/members/members) now includes three new endpoints:
-+ [MemberCreated](https://dev.wix.com/api/rest/members/members/member-created-webhook) is triggered when a member is created.
-+ [MemberDeleted](https://dev.wix.com/api/rest/members/members/member-deleted-webhook) is triggered when a member is deleted.
-+ [MemberUpdated](https://dev.wix.com/api/rest/members/members/member-updated-webhook) is triggered when a member is updated.
+The [Members API](members/members) now includes three new endpoints:
++ [MemberCreated](members/members/member-created-webhook) is triggered when a member is created.
++ [MemberDeleted](members/members/member-deleted-webhook) is triggered when a member is deleted.
++ [MemberUpdated](members/members/member-updated-webhook) is triggered when a member is updated.
 
 These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
 (August 31, 2022)
