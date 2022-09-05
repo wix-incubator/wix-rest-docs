@@ -1,5 +1,25 @@
 # Release Notes
 
+## New Endpoints: [Email Marketing API](marketing/email-marketing)
+The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
++ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
++ [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
+
+(September 5, 2022)
+
+## New Webhooks: [Members API](members/members)
+The [Members API](members/members) now includes three new webhooks:
++ [Member Created](members/members/member-created-webhook) is triggered when a member is created.
++ [Member Deleted](members/members/member-deleted-webhook) is triggered when a member is deleted.
++ [Member Updated](members/members/member-updated-webhook) is triggered when a member is updated.
+
+These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
+(September 1, 2022)
+
+## New Release: [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2)
+The [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
+
+(August 22, 2022)
 ## New Endpoints: [Site Properties API](business-info/site-properties)
 The [Site Properties API](https://dev.wix.com/api/rest/business-info/site-properties) now includes three new endpoints:
 + [Update Business Contact](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-contact) updates a site's business contact information.

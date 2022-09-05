@@ -4,6 +4,18 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: March 31, 2023
+
+- [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions)
+  replaced by [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/query-sessions).
+  (Announced August 22, 2022)
+  
+- In Members API, the [Get Members](members/members/get-member),
+  [List Members](members/members/list-members),
+  and [Query Members](members/members/query-members)
+  `fieldSet` parameter is replaced by `fieldsets`.
+  (Announced September 1, 2022)
+
 ## End of Life: September 30, 2022
 
 - [Order Created webhook](wix-restaurants/orders/order-created-webhook)
