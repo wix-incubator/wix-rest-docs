@@ -2,7 +2,7 @@
 
 ## New Endpoints: [Email Marketing API](marketing/email-marketing)
 The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
-+ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign, based on a specific recipient activity. For example, a list of recipients that opened, or that clicked on a link inside, an email campaign.
++ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity. For example, a list of recipients that opened, or that clicked on a link inside, an email campaign.
 + [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
 
 (September 5, 2022)
