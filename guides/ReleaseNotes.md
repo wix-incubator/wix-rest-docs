@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Endpoints: [Email Marketing API](marketing/email-marketing)
+The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
++ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
++ [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
+
+(September 5, 2022)
 
 ## New Webhooks: [Members API](members/members)
 The [Members API](members/members) now includes three new webhooks:
