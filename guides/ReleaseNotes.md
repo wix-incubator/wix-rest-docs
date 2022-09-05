@@ -2,7 +2,7 @@
 
 
 ## New Webhooks: [Members API](members/members)
-The [Members API](members/members) now includes three new endpoints:
+The [Members API](members/members) now includes three new webhooks:
 + [Member Created](members/members/member-created-webhook) is triggered when a member is created.
 + [Member Deleted](members/members/member-deleted-webhook) is triggered when a member is deleted.
 + [Member Updated](members/members/member-updated-webhook) is triggered when a member is updated.
