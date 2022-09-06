@@ -2,7 +2,13 @@ SortOrder: 0
 ## About the Transactions API
 Use Wix Payments server-to-server API integration to accept different payment methods and manage transactions. Wix Payments act as a standalone solution to independently process payments, deal with chargebacks and disputes via Wix infrastructure, and can be used by any third-party.
 
-The API supports the following flows:
+### **Wix Payments integration prerequisites**
+Before testing the Transactions API, you need to get a Wix Payments account ID. Wix also applies a Know Your Customer (KYC) and evaluation procedure. Contact Wix via transactions-api-support@wix.com and provide the following details to start the evaluation process:
+- Put "Wix Payments integration" in the subject of the email
+- Provide your name and email
+- Include the purpose of your integration with the Transactions API
+
+**Transactions API supports the following flows:**
 -   Authorization (reserving funds)
 -   Capture (transferring of reserved funds)
 -   One-time transaction (Authorization and Capture)
@@ -10,7 +16,7 @@ The API supports the following flows:
 -   Refund/Void (canceling an authorized or captured transaction)
 -   Dispute
 
-Wix Payments supports the following payment methods:
+**Wix Payments supports the following payment methods:**
 -   Card
 -   ACH
 -   Apple Pay
