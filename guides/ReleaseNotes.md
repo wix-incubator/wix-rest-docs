@@ -1,7 +1,34 @@
 # Release Notes
 
+## New Webhooks: [Pricing Plans API](wix-pricing-plans/pricing-plans/orders)
+The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) now includes these new endpoints:
++ [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-created-webhook) and [Order Purchased](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-purchased-webhook) are triggered when an order is created or purchased.
++ [Order Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-started-webhook) and [Order Cycle Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-cycle-started-webhook) are triggered at the start of a new order or a new order cycle.
++ [Order Marked As Paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-marked-as-paid-webhook) is triggered when an offline order is marked as paid.
++ [Order End Date Postponed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-end-date-postponed-webhook), [Order Paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-paused-webhook) and [Order Resumed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-resumed-webhook) are triggered when an order is postponed, paused, or resumed.
++ [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Auto Renew Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-auto-renew-canceled-webhook) are triggered when an order is canceled.
++ [Order Ended](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-ended-webhook) is triggered when an order ends.
++ [Order Updated](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-updated-webhook) is triggered when an order is updated.
 
-## New Release: [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2)
+(September 6, 2022)
+
+## New Endpoints: [Email Marketing API](marketing/email-marketing)
+The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
++ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
++ [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
+
+(September 5, 2022)
+
+## New Webhooks: [Members API](members/members)
+The [Members API](members/members) now includes three new webhooks:
++ [Member Created](members/members/member-created-webhook) is triggered when a member is created.
++ [Member Deleted](members/members/member-deleted-webhook) is triggered when a member is deleted.
++ [Member Updated](members/members/member-updated-webhook) is triggered when a member is updated.
+
+These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
+(September 1, 2022)
+
+## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
 The [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
 
 (August 22, 2022)
