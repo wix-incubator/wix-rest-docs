@@ -44,6 +44,7 @@ Table which describes how [v1.MembersService](https://github.com/wix-private/crm
 |HydraContactsFacade.FindMemberByContactId|Members.GetMember|
 |MemberAreaFacade.CountActiveProfiles|Members.QueryMembers|
 |HydraUsersFacade.getMemberStatusByMemberId|Members.GetMember & fieldSet=FULL to get the status|
+|SiteMembersService.getMembersByUser|Members.QueryMembers & userId in the filter|
 |SiteMembersService.GetMemberOrOwnerByIdWithRecovery|Members.GetMember|
 |MembersService.BatchGet|Members.QueryMembers|
 |SiteMembersService.GetMembersByUser|Members.QueryMembers with member ids from SiteMembersService.GetMembersByUser response if you need more than member ids|
@@ -72,6 +73,16 @@ Table which describes how v1.MembersService CUD events map to api.Members domain
 |sm-updated-members|UpdatedEvent|
 |sm-profile-update|UpdatedEvent|
 |sm-deleted-members|DeletedEvent|
+
+## Cross-tenant requests
+
+If you need to to cross-site requests, we're here to help you.
+We're secretly supporting first-level `userId` filter in `Members.QueryMembers`.
+
+When you send `userId` filter, we're switching the tenant from "meta site" bound to "user" bound under the hood, so security is not compromised. 
+The response entity contains `contactId`, which we can use in order to figure our the meta site contexts for each of the records.
+In order to find out the meta site contexts for each of the records, you need to call `MembersIdentity.GetContactMetaSites` from [members-identity-api](https://github.com/wix-private/app-market/blob/master/members/members-identity-api/proto/com/wixpress/members/identity/members_identity.proto#L14) service.
+The response will contain the map of `contactId` to `metaSiteId`.
 
 
 ## Data
@@ -141,9 +152,9 @@ Which fields will be returned using which fieldset property
 |Public|Extended|Full|
 |---|---|---|
 |id|id|id|
-| | |login_email|
-| | |status|
-| |contact.contact_id|contact.contact_id|
+| |login_email|login_email|
+| |status|status|
+|contact_id|contact_id|contact_id|
 | | |contact.first_name|
 | | |contact.last_name|
 | | |contact.phones|
