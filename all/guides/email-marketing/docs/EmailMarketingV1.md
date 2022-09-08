@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 2
 ## Email Marketing
 
 The Email Marketing API allows caller to manage their marketing campaigns, setup sender details and retrieve account information. 

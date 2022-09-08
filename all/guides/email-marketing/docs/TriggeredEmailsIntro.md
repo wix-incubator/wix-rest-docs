@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 3
 ## Triggered Emails Intro
 
 A Triggered Email allows you to send a personalized message to a site member or a contact.
