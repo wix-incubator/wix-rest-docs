@@ -5,7 +5,7 @@ When you call an API, the response you'll receive will include a status code. If
 | HTTP Status Code | Description | 
 | :-------------- | :------- |  
 | 200 - OK | Success |
-| 400 - Bad Request | One or more request parameters is wrong or missing, or you didn't not pass validation |
+| 400 - Bad Request | One or more request parameters is wrong or missing, or you didn't pass validation |
 | 401 - Unauthorized | The system was not able to authenticate you (missing or incorrect Authorization header, expired token, etc.) |
 | 403 - Forbidden | The system authenticated you, but you don’t have permissions to call this API |
 | 404 - Not found | Resource not found / doesn't exist |
