@@ -1,6 +1,6 @@
 # Errors
 
-When you call an API, the response you'll receive will include a status code. If something went wrong, you'll receive an error code that defines the type of error that occurred. 
+When you call an API, the response you'll receive will include a status code. If something went wrong, you'll receive an error code that defines the type of error that occurred.  
 
 | HTTP Status Code | Description | 
 | :-------------- | :------- |  
