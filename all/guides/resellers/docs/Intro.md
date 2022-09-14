@@ -4,8 +4,9 @@ SortOrder: 0
 With the Resellers API, strategic partners can offer Wix services to their customers. You can contact the Wix B2B sales team at bizdev@wix.com to find out how to become a reseller and which services are available. Resellers are responsible for the complete purchase flow, including checkout experience, payment, and post-purchase management. The Wix services can be offered both as part of a do-it-yourself (DIY) or do-it-for-me (DIFM) flow, as described below. Resold Wix services will be available to the customer until the reseller actively cancels them.
 
 > **Note:** Contact the Wix B2B sales team at bizdev@wix.com about how to become a reseller and which Wix services you could offer to your customers.  
+
 > **Important**: This API is accessible via API keys, which are currently available to selected beta users only. You will not be able to access this API with a standard Auth header.  
-> 
+ 
 The Resellers APIs allow you to:
 
 * Create, retrieve and cancel packages of Wix services
@@ -17,6 +18,7 @@ The Resellers APIs allow you to:
 * **Reseller:** Strategic partner that offers Wix services to their customers.
 * **Product Instance:** Wix service that the reseller offers to their customers.
 * **Service Type:** Wix service type. For example, `Website Plan`, `Business & eCommerce Plan`, or `Ascend`. See [Wix Premium Subscriptions](/docs/link) for more details.
+* **Voucher:** Time-limited benefit for non-Wix services that comes with some products.
 * **Package:** Group of Wix services that the reseller offers to the customer as part of a single transaction. 
 * **Site ID:** Unique identifier of a customer's Wix site. See the [Sites API](https://dev.wix.com/api/rest/account-level-apis/sites/query-sites) for more details.
 * **DIY:** Do-it-yourself business model. The resellers' customers will actively build and manage their sites in the Wix platform.

@@ -27,7 +27,7 @@ If the user chooses to install your app from within the Wix App Market, we redir
   </p>
 </blockquote>
 
-## Step 2: App Sends Users to Authorize the App
+## Step 2: App Sends Users to Authorize the App 
 Your app should redirect users to the URL below so that we can ask them to approve a list of permissions your app is requesting (based on the [permissions](https://dev.wix.com/api/getting-started#permissions) you added in the Wix Developers Center).  
 
 <br/>
@@ -75,7 +75,9 @@ After this step, the user is done. However, your app still has some work to do.
 ## Step 4: App Submits the Authorization Code 
 Once the user completes the installation process and gives your app permission to access their data, use the temporary authorization code we sent you, together with your secret key, to request an access token and a refresh token. (The access token is only valid for 5 minutes.) 
 
-> You can find your secret key in the [Wix Developers Center](https://dev.wix.com). 
+> You can find your secret key in the [Wix Developers Center](https://dev.wix.com).
+
+> **Deprecation:** We updated the OAuth endpoint URL in the code below. If you're still using the old URL, then you'll need to change this by December 1st, 2022.
 
 <blockquote class='important'>
   <p>
@@ -88,7 +90,7 @@ Exchange the temporary authorization code for an access token using the [OAuth >
 
 ```  
 curl -X POST \
-  https://www.wix.com/oauth/access \
+  https://www.wixapis.com/oauth/access \
   -H 'Content-Type: application/json' \
   -d '{
     "grant_type": "authorization_code",
@@ -133,7 +135,7 @@ For all future API calls, you will need to [request a new access token](https://
 
 At this point your app is designated “**Setup Incomplete**”. This state is useful if your app requires users to create an account or set other configuration parameters in order for the app to become active.
 
-Once your app requires on further setup steps, create the following request to mark the installation as finished:
+Once your app requires no further setup steps, create the following request to mark the installation as finished:
 
 ```
 curl -X POST \
