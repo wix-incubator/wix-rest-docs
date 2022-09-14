@@ -26,9 +26,11 @@ The Resellers APIs allow you to:
 
 
 + __Reseller__: Strategic partner that offers Wix services to their customers.
-+ __Product Instance__: Wix service that the reseller offers to their customers.
-+ __Service Type__: Wix service type. For example, `Website Plan`, 
-  `Business & eCommerce Plan`, or `Ascend`.
++ __Product Instance__: Specific instance of a Wix service that the reseller 
+  provides to one of their customers.
++ __Service Type__: Wix service types are groups of related services. For 
+  example, the service type `Premium Plans` includes both the `Website Plan` and 
+  `Business & eCommerce Plan` services.
 + __Voucher__: Time-limited benefit for non-Wix services that comes with some 
   products.
 + __Package__: Group of Wix services that the reseller offers to the customer 
