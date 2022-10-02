@@ -1,5 +1,80 @@
 # Release Notes
 
+## New Webhooks: [Members API](https://dev.wix.com/api/rest/members)
+The [Members Badges API](https://dev.wix.com/api/rest/members/badges) now includes these new webhooks:
++ [Badge Created](https://dev.wix.com/api/rest/members/badges/badge-created-webhook) is triggered when a badge is created.
++ [Badge Updated](https://dev.wix.com/api/rest/members/badges/badge-updated-webhook) is triggered when a badge is updated.
++ [Badge Assigned](https://dev.wix.com/api/rest/members/badges/badge-assigned-webhook) and [Badge Unassigned](https://dev.wix.com/api/rest/members/badges/badge-unassigned-webhook) are triggered when a badge is assigned to, or unassigned from, a member.
++ [Badge Deleted](https://dev.wix.com/api/rest/members/badges/badge-deleted-webhook) is triggered when a badge is deleted.
+
+(September 22, 2022)
+
+## New Webhooks: [Pricing Plans API](wix-pricing-plans/pricing-plans/orders)
+The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) now includes these new webhooks:
++ [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-created-webhook) and [Order Purchased](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-purchased-webhook) are triggered when an order is created or purchased.
++ [Order Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-started-webhook) and [Order Cycle Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-cycle-started-webhook) are triggered at the start of a new order or a new order cycle.
++ [Order Marked As Paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-marked-as-paid-webhook) is triggered when an offline order is marked as paid.
++ [Order End Date Postponed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-end-date-postponed-webhook), [Order Paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-paused-webhook) and [Order Resumed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-resumed-webhook) are triggered when an order is postponed, paused, or resumed.
++ [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Auto Renew Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-auto-renew-canceled-webhook) are triggered when an order is canceled.
++ [Order Ended](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-ended-webhook) is triggered when an order ends.
++ [Order Updated](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-updated-webhook) is triggered when an order is updated.
+
+(September 6, 2022)
+
+## New Endpoints: [Email Marketing API](marketing/email-marketing)
+The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
++ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
++ [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
+
+(September 5, 2022)
+
+## New Webhooks: [Members API](members/members)
+The [Members API](members/members) now includes three new webhooks:
++ [Member Created](members/members/member-created-webhook) is triggered when a member is created.
++ [Member Deleted](members/members/member-deleted-webhook) is triggered when a member is deleted.
++ [Member Updated](members/members/member-updated-webhook) is triggered when a member is updated.
+
+These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
+(September 1, 2022)
+
+## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
+The [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
+
+(August 22, 2022)
+## New Endpoints: [Site Properties API](business-info/site-properties)
+The [Site Properties API](https://dev.wix.com/api/rest/business-info/site-properties) now includes three new endpoints:
++ [Update Business Contact](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
++ [Update Business Profile](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-profile) updates a site's business profile.
++ [Update Business Schedule](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-schedule) updates a site's business schedule.
+
+These endpoints complement the existing [Update Consent Policy](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-consent-policy) endpoint.
+
+(August 17, 2022)
+
+## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders)
+The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
+
+(July 20, 2022)
+
+## New Release: [Wix Loyalty Program](wix-loyalty-program/)
+The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
+
+(July 14, 2022)
+## New Releases: [Stores Catalog API](wix-stores/catalog)
+#### New and Updated APIs
++ The new [Bulk Update Products](wix-stores/catalog/products/bulk-update-products) introduces bulk functionality for updating/setting a certain field for up to 100 products at a time.
++ The new [Bulk Adjust Product Properties](wix-stores/catalog/products/bulk-adjust-product-properties) allows for bulk adjusting a certain numerical property (price, cost, or weight) for up to 100 products at a time.
++ The new [Remove Brand](wix-stores/catalog/products/remove-brand) introduces functionality for deleting a [product's brand](https://support.wix.com/en/article/adding-brand-names-to-boost-product-page-seo-in-wix-stores).
++ The new [Remove Ribbon](wix-stores/catalog/products/remove-ribbon) introduces functionality for deleting a product's ribbon. Ribbons can be used to draw attention to products you want to promote.
+
+#### New Data
++ A new query param was added to the [Get Product](wix-stores/catalog/products/get-product) API - `includeMerchantSpecificData`. This boolean determines whether merchant specific data, such as cost and profit data, is included in the response.
++ A new query param was added to the [Get Collection](wix-stores/catalog/collections/get-collection) API - `includeNumberOfProducts`. This boolean determines whether a field named `numberOfProducts` is included in the response.
++ The new `product.costAndProfitData` field holds information about a product's cost of goods, profit, and margin. Learn more about [calculating the cost of goods for a product](https://support.wix.com/en/article/wix-stores-calculating-cost-of-goods).
++ The new `product.costRange`, `product.weightRange`, and `product.priceRange` fields hold information about the minimum and maximum values of each. For example, the lightest and heaviest products/variants in a store's catalog.
+
+(July 14, 2022)
+
 ## New Release: [Restaurants Local Delivery Integration SPI](wix-restaurants/local-delivery-integration-spi)
 The new Restaurants [Local Delivery SPI](wix-restaurants/local-delivery-integration-spi/local-delivery) introduces the ability to integrate third-party local delivery services with a Wix site. Local delivery services include estimating and creating deliveries.
 
@@ -49,7 +124,7 @@ This deprecates the [Wix Chat API](wix-chat/wix-chat).
 ## New Release: [Account Level APIs](account-level-apis/)
 
 The Account Level APIs are accessible only using API keys, which are currently available to selected beta users only.
-APIs exposed include Sites, Site Folders, Domains, and Resellers. (February 24, 2022)  
+APIs exposed include Sites, Site Folders, Resellers, B2B Site Management, and Domains. (February 24, 2022)  
 
 ## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
