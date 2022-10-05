@@ -1,7 +1,16 @@
 # Release Notes
 
+## New Webhooks: [Members API](https://dev.wix.com/api/rest/members)
+The [Members Badges API](https://dev.wix.com/api/rest/members/badges) now includes these new webhooks:
++ [Badge Created](https://dev.wix.com/api/rest/members/badges/badge-created-webhook) is triggered when a badge is created.
++ [Badge Updated](https://dev.wix.com/api/rest/members/badges/badge-updated-webhook) is triggered when a badge is updated.
++ [Badge Assigned](https://dev.wix.com/api/rest/members/badges/badge-assigned-webhook) and [Badge Unassigned](https://dev.wix.com/api/rest/members/badges/badge-unassigned-webhook) are triggered when a badge is assigned to, or unassigned from, a member.
++ [Badge Deleted](https://dev.wix.com/api/rest/members/badges/badge-deleted-webhook) is triggered when a badge is deleted.
+
+(September 22, 2022)
+
 ## New Webhooks: [Pricing Plans API](wix-pricing-plans/pricing-plans/orders)
-The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) now includes these new endpoints:
+The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) now includes these new webhooks:
 + [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-created-webhook) and [Order Purchased](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-purchased-webhook) are triggered when an order is created or purchased.
 + [Order Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-started-webhook) and [Order Cycle Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-cycle-started-webhook) are triggered at the start of a new order or a new order cycle.
 + [Order Marked As Paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-marked-as-paid-webhook) is triggered when an offline order is marked as paid.
