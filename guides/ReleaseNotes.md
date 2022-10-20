@@ -1,30 +1,35 @@
 # Release Notes
 
-## New Webhooks: [Members API](https://dev.wix.com/api/rest/members)
-The [Members Badges API](https://dev.wix.com/api/rest/members/badges) now includes these new webhooks:
-+ [Badge Created](https://dev.wix.com/api/rest/members/badges/badge-created-webhook) is triggered when a badge is created.
-+ [Badge Updated](https://dev.wix.com/api/rest/members/badges/badge-updated-webhook) is triggered when a badge is updated.
-+ [Badge Assigned](https://dev.wix.com/api/rest/members/badges/badge-assigned-webhook) and [Badge Unassigned](https://dev.wix.com/api/rest/members/badges/badge-unassigned-webhook) are triggered when a badge is assigned to, or unassigned from, a member.
-+ [Badge Deleted](https://dev.wix.com/api/rest/members/badges/badge-deleted-webhook) is triggered when a badge is deleted.
+## New Webhook: [Email Marketing API](marketing/email-marketing)
+The [Email Activity Updated Webhook](marketing/email-marketing/campaign/email-activity-updated-webhook) is triggered each time an email campaign has a new recipient activity.
+
+(October 19, 2022)
+
+## New Webhooks: [Members API](members/badges)
+The [Members Badges API](members/badges) now includes these new webhooks:
++ [Badge Created](members/badges/badge-created-webhook) is triggered when a badge is created.
++ [Badge Updated](members/badges/badge-updated-webhook) is triggered when a badge is updated.
++ [Badge Assigned](members/badges/badge-assigned-webhook) and [Badge Unassigned](members/badges/badge-unassigned-webhook) are triggered when a badge is assigned to, or unassigned from, a member.
++ [Badge Deleted](members/badges/badge-deleted-webhook) is triggered when a badge is deleted.
 
 (September 22, 2022)
 
 ## New Webhooks: [Pricing Plans API](wix-pricing-plans/pricing-plans/orders)
-The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) now includes these new webhooks:
-+ [Order Created](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-created-webhook) and [Order Purchased](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-purchased-webhook) are triggered when an order is created or purchased.
-+ [Order Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-started-webhook) and [Order Cycle Started](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-cycle-started-webhook) are triggered at the start of a new order or a new order cycle.
-+ [Order Marked As Paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-marked-as-paid-webhook) is triggered when an offline order is marked as paid.
-+ [Order End Date Postponed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-end-date-postponed-webhook), [Order Paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-paused-webhook) and [Order Resumed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-resumed-webhook) are triggered when an order is postponed, paused, or resumed.
-+ [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Auto Renew Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-auto-renew-canceled-webhook) are triggered when an order is canceled.
-+ [Order Ended](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-ended-webhook) is triggered when an order ends.
-+ [Order Updated](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-updated-webhook) is triggered when an order is updated.
+The [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders/) now includes these new webhooks:
++ [Order Created](wix-pricing-plans/pricing-plans/orders/order-created-webhook) and [Order Purchased](wix-pricing-plans/pricing-plans/orders/order-purchased-webhook) are triggered when an order is created or purchased.
++ [Order Started](wix-pricing-plans/pricing-plans/orders/order-started-webhook) and [Order Cycle Started](wix-pricing-plans/pricing-plans/orders/order-cycle-started-webhook) are triggered at the start of a new order or a new order cycle.
++ [Order Marked As Paid](wix-pricing-plans/pricing-plans/orders/order-marked-as-paid-webhook) is triggered when an offline order is marked as paid.
++ [Order End Date Postponed](wix-pricing-plans/pricing-plans/orders/order-end-date-postponed-webhook), [Order Paused](wix-pricing-plans/pricing-plans/orders/order-paused-webhook) and [Order Resumed](wix-pricing-plans/pricing-plans/orders/order-resumed-webhook) are triggered when an order is postponed, paused, or resumed.
++ [Order Canceled](wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Auto Renew Canceled](wix-pricing-plans/pricing-plans/orders/order-auto-renew-canceled-webhook) are triggered when an order is canceled.
++ [Order Ended](wix-pricing-plans/pricing-plans/orders/order-ended-webhook) is triggered when an order ends.
++ [Order Updated](wix-pricing-plans/pricing-plans/orders/order-updated-webhook) is triggered when an order is updated.
 
 (September 6, 2022)
 
 ## New Endpoints: [Email Marketing API](marketing/email-marketing)
-The [Email Marketing API](https://dev.wix.com/api/rest/marketing/email-marketing) now includes two new endpoints:
-+ [List Recipients](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
-+ [List Statistics](https://dev.wix.com/api/rest/marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
+The [Email Marketing API](marketing/email-marketing) now includes two new endpoints:
++ [List Recipients](marketing/email-marketing/campaign/list-recipients) retrieves a list of recipients for a selected campaign based on a specific recipient activity.
++ [List Statistics](marketing/email-marketing/campaign/list-statistics) retrieves a list of detailed statistics for selected campaigns.
 
 (September 5, 2022)
 
@@ -38,26 +43,26 @@ These webhooks complement the existing [Members](https://dev.wix.com/api/rest/me
 (September 1, 2022)
 
 ## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
-The [Wix Bookings Calendar V2 API](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
+The [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
 
 (August 22, 2022)
 ## New Endpoints: [Site Properties API](business-info/site-properties)
-The [Site Properties API](https://dev.wix.com/api/rest/business-info/site-properties) now includes three new endpoints:
-+ [Update Business Contact](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
-+ [Update Business Profile](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-profile) updates a site's business profile.
-+ [Update Business Schedule](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-business-schedule) updates a site's business schedule.
+The [Site Properties API](business-info/site-properties) now includes three new endpoints:
++ [Update Business Contact](business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
++ [Update Business Profile](business-info/site-properties/properties/update-business-profile) updates a site's business profile.
++ [Update Business Schedule](business-info/site-properties/properties/update-business-schedule) updates a site's business schedule.
 
-These endpoints complement the existing [Update Consent Policy](https://dev.wix.com/api/rest/business-info/site-properties/properties/update-consent-policy) endpoint.
+These endpoints complement the existing [Update Consent Policy](business-info/site-properties/properties/update-consent-policy) endpoint.
 
 (August 17, 2022)
 
 ## New Release: [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders)
-The [Pricing Plans Orders API](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
+The [Pricing Plans Orders API](wix-pricing-plans/pricing-plans/orders/) provides third parties the ability to manage a site's pricing plan orders, as well as create offline orders.
 
 (July 20, 2022)
 
 ## New Release: [Wix Loyalty Program](wix-loyalty-program/)
-The [Wix Loyalty Program API](https://dev.wix.com/api/rest/wix-loyalty-program) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
+The [Wix Loyalty Program API](wix-loyalty-program/) provides third parties the ability to activate and manage a site's loyalty program. This includes creating and adjusting customer loyalty accounts.
 
 (July 14, 2022)
 ## New Releases: [Stores Catalog API](wix-stores/catalog)
