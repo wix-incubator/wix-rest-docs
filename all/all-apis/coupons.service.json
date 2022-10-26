@@ -49,6 +49,121 @@
   ],
   "operations":   [
         {
+      "name": "Bulk Create Coupons",
+      "methodName": "BulkCreateCoupons",
+      "serviceName": "CouponsV2",
+      "tag": "Coupon",
+      "permissions": [      {
+        "name": "Manage Coupons",
+        "description": "Request permission to read, create and modify the site's Wix coupons."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "specifications",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Coupons._wix_coupons_api_v2_Specification"]
+          },
+          "doc": " List of coupon specifications to be created.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return full coupon entity in the response. Defaults to `false`.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkCreateCoupons",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Coupons._wix_coupons_api_v2_BulkCreateCouponsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates multiple new coupons.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/stores/v2/bulk/coupons/create",
+        "links": [],
+        "examples": [        {
+          "title": "Create 3 coupons",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/stores/v2/bulk/coupons/create' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary ' {\n   \"specifications\": [\n      {\n        \"name\": \"BuyXGetY\",\n        \"code\": \"ABC\",\n        \"active\": true,\n        \"startTime\": 1554066000000,\n        \"usageLimit\": 10,\n        \"expirationTime\": 1554325199999,\n        \"scope\": {\n          \"namespace\": \"stores\"\n        },\n        \"limitedToOneItem\": true,\n        \"buyXGetY\": {\n          \"x\": 3,\n          \"y\": 2\n        }\n      },\n      {\n        \"name\": \"Discount\",\n        \"code\": \"ABCD\",\n        \"active\": true,\n        \"startTime\": 1554126066895,\n        \"scope\": {\n          \"namespace\": \"bookings\"\n        },\n        \"moneyOffAmount\": 5\n      },\n      {\n        \"name\": \"FreeShipping\",\n        \"code\": \"ABC\",\n        \"active\": true,\n        \"startTime\": 1554126275300,\n        \"minimumSubtotal\": 5,\n        \"limitedToOneItem\": true,\n        \"freeShipping\": true\n      }\n    ]\n   }' \\"],
+          "response": ["{\n  \"results\":   [\n    {\"itemMetadata\": {\"error\":     {\n      \"description\": \"Duplicate coupon code 'ABC' in bulk request\",\n      \"data\": {}\n    }}},\n    {\"itemMetadata\":     {\n      \"id\": \"b403cb59-ac11-45d0-b0fa-4a55ed601301\",\n      \"originalIndex\": 1,\n      \"success\": true\n    }},\n    {\"itemMetadata\":     {\n      \"originalIndex\": 2,\n      \"error\":       {\n        \"description\": \"Duplicate coupon code 'ABC' in bulk request\",\n        \"data\": {}\n      }\n    }}\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 1,\n    \"totalFailures\": 2\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkCreateCouponsRequest",
+        "rpcResponseName": "BulkCreateCouponsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Bulk Delete Coupons",
+      "methodName": "BulkDeleteCoupons",
+      "serviceName": "CouponsV2",
+      "tag": "Coupon",
+      "permissions": [      {
+        "name": "Manage Coupons",
+        "description": "Request permission to read, create and modify the site's Wix coupons."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "ids",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of coupon IDs to delete.\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "BulkDeleteCoupons",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Coupons._wix_coupons_api_v2_BulkDeleteCouponsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Deletes multiple coupons.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/stores/v2/bulk/coupons/delete",
+        "links": [],
+        "examples": [        {
+          "title": "Delete multiple coupons",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/stores/v2/bulk/coupons/delete' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH> '\n  --data-binary '{\n      \"ids\": [\n        \"0e206f85-bb2b-4744-a7be-8c87be96ee03\",\n        \"b403cb59-ac11-45d0-b0fa-4a55ed601301\"\n      ]\n    }' \\"],
+          "response": ["{\n  \"results\":   [\n        {\n      \"id\": \"0e206f85-bb2b-4744-a7be-8c87be96ee03\",\n      \"success\": true\n    },\n        {\n      \"id\": \"b403cb59-ac11-45d0-b0fa-4a55ed601301\",\n      \"success\": true\n    }\n  ],\n  \"deleteMetadata\": {\"totalSuccesses\": 2}\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkDeleteCouponsRequest",
+        "rpcResponseName": "BulkDeleteCouponsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
       "name": "Create a Coupon",
       "methodName": "Create",
       "serviceName": "CouponsV2",
@@ -941,9 +1056,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Coupons._wix_coupons_api_v2_Coupon",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
