@@ -1,5 +1,12 @@
 # Release Notes
 
+## New Endpoints: [Coupons API](coupons/coupons/coupon)
+The [Coupons API](coupons/coupons/coupon) now includes two new endpoints:
++ [Bulk Create Coupons](coupons/coupons/coupon/bulk-create-coupons) allows for creating multiple coupons with one API call.
++ [Bulk Delete Coupons](coupons/coupons/coupon/bulk-delete-coupons) allows for deleting multiple coupons with one API call.
+
+(October 26, 2022)
+
 ## New Webhook: [Email Marketing API](marketing/email-marketing)
 The [Email Activity Updated Webhook](marketing/email-marketing/campaign/email-activity-updated-webhook) is triggered each time an email campaign has a new recipient activity.
 
