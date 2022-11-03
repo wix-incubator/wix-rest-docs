@@ -45,10 +45,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields":       [
-        "instanceId",
-        "catalogProductId"
-      ],
+      "requiredFields": ["instanceId"],
       "params":       [
                 {
           "in": "PATH",
@@ -68,8 +65,15 @@
           "in": "BODY",
           "name": "catalogProductId",
           "type": "string",
-          "doc": " ID of the product to replace the original instance.\n",
-          "required": true
+          "doc": "\nID of the product to replace the original instance. Required in case you don't \nprovide a new `billingInfo` object.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "billingInfo",
+          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Cycle",
+          "doc": "\nInformation about the billing cycle. Required in case you don't provide a new \n`catalogProductId`. The new billing cycle must be supported for the service. \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for \ninformation about a service's supported billing cycles. If \nyou adjust the billing cycle for a product instance with `RECURRING` \npayments, you must also provide `billingInfo.cycleDuration.unit`.\n",
+          "required": false
         }
       ],
       "ret":       {
@@ -82,7 +86,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpgrades or downgrades a Wix service that is included in a package. For \nexample, you can upgrade a `Business Unlimited Premium` plan to \n`Business VIP` using this endpoint.\n\n\nThe customer has immediate access to new features, while loosing access to \nfeatures not included in the new service. It is up to the reseller to \ndecide whether the adjustment affects the customer’s payment.\n\nYou can only adjust a product to another product of the same type. See \n[Wix Premium Subscriptions](https://support.wix.com/en/article/choosing-a-premium-plan) \nfor more details.\n\nIf a removed feature is a requirement for another service, that service \nmay not function any longer. For example, if you downgrade a \n`Business Unlimited` plan to `Business Basic`, the site owners won’t be \nable to use `Pro eCommerce Features` any longer.\n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.\n \n",
+        "summary": "\nUpgrades or downgrades a Wix service that's included in a package. For\nexample, you can upgrade a `Business Unlimited Premium` plan to\n`Business VIP` using this endpoint.\n\n\nThe customer has immediate access to new features, while loosing access to\nfeatures not included in the new service. It's up to the reseller to\ndecide whether the adjustment affects the customer’s payment.\n\nYou can only exchange a product instance with a service of the same type. \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for details about \nwhich services belong to the same type.\n\nYou must provide either a new `catalogProductId` or a new `billingInfo`\nobject. The new billing cycle must be supported for the product. Contact the \n[Wix B2B sales team](mailto:bizdev@wix.com) for information \nabout which billing cycles are supported for each product. If you adjust the \nbilling cycle for a product instance with `RECURRING` payments, you must \nalso provide `billingInfo.cycleDuration.unit`.\n\nIf a removed feature is a requirement for another service, that service\nmay not be available to the customer any longer. For example, if you downgrade a\n`Business Unlimited` plan to `Business Basic`, the site owners won’t be\nable to use `Pro eCommerce Features` any longer.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/resellers/v1/packages/product-instances/{instanceId}",
@@ -142,7 +146,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCancels all services included in the package.\n\n\nIf a canceled service is a requirement for another product instance, that \nfunctionality may not be available to the customer any longer. For \nexample, if you cancel a Premium plan, a previously connected domain will \nbe disconnected from the site.  \n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.  \n \n",
+        "summary": "\nCancels all services included in the package.\n\n\nIf a canceled service is a requirement for another product instance, that\nfunctionality may not be available to the customer any longer. For\nexample, if you cancel a Premium plan, a previously connected domain will\nbe disconnected from the site.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/resellers/v1/packages/{id}",
@@ -202,7 +206,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCancels a service.\n\n\nThe customer immediately looses access to features included in the \ncanceled service. It is up to the reseller to decide whether the adjustment \naffects the customer’s payment.\n\nIf a canceled service is a requirement for another service, that service \nmay not be available to the customer any longer. For example, if you cancel \na `Combo Plan` plan, a previously connected domain will be disconnected \nfrom the site.\n\n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.\n \n",
+        "summary": "\nCancels a service.\n\n\nThe customer immediately looses access to features included in the\ncanceled service. It is up to the reseller to decide whether the adjustment\naffects the customer’s payment.\n\nIf a canceled service is a requirement for another service, that service\nmay not be available to the customer any longer. For example, if you cancel\na `Combo Plan` plan, a previously connected domain will be disconnected\nfrom the site.\n\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/resellers/v1/packages/product-instances/{instanceId}",
@@ -272,7 +276,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a package of Wix services.\n\n\n<blockquote class='warning'>\n\n__Deprecation Notice:__\n\nThis endpoint has been replaced with\n[Create Package V2](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2)\nand will be removed on September 30, 2022.\n\n<\/blockquote>\n\n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.  \n\n \n",
+        "summary": "\nCreates a package of Wix services.\n\n\n<blockquote class='warning'>\n\n__Deprecation Notice:__\n\nThis endpoint has been replaced with\n[Create Package V2](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2)\nand will be removed on September 30, 2022.\n\n<\/blockquote>\n\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v1/packages",
@@ -345,7 +349,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a package of Wix services.    \n\n\nCurrently, you can't use the Resellers API to assign a service to a specific Wix site after a package has been created.\n\nYou need to pass a `countryCode` to specify where customers can claim vouchers that may come with a product. \nContact the Wix B2B sales team at bizdev@wix.com to get information about vouchers and supported locations. \n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.  \n \n",
+        "summary": "\nCreates a package of Wix services.\n\n\nCurrently, you can't use the Resellers API to assign a service to a specific Wix site after a package has been created.\n\nYou need to pass a `countryCode` to specify where customers can claim vouchers that may come with a product.\nContact the Wix B2B sales team at bizdev@wix.com to get information about vouchers and supported locations.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v2/packages",
@@ -396,7 +400,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a package.    \n\n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.  \n \n",
+        "summary": "\nRetrieves a package.\n\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/resellers/v1/packages/{id}",
@@ -447,7 +451,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a list of packages, given the provided paging, filtering, and sorting.\n\n\nTo learn how to query packages, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).    \n\n> **Important**: This call requires an account level API key and cannot be \n> authenticated with the standard authorization header. API keys are \n> currently available to selected beta users only.  \n \n",
+        "summary": "\nRetrieves a list of packages, given the provided paging, filtering, and sorting.\n\n\nTo learn how to query packages, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header. API keys are\n> currently available to selected beta users only.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v1/packages/query",
@@ -2983,7 +2987,12 @@
                 {
           "name": "catalogProductId",
           "type": "string",
-          "doc": " ID of the product to replace the original instance.\n"
+          "doc": "\nID of the product to replace the original instance. Required in case you don't \nprovide a new `billingInfo` object.\n"
+        },
+                {
+          "name": "billingInfo",
+          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Cycle",
+          "doc": "\nInformation about the billing cycle. Required in case you don't provide a new \n`catalogProductId`. The new billing cycle must be supported for the service. \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for \ninformation about a service's supported billing cycles. If \nyou adjust the billing cycle for a product instance with `RECURRING` \npayments, you must also provide `billingInfo.cycleDuration.unit`.\n"
         }
       ],
       "enum": null,
