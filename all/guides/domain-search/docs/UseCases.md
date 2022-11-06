@@ -10,20 +10,20 @@ as you plan your app's implementation.
 ## Help site owners set up their domain
 
 
-Your app could help site owners identify their favorite available domain name. 
-Then, you could purchase the corresponding domain for them and connect it to 
-their site.
+Your app could help site owners identify their favorite available domain. 
+Then, you could purchase it for them through an external registrar and 
+assign it to their Wix site.
 
-
-1. Call the [Suggest Domains endpoint](https://dev.wix.com/api/rest/account-level-apis/domain-search/suggest-domains).
-1. Display the suggestions to the site owners and let them select their preferred choice.
-1. Purchase the domain through an external provider.
-1. Identify the relevant site through the 
+1. Optional: Identify the relevant Wix site through the 
     [Query Sites endpoint](https://dev.wix.com/api/rest/account-level-apis/sites/query-sites).
-1. Use the 
-    [Create Package endpoint of the Resellers API](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2) 
-    to offer the domain to the site owners.
-1. Call the 
-    [Connect Domain endpoint](https://dev.wix.com/api/rest/account-level-apis/domain-search/connect-domain)
-    to connect the domain to the relevant site.
+1. Call [Suggest Domains](https://dev.wix.com/api/rest/account-level-apis/domain-search/suggest-domains) 
+    to retrieve fitting available domains.
+1. Display the suggestions to the site owners and let them select their preferred choice.
+1. Purchase the domain through an external registrar.
+1. [Connect the domain](https://dev.wix.com/api/rest/account-level-apis/domains/connect-domain)
+    to the Wix site. Note that you can only connect a domain to a Wix site with an active 
+    [Premium plan](https://support.wix.com/en/article/upgrading-your-site-to-premium-3066683) 
+    that supports domains of the corresponding TLD. You can use the 
+    [Resellers API](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2) 
+    to add such a Premium plan to the site.
 
