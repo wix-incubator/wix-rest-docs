@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Data: [App Instance API](app-management/apps/app-instance)
++ The `copiedFromTemplate` parameter replaces the deprecated `isOriginSiteTemplate` parameter.
++ The `siteId` parameter is Wix's internal unique site identifier.
+
+(November 6, 2022)
+
 ## New Endpoints: [Coupons API](coupons/coupons/coupon)
 The [Coupons API](coupons/coupons/coupon) now includes two new endpoints:
 + [Bulk Create Coupons](coupons/coupons/coupon/bulk-create-coupons) allows for creating multiple coupons with one API call.
