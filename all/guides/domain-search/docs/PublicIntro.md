@@ -2,8 +2,8 @@ SortOrder: 0
 # About the Domain Search API
 
 
-With the Domain Search API you can help site owners find fitting domains for 
-their sites or check the availability of a specific domain. The API allows
+With the Domain Search API you can check the availability of a specific domain 
+and help site owners find fitting domains for their sites. The API allows
 you to:
 
 - Check whether a specific domain is available for purchase.
@@ -11,7 +11,7 @@ you to:
 
 
 If you've already bought a domain, you can use the 
-[Connect Domain API](https://dev.wix.com/api/rest/account-level-apis/domain-search/connect-domain) 
+[Connect Domain API](https://dev.wix.com/api/rest/account-level-apis/domain-connections/connect-domain) 
 to connect it to a Wix site. 
 
 
@@ -28,9 +28,9 @@ to connect it to a Wix site.
 
 
 + Not all TLDs can be connected to Wix sites. Contact the Wix B2B sales team at 
-  bizdev@wix.com for more information.
+  [bizdev@wix.com](mailto:bizdev@wix.com) for more information.
 + Currently, you can't use Wix APIs to buy domains. But you can use the 
-  [Connect Domain API](https://dev.wix.com/api/rest/account-level-apis/domains/connect-domain) 
+  [Connect Domain API](https://dev.wix.com/api/rest/account-level-apis/domain-connections/connect-domain) 
   to connect an already delivered domain to a Wix site. 
 
 
