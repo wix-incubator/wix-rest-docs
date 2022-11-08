@@ -8,7 +8,7 @@ This articles outlines error messages that might be issued when calling endpoint
 ## Connect Domain Errors
 
 
-The [Connect Domain](https://dev.wix.com/api/rest/account-level-apis/domains/connect-domain) endpoint might issue the following error messages:
+The [Connect Domain](https://dev.wix.com/api/rest/account-level-apis/domain-connections/connect-domain) endpoint might issue the following error messages:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting </div> |
 | --------------------------- | ----------------------------------- | ------------------------------------------------------------ | ------------------------------ |
