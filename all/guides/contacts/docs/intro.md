@@ -1,36 +1,52 @@
 SortOrder: 0
 # About Contacts
 
-When a visitor first interacts with a site in a number of ways —
-such as submitting a contact form or subscribing to a newsletter —
-they're added to the site's [Contact List][contact-list-deeplink]
+When a new visitor first shares some of their contact information with a site,
+they're added to the site's [Contact List][contact-list-deeplink],
 and their details are available through the Contacts APIs.
-Here are some examples of how a visitor could be converted to a contact:
+
+Some examples of how a person can become a contact are:
 
 - A site visitor fills in a form with their contact details.
 - A site visitor signs up as a member of the site.
-- A site contributor [imports a contact][kb-import-contacts] or
+- A site collaborator [imports a contact][kb-import-contacts] or
   [adds a contact manually][kb-add-contacts].
 - A 3rd-party app adds a contact via the Contacts API.
 
-Site owners can use the Contact List to manage information about their contacts.
-Read more about how site owners can
+Site collaborators can use the Contact List
+to manage their contacts' information.
+Learn more about how site collaborators can
 [manage their Contact List][kb-manage-contacts].
+
+With the Contacts APIs, you can:
+
+- Manage [site contacts](https://dev.wix.com/api/rest/contacts/contacts)
+- Manage [contact labels](https://dev.wix.com/api/rest/contacts/labels)
+- Manage [extended field definitions](https://dev.wix.com/api/rest/contacts/extended-fields)
 
 ## Terminology
 
-- **Extended fields**
-  Extended fields store information beyond the default contact fields,
-  and apps can create and manage their own extended fields.
-  To view and manage extended field _data_,
-  use the Contacts API.
-  To view and manage extended field _definitions_,
-  use the [Extended Fields API][svc-fields].
-- **Labels** help contributors segment
-  and organize their site’s contacts.
-  Labels can be system-defined or user-defined,
-  and the contact labels for a site are available
-  through the [Labels API][svc-labels].
+- **Extended fields**: Additional properties that store additional contact information.
+  A contact's extended field data is available
+  in the contact object under `info.extendedFields`.
+  Extended field definitions can be created and managed with
+  the [Extended Fields API][svc-fields].
+
+  There are 2 types of extended fields:
+
+  - **System fields**: Extended fields added by Wix apps.
+    System fields often enrich contacts with data from Wix apps,
+    such as Wix Stores or Wix Members.
+    System fields cannot be renamed and are typically read-only.
+  - **Custom fields**: Extended fields added by site collaborators or 3rd-party apps.
+    Custom fields can be renamed,
+    and their data can be written by any site collaborators or 3rd-party app.
+
+- **Labels**: Tags that help site contributors categorize and organize their contacts.
+  Labels can be system-defined or user-defined.
+  You can manage a site's labels through the [Labels API][svc-labels].
+  A contact's assigned labels are available
+  in the contact object under `info.labelKeys`.
 
 [kb-import-contacts]: https://support.wix.com/en/article/importing-contacts-by-uploading-a-csv-file-1066522
 [kb-add-contacts]: https://support.wix.com/en/article/manually-adding-contacts
