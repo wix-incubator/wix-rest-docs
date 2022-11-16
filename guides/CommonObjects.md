@@ -35,7 +35,8 @@ An API that implemented a partial common query object might look like this:
           },  
       }' 
 ```
-Even when an object is reused, the root level name and any relevant values (e.g., enums) may have been customized.
+Even when an object is reused, the root level name and any relevant value names (e.g., filterable field names, enum names) may have been customized.
+
 
 From January 2023, common objects will be documented as such.
 
