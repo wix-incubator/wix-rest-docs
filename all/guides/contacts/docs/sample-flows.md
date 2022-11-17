@@ -1,6 +1,16 @@
 SortOrder: 1
 # Sample Flows
 
+<blockquote class="important">
+
+__Important:__  
+This article is being moved to the public docs.
+The new URL will be <https://dev.wix.com/api/rest/contacts/sample-flows>.
+After we publish the change,
+we'll replace the content in this article with a link to the public introduction.
+
+</blockquote>
+
 This article shares some possible use cases your app could support,
 as well as an example flow that could support each use case.
 You're certainly not limited to these use cases,
