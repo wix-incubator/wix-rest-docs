@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 1
 # Sample Flows
 
 This article shares some possible use cases your app could support,

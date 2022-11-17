@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 0
 # About Contacts
 
 When a new visitor first shares some of their contact information with a site,
