@@ -1,22 +1,36 @@
 SortOrder: 0
 # About Contacts
 
+<blockquote class="important">
+
+__Important:__  
+This article is being moved to the public docs.
+The new URL will be <https://dev.wix.com/api/rest/contacts/introduction>.
+After we publish the change,
+we'll replace the content in this article with a link to the public introduction.
+
+</blockquote>
+
 When a new visitor first shares some of their contact information with a site,
-they're added to the site's [Contact List][contact-list-deeplink],
-and their details are available through the Contacts APIs.
+they're added to the site's
+[contact list](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).
+Once that happens, their details are available through the Contacts APIs.
 
 Some examples of how a person can become a contact are:
 
 - A site visitor fills in a form with their contact details.
 - A site visitor signs up as a member of the site.
-- A site collaborator [imports a contact][kb-import-contacts] or
-  [adds a contact manually][kb-add-contacts].
-- A 3rd-party app adds a contact via the Contacts API.
+- A site collaborator
+  [imports a contact](https://support.wix.com/en/article/importing-contacts-by-uploading-a-csv-file-1066522) or
+  [adds a contact manually](https://support.wix.com/en/article/manually-adding-contacts).
+- A 3rd-party app
+  [creates a contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/create-contact)
+  with the Contacts API.
 
-Site collaborators can use the Contact List
+Site collaborators can use the contact list
 to manage their contacts' information.
 Learn more about how site collaborators can
-[manage their Contact List][kb-manage-contacts].
+[manage their contact list][kb-manage-contacts].
 
 With the Contacts APIs, you can:
 
@@ -48,10 +62,7 @@ With the Contacts APIs, you can:
   A contact's assigned labels are available
   in the contact object under `info.labelKeys`.
 
-[kb-import-contacts]: https://support.wix.com/en/article/importing-contacts-by-uploading-a-csv-file-1066522
-[kb-add-contacts]: https://support.wix.com/en/article/manually-adding-contacts
 [kb-manage-contacts]: https://support.wix.com/en/article/about-your-contact-list
-[contact-list-deeplink]: https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts
 
 [svc-fields]: https://dev.wix.com/api/rest/contacts/extended-fields
 [svc-labels]: https://dev.wix.com/api/rest/contacts/labels
