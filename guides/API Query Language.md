@@ -49,32 +49,33 @@ E.g. the query `{status: {$in: ["X", "Y"]}}` will match all entities that have s
 The following operators are supported:
 
 ##### Comparison
-* _$eq_ - matches values that are equal to a specified value.
-* _$gt_ - Matches values that are greater than a specified value.
-* _$gte_ - Matches values that are greater than or equal to a specified value.
-* _$in_ - Matches any of the values specified in an array.
-* _$lt_ - Matches values that are less than a specified value.
-* _$lte_ - Matches values that are less than or equal to a specified value.
-* _$ne_ - Matches all values that are not equal to a specified value.
-* _$nin_ - Matches none of the values specified in an array.
-* _$begins_ - Matches strings that begin with a specified value (NOT case sensitive).
 
+* `$eq`: matches values that are equal to a specified value.
+* `$gt`: Matches values that are greater than a specified value.
+* `$gte`: Matches values that are greater than or equal to a specified value.
+* `$in`: Matches any of the values specified in an array.
+* `$lt`: Matches values that are less than a specified value.
+* `$lte`: Matches values that are less than or equal to a specified value.
+* `$ne`: Matches all values that are not equal to a specified value.
+* `$nin`: Matches none of the values specified in an array.
+* `$begins`: Matches strings that begin with a specified value (NOT case sensitive).
 
 ##### Logical
-* _$and_ - Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
-* _$not_ - Inverts the effect of a query expression, returns documents that do not match the query expression.
-* _$or_ - Joins query clauses with a logical OR, returns all documents that match the conditions of either clause.
 
+* `$and`: Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
+* `$not`: Inverts the effect of a query expression, returns documents that do not match the query expression.
+* `$or`: Joins query clauses with a logical OR, returns all documents that match the conditions of either clause.
 
 ##### Element
-* _$exists_ - Matches documents that have the specified field.
 
+* `$exists`: Matches documents that have the specified field.
 
 ##### Array
-* _$all_ - Matches arrays that contain all elements specified in the query.
-* _$any_ - Matches arrays that contain at least one element specified in the query
 
-#### Sample Queries
+* `$all`: Matches arrays that contain all elements specified in the query.
+* `$any`: Matches arrays that contain at least one element specified in the query
+
+#### Sample queries
 
 In the following example, the compound query returns all entities where the status equals `"A"` and either `qty` is less than `30` or `item` starts with the character `p`:
 
