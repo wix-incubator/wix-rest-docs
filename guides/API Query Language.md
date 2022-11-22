@@ -2,12 +2,15 @@ SortOrder: 3
 # API Query Language 
 
 ## General
+
 The query language described in this document is implemented partially or in full by Wix APIs supporting query capabilities. 
 
 The style of the QL is heavily influenced by MongoQL.
 
 ## Syntax
+
 A query object consists of 5 (optional) parts:
+
 * _Filter_ - which entities to return
 * _Sort_ - in what order
 * _Paging_ - return only part of the matched entities
@@ -19,6 +22,7 @@ An empty json will return all records in no specific order.
 An application can decide to return a subset of the records (default paging behavior)  
 
 The query object can define a key for each of the above parts:
+
 ```javascript
 {
   filter: { … },
@@ -28,14 +32,18 @@ The query object can define a key for each of the above parts:
   fieldset: ["xx"…]
 }
 ```
+
 ### The Filter Section
+
 The filter section is a single json object { } with the following rules:
 
 #### Equality
+
 The format `{<field>: <value>, ...}` specifies equality condition.
 E.g. the query `{status: "X"}` will match all entities with a status equal to `"X"`
 
 #### Operators
+
 Operators use the following format: `{<field>: {<operator>:<value>}, ...}`.  
 E.g. the query `{status: {$in: ["X", "Y"]}}` will match all entities that have status  set to `"X"` or `"Y"`  
 The following operators are supported:
@@ -51,20 +59,25 @@ The following operators are supported:
 * _$nin_ - Matches none of the values specified in an array.
 * _$begins_ - Matches strings that begin with a specified value (NOT case sensitive).
 
+
 ##### Logical
 * _$and_ - Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
 * _$not_ - Inverts the effect of a query expression, returns documents that do not match the query expression.
 * _$or_ - Joins query clauses with a logical OR, returns all documents that match the conditions of either clause.
 
+
 ##### Element
 * _$exists_ - Matches documents that have the specified field.
+
 
 ##### Array
 * _$all_ - Matches arrays that contain all elements specified in the query.
 * _$any_ - Matches arrays that contain at least one element specified in the query
 
 #### Sample Queries
+
 In the following example, the compound query returns all entities where the status equals `"A"` and either `qty` is less than `30` or `item` starts with the character `p`:
+
 ```javascript
 {
   status: "A",
@@ -73,16 +86,19 @@ In the following example, the compound query returns all entities where the stat
 ```
 
 The following example queries entities where the field `tags` value is an array with exactly two elements, `"red"` and `"blank"`, in the specified order:
+
 ```javascript
 { tags: ["red", "blank"] }
 ```
 
 The following example queries for all entities where `tags` is an array that contains the string `"red"` as one of its elements, or that `tags` is the string `"red"`:
+
 ```javascript
 {tags: "red" } 
 ```
 
 The following query matches entities that do not contain the `item` field, or where the `item` field has no value:
+
 ```javascript
 {item: {$exists: false }} 
 ```
