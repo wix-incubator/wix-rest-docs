@@ -50,7 +50,7 @@ The following operators are supported:
 
 ##### Comparison
 
-* `$eq`: matches values that are equal to a specified value.
+* `$eq`: Matches values that are equal to a specified value.
 * `$gt`: Matches values that are greater than a specified value.
 * `$gte`: Matches values that are greater than or equal to a specified value.
 * `$in`: Matches any of the values specified in an array.
