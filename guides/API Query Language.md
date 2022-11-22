@@ -58,7 +58,7 @@ The following operators are supported:
 * `$lte`: Matches values that are less than or equal to a specified value.
 * `$ne`: Matches all values that are not equal to a specified value.
 * `$nin`: Matches none of the values specified in an array.
-* `$begins`: Matches strings that begin with a specified value (NOT case sensitive).
+* `$startsWith`: Matches strings that start with a specified value. Not case-sensitive.
 
 ##### Logical
 
