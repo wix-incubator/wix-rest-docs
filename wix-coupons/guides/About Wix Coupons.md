@@ -11,7 +11,7 @@ With the Coupons API, your app can manage a site's coupons.
 
 ## Terminology
 
-- **Scope**: Details about [what the coupon should be applied to](https://dev.wix.com/api/rest/coupons/coupons/valid-scope-values).
+- **Scope**: Details about [what the coupon should be applied to](https://dev.wix.com/api/rest/coupons/coupons/valid-scope-values), including namespace, group, and entity ID.
    - **Namespace**: The Wix app that the coupon should be applied to.
-   - **Group**: The type of product/service/event, within the Wix app, that the coupon should be applied to.
-   - **Entity ID**: The specific product, service, or event ID that the coupon should be applied to.
+   - **Group**: The type of product, collection of products, service, ticket, or event, within the Wix app, that the coupon should be applied to.
+   - **Entity ID**: The specific product, collection of products, service, ticket, or event ID that the coupon should be applied to.
