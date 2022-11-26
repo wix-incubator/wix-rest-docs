@@ -13,7 +13,7 @@ Once installed and enabled on a site, this provider will be called to fetch appl
 * _SPI_ - Service Provider Interface - the API specification that has to be implemented by _Service Providers_.
 * _SPI Host_ - the Wix service that calls your application during one of its business flows.  
 * _Service Provider_  (a.k.a. _implementer_) - the application that implements the _SPI_.  
-* _Public Key_ - a key available to you in the Wix Developers Center to very Wix’s request signatures.  
+* _Public Key_ - a key available to you in the Wix Developers Center to verify Wix’s request signatures.  
 * _Events_ - asynchronous events sent from the _service provider_ to the _SPI host_ (the equivalent of an API call under other circumstances, and using the standard OAuth2 authorization).
 
 ## Setup

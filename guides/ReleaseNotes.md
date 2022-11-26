@@ -1,5 +1,18 @@
 # Release Notes
 
+## New Data: [App Instance API](app-management/apps/app-instance)
++ The `copiedFromTemplate` parameter replaces the deprecated `isOriginSiteTemplate` parameter.
++ The `siteId` parameter is Wix's internal unique site identifier.
+
+(November 6, 2022)
+
+## New Endpoints: [Coupons API](coupons/coupons/coupon)
+The [Coupons API](coupons/coupons/coupon) now includes two new endpoints:
++ [Bulk Create Coupons](coupons/coupons/coupon/bulk-create-coupons) allows for creating multiple coupons with one API call.
++ [Bulk Delete Coupons](coupons/coupons/coupon/bulk-delete-coupons) allows for deleting multiple coupons with one API call.
+
+(October 26, 2022)
+
 ## New Webhook: [Email Marketing API](marketing/email-marketing)
 The [Email Activity Updated Webhook](marketing/email-marketing/campaign/email-activity-updated-webhook) is triggered each time an email campaign has a new recipient activity.
 
@@ -129,7 +142,7 @@ This deprecates the [Wix Chat API](wix-chat/wix-chat).
 ## New Release: [Account Level APIs](account-level-apis/)
 
 The Account Level APIs are accessible only using API keys, which are currently available to selected beta users only.
-APIs exposed include Sites, Site Folders, Resellers, B2B Site Management, and Domains. (February 24, 2022)  
+APIs exposed include Sites, Site Folders, Resellers, B2B Site Management, Domain Search and Domain Connections. (February 24, 2022)  
 
 ## New Release: [Editor Deep Link API](app-management/about-the-editor-deep-link-api)
 
