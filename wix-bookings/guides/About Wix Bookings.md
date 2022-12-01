@@ -10,7 +10,7 @@ Some examples of Wix Bookings use cases are:
 
 Learn more how site collaborators can [create and manage their bookings](https://support.wix.com/en/article/wix-bookings-about-wix-bookings). 
 
-With the Wix Bookings APIs, you can:
+Wix Bookings APIs include:
 
 - **Services**: Manage the specific offerings this business provides
 - **Catalog**: View a list of all the different services this business provides
@@ -39,7 +39,7 @@ Wix Bookings supports 2 different types of services:
 
 - **Site owner:** The Wix site owner (who has Wix Bookings installed).
 
-- **Resources:** A business asset like a staff member, a room, or equipment needed to provide a service.
+- **Resource:** A business asset like a staff member, a room, or equipment needed to provide a service.
 
 - **Service:** A business offering that you can book. For example, a fitness studio may offer a 1-hour yoga class, a 45 minute HIIT training session, and a 30 minute 1-on-1 personal training. Wix Bookings offers 3 types of services:
 
@@ -56,6 +56,6 @@ Wix Bookings supports 2 different types of services:
 
 - **Slot:** An available period of time in a schedule that can be booked by a customer. While this includes existing sessions that are available for booking, it can also represent a period of time that can be booked based on the availability of a resource (e.g., a barber with appointments of 30 minutes each that are open for booking every weekday between 8:00 - 17:00). These slots are calculated by the constraints of the schedule.
 
-- [**Calendar**:](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) Where you schedule appointments, classes, and courses.
+- [**Calendar**:](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) A collection of all schedules, appointments, classes, and courses.
 
 - [**Membership plans with Wix Pricing Plans**:](https://support.wix.com/en/article/wix-bookings-about-wix-bookings#selling-membership-plans-and-packages) A pre-paid bundle of services, or a membership including access to certain services.
