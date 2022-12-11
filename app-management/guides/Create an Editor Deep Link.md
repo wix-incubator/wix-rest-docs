@@ -34,7 +34,7 @@ Name | Type | Description
 
 ```CURL
 Curl -X  POST \
-https://wixapis.com/apps/v1/post-installation/editor-deep-link \
+https://www.wixapis.com/apps/v1/post-installation/editor-deep-link \
 -H 'Authorization: <AUTH>'
 
 -data-raw '{
