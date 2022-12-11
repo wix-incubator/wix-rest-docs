@@ -83,3 +83,6 @@ by specifying them in `fieldMask.paths`:
 - `loyalty_info.applied_amount`
 - `loyalty_info.redeemed_points`
 - `loyalty_info.transaction_id`
+- `loyalty_info.estimated_account_balance`
+- `loyalty_info.estimated_points_earned`
+- `loyalty_info.reward_revision`
