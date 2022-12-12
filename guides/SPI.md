@@ -23,13 +23,13 @@ In order to become a _service provider_, you have two options:
 
 ## Integration with Wix
 Integration with SPIs requires configuration details so that Wix can access your app correctly. You can configure integration to your service via the Dev Center by entering your app’s url and endpoint and other configuration details in the service’s extension description page in the **JSON Editor**. 
-The extension description page page provides details of the required configuration parameters and types in the **Instructions** section. 
+The extension description page provides details of the required configuration parameters and types in the **Instructions** section. 
 
 
 In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the JSON Editor:
 1. Click on **Components** in the Dashboard sidebar.
 2. Click on the **Add Component** button to drop down a list of component types.
-3. Select the **Integration component” option.
+3. Select the **Integration component** option.
 4. From the **Choose the integration component** window, select the relevant SPI and click the **Add Component** button.
 5. In the **JSON Editor**, configure the configuration parameters by referencing the **Instructions** section. For each configuration parameter, write the  parameter name and value in the JSON editor, for example “appUrl”: “app world.com/getInfo”.
 6. Click the **Save** button to complete configuration set-up.
