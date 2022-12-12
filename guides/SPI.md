@@ -22,11 +22,11 @@ In order to become a _service provider_, you have two options:
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
 
 ## Integration with Wix
-Integration with SPIs requires configuration details so that Wix can access your app correctly. You can configure integration to your service via the Dev Center by entering your app’s url and endpoint and other configuration details in the service’s extension description page in the **JSON Editor**. 
-The extension description page provides details of the required configuration parameters and types in the **Instructions** section. 
+In order to enable Wix applications to communicate with your provider application, Wix needs to know some configuration details. You add the configurations via the Dev Center by entering your app’s url and method and other configuration details in the **JSON Editor** in the service’s extension description page. 
+The **Instructions** section of the extension description page provides a list of the required configuration parameters and types. 
 
 
-In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the JSON Editor:
+In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the **JSON Editor**:
 1. Click on **Components** in the Dashboard sidebar.
 2. Click on the **Add Component** button to drop down a list of component types.
 3. Select the **Integration component** option.
