@@ -53,7 +53,7 @@ With site-level API requests, the account ID can be ommitted.
 
 ### Sample request: Site Folders API - Create Folder
 
-This API creates a new folder that can hold Wix sites. 
+This API creates a new folder that can hold Wix sites.
 
 **Request:**
 
