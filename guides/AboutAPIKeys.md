@@ -33,14 +33,14 @@ API Keys are currently available to selected beta users only.
 
     A complete header for an API request looks like this:
 
+     ```sh
+     curl <GET/POST> \
+       '<endpoint>' \
+       -H 'Authorization: <APIKEY>' \
+       -H 'wix-account-id: <ACCOUNTID>' \
+       -H 'wix-site-id: <SITEID>'
      ```
-     curl <GET/POST>\
-     ‘<endpoint>’ \
 
-     -H 'Authorization: <APIKEY>' \
-     -H 'wix-account-id: <ACCOUNTID>' \
-     -H 'wix-site-id: <SITEID>' \
-     ```
 3. Make all following calls using the account ID and/or site ID, as required.
 
 ## Account-level and site-level API requests
@@ -57,25 +57,32 @@ This API creates a new folder that can hold Wix sites.
 
 **Request:**
 
-```
+```sh
 curl POST \
-'https://www.wixapis.com/site-folders/v2/folders \
+'https://www.wixapis.com/site-folders/v2/folders' \
 -H 'Authorization: <APIKEY>' \
--H 'wix-account-id: <ACCOUNTID>\
-{ "folder": {"name": "My Folder", "parentId": "root"}}' \
+-H 'wix-account-id: <ACCOUNTID>' \
+-d '{
+      "folder": {
+        "name": "My Folder",
+        "parentId": "root"
+      }
+    }' \
 ```
 
 **Response:**
 
-```
-{"folder": {
-  "id": "283f4660-8f6f-462b-94a1-160a57338032",
-  "name": "My Folder",
-  "createdDate": "2021-12-13T11:33:56.973Z",
-  "updatedDate": "2021-12-13T11:33:56.973Z",
-  "siteCount": 0,
-  "parentId": ""
-}} 
+```json
+{
+  "folder": {
+    "id": "283f4660-8f6f-462b-94a1-160a57338032",
+    "name": "My Folder",
+    "createdDate": "2021-12-13T11:33:56.973Z",
+    "updatedDate": "2021-12-13T11:33:56.973Z",
+    "siteCount": 0,
+    "parentId": ""
+  }
+}
 ```
 
 ### Sample Request: Query Products API
@@ -84,34 +91,36 @@ This API retrieves a list of products from one of the account's sites. To make t
 
 **Request:**
 
-```
+```sh
 curl POST \
 'https://www.wixapis.com/stores/v1/products/query' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json, text/plain, */*' \
 -H 'Authorization: <APIKEY>' \
--H 'wix-site-id: <SITEID>'\
-
+-H 'wix-site-id: <SITEID>' \
 -d '{
-"query": {
-     "filter":"{\paymentStatus\":\"PAID\"},
-     "sort':"{\"number\": \"desc\"}",
-     "paging": {
-          "limit":"50"
-     }
-}}' \
+      "query": {
+        "filter": "{\"paymentStatus\":\"PAID\"}",
+        "sort": "{\"number\": \"desc\"}",
+        "paging": {
+          "limit": "50"
+        }
+      }
+    }'
 ```
 
 **Response:**
 
 ```json:
 {
-  products: [
-   {
-   "Id": "5376f9ec-b92e-efa9-e4a1-f4f480aa0d3a",
-    "Name": "Indian Blend Coffee",
-    "Size:": "1 lb",
-    "Price": "4.35",
-    etc….
+  "products": [
+    {
+      "Id": "5376f9ec-b92e-efa9-e4a1-f4f480aa0d3a",
+      "Name": "Indian Blend Coffee",
+      "Size:": "1 lb",
+      "Price": "4.35",
+      // ...
+    }
+  ]
 }
 ```
