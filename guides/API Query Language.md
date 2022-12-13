@@ -168,17 +168,8 @@ For example, Contacts can implement a fieldset named `common` that contains only
 To use fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
 For example:
 
-## Query Response
-The response for a query request is an object with the following structure:
-```javascript
 ```json
 {
-  results: [...], //instead of 'results' you can use more explicit name like 'invoices'
-  metadata: {  //this is page 2 
-    items: 25,
-    offset: 25
-  },
-  totalResults: 420
   "fieldset": [
     "COMMON"
   ]
