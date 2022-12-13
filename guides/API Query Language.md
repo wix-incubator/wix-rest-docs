@@ -40,8 +40,10 @@ The filter section is a single json object { } with the following rules:
 
 #### Equality
 
-The format `{<field>: <value>, ...}` specifies equality condition.
-E.g. the query `{status: "X"}` will match all entities with a status equal to `"X"`
+The format `{ "<field>": <value> }` specifies an equality condition.
+
+For example, `{ "status": "DONE" }`
+matches all entities where `status` is `"DONE"`.
 
 #### Operators
 
