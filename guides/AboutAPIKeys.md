@@ -22,9 +22,12 @@ API Keys are currently available to selected beta users only.
      b. If you don't have direct access to the site, request the key and the account ID from the site owner.  
 2. Call the Site API's **Query Sites** endpoint to collect all the account's associated site IDs.
 
-     > **Note**: The site ID for a current site can be obtained from the site URL in your browser. For example, the site ID appears after the '/dashboard/' part of this URL:
+    > **Note:**
+    > The site ID for a current site can be obtained from the site URL in your browser.
+    > For example, the site ID appears after the '/dashboard/' part of this URL: <br />
+    > <br />
+    > ![site Id in URL](./../../media/siteid.png)
 
-     ![site Id in URL](./../../media/siteid.png)
      
 
      a. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
