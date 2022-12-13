@@ -34,18 +34,18 @@ The query object can define a key for each of the above parts:
 }
 ```
 
-### The `filter` section
+## The `filter` section
 
 The filter section is a single json object { } with the following rules:
 
-#### Equality
+### Equality
 
 The format `{ "<field>": <value> }` specifies an equality condition.
 
 For example, `{ "status": "DONE" }`
 matches all entities where `status` is `"DONE"`.
 
-#### Operators
+### Operators
 
 Operators use the format `{ "<field>": { "$<operator>": <value> } }`.
 
@@ -54,7 +54,7 @@ matches all entities where status is `"PENDING"` or `"DONE"`.
 
 The operators specified below are supported.
 
-##### Comparison operators
+#### Comparison operators
 
 * `$eq`: Matches values that are equal to a specified value.
 * `$ne`: Matches all values that are not equal to a specified value.
@@ -68,7 +68,7 @@ The operators specified below are supported.
 * `$isEmpty`: Matches strings or arrays that are empty or not empty,
   depending on whether the specified operand is `true` or `false`.
 
-##### Logical operators
+#### Logical operators
 
 * `$and`: Joins query clauses with a logical _AND_
   and returns all documents that match the conditions of both clauses.
@@ -77,16 +77,16 @@ The operators specified below are supported.
 * `$not`: Inverts the effect of a query expression
   and returns documents that don't match the query expression.
 
-##### Element operators
+#### Element operators
 
 * `$exists`: Matches documents that have the specified field.
 
-##### Array operators
+#### Array operators
 
 * `$hasAll`: Matches arrays that contain all elements specified in the query.
 * `$hasSome`: Matches arrays that contain at least one element specified in the query.
 
-#### Sample queries
+### Sample queries
 
 In the following example, the compound query returns all entities where the status equals `"A"` and either `qty` is less than `30` or `item` starts with the character `p`:
 
@@ -128,7 +128,7 @@ The following query matches entities that do not contain the `item` field, or wh
 }
 ```
 
-### The `sort` section
+## The `sort` section
 
 The sort section is an array of field names and sort order. If the order is not specified, it will be sorted in ascending order:
 
@@ -146,7 +146,7 @@ The sort section is an array of field names and sort order. If the order is not 
 }
 ```
 
-### The `paging` section
+## The `paging` section
 
 The paging section describes the size of the data set to return (i.e. page size), and how many "records" to skip. 
 The following will return records 41-60. I.e. page number 3 with each page being 20 records:
@@ -160,7 +160,7 @@ The following will return records 41-60. I.e. page number 3 with each page being
 }
 ```
 
-### The `fields` section
+## The `fields` section
 
 The fields section is an array of field names/paths to return. 
 If a pointed field of the DTO contains an object, the entire sub-object will be returned. 
@@ -176,7 +176,7 @@ In this example the returned entities will contain `first_name` from `name` sub-
 }
 ```
 
-### The `fieldsets` section
+## The `fieldsets` section
 
 An API may provide named projections to save its clients the bother of writing the names of the fields in common cases.  
 For example, Contacts can implement a fieldset named `common` that contains only first name, last name, primary email and phone number. 
