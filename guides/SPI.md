@@ -25,7 +25,7 @@ In order to become a _service provider_, you have two options:
 In order to enable Wix applications to communicate with your provider application, Wix needs to know some configuration details. You add the configurations via the Dev Center by entering your app’s url and method and other configuration details in the **JSON Editor** in the service’s extension description page. 
 The **Instructions** section of the extension description page provides a list of the required configuration parameters and types. 
 
-![alt text](../media/shiprate-spi.png)
+![alt text](../media/spi-config.png)
 
 In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the **JSON Editor**:
 1. Click on **Components** in the Dashboard sidebar.
