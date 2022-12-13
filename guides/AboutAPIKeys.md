@@ -13,9 +13,9 @@ API Keys are currently available to selected beta users only.
 
 ![API Keys Manager](./../../media/APIKeysManager.jpg)
 
+## Create and use API keys
 
 
-## Creating and Using API Keys
 
 1. Create or request an API key:  
      a. If you have direct access to the site, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.  
@@ -45,15 +45,15 @@ API Keys are currently available to selected beta users only.
      ```
 3. Make all following calls using the account ID and/or site ID, as required.
 
-## Account-Level and Site-Level API Requests
-     
+## Account-level and site-level API requests
+
 Depending on the call, an account ID and/or site ID must be included in the header of the API request.
 
 For requests made exclusively at the account level, you must include the account ID in the header along with the API key for authentication. Some endpoints will require the site ID as well. This is indicated in the documentation for each account-level API.
 
 With site-level API requests, the account ID can be ommitted.
 
-### Sample Request: Site Folders API - Create Folder
+### Sample request: Site Folders API - Create Folder
 
 This API creates a new folder that can hold Wix sites. 
 
@@ -80,7 +80,7 @@ curl POST \
 }} 
 ```
 
-### Sample Request: “Query Products” API
+### Sample Request: Query Products API
 
 This API retrieves a list of products from one of the account's sites. To make this call, you'll need an API key and the ID of the site you want to query.
 
