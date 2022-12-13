@@ -1,5 +1,16 @@
 # Release Notes
 
+## New Fields: [Restaurants Orders API](wix-restaurants/orders)
+
+The [Order object](wix-restaurants/orders/order-object) has new fields:
++ The new `discounts.catalogDiscountDescription` field is the discount description as defined in the catalog.
++ The new `lineItems.dishOptions.name` field is the line item option name.
++ The new `loyaltyInfo.estimatedAccountBalance` field is the Wix Loyalty estimated account balance.
++ The new `loyaltyInfo.estimatedPointsEarned` field is the Wix Loyalty estimated total earned points.
++ The new `loyaltyInfo.rewardRevision` field is the Wix Loyalty reward revision number.
+
+(December 13, 2022)
+
 ## New Data: [App Instance API](app-management/apps/app-instance)
 + The `copiedFromTemplate` parameter replaces the deprecated `isOriginSiteTemplate` parameter.
 + The `siteId` parameter is Wix's internal unique site identifier.
