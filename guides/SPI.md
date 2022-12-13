@@ -27,6 +27,7 @@ The **Instructions** section of the extension description page provides a list o
 
 ![alt text](../media/spi-config.png)
 
+
 In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the **JSON Editor**:
 1. Click on **Components** in the Dashboard sidebar.
 2. Click on the **Add Component** button to drop down a list of component types.
