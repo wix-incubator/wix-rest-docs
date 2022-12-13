@@ -34,7 +34,7 @@ The query object can define a key for each of the above parts:
 }
 ```
 
-### The Filter Section
+### The `filter` section
 
 The filter section is a single json object { } with the following rules:
 
@@ -49,7 +49,7 @@ Operators use the following format: `{<field>: {<operator>:<value>}, ...}`.
 E.g. the query `{status: {$in: ["X", "Y"]}}` will match all entities that have status  set to `"X"` or `"Y"`  
 The following operators are supported:
 
-##### Comparison
+##### Comparison operators
 
 * `$eq`: Matches values that are equal to a specified value.
 * `$gt`: Matches values that are greater than a specified value.
@@ -61,17 +61,17 @@ The following operators are supported:
 * `$nin`: Matches none of the values specified in an array.
 * `$startsWith`: Matches strings that start with a specified value. Not case-sensitive.
 
-##### Logical
+##### Logical operators
 
 * `$and`: Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
 * `$not`: Inverts the effect of a query expression, returns documents that do not match the query expression.
 * `$or`: Joins query clauses with a logical OR, returns all documents that match the conditions of either clause.
 
-##### Element
+##### Element operators
 
 * `$exists`: Matches documents that have the specified field.
 
-##### Array
+##### Array operators
 
 * `$all`: Matches arrays that contain all elements specified in the query.
 * `$any`: Matches arrays that contain at least one element specified in the query
@@ -118,7 +118,8 @@ The following query matches entities that do not contain the `item` field, or wh
 }
 ```
 
-### The Sort Section
+### The `sort` section
+
 The sort section is an array of field names and sort order. If the order is not specified, it will be sorted in ascending order:
 
 ```json
@@ -135,7 +136,8 @@ The sort section is an array of field names and sort order. If the order is not 
 }
 ```
 
-### The Paging Section
+### The `paging` section
+
 The paging section describes the size of the data set to return (i.e. page size), and how many "records" to skip. 
 The following will return records 41-60. I.e. page number 3 with each page being 20 records:
 
@@ -147,7 +149,9 @@ The following will return records 41-60. I.e. page number 3 with each page being
   }
 }
 ```
-### The Fields Section
+
+### The `fields` section
+
 The fields section is an array of field names/paths to return. 
 If a pointed field of the DTO contains an object, the entire sub-object will be returned. 
 Subset of sub-objects can be returned by using dot notation. 
@@ -162,7 +166,8 @@ In this example the returned entities will contain `first_name` from `name` sub-
 }
 ```
 
-### The Fieldset Section
+### The `fieldsets` section
+
 An API may provide named projections to save its clients the bother of writing the names of the fields in common cases.  
 For example, Contacts can implement a fieldset named `common` that contains only first name, last name, primary email and phone number. 
 To use fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
