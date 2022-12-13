@@ -24,13 +24,13 @@ according to the API's default paging and sort order.
 
 The query object can define a key for each of the above parts:
 
-```javascript
+```json
 {
-  filter: { … },
-  sort: [ … ],
-  paging: { … },
-  fields: [ … ],
-  fieldset: ["xx"…]
+  "filter": { ... },
+  "sort": [ ... ],
+  "paging": { ... },
+  "fields": [ ... ],
+  "fieldsets": [ ... ]
 }
 ```
 
@@ -80,64 +80,98 @@ The following operators are supported:
 
 In the following example, the compound query returns all entities where the status equals `"A"` and either `qty` is less than `30` or `item` starts with the character `p`:
 
-```javascript
+```json
 {
-  status: "A",
-  $or: [{qty: {$lt: 30}}, {item: {$begins: "p"}}]
+  "status": "A",
+  "$or": [
+    {
+      "qty": { "$lt": 30 }
+    },
+    {
+      "item": { "$begins": "p" }
+    }
+  ]
 }
 ```
 
 The following example queries entities where the field `tags` value is an array with exactly two elements, `"red"` and `"blank"`, in the specified order:
 
-```javascript
-{ tags: ["red", "blank"] }
+```json
+{
+  "tags": [ "red", "blank" ]
+}
 ```
 
 The following example queries for all entities where `tags` is an array that contains the string `"red"` as one of its elements, or that `tags` is the string `"red"`:
 
-```javascript
-{tags: "red" } 
+```json
+{
+  "tags": "red"
+}
 ```
 
 The following query matches entities that do not contain the `item` field, or where the `item` field has no value:
 
-```javascript
-{item: {$exists: false }} 
+```json
+{
+  "item": { "$exists": false }
+}
 ```
 
 ### The Sort Section
 The sort section is an array of field names and sort order. If the order is not specified, it will be sorted in ascending order:
-```javascript
-sort: [{"fieldName":"sortField1"},{"fieldName":"sortField2","order":"DESC"}]
+
+```json
+{
+  "sort": [
+    {
+      "fieldName": "sortField1"
+    },
+    {
+      "fieldName": "sortField2",
+      "order": "DESC"
+    }
+  ]
+}
 ```
 
 ### The Paging Section
 The paging section describes the size of the data set to return (i.e. page size), and how many "records" to skip. 
 The following will return records 41-60. I.e. page number 3 with each page being 20 records:
-```javascript
-paging: { limit: 20, offset: 40 }
+
+```json
+{
+  "paging": {
+    "limit": 20,
+    "offset": 40
+  }
+}
 ```
 ### The Fields Section
 The fields section is an array of field names/paths to return. 
 If a pointed field of the DTO contains an object, the entire sub-object will be returned. 
 Subset of sub-objects can be returned by using dot notation. 
 In this example the returned entities will contain `first_name` from `name` sub-object and the entire `address` object
-```javascript
-fields: ["name.firstName", "address"]
+
+```json
+{
+  "fields": [
+    "name.firstName",
+    "address"
+  ]
+}
 ```
 
 ### The Fieldset Section
 An API may provide named projections to save its clients the bother of writing the names of the fields in common cases.  
 For example, Contacts can implement a fieldset named `common` that contains only first name, last name, primary email and phone number. 
 To use fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
-E.g. 
-```javascript
-fieldset: ["common"]
-```
+For example:
 
 ## Query Response
 The response for a query request is an object with the following structure:
 ```javascript
+```json
 {
   results: [...], //instead of 'results' you can use more explicit name like 'invoices'
   metadata: {  //this is page 2 
@@ -145,5 +179,8 @@ The response for a query request is an object with the following structure:
     offset: 25
   },
   totalResults: 420
+  "fieldset": [
+    "COMMON"
+  ]
 }
 ```
