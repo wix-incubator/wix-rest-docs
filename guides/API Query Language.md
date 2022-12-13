@@ -52,20 +52,25 @@ The following operators are supported:
 ##### Comparison operators
 
 * `$eq`: Matches values that are equal to a specified value.
+* `$ne`: Matches all values that are not equal to a specified value.
 * `$gt`: Matches values that are greater than a specified value.
 * `$gte`: Matches values that are greater than or equal to a specified value.
-* `$in`: Matches any of the values specified in an array.
 * `$lt`: Matches values that are less than a specified value.
 * `$lte`: Matches values that are less than or equal to a specified value.
-* `$ne`: Matches all values that are not equal to a specified value.
+* `$in`: Matches any of the values specified in an array.
 * `$nin`: Matches none of the values specified in an array.
 * `$startsWith`: Matches strings that start with a specified value. Not case-sensitive.
+* `$isEmpty`: Matches strings or arrays that are empty or not empty,
+  depending on whether the specified operand is `true` or `false`.
 
 ##### Logical operators
 
-* `$and`: Joins query clauses with a logical AND, returns all documents that match the conditions of both clauses.
-* `$not`: Inverts the effect of a query expression, returns documents that do not match the query expression.
-* `$or`: Joins query clauses with a logical OR, returns all documents that match the conditions of either clause.
+* `$and`: Joins query clauses with a logical _AND_
+  and returns all documents that match the conditions of both clauses.
+* `$or`: Joins query clauses with a logical _OR_
+  and returns all documents that match the conditions of either clause.
+* `$not`: Inverts the effect of a query expression
+  and returns documents that don't match the query expression.
 
 ##### Element operators
 
@@ -73,8 +78,8 @@ The following operators are supported:
 
 ##### Array operators
 
-* `$all`: Matches arrays that contain all elements specified in the query.
-* `$any`: Matches arrays that contain at least one element specified in the query
+* `$hasAll`: Matches arrays that contain all elements specified in the query.
+* `$hasSome`: Matches arrays that contain at least one element specified in the query.
 
 #### Sample queries
 
