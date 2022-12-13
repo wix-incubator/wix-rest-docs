@@ -47,9 +47,12 @@ matches all entities where `status` is `"DONE"`.
 
 #### Operators
 
-Operators use the following format: `{<field>: {<operator>:<value>}, ...}`.  
-E.g. the query `{status: {$in: ["X", "Y"]}}` will match all entities that have status  set to `"X"` or `"Y"`  
-The following operators are supported:
+Operators use the format `{ "<field>": { "$<operator>": <value> } }`.
+
+For example, `{ "status": { "$in": ["PENDING", "DONE"] } }`
+matches all entities where status is `"PENDING"` or `"DONE"`.
+
+The operators specified below are supported.
 
 ##### Comparison operators
 
