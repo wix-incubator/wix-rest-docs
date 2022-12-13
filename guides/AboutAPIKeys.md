@@ -15,11 +15,11 @@ API Keys are currently available to selected beta users only.
 
 ## Create and use API keys
 
+1. Create or request an API key:
 
+    - If you have direct access to the site, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.
+    - If you don't have direct access to the site, request the key and the account ID from the site owner.  
 
-1. Create or request an API key:  
-     a. If you have direct access to the site, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.  
-     b. If you don't have direct access to the site, request the key and the account ID from the site owner.  
 2. Call the Site API's **Query Sites** endpoint to collect all the account's associated site IDs.
 
     > **Note:**
@@ -28,12 +28,10 @@ API Keys are currently available to selected beta users only.
     > <br />
     > ![site Id in URL](./../../media/siteid.png)
 
-     
+    1. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
+    2. Enter the account ID in the account ID header, as shown below. (In other calls, the site ID header may be required. Refer to the documentation for each specific call.)
 
-     a. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
-     b. Enter the account ID in the account ID header, as shown below. (In other calls, the site ID header may be required. Refer to the documentation for each specific call.)
-
-     A complete header for an API request looks like this:
+    A complete header for an API request looks like this:
 
      ```
      curl <GET/POST>\
