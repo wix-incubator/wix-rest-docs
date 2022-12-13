@@ -67,7 +67,7 @@ curl POST \
         "name": "My Folder",
         "parentId": "root"
       }
-    }' \
+    }'
 ```
 
 **Response:**
