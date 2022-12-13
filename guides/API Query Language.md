@@ -1,10 +1,11 @@
 SortOrder: 3
 # API Query Language 
 
+The query language described in this article is implemented partially or in full by Wix APIs supporting query capabilities.
 
-The query language described in this document is implemented partially or in full by Wix APIs supporting query capabilities. 
-
-The style of the QL is heavily influenced by MongoQL.
+You may see some similarities between the Wix API Query Language
+and MongoQL.
+The style of the Wix API Query Language is heavily influenced by MongoQL.
 
 ## Syntax
 
