@@ -1,7 +1,6 @@
 SortOrder: 3
 # API Query Language 
 
-## General
 
 The query language described in this document is implemented partially or in full by Wix APIs supporting query capabilities. 
 
