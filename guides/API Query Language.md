@@ -170,7 +170,7 @@ For example:
 
 ```json
 {
-  "fieldset": [
+  "fieldsets": [
     "COMMON"
   ]
 }
