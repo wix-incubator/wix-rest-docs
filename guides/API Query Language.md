@@ -9,17 +9,18 @@ The style of the Wix API Query Language is heavily influenced by MongoQL.
 
 ## Syntax
 
-A query object consists of 5 (optional) parts:
+A query object consists of 5 optional parts:
 
-* _Filter_ - which entities to return
-* _Sort_ - in what order
-* _Paging_ - return only part of the matched entities
-* _Fields_ - return only part of each entity (a.k.a. projection)
-* _Fieldset_ - a predefined set of fields with common use (i.e. named projection). This is a shorthand provided by the API for specifying each field name.
+* _Filter_: Which results to return.
+* _Sort_: In what order.
+* _Paging_: Return only some of the matched entities.
+* _Fields_: Field projection. Returns only part of each entity.
+* _Fieldsets_: Predefined, named sets of fields with common use.
+  This is a shorthand provided by individual APIs.
   
-Each query is always a single JSON: `{ }`  
-An empty json will return all records in no specific order. 
-An application can decide to return a subset of the records (default paging behavior)  
+Each query is always a single JSON object.
+An empty JSON object returns records
+according to the API's default paging and sort order.
 
 The query object can define a key for each of the above parts:
 
