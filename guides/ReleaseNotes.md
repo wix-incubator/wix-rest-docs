@@ -66,10 +66,7 @@ The [Members API](members/members) now includes three new webhooks:
 These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
 (September 1, 2022)
 
-## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
-The [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
 
-(August 22, 2022)
 ## New Endpoints: [Site Properties API](business-info/site-properties)
 The [Site Properties API](business-info/site-properties) now includes three new endpoints:
 + [Update Business Contact](business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
