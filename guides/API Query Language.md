@@ -184,8 +184,8 @@ In this example the returned entities will contain `firstName` from `name` sub-o
 ## The `fieldsets` section
 
 An API may provide named projections to save its clients the bother of writing the names of the fields in common cases.  
-For example, Contacts can implement a fieldset named `common` that contains only first name, last name, primary email and phone number. 
-To use fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
+For example, Contacts can implement a fieldset named `COMMON` that contains only the first name, last name, primary email and phone number fields. 
+To use a fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
 For example:
 
 ```json
