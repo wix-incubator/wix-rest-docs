@@ -170,7 +170,7 @@ The following will return records 41-60. I.e. page number 3 with each page being
 The fields section is an array of field names/paths to return. 
 If a pointed field of the DTO contains an object, the entire sub-object will be returned. 
 Subset of sub-objects can be returned by using dot notation. 
-In this example the returned entities will contain `first_name` from `name` sub-object and the entire `address` object
+In this example the returned entities will contain `firstName` from `name` sub-object and the entire `address` object
 
 ```json
 {
