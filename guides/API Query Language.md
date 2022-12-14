@@ -76,15 +76,15 @@ The operators specified below are supported.
 #### Logical operators
 
 * `$and`: Joins query clauses with a logical _AND_
-  and returns all documents that match the conditions of both clauses.
+  and returns all items that match the conditions of both clauses.
 * `$or`: Joins query clauses with a logical _OR_
-  and returns all documents that match the conditions of either clause.
+  and returns all items that match the conditions of either clause.
 * `$not`: Inverts the effect of a query expression
-  and returns documents that don't match the query expression.
+  and returns items that don't match the query expression.
 
 #### Element operators
 
-* `$exists`: Matches documents that have the specified field.
+* `$exists`: Matches items that have the specified field.
 
 #### Array operators
 
