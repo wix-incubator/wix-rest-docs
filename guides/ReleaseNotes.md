@@ -4,14 +4,11 @@
 ## New Release: [Wix Blog](wix-blog/blog)
 
 The [Blog](wix-blog/blog) API introduces new write functionality:
-+ The new [Draft Posts](wix-blog/blog/draft-posts) API allows the ability to create, delete, and manage blog draft posts.
-+ The new [Create Category](wix-blog/blog/categories/create-category) allows for creating a blog category.
-+ The new [Update Category](wix-blog/blog/categories/update-category) allows for updating a blog category. 
-+ The new [Delete Category](wix-blog/blog/categories/delete-category) allows for deleting a blog category.
-+ The new [Create Tag](wix-blog/blog/tags/create-tag) allows for creating a blog tag.
-+ The new [Delete Tag](wix-blog/blog/tags/create-tag) allows for deleting a blog tag.  
++ The new [Draft Posts](wix-blog/blog/draft-posts) APIs enables you to create, delete, and manage blog draft posts.
++ You can now manage blog categories using the Categories APIs, such as [Create Category](wix-blog/blog/categories/create-category), [Update Category](wix-blog/blog/categories/update-category), and [Delete Category](wix-blog/blog/categories/delete-category).
++ You can now manage blog tags using the Tags APIs, such as [Create Tag](wix-blog/blog/tags/create-tag) and [Delete Tag](wix-blog/blog/tags/create-tag).  
 
-The Blog API has also renamed some fields, resulting in deprecating some existing fields. These fields will be removed on June 30, 2023. 
+Some Blog API parameters and properties have been renamed. The existing parameters and properties are deprecated and will be removed on June 30, 2023. 
 
 (Dec 20, 2022)
 
