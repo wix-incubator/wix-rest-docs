@@ -1,5 +1,20 @@
 # Release Notes
 
+
+## New Release: [Wix Blog](wix-blog/blog)
+
+The [Blog](wix-blog/blog) API introduces new write functionality:
++ The new [Draft Posts](wix-blog/blog/draft-posts) API allows the ability to create, delete, and manage blog draft posts.
++ The new [Create Category](wix-blog/blog/categories/create-category) allows for creating a blog category.
++ The new [Update Category](wix-blog/blog/categories/update-category) allows for updating a blog category. 
++ The new [Delete Category](wix-blog/blog/categories/delete-category) allows for deleting a blog category.
++ The new [Create Tag](wix-blog/blog/tags/create-tag) allows for creating a blog tag.
++ The new [Delete Tag](wix-blog/blog/tags/create-tag) allows for deleting a blog tag.  
+
+The Blog API has also renamed some fields, resulting in deprecating some existing fields. These fields will be removed on June 30, 2023. 
+
+(Dec 20, 2022)
+
 ## New Fields: [Restaurants Orders API](wix-restaurants/orders)
 
 The [Order object](wix-restaurants/orders/order-object) has new fields:
