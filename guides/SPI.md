@@ -21,20 +21,18 @@ In order to become a _service provider_, you have two options:
 * Register an application in the Wix Developer Center, and add the SPI component that you wish to implement. 
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
 
-## Integration with Wix
-In order to enable Wix applications to communicate with your provider application, Wix needs to know some configuration details. You add the configurations via the Dev Center by entering your app’s url and method and other configuration details in the **JSON Editor** in the service’s extension description page. 
-The **Instructions** section of the extension description page provides a list of the required configuration parameters and types. 
+### Add SPI to Dev Center
+In order to enable Wix applications to communicate with your application, Wix needs to know some configuration details. 
+
+In order to integrate the app you registered in the Dev Center, add configurations for your component:
+1. In the left menu, click **Components**.
+2. In the upper right corner of the page, select **Add Component** > **Integration component**.
+3. From the **Choose an integration component** modal, select the relevant SPI and click **Add Component**.
+4. In the JSON Editor, configure the configuration parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter, write the parameter name and value in the JSON editor, for example “appUrl”: “app world.com/getInfo”.
 
 ![alt text](../media/spi-config.png)
 
-
-In order to integrate the app you registered in the Wix Developer Center, provide configuration details in the **JSON Editor**:
-1. Click on **Components** in the Dashboard sidebar.
-2. Click on the **Add Component** button to drop down a list of component types.
-3. Select the **Integration component** option.
-4. From the **Choose the integration component** window, select the relevant SPI and click the **Add Component** button.
-5. In the **JSON Editor**, configure the configuration parameters by referencing the **Instructions** section. For each configuration parameter, write the  parameter name and value in the JSON editor, for example “appUrl”: “app world.com/getInfo”.
-6. Click the **Save** button to complete configuration set-up.
+5. Click **Save** to complete configuration set-up.
 
 ## Request envelope
 As a _Service Provider_ you are required to implement an API specification exactly as documented. Each request that your endpoints will receive 
