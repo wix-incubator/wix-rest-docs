@@ -28,7 +28,9 @@ In order to enable Wix applications to communicate with your app, add configurat
 3. Select your component and click **Add Component**.
 4. In the JSON editor, configure the parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter listed in the **Instructions**, add the parameter name and value in the JSON editor.
 
+
 ![alt text](../media/spi-config.png)
+
 
 5. Click **Save**.
 
