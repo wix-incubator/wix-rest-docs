@@ -18,7 +18,7 @@ Once installed and enabled on a site, this provider will be called to fetch appl
 
 ## Setup
 In order to become a _service provider_, you have two options:
-* Register an application in the Wix Developers Center, and add the Integration component that you wish to implement. 
+* Register an application in the Wix Developers Center, and add the integration component that you wish to implement. 
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
 
 ### Configure Integration Component in Dev Center
