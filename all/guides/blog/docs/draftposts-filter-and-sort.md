@@ -1,5 +1,5 @@
 SortOrder: 3
-# Draft posts: Supported Filters and Sorting
+# Draft Posts: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting
 for the Draft Post object:
