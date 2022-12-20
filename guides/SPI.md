@@ -18,21 +18,19 @@ Once installed and enabled on a site, this provider will be called to fetch appl
 
 ## Setup
 In order to become a _service provider_, you have two options:
-* Register an application in the Wix Developer Center, and add the SPI component that you wish to implement. 
+* Register an application in the Wix Developer Center, and add the Integration component that you wish to implement. 
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
 
-### Add SPI to Dev Center
-In order to enable Wix applications to communicate with your application, Wix needs to know some configuration details. 
-
-In order to integrate the app you registered in the Dev Center, add configurations for your component:
+### Configure Integration Component in Dev Center
+In order to enable Wix applications to communicate with your application, add configurations for your component:
 1. In the left menu, click **Components**.
 2. In the upper right corner of the page, select **Add Component** > **Integration component**.
-3. From the **Choose an integration component** modal, select the relevant SPI and click **Add Component**.
-4. In the JSON Editor, configure the configuration parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter listed in the **Instructions**, add the parameter name and value in the JSON editor.
+3. From the **Choose an integration component** pop-up, select the relevant SPI and click **Add Component**.
+4. In the JSON editor, configure the parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter listed in the **Instructions**, add the parameter name and value in the JSON editor.
 
 ![alt text](../media/spi-config.png)
 
-5. Click **Save** to complete configuration set-up.
+5. Click **Save** to complete configuration.
 
 ## Request envelope
 As a _Service Provider_ you are required to implement an API specification exactly as documented. Each request that your endpoints will receive 
