@@ -28,7 +28,7 @@ In order to integrate the app you registered in the Dev Center, add configuratio
 1. In the left menu, click **Components**.
 2. In the upper right corner of the page, select **Add Component** > **Integration component**.
 3. From the **Choose an integration component** modal, select the relevant SPI and click **Add Component**.
-4. In the JSON Editor, configure the configuration parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter, write the parameter name and value in the JSON editor, for example “appUrl”: “app world.com/getInfo”.
+4. In the JSON Editor, configure the configuration parameters by referencing the **Instructions** section on the right side of the page. For each configuration parameter listed in the **Instructions**, add the parameter name and value in the JSON editor.
 
 ![alt text](../media/spi-config.png)
 
