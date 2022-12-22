@@ -4,6 +4,31 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: June 30, 2023
+
+- [Wix Blog](wix-blog/blog):
+  - [Post](wix-blog/blog/posts) Object: `coverMedia` replaced by `media`.
+  - [Category](wix-blog/blog/categories) Object: 
+    - `coverMedia` replaced by `coverImage`.
+    - `rank` replaced by `displayPosition`.
+  - [Query Post Count](wix-blog/blog/post-stats/query-post-count): `rangeEnd` replaced by `months`.
+  - In [Query Posts](wix-blog/blog/posts/query-posts), [Query Categories](wix-blog/blog/categories/query-categories), and [Query Tags](wix-blog/blog/tags/query-tags):
+    - `paging`, `filter`, and `sort` are all replaced by the `query` object.
+    - `metaData` is replaced by `pagingMetadata`.
+  - The `fieldsToInclude` parameter is replaced by `fieldsets` in the following endpoints:
+    - [Get Post](wix-blog/blog/posts/get-post)
+    - [Get Post By Slug](wix-blog/blog/posts/get-post-by-slug)
+    - [List Posts](wix-blog/blog/posts/list-posts)
+    - [Query Posts](wix-blog/blog/posts/query-posts)
+    - [Get Category](wix-blog/blog/categories/get-category)
+    - [Get Category By Slug](wix-blog/blog/categories/get-category-by-slug)
+    - [List Categories](wix-blog/blog/categories/list-categories)
+    - [Query Categories](wix-blog/blog/categories/query-categories)
+    - [Get Tag](wix-blog/blog/tags/get-tag)
+    - [Get Tag By Label](wix-blog/blog/tags/get-tag-by-label)
+    - [Get Tag By Slug](wix-blog/blog/tags/get-tag-by-slug)
+    - [Query Tags](wix-blog/blog/tags/query-tags)
+
 ## End of Life: March 31, 2023
 
 - [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions)
