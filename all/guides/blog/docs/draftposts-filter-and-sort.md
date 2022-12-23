@@ -1,4 +1,4 @@
-SortOrder: 3
+SortOrder: 2
 # Draft Posts: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting
