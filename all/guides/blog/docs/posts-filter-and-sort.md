@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 1
 # Posts: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting
