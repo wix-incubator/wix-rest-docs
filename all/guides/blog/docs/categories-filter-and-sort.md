@@ -1,4 +1,4 @@
-SortOrder: 4
+SortOrder: 3
 # Categories: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting

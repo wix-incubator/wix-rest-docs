@@ -1,4 +1,4 @@
-SortOrder: 5
+SortOrder: 4
 # Tags: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting
