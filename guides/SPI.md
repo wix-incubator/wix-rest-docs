@@ -34,6 +34,9 @@ In order to enable Wix to communicate with your app, add configurations for your
 
 5. Click **Save**.
 
+> **Note:**
+> If you are working with a legacy SPI, configuration may not be via the Dev Center. See instructions in the specific SPI. 
+
 ## Request envelope
 As a _Service Provider_ you are required to implement an API specification exactly as documented. Each request that your endpoints will receive 
 will be wrapped in an envelope with some metadata and signed.
