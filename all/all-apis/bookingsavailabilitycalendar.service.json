@@ -1,0 +1,764 @@
+{
+  "name": "BookingsAvailabilityCalendar",
+  "client_id": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/availability-calendar#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Get the availability of a calendar's sessions, slots, and schedules.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Availability Calendar",
+    "entity": "_com_wixpress_bookings_availability_SlotAvailability",
+    "src": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/availability-calendar/com/wixpress/bookings/availability/bookings_availability_calendar.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/bookingsavailabilitycalendar/docs/Intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/bookingsavailabilitycalendar/docs/cal-avail-sort-and-filter.md",
+      "name": "Supported Fields, Filters, and Sorting"
+    }
+  ],
+  "operations": [  {
+    "name": "Query Availability",
+    "methodName": "QueryAvailability",
+    "serviceName": "AvailabilityCalendar",
+    "tag": "Availability Calendar",
+    "permissions": [    {
+      "name": "Read Bookings Calendar Availability",
+      "description": "Request permission to read the site's bookings calendar availability."
+    }],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields":     [
+      "query",
+      "query.filter"
+    ],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "query",
+        "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_upstream_wix_common_QueryV2",
+        "doc": " Query options.\n",
+        "required": true
+      },
+            {
+        "in": "BODY",
+        "name": "timezone",
+        "type": "string",
+        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight \n savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "slotsPerDay",
+        "type": "integer",
+        "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`. \n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all \n bookable slots are already included.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "QueryAvailability",
+        "statusCode": "200",
+        "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_QueryAvailabilityResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (paging, filtering, and sorting). \n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n + **The sessions' open slots**. A slot is considered open if the session's \n   capacity is greater than number of participants.\n + **Booking policies**. Policies that affect whether a slot is considered \n   available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n sesssion remains locked because there is still a waitlist, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the waitlist from grabbing the slot.\n\n #### Handling Daylight Savings Time for local time zones\n\n Because of Daylight Savings Time (DST), there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the tine `00:05` on September 5th 2021 might not exist in Santiago, Chile, \n because at `00:00` the clock moved\n 1 hour forward to `01:00.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existant local time is \n automtically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/bookings/v1/availability/query",
+      "links": [],
+      "examples":       [
+                {
+          "title": "Query for available slots for a specific service in a given time range",
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\"832adc1f-d6cc-412d-894d-f04455baec68\"],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\"\n        }\n      }\n    }'"],
+          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"66bf9f11-1253-4ea8-ba43-a303578be1fb\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query for a service's available slots by resource ID for a given time range",
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\",\n          \"resourceId\":[\"70586e51-b75c-4425-818b-68cfd7954022\"]\n        }\n      }\n    }'"],
+          "response": ["{\n  \"availabilityEntries\":   [\n        {\n      \"slot\":       {\n        \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n        \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n        \"startDate\": \"2023-05-20T12:30:00.000Z\",\n        \"endDate\": \"2023-05-20T13:00:00.000Z\",\n        \"resource\":         {\n          \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n          \"name\": \"John Smith\",\n          \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n        },\n        \"location\":         {\n          \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n          \"name\": \"Headquarters\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        }\n      },\n      \"bookable\": false,\n      \"totalSpots\": 1,\n      \"openSpots\": 1,\n      \"waitingList\": {},\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": true,\n        \"bookOnlineDisabled\": false\n      }\n    },\n        {\n      \"slot\":       {\n        \"serviceId\": \"f018ad57-0403-488f-971d-fc33511bbc3a\",\n        \"scheduleId\": \"175fa56c-66b3-4357-a09c-29cce7ae9bf9\",\n        \"startDate\": \"2023-05-20T12:45:00.000Z\",\n        \"endDate\": \"2023-05-20T13:15:00.000Z\",\n        \"resource\":         {\n          \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n          \"name\": \"John Smith\",\n          \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n        },\n        \"location\":         {\n          \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n          \"name\": \"Headquarters\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        }\n      },\n      \"bookable\": true,\n      \"totalSpots\": 1,\n      \"openSpots\": 1,\n      \"waitingList\": {},\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      }\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query for available slots for a service by location and date range",
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\"\n          ],\n          \"startDate\": \"2023-05-20T12:00:00.000Z\",\n          \"endDate\": \"2023-05-20T13:00:00.000Z\",\n          \"location.id\": [\"3dd710bd-3480-49b4-a549-0522b035a8d7\"]\n        }\n      }\n    }'"],
+          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query for available open slots for a specific service in a given time range",
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:00:00.000Z\",\n          \"endDate\": \"2023-05-20T13:30:00.000Z\",\n          \"openSpots\": {\"$gte\": \"10\"}\n        }\n      }\n    }'"],
+          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 17,\n    \"openSpots\": 13,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query for available, bookable slots for a service in a given time range",
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\",\n          \"bookable\": \"true\"\n        }\n      }\n    }'"],
+          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": true,\n    \"totalSpots\": 17,\n    \"openSpots\": 13,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }
+      ],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "QueryAvailabilityRequest",
+      "rpcResponseName": "QueryAvailabilityResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_upstream_wix_common_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object. For a list of \n fields you can filter by, see [Calendar Availability: Supported Fields, Filters, and Sorting](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/supported-fields,-filters,-and-sorting).\n You must include the `startDate` and `endDate` fields in the filter. This avoids large results that can impact performance.\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.BookingsAvailabilityCalendar._wix_common_Sorting"]
+          },
+          "doc": " Sort options.\n Currently, only sorting by `startDate` is supported. For details\n on sorting, see [Calendar Availability: Supported Fields, Filters and Sorting](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/supported-fields,-filters,-and-sorting).\n"
+        },
+                {
+          "name": "fields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of projected fields to return. All fields are supported. \n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_upstream_wix_common_QueryV2_pagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_upstream_wix_common_QueryV2_pagingMethod",
+      "displayName": "paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cursorPaging",
+        "type": "All APIs.BookingsAvailabilityCalendar._wix_common_CursorPaging",
+        "doc": "Cursor token pointing to a page of results. Not used in the first request. Following requests use the cursor token and not `filter` or `sort`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_QueryAvailabilityRequest",
+      "displayName": "Query Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_upstream_wix_common_QueryV2",
+          "doc": " Query options.\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight \n savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n"
+        },
+                {
+          "name": "slotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`. \n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all \n bookable slots are already included.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_QueryAvailabilityResponse",
+      "displayName": "Query Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "availabilityEntries",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability"]
+          },
+          "doc": " List of slots that potentially can be booked. \n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_PagingMetadataV2",
+          "doc": " Details on the paged set of returned results. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_GetSlotAvailabilityRequest",
+      "displayName": "Get Slot Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "slot",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_Slot",
+          "doc": " The slot for which the availability is checked.\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone for which slot availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_GetSlotAvailabilityResponse",
+      "displayName": "Get Slot Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "availability",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability",
+          "doc": ""
+        },
+                {
+          "name": "bookingPolicySettings",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_BookingPolicySettings",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_GetScheduleAvailabilityRequest",
+      "displayName": "Get Schedule Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "scheduleId",
+        "type": "string",
+        "doc": " The schedule ID for which availability is being checked.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_GetScheduleAvailabilityResponse",
+      "displayName": "Get Schedule Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "availability",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_ScheduleAvailability",
+          "doc": ""
+        },
+                {
+          "name": "bookingPolicySettings",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_BookingPolicySettings",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_SlotAvailability",
+      "displayName": "Slot Availability Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "slot",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_Slot",
+          "doc": " The slot for the corresponding session, when the session is either a single session \n or a specific session generated from a recurring session. \n"
+        },
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the slot is bookable. Bookability is determined by checking a \n session's open slots and booking policies. Locks are not taken into\n account.\n"
+        },
+                {
+          "name": "totalSpots",
+          "type": "integer",
+          "doc": " Total number of spots for this slot.\n For example, if a session has a total of 10 spots and 3 spots are booked, \n `spotsTotal` is 10 and `openSpots` is 7.\n"
+        },
+                {
+          "name": "openSpots",
+          "type": "integer",
+          "doc": " Number of open spots for this slot.\n"
+        },
+                {
+          "name": "waitingList",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_WaitingList",
+          "doc": " An object describing the slot's waitlist and its occupancy.\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_BookingPolicyViolations",
+          "doc": " Booking policy violations for the slot.\n"
+        },
+                {
+          "name": "locked",
+          "type": "boolean",
+          "doc": " Indicates whether the slot is locked because a waitlist exists. \nWhen a slot frees up, the slot is offered to the next customer on the waitlist. Read-only.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_Slot",
+      "displayName": "Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sessionId",
+          "type": "string",
+          "doc": " ID for the slot's corresponding session, when the session is either a single session \n or a specific session generated from a recurring session.\n"
+        },
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID.\n"
+        },
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Schedule ID.\n"
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format.\n\n If `timezone` is specified,\n dates are based on the local date/time. This means that the timezone offset\n in the `start_date` is ignored.\n"
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": " The end time of this slot in\n [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339) format.\n\n If `timezone` is specified,\n dates are based on the local date/time. This means that the timezone offset\n in the `end_date` is ignored.\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone for which slot availability is to be calculated.\n\n Learn more about how [timezones and daylight savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability. \n"
+        },
+                {
+          "name": "resource",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotResource",
+          "doc": " The resource required for this slot. Currently, the only supported resource\n is the relevant staff member for the slot.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_Location",
+          "doc": " Geographic location of the slot.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_SlotResource",
+      "displayName": "Slot Resource Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Resource ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Resource name. Read only. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_Location",
+      "displayName": "Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Location name.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " The full address of this location.\n"
+        },
+                {
+          "name": "locationType",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_LocationType",
+          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_WaitingList",
+      "displayName": "Waiting List Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSpots",
+          "type": "integer",
+          "doc": " Total number of spots and open spots for this waiting list.\n For example, a Yoga class with 10 waiting list spots and 3 registered \n on the waiting list has 10 `total_spots` and 7 `open_spots`.\n"
+        },
+                {
+          "name": "openSpots",
+          "type": "integer",
+          "doc": " Number of open spots for this waiting list.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_BookingPolicyViolations",
+      "displayName": "Booking Policy Violations Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tooEarlyToBook",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Too early to book this slot.\n"
+        },
+                {
+          "name": "tooLateToBook",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Too late to book this slot.\n"
+        },
+                {
+          "name": "bookOnlineDisabled",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Online booking is disabled for this slot.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_ScheduleAvailability",
+      "displayName": "Schedule Availability Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSpots",
+          "type": "integer",
+          "doc": " The total number of spots defined for the schedule, including \n both open and non-available spots.\n"
+        },
+                {
+          "name": "openSpots",
+          "type": "integer",
+          "doc": " The number of open spots defined for the schedule.\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_BookingPolicyViolations",
+          "doc": " Booking policy violations for the schedule.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_BookingPolicySettings",
+      "displayName": "Booking Policy Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "maxParticipantsPerBooking",
+        "type": "integer",
+        "doc": " The policy defining the maximum number of participants that can \n be booked for a slot or a schedule.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_LocationType",
+      "displayName": "Location Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OWNER_BUSINESS <\/code><\/li><li><code> OWNER_CUSTOM <\/code><\/li><li><code> CUSTOM <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "OWNER_BUSINESS",
+        "OWNER_CUSTOM",
+        "CUSTOM"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.bookings.availability.availability-calendar"}
+}
