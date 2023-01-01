@@ -1,3 +1,4 @@
+SortOrder: 1
 # Calendar Availability: Supported Fields, Filters, and Sorting
 
 `Query` endpoints allow you to filter and sort results based on slot availability properties. This article covers field support for filtering and sorting.
@@ -46,7 +47,7 @@ Currently, only sorting by `startDate` is supported.
 
 Specify the `sort` object in the following format:  
 
-```sh
+```json
 "sort" : { 
     "fieldName":"sortField1",
     "order":"ASC"
