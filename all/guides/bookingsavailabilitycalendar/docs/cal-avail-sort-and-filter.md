@@ -55,4 +55,4 @@ Specify the `sort` object in the following format:
 ```
 
 __Related content:__
-[Query Availability](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/query-availability)
+[Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability)
