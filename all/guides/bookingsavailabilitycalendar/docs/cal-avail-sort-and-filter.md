@@ -7,7 +7,7 @@ SortOrder: 1
 
 Specify the `filter` object in the following format:  
 
-```sh
+```json
 "filter" : {  
   "fieldName": "value"  
  } 
@@ -18,7 +18,7 @@ Specify the `filter` object in the following format:
 > **Note**: Only the implied equal operator is supported. This means you can use the 
 >    format above, but you cannot use the format below, even if `$operator` is `$eq`: 
 >    
->    ```sh
+>    ```json
 >    "filter" : {  
 >      "fieldName":{"$operator":"value"}  
 >     }
@@ -47,7 +47,7 @@ Currently, only sorting by `startDate` is supported.
 
 Specify the `sort` object in the following format:  
 
-```sh
+```json
 "sort" : { 
     "fieldName":"sortField1",
     "order":"ASC"
