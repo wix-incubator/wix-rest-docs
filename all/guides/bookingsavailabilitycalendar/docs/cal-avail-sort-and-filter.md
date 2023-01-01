@@ -1,3 +1,4 @@
+SortOrder: 1
 # Calendar Availability: Supported Fields, Filters, and Sorting
 
 `Query` endpoints allow you to filter and sort results based on slot availability properties. This article covers field support for filtering and sorting.
@@ -6,7 +7,7 @@
 
 Specify the `filter` object in the following format:  
 
-```json
+```sh
 "filter" : {  
   "fieldName": "value"  
  } 
@@ -17,7 +18,7 @@ Specify the `filter` object in the following format:
 > **Note**: Only the implied equal operator is supported. This means you can use the 
 >    format above, but you cannot use the format below, even if `$operator` is `$eq`: 
 >    
->    ```json
+>    ```sh
 >    "filter" : {  
 >      "fieldName":{"$operator":"value"}  
 >     }
