@@ -1,6 +1,12 @@
 # Release Notes
 
 
+## New Release: [Wix Bookings Availability Calendar](wix-bookings/availability-calendar)
+
+The [Bookings Availability Calendar](wix-bookings/availability-calendar) API introduces new [Query Availability](wix-bookings/availability-calendar/query-availability) functionality. You can get the availability of a calendar's slots for appointments and classes.
+ 
+(Dec 29, 2022)
+
 ## New Release: [Wix Blog](wix-blog/blog)
 
 The [Blog](wix-blog/blog) API introduces new write functionality:
