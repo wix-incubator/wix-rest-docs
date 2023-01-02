@@ -29,8 +29,8 @@ The following table shows field support for filtering with the `slotAvailability
 
 | Field           | Required | Sortable | Notes |
 | --------------- | -------- | -------| -------------- |
-| `startDate`            | Required | Sortable | Returns slots that start at or after this date. If the `timezone` is specified, the `startDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.  |
-| `endDate`            | Required  |  | Returns slots that end at or before this date. If the `timezone` is specified, the `endDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.  |
+| `startDate`            | Required | Sortable | Returns slots that start at, or after, this date. If the `timezone` is specified, the `startDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.  |
+| `endDate`            | Required  |  | Returns slots that end at, or before, this date. If the `timezone` is specified, the `endDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.  |
 | `serviceId`            |  |  | Supports multiple values. |
 | `resourceId`            |  |  |  |
 | `bookable`            |  |  | When filtered by `true`, returns only available slots. Otherwise, returns both available and non-available slots. |
@@ -55,4 +55,4 @@ Specify the `sort` object in the following format:
 ```
 
 __Related content:__
-[Query Availability](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/query-availability)
+[Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability)
