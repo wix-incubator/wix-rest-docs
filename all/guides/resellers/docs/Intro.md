@@ -24,9 +24,9 @@ API to offer domains to your customers.
 
 
 + The Resellers API is accessible via API keys, which are currently
-  available to selected beta users only. You aren't be able to access this
+  available to selected beta users only. You can't access this
   API with a standard Auth header. We recommend to authenticate calls of the
-  Resellers API only with the API key for your main account instead of setting up
+  Resellers API with an API key for your main account instead of setting up
   API keys for all of your customers' sub-accounts. But the response of any
   endpoint in Resellers API doesn't vary depending on whether you use an API
   key for an account or sub-account, as long as you have the required
@@ -35,7 +35,7 @@ API to offer domains to your customers.
   the [Wix B2B sales team](mailto:bizdev@wix.com), if you’d like to become a
   reseller.
 + Not all Wix services can be resold. Contact the
-  [Wix B2B sales team](mailto:bizdev@wix.com) to learn about which services
+  [Wix B2B sales team](mailto:bizdev@wix.com) to learn more about which services
   you can resell.
 + Resold Wix services don't have an expiration date. They're available to the
   customer until the reseller actively cancels them.
@@ -64,7 +64,7 @@ API to offer domains to your customers.
   `Business & eCommerce Plan` services.
 + __Voucher__: Time-limited benefit for non-Wix products that comes with some
   Wix services.
-+ __Site ID__: Unique identifier of a customer's Wix site. See the
++ __Site ID__: Unique identifier of a Wix site. See the
   [Sites API](https://dev.wix.com/api/rest/account-level-apis/sites/query-sites)
   for more details.
 + __DIY__: Do-it-yourself business model. The resellers' customers actively
@@ -81,8 +81,8 @@ API to offer domains to your customers.
 + __Sub-account__: Resellers can create sub-accounts for their DIY customers.
   This allows the reseller to access the sites of all their customers while
   customers can only access their own sites.
-+ __Adjust__: Resellers can up- or downgrade the Wix services that they're
-  offering to their customers. For example, you could upgrade a
++ __Adjust__: Resellers can up- or downgrade a product instance that they're
+  offering to a customer. For example, you could upgrade a
   `Business Basic` plan to `Business Unlimited`.
 
 
