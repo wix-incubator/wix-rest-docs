@@ -1,31 +1,33 @@
 SortOrder: 0
 # Introduction
 
-As a provider of SEO keyword research tools, you can integrate with Wix to enable Wix users to optimize their SEO strategy. The integration is done via an app in the Wix App Market (created in the Wix Developer Center) using the Wix SEO Keyword Suggestions SPI.
+As a provider of SEO keyword research tools, you can integrate with Wix to enable Wix users to optimize their SEO strategy. 
 
-The Wix Developer Center is an environment used to set up new service providers and focus on app integrations.
-Using the SPIs, you can design your app to:
-- Enable Wix users to check the SEO strength of a potential keyword
-- Suggest similar keywords to compare SEO strength
-- Provide analysis about the suggested keywords based on search volume and ranking difficulty
-- Update Wix users about remaining credit in their paid plan
+Using the SEO Keyword Suggestions SPI, you can design your app to:
+- Enable Wix users to check the SEO strength of a potential keyword.
+- Suggest similar keywords to compare SEO strength.
+- Provide analysis about the suggested keywords based on search volume and ranking difficulty.
+- Update Wix users about remaining credit in their plan.
 
 
- ## Before you begin
+ ## How to become a keyword suggestions provider
 
-  It’s important to note the following points before starting to code:
+- Create an [app](https://dev.wix.com/apps/) with an integration component. 
 
-1. Create an [app](https://dev.wix.com/apps/) with a Dashboard component. This component represents the SEO dashboard page to add to the Wix user's site.
-
-2. Integrate your SEO app with Wix to make it available to Wix users.
+- Configure your app in the JSON Editor of the Wix Dev Center. For more information about SPI integration setup, see Service Provider Interface [Setup](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_setup).
+  - `baseUri`: String. URL of your site.
+  - `upgradeUrl`: String. URL to select a paid plan.
+  - `supportedCountryCodes`: Array of strings. Countries supported by your service. 2-letter country codes in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.
+  - `quotaEnabled`: Boolean. Whether there is a quota limit for the service.
+  - `landingPageUrl`: String. URL of your website.
 
 
 ## Terminology
 
- - **Quota**: details of paid plan such as credit remaining in terms of number of searches left, total available searches, start and end dates of plan.
+ - **Suggested keywords**: Keywords suggested by your app to compare SEO strength of potential keywords and enable optimization of SEO strategy.
 
- - **Suggested Keywords**: possible keywords suggested by an SEO List Keyword Suggestions provider to compare SEO strength of potential keywords and enable optimization of SEO strategy.
-
+- **Quota**: Details of the plan such as credit remaining in terms of number of searches left, total available searches, and start and end dates of the quota cycle.
+ 
 
  
 <!-- # Complete the following steps to adapt Wix system's integration to make your SEO tools available to Wix users.
