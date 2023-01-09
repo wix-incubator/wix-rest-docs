@@ -3,14 +3,14 @@ SortOrder: 0
 
 
 With the Wix Bookings Reader V2 API you can retrieve bookings for a site's 
-services. 
-The [booking object](/docs/link) holds information about the customer and the session or schedule they have booked. 
+services.  
+The [booking object](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/booking-object) holds information about the customer and the session or schedule they have booked. 
 
 For more information about the terminology, use cases and related APIs read 
-[introduction to the Wix Bookings V2 API](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip).
+[introduction to the Wix Bookings V2 API](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/introduction).
 
 You can then use the 
-[Wix Bookings V2 APIs](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip)
+[Wix Bookings V2 APIs](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/introduction)
 to manage the booking life cycle and the 
 Ecommerce APIs (coming soon) 
 to handle the checkout and payment flow.

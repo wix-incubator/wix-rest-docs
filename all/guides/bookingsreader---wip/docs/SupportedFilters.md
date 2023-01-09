@@ -2,7 +2,7 @@ SortOrder: 1
 # Supported Filters
 
 
-[Query Bookings](https://dev.wix.com/api/rest/wix-bookings/bookings-reader/query-bookings) runs with these defaults:
+[Query Extended Bookings](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings) runs with these defaults:
 
 + sorted by `id` in `ASC` order
 + cursorPaging.limit is `50`
@@ -57,5 +57,5 @@ filter bookings for courses.
 
 To learn about working with _Query_ endpoints, see
 [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),
-[Sorting and Paging](https://dev.wix.com/api/rest/getting-started/pagination),
+[Sorting and Paging](https://dev.wix.com/api/rest/getting-started/sorting-and-paging),
 and [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).
