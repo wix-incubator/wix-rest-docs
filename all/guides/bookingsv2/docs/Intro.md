@@ -17,11 +17,7 @@ The Wix Bookings V2 API allows your app to:
 You can read more about:
 
 + The [Wix Bookings service catalog](https://dev.wix.com/api/rest/wix-bookings/service-catalog/introduction)
-+ Setting up [Wix Bookings service variants](https://dev.wix.com/api/rest/wix-bookings/service-options-and-variants/introduction)
-+ [Wix Bookings pricing](https://dev.wix.com/api/rest/wix-bookings/pricing/introduction)
-+ Retrieving information about the [Wix Bookings business calendar](https://dev.wix.com/api/rest/wix-bookings/calendar-v2)
 + Using the [Wix Bookings waitlist](https://dev.wix.com/api/rest/wix-bookings/waitlist/introduction)
-+ Managing customer payment flows in the eCommerce API (coming soon)
 + Customer payments using [Wix Pricing Plans](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/introduction)
 
 
@@ -38,7 +34,7 @@ You can read more about:
     + `CONFIRMED`: The site owner has confirmed the booking and it appears in 
       the business calendar.
         + You can manually confirm a booking via the 
-          [API](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/confirm-booking).
+          [API](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/confirm-booking).
         + Bookings are automatically confirmed when the 
           [service](https://dev.wix.com/api/rest/wix-bookings/services/service/create-service) 
           is configured to do so and the eCommerce order (coming soon) 
@@ -49,16 +45,16 @@ You can read more about:
       You can't manually set bookings as `PENDING` via an API.
       Bookings are automatically set as `PENDING` when an eCommerce order related to the booking has been created (coming soon).
     + `WAITING_LIST`: The booking is pending on a waiting list.
-      You must use the [Waitlist APIs](https://bo.wix.com/wix-docs/rest/bookings/bookings---waitlist-service/api-overview) 
+      You must use the [Waitlist APIs](https://dev.wix.com/api/rest/wix-bookings/waitlist/introduction) 
       to create bookings in status `WAITING_LIST`. You can't change a booking's 
       status from `CREATED` to `WAITING_LIST` with the Bookings V2 APIs.
     + `DECLINED`: The booking has been declined by the site owner.
         + You can manually decline a booking with the 
-          [Decline Booking endpoint](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/decline-booking).
+          [Decline Booking endpoint](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/decline-booking).
         + Bookings are automatically declined when an eCommerce order has been 
           declined or a double booking happened for free bookings.
     + `CANCELED`: The booking has been canceled by the site owner or the customer.
-        You can cancel bookings with the [API](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/cancel-booking).
+        You can cancel bookings with the [API](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/cancel-booking).
 + __Double booked__:
   A double booking can happen in case of 2 or more simultaneous eCommerce checkout 
   processes or if the site owner manually accepts bookings that exceed the 
