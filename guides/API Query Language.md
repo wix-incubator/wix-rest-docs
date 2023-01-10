@@ -158,13 +158,57 @@ Sorting is applied to the first `sort` item, then the second, and so on:
 
 The `paging` section describes the size of the data set to return per response
 and how many records to skip.
-The following returns records 41 through 60:
+Each API can support **offset paging**, **cursor paging**, or both.
+See your specific API for information on supported paging options.
+
+### Offset paging
+
+With offset paging, you provide a `limit` and `offset` with each request.
+To retrieve additional pages,
+submit subsequent requests with an increased `offset`
+equal to the previous page's `limit` plus `offset`.
+
+For example, this offset request returns records 41 through 60:
 
 ```json
 {
   "paging": {
     "limit": 20,
     "offset": 40
+  }
+}
+```
+
+### Cursor paging
+
+With cursor paging, each request returns a `cursors` object
+that contains cursor strings that point to the next page, previous page, or both.
+To retrieve either page, use the returned `next` or `prev` cursor
+in the next request's `cursor` parameter.
+
+Take this response object, for example:
+
+```json
+{
+  "pagingMetadata": {
+    "count": 10,
+    "offset": 0,
+    "cursors": {
+      "next": "eyJmaWx0ZXIiOnsiJGFuZCI6W3sibGFuZ3VhZ2UiOnsiJGluIjpbImVuIiwiaGUiXX19LHsic3RhdHVzIjoicHVibGlzaGVkIn1dfSwidmFsdWUiOnsiaXNQaW5uZWQiOmZhbHNlLCJmaXJzdFB1Ymxpc2hlZERhdGUiOiIyMDIyLTA2LTAyVDA2OjQ2OjAyLjgwMloifSwib3JkZXIiOnsiaXNQaW5uZWQiOi0xLCJmaXJzdFB1Ymxpc2hlZERhdGUiOi0xLCJpZCI6LTF9fQ=="
+    }
+  }
+}
+```
+
+You can use the returned `next` cursor to retrieve the next page of results
+by forming your request like this:
+
+```json
+{
+  "query": {
+    "cursorPaging": {
+      "cursor": "eyJmaWx0ZXIiOnsiJGFuZCI6W3sibGFuZ3VhZ2UiOnsiJGluIjpbImVuIiwiaGUiXX19LHsic3RhdHVzIjoicHVibGlzaGVkIn1dfSwidmFsdWUiOnsiaXNQaW5uZWQiOmZhbHNlLCJmaXJzdFB1Ymxpc2hlZERhdGUiOiIyMDIyLTA2LTAyVDA2OjQ2OjAyLjgwM1oifSwib3JkZXIiOnsiaXNQaW5uZWQiOi0xLCJmaXJzdFB1Ymxpc2hlZERhdGUiOi0xLCJpZCI6LTF9fQ"
+    }
   }
 }
 ```
