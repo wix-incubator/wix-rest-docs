@@ -1,11 +1,12 @@
 SortOrder: 3
 # API Query Language 
 
-The query language described in this article is implemented partially or in full by Wix APIs supporting query capabilities.
-
+The query language described in this article
+is implemented partially or in full by Wix APIs supporting query capabilities.
 You may see some similarities between the Wix API Query Language
 and MongoQL.
-The style of the Wix API Query Language is heavily influenced by MongoQL.
+This is because the style of the Wix API Query Language
+is heavily influenced by MongoQL.
 
 ## Syntax
 
@@ -22,9 +23,9 @@ A query object consists of 5 optional parts:
 * [`fieldsets`](#the-fieldsets-section):
   Predefined, named sets of fields with common use.
   This is a shorthand provided by individual APIs.
-  
+
 Each query is always a single JSON object.
-An empty JSON object returns records
+An empty JSON object returns all records
 according to the API's default paging and sort order.
 
 The query object can define a key for each of the above parts:
@@ -84,7 +85,7 @@ The operators specified below are supported.
 
 #### Element operators
 
-* `$exists`: Matches items that have the specified field.
+* `$exists`: Matches items where the specified field exists and has a non-null value.
 
 #### Array operators
 
@@ -103,7 +104,7 @@ In the following example, the compound query returns all entities where the stat
       "qty": { "$lt": 30 }
     },
     {
-      "item": { "$begins": "p" }
+      "item": { "$startsWith": "p" }
     }
   ]
 }
@@ -135,7 +136,9 @@ The following query matches entities that do not contain the `item` field, or wh
 
 ## The `sort` section
 
-The sort section is an array of field names and sort order. If the order is not specified, it will be sorted in ascending order:
+The `sort` section is an array of field names and sort order.
+If `order` is not specified for a field, the field is sorted in ascending order.
+Sorting is applied to the first `sort` item, then the second, and so on:
 
 ```json
 {
@@ -153,8 +156,9 @@ The sort section is an array of field names and sort order. If the order is not 
 
 ## The `paging` section
 
-The paging section describes the size of the data set to return (i.e. page size), and how many "records" to skip. 
-The following will return records 41-60. I.e. page number 3 with each page being 20 records:
+The `paging` section describes the size of the data set to return per response
+and how many records to skip.
+The following returns records 41 through 60:
 
 ```json
 {
@@ -167,10 +171,12 @@ The following will return records 41-60. I.e. page number 3 with each page being
 
 ## The `fields` section
 
-The fields section is an array of field names/paths to return. 
-If a pointed field of the DTO contains an object, the entire sub-object will be returned. 
-Subset of sub-objects can be returned by using dot notation. 
-In this example the returned entities will contain `firstName` from `name` sub-object and the entire `address` object
+The `fields` section is an array of field paths to return.
+If a field path points to an object, the entire sub-object is returned.
+Subsets of sub-objects can be returned by using dot notation.
+In this example,
+the returned entities contain `firstName` from the `name` sub-object
+and the entire `address` object:
 
 ```json
 {
@@ -183,15 +189,19 @@ In this example the returned entities will contain `firstName` from `name` sub-o
 
 ## The `fieldsets` section
 
-An API may provide named projections to save its clients the bother of writing the names of the fields in common cases.  
-For example, Contacts can implement a fieldset named `COMMON` that contains only the first name, last name, primary email and phone number fields. 
-To use a fieldset, the client should specify its name. If both fieldset and fields sections exist, the union of both will take effect. 
+An API may provide named projections to save clients from specifying individual fields in common cases.
+For example,
+the Contacts API implements a fieldset named `BASIC` that contains only
+`id`, `revision`, `info.name.first`, `info.name.last`,
+`primaryInfo.email`, and `primaryInfo.phone`.
+To use a fieldset, specify its name in the `fieldsets` array.
+If both `fieldsets` and `fields` sections exist, the union of both is returned.
 For example:
 
 ```json
 {
   "fieldsets": [
-    "COMMON"
+    "BASIC"
   ]
 }
 ```
