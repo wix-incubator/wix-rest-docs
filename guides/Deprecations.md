@@ -43,7 +43,7 @@ at least 6 months after their announced deprecation.
 
 ## End of Life: October 24, 2022
 
-- Bookings External Calendar Sync: [Sync](wix-bookings/external-calendar-sync/sync/sync)
+- [Bookings External Calendar Sync](https://dev.wix.com/api/rest/wix-bookings/external-calendar-sync): Sync
 
 ## End of Life: September 30, 2022
 
