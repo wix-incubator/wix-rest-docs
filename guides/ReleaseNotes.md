@@ -1,5 +1,17 @@
 # Release Notes
 
+## New Release: [Wix Automations](wix-automations)
+
+The new Wix Automations API
+introduces configuration options for you to become a
+[trigger provider](wix-automations/introduction#how-to-become-a-trigger-provider).
+As a provider,
+your custom triggers and trigger payloads
+are installed with your app,
+allowing site collaborators to create automations
+triggered by events you report and control.
+
+(January 11, 2023)
 
 ## New Release: [Wix Blog](wix-blog/blog)
 
