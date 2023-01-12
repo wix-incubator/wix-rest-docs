@@ -17,7 +17,7 @@ use these sample settings:
 
 * Set **Trigger name** to "Form submitted"
   and **Trigger key** to "form_submitted".
-* Create a [payload schema](#heading=h.w8zvifreoiua)
+* Create a [payload schema](https://dev.wix.com/api/rest/wix-automations/triggered-events/the-payload-schema)
   that includes at least a `contact_id` property:
 
     ```json
@@ -128,7 +128,7 @@ Implement this flow to report when a visitor submits the form on your service:
     }
     ```
 
-3. Call [Report Event](../wix-automations/triggered-events/report-event)
+3. Call [Report Event](https://dev.wix.com/api/rest/wix-automations/triggered-events/report-event)
     with the payload generated in step 2:
 
     ```json
@@ -158,7 +158,7 @@ You can use the same payload for both triggers.
 **Both triggers: The payload**
 
 For both triggers, create a
-[payload schema](#heading=h.w8zvifreoiua)
+[payload schema](https://dev.wix.com/api/rest/wix-automations/triggered-events/the-payload-schema)
 that includes at least `contact_id` and `appointment_time` properties:
 
 ```json
@@ -289,7 +289,7 @@ that includes at least `contact_id` and `appointment_time` properties:
     }
     ```
 
-4. Call [Report Event](../wix-automations/triggered-events/report-event)
+4. Call [Report Event](https://dev.wix.com/api/rest/wix-automations/triggered-events/report-event)
     for each trigger with the payload generated in step 3.
     Set `externalEntityId` to the `appointment_id` generated in step 2.
     This will allow your app to cancel any pending events in your user's automations
@@ -320,7 +320,7 @@ that includes at least `contact_id` and `appointment_time` properties:
     ```
 
 5. If the appointment is canceled before the start time, call
-    [Cancel Event](../wix-automations/triggered-events/cancel-event)
+    [Cancel Event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)
     for each trigger.
     Set `externalEntityId` to the `appointment_id` generated in step 2,
     which you should have stored in your database.
