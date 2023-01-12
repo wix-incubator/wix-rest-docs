@@ -19,7 +19,7 @@ to allow site collaborators to create automations with your triggers.
 You'll set up your app's trigger in the
 [Wix Developers Center](https://dev.wix.com/apps/)
 and configure your server to report the relevant events via the
-[Triggered Events](../wix-automations/triggered-events/) API.
+[Triggered Events](https://dev.wix.com/api/rest/wix-automations/triggered-events) API.
 
 ## How to become a trigger provider
 
