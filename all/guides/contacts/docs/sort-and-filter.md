@@ -1,61 +1,17 @@
-SortOrder: 6
-# Sorting, Filtering, and Searching
+SortOrder: 5
 
-_List_ and _Query_ endpoints allow you to filter and sort results
-based on some contact properties and extended field values.
-This article covers field support for filtering and sorting.
+# Contacts: Supported Filters, Sorting, and Search
 
-## Sorting
+This article covers field support for filtering, sorting, and searching
+in the Contacts API,
+including for extended fields.
 
-The method you use to sort results depends
-on whether you're calling a
-[List endpoint](#sorting-list-endpoints)
-or a
-[Query endpoint](#sorting-query-endpoints).
-Instructions for both methods are covered below.
-
-By default, contacts are sorted by `createdDate` in ascending order.
-
-### Sorting List Endpoints
-
-_List_ endpoints are designed to be lightweight. They support basic functionality
-for specifying which results you want returned.
-For this reason, when working with a _List_ endpoint,
-sorting is applied through the `sort.fieldName` and `sort.order` query parameters.
-
-For example, to list contacts by last name in ascending order,
-append these query parameters to the request:
-
-```txt
-?sort.fieldName=info.name.last&sort.order=DESC
-```
-
-### Sorting Query Endpoints
-
-_Query_ endpoints contain more robust filtering capabilities
-than _List_ endpoints.
-When working with a _Query_ endpoint,
-sorting is specified in the request body
-with the `query.sort.fieldName` and `query.sort.order` parameters.
-
-For example, to list contacts by last name in ascending order,
-include this code in the request body:
-
-```json
-{
-  "query": {
-    "sort": {
-      "fieldName": "info.name.last",
-      "order": "ASC"
-    }
-  }
-}
-```
-
-## Contact Properties: Filtering, Sorting, and Searching
+## Contact properties: Supported filters, sorting, and search
 
 The table below shows field support for filters, sorting,
-and free-text searching.
+and free-text searching
+for the base set of contact properties.
+It doesn't include extended fields (those are covered in the sections below).
 
 | Field                        | Supported Filters                             | Sortable | Searchable |
 | ---------------------------- | --------------------------------------------- | -------- | ---------- |
@@ -80,32 +36,19 @@ and free-text searching.
 | `info.labelKeys`             | `$hasSome`, `$hasAll`                         |          |            |
 | `info.locations`             | `$hasSome`, `$hasAll`                         |          |            |
 
-## Extended Fields: Filtering, Sorting, and Searching
+## Extended Fields: Supported filters, sorting, and search
 
-> **Deprecation Notice**
->
-> These extended fields have been deprecated
-> and will be removed on March 31, 2022:
->
-> - `contacts.displayByFirstName`
-> - `contacts.displayByLastName`
-> - `ecom.lastPurchaseDate`
-> - `ecom.numOfPurchases`
-> - `ecom.totalSpentAmount`
-> - `ecom.totalSpentCurrency`
-> - `members.mobile`
-
-[Extended fields](https://dev.wix.com/api/rest/contacts/contacts/extended-fields)
-allow apps to add to the available data in the Contact List.
-In addition to the default fields, some Wix apps manage their own extended fields.
+The table below shows field support for filters, sorting,
+and free-text searching
+for the Wix-defined extended fields (also known as system fields).
 
 > **Note:**
-> When working directly with the [contact object](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-object),
-> data in extended fields must be accessed using bracket notation, like this:
-> `info.extendedFields["{key}"]`.
-> However, when querying or sorting,
-> extended field names are flattened with dot notation, like this:
+> When querying or sorting,
+> extended field names are flattened to a dot-separated string, like this:
 > `"info.extendedFields.{key}"`.
+> For example, to query the `emailSubscriptions.effectiveEmail` extended field,
+> use this flattened field name:
+> `"info.extendedFields.emailSubscriptions.effectiveEmail"`.
 
 | Field                                     | Supported Filters         | Sortable | Searchable |
 | ----------------------------------------- | ------------------------- | -------- | ---------- |
@@ -115,72 +58,33 @@ In addition to the default fields, some Wix apps manage their own extended field
 | `emailSubscriptions.subscriptionStatus`   | `$eq`,`$ne`,`$in`, `$nin` |          |            |
 | `emailSubscriptions.effectiveEmail`       | `$exists`                 | Sortable |            |
 
-## Custom Fields: Filtering, Sorting, and Searching
+## Custom Fields: Supported filters, sorting, and search
 
-Extended fields that are created by 3rd-party apps and site contributors
+Extended fields that are created by 3rd-party apps or site contributors
 are known as _custom fields_.
 Site contributors can add, remove, and change custom field names
 from the
 [Contact List](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts)
 in their site's Dashboard.
 
-| Data Type/Format                   | Supported Filters                          | Sortable | Searchable |
-| ---------------------------------- | ------------------------------------------ | -------- | ---------- |
-| String                             | `$eq`, `$ne`, `$in`, `$startsWith`         | Sortable |            |
-| Number                             | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
-| Date string in `YYYY-MM-DD` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |            |
+The table below shows field support for filters, sorting,
+and free-text searching
+for custom fields.
 
-## Examples
+> **Note:**
+> When querying or sorting,
+> extended field names are flattened to a dot-separated string, like this:
+> `"info.extendedFields.{key}"`.
+> For example, to query the `custom.newCustomer` extended field,
+> use this flattened field name:
+> `"info.extendedFields.custom.newCustomer"`.
 
-**Get contacts named 'John'**
+| Data Type/Format                   | Supported Filters                          | Sortable |
+| ---------------------------------- | ------------------------------------------ | -------- |
+| String                             | `$eq`, `$ne`, `$in`, `$startsWith`         | Sortable |
+| Number                             | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |
+| Date string in `YYYY-MM-DD` format | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte` | Sortable |
 
-```sh
-curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
-  --data-binary '{
-    "query": {
-      "filter": {
-        "info.name.first": "John"
-      }
-    }
-  }'
-```
-
-**Get contacts with last name 'Smith', sorted by date of creation**
-
-```sh
-curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
-  --data-binary '{
-    "query": {
-      "filter": {
-        "info.name.last": "Smith"
-      },
-      "sort": [
-        {
-          "fieldName": "createdDate",
-          "order": "ASC"
-        }
-      ]
-    }
-  }'
-```
-
-**Get contacts by IDs**
-
-```sh
-curl 'https://www.wixapis.com/contacts/v4/contacts/query' \
-  -H 'Content-Type: application/json' -H 'Authorization: <AUTH>' \
-  --data-binary '{
-    "query": {
-      "filter": {
-        "id": {
-          "$in": [
-            "de73c8ad-fbaf-490d-a385-2d53b26b3777",
-            "4511f1d2-c129-4b4f-a17c-99dcf07e2a2e"
-          ]
-        }
-      }
-    }
-  }'
-```
+__Related content:__
+[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),
+[Query Contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts)
