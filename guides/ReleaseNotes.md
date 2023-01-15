@@ -11,7 +11,7 @@ are installed with your app,
 allowing site collaborators to create automations
 triggered by events you report and control.
 
-(January 12, 2023)
+(January 15, 2023)
 
 ## New Release: [Wix Blog](wix-blog/blog)
 
