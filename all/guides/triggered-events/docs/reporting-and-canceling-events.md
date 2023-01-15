@@ -10,7 +10,7 @@ in the Wix Developers Center.
 On the other hand, an **event** is what takes place in your service,
 which you then report to Wix.
 (For more complete definitions, see
-[Terminology](https://dev.wix.com/api/rest/wix-automations/introduction?branch=triggered-events#terminology)
+[Terminology](https://dev.wix.com/api/rest/wix-automations/introduction#wix-automations_introduction_terminology)
 in the introduction to this API.)
 
 The distinction between triggers and events is hidden from your users.
@@ -26,8 +26,9 @@ Wix Automations supports 2 types of events for triggers:
 real-time events and scheduled events.
 
 Each trigger can support either real-time events or scheduled events, but not both.
-However, you can call [Report Event](/docs/../report-event/) multiple times
-in response to a single business event in your system.
+However, you can call
+[Report Event](https://dev.wix.com/api/rest/wix-automations/triggered-events/report-event)
+multiple times in response to a single business event in your system.
 
 This table lays out the differences between real-time events and scheduled events:
 
