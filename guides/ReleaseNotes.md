@@ -1,5 +1,28 @@
 # Release Notes
 
+
+## New Release: [Wix Blog](wix-blog/blog)
+
+The [Blog](wix-blog/blog) API introduces new write functionality:
++ The new [Draft Posts](wix-blog/blog/draft-posts) APIs enable you to create, delete, and manage blog draft posts.
++ You can now manage blog categories using the Categories APIs, such as [Create Category](wix-blog/blog/categories/create-category), [Update Category](wix-blog/blog/categories/update-category), and [Delete Category](wix-blog/blog/categories/delete-category).
++ You can now manage blog tags using the Tags APIs, such as [Create Tag](wix-blog/blog/tags/create-tag) and [Delete Tag](wix-blog/blog/tags/create-tag).  
+
+Some Blog API parameters and properties have been renamed. The existing parameters and properties are deprecated and will be removed on June 30, 2023. 
+
+(Dec 20, 2022)
+
+## New Fields: [Restaurants Orders API](wix-restaurants/orders)
+
+The [Order object](wix-restaurants/orders/order-object) has new fields:
++ The new `discounts.catalogDiscountDescription` field is the discount description as defined in the catalog.
++ The new `lineItems.dishOptions.name` field is the line item option name.
++ The new `loyaltyInfo.estimatedAccountBalance` field is the Wix Loyalty estimated account balance.
++ The new `loyaltyInfo.estimatedPointsEarned` field is the Wix Loyalty estimated total earned points.
++ The new `loyaltyInfo.rewardRevision` field is the Wix Loyalty reward revision number.
+
+(December 13, 2022)
+
 ## New Data: [App Instance API](app-management/apps/app-instance)
 + The `copiedFromTemplate` parameter replaces the deprecated `isOriginSiteTemplate` parameter.
 + The `siteId` parameter is Wix's internal unique site identifier.
@@ -55,10 +78,7 @@ The [Members API](members/members) now includes three new webhooks:
 These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
 (September 1, 2022)
 
-## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
-The [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
 
-(August 22, 2022)
 ## New Endpoints: [Site Properties API](business-info/site-properties)
 The [Site Properties API](business-info/site-properties) now includes three new endpoints:
 + [Update Business Contact](business-info/site-properties/properties/update-business-contact) updates a site's business contact information.
