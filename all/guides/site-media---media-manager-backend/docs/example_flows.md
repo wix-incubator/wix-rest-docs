@@ -11,7 +11,7 @@ A real estate agent has a Wix site for his property listings. Each property list
 
 To do this, the real estate company can follow this basic flow. 
 
-1. Use [Search Files](https://dev.wix.com/api/rest/media/files/search-files) to search for all the properties with the 'sold' label:
+1. Use [Search Files](https://dev.wix.com/api/rest/media/media-manager/files/search-files) to search for all the properties with the 'sold' label:
 
    ```json
    {
@@ -20,7 +20,7 @@ To do this, the real estate company can follow this basic flow.
    ```
    The response is an array of file objects containing information about the property listings that match the search term. Each file object has an `id`. These file IDs are needed for the next step.  
 
-2. To delete these sold property listings from the real estate agent's site, the real estate company needs to take the file IDs returned in the previous step, and pass them in the `fileIds` parameter of the [Bulk Delete Files](https://dev.wix.com/api/rest/media/files/bulk-delete-files) endpoint. Deleting these property listings only move them to the Media Manager's trash bin. If the real estate company chooses to permanently delete these property listings from the Media Manager, they should set the `permanent` parameter to `true`.
+2. To delete these sold property listings from the real estate agent's site, the real estate company needs to take the file IDs returned in the previous step, and pass them in the `fileIds` parameter of the [Bulk Delete Files](https://dev.wix.com/api/rest/media/media-manager/files/bulk-delete-files) endpoint. Deleting these property listings only move them to the Media Manager's trash bin. If the real estate company chooses to permanently delete these property listings from the Media Manager, they should set the `permanent` parameter to `true`.
 
    ```json
    {

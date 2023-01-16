@@ -1,9 +1,9 @@
 SortOrder: 0
 # Introduction
 
-The Site Media API allows you to manage media files and folders in a site's Media Manager.
+The Media Manager API allows you to manage media files and folders in a site's Media Manager.
 
-With the Site Media API, you can:
+With the Media Manager API, you can:
 * Manage files in the Media Manager.
 * Manage folders in the Media Manager.
 * Generate temporary URLS for:
@@ -33,16 +33,20 @@ Before using the Import File and Bulk Import Files endpoints, see the article on
   There are 3 types of system folders:
   * **Root Folders:** Main categories of folders the Media Manager. 
     * `MEDIA_ROOT`: Contains all files and folders in the Media Manager's 'Site Files' tab in the UI.
+
       >**Note:** The `MEDIA_ROOT` system folder is different from the `media-root` folder of the Media Manager. The `MEDIA_ROOT` system folder contains all media in all levels of the 'Site Files' tab in the UI, while the `media-root` folder of the Media Manager only contains the media in the root level of the 'Site Files' tab in the UI.
+
     * `TRASH_ROOT`: Contains all files and folders in the Media Manager's 'Trash' tab in the UI.
-    * `VISITOR_UPLOADS_ROOT`: Contains all files and folders created by site visitors or members. 
-      >**Note:** The `VISITOR_UPLOADS_ROOT` folder is located in the 'Site Files' tab in the UI. However, it is its own root folder and doesn't return when searching in the `MEDIA_ROOT` folder. 
+    * `VISITOR_UPLOADS_ROOT`: Contains all files and folders created by site visitors or members.
+
+      >**Note:** The `VISITOR_UPLOADS_ROOT` folder is located in the 'Site Files' tab in the UI. However, it is its own root folder and doesn't return when searching in the `MEDIA_ROOT` folder.
+       
   * **Virtual Folders:** Special categories of folders in the Media Manager that are hidden from the UI and can't be deleted.
     * `MOBILE_UPLOADS`: Contains all media uploaded using mobile devices. 
     * `PURCHASED_ITEMS`: Contains all media imported using a purchase flow.
   * **Other Folders:** 
     * `VIDEO_MAKER`: Contains all videos created using Wix Video Maker. Located in the 'Site Files' tab in the UI.  
-
+                                                                                                                                                                          
 * **File Assets** Wix Media files are optimized for web use. When a file is imported or uploaded to the Media Manager, it is processed and may produce several variations of the file for use in different circumstances.    
   For example:   
     * A video file can have different resolutions and formats.
