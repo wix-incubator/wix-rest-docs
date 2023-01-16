@@ -51,7 +51,7 @@
           "in": "BODY",
           "name": "externalEntityId",
           "type": "string",
-          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#choose-the-right-externalentityid)\nfor more information.\n",
+          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n",
           "required": true
         },
                 {
@@ -72,14 +72,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCancels any remaining actions for a trigger and external entity.\n\n\nEvents are not cancelable by default.\nTo make an event cancelable,\nyou must first pass an `externalEntityId`\nand the applicable `triggerKey` to [Report Event](#report-event).\nWhen you call Cancel Event with the same `externalEntityId` and `triggerKey`,\nthe event is canceled,\nas are all other events that share the `externalEntityId` and `triggerKey`.\nSee\n[Reporting and Canceling Events](#reporting-and-canceling-events)\nfor more information.\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n \n",
+        "summary": "\nCancels any remaining actions for a trigger and external entity.\n\n\nEvents are not cancelable by default.\nTo make an event cancelable,\nyou must first pass an `externalEntityId`\nand the applicable `triggerKey` to [Report Event](#report-event).\nWhen you call Cancel Event with the same `externalEntityId` and `triggerKey`,\nthe event is canceled,\nas are all other events that share the `externalEntityId` and `triggerKey`.\nSee\n[Reporting and Canceling Events](#reporting-and-canceling-events)\nfor more information.\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__  \nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/automations/v1/events/cancel",
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["curl POST https://wixapis.com/automations/v1/events/cancel  \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\"trigger_key\":\"my_trigger\", \"external_entity_id\":\"16ef8c9c-413e-4d5f-b77d-8c67c3c8ae0c\"}'"],
+          "body": ["curl POST https://wixapis.com/automations/v1/events/cancel  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>' \\\n  -d '{\n    \"triggerKey\": \"my_trigger\",\n    \"externalEntityId\": \"16ef8c9c-413e-4d5f-b77d-8c67c3c8ae0c\"\n  }'"],
           "response": ["{} "],
           "type": "curl",
           "extra": {}
@@ -98,20 +98,7 @@
       "methodName": "ReportEvent",
       "serviceName": "EsbConfigResolver",
       "tag": "Triggered Events",
-      "permissions":       [
-                {
-          "name": "Set Up Automations",
-          "description": "Can create and manage automated responses by email, chat and more."
-        },
-                {
-          "name": "Zapier Setup Automation",
-          "description": "This scope will be used for the app we created that will be used for getting the authorization for accessing automation service methods"
-        },
-                {
-          "name": "Manage Automation Events",
-          "description": "Manage Automation Events"
-        }
-      ],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -135,7 +122,7 @@
           "in": "BODY",
           "name": "externalEntityId",
           "type": "string",
-          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#choose-the-right-externalentityid)\nfor more information.\n",
+          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n",
           "required": false
         }
       ],
@@ -149,14 +136,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nReports an event and activates site automations with the specified trigger key.\n\n\nOnly the app that created a trigger can report events for it.\nThis means other apps can't report events for your triggers,\nand you can't report events for another app's triggers.\n\nIf your app supports canceling events,\n`externalEntityId` must be provided.\n`externalEntityId` is required when calling [Cancel Event](#cancel-event).\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n \n",
+        "summary": "\nReports an event and activates site automations with the specified trigger key.\n\n\nOnly the app that created a trigger can report events for it.\nThis means other apps can't report events for your triggers,\nand you can't report events for another app's triggers.\n\nIf your app supports canceling events,\n`externalEntityId` must be provided.\n`externalEntityId` is required when calling [Cancel Event](#cancel-event).\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__  \nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/automations/v1/events/report",
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["curl POST https://wixapis.com/automations/v1/events/report  \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\"trigger_key\":\"my_trigger\",\"payload\":{\"name\":\"John Doe\"}, \"external_entity_id\":\"16ef8c9c-413e-4d5f-b77d-8c67c3c8ae0c\"}'"],
+          "body": ["curl POST https://wixapis.com/automations/v1/events/report  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>' \\\n  -d '{\n    \"triggerKey\": \"my_trigger\",\n    \"payload\": {\n      \"name\": \"John Doe\"\n    },\n    \"externalEntityId\": \"16ef8c9c-413e-4d5f-b77d-8c67c3c8ae0c\"\n  }'"],
           "response": ["{} "],
           "type": "curl",
           "extra": {}
@@ -1109,7 +1096,7 @@
                 {
           "name": "externalEntityId",
           "type": "string",
-          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#choose-the-right-externalentityid)\nfor more information.\n"
+          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n"
         }
       ],
       "enum": null,
@@ -1143,7 +1130,7 @@
                 {
           "name": "externalEntityId",
           "type": "string",
-          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#choose-the-right-externalentityid)\nfor more information.\n"
+          "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n"
         },
                 {
           "name": "triggerKey",
