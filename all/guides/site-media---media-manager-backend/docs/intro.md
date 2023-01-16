@@ -40,12 +40,14 @@ Before using the Import File and Bulk Import Files endpoints, see the article on
     * `VISITOR_UPLOADS_ROOT`: Contains all files and folders created by site visitors or members.
 
       >**Note:** The `VISITOR_UPLOADS_ROOT` folder is located in the 'Site Files' tab in the UI. However, it is its own root folder and doesn't return when searching in the `MEDIA_ROOT` folder.
-       
+
   * **Virtual Folders:** Special categories of folders in the Media Manager that are hidden from the UI and can't be deleted.
     * `MOBILE_UPLOADS`: Contains all media uploaded using mobile devices. 
     * `PURCHASED_ITEMS`: Contains all media imported using a purchase flow.
+
   * **Other Folders:** 
     * `VIDEO_MAKER`: Contains all videos created using Wix Video Maker. Located in the 'Site Files' tab in the UI.  
+
                                                                                                                                                                           
 * **File Assets** Wix Media files are optimized for web use. When a file is imported or uploaded to the Media Manager, it is processed and may produce several variations of the file for use in different circumstances.    
   For example:   
