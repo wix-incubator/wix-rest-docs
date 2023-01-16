@@ -41,6 +41,10 @@ at least 6 months after their announced deprecation.
   `fieldSet` parameter is replaced by `fieldsets`.
   (Announced September 1, 2022)
 
+## End of Life: October 24, 2022
+
+- [Bookings External Calendar Sync](https://dev.wix.com/api/rest/wix-bookings/external-calendar-sync): Sync
+
 ## End of Life: September 30, 2022
 
 - [Order Created webhook](wix-restaurants/orders/order-created-webhook)
