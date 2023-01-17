@@ -72,7 +72,7 @@ https://wixapis.com/apps/v1/post-installation/editor-deep-link \
 > **Note:**
 > Parameters passed in the body of the API request will only populate the Settings panel if their keys match the keys already present in the settings panel.
 
-When users install your app they have access to the same settings panel. The values you set, either in the Settings panel or in the body of the API request, are presented to users as defaul or initial settings that can be changed by the user.
+When users install your app they have access to the same settings panel. The values you set, either in the Settings panel or in the body of the API request, are presented to users as default or initial settings that can be changed by the user.
 
 ![Custom Element](./../../media/custom-plus-settings.png)
 
