@@ -45,6 +45,7 @@ Before using the Import File and Bulk Import Files endpoints, see the article on
     * `MOBILE_UPLOADS`: Contains all media uploaded using mobile devices. 
     * `PURCHASED_ITEMS`: Contains all media imported using a purchase flow.
 
+
   * **Other Folders:** 
     * `VIDEO_MAKER`: Contains all videos created using Wix Video Maker. Located in the 'Site Files' tab in the UI.  
 
