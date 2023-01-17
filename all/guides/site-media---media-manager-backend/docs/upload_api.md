@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 3
 # Upload API
 This article demonstrates how to use the `uploadUrl` response from the [Generate File Upload Url](https://dev.wix.com/api/rest/media/media-manager/files/generate-file-upload-url) endpoint to upload a file to a site's Media Manager. 
 ## Authorization
