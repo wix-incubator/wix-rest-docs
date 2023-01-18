@@ -1,4 +1,4 @@
-SortOrder: 3
+SortOrder: 4
 # Resumable Upload API
 This article demonstrates how to use the response object from the [Generate File Resumable Upload Url](https://dev.wix.com/api/rest/media/media-manager/files/generate-file-resumable-upload-url) endpoint to upload a file to a site's Media Manager. 
 ## Authorization
