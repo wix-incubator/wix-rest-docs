@@ -27,8 +27,8 @@ Fields marked with an asterisk (*) signify little to no change in semantics or s
 | `appliedCoupon.discountValue`                      | This field is held only in the [Checkout object](https://dev.wix.com/api/rest/ecommerce/checkout/checkout-object) under `appliedDiscounts[i].coupon.amount.amount`.                                 |
 | `appliedCoupon.convertedDiscountValue`             | This field is held only in the [Checkout object](https://dev.wix.com/api/rest/ecommerce/checkout/checkout-object) under `appliedDiscounts[i].coupon.amount.convertedAmount`.                               |
 | `appliedCoupon.couponType`                         | No longer returned.                                         |                            |
-| `totals`                   | Totals are available by passing the cart ID to the Cart API's [Estimate Totals](https://dev.wix.com/api/rest/ecommerce/cart/estimate-totals) endpoint, under `priceSummary` in the response.                                               |                                             |
-| `convertedTotals`          | Converted totals are available by passing the cart ID to the Cart API's [Estimate Totals](https://dev.wix.com/api/rest/ecommerce/cart/estimate-totals) endpoint, under `priceSummary` in the response.                                                   |
+| `totals`                   | Future functionality will see this information made available in the eCommerce Cart API.                                               |                                             |
+| `convertedTotals`          | Future functionality will see this information made available in the eCommerce Cart API.                                                   |
 | `shippingInfo`        | Shipping information is now only kept in [Checkout](https://dev.wix.com/api/rest/ecommerce/checkout/checkout-object).                                              |
 | `buyerInfo.id` and `buyerInfo.identityType: CONTACT`| `buyerInfo.contactId` only.                                               |
 | `buyerInfo.id` and `buyerInfo.identityType: VISITOR`| `buyerInfo.visitorId` only.                                              |
@@ -38,7 +38,7 @@ Fields marked with an asterisk (*) signify little to no change in semantics or s
 | `buyerInfo.firstName` | Buyer first name is now only kept in [Checkout](https://dev.wix.com/api/rest/ecommerce/checkout/checkout-object).                                               |
 | `buyerInfo.lastName`  | Buyer last name is now only kept in [Checkout](https://dev.wix.com/api/rest/ecommerce/checkout/checkout-object).                                               |
 | `lineItems[i].id`                                | `lineItems[i].id` - **Note:** this `id` is of type GUID. In the Stores Cart API, the `lineItem.id` is of type Int32.                                              |
-| `lineItems[i].productId`                         | `lineItems[i].catalogReference.catalogItemId` - Learn more about [integrating Stores Catalog with eCommerce](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration). |
+| `lineItems[i].productId`                         | `lineItems[i].catalogReference.catalogItemId` - See [Stores Catalog eCommerce Integration](https://bo.wix.com/wix-docs/rest/stores/stores-catalog/ecommerce-integration) for more information. |
 | `lineItems[i].name`                              | `lineItems[i].productName.original`                          |
 | `lineItems[i].quantity`                          | `lineItems[i].quantity`                          |
 | `lineItems[i].weight`                            | `lineItems[i].physicalProperties.weight`                  |
@@ -52,7 +52,7 @@ Fields marked with an asterisk (*) signify little to no change in semantics or s
 | `lineItems[i].mediaItem.url`                     | `lineItems[i].media.url`                                               |
 | `lineItems[i].mediaItem.width`                   | `lineItems[i].media.width`                                               |
 | `lineItems[i].mediaItem.height`                  | `lineItems[i].media.height`                                               |
-| `lineItems[i].options`                           | `lineItems[i].descriptionLines` - For more details see [Stores Catalog eCommerce Reference](https://bo.wix.com/wix-docs/rest/stores/stores-catalog/ecommerce-integration).
+| `lineItems[i].options`                           | `lineItems[i].descriptionLines` - See [Stores Catalog eCommerce Integration](https://bo.wix.com/wix-docs/rest/stores/stores-catalog/ecommerce-integration) for more information.
 | `lineItems[i].priceData.price`                   | `lineItems[i].price.amount`                                               |
 | `lineItems[i].priceData.totalPrice`              | `lineItems[i].price.amount` X `lineItems[i].quantity`                                 |
 | `lineItems[i].convertedPriceData.price`          | `lineItems[i].price.convertedAmount`                                               |
