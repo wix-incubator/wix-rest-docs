@@ -1,7 +1,7 @@
 SortOrder: 1
 # Stores Cart to eCommerce Checkout Conversion Table
 
-To help with migration from the [Stores Cart API](https://dev.wix.com/api/rest/wix-stores/carts/cart-object) to the eCommerce [Checkout](https://dev.wix.com/api/rest/ecommerce/checkout/introduction) API, refer to the table below for changes in name and/or location.
+To help with migration to the eCommerce API, refer to the table below for differences between the Stores Cart and eCommerce Checkout objects.
 
 The address object used in the eCommerce APIs is slightly different to the one used in the Stores APIs. For more details, refer to the [address object conversion table](https://dev.wix.com/api/rest/ecommerce/checkout/address-object-conversion).
 
@@ -62,7 +62,7 @@ The address object used in the eCommerce APIs is slightly different to the one u
 | `buyerInfo.firstName`                              | `billingInfo.contactDetails.firstName`                                    |
 | `buyerInfo.lastName`                               | `billingInfo.contactDetails.lastName`                                     |
 | `lineItems[i].id`                                  | `lineItems[i].id` - **Note:** this `id` is of type GUID. In the Stores Cart API, this `id` was of type Int32.                                               |
-| `lineItems[i].productId`                           | `lineItems[i].catalogReference.catalogItemId` - Learn more about [integrating Stores Catalog with eCommerce](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration).
+| `lineItems[i].productId`                           | `lineItems[i].catalogReference.catalogItemId` - See [Stores Catalog eCommerce Integration](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration) for more information.
 | `lineItems[i].name`                                | `lineItems[i].productName.original`                          |
 | `lineItems[i].quantity`                            | `lineItems[i].quantity`                          |
 | `lineItems[i].weight`                              | `lineItems[i].physicalProperties.weight`                  |
@@ -76,7 +76,7 @@ The address object used in the eCommerce APIs is slightly different to the one u
 | `lineItems[i].mediaItem.url`                       | `lineItems[i].media.url`                                               |
 | `lineItems[i].mediaItem.width`                     | `lineItems[i].media.width`                                               |
 | `lineItems[i].mediaItem.height`                    | `lineItems[i].media.height`                                               |
-| `lineItems[i].options`                             | `lineItems[i].catalogReference.options` - Learn more about [integrating Stores Catalog with eCommerce](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration).
+| `lineItems[i].options`                             | `lineItems[i].catalogReference.options` - See [Stores Catalog eCommerce Integration](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration) for more information.
 | `lineItems[i].priceData.price`                     | `lineItems[i].price.amount`                                               |
 | `lineItems[i].priceData.totalPrice`                | `lineItems[i].price.amount` X `lineItems[i].quantity`                                 |
 | `lineItems[i].convertedPriceData.price`            | `lineItems[i].price.convertedAmount`                                               |
