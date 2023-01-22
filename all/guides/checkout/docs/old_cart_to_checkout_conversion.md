@@ -3,7 +3,7 @@ SortOrder: 1
 
 To help with migration to the eCommerce API, refer to the table below for differences between the Stores Cart and eCommerce Checkout objects.
 
-The address object used in the eCommerce APIs is slightly different to the one used in the Stores APIs. For more details, refer to the [address object conversion table](https://dev.wix.com/api/rest/ecommerce/checkout/address-object-conversion).
+The address object used in the eCommerce APIs is slightly different to the one used in the Stores APIs. For more details, refer to the [address object conversion table](https://dev.wix.com/api/rest/wix-ecommerce/checkout/address-object-conversion).
 
 | Stores Cart Object                              | eCommerce Checkout Object                                 |
 | ------------------------------------------------|-----------------------------------------------------------|
@@ -15,7 +15,7 @@ The address object used in the eCommerce APIs is slightly different to the one u
 | `currency.symbol`                               | For every price returned, we also provide the formatted price under `checkout.priceSummary`.                                                         |
 | `convertedCurrency.code`                        | `conversionCurrency`                                      |
 | `convertedCurrency.symbol`                      | For every converted price returned, we also provide the formatted converted price under `checkout.priceSummary`.                                                         |
-| `billingAddress.address`| `billingInfo.address` - See [address object conversion table](https://dev.wix.com/api/rest/ecommerce/checkout/address-object-conversion) for more details.
+| `billingAddress.address`| `billingInfo.address` - See [address object conversion table](https://dev.wix.com/api/rest/wix-ecommerce/checkout/address-object-conversion) for more details.
 | `billingAddress.contactDetails.firstName`       | `billingInfo.contactDetails.firstName`              |
 | `billingAddress.contactDetails.lastName`        | `billingInfo.contactDetails.lastName`               |
 | `billingAddress.contactDetails.phone`           | `billingInfo.contactDetails.phone`              |
@@ -46,13 +46,13 @@ The address object used in the eCommerce APIs is slightly different to the one u
 | `shippingInfo.shippingRuleDetails.optionId`              | `ֿֿֿֿֿֿֿֿshippingInfo.selectedCarrierServiceOption.title`                                              |
 | `shippingInfo.shippingRuleDetails.deliveryOption`        | `ֿֿֿֿֿֿֿֿshippingInfo.selectedCarrierServiceOption.title`                                                |
 | `shippingInfo.shippingRuleDetails.estimatedDeliveryTime` | `ֿֿֿֿֿֿֿֿshippingInfo.logistics.deliveryTime`                                              |
-| `shippingInfo.pickupDetails.pickupAddress`               | `shippingInfo.selectedCarrierServiceOption.logistics.pickupDetails.address` - See [address object conversion table](https://dev.wix.com/api/rest/ecommerce/checkout/address-object-conversion) for more details.  |
+| `shippingInfo.pickupDetails.pickupAddress`               | `shippingInfo.selectedCarrierServiceOption.logistics.pickupDetails.address` - See [address object conversion table](https://dev.wix.com/api/rest/wix-ecommerce/checkout/address-object-conversion) for more details.  |
 | `shippingInfo.pickupDetails.buyerDetails.firstName`      | `shippingInfo.shippingDestination.contactDetails.firstName`                                     |
 | `shippingInfo.pickupDetails.buyerDetails.lastName`       | `shippingInfo.shippingDestination.contactDetails.lastName`                                     |
 | `shippingInfo.pickupDetails.buyerDetails.email`          | `buyerInfo.email`                                     |
 | `shippingInfo.pickupDetails.buyerDetails.phone`          | `shippingInfo.shippingDestination.contactDetails.phone`                                     |
 | `shippingInfo.pickupDetails.pickupInstructions`    | `shippingInfo.logistics.instructions`                                     |
-| `shippingInfo.shippingAddress.address`             | `shippingInfo.shippingDestination.address` - See [address object conversion table](https://dev.wix.com/api/rest/ecommerce/checkout/address-object-conversion) for more details.  |
+| `shippingInfo.shippingAddress.address`             | `shippingInfo.shippingDestination.address` - See [address object conversion table](https://dev.wix.com/api/rest/wix-ecommerce/checkout/address-object-conversion) for more details.  |
 | `shippingInfo.shippingAddress.contactDetails`      | `shippingInfo.shippingDestination.contactDetails` |          |
 | `buyerInfo.id` and `buyerInfo.identityType: CONTACT`| `buyerInfo.contactId` only.                                               |
 | `buyerInfo.id` and `buyerInfo.identityType: VISITOR`| `buyerInfo.visitorId` only.                                               |
