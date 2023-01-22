@@ -1,5 +1,41 @@
 # Release Notes
 
+## New Release: [Pro Gallery](site-content/pro-gallery)
+
+Site Content has a new Pro Gallery API.
+
+The Pro Gallery API enables 3rd-parties to view and manage pro galleries on a Wix site's backend. The new API includes:
++ [Creating a gallery](site-content/pro-gallery/create-gallery-item).
++ [Creating a gallery item](site-content/pro-gallery/create-gallery).
++ [List Galleries](site-content/pro-gallery/list-galleries).
++ [List Gallery items](site-content/pro-gallery/list-gallery-items).
+
+(January 17, 2023)
+
+## New Release: [Media](media)
+
+The new Media API
+enables 3rd-parties to view and manage content in the [Media Manager](media/media-manager) such as:
++ [Importing a file](media/media-manager/files/import-file) to the Media Manager.
++ [Generating a video streaming URL](media/media-manager/files/generate-video-streaming-url).
++ [Searching for a file](https://dev.wix.com/api/rest/media/media-manager/files/search-files) in the Media Manager.
++ [Creating a new folder](https://dev.wix.com/api/rest/media/media-manager/folders/create-folder) in the Media Manager. 
++ [Getting a folder](https://dev.wix.com/api/rest/media/media-manager/folders/get-folder) from the Media Manager. 
+
+(January 17, 2023)
+
+## New Release: [Wix Automations](wix-automations)
+
+The new Wix Automations API
+introduces configuration options for you to become a
+[trigger provider](wix-automations/introduction#how-to-become-a-trigger-provider).
+As a trigger provider,
+your custom triggers and trigger payloads
+are installed with your app,
+allowing site collaborators to create automations
+triggered by events you report and control.
+
+(January 15, 2023)
 
 ## New Release: [Wix Blog](wix-blog/blog)
 
