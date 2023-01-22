@@ -1,12 +1,12 @@
 SortOrder: 2
 # Stores to eCommerce Order Object Conversion
 
-To help with migration to the eCommerce Orders API, refer to the table below for field changes between the [Stores order object](https://dev.wix.com/api/rest/wix-stores/orders/order-object) and the [eCommerce order object](https://dev.wix.com/api/rest/ecommerce/orders/order-object).
+To help with migration to the eCommerce Orders API, refer to the table below for field changes between the [Stores order object](https://dev.wix.com/api/rest/wix-stores/orders/order-object) and the [eCommerce order object](https://dev.wix.com/api/rest/wix-ecommerce/orders/order-object).
 
 Note that some fields are accessible via other eCommerce APIs. In these cases, the field in the 2nd column refers to its
 location in the other API, which is specified in the 3rd column.
 
-The address object used in the eCommerce APIs is slightly different to the one used in the Stores APIs. For more details, refer to the [address object conversion table](https://dev.wix.com/api/rest/ecommerce/orders/address-object-conversion).
+The address object used in the eCommerce APIs is slightly different to the one used in the Stores APIs. For more details, refer to the [address object conversion table](https://dev.wix.com/api/rest/wix-ecommerce/orders/address-object-conversion).
 
 Fields marked with an asterisk (*) signify little to no change in semantics or access.
 
@@ -122,7 +122,7 @@ The following list shows Stores Orders webhooks and the eCommerce webhooks (acro
 
 | Stores Orders API                                                                         | eCommerce Orders API                                                         |
 |----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| [Order Paid Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-paid-webhook) | Orders - [Payment Status Updated Webhook](https://dev.wix.com/api/rest/ecommerce/orders/payment-status-updated-webhook) sent with `order.paymentStatus = PAID` |
-| [Order Created Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-created-webhook) | Orders - [Order Approved Webhook](https://dev.wix.com/api/rest/ecommerce/orders/order-approved-webhook)  |
-| [Order Canceled Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-canceled-webhook) | Orders - [Order Canceled Webhook](https://dev.wix.com/api/rest/ecommerce/orders/order-canceled-webhook) |
-| Fulfillment [Created](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-created-webhook) / [Updated](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-updated-webhook) / [Deleted](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-deleted-webhook) Webhooks | [Fulfillment Status Updated Webhook](https://dev.wix.com/api/rest/ecommerce/orders/fulfillment-status-updated-webhook) |
+| [Order Paid Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-paid-webhook) | Orders - [Payment Status Updated Webhook](https://dev.wix.com/api/rest/wix-ecommerce/orders/payment-status-updated-webhook) sent with `order.paymentStatus = PAID` |
+| [Order Created Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-created-webhook) | Orders - [Order Approved Webhook](https://dev.wix.com/api/rest/wix-ecommerce/orders/order-approved-webhook)  |
+| [Order Canceled Webhook](https://dev.wix.com/api/rest/wix-stores/orders/order-canceled-webhook) | Orders - [Order Canceled Webhook](https://dev.wix.com/api/rest/wix-ecommerce/orders/order-canceled-webhook) |
+| Fulfillment [Created](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-created-webhook) / [Updated](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-updated-webhook) / [Deleted](https://dev.wix.com/api/rest/wix-stores/orders/fulfillment-deleted-webhook) Webhooks | [Fulfillment Status Updated Webhook](https://dev.wix.com/api/rest/wix-ecommerce/orders/fulfillment-status-updated-webhook) |
