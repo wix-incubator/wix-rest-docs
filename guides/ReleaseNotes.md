@@ -2,10 +2,10 @@
 
 ## New Release: [Wix eCommerce](wix-ecommerce)
 
-The new Wix eCommerce API introduces functionality that enables you to read eCommerce cart, checkout, and order information, as well as listen to webhooks. The new API includes:
-+ [Get Cart](wix-ecommerce/cart/get-cart).
-+ [Get Checkout](wix-ecommerce/checkout/get-checkout).
-+ [Get Order](wix-ecommerce/orders/get-order).
+Wix eCommerce introduces new APIs functionality that enables you to read eCommerce cart, checkout, and order information, as well as listen to webhooks. The new API includes:
++ [Cart API](wix-ecommerce/cart).
++ [Checkout API](wix-ecommerce/checkout).
++ [Order API](wix-ecommerce/orders).
 
 (January 22, 2023)
 
