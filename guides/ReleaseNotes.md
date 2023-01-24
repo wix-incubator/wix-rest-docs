@@ -1,5 +1,13 @@
 # Release Notes
 
+## New Release: [Site Actions](site-actions)
+
+[Account Level APIs](account-level-apis/) has a new Site Actions API that enables you to manage sites. The new API introduces the [Bulk Delete Site](site-actions/bulk-delete-site) endpoint.
+
+As with other Account Level APIs, Site Actions APIs are accessible only using API keys.
+
+(January 25, 2023)
+
 ## New Release: [Wix eCommerce](wix-ecommerce)
 
 Wix eCommerce introduces new APIs functionality that enables you to read eCommerce cart, checkout, and order information, as well as listen to webhooks. The new APIs includes:
