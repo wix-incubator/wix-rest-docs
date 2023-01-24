@@ -1,0 +1,268 @@
+{
+  "name": "Site Actions API",
+  "client_id": "https://github.com/wix-private/npm-proto-bazel/tree/master/com_wixpress_proto_site-actions-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "API for managing site-actions",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Site Actions",
+    "entity": null
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/site-actions-api/docs/README-External.md",
+    "name": "Introduction"
+  }],
+  "operations": [  {
+    "name": "Bulk Delete Site",
+    "methodName": "BulkDeleteSite",
+    "serviceName": "SiteActionsService",
+    "tag": "Site Actions",
+    "permissions": [    {
+      "name": "Manage Sites",
+      "description": "Request permission to manage the account's sites."
+    }],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields": ["ids"],
+    "params": [    {
+      "in": "BODY",
+      "name": "ids",
+      "type":       {
+        "name": "array",
+        "typeParams": ["string"]
+      },
+      "doc": " Site ids. \n\n Min: 1 site ID <br>\n Max: 20 site IDs\n",
+      "required": true
+    }],
+    "ret":     {
+      "type":       {
+        "name": "BulkDeleteSite",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Site Actions API._com_wix_site_actions_BulkDeleteSiteResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " This endpoint enables you to delete multiple sites.  \n\n This is not a permanent delete. Sites are moved to the trash bin and can be restored through site collaborators.\n\n > **Important:** This call requires an account level API key and cannot be authenticated with the standard authorization header. \n  \n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/site-actions/v1/bulk/sites/delete",
+      "links": [],
+      "examples": [      {
+        "title": "Bulk delete 2 sites",
+        "body": ["curl 'https://www.wixapis.com/site-actions/v1/bulk/sites/delete' \\\n  -H 'accept: application/json' \\\n  -H 'content-type: application/json' \\\n  -H 'authorization: <AUTH>' \\\n  -d '{\n    \"ids\": [\n      \"9f023696-c821-4e09-b1d0-55357272ff2a\",\n      \"da0c7663-e375-48a9-b273-f0bd45c933a9\"\n    ]\n  }'"],
+        "response": ["{\n  \"results\":   [\n    {\"itemMetadata\":     {\n      \"id\": \"9f023696-c821-4e09-b1d0-55357272ff2a\",\n      \"originalIndex\": \"0\",\n      \"success\": true,\n      \"error\": null\n    }},\n    {\"itemMetadata\":     {\n      \"id\": \"da0c7663-e375-48a9-b273-f0bd45c933a9\",\n      \"originalIndex\": \"1\",\n      \"success\": false,\n      \"error\":       {\n        \"code\": \"PREMIUM_NOT_PERMITTED\",\n        \"description\": \"unassign premium request: NOT_PERMITTED\"\n      }\n    }}\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 1,\n    \"totalFailures\": 1\n  }\n} "],
+        "type": "curl",
+        "extra": {}
+      }],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "BulkDeleteSiteRequest",
+      "rpcResponseName": "BulkDeleteSiteResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_site_actions_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.  \n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of error.  \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of sites that were deleted successfully.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of sites that were not deleted successfully.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Site ID.\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the site in the request array. Allows for correlation between request and response.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for the site. When `false`, the action failed and an `error` object is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Site Actions API._com_wix_site_actions_ApplicationError",
+          "doc": " Details about the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_DuplicateSiteRequest",
+      "displayName": "Duplicate Site Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "newSiteName",
+        "type": "string",
+        "doc": " Site name for the new site. between 1 to 20 characters\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_DuplicateSiteResponse",
+      "displayName": "Duplicate Site Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "newSiteId",
+        "type": "string",
+        "doc": " New site id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_BulkDeleteSiteRequest",
+      "displayName": "Bulk Delete Site Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "ids",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Site ids. \n\n Min: 1 site ID <br>\n Max: 20 site IDs\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_BulkDeleteSiteResponse",
+      "displayName": "Bulk Delete Site Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Site Actions API._com_wix_site_actions_BulkSiteResult"]
+          },
+          "doc": " List of deletion results.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Site Actions API._com_wix_site_actions_BulkActionMetadata",
+          "doc": " Summary of deletion data.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_site_actions_BulkSiteResult",
+      "displayName": "Bulk Site Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "itemMetadata",
+        "type": "All APIs.Site Actions API._com_wix_site_actions_ItemMetadata",
+        "doc": " Result of deletion request per site describing the success or failure of the deletions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.site-actions.site-actions-server"}
+}
