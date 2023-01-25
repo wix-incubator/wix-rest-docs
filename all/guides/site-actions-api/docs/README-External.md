@@ -11,4 +11,4 @@ The Site Actions API enables management of Wix sites. Currently, the Site Action
 
 It’s important to note the following before starting to code:  
 
-* A maximum of 20 sites can be deleted each time the ‘bulk delete site’ endpoint is run.
+* A maximum of 20 sites can be deleted each time the Bulk Delete Site endpoint is run.
