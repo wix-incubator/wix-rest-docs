@@ -1,16 +1,19 @@
 SortOrder: 1
 # About the Domain Connections API
 
-
 With the Domain Connections API you can connect a root domain or subdomain to a Wix 
 site. You can only connect external domains.
 
 The domain can be assigned as a primary domain or a redirect. You can read more 
 about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).
 
+## Before you begin
+
++ You can only connect domains to a Wix site with an active [Premium plan](https://support.wix.com/en/article/upgrading-your-site-to-premium-3066683) that supports domains with the relevant TLD.
++ The `dnsRecords` array doesn't include the default nameserver record. Instead, the default nameserver is stored in a separate read-only `nsRecord` object.
++ Wix doesn't manage the DNS records for domains connected by pointing.
 
 ## Terminology
-
 
 + __Wix Domain__: A domain owned by Wix and billed through Wix.
 + __External Domain__: A domain owned by an external provider, not Wix.
@@ -21,11 +24,3 @@ about [primary and redirected domains](https://support.wix.com/en/article/switch
 + __Root domain__: Highest hierarchy level of the DNS. 
   Consists of the domain name and TLD. For example, `my-example-domain.com`.
 + __Subdomain__: Lower hierarchy level of the DNS. For example, `support.my-example-domain.com`.
-
-
-## Before you begin
-
-
-+ You can only connect domains to a Wix site with an active [Premium plan](https://support.wix.com/en/article/upgrading-your-site-to-premium-3066683) that supports domains with the relevant TLD.
-+ The `dnsRecords` array doesn't include the default nameserver record. Instead, the default nameserver is stored in a separate read-only `nsRecord` object.
-+ Wix doesn't manage the DNS records for domains connected by pointing.
