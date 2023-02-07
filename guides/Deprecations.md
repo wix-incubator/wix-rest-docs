@@ -127,6 +127,7 @@ at least 6 months after their announced deprecation.
 ## End of Life: June 30, 2021
 
 - [Contacts v1](contacts/contacts): All endpoints
+- Create Event v1.
 
 ## Deprecated With Continued Support (No End of Life)
 
