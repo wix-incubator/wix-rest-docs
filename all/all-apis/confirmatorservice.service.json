@@ -1,0 +1,1239 @@
+{
+  "name": "ConfirmatorService",
+  "client_id": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/bookingsV2/bookings-confirmator#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Short description of ConfirmatorService",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Bookings Confirmator",
+    "entity": null
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/confirmatorservice/docs/README.md",
+    "name": "Introduction"
+  }],
+  "operations": [  {
+    "name": "Confirm Or Decline Booking",
+    "methodName": "ConfirmOrDeclineBooking",
+    "serviceName": "Confirmator",
+    "tag": "Bookings Confirmator",
+    "permissions": [    {
+      "name": "Manage Bookings",
+      "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+    }],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields": ["bookingId"],
+    "params":     [
+            {
+        "in": "PATH",
+        "name": "bookingId",
+        "type": "string",
+        "doc": "ID of the booking to be confirmed or declined.\n",
+        "required": true
+      },
+            {
+        "in": "BODY",
+        "name": "paymentStatus",
+        "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+        "doc": " Will be passed to bookings.update to indicate the payment status.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "contactId",
+        "type": "string",
+        "doc": " Contact's ID.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "ConfirmOrDeclineBooking",
+        "statusCode": "200",
+        "typeParams": ["All APIs.ConfirmatorService._com_wixpress_bookings_confirmator_v2_ConfirmOrDeclineBookingResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " The table below explains how the new booking status is set. It takes into account the following parameters:\n\n 1. `skipBusinessConfirmation` as set on the `Booking` entity on creation\n 2. `doubleBooking` - which indicates if this booking might cause over-booking. See details below.\n 3. `payment`, which is `true` if the `paymentStatus` that is passed is either `PAID` or `PARTIALLY_PAID`.\n\n|                                \t| doubleBooking=false, payment = false \t| doubleBooking=false, payment = true \t| doubleBooking=true, payment = false \t| doubleBooking=true, payment = true \t|\n|--------------------------------\t|--------------------------------------\t|-------------------------------------\t|-------------------------------------\t|------------------------------------\t|\n| skipBusinessConfirmation=true  \t| CONFIRMED                            \t| CONFIRMED                           \t| declined                            \t| CONFIRMED                          \t|\n| skipBusinessConfirmation=false \t| CONFIRMED/PENDING *                  \t| CONFIRMED/PENDING *                 \t| declined                            \t| CONFIRMED/PENDING *                \t|\n\n * depends if the service policy is defined with isBusinessApprovalRequired=true\n\n How `doubleBooking` is calculated:\n\n 1. If `skipAvailabilityValidation` that is set on the booking is `true`, the booking will never be considered as\n    doubleBooking.\n 2. If `skipAvailabilityValidation` is false:\n     1. For class and course bookings, the bookings is considered as **NOT** double booking if the session/schedule\n        capacity, minus number of `CONFIRMED` bookings to the same session/schedule is bigger than the number of participants\n        on the booking, as set in `totalParticipants`/`participantsChoices`\n     2. For appointment bookings, the booking is considered as **NOT** double booking if there are no\n        overlapping bookings of the same staff member and the same service\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/confirmator/v2/bookings/confirmation/{bookingId}:confirmOrDecline",
+      "links": [],
+      "examples":       [
+                {
+          "title": "Confirm a paid booking",
+          "body": ["curl -X POST \\ \n'www.wixapis.com/_api/bookings-confirmator/v2/bookings/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n--data '{\n    \"paymentStatus\": \"PAID\"\n}'"],
+          "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"Torat HaYahasut St 11, Be'er Sheva\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"additionalFields\": [],\n  \"numberOfParticipants\": 1,\n  \"status\": \"CONFIRMED\",\n  \"paymentStatus\": \"PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"11\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:30:41.637Z\",\n  \"totalParticipants\": 1\n}} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Declining a booking",
+          "body": ["curl --request POST 'www.wixapis.com/_api/bookings-confirmator/v2/bookings/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n--data '{\n    \"paymentStatus\": \"NOT_PAID\"\n}'"],
+          "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"Torat HaYahasut St 11, Be'er Sheva\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"numberOfParticipants\": 1,\n  \"status\": \"DECLINED\",\n  \"paymentStatus\": \"NOT_PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"10\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:23:11.794Z\",\n  \"totalParticipants\": 1\n}} "],
+          "type": "curl",
+          "extra": {"description": "Since confirming this booking will cause a double booking, and no money was transferred (payment status is NOT_PAID), the booking is declined"}
+        },
+                {
+          "title": "Fail to confirm an already confirmed booking",
+          "body": ["curl --request POST 'www.wixapis.com/_api/bookings-confirmator/v2/bookings/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n--data '{\n    \"paymentStatus\": \"PAID\"\n}'"],
+          "response": ["{\n  \"message\": \"Booking.status is already set to CONFIRMED\",\n  \"details\": {\"applicationError\":   {\n    \"code\": \"BOOKING_STATUS_ALREADY_SET\",\n    \"description\": \"Booking.status is already set to CONFIRMED\",\n    \"data\": {\"currentBookingStatus\": \"CONFIRMED\"}\n  }}\n} "],
+          "type": "curl",
+          "extra": {"description": "Since the Booking is already CONFIRMED, the endpoint return an error"}
+        }
+      ],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "ConfirmOrDeclineBookingRequest",
+      "rpcResponseName": "ConfirmOrDeclineBookingResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": "Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": "Subdivision. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_common_Address_street",
+          "doc": ""
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " A string containing the full address of this location.\n"
+        },
+                {
+          "name": "hint",
+          "type": "string",
+          "doc": " Free text to help find the address.\n"
+        },
+                {
+          "name": "geocode",
+          "type": "All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_common_AddressLocation",
+          "doc": " Coordinates of the physical address.\n"
+        },
+                {
+          "name": "countryFullname",
+          "type": "string",
+          "doc": " Country full name.\n"
+        },
+                {
+          "name": "subdivisions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_common_Subdivision"]
+          },
+          "doc": " Multi-level subdivisions from top to bottom.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Address_street",
+      "displayName": "street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "streetAddress",
+          "type": "All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_common_StreetAddress",
+          "doc": " Street name, number and apartment number.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line, usually street and number, as free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Subdivision",
+      "displayName": "Subdivision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Subdivision code. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Subdivision full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        },
+                {
+          "name": "apt",
+          "type": "string",
+          "doc": " Apartment number.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": "  Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_CustomFormField",
+      "displayName": "Custom Form Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "ID of the form field as defined in the form.\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": "Value that was submitted for this field.\n"
+        },
+                {
+          "name": "label",
+          "type": "string",
+          "doc": "Form field's label at the time of submission.\n",
+          "readOnly": true
+        },
+                {
+          "name": "valueType",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_services_api_v1_ValueTypeConsts_ValueType",
+          "doc": "<!--ONLY:VELO\nOne of:\n - `\"SHORT_TEXT\"`\n - `\"LONG_TEXT\"`\n - `\"CHECK_BOX\"`\n<!--END:ONLY:VELO-->\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_ContactDetails",
+      "displayName": "Contact Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact's ID.\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Contact's first name. When populated from a standard booking form, this property corresponds to the **Name** field.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Contact's last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Contact's email, used to create a new contact or get existing one from the [Contacts API](https://dev.wix.com/api/rest/contacts/contacts). Used to validate coupon usage limitations per contact. If not passed, the coupon usage limitation will not be enforced. (Coupon usage limitation validation is not supported yet).\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Contact's phone number.\n"
+        },
+                {
+          "name": "fullAddress",
+          "type": "All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_common_Address",
+          "doc": " Contact's full address.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Contact's time zone.\n",
+          "deprecated": true
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Contact's country in [ISO 3166-1 alpha-2 code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingSource",
+      "displayName": "Booking Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "platform",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookingSource_Platform",
+          "doc": " Platform from which a booking was created\n<!--ONLY:VELO\n One of:\n - `\"WEB\"` Desktop browser.\n - `\"MOBILE_APP\"` Mobile application.\n<!--END:ONLY:VELO-->\n"
+        },
+                {
+          "name": "actor",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookingSource_Actor",
+          "doc": " Actor that created this booking.\n<!--ONLY:VELO\nOne of:\n - `\"BUSINESS\"`\n - `\"CUSTOMER\"`\n<!--END:ONLY:VELO-->\n"
+        },
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " Wix site ID of the application that created the booking.\n",
+          "readOnly": true
+        },
+                {
+          "name": "appName",
+          "type": "string",
+          "doc": " Name of the application that created the booking, as saved in Wix Developers Center at the time of booking.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice",
+      "displayName": "Service Choice Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "optionId",
+          "type": "string",
+          "doc": " ID of the corresponding option for the choice. For example, the choice `child`\n could correspond to the option `ageGroup`. In this case, `optionId` is the ID \n for the `ageGroup` option. \n"
+        },
+                {
+          "name": "choice",
+          "type": "All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice_choice",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice_choice",
+      "displayName": "choice Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "custom",
+        "type": "string",
+        "doc": " Value for one of the choices in the [`CustomServiceOption.choices`](https://example.com) list. \n Choices are specific values for an option the customer can choose to book. For example, \n the option `ageGroup` may have these choices: `child`, `student`, `adult`, and `senior`. \n Each choice may have a different price.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_Location",
+      "displayName": "Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Location name.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " The full address of this location.\n"
+        },
+                {
+          "name": "locationType",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_availability_LocationType",
+          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_schedules_api_v1_ParticipantNotification",
+      "displayName": "Participant Notification Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "notifyParticipants",
+          "type": "boolean",
+          "doc": "\nWhether to send the message about the changes to the customer.\n\nDefault: `false`\n"
+        },
+                {
+          "name": "message",
+          "type": "string",
+          "doc": "\nCustom message to send to the participants about the changes to the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_IdentificationData",
+      "displayName": "Identification Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " ID of of a contact in the site's [CRM by Ascend](https://www.wix.com/ascend/crm) system.\n",
+          "readOnly": true
+        },
+                {
+          "name": "id",
+          "type": "All APIs.ConfirmatorService._wix_common_IdentificationData_id",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_IdentificationData_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": " ID of a site visitor that has not logged in to the site.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of a site visitor that has logged in to the site.\n"
+        },
+                {
+          "name": "wixUserId",
+          "type": "string",
+          "doc": " ID of a Wix user (site owner, contributor, etc.).\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of an app.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "namespacesMapEntry",
+      "displayName": "namespaces Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "struct",
+        "doc": "`key` of type string, `value` of type struct"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_data_dataextensions_ExtendedFields",
+      "displayName": "Extended Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "namespaces",
+        "type": "All APIs.ConfirmatorService.namespacesMapEntry",
+        "doc": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_FlowControlSettings",
+      "displayName": "Flow Control Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "skipAvailabilityValidation",
+          "type": "boolean",
+          "doc": " When true, skips availability checking and allows booking.\n Requires BOOKINGS.OVERRIDE_AVAILABILITY permissions.\n"
+        },
+                {
+          "name": "skipBusinessConfirmation",
+          "type": "boolean",
+          "doc": " When true, allows booking a confirmation-required service without requiring confirmation.\n Requires BOOKINGS.IGNORE_BOOKING_POLICY permissions.\n"
+        },
+                {
+          "name": "skipSelectedPaymentOptionValidation",
+          "type": "boolean",
+          "doc": " When true, skips selected payment option checking as defined in `selectedPaymentOption` field\n and allows booking.\n Requires BOOKINGS.MANAGE_PAYMENTS permissions.\n"
+        },
+                {
+          "name": "withRefund",
+          "type": "boolean",
+          "doc": " When true, refunds the booking's payment when the booking is canceled.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking",
+      "displayName": "Booking Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Booking ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "bookedEntity",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookedEntity",
+          "doc": " An object describing the slot or schedule that was booked.\n"
+        },
+                {
+          "name": "contactDetails",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_ContactDetails",
+          "doc": " Contact details of the site visitor or member making the booking.\n"
+        },
+                {
+          "name": "additionalFields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_CustomFormField"]
+          },
+          "doc": " Additional custom fields submitted with the booking form.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created.\n - `\"UPDATED\"` - The booking was updated.\n - `\"CONFIRMED\"` - The booking has been confirmed and appears on the bookings calendar.\n    Booking can be manually confirmed using the Set As Confirmed endpoint.\n    Booking can be automatically confirmed when the following requirements are met:\n    + The service is configured as automatically confirmed.\n    + Invoking eCommerce checkout API and an order has been created.\n - `\"CANCELED\"` - The booking has been canceled and synced to bookings calendar.\n    The booking can be canceled using cancel API.\n - `\"PENDING\"` - The booking waiting to be confirmed or declined buy the owner and is synced to bookings calendar.\n    Bookings can be manually set as pending using setAsPending API, requires manage booking status permissions.\n    Booking can be automatically set as pending when the following requirements are met:\n    + The Service is configured as manually confirmed.\n    + Invoking the eCommerce checkout API and an order has been created.\n - `\"WAITING_LIST\"` - The booking is pending on a waiting list.\n    Booking can be created with this status when invoking waiting list join API.\n - `\"DECLINED\"` - The booking was declined by the owner and synced to bookings calendar.\n    Booking can be manually declined using decline API and requires manage booking permissions.\n    Booking can be automatically declined when the following requirements are met:\n    + Invoking eCommerce checkout API and the order declined event has been sent.\n    + Invoking eCommerce checkout API and order approved event has been sent, but the booking is offline and the booking causes a double booking.\n"
+        },
+                {
+          "name": "paymentStatus",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": " Payment status.\n One of:\n - `\"NOT_PAID\"` The booking is not paid for.\n - `\"PAID\"` The booking is fully paid.\n - `\"PARTIALLY_PAID\"` The booking is partially paid.\n - `\"REFUNDED\"` The booking is refunded.\n",
+          "readOnly": true
+        },
+                {
+          "name": "selectedPaymentOption",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+          "doc": " Selected payment option.  \n One of the payment options offered by the service, or another option if `skipSelectedPaymentOptionValidation` is `true`.\n When undefined, the payment option is resolved by the service configuration on checkout.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "Date and time the booking was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "externalUserId",
+          "type": "string",
+          "doc": " External ID provided by the client app on creation.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": " Revision number to be used when updating, rescheduling, or cancelling the booking. The revision number is automatically incremented when the booing is updated.\n"
+        },
+                {
+          "name": "createdBy",
+          "type": "All APIs.ConfirmatorService._wix_common_IdentificationData",
+          "doc": " ID of the creator of the Booking\nIf `appId` and another ID are present, the other ID takes precedence.\n",
+          "readOnly": true
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " The start date of this booking. For a slot, this is the start date of the slot. For a schedule, the start date of the first session.\n",
+          "readOnly": true
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": " The end date of this booking. For a slot, this is the end date of the slot. For a schedule, the end date of the last session.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "Date and time the booking was updated.\n",
+          "readOnly": true
+        },
+                {
+          "name": "extendedFields",
+          "type": "All APIs.ConfirmatorService._wix_common_data_dataextensions_ExtendedFields",
+          "doc": "Additional custom fields. This includes fields managed by Wix, by 3rd-party apps, and by the site.\n\nEmpty fields are not returned.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": " Indicating if this booking overlaps another existing confirmed booking\n",
+          "readOnly": true
+        },
+                {
+          "name": "participantsInfo",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants. Replaces number_of_participants\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_ParticipantsInfo",
+      "displayName": "Participants Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalParticipants",
+          "type": "integer",
+          "doc": "\nTotal number of participants. Available only when the booking includes a single service variant.\n"
+        },
+                {
+          "name": "participantsChoices",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_ParticipantChoices",
+          "doc": "\nInformation about the booked service choices and participants. \nAvailable only when the booking includes multiple service variants.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_ParticipantChoices",
+      "displayName": "Participant Choices Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "serviceChoices",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_ServiceChoices"]
+        },
+        "doc": "\nInformation about the booked service choices. Includes the number of participants.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookedEntity",
+      "displayName": "Booked Entity Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "item",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookedEntity_item",
+          "doc": "Bookable item.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Session title at the time of booking.\n"
+        },
+                {
+          "name": "tags",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of tags for the booking.  \n System-assigned tags for sessions and schedules are:\n + \"INDIVIDUAL\" Appointments, including appointments with more than 1 participant.\n + \"GROUP\" Individual classes.\n + \"COURSE\" Courses.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookedEntity_item",
+      "displayName": "item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "slot",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookedSlot",
+          "doc": " The booked slot, which once booked becomes a session. The booking is automatically assigned to the session if given, or a session is be created if one doesn't already exist.\n"
+        },
+                {
+          "name": "schedule",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookedSchedule",
+          "doc": " The booked schedule. The booking is automatically assigned to the schedule's sessions.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookedSlot",
+      "displayName": "Booked Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sessionId",
+          "type": "string",
+          "doc": " ID of the underlying session when session is a single session or generated from a recurring session.\n If `sessionId` is defined in the Create Booking request, the `startDate`, `endDate`, timezone, resource, and location fields from the request are ignored and populated from the session's information.\n"
+        },
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID.\n"
+        },
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Schedule ID. Required.\n"
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n"
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": " The end time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone according to which the slot was shown to the user when booking, and should be shown in future.\n"
+        },
+                {
+          "name": "resource",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_BookedResource",
+          "doc": " The resource used on the slot.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_availability_Location",
+          "doc": " Location where the slot's session takes place.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookedSchedule",
+      "displayName": "Booked Schedule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Schedule ID.\n"
+        },
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " ID of the booked service.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_availability_Location",
+          "doc": " Location where the schedule's sessions take place. Read only.\n",
+          "readOnly": true
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone according to which the slot was shown to the user when booking, and should be shown in future.\n"
+        },
+                {
+          "name": "firstSessionStart",
+          "type": "string",
+          "doc": " The start time of the first session in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n",
+          "readOnly": true
+        },
+                {
+          "name": "lastSessionEnd",
+          "type": "string",
+          "doc": " The end time of the last session in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookedResource",
+      "displayName": "Booked Resource Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Booked resource ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Resource's name at the time of booking.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Resource's email at the time of booking.\n"
+        },
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Resources schedule ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_ServiceChoices",
+      "displayName": "Service Choices Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "numberOfParticipants",
+          "type": "integer",
+          "doc": "\nNumber of participants for this variant.\n"
+        },
+                {
+          "name": "choices",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.ConfirmatorService._com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice"]
+          },
+          "doc": "\nService choices for these participants.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_confirmator_v2_ConfirmOrDeclineBookingRequest",
+      "displayName": "Confirm Or Decline Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": "ID of the booking to be confirmed or declined.\n"
+        },
+                {
+          "name": "paymentStatus",
+          "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": " Will be passed to bookings.update to indicate the payment status.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact's ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_confirmator_v2_ConfirmOrDeclineBookingResponse",
+      "displayName": "Confirm Or Decline Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "booking",
+        "type": "All APIs.ConfirmatorService._com_wixpress_bookings_bookings_v2_Booking",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_services_api_v1_ValueTypeConsts_ValueType",
+      "displayName": "Value Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SHORT_TEXT -  Short text. This is the default value type.\n <\/code><\/li><li><code> LONG_TEXT -  Long text\n <\/code><\/li><li><code> CHECK_BOX -  a text that represent the check box value: if selected the value is \"true\", otherwise \"false\".\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SHORT_TEXT",
+        "LONG_TEXT",
+        "CHECK_BOX"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingSource_Platform",
+      "displayName": "Platform Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_PLATFORM <\/code><\/li><li><code> WEB <\/code><\/li><li><code> MOBILE_APP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED_PLATFORM",
+        "WEB",
+        "MOBILE_APP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingSource_Actor",
+      "displayName": "Actor Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_ACTOR <\/code><\/li><li><code> BUSINESS <\/code><\/li><li><code> CUSTOMER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED_ACTOR",
+        "BUSINESS",
+        "CUSTOMER"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_LocationType",
+      "displayName": "Location Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OWNER_BUSINESS <\/code><\/li><li><code> OWNER_CUSTOM <\/code><\/li><li><code> CUSTOM <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "OWNER_BUSINESS",
+        "OWNER_CUSTOM",
+        "CUSTOM"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_IdentificationData_IdentityType",
+      "displayName": "Identity Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ANONYMOUS_VISITOR <\/code><\/li><li><code> MEMBER <\/code><\/li><li><code> WIX_USER <\/code><\/li><li><code> APP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ANONYMOUS_VISITOR",
+        "MEMBER",
+        "WIX_USER",
+        "APP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+      "displayName": "Selected Payment Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": " The selected payment option.  \n One of the payment options offered by the service. \n This field is be set when the user selects an option during booking.  \n If left undefined, the payment option is resolved by the service configuration on checkout.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OFFLINE <\/code><\/li><li><code> ONLINE <\/code><\/li><li><code> MEMBERSHIP <\/code><\/li><li><code> MEMBERSHIP_OFFLINE -  Payment can only be done using a membership and must be manually redeemed in the dashboard by the site owner.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "OFFLINE",
+        "ONLINE",
+        "MEMBERSHIP",
+        "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+      "displayName": "Booking Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Booking status.\n \n Possible values are: <li><code> CREATED <\/code><\/li><li><code> CONFIRMED <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> WAITING_LIST <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "CREATED",
+        "CONFIRMED",
+        "CANCELED",
+        "PENDING",
+        "DECLINED",
+        "WAITING_LIST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+      "displayName": "Payment Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Payment status.\n Automatically updated when using eCom checkout APIs.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> NOT_PAID <\/code><\/li><li><code> PAID <\/code><\/li><li><code> PARTIALLY_PAID - not supported yet.\n <\/code><\/li><li><code> REFUNDED - not supported yet\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "NOT_PAID",
+        "PAID",
+        "PARTIALLY_PAID",
+        "REFUNDED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.bookings.confirmator.bookings-confirmator"}
+}
