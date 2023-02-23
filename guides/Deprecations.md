@@ -28,12 +28,10 @@ at least 6 months after their announced deprecation.
     - [Get Tag By Label](wix-blog/blog/tags/get-tag-by-label)
     - [Get Tag By Slug](wix-blog/blog/tags/get-tag-by-slug)
     - [Query Tags](wix-blog/blog/tags/query-tags)
+- [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions)
+  replaced by [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions).
 
 ## End of Life: March 31, 2023
-
-- [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions)
-  replaced by [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/query-sessions).
-  (Announced August 22, 2022)
   
 - In Members API, the [Get Members](members/members/get-member),
   [List Members](members/members/list-members),
