@@ -8,7 +8,7 @@ The calendar service includes read-only endpoints that allow the retrieval of bu
 
 __Deprecation Notice:__
 
-The [List Sessions](#list-sessions) endpoint will be removed on June 30, 2023. Please use [Query Sessions](#query-sessions) instead.
+The [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions) endpoint will be removed on June 30, 2023. Please use [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions) instead.
 
 </blockquote>
 

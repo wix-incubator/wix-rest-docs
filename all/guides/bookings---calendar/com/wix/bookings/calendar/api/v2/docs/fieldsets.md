@@ -2,7 +2,7 @@ SortOrder: 2
 # Supported Fieldsets
 
 Fieldsets let you return a predefined partial `session` object.
-The following table shows the fields that are returned by [Query Sessions](#query-sessions) for each fieldset.
+The following table shows the fields that are returned by [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions) for each fieldset.
 
 | <div style="width:150px">Fieldset</div>          | <div style="width:200px">Returned Fields</div>          |
 | --------------- | --------------------------------------------- |
