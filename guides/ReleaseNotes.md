@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Endpoint: [Bookings Calendar API]
+## New Endpoint: [Bookings Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar)
 
 The Wix Bookings [Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar) now includes a new endpoint:
 
