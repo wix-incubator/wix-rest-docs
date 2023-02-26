@@ -1,14 +1,14 @@
 # Release Notes
 
-## New Endpoints: [Contacts API](coupons/contacts/contacts-v4)
+## New Endpoints: [Contacts API](contacts/contacts/contacts-v4)
 
 The Contacts API now includes two new endpoints:
 
-- [Merge Contacts](coupons/contacts/contacts-v4/merge-contacts)
+- [Merge Contacts](contacts/contacts/contacts-v4/merge-contacts)
   allows you to merge one or more source contacts into a target contact.
   Note that a successful merge deletes the source contacts
   and updates the target contact.
-- [Preview Merge Contacts](coupons/contacts/contacts-v4/preview-merge-contacts)
+- [Preview Merge Contacts](contacts/contacts/contacts-v4/preview-merge-contacts)
   allows you to perform a dry run of a merge
   without deleting or updating contacts.
 
