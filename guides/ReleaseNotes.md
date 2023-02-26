@@ -1,5 +1,17 @@
 # Release Notes
 
+## New Endpoints: [Contacts API](coupons/contacts/contacts-v4)
+
+The Contacts API now includes two new endpoints:
+
+- [Merge Contacts](coupons/contacts/contacts-v4/merge-contacts)
+  allows you to merge one or more source contacts into a target contact.
+  Note that a successful merge deletes the source contacts
+  and updates the target contact.
+- [Preview Merge Contacts](coupons/contacts/contacts-v4/preview-merge-contacts)
+  allows you to perform a dry run of a merge
+  without deleting or updating contacts.
+
 ## New Release: [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications)
 
 The new [Wix Notifications API](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
