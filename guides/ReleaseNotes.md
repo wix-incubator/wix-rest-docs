@@ -1,5 +1,48 @@
 # Release Notes
 
+## New Endpoints: [Contacts API](contacts/contacts/contacts-v4)
+
+The Contacts API now includes two new endpoints:
+
+- [Merge Contacts](contacts/contacts/contacts-v4/merge-contacts)
+  allows you to merge one or more source contacts into a target contact.
+  Note that a successful merge deletes the source contacts
+  and updates the target contact.
+- [Preview Merge Contacts](contacts/contacts/contacts-v4/preview-merge-contacts)
+  allows you to perform a dry run of a merge
+  without deleting or updating contacts.
+
+## New Release: [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications)
+
+The new [Wix Notifications API](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
+
+(February 26, 2023)
+
+## New Endpoint: [Bookings Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar)
+
+The Wix Bookings [Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar) now includes a new endpoint:
+
++ [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions) retrieves a list of sessions, given provided time range, filtering, and paging. This replaces [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions) which has been deprecated and will be removed on June 30, 2023.
+
+(February 23, 2023)
+
+## New Release: [Site Actions](site-actions)
+
+[Account Level APIs](account-level-apis/) has a new Site Actions API that enables you to manage sites. The new API introduces the [Bulk Delete Site](site-actions/bulk-delete-site) endpoint.
+
+As with other Account Level APIs, Site Actions APIs are accessible only using API keys.
+
+(January 25, 2023)
+
+## New Release: [Wix eCommerce](wix-ecommerce)
+
+Wix eCommerce introduces new APIs functionality that enables you to read eCommerce cart, checkout, and order information, as well as listen to webhooks. The new APIs includes:
++ [Cart API](wix-ecommerce/cart).
++ [Checkout API](wix-ecommerce/checkout).
++ [Order API](wix-ecommerce/orders).
+
+(January 22, 2023)
+
 ## New Release: [Pro Gallery](site-content/pro-gallery)
 
 Site Content has a new Pro Gallery API.
