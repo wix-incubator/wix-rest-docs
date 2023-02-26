@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Release: [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications)
+
+The new [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, and then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
+
+(February 26, 2023)
+
 ## New Endpoint: [Bookings Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar)
 
 The Wix Bookings [Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar) now includes a new endpoint:
