@@ -2,7 +2,7 @@
 
 ## New Release: [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications)
 
-The new [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, and then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
+The new [Wix Notifications API](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
 
 (February 26, 2023)
 
