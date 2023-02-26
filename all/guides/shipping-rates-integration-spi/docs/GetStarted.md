@@ -43,3 +43,4 @@ Complete the following steps to adapt Wix system's integration to make your ship
     | `fallbackDefinitionMandatory`      | boolean    | Whether to require the site owner to define a fallback/default rate. Set to `true` if you do not provide rates as part of the integration.|
 
 1. Click [**Test Your App**](https://devforum.wix.com/kb/en/article/how-to-test-your-app-on-a-free-premium-development-site).
+1. After adding your app to the test site, [enable a shipping rule in the dashboard](https://support.wix.com/en/article/wix-stores-offering-real-time-shipping-rates-via-third-party-apps) to show your shipping rates during checkout.
