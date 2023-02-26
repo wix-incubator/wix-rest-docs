@@ -1,5 +1,19 @@
 # Release Notes
 
+## New Release: [Wix Notifications](https://dev.wix.com/api/rest/wix-notifications)
+
+The new [Wix Notifications API](https://dev.wix.com/api/rest/wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint to send notifications.
+
+(February 26, 2023)
+
+## New Endpoint: [Bookings Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar)
+
+The Wix Bookings [Calendar API](https://dev.wix.com/api/rest/wix-bookings/calendar) now includes a new endpoint:
+
++ [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions) retrieves a list of sessions, given provided time range, filtering, and paging. This replaces [List Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/list-sessions) which has been deprecated and will be removed on June 30, 2023.
+
+(February 23, 2023)
+
 ## New Release: [Site Actions](site-actions)
 
 [Account Level APIs](account-level-apis/) has a new Site Actions API that enables you to manage sites. The new API introduces the [Bulk Delete Site](site-actions/bulk-delete-site) endpoint.
