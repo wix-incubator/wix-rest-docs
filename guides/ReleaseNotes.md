@@ -1,5 +1,20 @@
 # Release Notes
 
+## New Endpoints: [Wix eCommerce](wix-ecommerce)
+
+The Wix eCommerce [Cart API](wix-ecommerce/cart) now includes 9 new endpoints:
++ [Create Cart](wix-ecommerce/cart/create-cart).
++ [Create Checkout From Cart](wix-ecommerce/cart/create-checkout-from-cart).
++ [Estimate Totals](wix-ecommerce/cart/estimate-totals).
++ [Add To Cart](wix-ecommerce/cart/add-to-cart).
++ [Update Cart](wix-ecommerce/cart/update-cart).
++ [Update Line Items](wix-ecommerce/cart/update-line-items).
++ [Remove Coupon](wix-ecommerce/cart/remove-coupon).
++ [Remove Line Items](wix-ecommerce/cart/remove-line-items).
++ [Delete Cart](wix-ecommerce/cart/delete-cart).
+
+(February 27, 2023)
+
 ## New Endpoints: [Contacts API](contacts/contacts/contacts-v4)
 
 The Contacts API now includes two new endpoints:
@@ -61,9 +76,9 @@ The new Media API
 enables 3rd-parties to view and manage content in the [Media Manager](media/media-manager) such as:
 + [Importing a file](media/media-manager/files/import-file) to the Media Manager.
 + [Generating a video streaming URL](media/media-manager/files/generate-video-streaming-url).
-+ [Searching for a file](https://dev.wix.com/api/rest/media/media-manager/files/search-files) in the Media Manager.
-+ [Creating a new folder](https://dev.wix.com/api/rest/media/media-manager/folders/create-folder) in the Media Manager. 
-+ [Getting a folder](https://dev.wix.com/api/rest/media/media-manager/folders/get-folder) from the Media Manager. 
++ [Searching for a file](media/media-manager/files/search-files) in the Media Manager.
++ [Creating a new folder](media/media-manager/folders/create-folder) in the Media Manager. 
++ [Getting a folder](media/media-manager/folders/get-folder) from the Media Manager. 
 
 (January 17, 2023)
 
