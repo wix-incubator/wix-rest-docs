@@ -2,7 +2,7 @@ SortOrder: 1
 # Creating a Notification Template
 
 Create a notification template in the Wix Dev Center to specify the standard text, placeholders, and recipients of notifications.
-You can then call the [Notify](https://dev.wix.com/api/rest/notifications/notifications/notify) endpoint from your code to trigger sending notifications based on the template you defined.
+You can then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint from your code to trigger sending notifications based on the template you defined.
 
 ## Accessing notifications in your app's dashboard
 
@@ -51,7 +51,7 @@ The message and the title can include placeholders for dynamic values you provid
 >
 > **Message:** {{customerName}} has received a {{itemType}} delivery.
 
-When triggering a notification with the [Notify](https://dev.wix.com/api/rest/notifications/notifications/notify) endpoint in your code, you pass values for `itemType` and `customerName`, so a recipient sees a customized notification like this:
+When triggering a notification with the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint in your code, you pass values for `itemType` and `customerName`, so a recipient sees a customized notification like this:
 
 > **Title:** Item delivered: television.
 >
@@ -63,4 +63,4 @@ When triggering a notification with the [Notify](https://dev.wix.com/api/rest/no
 Remember your notification template ID and the names of placeholders for dynamic values in your message and title, as you'll need them to invoke the API and trigger notifications.
 But don't worry if you forget them - you can always return to the Wix Dev Center to look these details up.
 
-Press "Save" to generate your notification template. You can now trigger notifications with the [Notify](https://dev.wix.com/api/rest/notifications/notifications/notify) endpoint!
+Press "Save" to generate your notification template. You can now trigger notifications with the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint!
