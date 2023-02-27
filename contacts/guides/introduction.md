@@ -3,7 +3,7 @@
 When a new visitor first shares some of their contact information with a site,
 they're added to the site's
 [contact list](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).
-Once that happens, their details are available through the Contacts APIs.
+Once that happens, their details are available through the Contacts APIs
 
 Some examples of how a person can become a contact are:
 
