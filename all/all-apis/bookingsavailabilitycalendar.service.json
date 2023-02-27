@@ -53,7 +53,7 @@
         "in": "BODY",
         "name": "timezone",
         "type": "string",
-        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight \n savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n",
+        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n",
         "required": false
       },
             {
@@ -74,7 +74,7 @@
     },
     "locations": [],
     "docs":     {
-      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (paging, filtering, and sorting). \n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n + **The sessions' open slots**. A slot is considered open if the session's \n   capacity is greater than number of participants.\n + **Booking policies**. Policies that affect whether a slot is considered \n   available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n sesssion remains locked because there is still a waitlist, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the waitlist from grabbing the slot.\n\n #### Handling Daylight Savings Time for local time zones\n\n Because of Daylight Savings Time (DST), there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the tine `00:05` on September 5th 2021 might not exist in Santiago, Chile, \n because at `00:00` the clock moved\n 1 hour forward to `01:00.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existant local time is \n automtically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
+      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (paging, filtering, and sorting). \n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n + **The sessions' open slots**. A slot is considered open if the session's \n   capacity is greater than number of participants.\n + **Booking policies**. Policies that affect whether a slot is considered \n   available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n sesssion remains locked because there is still a waitlist, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the waitlist from grabbing the slot.\n\n #### Handling Daylight Savings Time (DST) for local time zones\n\n Because of DST, there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the tine `00:05` on September 5th 2021 might not exist in Santiago, Chile, \n because at `00:00` the clock moved\n 1 hour forward to `01:00`.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existant local time is \n automtically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
       "description": [],
       "request": "POST",
       "url": "https://www.wixapis.com/bookings/v1/availability/query",
@@ -256,7 +256,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": " Filter object. For a list of \n fields you can filter by, see [Calendar Availability: Supported Fields, Filters, and Sorting](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/supported-fields,-filters,-and-sorting).\n You must include the `startDate` and `endDate` fields in the filter. This avoids large results that can impact performance.\n"
+          "doc": " Filter object. For a list of \n fields you can filter by, see [Calendar Availability: Supported Fields, Filters, and Sorting](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/supported-fields,-filters,-and-sorting).\n You must include the `startDate` and `endDate` in the filter. This avoids large results that can impact performance.\n"
         },
                 {
           "name": "sort",
@@ -264,7 +264,7 @@
             "name": "array",
             "typeParams": ["All APIs.BookingsAvailabilityCalendar._wix_common_Sorting"]
           },
-          "doc": " Sort options.\n Currently, only sorting by `startDate` is supported. For details\n on sorting, see [Calendar Availability: Supported Fields, Filters and Sorting](https://dev.wix.com/api/rest/bookings/bookingsavailabilitycalendar/supported-fields,-filters,-and-sorting).\n"
+          "doc": " Sort options.\n Currently, only sorting by `startDate` is supported. For details\n on sorting, see [Calendar Availability: Supported Fields, Filters and Sorting](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/supported-fields,-filters,-and-sorting).\n"
         },
                 {
           "name": "fields",
@@ -321,7 +321,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight \n savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n"
+          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
         },
                 {
           "name": "slotsPerDay",
@@ -379,7 +379,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which slot availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about how [timezones and daylight savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability.\n"
+          "doc": " The timezone for which slot availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
         }
       ],
       "enum": null,
@@ -542,7 +542,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which slot availability is to be calculated.\n\n Learn more about how [timezones and daylight savings](#handling-daylight-savings-time-for-local-time-zones) are handled when\n calculating availability. \n"
+          "doc": " The timezone for which slot availability is to be calculated.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
         },
                 {
           "name": "resource",
@@ -633,12 +633,12 @@
                 {
           "name": "totalSpots",
           "type": "integer",
-          "doc": " Total number of spots and open spots for this waiting list.\n For example, a Yoga class with 10 waiting list spots and 3 registered \n on the waiting list has 10 `total_spots` and 7 `open_spots`.\n"
+          "doc": " Total number of spots and open spots for this waitlist.\n For example, a Yoga class with 10 waitlist spots and 3 registered \n on the waitlist has 10 `total_spots` and 7 `open_spots`.\n"
         },
                 {
           "name": "openSpots",
           "type": "integer",
-          "doc": " Number of open spots for this waiting list.\n"
+          "doc": " Number of open spots for this waitlist.\n"
         }
       ],
       "enum": null,
