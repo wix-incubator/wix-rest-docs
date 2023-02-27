@@ -30,7 +30,7 @@ First, your app needs to create a mapping between the Wix media items and the ex
 2. Get notified when one of these webhooks is triggered and extract the item ID from the webhook data.
 3. For the [Gallery Item Updated](https://dev.wix.com/api/rest/site-content/pro-gallery/gallery-item-updated-webhook) and [Gallery Item Created](https://dev.wix.com/api/rest/site-content/pro-gallery/gallery-item-created-webhook) webhooks, also extract the media URL, sort order, and other relevant information.
 4. Identify the corresponding media item in your mapping and update the mapping accordingly.
-5. Use the external platform's APIs to create, delete or update the media item there.
+5. Use the external platform's APIs to create, delete, or update the media item there.
 
 > **Note:** Ignore the resulting webhook, so you don’t create an endless loop of updates.
 
