@@ -1,15 +1,4 @@
-SortOrder: 0
 # About Contacts
-
-<blockquote class="important">
-
-__Important:__  
-This article is being moved to the public docs.
-The new URL will be <https://dev.wix.com/api/rest/contacts/introduction>.
-After we publish the change,
-we'll replace the content in this article with a link to the public introduction.
-
-</blockquote>
 
 When a new visitor first shares some of their contact information with a site,
 they're added to the site's
