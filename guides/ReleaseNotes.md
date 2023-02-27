@@ -1,6 +1,14 @@
 # Release Notes
 
 
+## New Release: [Bookings Services](wix-bookings/services-v2)
+
+The [Bookings Services V2](wix-bookings/services-v2) API provides third parties the ability to retrieve information about services using the [Get Service](wix-bookings/services-v2/get-service) and 
+[Query Services](wix-bookings/services-v2/query-services) APIs.
+
+(February 27, 2023)
+
+
 ## New Release: [Wix Blog](wix-blog/blog)
 
 The [Blog](wix-blog/blog) API introduces new write functionality:
