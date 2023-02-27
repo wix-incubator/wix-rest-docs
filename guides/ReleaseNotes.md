@@ -2,8 +2,7 @@
 
 ## New Endpoints: [Wix eCommerce](wix-ecommerce)
 
-The Wix eCommerce [Cart API](wix-ecommerce/cart) now includes 9 new endpoints:
-+ [Create Cart](wix-ecommerce/cart/create-cart).
+The Wix eCommerce [Cart API](wix-ecommerce/cart) now includes 8 new endpoints:
 + [Create Checkout From Cart](wix-ecommerce/cart/create-checkout-from-cart).
 + [Estimate Totals](wix-ecommerce/cart/estimate-totals).
 + [Add To Cart](wix-ecommerce/cart/add-to-cart).
