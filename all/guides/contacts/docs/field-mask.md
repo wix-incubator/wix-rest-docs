@@ -1,4 +1,4 @@
-SortOrder: 4
+SortOrder: 3
 # Field Masks in Update Requests
 
 > **Deprecation Notice:**

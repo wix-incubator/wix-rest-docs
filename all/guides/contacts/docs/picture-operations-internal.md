@@ -1,4 +1,4 @@
-SortOrder: 12
+SortOrder: 11
 # Uploading a picture
 
 After calling generatePictureUploadUrl (TODO explain and give example)

@@ -1,5 +1,130 @@
 # Release Notes
 
+
+## New Release: [Bookings Services](wix-bookings/services-v2)
+
+The [Bookings Services V2](wix-bookings/services-v2) API provides third parties the ability to retrieve information about services using the [Get Service](wix-bookings/services-v2/get-service) and 
+[Query Services](wix-bookings/services-v2/query-services) APIs.
+
+(February 27, 2023)
+
+
+## New Endpoints: [Wix eCommerce](wix-ecommerce)
+
+The Wix eCommerce [Cart API](wix-ecommerce/cart) now includes 8 new endpoints:
++ [Create Checkout From Cart](wix-ecommerce/cart/create-checkout-from-cart).
++ [Estimate Totals](wix-ecommerce/cart/estimate-totals).
++ [Add To Cart](wix-ecommerce/cart/add-to-cart).
++ [Update Cart](wix-ecommerce/cart/update-cart).
++ [Update Line Items](wix-ecommerce/cart/update-line-items).
++ [Remove Coupon](wix-ecommerce/cart/remove-coupon).
++ [Remove Line Items](wix-ecommerce/cart/remove-line-items).
++ [Delete Cart](wix-ecommerce/cart/delete-cart).
+
+(February 27, 2023)
+
+## New Endpoints: [Contacts API](contacts/contacts/contacts-v4)
+
+The Contacts API now includes two new endpoints:
+
+- [Merge Contacts](contacts/contacts/contacts-v4/merge-contacts)
+  allows you to merge one or more source contacts into a target contact.
+  Note that a successful merge deletes the source contacts
+  and updates the target contact.
+- [Preview Merge Contacts](contacts/contacts/contacts-v4/preview-merge-contacts)
+  allows you to perform a dry run of a merge
+  without deleting or updating contacts.
+
+## New Release: [Wix Notifications](wix-notifications)
+
+The new [Wix Notifications API](wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](wix-notifications/notifications/notify) endpoint to send notifications.
+
+(February 26, 2023)
+
+## New Endpoint: [Bookings Calendar API](wix-bookings/calendar)
+
+The Wix Bookings [Calendar API](wix-bookings/calendar) now includes a new endpoint:
+
++ [Query Sessions](wix-bookings/calendar/sessions/query-sessions) retrieves a list of sessions, given provided time range, filtering, and paging. This replaces [List Sessions](wix-bookings/calendar/sessions/list-sessions) which has been deprecated and will be removed on June 30, 2023.
+
+(February 23, 2023)
+
+## New Release: [Site Actions](site-actions)
+
+[Account Level APIs](account-level-apis/) has a new Site Actions API that enables you to manage sites. The new API introduces the [Bulk Delete Site](site-actions/bulk-delete-site) endpoint.
+
+As with other Account Level APIs, Site Actions APIs are accessible only using API keys.
+
+(January 25, 2023)
+
+## New Release: [Wix eCommerce](wix-ecommerce)
+
+Wix eCommerce introduces new APIs functionality that enables you to read eCommerce cart, checkout, and order information, as well as listen to webhooks. The new APIs includes:
++ [Cart API](wix-ecommerce/cart).
++ [Checkout API](wix-ecommerce/checkout).
++ [Order API](wix-ecommerce/orders).
+
+(January 22, 2023)
+
+## New Release: [Pro Gallery](site-content/pro-gallery)
+
+Site Content has a new Pro Gallery API.
+
+The Pro Gallery API enables 3rd-parties to view and manage pro galleries on a Wix site's backend. The new API includes:
++ [Creating a gallery](site-content/pro-gallery/create-gallery-item).
++ [Creating a gallery item](site-content/pro-gallery/create-gallery).
++ [List Galleries](site-content/pro-gallery/list-galleries).
++ [List Gallery items](site-content/pro-gallery/list-gallery-items).
+
+(January 17, 2023)
+
+## New Release: [Media](media)
+
+The new Media API
+enables 3rd-parties to view and manage content in the [Media Manager](media/media-manager) such as:
++ [Importing a file](media/media-manager/files/import-file) to the Media Manager.
++ [Generating a video streaming URL](media/media-manager/files/generate-video-streaming-url).
++ [Searching for a file](media/media-manager/files/search-files) in the Media Manager.
++ [Creating a new folder](media/media-manager/folders/create-folder) in the Media Manager. 
++ [Getting a folder](media/media-manager/folders/get-folder) from the Media Manager. 
+
+(January 17, 2023)
+
+## New Release: [Wix Automations](wix-automations)
+
+The new Wix Automations API
+introduces configuration options for you to become a
+[trigger provider](wix-automations/introduction#how-to-become-a-trigger-provider).
+As a trigger provider,
+your custom triggers and trigger payloads
+are installed with your app,
+allowing site collaborators to create automations
+triggered by events you report and control.
+
+(January 15, 2023)
+
+## New Release: [Wix Blog](wix-blog/blog)
+
+The [Blog](wix-blog/blog) API introduces new write functionality:
++ The new [Draft Posts](wix-blog/blog/draft-posts) APIs enable you to create, delete, and manage blog draft posts.
++ You can now manage blog categories using the Categories APIs, such as [Create Category](wix-blog/blog/categories/create-category), [Update Category](wix-blog/blog/categories/update-category), and [Delete Category](wix-blog/blog/categories/delete-category).
++ You can now manage blog tags using the Tags APIs, such as [Create Tag](wix-blog/blog/tags/create-tag) and [Delete Tag](wix-blog/blog/tags/create-tag).  
+
+Some Blog API parameters and properties have been renamed. The existing parameters and properties are deprecated and will be removed on June 30, 2023. 
+
+(Dec 20, 2022)
+
+## New Fields: [Restaurants Orders API](wix-restaurants/orders)
+
+The [Order object](wix-restaurants/orders/order-object) has new fields:
++ The new `discounts.catalogDiscountDescription` field is the discount description as defined in the catalog.
++ The new `lineItems.dishOptions.name` field is the line item option name.
++ The new `loyaltyInfo.estimatedAccountBalance` field is the Wix Loyalty estimated account balance.
++ The new `loyaltyInfo.estimatedPointsEarned` field is the Wix Loyalty estimated total earned points.
++ The new `loyaltyInfo.rewardRevision` field is the Wix Loyalty reward revision number.
+
+(December 13, 2022)
+
 ## New Data: [App Instance API](app-management/apps/app-instance)
 + The `copiedFromTemplate` parameter replaces the deprecated `isOriginSiteTemplate` parameter.
 + The `siteId` parameter is Wix's internal unique site identifier.
@@ -55,10 +180,7 @@ The [Members API](members/members) now includes three new webhooks:
 These webhooks complement the existing [Members](https://dev.wix.com/api/rest/members/members) endpoints.
 (September 1, 2022)
 
-## New Release: [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2)
-The [Wix Bookings Calendar V2 API](wix-bookings/calendar-v2/introduction) provides third parties the ability to retrieve information about a site's business calendar.
 
-(August 22, 2022)
 ## New Endpoints: [Site Properties API](business-info/site-properties)
 The [Site Properties API](business-info/site-properties) now includes three new endpoints:
 + [Update Business Contact](business-info/site-properties/properties/update-business-contact) updates a site's business contact information.

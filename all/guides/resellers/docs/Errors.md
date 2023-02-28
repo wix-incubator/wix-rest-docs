@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 3
 # Resellers Errors
 
 
@@ -14,6 +14,7 @@ The [Create Package](https://dev.wix.com/api/rest/account-level-apis/resellers/p
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div>                                 | <div style="width:280px">Error message </div>                                                                                                                   | <div style="width:300px">Troubleshooting </div>                                                                                                                                                                                                                         |
 |--------------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `NOT_FOUND (404)` | `PRODUCT_NOT_FOUND` | Product id not found in catalog. | Make sure that the product ID is correct. You can contact the [Wix B2B sales](mailto:bizdev@wix.com) for a list of product IDs. |
+| `NOT_FOUND (404)` | `ACCOUNT_NOT_FOUND` | Account with id `<accountId>` was not found. | Make sure that the account ID is correct. |
 | `FAILED_PRECONDITION (428)` | `PRODUCT_LIMIT_EXCEEDED` | Limit for product `<productId>` exceeded, number of current subscriptions `<numberOfCurrentSubscriptions>`. | Each product instance can only be assigned in a limited number of subscriptions. You can contact the [Wix B2B sales](mailto:bizdev@wix.com) for more information. |
 | `FAILED_PRECONDITION (428)` | `PRODUCT_SETTINGS_NOT_FOUND` | Product doesn't have any settings `<productId>`. | Each product must have settings defining how it can be canceled and when customers are notified. A product can't be assigned to a package if these settings are missing. Currently, only Wix can define these settings. Contact the [Wix B2B sales](mailto:bizdev@wix.com) to make sure that the product has been defined properly. |
 | `FAILED_PRECONDITION (428)` | `MISSING_BILLING_CYCLE` | Product `<productId>` must receive a cycle upon creating. | Missing information about which billing cycle to use for the product. Make sure to specify a billing cycle in the request if the product has more than a single supported cycle. |
