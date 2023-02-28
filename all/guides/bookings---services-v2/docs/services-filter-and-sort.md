@@ -71,4 +71,4 @@ Specify the `fields` object in the following format:
 
 __Related content:__
 - [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)
-- [Query services](https://dev.wix.com/api/rest/wix-bookings/services/query-services)
+- [Query services](https://dev.wix.com/api/rest/wix-bookings/services-v2/query-services)
