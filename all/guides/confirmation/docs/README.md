@@ -4,7 +4,7 @@ With Bookings Confirmation service, you can ensure that checkout completion is h
 Once the checkout is complete, call the `confirmOrDeclineBooking` function to apply it to the booking.     
 Typically, the booking status will be updated to `CONFIRMED`, and you'll see it on the calendar.    
 However, in some cases, such as when over-booking could occur, the booking may be declined.    
-For more information about the `ConfirmOrDeclineBooking` endpoint, please refer to its [documentation](/docs/link).
+For more information about the `ConfirmOrDeclineBooking` endpoint, please refer to its [documentation](https://dev.wix.com/api/rest/wix-bookings/confirmation/confirm-or-decline-booking).
 
 ## Terminology
 
@@ -44,12 +44,12 @@ For more information about the `ConfirmOrDeclineBooking` endpoint, please refer 
   needed to provide a service.
 + __Availability__: Free time on a schedule that customers can book. 
   You can read more about 
-  [Query Availability](https://bo.wix.com/wix-docs/rest/bookings/availabilitycalendar---wip/introduction).
-  The [Create Booking](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/create-booking) and
-  [Reschedule Booking](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/reschedule-booking) 
+  [Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability).
+  The [Create Booking](hhttps://dev.wix.com/api/rest/wix-bookings/bookings-v2/create-booking) and
+  [Reschedule Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/reschedule-booking) 
   endpoints check if a slot or schedule is available, unless you pass
   `skipAvailabilityValidation` in the body of the request.
-  [Confirm Booking](https://bo.wix.com/wix-docs/rest/bookings/bookingsgateway-v2---wip/confirm-booking) 
+  [Confirm Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/confirm-booking) 
   doesn't check availability. Instead, the availability is checked during the 
-  ecom payment flow(coming soon).
+  ecom payment flow(coming soon) and with Confirm or Decline Booking.
 + __Double Bookings__: Double bookings occur if the total number of bookings for a period of time is greater than the number of spots or resources for the same period of time. Regarding sessions or a schedule, when it does not have enough capacity to accommodate the booking's participants, and for appointments bookings when the same staff member and service overlap.   
