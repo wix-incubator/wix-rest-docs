@@ -10,6 +10,6 @@ Calling a checkout after creating a booking, is optional, `Confirm or Decline Bo
 
 + **Whether the availability check is required** If  `skipAvailability` is `true`, it will skip the check and it will never be a `doublebooking`.
 + **Whether the booking is paid for**.If the payment status is `PAID` or `PARTIALLY_PAID`, the booking is confirmed regardless of the `doubleBooking` parameter.    
-+ **Wether the booking requires business confirmation**. Instead of `CONFIRMED` the status is set to `PENDING`. This happens since it needs to always be manualy approved by the owner. You can bypass the confirmation check by setting the `skipBusinessConfirmation` property to `true` when [creating a booking](https://example.com).    
++ **Wether the booking requires business confirmation**. Instead of `CONFIRMED` the status is set to `PENDING`. This happens since it needs to always be manualy approved by the owner. You can bypass the confirmation check by setting the `skipBusinessConfirmation` property to `true` when [creating a booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/create-booking).    
 
 
