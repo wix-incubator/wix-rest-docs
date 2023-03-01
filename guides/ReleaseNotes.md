@@ -1,6 +1,20 @@
 # Release Notes
 
 
+## New Release: [Policy v2](wix-events/policy-v2)
+
+The [Policy v2](wix-events/policy-v2) API enables you to manage the policies for a particular event. The new API includes:
+
+- [Create Policy](wix-events/policy-v2/create-policy)
+- [Delete Policy](wix-events/policy-v2/delete-policy)
+- [Get Policy](wix-events/policy-v2/get-policy)
+- [Query Policies](wix-events/policy-v2/query-policies)
+- [Reorder Event Policies](wix-events/policy-v2/reorder-event-policies)
+- [Update Policy](wix-events/policy-v2/update-policy)
+
+(March 01, 2023)
+
+
 ## New Release: [Bookings Services](wix-bookings/services-v2)
 
 The [Bookings Services V2](wix-bookings/services-v2) API provides third parties the ability to retrieve information about services using the [Get Service](wix-bookings/services-v2/get-service) and 
