@@ -25,8 +25,7 @@ This article presents a sample flow your app can support. You aren't limited to 
 
 1. A customer logs on to the merchant’s Wix site and starts adds a product to the cart or checkout.
 
-2. Wix sends a Get Shipping Rates SPI request to your app.
-  The payload will include some or all of the fields described in the Body Params and example sections of the [Get Shipping Rates reference](https://dev.wix.com/api/rest/wix-ecommerce/shipping-rates-integration-spi/get-shipping-rates).
+2. Wix sends a Get Shipping Rates SPI request to your app. The payload will include some or all of the fields described in the Body Params and example sections of the [Get Shipping Rates reference](https://dev.wix.com/api/rest/wix-ecommerce/shipping-rates-integration-spi/get-shipping-rates).
 
 3. Your Shipping Rates integration triggers the required flow on its platform and processes the request.
 
