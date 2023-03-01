@@ -20,6 +20,98 @@
   }],
   "operations":   [
         {
+      "name": "Bulk Create Booking",
+      "methodName": "BulkCreateBooking",
+      "serviceName": "Bookings",
+      "tag": "Bookings V2",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "createBookingsInfo",
+        "createBookingsInfo.booking",
+        "createBookingsInfo.booking.bookedEntity",
+        "createBookingsInfo.booking.bookedEntity.item",
+        "createBookingsInfo.booking.additionalFields.id"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "createBookingsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BulkCreateBookingRequest_CreateBookingInfo"]
+          },
+          "doc": " Bookings to create.\n Max: 8 bookings.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the created bookings entities.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkCreateBooking",
+          "statusCode": "200",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BulkCreateBookingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates multiple bookings.\n\n\n See [Create Booking](https://bo.wix.com/wix-docs/rest/bookings/bookings-v2---internal-only/create-booking) documentation.\n If for any of the bookings the required fields were not passed on the request or if the caller doesn't have the required permissions to create such booking, the call will fail.\n If the request contains non available bookings, the call will be completed successfully,\n but the non available bookings will not be created and will be considered as a failure on the response metadata.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bulk/bookings/create",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Bulk create appointment bookings",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bulk/bookings/create' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"create_bookings_info\": [\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"contact_id\": \"c5805735-091b-4c39-aba6-51b8a1368111\",\n              \"first_name\": \"Charles\",\n              \"last_name\": \"Lundron\",\n              \"email\": \"Charlie@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"OFFLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"end_date\": \"2022-12-29T15:00:00.000Z\",\n                \"start_date\": \"2022-12-29T14:00:00.000Z\",\n                \"location\": {\n                  \"id\": \"bbcc1dfb-bee1-44dd-bd30-660edc1d7111\",\n                  \"location_type\": \"OWNER_BUSINESS\"\n                },\n                \"resource\": {\n                  \"id\": \"76570209-101f-409b-af97-b445bdb63111\",\n                  \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n                },\n                \"service_id\": \"a512b177-d1cf-4043-a7bd-7f7961e1b111\",\n                \"timezone\": \"America/Chicago\",\n                \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": true,\n            \"skip_availability_validation\": true,\n            \"skip_business_confirmation\": true,\n            \"skip_selected_payment_option_validation\": true\n          }\n        },\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"contact_id\": \"c5805735-091b-4c39-aba6-51b8a1368111\",\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"OFFLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"end_date\": \"2022-12-29T16:00:00.000Z\",\n                \"start_date\": \"2022-12-29T15:00:00.000Z\",\n                \"location\": {\n                  \"id\": \"bbcc1dfb-bee1-44dd-bd30-660edc1d7111\",\n                  \"location_type\": \"OWNER_BUSINESS\"\n                },\n                \"resource\": {\n                  \"id\": \"76570209-101f-409b-af97-b445bdb63111\",\n                  \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n                },\n                \"service_id\": \"a512b177-d1cf-4043-a7bd-7f7961e1b111\",\n                \"timezone\": \"America/Chicago\",\n                \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": true,\n            \"skip_availability_validation\": true,\n            \"skip_business_confirmation\": true,\n            \"skip_selected_payment_option_validation\": true\n          }\n        },\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"contact_id\": \"c5805735-091b-4c39-aba6-51b8a1368111\",\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"OFFLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"end_date\": \"2022-12-29T17:00:00.000Z\",\n                \"start_date\": \"2022-12-29T16:00:00.000Z\",\n                \"location\": {\n                  \"id\": \"bbcc1dfb-bee1-44dd-bd30-660edc1d7111\",\n                  \"location_type\": \"OWNER_BUSINESS\"\n                },\n                \"resource\": {\n                  \"id\": \"76570209-101f-409b-af97-b445bdb63111\",\n                  \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n                },\n                \"service_id\": \"a512b177-d1cf-4043-a7bd-7f7961e1b111\",\n                \"timezone\": \"America/Chicago\",\n                \"schedule_id\": \"a38d1093-d608-4476-85bc-2fc38d741111\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": true,\n            \"skip_availability_validation\": true,\n            \"skip_business_confirmation\": true,\n            \"skip_selected_payment_option_validation\": true\n          }\n        }\n      ],\n      \"return_full_entity\": false\n    }'"],
+            "response": ["{\n  \"results\":   [\n        {\n      \"item_metadata\":       {\n        \"id\": \"69f871b5-c08d-4910-9d68-15d1915fa111\",\n        \"original_index\": 0,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    },\n        {\n      \"item_metadata\":       {\n        \"id\": \"69f871b5-c08d-4910-9d68-15d1915fa222\",\n        \"original_index\": 1,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    },\n        {\n      \"item_metadata\":       {\n        \"id\": \"69f871b5-c08d-4910-9d68-15d1915fa333\",\n        \"original_index\": 2,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    }\n  ],\n  \"bulk_action_metadata\":   {\n    \"total_successes\": 3,\n    \"total_failures\": 0,\n    \"undetailed_failures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Create multiple bookings for an appointment service."}
+          },
+                    {
+            "title": "Bulk create class bookings",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bulk/bookings/create' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"create_bookings_info\": [\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"MEMBERSHIP\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"session_id\": \"2mmoW0vwKcSFyxtOfCdKfNOQJU9PGMb6qiQTWvc46bUozFfllK7mjTeLZcUf9SCVq31MsX0nMuQHzsQ4FADxGTpxH13Q9EP3JA42\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": true,\n            \"skip_availability_validation\": true,\n            \"skip_business_confirmation\": true,\n            \"skip_selected_payment_option_validation\": true\n          }\n        },\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"MEMBERSHIP\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"session_id\": \"2mmoW0vwKcSFyxtOfCdKfNOQJU9PGMb6qiQTWvc46bUozFfllK7mjTeLZcUf9SCVq31MsX0nMuQHzsQ4FADxGTpxH13Q9EP3JA42\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": false,\n            \"skip_availability_validation\": false,\n            \"skip_business_confirmation\": false,\n            \"skip_selected_payment_option_validation\": false\n          }\n        }\n      ]\n    }'"],
+            "response": ["{\n  \"results\":   [\n        {\n      \"item_metadata\":       {\n        \"id\": \"6f192017-6301-449e-b901-5a11c70b5111\",\n        \"original_index\": 0,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    },\n        {\n      \"item_metadata\":       {\n        \"id\": \"9c5d6b2b-62fe-4cc7-812d-882d3f064222\",\n        \"original_index\": 1,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    }\n  ],\n  \"bulk_action_metadata\":   {\n    \"total_successes\": 2,\n    \"total_failures\": 0,\n    \"undetailed_failures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Create multiple bookings for a class service."}
+          },
+                    {
+            "title": "Bulk create course bookings",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bulk/bookings/create' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"create_bookings_info\": [\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"ONLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"schedule\": {\n                \"timezone\": \"America/Chicago\",\n                \"schedule_id\": \"910b78da-c2c8-4e93-ac12-12fc262b6111\",\n                \"service_id\": \"6b27772c-9c4d-45e4-a265-b31fa2cbb111\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": true,\n            \"skip_availability_validation\": true,\n            \"skip_business_confirmation\": true,\n            \"skip_selected_payment_option_validation\": true\n          }\n        },\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John2\",\n              \"last_name\": \"Smith2\",\n              \"email\": \"john2@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"ONLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"schedule\": {\n                \"timezone\": \"America/Chicago\",\n                \"service_id\": \"6b27772c-9c4d-45e4-a265-b31fa2cbb111\",\n                \"schedule_id\": \"910b78da-c2c8-4e93-ac12-12fc262b6111\"\n              }\n            }\n          },\n          \"flow_control_settings\": {\n            \"ignore_booking_window\": false,\n            \"skip_availability_validation\": false,\n            \"skip_business_confirmation\": false,\n            \"skip_selected_payment_option_validation\": false\n          }\n        }\n      ]\n    }'"],
+            "response": ["{\n  \"results\":   [\n        {\n      \"item_metadata\":       {\n        \"id\": \"46b6fd7f-ae09-408c-b43d-246eba6a8111\",\n        \"original_index\": 0,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    },\n        {\n      \"item_metadata\":       {\n        \"id\": \"8fc755f2-3ffa-4827-a306-a7e1cc440222\",\n        \"original_index\": 1,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\": null\n    }\n  ],\n  \"bulk_action_metadata\":   {\n    \"total_successes\": 2,\n    \"total_failures\": 0,\n    \"undetailed_failures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Create multiple bookings for a course service."}
+          },
+                    {
+            "title": "Bulk create class bookings with a non available booking and with returnFullEntity as true",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bulk/bookings/create' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"create_bookings_info\": [\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John\",\n              \"last_name\": \"Smith\",\n              \"email\": \"john@example.com\"\n            },\n            \"number_of_participants\": 101,\n            \"selected_payment_option\": \"OFFLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"session_id\": \"2mmoW0vwKcSFyxtOfCdMtcdSxR9eP0QJxQJQWTXGy0Al6QeAcX8ZIDsZHTX9Ac3S1JsWouwU09anSiLIogKIAPnLFithTcTBx111\"\n              }\n            }\n          }\n        },\n        {\n          \"booking\": {\n            \"additional_fields\": [],\n            \"contact_details\": {\n              \"first_name\": \"John2\",\n              \"last_name\": \"Smith2\",\n              \"email\": \"john2@example.com\"\n            },\n            \"number_of_participants\": 1,\n            \"selected_payment_option\": \"OFFLINE\",\n            \"booked_entity\": {\n              \"tags\": [],\n              \"slot\": {\n                \"session_id\": \"2mmoW0vwKcSFyxtOfCdMtcdSxR9eP0QJxQJQWTXGy0Al6QeAcX8ZIDsZHTX9Ac3S1JsWouwU09anSiLIogKIAPnLFithTcTBx111\"\n              }\n            }\n          }\n        }\n      ],\n      \"returnFullEntity\": true\n    }'"],
+            "response": ["{\n  \"results\":   [\n        {\n      \"item_metadata\":       {\n        \"id\": \"5de7ba20-49fb-44aa-9657-a172f8870111\",\n        \"original_index\": 1,\n        \"success\": true,\n        \"error\": null\n      },\n      \"item\":       {\n        \"id\": \"5de7ba20-49fb-44aa-9657-a172f8870111\",\n        \"booked_entity\":         {\n          \"slot\":           {\n            \"session_id\": \"2mmoW0vwKcSFyxtOfCdMtcdSxR9eP0QJxQJQWTXGy0Al6QeAcX8ZIDsZHTX9Ac3S1JsWouwU09anSiLIogKIAPnLFithTcTBx111\",\n            \"service_id\": \"fcf9814b-ea46-4e22-9b21-4a2dfc164111\",\n            \"schedule_id\": \"b79c436b-e3fc-42b6-810c-78804ef98111\",\n            \"start_date\": \"2023-01-03T21:00:00.000-06:00\",\n            \"end_date\": \"2023-01-03T22:00:00.000-06:00\",\n            \"timezone\": \"America/Chicago\",\n            \"resource\":             {\n              \"id\": \"76570209-101f-409b-af97-b445bdb63111\",\n              \"name\": \"Staff Member #1\",\n              \"email\": null,\n              \"schedule_id\": \"aa4d1042-7fbd-421f-b67b-423765049111\"\n            },\n            \"location\":             {\n              \"id\": \"bbcc1dfb-bee1-44dd-bd30-660edc1d7111\",\n              \"name\": \"Location 1\",\n              \"formatted_address\": null,\n              \"location_type\": \"OWNER_BUSINESS\"\n            }\n          },\n          \"title\": \"class pp only\",\n          \"tags\": [\"GROUP\"]\n        },\n        \"contact_details\":         {\n          \"contact_id\": null,\n          \"first_name\": \"John2\",\n          \"last_name\": \"Smith2\",\n          \"email\": \"john2@example.com\",\n          \"phone\": null,\n          \"time_zone\": null,\n          \"country_code\": null,\n          \"full_address\": null\n        },\n        \"additional_fields\": [],\n        \"number_of_participants\": 1,\n        \"status\": \"CREATED\",\n        \"payment_status\": \"UNDEFINED\",\n        \"selected_payment_option\": \"OFFLINE\",\n        \"created_date\": \"2023-01-03T07:44:40.306Z\",\n        \"external_user_id\": null,\n        \"booking_source\": null,\n        \"participant_notification\": null,\n        \"send_sms_reminder\": null,\n        \"revision\": \"1\",\n        \"created_by\":         {\n          \"contact_id\": null,\n          \"wix_user_id\": \"bef286b8-af6d-4934-9111-9e6de3f07111\",\n          \"identity_type\": \"UNKNOWN\"\n        },\n        \"start_date\": \"2023-01-04T03:00:00Z\",\n        \"end_date\": \"2023-01-04T04:00:00Z\",\n        \"flow_control_settings\":         {\n          \"ignore_booking_window\": false,\n          \"skip_availability_validation\": false,\n          \"skip_business_confirmation\": false,\n          \"skip_selected_payment_option_validation\": false,\n          \"with_refund\": false\n        },\n        \"internal_business_note\": null,\n        \"updated_date\": \"2023-01-03T07:44:40.306Z\",\n        \"double_booked\": null,\n        \"extended_fields\": null,\n        \"total_participants\": 1\n      }\n    },\n        {\n      \"item_metadata\":       {\n        \"id\": null,\n        \"original_index\": 0,\n        \"success\": false,\n        \"error\":         {\n          \"code\": \"BOOKING_POLICY_VIOLATION\",\n          \"description\": \"Request is not compliant with booking policy\",\n          \"data\": null\n        }\n      },\n      \"item\": null\n    }\n  ],\n  \"bulk_action_metadata\":   {\n    \"total_successes\": 1,\n    \"total_failures\": 1,\n    \"undetailed_failures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Create multiple bookings for a class service, with a non available booking due to policy violation, and with returnFullEntity as true."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkCreateBookingRequest",
+        "rpcResponseName": "BulkCreateBookingResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
       "name": "Cancel Booking",
       "methodName": "CancelBooking",
       "serviceName": "Bookings",
@@ -163,6 +255,101 @@
         "hasRest": true,
         "rpcRequestName": "ConfirmBookingRequest",
         "rpcResponseName": "ConfirmBookingResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Booking",
+      "methodName": "CreateBooking",
+      "serviceName": "Bookings",
+      "tag": "Bookings V2",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "booking",
+        "booking.bookedEntity",
+        "booking.bookedEntity.item",
+        "booking.additionalFields.id"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "booking",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
+          "doc": "\nThe booking to create.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": "\nInformation about a message to send to the customer.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": "\nWhether to send an SMS reminder to the customer 24 hours before the\nsession starts. The phone number is taken from `contactDetails.phone`.\nDefault: `true`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_CreateBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before creating the booking or if additional payment options are\naccepted.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateBooking",
+          "statusCode": "200",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_CreateBookingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a booking.\n\n\nTo create a booking for an appointment or a session of a class, pass a booking with the relevant `slot`.\n\nTo create a booking for the entire course, pass a booking with the relevant `schedule`.\nYou can use the [Query Availability](https://bo.wix.com/wix-docs/rest/bookings/availabilitycalendar---wip/query-availability) endpoint to check the availability beforehand.\n\nIf you create a booking for an existing session, we recommend that you only pass `slot.sessionId`.\nThen, any specified slot details are calculated.\n\nIf you create a booking for a new session, we recommend to call\n[Query Availability](https://bo.wix.com/wix-docs/rest/bookings/availabilitycalendar---wip/query-availability)\nfirst.\nThen, pass the retrieved `availability.slot` object as the BookedEntity.Slot of the booking in the request.\n\nBookings are created with a status of `CREATED`.\n`CREATED` bookings don't appear on the business calendar and don't affect a related schedule's availability.\n\nTo create a booking with a given status, pass a booking with the wanted status.\nThis is only permitted for site Owners.\n\nYou can pass a `participantNotification.message` to notify the customer of the booking with a message.\nIt's also necessary to pass `participantNotification.notifyParticipants`as `true` to send the message.\n\nYou can pass `sendSmsReminder` as 'true', if you want an SMS reminder to be sent to the phone number specified in the ContactDetails, 24 hours before the session starts.\n\nWhen creating a booking you must pass either `participantsChoices` or `totalParticipants`. If you pass `participantsChoices`, all the\nprovided choices must exist for the service, otherwise the call returns an `INVALID_SERVICE_CHOICES` error.\n\nWhen creating a booking, you can pass `selectedPaymentOption`.\nThis specifies which payment method the customer plans to use.\nBut it's possible for them to later use another supported payment method.\n\nYou can skip the checkout and payment flow if you call [Confirm Or Decline Booking ](link) otherwise, after you create the booking, you can use the\nWix eCommerce APIs (coming soon) for the checkout and payment flow or use a different service for checkout.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bookings",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Book an existing course",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bookings' \\\n-H 'Authorization: <AUTH>' \\\n-d '{ \"booking\": {\n    \"bookedEntity\": {\n      \"schedule\": {\n        \"scheduleId\": \"7935f7bd-4aa5-4402-9d2f-2f4a7c039c54\",\n        \"serviceId\": \"4d92514a-73ef-4477-8e4b-51d67c18c652\",\n        \"location\": {\n          \"name\": \"Location Name\",\n          \"formattedAddress\": \"Location Address\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        },\n        \"timezone\": \"Europe/Dublin\",\n        \"firstSessionStart\": \"2022-09-30T14:00:00.000+01:00\",\n        \"lastSessionEnd\": \"2022-12-30T15:00:00.000Z\"\n      },\n      \"title\": \"Future Group Trainings\",\n      \"tags\": [\n        \"COURSE\"\n      ]\n    },\n    \"contactDetails\": {\n      \"firstName\": \"John\",\n      \"email\": \"john@example.com\"\n    },\n    \"additionalFields\": [],\n    \"totalParticipants\": 1,\n    \"selectedPaymentOption\": \"ONLINE\"\n  },\n  \"sendSmsReminder\": false,\n  \"participantNotification\": {\n    \"notifyParticipants\": true\n  },\n  \"flowControlSettings\": {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false,\n    \"skipSelectedPaymentOptionValidation\": false\n  }\n}'"],
+            "response": ["{\"booking\": {\n  \"id\": \"5c3d3f70-26c4-42e3-8411-37448bf1ae89\",\n  \"bookedEntity\":   {\n    \"schedule\":     {\n      \"scheduleId\": \"7935f7bd-4aa5-4402-9d2f-2f4a7c039c54\",\n      \"serviceId\": \"4d92514a-73ef-4477-8e4b-51d67c18c652\",\n      \"location\":       {\n        \"id\": \"9de094d5-8985-484e-9218-d020d9d17953\",\n        \"name\": \"Location Name\",\n        \"formattedAddress\": \"Location Address\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      },\n      \"timezone\": \"Europe/Dublin\",\n      \"firstSessionStart\": \"2022-09-30T14:00:00.000+01:00\",\n      \"lastSessionEnd\": \"2022-12-30T15:00:00.000Z\"\n    },\n    \"title\": \"Future Group Trainings\",\n    \"tags\": [\"COURSE\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"john@example.com\"\n  },\n  \"additionalFields\": [],\n  \"totalParticipants\":   [\n    1,\n    1\n  ],\n  \"status\": \"CREATED\",\n  \"paymentStatus\": \"UNDEFINED\",\n  \"selectedPaymentOption\": \"ONLINE\",\n  \"createdDate\": \"2022-12-24T17:16:21.901Z\",\n  \"revision\": \"1\",\n  \"createdBy\":   {\n    \"identityType\": \"UNKNOWN\",\n    \"wixUserId\": \"086ca7ca-ee70-4ab3-a96e-78f8420e9428\"\n  },\n  \"startDate\": \"2022-09-30T13:00:00Z\",\n  \"endDate\": \"2022-12-30T15:00:00Z\",\n  \"updatedDate\": \"2022-12-24T17:16:21.901Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Book an existing class",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bookings' \\\n-H 'Authorization: <AUTH>' \\\n-d '{ \"booking\": {\n        \"bookedEntity\": {\n          \"slot\": {\n            \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Grhufc19yxtld2ty3Xr5MpSWDTKOTjNUxnPiSzuHshes69npqrfSSRCiPbJmW985sUnh3XKhP9BqJdfRknRxJib3BqXo8LrA5kdngb4ubOZQ9d6yW73HMpiWrBufouhn4UalWsPk1OQQpysed4Vo0hq0E8KuD3nw9VMDdBToFyfp8RNAepDdgfBCfIJ3SEYOjyS4rvQAovUxmUA3xeRaV35f1yl8cth0ZZQuLx4gUrle5ciKpRmWU9TM9k5upRk9NyDw3OD9Zd\",\n            \"serviceId\": \"8bdfb0dc-9461-4f21-b576-f866f9f50dfb\",\n            \"scheduleId\": \"1b5e8844-7d10-42a3-b326-87941e5efdcb\",\n            \"startDate\": \"2022-12-28T14:00:00.000Z\",\n            \"endDate\": \"2022-12-28T15:00:00.000Z\",\n            \"timezone\": \"Europe/Dublin\",\n            \"resource\": {\n              \"id\": \"64bb860a-eda5-4992-9fc6-538d58e818ec\",\n              \"name\": \"Sam Kruger\",\n              \"scheduleId\": \"2bc4bf60-cccb-42ce-a43d-05d1bbbfac4c\"\n            },\n            \"location\": {\n              \"id\": \"9de094d5-8985-484e-9218-d020d9d17953\",\n              \"name\": \"Location Name\",\n              \"formattedAddress\": \"Location Address\",\n              \"locationType\": \"OWNER_BUSINESS\"\n            }\n          },\n          \"title\": \"CLASS\",\n          \"tags\": [\n            \"GROUP\"\n          ]\n        },\n    \"contactDetails\": {\n      \"firstName\": \"John\",\n      \"email\": \"john@example.com\"\n    },\n    \"additionalFields\": [],\n    \"totalParticipants\": 1,\n    \"selectedPaymentOption\": \"ONLINE\"\n  },\n  \"sendSmsReminder\": false,\n  \"participantNotification\": {\n    \"notifyParticipants\": true\n  },\n  \"flowControlSettings\": {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false,\n    \"skipSelectedPaymentOptionValidation\": false\n  }\n}'"],
+            "response": ["{\"booking\": {\n  \"id\": \"2a0aed39-2e03-4ba0-bfe3-f099d351e7bd\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Grhufc19yxtld2ty3Xr5MpSWDTKOTjNUxnPiSzuHshes69npqrfSSRCiPbJmW985sUnh3XKhP9BqJdfRknRxJib3BqXo8LrA5kdngb4ubOZQ9d6yW73HMpiWrBufouhn4UalWsPk1OQQpysed4Vo0hq0E8KuD3nw9VMDdBToFyfp8RNAepDdgfBCfIJ3SEYOjyS4rvQAovUxmUA3xeRaV35f1yl8cth0ZZQuLx4gUrle5ciKpRmWU9TM9k5upRk9NyDw3OD9Zd\",\n      \"serviceId\": \"8bdfb0dc-9461-4f21-b576-f866f9f50dfb\",\n      \"scheduleId\": \"1b5e8844-7d10-42a3-b326-87941e5efdcb\",\n      \"startDate\": \"2022-12-28T14:00:00.000Z\",\n      \"endDate\": \"2022-12-28T15:00:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"64bb860a-eda5-4992-9fc6-538d58e818ec\",\n        \"name\": \"Sam Kruger\",\n        \"scheduleId\": \"2bc4bf60-cccb-42ce-a43d-05d1bbbfac4c\"\n      },\n      \"location\":       {\n        \"id\": \"9de094d5-8985-484e-9218-d020d9d17953\",\n        \"name\": \"Location Name\",\n        \"formattedAddress\": \"Location Address\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"CLASS\",\n    \"tags\": [\"GROUP\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"john@example.com\"\n  },\n  \"additionalFields\": [],\n  \"totalParticipants\":   [\n    1,\n    1\n  ],\n  \"status\": \"CREATED\",\n  \"paymentStatus\": \"UNDEFINED\",\n  \"selectedPaymentOption\": \"ONLINE\",\n  \"createdDate\": \"2022-12-24T17:36:18.204Z\",\n  \"revision\": \"1\",\n  \"createdBy\":   {\n    \"identityType\": \"UNKNOWN\",\n    \"wixUserId\": \"086ca7ca-ee70-4ab3-a96e-78f8420e9428\"\n  },\n  \"startDate\": \"2022-12-28T14:00:00Z\",\n  \"endDate\": \"2022-12-28T15:00:00Z\",\n  \"updatedDate\": \"2022-12-24T17:36:18.204Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "Books an existing session of a class, by the session id."}
+          },
+                    {
+            "title": "Book an appointment",
+            "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bookings' \\\n-H 'Authorization: <AUTH>' \\\n-d '{ \"booking\": {\n    \"bookedEntity\": {\n      \"slot\": {\n        \"serviceId\": \"8ee826a3-64c4-416d-a22c-e01d39f56931\",\n        \"scheduleId\": \"844772a6-ad31-49fb-b3d9-7aef1e559b7e\",\n        \"startDate\": \"2022-12-26T12:00:00.000Z\",\n        \"endDate\": \"2022-12-26T13:00:00.000Z\",\n        \"timezone\": \"Europe/Dublin\",\n        \"resource\": {\n          \"id\": \"5fa50f19-4c94-4c42-a72b-289505ba2028\",\n          \"name\": \"Tom Jones\",\n          \"scheduleId\": \"a4166c1f-728c-4895-8a6e-1942bb321315\"\n        },\n        \"location\": {\n          \"id\": \"9de094d5-8985-484e-9218-d020d9d17953\",\n          \"name\": \"Location Name\",\n          \"formattedAddress\": \"Location Address\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        }\n      },\n      \"title\": \"In-person Appointment\",\n      \"tags\": [\n        \"INDIVIDUAL\"\n      ]\n    },\n    \"contactDetails\": {\n       \"firstName\": \"John\",\n       \"email\": \"john@example.com\"\n    },\n    \"additionalFields\": [],\n    \"totalParticipants\": 1,\n    \"selectedPaymentOption\": \"ONLINE\"\n  },\n  \"sendSmsReminder\": false,\n  \"participantNotification\": {\n    \"notifyParticipants\": true\n  },\n  \"flowControlSettings\": {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false,\n    \"skipSelectedPaymentOptionValidation\": false\n  }\n}'"],
+            "response": ["{\"booking\": {\n  \"id\": \"084e2d07-62ae-42f6-bf7f-5796a393d81d\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"serviceId\": \"8ee826a3-64c4-416d-a22c-e01d39f56931\",\n      \"scheduleId\": \"844772a6-ad31-49fb-b3d9-7aef1e559b7e\",\n      \"startDate\": \"2022-12-26T12:00:00.000Z\",\n      \"endDate\": \"2022-12-26T13:00:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"5fa50f19-4c94-4c42-a72b-289505ba2028\",\n        \"name\": \"Tom Jones\",\n        \"scheduleId\": \"a4166c1f-728c-4895-8a6e-1942bb321315\"\n      },\n      \"location\":       {\n        \"id\": \"9de094d5-8985-484e-9218-d020d9d17953\",\n        \"name\": \"Location Name\",\n        \"formattedAddress\": \"Location Address\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"In-person Appointment\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"john@example.com\"\n  },\n  \"additionalFields\": [],\n  \"totalParticipants\":   [\n    1,\n    1\n  ],\n  \"status\": \"CREATED\",\n  \"paymentStatus\": \"UNDEFINED\",\n  \"selectedPaymentOption\": \"ONLINE\",\n  \"createdDate\": \"2022-12-24T17:42:12.019Z\",\n  \"revision\": \"1\",\n  \"createdBy\":   {\n    \"identityType\": \"UNKNOWN\",\n    \"wixUserId\": \"086ca7ca-ee70-4ab3-a96e-78f8420e9428\"\n  },\n  \"startDate\": \"2022-12-26T12:00:00Z\",\n  \"endDate\": \"2022-12-26T13:00:00Z\",\n  \"updatedDate\": \"2022-12-24T17:42:12.019Z\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateBookingRequest",
+        "rpcResponseName": "CreateBookingResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1414,12 +1601,12 @@
                 {
           "name": "skipAvailabilityValidation",
           "type": "boolean",
-          "doc": " When true, skips availability checking and allows booking.\n"
+          "doc": " When true, skips availability checking and allows booking.\n Requires BOOKINGS.OVERRIDE_AVAILABILITY permissions.\n"
         },
                 {
           "name": "skipBusinessConfirmation",
           "type": "boolean",
-          "doc": " When true, allows booking a confirmation-required service without requiring confirmation.\n"
+          "doc": " When true, allows booking a confirmation-required service without requiring confirmation.\n Requires BOOKINGS.IGNORE_BOOKING_POLICY permissions.\n"
         },
                 {
           "name": "skipSelectedPaymentOptionValidation",
@@ -1473,7 +1660,7 @@
                 {
           "name": "status",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
-          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created.\n - `\"UPDATED\"` - The booking was updated.\n - `\"CONFIRMED\"` - The booking has been confirmed and appears on the bookings calendar.\n    Booking can be manually confirmed using the Set As Confirmed endpoint.\n    Booking can be automatically confirmed when the following requirements are met:\n    + The service is configured as automatically confirmed.\n    + Invoking eCommerce checkout API and an order has been created.\n - `\"CANCELED\"` - The booking has been canceled and synced to bookings calendar.\n    The booking can be canceled using cancel API.\n - `\"PENDING\"` - The booking waiting to be confirmed or declined buy the owner and is synced to bookings calendar.\n    Bookings can be manually set as pending using setAsPending API, requires manage booking status permissions.\n    Booking can be automatically set as pending when the following requirements are met:\n    + The Service is configured as manually confirmed.\n    + Invoking the eCommerce checkout API and an order has been created.\n - `\"WAITING_LIST\"` - The booking is pending on a waiting list.\n    Booking can be created with this status when invoking waiting list join API.\n - `\"DECLINED\"` - The booking was declined by the owner and synced to bookings calendar.\n    Booking can be manually declined using decline API and requires manage booking permissions.\n    Booking can be automatically declined when the following requirements are met:\n    + Invoking eCommerce checkout API and the order declined event has been sent.\n    + Invoking eCommerce checkout API and order approved event has been sent, but the booking is offline and the booking causes a double booking.\n"
+          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created.\n - `\"UPDATED\"` - The booking was updated.\n - `\"CONFIRMED\"` - The booking was confirmed and appears on the bookings calendar.\n    A booking can be manually confirmed using the [`Confirm Or Decline API`](www.example.com).\n    A booking can be automatically confirmed when the following requirements are met:\n    + The service is configured as automatically confirmed.\n    + The system invoked the eCommerce checkout API and created an order.\n - `\"CANCELED\"` - The booking has been canceled and synced to the bookings calendar.\n    The booking can be canceled using [`Cancel Booking API`](www.example.com).\n - `\"PENDING\"` - The booking is waiting to be confirmed or declined by the owner and the booking is synced to the bookings calendar.\n    Bookings can be manually set as `PENDING` using the [`setAsPending` API](www.example.com), by those with Manage Booking Status permissions scopes.\n    Bookings can be automatically set as `PENDING` when the following requirements are met:\n    + The service is configured as manually confirmed.\n    + Invoking the eCommerce checkout API and an order has been created.\n - `\"WAITING_LIST\"` - The booking is on a waiting list.\n - `\"DECLINED\"` - The booking was declined by the owner and synced to the Bookings calendar.\n    Bookings can be manually declined using the [`Decline Booking` API](www.example.com) by those with Manage Booking Status permissions scopes.\n    Booking can be automatically declined when one of the following requirements are met:\n    + Invoking the `eCommerce checkout` API and the order declined event has been sent.\n    + Invoking the `eCommerce checkout` API and order approved event has been sent, but the booking is offline and the booking causes a double booking.\n"
         },
                 {
           "name": "paymentStatus",
@@ -1500,24 +1687,24 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Revision number to be used when updating, rescheduling, or cancelling the booking. The revision number is automatically incremented when the booing is updated.\n"
+          "doc": " Revision number to be used when updating, rescheduling, or cancelling the booking. Revision number, which increments by 1 each time the booking is updated, rescheduled, or canceled. To prevent conflicting changes,the current revision must be passed when updating the booking.\n"
         },
                 {
           "name": "createdBy",
           "type": "All APIs.bookingsv2._wix_common_IdentificationData",
-          "doc": " ID of the creator of the Booking\nIf `appId` and another ID are present, the other ID takes precedence.\n",
+          "doc": " ID of the creator of the Booking.\nIf `appId` and another ID are present, the other ID takes precedence.\n",
           "readOnly": true
         },
                 {
           "name": "startDate",
           "type": "string",
-          "doc": " The start date of this booking. For a slot, this is the start date of the slot. For a schedule, the start date of the first session.\n",
+          "doc": " The start date of this booking. For a slot, this is the start date of the slot. For a schedule, this is the start date of the first session.\n",
           "readOnly": true
         },
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " The end date of this booking. For a slot, this is the end date of the slot. For a schedule, the end date of the last session.\n",
+          "doc": " The end date of this booking. For a slot, this is the end date of the slot. For a schedule, this is the end date of the last session.\n",
           "readOnly": true
         },
                 {
@@ -1534,7 +1721,7 @@
                 {
           "name": "doubleBooked",
           "type": "boolean",
-          "doc": " Indicating if this booking overlaps another existing confirmed booking\n",
+          "doc": " Whether this booking overlaps another existing confirmed booking. Returned when: `true`\n",
           "readOnly": true
         },
                 {
@@ -1640,7 +1827,7 @@
                 {
           "name": "slot",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookedSlot",
-          "doc": " The booked slot, which once booked becomes a session. The booking is automatically assigned to the session if given, or a session is be created if one doesn't already exist.\n"
+          "doc": " The booked slot, once booked becomes a session, The booking is automatically assigned to the session if it already exists, or creates a session if one doesn't already exist.\n"
         },
                 {
           "name": "schedule",
@@ -1666,7 +1853,7 @@
                 {
           "name": "sessionId",
           "type": "string",
-          "doc": " ID of the underlying session when session is a single session or generated from a recurring session.\n If `sessionId` is defined in the Create Booking request, the `startDate`, `endDate`, timezone, resource, and location fields from the request are ignored and populated from the session's information.\n"
+          "doc": " ID of the underlying session when session is a single session or generated from a recurring session.\n If `sessionId` is defined in the `Create Booking` request, the `startDate`, `endDate`, `timezone`, `resource`, and `location` fields are ignored and populated from the existing session's information.\n"
         },
                 {
           "name": "serviceId",
@@ -1696,7 +1883,7 @@
                 {
           "name": "resource",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookedResource",
-          "doc": " The resource used on the slot.\n"
+          "doc": " The resource assigned to the slot.\n"
         },
                 {
           "name": "location",
@@ -1726,7 +1913,7 @@
                 {
           "name": "serviceId",
           "type": "string",
-          "doc": " ID of the booked service.\n"
+          "doc": " Booked service ID.\n"
         },
                 {
           "name": "location",
@@ -1784,7 +1971,7 @@
                 {
           "name": "scheduleId",
           "type": "string",
-          "doc": " Resources schedule ID.\n"
+          "doc": " Resource's schedule ID.\n"
         }
       ],
       "enum": null,
@@ -1903,7 +2090,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": "Filter object in the following format:  \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -1911,7 +2098,7 @@
             "name": "array",
             "typeParams": ["All APIs.bookingsv2._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "fields",
@@ -1978,17 +2165,17 @@
                 {
           "name": "code",
           "type": "string",
-          "doc": ""
+          "doc": " Error code.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": ""
+          "doc": " Description of the error.\n"
         },
                 {
           "name": "data",
           "type": "struct",
-          "doc": ""
+          "doc": " Data related to the error.\n"
         }
       ],
       "enum": null,
@@ -2710,7 +2897,7 @@
                 {
           "name": "ignoreCancellationPolicy",
           "type": "boolean",
-          "doc": "\nWhether the cancelation policy applies when canceling the booking. When\npassing `false` you can only cancel a booking if the cancelation policy\nallows it. \nDefault: `false`.\n<!--ONLY:VELO\nRequires \"Manage Wix Bookings App\" and \"Manage Bookings' Calendar\" [roles](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin).\n<!--END:ONLY:VELO-->\n"
+          "doc": "\nWhether the cancelation policy applies when canceling the booking. When\npassing `false` you can only cancel a booking if the cancelation policy\nallows it.\nDefault: `false`.\n<!--ONLY:VELO\nRequires \"Manage Wix Bookings App\" and \"Manage Bookings' Calendar\" [roles](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin).\n<!--END:ONLY:VELO-->\n"
         },
                 {
           "name": "withRefund",
@@ -3159,17 +3346,17 @@
                 {
           "name": "ignoreReschedulePolicy",
           "type": "boolean",
-          "doc": "\nWhether the rescheduling policy applies when rescheduling the booking.\nWhen passing `false` you can only cancel a booking if the rescheduling\npolicy allows it. \nDefault: `false`.\n<!--ONLY:VELO\nRequires \"Manage Wix Bookings App\" and \"Manage Bookings' Calendar\" [roles](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin).\n<!--END:ONLY:VELO-->\n"
+          "doc": "\nWhether the rescheduling policy applies when rescheduling the booking.\nWhen passing `false` you can only cancel a booking if the rescheduling\npolicy allows it.\nDefault: `false`.\n<!--ONLY:VELO\nRequires \"Manage Wix Bookings App\" and \"Manage Bookings' Calendar\" [roles](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin).\n<!--END:ONLY:VELO-->\n"
         },
                 {
           "name": "skipAvailabilityValidation",
           "type": "boolean",
-          "doc": "\nWhether the availability is checked before rescheduling the booking.\nWhen passing `false` a booking is only created when the slot or\nschedule is available. \nDefault: `false`.\n"
+          "doc": "\nWhether the availability is checked before rescheduling the booking.\nWhen passing `false` a booking is only created when the slot or\nschedule is available.\nDefault: `false`.\n"
         },
                 {
           "name": "skipBusinessConfirmation",
           "type": "boolean",
-          "doc": "\nWhether the rescheduled booking's status is automatically set to\n`CONFIRMED` for services that normally require the owner's manual\nconfirmation. \nDefault: `false`.\n"
+          "doc": "\nWhether the rescheduled booking's status is automatically set to\n`CONFIRMED` for services that normally require the owner's manual\nconfirmation.\nDefault: `false`.\n"
         }
       ],
       "enum": null,
@@ -3242,66 +3429,6 @@
           "doc": "\nInformation about the service choices to book. Available only for services with\nvariants.\nPass when not all participants book the same variant.\n"
         }
       ],
-      "enum": null,
-      "extra": {},
-      "labels": [],
-      "oneOf": true
-    },
-        {
-      "name": "_com_wixpress_bookings_bookings_v2_LegacyRescheduleBookingRequest",
-      "displayName": "Legacy Reschedule Booking Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": " Id of the booking to be rescheduled.\n"
-        },
-                {
-          "name": "slot",
-          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookedSlot",
-          "doc": " The new slot to which the booking will be rescheduled\n This booking will automatically be assigned to the session if given, or will create a new one if not.\n"
-        },
-                {
-          "name": "revision",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "participantNotification",
-          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
-          "doc": " Whether to notify participants about the change and an optional custom message\n"
-        },
-                {
-          "name": "shouldConfirmBooking",
-          "type": "boolean",
-          "doc": ""
-        },
-                {
-          "name": "participantsInfo",
-          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_LegacyRescheduleBookingRequest_ParticipantsInfo",
-          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_bookings_bookings_v2_LegacyRescheduleBookingRequest_ParticipantsInfo",
-      "displayName": "Participants Info Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
       "enum": null,
       "extra": {},
       "labels": [],
@@ -3436,24 +3563,6 @@
         "name": "booking",
         "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
         "doc": "\nRescheduled booking.\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_bookings_bookings_v2_LegacyRescheduleBookingResponse",
-      "displayName": "Legacy Reschedule Booking Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "booking",
-        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
-        "doc": ""
       }],
       "enum": null,
       "extra": {},
@@ -3827,17 +3936,17 @@
                 {
           "name": "skipAvailabilityValidation",
           "type": "boolean",
-          "doc": "\nWhether the availability is checked before creating the booking. When\npassing `false` a booking is only created when the slot or schedule is\navailable. \nDefault: `false`.\n"
+          "doc": "\nWhether the availability is checked before creating the booking. When\npassing `false` a booking is only created when the slot or schedule is\navailable.\nDefault: `false`.\n"
         },
                 {
           "name": "skipBusinessConfirmation",
           "type": "boolean",
-          "doc": "\nWhether `PENDING` bookings are automatically set to `CONFIRMED` for\nservices that normally require the owner's manual confirmation. \nDefault: `false`.\n"
+          "doc": "\nWhether `PENDING` bookings are automatically set to `CONFIRMED` for\nservices that normally require the owner's manual confirmation. Your\napp must have the `BOOKINGS.OVERRIDE_AVAILABILITY` permission scope\nwhen passing `true`.\nDefault: `false`.\n"
         },
                 {
           "name": "skipSelectedPaymentOptionValidation",
           "type": "boolean",
-          "doc": "\nWhether customers can pay using a payment method that isn't supported\nfor the service, but that's supported for other services. \nDefault: `false`.\n"
+          "doc": "\nWhether customers can pay using a payment method that isn't supported\nfor the service, but that's supported for other services. Your app\nmust have the `BOOKINGS.MANAGE_PAYMENTS` permission scope when passing\n`true`.\nDefault: `false`.\n"
         }
       ],
       "enum": null,
