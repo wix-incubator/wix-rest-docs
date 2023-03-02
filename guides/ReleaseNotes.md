@@ -1,5 +1,20 @@
 # Release Notes
 
+## New Release: [External Calendars V2](wix-bookings/external-calendars-v2)
+
+The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you to connect and sync a Wix site with external calendars. The new API includes the following endpoints:
+- [Connect By Credentials](wix-bookings/external-calendars-v2/connect-by-credentials)
+- [Connect By OAuth](wix-bookings/external-calendars-v2/connect-by-o-auth)
+- [Disconnect](wix-bookings/external-calendars-v2/disconnect)
+- [Get Connection](wix-bookings/external-calendars-v2/get-connection)
+- [List Calendars](wix-bookings/external-calendars-v2/list-calendars)
+- [List Connections](wix-bookings/external-calendars-v2/list-connections)
+- [List Events](wix-bookings/external-calendars-v2/list-events)
+- [List Providers](wix-bookings/external-calendars-v2/list-providers)
+- [Update Sync Config](wix-bookings/external-calendars-v2/update-sync-config)
+
+(March 02, 2023)
+
 
 ## New Release: [Policy v2](wix-events/policy-v2)
 
