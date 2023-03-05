@@ -1,5 +1,34 @@
 # Release Notes
 
+## New Release: [External Calendars V2](wix-bookings/external-calendars-v2)
+
+The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you to connect and sync a Wix site with external calendars. The new API includes the following endpoints:
+- [Connect By Credentials](wix-bookings/external-calendars-v2/connect-by-credentials)
+- [Connect By OAuth](wix-bookings/external-calendars-v2/connect-by-o-auth)
+- [Disconnect](wix-bookings/external-calendars-v2/disconnect)
+- [Get Connection](wix-bookings/external-calendars-v2/get-connection)
+- [List Calendars](wix-bookings/external-calendars-v2/list-calendars)
+- [List Connections](wix-bookings/external-calendars-v2/list-connections)
+- [List Events](wix-bookings/external-calendars-v2/list-events)
+- [List Providers](wix-bookings/external-calendars-v2/list-providers)
+- [Update Sync Config](wix-bookings/external-calendars-v2/update-sync-config)
+
+(March 02, 2023)
+
+
+## New Release: [Policy v2](wix-events/policy-v2)
+
+The [Policy v2](wix-events/policy-v2) API enables you to manage the policies for a particular event. The new API includes:
+
+- [Create Policy](wix-events/policy-v2/create-policy)
+- [Delete Policy](wix-events/policy-v2/delete-policy)
+- [Get Policy](wix-events/policy-v2/get-policy)
+- [Query Policies](wix-events/policy-v2/query-policies)
+- [Reorder Event Policies](wix-events/policy-v2/reorder-event-policies)
+- [Update Policy](wix-events/policy-v2/update-policy)
+
+(March 01, 2023)
+
 
 ## New Release: [Bookings Services](wix-bookings/services-v2)
 
