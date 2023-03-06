@@ -4,6 +4,10 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: September 30, 2023
+- Wix Bookings [External Calendar Sync](https://dev.wix.com/api/rest/wix-bookings/external-calendar-sync):
+  - Replaced by [External Calendar V2](https://dev.wix.com/api/rest/wix-bookings/external-calendars-v2)
+
 ## End of Life: June 30, 2023
 
 - [Wix Blog](wix-blog/blog):
@@ -39,7 +43,7 @@ at least 6 months after their announced deprecation.
   `fieldSet` parameter is replaced by `fieldsets`.
   (Announced September 1, 2022)
 
-## End of Life: October 24, 2022
+## End of Life: October 31, 2022
 
 - [Bookings External Calendar Sync](https://dev.wix.com/api/rest/wix-bookings/external-calendar-sync): Sync
 
