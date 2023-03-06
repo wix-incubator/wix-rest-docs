@@ -12,6 +12,7 @@ In the response to the [Get App Instance](https://dev.wix.com/api/rest/app-manag
 + `stores`
 + `bookings`
 + `events`
++ `pricingPlans`
 
 ## Coupon Types
 Wix supports the following types of coupons:
