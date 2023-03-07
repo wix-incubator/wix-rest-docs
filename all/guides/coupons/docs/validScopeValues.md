@@ -8,6 +8,7 @@ Coupons are available for the following Wix business solutions:
 - Wix Stores
 - Wix Bookings
 - Wix Events
+- Wix Pricing Plans
 
 When creating a coupon via API, you will need to apply a coupon scope. The scope should include:
 * Namespace (required)
@@ -37,3 +38,10 @@ When creating a coupon via API, you will need to apply a coupon scope. The scope
 | events|event|event ID|Coupon applies to the specific event with the provided ID |
 | events|ticket|N/A|Coupon applies to all tickets |
 | events|ticket|ticket ID|Coupon applies to the specific ticket with the provided ID |
+
+## Wix Pricing Plans
+
+| Namespace | Group | Entity ID | Result|
+| --- | --- | --- | --- |
+| pricingPlans|N/A|N/A|Coupon applies to all pricing plans |
+| pricingPlans|plan|plan ID|Coupon applies to the specific pricing plan with the provided ID |
