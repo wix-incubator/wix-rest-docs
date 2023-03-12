@@ -1,0 +1,429 @@
+{
+  "name": "Notifications",
+  "client_id": "https://github.com/wix-private/wixos/tree/master/ping/notifications-hub/notifications-hub-api/src/main/proto/v3#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Send notifications to Wix site owners and contributors.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Notifications",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/notifications/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/notifications/docs/createNotification.md",
+      "name": "Creating a Notification Template"
+    }
+  ],
+  "operations": [  {
+    "name": "Notify",
+    "methodName": "Notify",
+    "serviceName": "NotificationsServiceV3",
+    "tag": "Notifications",
+    "permissions": [    {
+      "name": "Manage Notifications",
+      "description": "Request permission to manage and trigger notifications."
+    }],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields": ["notificationTemplateId"],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "notificationTemplateId",
+        "type": "string",
+        "doc": " Notification template ID. A notification template specifies the text and recipients for notifications.\n To obtain a notification template ID, [create a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center.\n",
+        "required": true
+      },
+            {
+        "in": "BODY",
+        "name": "dynamicValues",
+        "type": "All APIs.Notifications.dynamicValuesMapEntry",
+        "doc": "Set of key-value pairs. Each key is a placeholder name you specify when [creating a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template). \n The value is an object containing the text to replace the placeholder in the notifications.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "Notify",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Notifications._com_wixpress_ping_hub_api_v3_NotifyResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " Sends notifications based on the template and dynamic values provided.\n\n \n An app can call this endpoint up to 100,000 times per month for each site.\n\n When you [create a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, you are given a notification template ID.\n Call the Notify endpoint with this ID as `notificationTemplateID` to trigger notifications based on the notification template.\n If the notification template contains placeholders for dynamic values, provide those values as key-value pairs in the `dynamicValues` array.\n The values you specify are incorporated seamlessly in the notifications sent out. \n\n For example, if your notification template looks like this:\n\n > **Title:** New {{roomType}} reservation.\n >\n > **Message:** {{customerName}} just made a new {{roomType}} reservation for {{dayOfWeek}}.\n\n You can pass the following values:\n \n ```json\n {\n    \"notificationTemplateId\": \"<YOUR_NOTIFICATION_ID>\",\n    \"dynamicValues\": {\n      \"roomType\": {\n        \"text\": \"studio\"\n      },\n      \"customerName\": {\n        \"text\": \"Sally Jones\"\n      },\n      \"dayOfWeek\": {\n        \"text\": \"Friday\"\n      }\n    }\n }\n ```\n\n This will cause the following text to be sent in notifications to the recipients defined in the Wix Dev Center:\n\n > **Title:** New studio reservation.\n >\n > **Message:** Sally Jones just made a new studio reservation for Friday.\n\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://wix.wixapis.com/notifications/v3/notify",
+      "links": [],
+      "examples":       [
+                {
+          "title": "Send notifications (with dynamic values)",
+          "body": ["curl -X POST \\\nhttps://www.wixapis.com/notifications/v3/notify \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"notificationTemplateId\": \"2664799d-49ad-417c-aab0-aba0c39a3951\",\n  \"dynamicValues\": {\n    \"recipientName\": {\n      \"text\": \"Danny\"\n    },\n    \"companyName\": {\n      \"text\": \"WIX\"\n    },\n    \"age\": {\n      \"text\": \"34\"\n    }\n  }\n}'"],
+          "response": ["{\"notificationBatchId\": \"1ed7fdd1-e99a-4ddd-8295-037459cdddca\"} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Send notifications (without dynamic values)",
+          "body": ["curl -X POST \\\nhttps://www.wixapis.com/notifications/v3/notify \\\n-H 'Authorization: <AUTH>'\n-d '{\n  \"notificationTemplateId\": \"2664799d-49ad-417c-aab0-aba0c39a3951\"\n}'"],
+          "response": ["{\"notificationBatchId\": \"14fdc8e8-05f8-4b67-b4fd-d78d75bd9ed0\"} "],
+          "type": "curl",
+          "extra": {}
+        }
+      ],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "NotifyRequest",
+      "rpcResponseName": "NotifyResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_common_Money",
+      "displayName": "Money Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Money.\n Default format to use. Sufficiently compliant with majority of standards: w3c, ISO 4217, ISO 20022, ISO 8583:2003.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string with a period as a decimal separator (e.g., 3.99). Optionally, a single (-), to indicate that the amount is negative.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency code. Must be valid ISO 4217 currency code (e.g., USD).\n"
+        },
+                {
+          "name": "formattedValue",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string in local format (e.g., 1 000,30). Optionally, a single (-), to indicate that the amount is negative.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_Overrides",
+      "displayName": "Overrides Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "excludedChannels",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Notifications._com_wixpress_ping_hub_api_v3_TemplateChannel"]
+          },
+          "doc": " excluded_channels\n"
+        },
+                {
+          "name": "excludedAudiences",
+          "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_ExcludedAudiences",
+          "doc": " excluded_audiences\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_DynamicValue",
+      "displayName": "Dynamic Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "ofType",
+        "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_DynamicValue_ofType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_DynamicValue_ofType",
+      "displayName": "of Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "text",
+        "type": "string",
+        "doc": " Text to be integrated into the notification.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_ArrayDynamicValue",
+      "displayName": "Array Dynamic Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "items",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Notifications._com_wixpress_ping_hub_api_v3_DynamicValue"]
+        },
+        "doc": " items\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "itemsMapEntry",
+      "displayName": "items Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. items\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_DynamicValue",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_MapDynamicValue",
+      "displayName": "Map Dynamic Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "items",
+        "type": "All APIs.Notifications.itemsMapEntry",
+        "doc": "Set of key-value pairs. items\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_ExcludedAudiences",
+      "displayName": "Excluded Audiences Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "audienceKey",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " audience_key\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dynamicValuesMapEntry",
+      "displayName": "dynamic Values Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Each key is a placeholder name you specify when [creating a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template). \n The value is an object containing the text to replace the placeholder in the notifications.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_DynamicValue",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_NotifyRequest",
+      "displayName": "Notify Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "notificationTemplateId",
+          "type": "string",
+          "doc": " Notification template ID. A notification template specifies the text and recipients for notifications.\n To obtain a notification template ID, [create a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center.\n"
+        },
+                {
+          "name": "dynamicValues",
+          "type": "All APIs.Notifications.dynamicValuesMapEntry",
+          "doc": "Set of key-value pairs. Each key is a placeholder name you specify when [creating a notification template](https://dev.wix.com/api/rest/wix-notifications/notifications/creating-a-notification-template). \n The value is an object containing the text to replace the placeholder in the notifications.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_NotifyResponse",
+      "displayName": "Notify Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "notificationBatchId",
+        "type": "string",
+        "doc": " ID of the batch of notifications triggered by one request.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dynamicValuesMapEntry",
+      "displayName": "dynamic Values Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. dynamic_values\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_DynamicValue",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_NotifyByAppRequest",
+      "displayName": "Notify By App Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "notificationTemplateId",
+          "type": "string",
+          "doc": " notification_template_id\n"
+        },
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " app_def_id\n"
+        },
+                {
+          "name": "dynamicValues",
+          "type": "All APIs.Notifications.dynamicValuesMapEntry",
+          "doc": "Set of key-value pairs. dynamic_values\n"
+        },
+                {
+          "name": "overrides",
+          "type": "All APIs.Notifications._com_wixpress_ping_hub_api_v3_Overrides",
+          "doc": " overrides\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_NotifyByAppResponse",
+      "displayName": "Notify By App Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "notificationBatchId",
+        "type": "string",
+        "doc": " notification_batch_id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ping_hub_api_v3_TemplateChannel",
+      "displayName": "Template Channel Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> WEB_FEED <\/code><\/li><li><code> MOBILE_FEED <\/code><\/li><li><code> MOBILE_PUSH <\/code><\/li><li><code> BROWSER <\/code><\/li><li><code> SMS <\/code><\/li><li><code> EMAIL <\/code><\/li><li><code> KAFKA <\/code><\/li><li><code> VOICE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "WEB_FEED",
+        "MOBILE_FEED",
+        "MOBILE_PUSH",
+        "BROWSER",
+        "SMS",
+        "EMAIL",
+        "KAFKA",
+        "VOICE"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ping.notifications-hub-server"}
+}

@@ -23,8 +23,7 @@ API to offer domains to your customers.
 ## Before you begin 
 
 
-+ The Resellers API is accessible via API keys, which are currently
-  available to selected beta users only. You can't access this
++ The Resellers API is accessible via API keys. You can't access this
   API with a standard Auth header. We recommend to authenticate calls of the
   Resellers API with an API key for your main account instead of setting up
   API keys for all of your customers' sub-accounts. But the response of any

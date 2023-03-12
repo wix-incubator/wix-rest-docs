@@ -1,8 +1,8 @@
-SortOrder: 7
+SortOrder: 6
 # Last Activity Types
 
 When a contact interacts with a site,
-the interaction is captured in `lastActivity` in the Contact object.
+the interaction is captured in `lastActivity` in the contact object.
 The table below shows the possible `activityType` values
 and describes the interactions each activity type represents:
 
