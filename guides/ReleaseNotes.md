@@ -5,10 +5,10 @@
 The [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments) API provides third parties the ability to manage ecommerce order fulfillments. The new API includes:
 - [Create Fulfilllments](wix-ecommerce/order-fulfillments/create-fulfillment)
 - [Bulk Create Fulfilments](wix-ecommerce/order-fulfillments/bulk-create-fulfillment)
-- [Delete Fulfillment](wix-ecommerce/order-fulfillments/delete-fulfillment)
+- [Update Fulfillment](wix-ecommerce/order-fulfillments/update-fulfillment)
 - [List Fulfillments For Single Order](wix-ecommerce/order-fulfillments/list-fulfillments-for-single-order)
 - [List Fulfillments For Multiple Orders](wix-ecommerce/order-fulfillments/list-fulfillments-for-multiple-orders)
-- [Update Fulfillment](wix-ecommerce/order-fulfillments/update-fulfillment)
+- [Delete Fulfillment](wix-ecommerce/order-fulfillments/delete-fulfillment)
 
 (March 13, 2023)
 
