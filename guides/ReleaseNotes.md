@@ -1,5 +1,17 @@
 # Release Notes
 
+## New Release: [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments)
+
+The [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments) API provides third parties the ability to manage ecommerce order fulfillments. The new API includes:
+- [Create Fulfilllments](wix-ecommerce/order-fulfillments/create-fulfillment)
+- [Bulk Create Fulfilments](wix-ecommerce/order-fulfillments/bulk-create-fulfillment)
+- [Delete Fulfillment](wix-ecommerce/order-fulfillments/delete-fulfillment)
+- [List Fulfillments For Single Order](wix-ecommerce/order-fulfillments/list-fulfillments-for-single-order)
+- [List Fulfillments For Multiple Orders](wix-ecommerce/order-fulfillments/list-fulfillments-for-multiple-orders)
+- [Update Fulfillment](wix-ecommerce/order-fulfillments/update-fulfillment)
+
+(March 13, 2023)
+
 ## New Release: [External Calendars V2](wix-bookings/external-calendars-v2)
 
 The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you to connect and sync a Wix site with external calendars. The new API includes the following endpoints:
