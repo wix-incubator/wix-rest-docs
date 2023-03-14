@@ -98,7 +98,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Archives a single plan.\n When a plan is archived, it is no longer visible as a public plan that can be chosen by site members or visitors. Archived plans cannot be purchased. \n An archived plan cannot be made active again.\n Plan archiving does not impact existing orders made for the plan. All orders for the plan are still active and keep their perks.\n Site owners can see archived plans in the Dashboard under Pricing Plans -> Archived Plans. \n \n",
+        "summary": " Archives a single plan.\n When a plan is archived, it is no longer visible as a public plan that can be chosen by site members or visitors. Archived plans cannot be purchased.\n An archived plan cannot be made active again.\n Plan archiving does not impact existing orders made for the plan. All orders for the plan are still active and keep their perks.\n Site owners can see archived plans in the Dashboard under Pricing Plans -> Archived Plans.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/plans/{id}/archive",
@@ -132,6 +132,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "requiredFields": ["ids"],
       "params": [      {
         "in": "BODY",
         "name": "ids",
@@ -140,7 +141,7 @@
           "typeParams": ["string"]
         },
         "doc": "",
-        "required": false
+        "required": true
       }],
       "ret":       {
         "type":         {
@@ -238,7 +239,10 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["id"],
+      "requiredFields":       [
+        "id",
+        "effectiveAt"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -251,8 +255,8 @@
           "in": "BODY",
           "name": "effectiveAt",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_CancellationEffectiveAtEnum_CancellationEffectiveAt",
-          "doc": " __Required.__ When the order will be canceled. One-time orders can only be canceled `IMMEDIATELY`.  \n",
-          "required": false
+          "doc": " __Required.__ When the order will be canceled. One-time orders can only be canceled `IMMEDIATELY`.\n",
+          "required": true
         }
       ],
       "ret":       {
@@ -265,7 +269,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Cancels an existing order.\n\nFor orders with recurring payments, a cancellation can be set to occur either `IMMEDIATELY` or at the `NEXT_PAYMENT_DATE`. \nFor orders with one-time payments, a cancellation can only be set for `IMMEDIATELY`.\n\n#### Canceling during the free trial period.\n\nWhen a buyer cancels their order during the free trial period, the buyer's subscription expires at the end \nof the free trial period and they will not be billed. The buyer may continue using the benefits until the end \nof the free trial period.\n\nWhen a site owner cancels an ordered plan during the free trial period, they choose to apply the cancellation \n`IMMEDIATELY` or at the `NEXT_PAYMENT_DATE`. Canceling `IMMEDIATELY` will end the subscription for the buyer \nimmediately, even during the free trial period and the buyer won't be billed. Canceling at the \n`NEXT_PAYMENT_DATE` allows the buyer to continue using the benefits of the subscription until the end of the free trial period. \nThen, the subscription ends and the buyer is not billed.\n \n",
+        "summary": " Cancels an existing order.\n\nFor orders with recurring payments, a cancellation can be set to occur either `IMMEDIATELY` or at the `NEXT_PAYMENT_DATE`.\nFor orders with one-time payments, a cancellation can only be set for `IMMEDIATELY`.\n\n#### Canceling during the free trial period.\n\nWhen a buyer cancels their order during the free trial period, the buyer's subscription expires at the end\nof the free trial period and they will not be billed. The buyer may continue using the benefits until the end\nof the free trial period.\n\nWhen a site owner cancels an ordered plan during the free trial period, they choose to apply the cancellation\n`IMMEDIATELY` or at the `NEXT_PAYMENT_DATE`. Canceling `IMMEDIATELY` will end the subscription for the buyer\nimmediately, even during the free trial period and the buyer won't be billed. Canceling at the\n`NEXT_PAYMENT_DATE` allows the buyer to continue using the benefits of the subscription until the end of the free trial period.\nThen, the subscription ends and the buyer is not billed.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/orders/{id}/cancel",
@@ -382,6 +386,13 @@
           "name": "couponCode",
           "type": "string",
           "doc": " Coupon code to apply.\n\nSee [Coupons to learn more](https://dev.wix.com/api/rest/coupons).\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Form submission id that was submitted together with the order\n",
           "required": false
         }
       ],
@@ -708,21 +719,36 @@
       "methodName": "GetOrder",
       "serviceName": "OrderManagementService",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
       "requiredFields": ["id"],
-      "params": [      {
-        "in": "PATH",
-        "name": "id",
-        "type": "string",
-        "doc": " Order ID.\n",
-        "required": true
-      }],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": "",
+          "required": false
+        }
+      ],
       "ret":       {
         "type":         {
           "name": "GetOrder",
@@ -752,6 +778,58 @@
         "rpcRequestName": "GetOrderRequest",
         "rpcResponseName": "GetOrderResponse",
         "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Order",
+      "methodName": "GetOrder",
+      "serviceName": "MemberOrdersService",
+      "tag": "Order V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_member_GetOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves an order by ID.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v2/member/orders/{id}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetOrderRequest",
+        "rpcResponseName": "GetOrderResponse",
+        "artifactId": "com.wixpress.membership.pricing-plans-member-orders"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1217,10 +1295,16 @@
       "methodName": "ListOrders",
       "serviceName": "OrderManagementService",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1311,7 +1395,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of orders and details, given the provided sorting and filtering.\n\nBy default, this endpoint will retrieve all orders and return them sorted by `createdDate` in `DESC`, descending order. \n`sort.fieldName` supports `endDate` and `createdDate` fields and defaults to `ASC`, ascending order.\n \n",
+        "summary": " Retrieves a list of orders and details, given the provided sorting and filtering.\n\nBy default, this endpoint will retrieve all orders and return them sorted by `createdDate` in `DESC`, descending order.\n`sort.fieldName` supports `endDate` and `createdDate` fields and defaults to `ASC`, ascending order.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/pricing-plans/v2/orders",
@@ -1339,6 +1423,108 @@
         "rpcRequestName": "ListOrdersRequest",
         "rpcResponseName": "ListOrdersResponse",
         "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Orders",
+      "methodName": "ListOrders",
+      "serviceName": "MemberOrdersService",
+      "tag": "Order V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "planIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Filter by plan IDs.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "autoRenewCanceled",
+          "type": "boolean",
+          "doc": " Filter for orders where auto renewal was canceled.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "orderStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_OrderStatusEnum_OrderStatus"]
+          },
+          "doc": " Filter by order status.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paymentStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_PaymentStatusEnum_PaymentStatus"]
+          },
+          "doc": " Filter by payment status.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "limit",
+          "type": "integer",
+          "doc": " Limit the number of pricing plans returned. Default limit is 50.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of entries to offset.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.order",
+          "type": "All APIs.Pricing Plans._wix_common_SortOrder",
+          "doc": " Sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListOrders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_member_ListOrdersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns orders for currently logged in member.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v2/member/orders",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListOrdersRequest",
+        "rpcResponseName": "ListOrdersResponse",
+        "artifactId": "com.wixpress.membership.pricing-plans-member-orders"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1679,7 +1865,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Pauses an order.\n\nFor orders with recurring payments, it also pauses the payment schedule. Buyers are not charged when an order is paused. \nPausing an order affects the end date of the order by adding the time the order is paused to the `endDate`. Can only pause orders with an `ACTIVE` status.  \n\nUse [Resume Order to resume a paused order](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order/).\n \n",
+        "summary": " Pauses an order.\n\nFor orders with recurring payments, it also pauses the payment schedule. Buyers are not charged when an order is paused.\nPausing an order affects the end date of the order by adding the time the order is paused to the `endDate`. Can only pause orders with an `ACTIVE` status.\n\nUse [Resume Order to resume a paused order](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order/).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/orders/{id}/pause",
@@ -1713,7 +1899,10 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["id"],
+      "requiredFields":       [
+        "id",
+        "endDate"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -1726,8 +1915,8 @@
           "in": "BODY",
           "name": "endDate",
           "type": "string",
-          "doc": " New end date and time. \n\nMust be later than the current end date and time.\n",
-          "required": false
+          "doc": " New end date and time.\n\nMust be later than the current end date and time.\n",
+          "required": true
         }
       ],
       "ret":       {
@@ -1740,7 +1929,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Extends the duration of a pricing plan order by postponing the order's `endDate`.\n\nNew `endDate` must be later than the order's current `endDate`. Can't postpone orders that are unlimited. \nCan't postpone an order while it is [`PAUSED`](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order).\n \n",
+        "summary": " Extends the duration of a pricing plan order by postponing the order's `endDate`.\n\nNew `endDate` must be later than the order's current `endDate`. Can't postpone orders that are unlimited.\nCan't postpone an order while it is [`PAUSED`](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order).\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/pricing-plans/v2/orders/{id}",
@@ -1920,7 +2109,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of up to 1,000 public pricing plans, given the provided pagination, [sorting, and filtering](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/plans/filter-and-sort). \n \n",
+        "summary": " Retrieves a list of up to 1,000 public pricing plans, given the provided pagination, [sorting, and filtering](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/plans/filter-and-sort).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/plans/public/query",
@@ -1951,7 +2140,10 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["id"],
+      "requiredFields":       [
+        "id",
+        "effectiveAt"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -1965,7 +2157,7 @@
           "name": "effectiveAt",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_CancellationEffectiveAtEnum_CancellationEffectiveAt",
           "doc": " Required. Whether to cancel the order effective immediately or at the next payment date. One-time orders can only be canceled immediately.\n",
-          "required": false
+          "required": true
         }
       ],
       "ret":       {
@@ -2067,7 +2259,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Resumes a paused order.\n\nUpdates `endDate` by adding the time the plan was paused. \nFor orders with recurring payments, it also restarts the payment schedule.\nUse [Pause Order to pause an order](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order/).\n \n",
+        "summary": " Resumes a paused order.\n\nUpdates `endDate` by adding the time the plan was paused.\nFor orders with recurring payments, it also restarts the payment schedule.\nUse [Pause Order to pause an order](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order/).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/orders/{id}/resume",
@@ -2101,7 +2293,10 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["id"],
+      "requiredFields":       [
+        "id",
+        "visible"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -2115,7 +2310,7 @@
           "name": "visible",
           "type": "boolean",
           "doc": "",
-          "required": false
+          "required": true
         }
       ],
       "ret":       {
@@ -2128,7 +2323,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Sets visibility for pricing plans. Visible plans are considered public plans.\n By default, pricing plans are public, meaning they are visible. Plans can be hidden so that site members and visitors cannot choose them. \n As opposed to archiving, setting visibility can be reversed. This means that a public plan can be hidden, and a hidden plan can be made public (visible). (An archived plan always remains archived and cannot be made active again.)\n Changing a plan’s visibility does not impact existing orders for the plan. All orders for hidden plans are still active and keep their perks.\n \n",
+        "summary": " Sets visibility for pricing plans. Visible plans are considered public plans.\n By default, pricing plans are public, meaning they are visible. Plans can be hidden so that site members and visitors cannot choose them.\n As opposed to archiving, setting visibility can be reversed. This means that a public plan can be hidden, and a hidden plan can be made public (visible). (An archived plan always remains archived and cannot be made active again.)\n Changing a plan’s visibility does not impact existing orders for the plan. All orders for hidden plans are still active and keep their perks.\n \n",
         "description": [],
         "request": "PUT",
         "url": "https://www.wixapis.com/pricing-plans/v2/plans/{id}/visibility",
@@ -2205,7 +2400,10 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["plan.id"],
+      "requiredFields":       [
+        "plan",
+        "plan.id"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -2218,6 +2416,13 @@
           "in": "BODY",
           "name": "plan",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan",
+          "doc": "",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "fieldMask",
+          "type": "All APIs.Pricing Plans._google_protobuf_FieldMask",
           "doc": "",
           "required": false
         }
@@ -2386,10 +2591,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_updated",
       "extra": {"isDomainEvent": true}
@@ -2403,10 +2614,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_purchased",
       "extra": {"isDomainEvent": true}
@@ -2420,10 +2637,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_started",
       "extra": {"isDomainEvent": true}
@@ -2437,10 +2660,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_cycle_started",
       "extra": {"isDomainEvent": true}
@@ -2449,15 +2678,21 @@
       "type": "_com_wixpress_membership_v2_orders_OrderAutoRenewCanceledDomainEvent",
       "name": "Order Auto Renew Canceled Webhook",
       "docs":       {
-        "summary": " Triggered when an order is canceled and `effectiveAt` is set to `NEXT_PAYMENT_CYCLE`.\n\n> Note: This webhook is not triggered in the following scenarios:\n> + If the order is canceled and `effectiveAt` is set to `IMMEDIATELY`. In that case, [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) is triggered.\n> + When an order expires at the end of the current payment cycle because it was canceled and `effectiveAt` was set to `NEXT_PAYMENT_DATE`. In that case, [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Ended](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-ended-webhook) are triggered.\n",
+        "summary": " Triggered when an order is canceled and `effectiveAt` is set to `NEXT_PAYMENT_DATE`.\n\nThis webhook is *not* triggered in the following scenarios:\n+ When an order is canceled and `effectiveAt` is set to `IMMEDIATELY`. Instead, at the time of cancellation, [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) is triggered.\n+ When an order expires at the end of the current payment cycle because it was canceled and `effectiveAt` was set to `NEXT_PAYMENT_DATE`. Instead, at the time of expiration, [Order Canceled](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-canceled-webhook) and [Order Ended](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/order-ended-webhook) are triggered.\n",
         "src": "https://github.com/wix-private/app-market/tree/master/membership/membership-proto/com/wixpress/membership/v2/orders/order_management_service.proto"
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_auto_renew_canceled",
       "extra": {"isDomainEvent": true}
@@ -2471,10 +2706,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_ended",
       "extra": {"isDomainEvent": true}
@@ -2522,10 +2763,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_created",
       "extra": {"isDomainEvent": true}
@@ -2539,10 +2786,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_start_date_changed",
       "extra": {"isDomainEvent": true}
@@ -2556,10 +2809,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_canceled",
       "extra": {"isDomainEvent": true}
@@ -2573,10 +2832,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_paused",
       "extra": {"isDomainEvent": true}
@@ -2590,10 +2855,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_resumed",
       "extra": {"isDomainEvent": true}
@@ -2607,10 +2878,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_marked_as_paid",
       "extra": {"isDomainEvent": true}
@@ -2624,10 +2901,16 @@
       },
       "topic": "domain_events_wix.pricing_plans.v2.order",
       "tag": "Order V2",
-      "permissions": [      {
-        "name": "Read Orders",
-        "description": "Request permission to read the site's public pricing plans and all orders."
-      }],
+      "permissions":       [
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's public pricing plans and all orders."
+        },
+                {
+          "name": "SCOPE.PRICING-PLANS.READ-ORDERS",
+          "description": "Can read pricing plans orders"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.order_end_date_postponed",
       "extra": {"isDomainEvent": true}
@@ -5573,6 +5856,73 @@
       "oneOf": true
     },
         {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Pricing Plans._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Pricing Plans._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
       "name": "_wix_common_Sorting",
       "displayName": "Sorting Object",
       "locations": [],
@@ -6504,7 +6854,7 @@
                 {
           "name": "total",
           "type": "string",
-          "doc": " Price after tax and discount is applied, specified as a monetary amount. For example, `\"13.98\"`.  \n\nIf no tax is applied, the amount is the same as `subtotal`.\n"
+          "doc": " Price after tax and discount is applied, specified as a monetary amount. For example, `\"13.98\"`.\n\nIf no tax is applied, the amount is the same as `subtotal`.\n"
         },
                 {
           "name": "planPrice",
@@ -6640,7 +6990,7 @@
                 {
           "name": "duration",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_PriceDuration",
-          "doc": " Cycle duration to apply `price` for.  \n\nUse with all pricing models.\nCan apply the same price to multiple payment cycles.\n"
+          "doc": " Cycle duration to apply `price` for.\n\nUse with all pricing models.\nCan apply the same price to multiple payment cycles.\n"
         },
                 {
           "name": "price",
@@ -6670,7 +7020,7 @@
                 {
           "name": "numberOfCycles",
           "type": "integer",
-          "doc": " Amount of cycles to apply price for.\n\nFor `subscription` pricing models with a finite number of cycles, the `numberOfCycles` is the same as `pricing.subscription.cycleCount`.\n\nFor `subscription` pricing models that are unlimited or until-canceled, the `numberOfCycles` is not returned.  \n\nFor `singlePaymentForDuration` and `singlePaymentUnlimited` pricing models, the `numberOfCycles` is `1`.  \n"
+          "doc": " Amount of cycles to apply price for.\n\nFor `subscription` pricing models with a finite number of cycles, the `numberOfCycles` is the same as `pricing.subscription.cycleCount`.\n\nFor `subscription` pricing models that are unlimited or until-canceled, the `numberOfCycles` is not returned.\n\nFor `singlePaymentForDuration` and `singlePaymentUnlimited` pricing models, the `numberOfCycles` is `1`.\n"
         }
       ],
       "enum": null,
@@ -6695,7 +7045,7 @@
                 {
           "name": "coupon",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Coupon",
-          "doc": " Coupon applied to the order. \n\nSee Coupons [to learn more about coupons](https://dev.wix.com/api/rest/coupons).\n"
+          "doc": " Coupon applied to the order.\n\nSee Coupons [to learn more about coupons](https://dev.wix.com/api/rest/coupons).\n"
         },
                 {
           "name": "discount",
@@ -6710,12 +7060,12 @@
                 {
           "name": "total",
           "type": "string",
-          "doc": " Price after tax and discount is applied. Specified as a monetary amount, for example, `\"13.98\"`.  \n\nIf no tax is applied, the amount is the same as `subtotal`.\n"
+          "doc": " Price after tax and discount is applied. Specified as a monetary amount, for example, `\"13.98\"`.\n\nIf no tax is applied, the amount is the same as `subtotal`.\n"
         },
                 {
           "name": "currency",
           "type": "string",
-          "doc": " Three-letter currency code in \n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) format.\n"
+          "doc": " Three-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) format.\n"
         }
       ],
       "enum": null,
@@ -6801,7 +7151,7 @@
                 {
           "name": "status",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_PausePeriod_Status",
-          "doc": " Status of the pause period. One of:\n\n+ `ACTIVE`: Status while the order is [paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order). \n+ `ENDED`: Status when the order is [resumed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order).\n"
+          "doc": " Status of the pause period. One of:\n\n+ `ACTIVE`: Status while the order is [paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order).\n+ `ENDED`: Status when the order is [resumed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order).\n"
         },
                 {
           "name": "pauseDate",
@@ -6811,7 +7161,7 @@
                 {
           "name": "resumeDate",
           "type": "string",
-          "doc": " End date and time of the pause period.  \n\nOmitted while the pause period remains `ACTIVE`.\n"
+          "doc": " End date and time of the pause period.\n\nOmitted while the pause period remains `ACTIVE`.\n"
         }
       ],
       "enum": null,
@@ -6906,6 +7256,85 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_membership_v2_orders_OrderCycle",
+      "displayName": "Order Cycle Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Order cycle start and end dates take into account free trial days and suspensions\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "index",
+          "type": "integer",
+          "doc": " Index of this cycle in the order.\n\n`0` when order is in a free trial period. In all other cases, the index starts with `1`.\n"
+        },
+                {
+          "name": "startedDate",
+          "type": "string",
+          "doc": " Start date and time for this order cycle.\n"
+        },
+                {
+          "name": "endedDate",
+          "type": "string",
+          "doc": " End date and time for this order cycle.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "submissionDataMapEntry",
+      "displayName": "submission Data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Data submitted to the form at checkout.\n This field is only returned when `FieldSet.FULL` is specified when fetching the data\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Pricing Plans._google_protobuf_Value",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_FormData",
+      "displayName": "Form Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "formId",
+          "type": "string",
+          "doc": " Reference to the form which was used to gather additional data in checkout.\n"
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Reference to the submission of the form.\n"
+        },
+                {
+          "name": "submissionData",
+          "type": "All APIs.Pricing Plans.submissionDataMapEntry",
+          "doc": "Set of key-value pairs. Data submitted to the form at checkout.\n This field is only returned when `FieldSet.FULL` is specified when fetching the data\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_membership_v2_orders_Order",
       "displayName": "Order Object",
       "locations": [],
@@ -6935,7 +7364,7 @@
                 {
           "name": "subscriptionId",
           "type": "string",
-          "doc": " ID of the related Wix subscription.  \n\nEvery pricing plan order corresponds to a Wix subscription, including orders for single payment plans. See here \nfor a [Pricing Plans overview](https://support.wix.com/en/article/pricing-plans-an-overview#create-plans-to-suit-your-business).\n",
+          "doc": " ID of the related Wix subscription.\n\nEvery pricing plan order corresponds to a Wix subscription, including orders for single payment plans. See here\nfor a [Pricing Plans overview](https://support.wix.com/en/article/pricing-plans-an-overview#create-plans-to-suit-your-business).\n",
           "readOnly": true
         },
                 {
@@ -6947,7 +7376,7 @@
                 {
           "name": "buyer",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Buyer",
-          "doc": " The buyer's IDs. Includes `memberId` and `contactId`.\n\nCurrently, Pricing Plan purchases are limited to members only. `contactId` is returned, \nbut a buyer will not be able to purchase a plan without a `memberId`.\n",
+          "doc": " The buyer's IDs. Includes `memberId` and `contactId`.\n\nCurrently, Pricing Plan purchases are limited to members only. `contactId` is returned,\nbut a buyer will not be able to purchase a plan without a `memberId`.\n",
           "readOnly": true
         },
                 {
@@ -6978,7 +7407,7 @@
                 {
           "name": "autoRenewCanceled",
           "type": "boolean",
-          "doc": " Whether the order will be canceled at the next payment date.  \n\nIf `true`, the order status will be `CANCELED` and the next payment won't be charged. Omitted for single payment orders.\n",
+          "doc": " Whether the order will be canceled at the next payment date.\n\nIf `true`, the order status will be `CANCELED` and the next payment won't be charged. Omitted for single payment orders.\n",
           "readOnly": true
         },
                 {
@@ -7002,7 +7431,7 @@
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " Current end date and time for the ordered plan.\n\n`endDate` may be updated over the course of an order. If the order is [paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order), \nit will have a later `endDate` once it [resumes](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order). `endDate` may also be [postponed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/postpone-end-date).  \n\nOmitted if the order is valid until canceled and still `ACTIVE`.\n",
+          "doc": " Current end date and time for the ordered plan.\n\n`endDate` may be updated over the course of an order. If the order is [paused](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/pause-order),\nit will have a later `endDate` once it [resumes](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/resume-order). `endDate` may also be [postponed](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/postpone-end-date).\n\nOmitted if the order is valid until canceled and still `ACTIVE`.\n",
           "readOnly": true
         },
                 {
@@ -7011,7 +7440,7 @@
             "name": "array",
             "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_PausePeriod"]
           },
-          "doc": " List of periods during which the order is paused.  \n",
+          "doc": " List of periods during which the order is paused.\n",
           "readOnly": true
         },
                 {
@@ -7023,13 +7452,13 @@
                 {
           "name": "earliestEndDate",
           "type": "string",
-          "doc": " Earliest end date and time that the plan for the order can expire.  \n\nCalculated by using the original end date plus any pause periods. Omitted if the order is active until canceled. Reserved for future use.\n",
+          "doc": " Earliest end date and time that the plan for the order can expire.\n\nCalculated by using the original end date plus any pause periods. Omitted if the order is active until canceled. Reserved for future use.\n",
           "readOnly": true
         },
                 {
           "name": "currentCycle",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_CurrentCycle",
-          "doc": " Current payment cycle for the order.  \n\n`currentCycle` will be omitted if the order's status is `CANCELED` or `ENDED`, or if the `startDate` hasn't passed yet.\n",
+          "doc": " Current payment cycle for the order.\n\n`currentCycle` will be omitted if the order's status is `CANCELED` or `ENDED`, or if the `startDate` hasn't passed yet.\n",
           "readOnly": true
         },
                 {
@@ -7096,6 +7525,11 @@
           "name": "onBehalf",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_OnBehalf",
           "doc": " Provided if checkout is initiated on buyer's behalf.\n"
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Form submission id that was submitted together with the order\n"
         }
       ],
       "enum": null,
@@ -7179,6 +7613,11 @@
           "name": "guest",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Guest",
           "doc": " Visitor info\n"
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Form submission id that was submitted together with the order\n"
         }
       ],
       "enum": null,
@@ -7273,6 +7712,11 @@
           "name": "couponCode",
           "type": "string",
           "doc": " Coupon code to apply.\n\nSee [Coupons to learn more](https://dev.wix.com/api/rest/coupons).\n"
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Form submission id that was submitted together with the order\n"
         }
       ],
       "enum": null,
@@ -7346,6 +7790,66 @@
           "name": "purchaseLimitExceeded",
           "type": "boolean",
           "doc": " Whether the purchase limit has already been reached for this plan by this member.\n Always false for plans without purchase limits.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_GetGuestOnlineOrderPreviewRequest",
+      "displayName": "Get Guest Online Order Preview Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "planId",
+          "type": "string",
+          "doc": " Plan ID.\n"
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " Start date for the ordered plan.\n\nDefault: Current date\n"
+        },
+                {
+          "name": "couponCode",
+          "type": "string",
+          "doc": " Coupon code to apply.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_GetGuestOnlineOrderPreviewResponse",
+      "displayName": "Get Guest Online Order Preview Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "order",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order",
+          "doc": " Will be missing if limit is exceeded\n"
+        },
+                {
+          "name": "purchaseLimitExceeded",
+          "type": "boolean",
+          "doc": " Whether the purchase limit has already been reached for this plan by this email.\n Always false for plans without purchase limits.\n"
         }
       ],
       "enum": null,
@@ -7547,6 +8051,49 @@
         "name": "order",
         "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order",
         "doc": " Order with applied coupon and recalculated tax.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_SetSubmissionRequest",
+      "displayName": "Set Submission Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_SetSubmissionResponse",
+      "displayName": "Set Submission Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "order",
+        "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order",
+        "doc": " Order with submission id\n"
       }],
       "enum": null,
       "extra": {},
@@ -7770,7 +8317,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": "Filter object in the following format:  \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -7778,7 +8325,7 @@
             "name": "array",
             "typeParams": ["All APIs.Pricing Plans._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "fields",
@@ -7841,11 +8388,18 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "id",
-        "type": "string",
-        "doc": " Order ID.\n"
-      }],
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -7936,14 +8490,21 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "orders",
-        "type":         {
-          "name": "array",
-          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order"]
+      "members":       [
+                {
+          "name": "orders",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order"]
+          },
+          "doc": ""
         },
-        "doc": ""
-      }],
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Pricing Plans._wix_common_PagingMetadataV2",
+          "doc": " Object containing paging-related data (number of orders returned, offset).\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -8046,17 +8607,17 @@
                 {
           "name": "code",
           "type": "string",
-          "doc": ""
+          "doc": " Error code.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": ""
+          "doc": " Description of the error.\n"
         },
                 {
           "name": "data",
           "type": "struct",
-          "doc": ""
+          "doc": " Data related to the error.\n"
         }
       ],
       "enum": null,
@@ -8137,11 +8698,18 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "id",
-        "type": "string",
-        "doc": " Order ID.\n"
-      }],
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -8224,7 +8792,7 @@
                 {
           "name": "sorting",
           "type": "All APIs.Pricing Plans._wix_common_Sorting",
-          "doc": " Sort order.  \n\nUse `ASC` for ascending order or `DESC` for descending order.  \n\nDefault: `DESC`\n"
+          "doc": " Sort order.\n\nUse `ASC` for ascending order or `DESC` for descending order.\n\nDefault: `DESC`\n"
         }
       ],
       "enum": null,
@@ -8240,14 +8808,21 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "orders",
-        "type":         {
-          "name": "array",
-          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order"]
+      "members":       [
+                {
+          "name": "orders",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order"]
+          },
+          "doc": " List of orders.\n"
         },
-        "doc": " List of orders.\n"
-      }],
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Pricing Plans._wix_common_PagingMetadataV2",
+          "doc": " Object containing paging-related data (number of orders returned, offset).\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -8403,7 +8978,7 @@
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " New end date and time. \n\nMust be later than the current end date and time.\n"
+          "doc": " New end date and time.\n\nMust be later than the current end date and time.\n"
         }
       ],
       "enum": null,
@@ -8442,7 +9017,7 @@
                 {
           "name": "effectiveAt",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_CancellationEffectiveAtEnum_CancellationEffectiveAt",
-          "doc": " __Required.__ When the order will be canceled. One-time orders can only be canceled `IMMEDIATELY`.  \n"
+          "doc": " __Required.__ When the order will be canceled. One-time orders can only be canceled `IMMEDIATELY`.\n"
         }
       ],
       "enum": null,
@@ -8697,24 +9272,6 @@
       "labels": []
     },
         {
-      "name": "clientDataMapEntry",
-      "displayName": "client Data Map Entry Object",
-      "locations": [],
-      "docs":       {
-        "summary": "Set of key-value pairs.",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "key:value",
-        "type": "string",
-        "doc": "`key` of type string, `value` of type string"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_com_wixpress_membership_v2_plans_Plan",
       "displayName": "Plan Object",
       "locations": [],
@@ -8815,11 +9372,6 @@
           "name": "termsAndConditions",
           "type": "string",
           "doc": " Any terms and conditions that apply to the plan. This information will be displayed during checkout.\n"
-        },
-                {
-          "name": "clientData",
-          "type": "All APIs.Pricing Plans.clientDataMapEntry",
-          "doc": "Set of key-value pairs."
         }
       ],
       "enum": null,
@@ -8928,8 +9480,34 @@
           "name": "clientData",
           "type": "All APIs.Pricing Plans.clientDataMapEntry",
           "doc": "Set of key-value pairs."
+        },
+                {
+          "name": "formId",
+          "type": "string",
+          "doc": " Reference to a form which is shown in checkout to gather additional data\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_FieldMask",
+      "displayName": "Field Mask Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paths",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The set of field mask paths.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -8976,14 +9554,21 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "plans",
-        "type":         {
-          "name": "array",
-          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_plans_PublicPlan"]
+      "members":       [
+                {
+          "name": "plans",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_plans_PublicPlan"]
+          },
+          "doc": " List of public pricing plans.\n"
         },
-        "doc": " List of public pricing plans.\n"
-      }],
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Pricing Plans._wix_common_PagingMetadataV2",
+          "doc": " Object containing paging-related data (number of plans returned, offset).\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -9122,14 +9707,21 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "plans",
-        "type":         {
-          "name": "array",
-          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan"]
+      "members":       [
+                {
+          "name": "plans",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan"]
+          },
+          "doc": " List of all public and hidden pricing plans.\n"
         },
-        "doc": " List of all public and hidden pricing plans.\n"
-      }],
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Pricing Plans._wix_common_PagingMetadataV2",
+          "doc": " Object containing paging-related data (number of plans returned, offset).\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -9211,11 +9803,18 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "plan",
-        "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan",
-        "doc": ""
-      }],
+      "members":       [
+                {
+          "name": "plan",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan",
+          "doc": ""
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Pricing Plans._google_protobuf_FieldMask",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -9788,6 +10387,20 @@
       "labels": []
     },
         {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_common_SortOrder",
       "displayName": "Sort Order Object",
       "locations": [],
@@ -10016,6 +10629,24 @@
         "UNKNOWN",
         "MOTO",
         "POS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_FieldSet_Set",
+      "displayName": "Set Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SET -  Same behavior as BASIC\n <\/code><\/li><li><code> BASIC -  Returns fields of the entity that are available in the database.\n By default a field is available in the database unless explicitly specified in the documentation\n <\/code><\/li><li><code> FULL -  Returns all fields in the entity.\n This might make additional calls to gather the full entity\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_SET",
+        "BASIC",
+        "FULL"
       ],
       "extra": {},
       "labels": []
