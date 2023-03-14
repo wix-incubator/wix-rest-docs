@@ -1,0 +1,1364 @@
+{
+  "name": "Order Fulfillments",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-fulfillments-api/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Create and manage eCommerce order fulfillments",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Order Fulfillments",
+    "entity": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+    "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-fulfillments-api/proto/com/wix/ecom/orders/fulfillments/v1/order_with_fulfillments.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/order-fulfillments/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/order-fulfillments/docs/example_flows.md",
+      "name": "Sample Flow"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Bulk Create Fulfillments",
+      "methodName": "BulkCreateFulfillment",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "ordersWithFulfillments",
+        "ordersWithFulfillments.orderId",
+        "ordersWithFulfillments.fulfillments",
+        "ordersWithFulfillments.fulfillments.lineItems",
+        "ordersWithFulfillments.fulfillments.lineItems.id",
+        "ordersWithFulfillments.fulfillments.trackingInfo.trackingNumber",
+        "ordersWithFulfillments.fulfillments.trackingInfo.shippingProvider"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "ordersWithFulfillments",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_BulkCreateOrderWithFulfillments"]
+        },
+        "doc": " List of order IDs and their associated fulfillments.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "BulkCreateFulfillment",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_BulkCreateFulfillmentResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates multiple fulfillments for one or more orders.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/orders/bulk/create-fulfillments",
+        "links": [],
+        "examples": [        {
+          "title": "Bulk Create Fulfillments",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/fulfillments/orders/bulk/create-fulfillments' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"ordersWithFulfillments\": [\n      {\n        \"orderId\": \"eb4b91d3-51f3-494d-94df-479ff2c6eb08\",\n        \"fulfillments\": [\n          {\n            \"lineItems\": [\n              {\n                \"id\": \"00000000-0000-0000-0000-000000000001\",\n                \"quantity\": 1\n              }\n            ],\n            \"trackingInfo\": {\n              \"trackingNumber\": \"12345\",\n              \"shippingProvider\": \"fedex\"\n            }\n          }\n        ]\n      },\n      {\n        \"orderId\": \"719f96d3-80c7-45c2-b4c1-f15eb610f8a8\",\n        \"fulfillments\": [\n          {\n            \"lineItems\": [\n              {\n                \"id\": \"00000000-0000-0000-0000-000000000001\",\n                \"quantity\": 1\n              }\n            ],\n            \"trackingInfo\": {\n              \"trackingNumber\": \"67890\",\n              \"shippingProvider\": \"usps\"\n            }\n          }\n        ]\n      }\n    ]\n  }'"],
+          "response": ["{\n  \"results\":   [\n        {\n      \"itemMetadata\":       {\n        \"id\": \"eb4b91d3-51f3-494d-94df-479ff2c6eb08\",\n        \"originalIndex\": 0,\n        \"success\": true\n      },\n      \"ordersWithFulfillments\":       {\n        \"orderId\": \"eb4b91d3-51f3-494d-94df-479ff2c6eb08\",\n        \"fulfillments\": [        {\n          \"id\": \"1d93cd8e-0de5-469b-b802-88bcd76cb222\",\n          \"createdDate\": \"2023-02-27T11:42:48.021Z\",\n          \"lineItems\": [          {\n            \"id\": \"00000000-0000-0000-0000-000000000001\",\n            \"quantity\": 1\n          }],\n          \"trackingInfo\":           {\n            \"trackingNumber\": \"12345\",\n            \"shippingProvider\": \"fedex\",\n            \"trackingLink\": \"https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=12345\"\n          }\n        }]\n      }\n    },\n        {\n      \"itemMetadata\":       {\n        \"id\": \"719f96d3-80c7-45c2-b4c1-f15eb610f8a8\",\n        \"originalIndex\": 1,\n        \"success\": true\n      },\n      \"ordersWithFulfillments\":       {\n        \"orderId\": \"719f96d3-80c7-45c2-b4c1-f15eb610f8a8\",\n        \"fulfillments\": [        {\n          \"id\": \"09876985-7d10-4098-8b93-acb6023ac1f8\",\n          \"createdDate\": \"2023-02-27T11:42:48.021Z\",\n          \"lineItems\": [          {\n            \"id\": \"00000000-0000-0000-0000-000000000001\",\n            \"quantity\": 1\n          }],\n          \"trackingInfo\":           {\n            \"trackingNumber\": \"67890\",\n            \"shippingProvider\": \"usps\",\n            \"trackingLink\": \"https://tools.usps.com/go/TrackConfirmAction.action?tLabels=67890\"\n          }\n        }]\n      }\n    }\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 2,\n    \"totalFailures\": 0,\n    \"undetailedFailures\": 0\n  }\n} "],
+          "type": "curl",
+          "extra": {"description": "Creates a different fulfillment for two separate orders"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkCreateFulfillmentRequest",
+        "rpcResponseName": "BulkCreateFulfillmentResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Fulfillment",
+      "methodName": "CreateFulfillment",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "orderId",
+        "fulfillment",
+        "fulfillment.lineItems",
+        "fulfillment.lineItems.id",
+        "fulfillment.trackingInfo.trackingNumber",
+        "fulfillment.trackingInfo.shippingProvider"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "fulfillment",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment",
+          "doc": " Fulfillment info.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateFulfillment",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_CreateFulfillmentResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates an order fulfillment.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/orders/{orderId}/create-fulfillment",
+        "links": [],
+        "examples": [        {
+          "title": "Create Fulfillment",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/fulfillments/orders/58c9a790-27b7-463f-a865-c7cb494f7c29/create-fulfillment' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"fulfillment\": {\n      \"lineItems\": [\n        {\n          \"id\": \"00000000-0000-0000-0000-000000000001\",\n          \"quantity\": 1\n        }\n      ],\n      \"trackingInfo\": {\n        \"trackingNumber\": \"12345\",\n        \"shippingProvider\": \"fedex\"\n      }\n    }\n  }'"],
+          "response": ["{\n  \"orderWithFulfillments\":   {\n    \"orderId\": \"58c9a790-27b7-463f-a865-c7cb494f7c29\",\n    \"fulfillments\": [    {\n      \"id\": \"0d824fc7-2621-4e97-a5c8-489ec1b43377\",\n      \"createdDate\": \"2023-02-22T15:55:47.021Z\",\n      \"lineItems\": [      {\n        \"id\": \"00000000-0000-0000-0000-000000000001\",\n        \"quantity\": 1\n      }],\n      \"trackingInfo\":       {\n        \"trackingNumber\": \"12345\",\n        \"shippingProvider\": \"fedex\",\n        \"trackingLink\": \"https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=12345\"\n      }\n    }]\n  },\n  \"fulfillmentId\": \"0d824fc7-2621-4e97-a5c8-489ec1b43377\"\n} "],
+          "type": "curl",
+          "extra": {"description": "Passing a shipping provider that supports auto-filling the `trackingLink` in the response."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateFulfillmentRequest",
+        "rpcResponseName": "CreateFulfillmentResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Fulfillment",
+      "methodName": "DeleteFulfillment",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "orderId",
+        "fulfillmentId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of the fulfillment to delete.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "DeleteFulfillment",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_DeleteFulfillmentResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Deletes an existing order fulfillment.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/{fulfillmentId}/orders/{orderId}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete Fulfillment",
+          "body": ["curl -X DELETE \\\n  'https://www.wixapis.com/ecom/v1/fulfillments/0d824fc7-2621-4e97-a5c8-489ec1b43377/orders/4c51c360-399f-4276-96b1-d85f0963dbfd' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"orderWithFulfillments\": {\n  \"orderId\": \"4c51c360-399f-4276-96b1-d85f0963dbfd\",\n  \"fulfillments\": []\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteFulfillmentRequest",
+        "rpcResponseName": "DeleteFulfillmentResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Fulfillments For Multiple Orders",
+      "methodName": "ListFulfillmentsForMultipleOrders",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Read eCommerce - all read permissions",
+          "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's Wix Stores order info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["orderIds"],
+      "params": [      {
+        "in": "BODY",
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs for which to retrieve fulfillments.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListFulfillmentsForMultipleOrders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForMultipleOrdersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves fulfillments associated with multiple specified orders.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/list-by-ids",
+        "links": [],
+        "examples": [        {
+          "title": "List Fulfillments For Multiple Orders",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/fulfillments/list-by-ids' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"orderIds\": [\n      \"265c7d98-a7c3-48c4-89cd-bbdc00921eab\",\n      \"d1748680-7fd5-401e-9f71-cd3b9ea70bdb\"\n    ]\n  }'"],
+          "response": ["{\"ordersWithFulfillments\": [\n    {\n    \"orderId\": \"265c7d98-a7c3-48c4-89cd-bbdc00921eab\",\n    \"fulfillments\":     [\n            {\n        \"id\": \"80f939c8-cdc4-44fe-a058-b54d506af170\",\n        \"createdDate\": \"2021-05-25T13:55:26.458Z\",\n        \"lineItems\": [        {\n          \"id\": \"00000000-0000-0000-0000-000000000001\",\n          \"quantity\": 2\n        }],\n        \"trackingInfo\":         {\n          \"trackingNumber\": \"12345\",\n          \"shippingProvider\": \"ups\",\n          \"trackingLink\": \"https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=12345\"\n        }\n      },\n            {\n        \"id\": \"eb9138ff-1490-4dbc-b053-743240b9ab8f\",\n        \"createdDate\": \"2021-05-25T13:55:47.605Z\",\n        \"lineItems\": [        {\n          \"id\": \"00000000-0000-0000-0000-000000000002\",\n          \"quantity\": 3\n        }],\n        \"trackingInfo\":         {\n          \"trackingNumber\": \"12345\",\n          \"shippingProvider\": \"ups\",\n          \"trackingLink\": \"https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=12345\"\n        }\n      }\n    ]\n  },\n    {\n    \"orderId\": \"d1748680-7fd5-401e-9f71-cd3b9ea70bdb\",\n    \"fulfillments\": [    {\n      \"id\": \"9f6ff4c4-1fb2-4b0a-b433-32956052316c\",\n      \"createdDate\": \"2021-07-04T13:40:15.860Z\",\n      \"lineItems\": [      {\n        \"id\": \"00000000-0000-0000-0000-000000000001\",\n        \"quantity\": 1\n      }],\n      \"trackingInfo\":       {\n        \"trackingNumber\": \"102030\",\n        \"shippingProvider\": \"dhl\",\n        \"trackingLink\": \"https://www.logistics.dhl/global-en/home/tracking.html?tracking-id=102030\"\n      }\n    }]\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListFulfillmentsForMultipleOrdersRequest",
+        "rpcResponseName": "ListFulfillmentsForMultipleOrdersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Fulfillments For Single Order",
+      "methodName": "ListFulfillmentsForSingleOrder",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Read eCommerce - all read permissions",
+          "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
+                {
+          "name": "Read Orders",
+          "description": "Request permission to read the site's Wix Stores order info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["orderId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID for which to retrieve fulfillments.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListFulfillmentsForSingleOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForSingleOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves fulfillments associated with a specified order.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/orders/{orderId}",
+        "links": [],
+        "examples": [        {
+          "title": "List Fulfillments For Single Order",
+          "body": ["curl -X GET 'https://www.wixapis.com/ecom/v1/fulfillments/orders/265c7d98-a7c3-48c4-89cd-bbdc00921eab' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"orderWithFulfillments\": {\n  \"orderId\": \"265c7d98-a7c3-48c4-89cd-bbdc00921eab\",\n  \"fulfillments\":   [\n        {\n      \"id\": \"80f939c8-cdc4-44fe-a058-b54d506af170\",\n      \"createdDate\": \"2021-05-25T13:55:26.458Z\",\n      \"lineItems\": [      {\n        \"id\": \"00000000-0000-0000-0000-000000000001\",\n        \"quantity\": 2\n      }],\n      \"trackingInfo\":       {\n        \"trackingNumber\": \"12345\",\n        \"shippingProvider\": \"ups\",\n        \"trackingLink\": \"https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=12345\"\n      }\n    },\n        {\n      \"id\": \"eb9138ff-1490-4dbc-b053-743240b9ab8f\",\n      \"createdDate\": \"2021-05-25T13:55:47.605Z\",\n      \"lineItems\": [      {\n        \"id\": \"00000000-0000-0000-0000-000000000002\",\n        \"quantity\": 3\n      }],\n      \"trackingInfo\":       {\n        \"trackingNumber\": \"12345\",\n        \"shippingProvider\": \"ups\",\n        \"trackingLink\": \"https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=12345\"\n      }\n    }\n  ]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListFulfillmentsForSingleOrderRequest",
+        "rpcResponseName": "ListFulfillmentsForSingleOrderResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Fulfillment",
+      "methodName": "UpdateFulfillment",
+      "serviceName": "Fulfillments",
+      "tag": "Order Fulfillments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "orderId",
+        "fulfillment.id"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "fulfillment.id",
+          "type": "string",
+          "doc": " Fulfillment ID.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "fulfillment",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment",
+          "doc": " Fulfillment info to update.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "fieldMask",
+          "type": "All APIs.Order Fulfillments._google_protobuf_FieldMask",
+          "doc": " Set of fields to update. Fields that aren't included in `fieldMask.paths` are ignored.\n",
+          "required": false,
+          "fieldMask": "RPC"
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateFulfillment",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_UpdateFulfillmentResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " \nUpdates a fulfillment's properties.\n\nTo update a field's value, include the new value in the `fulfillment` field in the body params.\nTo remove a field's value, pass `null`.\n\n> **Note:** Updating line item IDs or fulfilled quantities with this API is not allowed. To update line item IDs or quantities, it's best to delete the fulfillment, and create it again.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/ecom/v1/fulfillments/{fulfillment.id}/orders/{orderId}",
+        "links": [],
+        "examples": [        {
+          "title": "Update Fulfillment",
+          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/ecom/v1/fulfillments/1d93cd8e-0de5-469b-b802-88bcd76cb222/orders/eb4b91d3-51f3-494d-94df-479ff2c6eb08' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"fulfillment\": {\n      \"trackingInfo\": {\n          \"trackingNumber\": \"45782\",\n          \"trackingLink\": \"https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=45782\"\n        }\n    }\n  }'"],
+          "response": ["{\"orderWithFulfillments\": {\n  \"orderId\": \"eb4b91d3-51f3-494d-94df-479ff2c6eb08\",\n  \"fulfillments\": [  {\n    \"id\": \"1d93cd8e-0de5-469b-b802-88bcd76cb222\",\n    \"createdDate\": \"2023-02-27T11:42:48.021Z\",\n    \"lineItems\": [    {\n      \"id\": \"00000000-0000-0000-0000-000000000001\",\n      \"quantity\": 1\n    }],\n    \"trackingInfo\":     {\n      \"trackingNumber\": \"45782\",\n      \"shippingProvider\": \"fedex\",\n      \"trackingLink\": \"https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=45782\"\n    }\n  }]\n}} "],
+          "type": "curl",
+          "extra": {"description": "Updating a fulfillment's tracking number and tracking link."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateFulfillmentRequest",
+        "rpcResponseName": "UpdateFulfillmentResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [  {
+    "type": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillmentsUpdatedDomainEvent",
+    "name": "Order With Fulfillments Updated Webhook",
+    "docs":     {
+      "summary": "\nTriggered when one or more of an order's fulfillments are added, updated, or deleted.\n\nThe response contains the order's ID and details about all of its fulfillments following the change.\n",
+      "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-fulfillments-api/proto/com/wix/ecom/orders/fulfillments/v1/fulfillments.proto"
+    },
+    "topic": "domain_events_wix.ecom.v1.fulfillments",
+    "tag": "Order Fulfillments",
+    "permissions":     [
+            {
+        "name": "Manage eCommerce - all permissions",
+        "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+      },
+            {
+        "name": "Read eCommerce - all read permissions",
+        "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+      },
+            {
+        "name": "Manage Orders",
+        "description": "Request permission to read, create and modify the site's Wix Stores orders."
+      },
+            {
+        "name": "Read Orders",
+        "description": "Request permission to read the site's Wix Stores order info."
+      }
+    ],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.ecom.v1.fulfillments_updated",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillmentsUpdatedDomainEvent",
+      "displayName": "Order With Fulfillments Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"entityId\" : \"1241d17c-82e1-4a6d-9fae-bd6d2a8073e5\",\n  \"slug\" : \"updated\",\n  \"id\" : \"6e03a96a-3870-4ad7-b814-1f8119310bf4\",\n  \"entityFqdn\" : \"wix.ecom.v1.fulfillments\",\n  \"updatedEvent\" : {\n    \"currentEntity\" : {\n      \"orderId\" : \"1241d17c-82e1-4a6d-9fae-bd6d2a8073e5\",\n      \"fulfillments\" : [ {\n        \"id\" : \"e110b73a-6896-4327-b5dd-87b4a2e7eaf3\",\n        \"createdDate\" : \"2023-01-25T13:45:20.753Z\",\n        \"lineItems\" : [ {\n          \"id\" : \"00000000-0000-0000-0000-000000000001\",\n          \"quantity\" : 1\n        } ],\n        \"trackingInfo\" : {\n          \"trackingNumber\" : \"12345\",\n          \"shippingProvider\" : \"ups\",\n          \"trackingLink\" : \"https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=12345\"\n        }\n      } ]\n    }\n  },\n  \"eventTime\" : \"2023-01-25T13:45:21.129908Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.fulfillments`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillmentsEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "OrderWithFulfillments ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillmentsEntityUpdatedEvent",
+      "displayName": "Order With Fulfillments Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_Fulfillment",
+      "displayName": "Fulfillment Object",
+      "locations": [],
+      "docs":       {
+        "summary": "for now, this is a sub-object of Orders, so can refer to order line items by id.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Fulfillment ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Fulfillment creation date and time in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) format.\n",
+          "readOnly": true
+        },
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_FulfillmentLineItem"]
+          },
+          "doc": " Line items being fulfilled.\n"
+        },
+                {
+          "name": "trackingInfo",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_FulfillmentTrackingInfo",
+          "doc": " Fulfillment tracking info.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_FulfillmentTrackingInfo",
+      "displayName": "Fulfillment Tracking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "trackingNumber",
+          "type": "string",
+          "doc": " Shipping/delivery tracking number.\n"
+        },
+                {
+          "name": "shippingProvider",
+          "type": "string",
+          "doc": " Shipping provider. Using one of the following shipping providers will allow for auto-filling the tracking link:\n * `fedex`\n * `ups`\n * `usps`\n * `dhl`\n * `canadaPost`\n"
+        },
+                {
+          "name": "trackingLink",
+          "type": "string",
+          "doc": " Tracking link. Auto-filled if a predefined shipping provider is used, otherwise provided on creation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_FulfillmentLineItem",
+      "displayName": "Fulfillment Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Line item ID (mirrors the ID of the order line item).\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Line item quantity.\n * If this property isn't passed on creation, it defaults to the number of items not already linked to a fulfillment.\n * If the order does not have the requested quantity of line items available to add to this fulfillment, the fulfillment will not be created and an error is returned.\n * This property always has a value when returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_FieldMask",
+      "displayName": "Field Mask Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paths",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The set of field mask paths.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Order Fulfillments._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+      "displayName": "Order With Fulfillments Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"orderWithFulfillments\" : {\n    \"orderId\" : \"58c9a790-27b7-463f-a865-c7cb494f7c29\",\n    \"fulfillments\" : [ {\n      \"id\" : \"0d824fc7-2621-4e97-a5c8-489ec1b43377\",\n      \"createdDate\" : \"2023-02-22T15:55:47.021Z\",\n      \"lineItems\" : [ {\n        \"id\" : \"00000000-0000-0000-0000-000000000001\",\n        \"quantity\" : 1\n      } ],\n      \"trackingInfo\" : {\n        \"trackingNumber\" : \"12345\",\n        \"shippingProvider\" : \"fedex\",\n        \"trackingLink\" : \"https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=12345\"\n      }\n    } ]\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fulfillments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment"]
+          },
+          "doc": " Fulfillments associated with the order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_BuyerInfo",
+      "displayName": "Buyer Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Buyer Info\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Wix customer ID\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_IdentityType",
+          "doc": " Deprecated (use identityType instead)\n",
+          "readOnly": true,
+          "deprecated": true
+        },
+                {
+          "name": "identityType",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_IdentityType",
+          "doc": " Customer type\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Customer's first name\n",
+          "readOnly": true
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Customer's last name\n",
+          "readOnly": true
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Customer's phone number\n",
+          "readOnly": true
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Customer's email address\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_FulfillmentTrackingInfo",
+      "displayName": "Fulfillment Tracking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "trackingNumber",
+          "type": "string",
+          "doc": " Tracking number.\n"
+        },
+                {
+          "name": "shippingProvider",
+          "type": "string",
+          "doc": " Shipping provider. Using the following shipping providers will allow for autofilling the tracking link:\n * `fedex`\n * `ups`\n * `usps`\n * `dhl`\n * `canadaPost`\n"
+        },
+                {
+          "name": "trackingLink",
+          "type": "string",
+          "doc": " Tracking link - autofilled if using a predefined shipping provider, otherwise provided on creation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_FulfillmentCreated",
+      "displayName": "Fulfillment Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID (auto generated upon order creation).\n"
+        },
+                {
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of the newly created fulfillment.\n"
+        },
+                {
+          "name": "dateCreated",
+          "type": "string",
+          "doc": " Fulfillment creation date and time.\n"
+        },
+                {
+          "name": "buyerInfo",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_BuyerInfo",
+          "doc": " Buyer information.\n"
+        },
+                {
+          "name": "fulfillmentStatus",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_FulfillmentStatus",
+          "doc": " Order fulfillment status.\n"
+        },
+                {
+          "name": "trackingInfo",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_FulfillmentTrackingInfo",
+          "doc": " Fulfillment tracking information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_FulfillmentUpdated",
+      "displayName": "Fulfillment Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID (auto generated upon order creation).\n"
+        },
+                {
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of the updated fulfillment.\n"
+        },
+                {
+          "name": "trackingInfo",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_FulfillmentTrackingInfo",
+          "doc": " Fulfillment tracking information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_FulfillmentDeleted",
+      "displayName": "Fulfillment Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID (auto generated upon order creation).\n"
+        },
+                {
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of the deleted fulfillment.\n"
+        },
+                {
+          "name": "fulfillmentStatus",
+          "type": "All APIs.Order Fulfillments._wix_orders_api_v2_FulfillmentStatus",
+          "doc": " Order fulfillment status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForSingleOrderRequest",
+      "displayName": "List Fulfillments For Single Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID for which to retrieve fulfillments.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForSingleOrderResponse",
+      "displayName": "List Fulfillments For Single Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderWithFulfillments",
+        "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+        "doc": " List of fulfillments associated with the order.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_CreateFulfillmentRequest",
+      "displayName": "Create Fulfillment Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fulfillment",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment",
+          "doc": " Fulfillment info.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_CreateFulfillmentResponse",
+      "displayName": "Create Fulfillment Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderWithFulfillments",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+          "doc": " Order ID and the orders' fulfillments.\n"
+        },
+                {
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of created fulfillment.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_BulkCreateOrderWithFulfillments",
+      "displayName": "Bulk Create Order With Fulfillments Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fulfillments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment"]
+          },
+          "doc": " Fulfillments associated with the order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_BulkCreateFulfillmentRequest",
+      "displayName": "Bulk Create Fulfillment Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "ordersWithFulfillments",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_BulkCreateOrderWithFulfillments"]
+        },
+        "doc": " List of order IDs and their associated fulfillments.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_BulkCreateFulfillmentResponse",
+      "displayName": "Bulk Create Fulfillment Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_BulkOrderFulfillmentsResult"]
+          },
+          "doc": " Items updated by bulk action.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Order Fulfillments._wix_common_BulkActionMetadata",
+          "doc": " Bulk action metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_BulkOrderFulfillmentsResult",
+      "displayName": "Bulk Order Fulfillments Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Order Fulfillments._wix_common_ItemMetadata",
+          "doc": " Item metadata.\n"
+        },
+                {
+          "name": "ordersWithFulfillments",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForMultipleOrdersRequest",
+      "displayName": "List Fulfillments For Multiple Orders Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs for which to retrieve fulfillments.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_ListFulfillmentsForMultipleOrdersResponse",
+      "displayName": "List Fulfillments For Multiple Orders Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "ordersWithFulfillments",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments"]
+        },
+        "doc": " List of order IDs and their associated fulfillments.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_DeleteFulfillmentRequest",
+      "displayName": "Delete Fulfillment Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fulfillmentId",
+          "type": "string",
+          "doc": " ID of the fulfillment to delete.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_DeleteFulfillmentResponse",
+      "displayName": "Delete Fulfillment Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderWithFulfillments",
+        "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+        "doc": " Order ID and the order's associated fulfillments after deletion.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_UpdateFulfillmentRequest",
+      "displayName": "Update Fulfillment Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "fulfillment",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment",
+          "doc": " Fulfillment info to update.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Order Fulfillments._google_protobuf_FieldMask",
+          "doc": " Set of fields to update. Fields that aren't included in `fieldMask.paths` are ignored.\n",
+          "fieldMask": "RPC"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_UpdateFulfillmentResponse",
+      "displayName": "Update Fulfillment Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderWithFulfillments",
+        "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillments",
+        "doc": " Order ID and the orders' associated fulfillments after update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_FulfillmentStatus",
+      "displayName": "Fulfillment Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NOT_FULFILLED -  None of the order items are fulfilled\n <\/code><\/li><li><code> FULFILLED -  All of the order items are fulfilled\n Orders without shipping info are fulfilled automatically\n <\/code><\/li><li><code> CANCELED -  Order is canceled\n <\/code><\/li><li><code> PARTIALLY_FULFILLED -  Some, but not all of the order items are fulfilled\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NOT_FULFILLED",
+        "FULFILLED",
+        "CANCELED",
+        "PARTIALLY_FULFILLED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_orders_api_v2_IdentityType",
+      "displayName": "Identity Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_IDENTITY_TYPE <\/code><\/li><li><code> MEMBER -  Site member\n <\/code><\/li><li><code> CONTACT -  Contact\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_IDENTITY_TYPE",
+        "MEMBER",
+        "CONTACT"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ecom.orders-proxy"}
+}
