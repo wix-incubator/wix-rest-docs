@@ -1,5 +1,5 @@
 SortOrder: 1
-# Example Flows
+# Sample Flows
 
 This article shares some possible use cases your app could support, as well as an example flow that could support each
 use case. You're certainly not limited to these use cases, but they can be a helpful jumping off point as you plan your
