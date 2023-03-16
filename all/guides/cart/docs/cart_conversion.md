@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 2
 # Stores to eCommerce Cart Conversion Table
 
 To help with migration from the [Stores Cart API](https://dev.wix.com/api/rest/wix-stores/carts/cart-object) to the eCommerce [Cart](https://dev.wix.com/api/rest/wix-ecommerce/cart/cart-object) and [Checkout](https://dev.wix.com/api/rest/wix-ecommerce/checkout/introduction) APIs, refer to the table below for field changes in name and/or location.
