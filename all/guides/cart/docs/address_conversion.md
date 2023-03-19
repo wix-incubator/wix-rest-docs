@@ -1,4 +1,4 @@
-SortOrder: 2
+SortOrder: 3
 # Address Object Conversion Table
 
 The eCommerce APIs use a different `address` object. Notably, fields related to contact information have been moved
