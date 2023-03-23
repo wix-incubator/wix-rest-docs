@@ -1,6 +1,8 @@
 SortOrder: 1
 # Creating a Notification Template
 
+> This feature is not yet available to all users.
+
 Create a notification template in the Wix Dev Center to specify the standard text, placeholders, and recipients of notifications.
 You can then call the [Notify](https://dev.wix.com/api/rest/wix-notifications/notifications/notify) endpoint from your code to trigger sending notifications based on the template you defined.
 
