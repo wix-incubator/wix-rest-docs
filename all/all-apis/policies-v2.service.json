@@ -6,7 +6,7 @@
   "mixes": [],
   "labels": [],
   "docs":   {
-    "summary": "APIs for managing policies for events.",
+    "summary": "Manage policies details.",
     "description": []
   },
   "properties": [],
@@ -61,15 +61,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Creates a policy.         \n You can create up to 3 policies per event. If you try to create more than 3, you'll get the \"Maximum number of policies for the event has been reached\" error.\n \n",
+        "summary": " Creates a policy.\n You can create up to 3 policies per event. If you try to create more than 3, you'll get the \"Maximum number of policies for the event has been reached\" error.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/events-policies/v2/policies",
         "links": [],
         "examples": [        {
           "title": "Create Policy",
-          "body": ["curl -X POST 'https://www.wixapis.com/events-policies/v2/policies' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"policy\": {\n    \"name\": \"Terms and Conditions Event 1\",\n    \"body\": \"<p>Tickets to this Event are issued on behalf of the Organiser and are subject to the following terms and conditions.<\/p>\",\n    \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\"\n  }\n}'"],
-          "response": ["{\"policy\": {\n  \"id\": \"eef70fb3-8567-4861-9f77-ebd2ad3682d5\",\n  \"revision\": \"1\",\n  \"createdDate\": \"2023-02-14T11:54:51.037Z\",\n  \"updatedDate\": \"2023-02-14T11:54:51.037Z\",\n  \"name\": \"Terms and Conditions Event 1\",\n  \"body\": \"<p>Tickets to this Event are issued on behalf of the Organiser and are subject to the following terms and conditions.<\\/p>\",\n  \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\"\n}} "],
+          "body": ["curl -X POST 'https://www.wixapis.com/events-policies/v2/policies' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"policy\": {\n    \"name\": \"Terms and Conditions Event 1\",\n    \"body\": \"Tickets to this Event are issued on behalf of the <b>Organiser<\/b> and are subject to the following terms and conditions.\",\n    \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\"\n  }\n}'"],
+          "response": ["{\"policy\": {\n  \"id\": \"eef70fb3-8567-4861-9f77-ebd2ad3682d5\",\n  \"revision\": \"1\",\n  \"createdDate\": \"2023-02-14T11:54:51.037Z\",\n  \"updatedDate\": \"2023-02-14T11:54:51.037Z\",\n  \"name\": \"Terms and Conditions Event 1\",\n  \"body\": \"Tickets to this Event are issued on behalf of the <b>Organiser<\\/b> and are subject to the following terms and conditions.\",\n  \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -94,26 +94,14 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields":       [
-        "policyId",
-        "revision"
-      ],
-      "params":       [
-                {
-          "in": "PATH",
-          "name": "policyId",
-          "type": "string",
-          "doc": " ID of the policy to delete.\n",
-          "required": true
-        },
-                {
-          "in": "BODY",
-          "name": "revision",
-          "type": "string",
-          "doc": " Revision of the policy to delete.\n",
-          "required": true
-        }
-      ],
+      "requiredFields": ["policyId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "policyId",
+        "type": "string",
+        "doc": " ID of the policy to delete.\n",
+        "required": true
+      }],
       "ret":       {
         "type":         {
           "name": "DeletePolicy",
@@ -131,7 +119,7 @@
         "links": [],
         "examples": [        {
           "title": "Delete Policy",
-          "body": ["curl -X DELETE 'https://www.wixapis.com/events-policies/v2/policies/7243931d-74e4-4d6a-91f0-4835fa79161e' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"revision\": \"1\"\n}'"],
+          "body": ["curl -X DELETE 'https://www.wixapis.com/events-policies/v2/policies/7243931d-74e4-4d6a-91f0-4835fa79161e' \\\n-H 'Authorization: <AUTH TOKEN>' \\"],
           "response": ["{} "],
           "type": "curl",
           "extra": {}
@@ -259,20 +247,24 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "requiredFields":       [
+        "policyId",
+        "eventId"
+      ],
       "params":       [
                 {
           "in": "BODY",
           "name": "eventId",
           "type": "string",
           "doc": " Event ID.\n",
-          "required": false
+          "required": true
         },
                 {
           "in": "BODY",
           "name": "policyId",
           "type": "string",
           "doc": " Policy ID.\n",
-          "required": false
+          "required": true
         },
                 {
           "in": "BODY",
@@ -292,7 +284,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Changes policy order in an event dashboard and agreement checkbox on the checkout form.\n \n",
+        "summary": " Changes policy order in an event dashboard and agreement checkbox on the checkout form. By default, the policies are arranged by the created date in descending order.    \n > **Note:** It is possible to use both `beforePolicyId` and `afterPolicyId` at the same time but only the last one defined will be executed.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/events-policies/v2/policies/reorder",
@@ -359,14 +351,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Updates a policy.    \n Each time the policy is updated, `revision` increments by 1. The existing `revision` must be included when updating the policy. This ensures you're working with the latest policy and prevents unintended overwrites.\n \n",
+        "summary": " Updates a policy.\n Each time the policy is updated, `revision` increments by 1. The existing `revision` must be included when updating the policy. This ensures you're working with the latest policy and prevents unintended overwrites.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/events-policies/v2/policies/{policy.id}",
         "links": [],
         "examples": [        {
           "title": "Update Policy",
-          "body": ["curl -X PATCH 'https://manage.wix.com/_api/events-policies/v2/policies/7243931d-74e4-4d6a-91f0-4835fa79161e' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"policy\": {\n    \"id\": \"7223931d-74e4-4d6a-91f0-4835fa79161e\",\n    \"name\": \"Terms and Conditions Event 4\",\n    \"body\": \"Tickets cannot be exchanged or refunded after purchase – unless booked under our ‘Booking with Confidence Promise during 2021’. Please note that duplicate tickets cannot be issued under any circumstances.\",\n    \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\",\n    \"revision\": \"1\"\n  }\n}'"],
+          "body": ["curl -X PATCH 'https://manage.wix.com/_api/events-policies/v2/policies/7243931d-74e4-4d6a-91f0-4835fa79161e' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"policy\": {\n    \"id\": \"7223931d-74e4-4d6a-91f0-4835fa79161e\",\n    \"name\": \"Terms and Conditions Event 4\",\n    \"body\": \"If the Event is rescheduled, changed, moved or cancelled the Organiser cannot be held responsible for any resulting costs you may incur for travel, accommodation and other related goods, services or compensation.\",\n    \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\",\n    \"revision\": \"1\"\n  }\n}'"],
           "response": ["{\"policy\": {\n  \"id\": \"7243931d-74e4-4d6a-91f0-4835fa79161e\",\n  \"revision\": \"2\",\n  \"createdDate\": \"2023-02-14T11:54:08.379Z\",\n  \"updatedDate\": \"2023-02-14T13:22:13.564Z\",\n  \"name\": \"Terms and Conditions Event 4\",\n  \"body\": \"If the Event is rescheduled, changed, moved or cancelled the Organiser cannot be held responsible for any resulting costs you may incur for travel, accommodation and other related goods, services or compensation.\",\n  \"eventId\": \"9d720f99-1b5a-4141-9877-d32985391e18\"\n}} "],
           "type": "curl",
           "extra": {}
@@ -690,7 +682,7 @@
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Revision number, which increments by 1 each time the policy is updated. To prevent conflicting changes, the existing revision must be used when updating a policy.\n",
+          "doc": " Revision number, which increments by 1 each time the policy is updated. To prevent conflicting changes, the existing revision must be used when updating a policy. You'll get an error if you try to use the previous revision.\n",
           "readOnly": true
         },
                 {
@@ -708,17 +700,17 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Policy name.    \n\nMin: 1 character  \nMax: 40 characters\n"
+          "doc": " Policy name that is visible in the dashboard and checkout form.    \n\nMin: 1 character  \nMax: 40 characters\n"
         },
                 {
           "name": "body",
           "type": "string",
-          "doc": " Policy body. Here you can enter various terms and conditions.    \n\nMin: 1 character    \nMax: 50000 characters\n"
+          "doc": " Policy body. Here you can enter various terms and conditions.    \n\nMin: 1 character    \nMax: 50000 characters    \n\n<b>Note:<\/b> You can format text using various HTML tags such as `<p>`, `<b>`, `<ul>`, etc.    \n"
         },
                 {
           "name": "eventId",
           "type": "string",
-          "doc": " Event ID to which the policy belongs.\n"
+          "doc": " ID of the event to which the policy belongs.\n"
         }
       ],
       "enum": null,
@@ -878,7 +870,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": "Filter object in the following format: <br/> `\"filter\" : { \"fieldName1\": \"value1\", \"fieldName2\":{\"$operator\":\"value2\"} }`. <br/> <br/> **Example:** <br/> `\"filter\" : { \"id\": \"2224a9d1-79e6-4549-a5c5-bf7ce5aac1a5\", \"revision\": {\"$ne\":\"1\"} }` <br/> <br/> See [supported fields and operators](https://dev.wix.com/api/rest/wix-events/wix-events/filter-and-sort) for more information.\n"
+          "doc": "Filter object in the following format: <br/> `\"filter\" : { \"fieldName1\": \"value1\", \"fieldName2\":{\"$operator\":\"value2\"} }`. <br/> <br/> **Example:** <br/> `\"filter\" : { \"id\": \"2224a9d1-79e6-4549-a5c5-bf7ce5aac1a5\", \"revision\": {\"$ne\":\"1\"} }` <br/> <br/> See [supported fields and operators](https://dev.wix.com/api/rest/wix-events/policy-v2/filter-and-sort) for more information.\n"
         },
                 {
           "name": "sort",
@@ -886,7 +878,7 @@
             "name": "array",
             "typeParams": ["All APIs.Policies v2._wix_events_v2_policy_upstream_wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format: <br/> `[{\"fieldName\":\"sortField1\"},{\"fieldName\":\"sortField2\",\"direction\":\"DESC\"}]` <br/> <br/> **Example:** <br/> `[{\"fieldName\":\"createdDate\",\"direction\":\"DESC\"}]` <br/> <br/> See [supported fields](https://dev.wix.com/api/rest/wix-events/wix-events/filter-and-sort) for more information.\n"
+          "doc": "Sort object in the following format: <br/> `[{\"fieldName\":\"sortField1\"},{\"fieldName\":\"sortField2\",\"direction\":\"DESC\"}]` <br/> <br/> **Example:** <br/> `[{\"fieldName\":\"createdDate\",\"direction\":\"DESC\"}]` <br/> <br/> See [supported fields](https://dev.wix.com/api/rest/wix-events/policy-v2/filter-and-sort) for more information.\n"
         },
                 {
           "name": "pagingMethod",
@@ -1540,18 +1532,11 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "policyId",
-          "type": "string",
-          "doc": " ID of the policy to delete.\n"
-        },
-                {
-          "name": "revision",
-          "type": "string",
-          "doc": " Revision of the policy to delete.\n"
-        }
-      ],
+      "members": [      {
+        "name": "policyId",
+        "type": "string",
+        "doc": " ID of the policy to delete.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
