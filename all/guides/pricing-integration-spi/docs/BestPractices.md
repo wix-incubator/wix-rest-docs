@@ -7,7 +7,7 @@ This article presents some best practices for designing your pricing app for int
 
 We recommend you do the following while implementing your app:
 
-+ Make sure you are familiar with the [`booking`](https://example.com) object and its properties. When you receive this object from Wix, you can retrieve the values necessary for calculating the price. For example: 
++ Make sure you are familiar with the [`booking`](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/booking-object) object and its properties. When you receive this object from Wix, you can retrieve the values necessary for calculating the price. For example: 
   
   + To determine the sales tax based on the customer's address: `booking.contactDetails.fullAddress.subdivision`
 
