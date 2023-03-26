@@ -777,79 +777,6 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedDomainEvent",
-      "displayName": "Product Instance Updated Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.premium.reseller.v1.packages`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `product_instance_updated`.\nEvent name."
-        },
-                {
-          "name": "actionEvent",
-          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedActionEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "ProductInstanceUpdated ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedActionEvent",
-      "displayName": "Product Instance Updated Action Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "bodyAsJson",
-        "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdated",
-        "doc": "Event body as a stringified JSON"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_com_wixpress_premium_reseller_packages_v1_PackageCanceledDomainEvent",
       "displayName": "Package Canceled Domain Event Object",
       "locations": [],
@@ -916,6 +843,79 @@
       "members": [      {
         "name": "bodyAsJson",
         "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_PackageCanceled",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedDomainEvent",
+      "displayName": "Product Instance Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.reseller.v1.packages`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `product_instance_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ProductInstanceUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdatedActionEvent",
+      "displayName": "Product Instance Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstanceUpdated",
         "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
@@ -1271,6 +1271,12 @@
           "name": "countryCode",
           "type": "string",
           "doc": "\nTwo-letter country code in\n[ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\nformat. Specifies where customers can claim vouchers that may come with the \nproduct. Contact the [Wix B2B sales team](mailto:bizdev@wix.com) to get more \ninformation about vouchers and supported locations. \n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": "\nDate and time the product instance expires in `YYYY-MM-DDThh:mm:ss.sssZ` format.\nUsed only for instances that don't auto renew at the end of the current billing cycle.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -2020,12 +2026,12 @@
                 {
           "name": "providerName",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_BillingReference_ProviderName",
-          "doc": " billing provider name\n"
+          "doc": "\nName of the billing system that manages the subscription.\n\n+ `\"UNKNOWN\"`: Default value.\n+ `\"SBS\"`: [Wix Billing](https://github.com/wix-p/premium-billing/tree/master/sbs).\n+ `\"LICENSER\"`:\n+ `\"BASS\"`: [Billing and Subscriptions System](https://bo.wix.com/wix-docs/rest/drafts/subscriptions-by-billing-by-wix/introduction).\n+ `\"RESELLER\"`: [External Reseller](https://dev.wix.com/api/rest/account-level-apis/resellers/introduction).\n"
         },
                 {
           "name": "providerReferenceId",
           "type": "string",
-          "doc": " current provider reference id\n"
+          "doc": "\nCurrent provider reference ID.\n"
         },
                 {
           "name": "previousProviderReferenceIds",
@@ -2033,7 +2039,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " used to support extend (specifically for domains)\n"
+          "doc": "\nPrevious provider reference IDs. Used for when a subscription is extended, specifically for domains.\n"
         }
       ],
       "enum": null,
@@ -2045,7 +2051,7 @@
       "displayName": "metadata Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. custom metadata associated with the subscription\n",
+        "summary": "Set of key-value pairs.\nCustom metadata about the subscription.\n",
         "links": [],
         "examples": []
       },
@@ -2063,7 +2069,7 @@
       "displayName": "Subscription Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": "\nA subscription holds information about a Premium product that a Wix account\nowner has purchased including details about the billing.\n",
         "links": [],
         "examples": []
       },
@@ -2071,82 +2077,82 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " subscription identity\n"
+          "doc": "\nID of the subscription.\n"
         },
                 {
           "name": "userId",
           "type": "string",
-          "doc": " always a Wix user\n"
+          "doc": "\nID of the Wix account that purchased the subscription.\n"
         },
                 {
           "name": "productId",
           "type": "string",
-          "doc": " product ID from product catalog\n"
+          "doc": "\nID of the [product](https://bo.wix.com/wix-docs/rest/premium/premium-product-catalog-v2/products/product-object)\nfor which the subscription was purchased.\n"
         },
                 {
           "name": "createdAt",
           "type": "string",
-          "doc": " date subscription was created\n"
+          "doc": "\nDate and time the subscription was created in\n[UTC datetime](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
         },
                 {
           "name": "updatedAt",
           "type": "string",
-          "doc": " date subscription was updated\n"
+          "doc": "\nDate and time the subscription was last updated in\n[UTC datetime](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
         },
                 {
           "name": "metaSiteId",
           "type": "string",
-          "doc": " id of the meta site that the subscription is assigned to, can be empty, meaning the subscription is either account level or is currently unassigned\n"
+          "doc": "\nID of the metasite that the subscription is assigned to.\nAvailable only when the subscription is assigned to a Wix site.\nSubscriptions for account level products can't be assigned to a Wix site.\n"
         },
                 {
           "name": "billingReference",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_BillingReference",
-          "doc": " reference to billing system entity\n"
+          "doc": "\nInformation about the system that manages the subscription's billing.\n"
         },
                 {
           "name": "cycle",
           "type": "All APIs.Resellers._com_wixpress_billing_api_v1_Cycle",
-          "doc": " payment cycle\n"
+          "doc": "\nInformation about the billing cycle of the subscription.\n"
         },
                 {
           "name": "status",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionStatusEnum_SubscriptionStatus",
-          "doc": " status\n"
+          "doc": "\nSubscription status.\n\n+ `UNKNOWN`: Default status.\n+ `AUTO_RENEW_ON`: Subscription is active and automatically renews at the end of the current billing cycle.\n+ `AUTO_RENEW_OFF`: Subscription is active but expires at the end of the current billing cycle.\n+ `MANUAL_RECURRING`: Subscription is active and renews at the end of the current billing cycle, in case the customer takes an action related to the payment.\n+ `CANCELLED`: Subscription isn't active because it has been canceled.\n+ `TRANSFERRED`: Subscription isn't active because it has been transferred to a different account. A different active subscription was created for the target account.\n"
         },
                 {
           "name": "transferredAt",
           "type": "string",
-          "doc": " date subscription was transferred between accounts\n"
+          "doc": "\nDate and time the subscription was last transferred from one Wix account to\nanother in\n[UTC datetime](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
         },
                 {
           "name": "productTypeId",
           "type": "string",
-          "doc": " product type ID of the product\n"
+          "doc": "\nID of the [product type](https://bo.wix.com/wix-docs/rest/premium/premium-product-catalog-v2/product-types/product-type-object)\nthat the product, for which the subscription was purchased, belongs to.\n"
         },
                 {
           "name": "version",
           "type": "integer",
-          "doc": " version\n"
+          "doc": "\nVersion number, which increments by 1 each time the subscription is updated.\n"
         },
                 {
           "name": "active",
           "type": "boolean",
-          "doc": " flag indicating whether the subscription is currently active or not\n"
+          "doc": "\nWhether the subscription is active. Includes the statuses\n`\"AUTO_RENEW_ON\"`, `\"AUTO_RENEW_OFF\"`, and `\"MANUAL_RECURRING\"`.\n"
         },
                 {
           "name": "originalCreationDate",
           "type": "string",
-          "doc": "  date the original subscription was created in cases where the subscription has been transferred between accounts\n"
+          "doc": "\nDate and time the subscription was originally created in\n[UTC datetime](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\nDiffers from `createdAt` in case the subscription was originally created for a different Wix account and has been transferred.\n"
         },
                 {
           "name": "metadata",
           "type": "All APIs.Resellers.metadataMapEntry",
-          "doc": "Set of key-value pairs. custom metadata associated with the subscription\n"
+          "doc": "Set of key-value pairs.\nCustom metadata about the subscription.\n"
         },
                 {
           "name": "countryCode",
           "type": "string",
-          "doc": " the country code to which the subscription was provisioned\n"
+          "doc": "\n2-letter country code in\n[ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\nformat.\n"
         }
       ],
       "enum": null,
@@ -2158,7 +2164,7 @@
       "displayName": "metadata Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Meta data about the subscription\n",
+        "summary": "Set of key-value pairs.\nMetadata for the `created` event.\n",
         "links": [],
         "examples": []
       },
@@ -2176,7 +2182,7 @@
       "displayName": "Subscription Created Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a new subscription is created\n",
+        "summary": "\nTriggered when a subscription is created.\n",
         "links": [],
         "examples": []
       },
@@ -2184,12 +2190,12 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nCreated subscription.\n"
         },
                 {
           "name": "metadata",
           "type": "All APIs.Resellers.metadataMapEntry",
-          "doc": "Set of key-value pairs. Meta data about the subscription\n"
+          "doc": "Set of key-value pairs.\nMetadata for the `created` event.\n"
         }
       ],
       "enum": null,
@@ -2201,7 +2207,7 @@
       "displayName": "Subscription Cancelled Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is cancelled\n",
+        "summary": "\nTriggered when a subscription is canceled.\n",
         "links": [],
         "examples": []
       },
@@ -2209,17 +2215,17 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nCanceled subscription.\n"
         },
                 {
           "name": "cancellationDetails",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_CancellationDetails",
-          "doc": " Cancellation reason information\n"
+          "doc": "\nDetails about the cancellation including who canceled the subscription and why.\n"
         },
                 {
           "name": "immediateCancel",
           "type": "boolean",
-          "doc": " indicates whether the subscription was cancelled immediately or at end of period\n"
+          "doc": "\nWhether the subscription is canceled immediately or expires at the end of the current billing cycle.\n\nDefault: `false`\n"
         }
       ],
       "enum": null,
@@ -2231,7 +2237,7 @@
       "displayName": "Subscription Auto Renew Turned On Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription \"AUTO RENEW\" is turned on\"\n",
+        "summary": "\nTriggered when the subscription's auto renew is turned on.\n",
         "links": [],
         "examples": []
       },
@@ -2239,12 +2245,12 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nSubscription for which auto renew is turned on.\n"
         },
                 {
           "name": "initiator",
           "type": "string",
-          "doc": " Initiator of request to turn AutoRenew On - Will be \"USER\" or the Application Id of the requesting Service\n"
+          "doc": "\nSupported values: `USER`, `APP`.\n\nInformation about who turned auto renew on. \n+ `\"USER\"`: The site owner who purchased the subscription has turned auto renew on.\n+ `\"APP\"`: The service provider has turned auto renew on.\n"
         }
       ],
       "enum": null,
@@ -2256,7 +2262,7 @@
       "displayName": "Subscription Auto Renew Turned Off Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription \"AUTO RENEW\" is turned off\"\n",
+        "summary": "\nTriggered when the subscription's auto renew is turned off.\n",
         "links": [],
         "examples": []
       },
@@ -2264,17 +2270,17 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nSubscription for which auto renew is turned off.\n"
         },
                 {
           "name": "cancellationDetails",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_CancellationDetails",
-          "doc": " Cancellation reason information\n"
+          "doc": "\nDetails about the cancellation including who canceled the subscription and why.\n"
         },
                 {
           "name": "immediateCancel",
           "type": "boolean",
-          "doc": " indicates whether the subscription will be cancelled immediately or not\n"
+          "doc": "\nWhether the subscription is immediately canceled or expires at the end of the current billing cycle.\n\nDefault: `false`\n"
         }
       ],
       "enum": null,
@@ -2286,7 +2292,7 @@
       "displayName": "Cancellation Details Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": "\nInformation about the cancellation flow including who canceled the subscription and why it was canceled.\n",
         "links": [],
         "examples": []
       },
@@ -2294,17 +2300,17 @@
                 {
           "name": "cancellationCode",
           "type": "integer",
-          "doc": " cancellation reason code\n"
+          "doc": "    \nCancellation code. \n\nValues supported for cancellations on behalf of the billing system: `-1`, `-2`, `-3`, `-4`, `-5`, `-6`, `-7`, `-8`.  \nFor cancellations on behalf of the site owner or the service provider `cancellationCode`\nis taken from the request of\n[Cancel Immediately Offline](https://bo.wix.com/wix-docs/rest/premium/premium-subscriptions-manager/cancel-immediately-offline).\n\n+ `-1`: The subscription has been cancelled by the billing system but none of the listed cancellation reasons applies.\n+ `-2`: There were payment problems.\n+ `-3`: There was a chargeback.\n+ `-4`: Customer support has canceled the subscription and issued a refund.\n+ `-5`: The site owner has changed their existing subscription.\n+ `-6`: The subscription has been transferred to a different Wix account.\n+ `-7`: The subscription has been canceled because the site owner hasn't manually authenticated the recurring payment during the subscription's grace period. For example, site owners must manually confirm recurring payments within 40 days when paying with boleto.\n+ `-8`: The Wix account that the subscription belonged to has been deleted.\n"
         },
                 {
           "name": "cancellationReason",
           "type": "string",
-          "doc": " cancellation reason description\n"
+          "doc": "\nCancellation reason. For cancellations on behalf of the site owner or the service provider `cancellationReason`\nis taken from the request of\n[Cancel Immediately Offline](https://bo.wix.com/wix-docs/rest/premium/premium-subscriptions-manager/cancel-immediately-offline).\nFor cancellations on behalf of the billing system `cancellationReason` is `null` or an empty string.\n"
         },
                 {
           "name": "initiator",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_CancellationInitiatorEnum_Initiator",
-          "doc": " the initiator of the cancellation\n"
+          "doc": "\nInitiator of the cancellation. For `\"USER_REQUESTED\"` and `\"APP_MANAGED\"`,\n`cancellationCode` and `cancellationReason` are taken from the request of\n[Cancel Immediately](https://bo.wix.com/wix-docs/rest/premium/premium-subscriptions-manager/cancel-immediately)\nor [Cancel Immediately Offline](https://bo.wix.com/wix-docs/rest/premium/premium-subscriptions-manager/cancel-immediately-offline).\nFor `\"PASSIVE\"`, cancellations `cancellationCode` is automatically calculated and `cancellationReason` \nis `null` or an empty string.\n\n+ `\"UNKNOWN`: Default value.\n+ `\"USER_REQUESTED\"`:  The Wix account owner has canceled the subscription.\n+ `\"APP_MANAGED\"`: The service provider has canceled the subscription.\n+ `\"PASSIVE\"`: The billing system has canceled the subscription. For example, in case of payment failure or fraud.\n"
         }
       ],
       "enum": null,
@@ -2316,7 +2322,7 @@
       "displayName": "Subscription Assigned Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is assigned to a meta site\n",
+        "summary": "\nTriggered when a subscription is assigned to a Wix site, including the initial\nassignment of a floating subscription or a re-assignement from a different site.\n",
         "links": [],
         "examples": []
       },
@@ -2324,12 +2330,12 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nAssigned subscription.\n"
         },
                 {
           "name": "previousMetaSiteId",
           "type": "string",
-          "doc": " meta site identity that the subscription was previously assigned to\n"
+          "doc": "\nID of the metasite that the subscription has been assigned to before the update.\n"
         }
       ],
       "enum": null,
@@ -2341,7 +2347,7 @@
       "displayName": "Subscription Unassigned Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is unassigned from a meta site\n",
+        "summary": "\nTriggered when a subscription is unassigned from a Wix site and becomes\nfloating.\n",
         "links": [],
         "examples": []
       },
@@ -2349,17 +2355,17 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nUnassigned subscription.\n"
         },
                 {
           "name": "previousMetaSiteId",
           "type": "string",
-          "doc": " meta site identity that the subscription was previously assigned to\n"
+          "doc": "\nID of the metasite that the subscription has been assigned to before the event.\n"
         },
                 {
           "name": "unassignReason",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionUnassigned_UnassignReason",
-          "doc": ""
+          "doc": "\nReason why the subscription is unassigned.\n\n+ `\"UNKNOWN\"`: Default value.\n+ `\"USER_REQUESTED\"`: The Wix account owner has unassigned the subscription.\n+ `\"REPLACED_BY_ANOTHER_SUBSCRIPTION\"`: A different subscription that replaces this subscription is assigned to the site.\n"
         }
       ],
       "enum": null,
@@ -2371,7 +2377,7 @@
       "displayName": "Subscription Transferred Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is transferred between accounts\n Holds the state of the same subscription before and after the transfer\n subscription ID is the same in both states\n",
+        "summary": "\nTriggered when a subscription is transferred from one Wix account to another.\nA transfer includes cancelling the original subscription and creating a new\nsubscription for the target account. The event returns both the original\nand the new subscription.\n",
         "links": [],
         "examples": []
       },
@@ -2379,12 +2385,12 @@
                 {
           "name": "originSubscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription  state before the transfer\n"
+          "doc": "\nOriginal subscription that was canceled for the transfer.\n"
         },
                 {
           "name": "targetSubscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription state after the transfer\n"
+          "doc": "\nNewly created subscription for the target account.\n"
         }
       ],
       "enum": null,
@@ -2396,14 +2402,14 @@
       "displayName": "Recurring Charge Succeeded Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is successfully renewed\n",
+        "summary": "\nTriggered when a recurring charge succeeds for a subscription.\n",
         "links": [],
         "examples": []
       },
       "members": [      {
         "name": "subscription",
         "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-        "doc": " The subscription\n"
+        "doc": "\nSubscription for which the recurring charge has succeeded.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2414,14 +2420,14 @@
       "displayName": "Subscription Near End Of Period Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is near to the end of period - the number days before renewal is defined in the Billing System\n",
+        "summary": "\nTriggered when a subscription gets close to the end of its billing cycle.\nThe exact number of days is defined in the billing system.\n",
         "links": [],
         "examples": []
       },
       "members": [      {
         "name": "subscription",
         "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-        "doc": " The subscription\n"
+        "doc": "\nSubscription that got close to the end of its billing cycle.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2432,7 +2438,7 @@
       "displayName": "Contract Switched Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription is has changed, either upgrade or downgrade\n",
+        "summary": "\nTriggered when a subscription was updated including when its product has been\nup- or downgraded or the billing cycle is changed.\n",
         "links": [],
         "examples": []
       },
@@ -2440,47 +2446,47 @@
                 {
           "name": "subscription",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-          "doc": " The subscription\n"
+          "doc": "\nUpdated subscription.\n"
         },
                 {
           "name": "previousCycle",
           "type": "All APIs.Resellers._com_wixpress_billing_api_v1_Cycle",
-          "doc": " previous payment cycle\n"
+          "doc": "\nBilling cycle before the update.\n"
         },
                 {
           "name": "previousProductId",
           "type": "string",
-          "doc": " previous product ID from product catalog\n"
+          "doc": "\nID of the product belonging to the subscription before the update.\n"
         },
                 {
           "name": "previousProductTypeId",
           "type": "string",
-          "doc": " previous product type ID of the product\n"
+          "doc": "\nID of the product type that the subscription's original product belonged to before the update.\n"
         },
                 {
           "name": "contractSwitchType",
           "type": "All APIs.Resellers._com_wixpress_premium_billingnotifications_api_v1_ContractSwitchType",
-          "doc": " Type of contract switch\n"
+          "doc": "\nUpdate type. __Note__: Doesn't include information about a product adjustment.\nFor that purpose, see `productAdjustment`.\n\n+ `\"NOT_APPLICABLE\"`: Default value.\n+ `\"ADDITIONAL_QUANTITY\"`: An increased usage quota is added to the subscription. For example, a second mailbox is added to a subscription that previously included a single mailbox.\n+ `\"CREDIT_UNUSED_PERIOD\"`: The subscription is upgraded and the new price is less than the regular price. The new price applies to every billing cycle, not just the first cycle.\n+ `\"REFUND_PRICE_DIFF\"`: Not implemented.\n+ `\"ADJUST_PERIOD_END\"`: Not implemented.\n+ `\"DOWNGRADE_GRACE_PERIOD\"`: For downgrades during the grace period. In this situation, the site owner hasn’t paid yet and must immediately pay for the downgraded subscription.\n+ `\"FULL_AMOUNT_PERIOD\"`: For upgrades in which the site owner retains unused benefits. For example, site owners upgrading a Facebook Ads subscription retain their unused FB Ads credit. The unused credit is added to the new credit.\n+ `\"END_OF_PERIOD\"`: The subscription's billing current cycle is extended because of a downgrade.\n+ `\"PENDING_CHANGES\"`: The subscription's billing is updated, but the change doesn't apply immediately. Instead, the update becomes effective at the end of current billing cycle.\n+ `\"DOWNGRADE_RENEWAL\"`: The subscription is downgraded because of a declined payment. This prevents subscriptions from churning.\n\n"
         },
                 {
           "name": "previousMetaSiteId",
           "type": "string",
-          "doc": " meta site identity that the subscription was previously assigned to\n in the case where a subscription is assigned to a different site during the contract switch\n"
+          "doc": "\nID of the metasite the subscription has been assigned to previously.\nAvailable only in case the subscription is assigned to a different site.\n"
         },
                 {
           "name": "contractSwitchReason",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_ContractSwitchReason_ContractSwitchReason",
-          "doc": " Reason of contract switch\n"
+          "doc": "\nUpdate reason.\n\n+ `\"PRICE_INCREASE\"`: The subscription's price has been increased.\n+ `\"EXTERNAL_PROVIDER_TRIGGER\"`: Any reason other than a price increase.\n"
         },
                 {
           "name": "productPriceIncreaseData",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_ProductPriceIncreaseData",
-          "doc": "contains essential data for price increase case\n"
+          "doc": "\nInformation about the price update. Available only for updates with a price increase.\n"
         },
                 {
           "name": "productAdjustment",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_ProductAdjustment",
-          "doc": " indicates if contract switch is a downgrade/NA (upgrade can be added later). Note this not the same as ContractSwitchType\n"
+          "doc": "\nInformation about a product adjustment. For example, a downgrade.\n__Note__: This isn't the same as `contractSwitchType`.\n\n+ `NOT_APPLICABLE`: There is no information about whether the product has been up- or downgraded.\n+ `DOWNGRADE`: The product has been downgraded.\n"
         }
       ],
       "enum": null,
@@ -2492,14 +2498,14 @@
       "displayName": "Product Price Increase Data Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": "\nTriggered when a subscription's price is increased.\n",
         "links": [],
         "examples": []
       },
       "members": [      {
         "name": "previousPrice",
         "type": "string",
-        "doc": ""
+        "doc": "\nPrice of the subscription before the update.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2510,14 +2516,14 @@
       "displayName": "Subscription Pending Change Object",
       "locations": [],
       "docs":       {
-        "summary": " Will be published when a subscription has a pending change\n",
+        "summary": "\nTriggered when a subscription is updated and the change doesn't happen\nimmediately but at the end of the current billing cycle.\n",
         "links": [],
         "examples": []
       },
       "members": [      {
         "name": "subscription",
         "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_Subscription",
-        "doc": " The subscription\n"
+        "doc": "\nSubscription for which a pending update is triggered.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2536,12 +2542,12 @@
                 {
           "name": "eventId",
           "type": "string",
-          "doc": "internal\n"
+          "doc": "\nID of the subscription's event.\n"
         },
                 {
           "name": "eventDate",
           "type": "string",
-          "doc": " is this required in the api ?? or is it implicit\n"
+          "doc": "\nDate and time of the event in\n[UTC datetime](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
         },
                 {
           "name": "event",
@@ -2566,57 +2572,57 @@
                 {
           "name": "created",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionCreated",
-          "doc": " subscription created\n"
+          "doc": "\nTriggered when a subscription is created.\n"
         },
                 {
           "name": "assigned",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionAssigned",
-          "doc": " subscription assigned to context\n"
+          "doc": "\nTriggered when a subscription is assigned to a Wix site, including the initial\nassignment of a floating subscription or a re-assignement from a different site.\n"
         },
                 {
           "name": "cancelled",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionCancelled",
-          "doc": " subscription cancelled\n"
+          "doc": "\nTriggered when a subscription is canceled.\n"
         },
                 {
           "name": "autoRenewTurnedOn",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionAutoRenewTurnedOn",
-          "doc": " subscription \"AUTON RENEW\" turned on\n"
+          "doc": "\nTriggered when the subscription's auto renew is turned on.\n"
         },
                 {
           "name": "autoRenewTurnedOff",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionAutoRenewTurnedOff",
-          "doc": " subscription \"AUTON RENEW\" turned off\n"
+          "doc": "\nTriggered when the subscription's auto renew is turned off.\n"
         },
                 {
           "name": "unassigned",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionUnassigned",
-          "doc": " subscription unassigned from context\n"
+          "doc": "\nTriggered when a subscription is unassigned from a Wix site and becomes\nfloating.\n"
         },
                 {
           "name": "transferred",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionTransferred",
-          "doc": " subscription transferred between accounts\n"
+          "doc": "\nTriggered when a subscription is transferred from one Wix account to another.\nA transfer includes cancelling the original subscription and creating a new\nsubscription for the target account. The event returns both the original\nand the new subscription.\n"
         },
                 {
           "name": "recurringChargeSucceeded",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_RecurringChargeSucceeded",
-          "doc": " subscription renewed after recurring charge\n"
+          "doc": "\nTriggered when a recurring charge succeeds for a subscription.\n"
         },
                 {
           "name": "contractSwitched",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_ContractSwitched",
-          "doc": " subscription contract switched / upgraded\n"
+          "doc": "\nTriggered when a subscription was updated including when its product has been\nup- or downgraded or the billing cycle is changed.\n"
         },
                 {
           "name": "nearEndOfPeriod",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionNearEndOfPeriod",
-          "doc": " subscription is near renewal\n"
+          "doc": "\nTriggered when a subscription gets close to the end of its billing cycle.\nThe exact number of days is defined in the billing system.\n"
         },
                 {
           "name": "pendingChange",
           "type": "All APIs.Resellers._com_wixpress_premium_subscriptionsmanager_api_v1_SubscriptionPendingChange",
-          "doc": " subscription has a pending change set\n"
+          "doc": "\nTriggered when a subscription is updated and the change doesn't happen\nimmediately but at the end of the current billing cycle.\n"
         }
       ],
       "enum": null,
@@ -2812,8 +2818,8 @@
       "oneOf": true
     },
         {
-      "name": "_com_wixpress_premium_reseller_packages_v1_UpdateProductInstanceStatusRequest",
-      "displayName": "Update Product Instance Status Request Object",
+      "name": "_com_wixpress_premium_reseller_packages_v1_UpdateProductInstanceRequest",
+      "displayName": "Update Product Instance Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -2830,6 +2836,16 @@
           "name": "status",
           "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Status",
           "doc": ""
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "fieldToUpdate",
+          "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_FieldToUpdate",
+          "doc": " Which field to update, currently only status and countryCode are supported.\n"
         }
       ],
       "enum": null,
@@ -2837,8 +2853,8 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_premium_reseller_packages_v1_UpdateProductInstanceStatusResponse",
-      "displayName": "Update Product Instance Status Response Object",
+      "name": "_com_wixpress_premium_reseller_packages_v1_UpdateProductInstanceResponse",
+      "displayName": "Update Product Instance Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3458,7 +3474,7 @@
       "displayName": "Subscription Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> AUTO_RENEW_ON -  Subscription will be renewed automatically at the end of the current payment cycle\n <\/code><\/li><li><code> AUTO_RENEW_OFF -  Subscription will not be renewed at the end of the current payment cycle\n <\/code><\/li><li><code> MANUAL_RECURRING -  Subscription will require user to manually renew\n <\/code><\/li><li><code> CANCELLED -  Subscription has been cancelled\n <\/code><\/li><li><code> TRANSFERRED -  Subscription has been transferred to a different account\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> AUTO_RENEW_ON <\/code><\/li><li><code> AUTO_RENEW_OFF <\/code><\/li><li><code> MANUAL_RECURRING <\/code><\/li><li><code> CANCELLED <\/code><\/li><li><code> TRANSFERRED <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -3504,7 +3520,7 @@
       "displayName": "Product Adjustment Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> NOT_APPLICABLE -  flag to show that the ContractSwitchedEvent is not applicable / needed\n <\/code><\/li><li><code> DOWNGRADE - flag to show that the ContractSwitchedEvent is a Downgrade\n <\/code><\/li>",
+        "summary": "\nTriggered when a subscription's product is adusted.\n \n Possible values are: <li><code> NOT_APPLICABLE -  flag to show that the ContractSwitchedEvent is not applicable / needed\n <\/code><\/li><li><code> DOWNGRADE - flag to show that the ContractSwitchedEvent is a Downgrade\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -3521,7 +3537,7 @@
       "displayName": "Initiator Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> USER_REQUESTED -  cancellation was initiated by request from the user\n <\/code><\/li><li><code> APP_MANAGED -  cancellation was initiated by the managing application\n <\/code><\/li><li><code> PASSIVE -  cancellation was initiated passively for example payment failure or fraud\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> USER_REQUESTED <\/code><\/li><li><code> APP_MANAGED <\/code><\/li><li><code> PASSIVE <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -3540,7 +3556,7 @@
       "displayName": "Unassign Reason Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> USER_REQUESTED -  initiated by the user\n <\/code><\/li><li><code> REPLACED_BY_ANOTHER_SUBSCRIPTION -  Another subscription was assigned to the site this subscription was assigned to\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> USER_REQUESTED <\/code><\/li><li><code> REPLACED_BY_ANOTHER_SUBSCRIPTION <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -3558,7 +3574,7 @@
       "displayName": "Contract Switch Reason Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> EXTERNAL_PROVIDER_TRIGGER -  Indicates external provider triggered flow, as described in ContractSwitchType\n <\/code><\/li><li><code> PRICE_INCREASE - indicates contract was switched due to price increase\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> EXTERNAL_PROVIDER_TRIGGER <\/code><\/li><li><code> PRICE_INCREASE <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -3566,6 +3582,23 @@
       "enum":       [
         "EXTERNAL_PROVIDER_TRIGGER",
         "PRICE_INCREASE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_reseller_packages_v1_FieldToUpdate",
+      "displayName": "Field To Update Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> STATUS <\/code><\/li><li><code> COUNTRY_CODE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "STATUS",
+        "COUNTRY_CODE"
       ],
       "extra": {},
       "labels": []
