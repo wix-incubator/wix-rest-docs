@@ -3,7 +3,7 @@ SortOrder: 1
 
 This article presents a sample flow your app can support. You aren't limited to this exact flow, but they can be a helpful jumping off point as you plan your pricing integration.
 
-## Price calculation flow
+## Price Calculation Flow
 
 1. A site owner installs and authorizes your 3rd-party app to calculate prices for their services based on various factors (region, age, taxes, and so on). The app collects the JSON Web Token (JWT), decodes it, and stores the resulting instance ID.
     
@@ -25,7 +25,7 @@ This article presents a sample flow your app can support. You aren't limited to 
 
 1. A customer logs on to the merchant’s Wix site and starts placing an order for a booking.
 
-1. When the customer books on the Wix site, the checkout process (such as Wix eCommerce, coming soon!) sends a [Calculate Price](https://example.com) SPI request, including the `booking` object, to your app. 
+1. When the customer books on the Wix site, the checkout process (such as Wix eCommerce, coming soon!) sends a [Calculate Price](https://dev.wix.com/api/rest/wix-bookings/pricing-provider/calculate-price) SPI request, including the [`booking` object]((https://dev.wix.com/api/rest/wix-bookings/bookings-v2/booking-object)), to your app. 
 
 1. Your app triggers the required flow on its platform to process the request.
     
@@ -38,7 +38,7 @@ This article presents a sample flow your app can support. You aren't limited to 
 
     ```json 
     {
-      "priceDescription": "50.00 BRL"
+        "priceDescription": "50.00 BRL"
     }
     ```
   
@@ -46,7 +46,7 @@ This article presents a sample flow your app can support. You aren't limited to 
   
     ```json 
     {
-      "calculatedPrice": 16.0
+        "calculatedPrice": 16.0
     }
     ```
     
