@@ -7,9 +7,9 @@ The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integrati
 
 + [Preview](wix-bookings/pricing/previewprice) how much a booking will cost based on its line items.
 + [Calculate](wix-bookings/pricing/calculateprice) how much a booking will cost based on either: 
-    + "Out-of-the-box," standard pricing logic supplied with Wix Bookings.
+    + Standard pricing logic supplied with Wix Bookings.
     + Custom pricing, that you implement.
-+ [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings with the Pricing Integration SPI.
++ [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings with the [Pricing Integration SPI](wix-bookings/pricing-integration-spi).
 
 (March 28, 2023)
 
