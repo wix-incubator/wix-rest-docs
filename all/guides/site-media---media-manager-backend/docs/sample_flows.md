@@ -1,5 +1,5 @@
 SortOrder: 1
-# Example Flows
+# Media Manager: Sample Use Cases & Flows
 
 This article shares some possible use cases your app could support, as well as an example flow that could support each
 use case. You're certainly not limited to these use cases, but they can be a helpful jumping off point as you plan your
@@ -15,7 +15,7 @@ To do this, the real estate company can follow this basic flow.
 
    ```json
    {
-     "search": "abc-real-estate"
+     "search": "sold"
    }
    ```
    The response is an array of file objects containing information about the property listings that match the search term. Each file object has an `id`. These file IDs are needed for the next step.  
