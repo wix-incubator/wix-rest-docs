@@ -3,12 +3,12 @@
 
 ### New Releases: Wix Bookings [Pricing](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi)
 
-The new [Wix Bookings Pricing APIs](/wix-bookings.v2/pricing) and [Pricing Integration SPI](/wix-bookings/pricing-integration-spi/) provide third parties the ability to preview, calculate, and customize pricing for bookings:
+The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi/) provide third parties the ability to preview, calculate, and customize pricing for bookings:
 
 + [Preview](wix-bookings/pricing/previewprice) how much a booking will cost based on its line items.
 + [Calculate](wix-bookings/pricing/calculateprice) how much a booking will cost based on either: 
     + "Out-of-the-box," standard pricing logic supplied with Wix Bookings.
-    + Custom pricing logic you implement with the new [Pricing Integration SPI](/wix-bookings/pricing-integration-spi).
+    + Custom pricing logic you implement with the new [Pricing Integration SPI](wix-bookings/pricing-integration-spi).
 + [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings.
 
 (March 28, 2023)
