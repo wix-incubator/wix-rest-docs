@@ -19,10 +19,10 @@ Complete the following steps to adapt Wix system's integration to make your paym
 4. Create a test site and [add your payment provider/method to your testing site.](https://providers-platform.wixanswers.com/kb/en/article/adding-your-payment-providermethod-to-your-testing-site) 
 5. Wix adds a payment gateway extension to your app. 
 6. You can start reviewing the documentation to configure the following endpoints to process payments:
-    - [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) plugin endpoint, which is triggered when a merchant provides the required data to connect their [PSP](https://en.wikipedia.org/wiki/Payment_service_provider) account to a Wix site.
-    - [Create Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/create-transaction) plugin endpoint, which is triggered when a buyer pays on a Wix site.
-    - [Refund Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/refund-transaction) plugin endpoint, which is triggered when a merchant refunds a payment made on a Wix site.
-    - [Submit Event](https://dev.wix.com/api/rest/payment-provider/provider-platform/event/submit-event) webhook, which is used by a payment plugin to send payment state updates to Wix.
+    - [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) plugin endpoint, which is triggered when a merchant provides the required data to connect their [PSP](https://en.wikipedia.org/wiki/Payment_service_provider) account to a Wix site.
+    - [Create Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/create-transaction) plugin endpoint, which is triggered when a buyer pays on a Wix site.
+    - [Refund Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/refund-transaction) plugin endpoint, which is triggered when a merchant refunds a payment made on a Wix site.
+    - [Submit Event](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/event/submit-event) webhook, which is used by a payment plugin to send payment state updates to Wix.
 
 >**Note:**
 >Find more details on what to expect when working with Wix Developers Center [here](https://providers-platform.wixanswers.com/kb/en/article/getting-started-what-to-expect).
