@@ -2,10 +2,8 @@
 
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows a business owner to set up a system to accept and manage bookings for services.
 
-This article lists and defines the various terms and concepts used in Wix Bookings and its APIs. 
+This article contains a comprehensive list of the various terms and concepts used in all of Wix Bookings and its APIs. 
 
-
-## Terminology
 
 | Term | Definition |
 |---------------|-------------------------|
@@ -18,15 +16,14 @@ This article lists and defines the various terms and concepts used in Wix Bookin
 | `CANCELED` status (Booking) | A status indicating that the booking has been canceled by the site owner or the customer. Cancel bookings using the `Cancel Booking` endpoint. |
 | Catalog | A list of all the different services a business provides. | 
 | Category (Service)| The category to which the service belongs. |
-| Choice (Pricing) | A specific value for a service option the customer can choose to book. For example, the service option `ageGroup` may have these choices: `child`, `student`, `adult`, and `senior`. Each choice may have a different 
-  price. | 
+| Choice (Pricing) | A specific value for a service option the customer can choose to book. For example, the service option `ageGroup` may have these choices: `child`, `student`, `adult`, and `senior`. Each choice may have a different price. | 
 | [Class](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes) | A single session or a set of sessions that are offered on specific days and at specific times. Classes can be scheduled on different days, at different times, with different resources, such as staff members. Customers can sign up for single sessions or a class's recurring sessions. For example, a language school offers a beginner's Spanish class every Monday at 8:00 PM. Customers can join the session they want and don't have to commit to attending all sessions. | 
 | Class schedule | For classes and courses, the business decides when to schedule a session. This is in contrast to appointments, where the customer decides when to book a session. For classes and courses, the schedule is used to manage the available sessions and holds some aggregated information, such as the start time and end time of a course. | 
 | `CONFIRMED` status (Booking)  | A status indicating that the site owner has confirmed the booking and it appears in the business calendar. You can confirm your bookings in one of the following ways:<br />+ Automatically. Bookings are automatically confirmed when the service is configured to do so and the order is approved during the checkout process. An automatic confirmation includes checking availability.<br />+ Manually. You can manually confirm a booking using `Confirm Or Decline Booking`. |
 | [Course](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) | A multi-session course, or a workshop that starts and ends on a particular day. For example, an academic course or fitness boot camp. |
 | Course schedule | For classes and courses, the business decides when to schedule a session. This is in contrast to appointments, where the customer decides when to book a session. For classes and courses, the schedule is used to manage the available sessions and holds some aggregated information, such as the start time and end time of a course. | 
 | Deposit | Amount the customer must pay immediately when checking out the booking. |
-| Double booked | A double booking can happen in case of 2 or more simultaneous eCommerce checkout processes or if the site owner manually accepts bookings that exceed the service's capacity limit. When a double booking happens for paying customers, the doubleBooked boolean is set to true for the second booking and the owner is notified. They must then manually resolve the situation. When a double booking happens for free services, the second booking's status is set to `DECLINED` while the first booking is retained. | 
+| Double booking | A double booking is when a customer attempts to book an already-reserved service. This can occur, for example, when multiple customers try to check out at the same time or when the business owner manually confirms more bookings than the service's capacity allows. If trying to book at the same time as:<br />+ An existing paid booking: The new booking is declined.<br />+ An existing free booking: The new booking is accepted. | 
 | Extended booking | In addition to basic booking information, an extended booking contains additional extended details, such as attendance, and whether the booking can be refunded or rescheduled. | 
 | External calendar | A calender hosted by a  3rd-party calendar service. | 
 | External calendar connection | A linkage established between a Wix site’s calendar and one or more external calendars, to enable importing and/or exporting calendar events. |
