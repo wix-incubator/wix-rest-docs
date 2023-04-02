@@ -1,14 +1,14 @@
 # Release Notes
 
-## New Release: [OAuth Apps API](authentication-management/oauth-apps)
+## New Release: [OAuth Apps API](auth-management/oauth-apps)
 
-The [OAuth Apps API](authentication-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
 
-+ [Create OAuth App](authentication-management/oauth-apps/create-oauth-app)
-+ [Delete OAuth App](authentication-management/oauth-apps/delete-oauth-app)
-+ [Get OAuth App](authentication-management/oauth-apps/get-oauth-app)
-+ [Query OAuth Apps](authentication-management/oauth-apps/query-oauth-apps)
-+ [Update OAuth App](authentication-management/oauth-apps/update-oauth-app)
++ [Create OAuth App](auth-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](auth-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](auth-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](auth-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](auth-management/oauth-apps/update-oauth-app)
 
 (April 02, 2023)
 
