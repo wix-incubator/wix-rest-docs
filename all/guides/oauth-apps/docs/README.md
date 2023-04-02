@@ -24,9 +24,9 @@ It's important to note the following points before starting to code:
 
 ## Use cases
 
-+ [Connect a custom template on any platform to an existing Wix project](/docs/authentication-management/oauth-apps/sample-flows#authentication-management_oauth-apps_sample-flows_connect-a-custom-template-on-any-platform-to-an-existing-wix-project)
-+ [Change allowed redirect domains for an external client app or site](/docs/authentication-management/oauth-apps/sample-flows#authentication-management_oauth-apps_sample-flows_change-allowed-redirect-domains-for-an-external-client-app-or-site)
-+ [Prevent an existing client app or site from connecting to a Wix project](/docs/authentication-management/oauth-apps/sample-flows#authentication-management_oauth-apps_sample-flows_prevent-an-existing-client-app-or-site-from-connecting-to-a-wix-project)
++ [Connect a custom template on any platform to an existing Wix project](https://dev.wix.com/api/rest/auth-management/oauth-apps/sample-flows#connect-a-custom-template-on-any-platform-to-an-existing-wix-project)
++ [Change allowed redirect domains for an external client app or site](https://dev.wix.com/api/rest/auth-management/oauth-apps/sample-flows#change-allowed-redirect-domains-for-an-external-client-app-or-site)
++ [Prevent an existing client app or site from connecting to a Wix project](https://dev.wix.com/api/rest/auth-management/oauth-apps/sample-flows#prevent-an-existing-client-app-or-site-from-connecting-to-a-wix-project)
 
 ## Terminology
 
