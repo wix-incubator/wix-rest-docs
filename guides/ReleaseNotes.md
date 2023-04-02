@@ -1,5 +1,17 @@
 # Release Notes
 
+## New Release: [OAuth Apps API](authentication-management/oauth-apps)
+
+The [OAuth Apps API](authentication-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+
++ [Create OAuth App](authentication-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](authentication-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](authentication-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](authentication-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](authentication-management/oauth-apps/update-oauth-app)
+
+(April 02, 2023)
+
 ## New Endpoints: [Wix Media](media/media-manager)
 
 The Media API now includes new endpoints and events:
