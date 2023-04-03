@@ -2,7 +2,7 @@
 
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows a business owner to set up a system to accept and manage bookings for services.
 
-This article contains a comprehensive list of the various terms and concepts used in all of Wix Bookings and its APIs. 
+This article contains a comprehensive list of the various terms and concepts used in Wix Bookings and its APIs. 
 
 
 | Term | Definition |
