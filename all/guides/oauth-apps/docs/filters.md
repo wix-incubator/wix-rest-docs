@@ -11,4 +11,4 @@ The following table shows field support for filters and sorting for the OAuthApp
 
 __Related content:__
 [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),
-[Query OAuth Apps endpoint]()
+[Query OAuth Apps endpoint](https://dev.wix.com/api/rest/auth-management/oauth-apps/query-oauth-apps)
