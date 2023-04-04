@@ -4,6 +4,16 @@ This article contains the items being deprecated across Wix REST APIs.
 Typically, deprecated items reach their planned end of life at the end of a calendar quarter,
 at least 6 months after their announced deprecation.
 
+## End of Life: December 31, 2023
+- [Wix Bookings Service Catalog](https://dev.wix.com/api/rest/wix-bookings/service-catalog): 
+    - [Query Service Catalog](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/query-service-catalog) replaced by [Services V2 Query Services](https://dev.wix.com/api/rest/wix-bookings/services-v2/query-services).
+    - [List Services](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/list-services) replaced by [Services V2 Query Services](https://dev.wix.com/api/rest/wix-bookings/services-v2/query-services).
+    - [Get Service](https://dev.wix.com/api/rest/wix-bookings/service-catalog/services/get-service) replaced by [Services V2 Get Service](https://dev.wix.com/api/rest/wix-bookings/services-v2/get-service).
+
+## End of Life: March 30, 2023
+- Media Manager [Update File Descriptor](media/media-manager/files/update-file-descriptor):
+  - Replaced by [Update File](media/media-manager/files/update-file).
+
 ## End of Life: September 30, 2023
 - Wix Bookings [External Calendar Sync](https://dev.wix.com/api/rest/wix-bookings/external-calendar-sync):
   - Replaced by [External Calendar V2](https://dev.wix.com/api/rest/wix-bookings/external-calendars-v2)

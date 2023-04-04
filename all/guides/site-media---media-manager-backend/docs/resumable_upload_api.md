@@ -116,6 +116,6 @@ async function resumableFileUpload(resumableUploadUrlResponse: GenerateFileResum
 
 ## Status/Error Codes
 Errors from this endpoint will 
-The response will include a [gRPC/HTTP status code](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/errors#platformization-guidelines_errors_errors).
+The response will include a gRPC/HTTP status code.
         
 
