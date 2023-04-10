@@ -27,4 +27,4 @@ for the Draft Post object:
 
 __Related content:__
 [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),
-[Query endpoint 1](https://dev.wix.com/api/rest/wix-blog/blog/draft-posts/query-draft-posts)
+[Query Draft Posts](https://dev.wix.com/api/rest/wix-blog/blog/draft-posts/query-draft-posts)

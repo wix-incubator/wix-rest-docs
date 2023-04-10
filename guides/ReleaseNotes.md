@@ -1,5 +1,49 @@
 # Release Notes
 
+## New Release: [OAuth Apps API](auth-management/oauth-apps)
+
+The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+
++ [Create OAuth App](auth-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](auth-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](auth-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](auth-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](auth-management/oauth-apps/update-oauth-app)
+
+(April 02, 2023)
+
+## New Endpoints: [Wix Media](media/media-manager)
+
+The Media API now includes new endpoints and events:
+
++ [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
++ [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
++ [List Deleted Files](media/media-manager/files/list-deleted-files) retrieves a list of files in the Media Manager's trash bin.
++ [List Folders](media/media-manager/folders/list-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [List Deleted Folders](media/media-manager/folders/list-deleted-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [File Ready Webhook](media/media-manager/files/file-ready-webhook) triggered when a file is ready to be used, after any post-upload processing.
++ [File Failed Webhook](media/media-manager/files/file-failed-webhook) triggered when a file fails during essential post-upload processing.
++ [File Descriptor Updated Webhook](media/media-manager/files/file-descriptor-updated-webhook) triggered when a file is updated, including when a file is moved to a different folder.
++ [File Descriptor Deleted Webhook](media/media-manager/files/file-descriptor-deleted-webhook) triggered when a file is deleted.
++ [Folder Created Webhook](media/media-manager/folders/folder-created-webhook) triggered when a folder is created.
++ [Folder Updated Webhook](media/media-manager/folders/folder-updated-webhook) triggered when a folder is updated.
++ [Folder Deleted Webhook](media/media-manager/folders/folder-deleted-webhook) triggered when a folder is deleted.
+
+(March 30, 2023)
+
+## New Releases: Wix Bookings [Pricing API](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi)
+
+The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi) provide third parties the ability to preview, calculate, and customize pricing for bookings:
+
++ [Preview](wix-bookings/pricing/preview-price) how much a booking will cost based on its line items.
++ [Calculate](wix-bookings/pricing/calculate-price) how much a booking will cost based on either: 
+    + Standard pricing logic supplied with Wix Bookings.
+    + Custom pricing, that you implement.
++ [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings with the [Pricing Integration SPI](wix-bookings/pricing-integration-spi).
+
+(March 28, 2023)
+
+
 ## New Release: [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments)
 
 The [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments) API provides third parties the ability to manage eCommerce order fulfillments. The new API includes:
