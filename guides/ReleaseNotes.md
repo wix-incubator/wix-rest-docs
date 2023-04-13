@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Releases: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
+
+The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
+
+(April 13, 2023)
+
 ## New Release: [Wix Data API](wix-data)
 
 The [Wix Data API](wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
