@@ -1,6 +1,6 @@
 # Release Notes
 
-## New Releases: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
+## New Release: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
 
 The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
 
