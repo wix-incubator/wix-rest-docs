@@ -6,6 +6,17 @@ The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-sp
 
 (April 13, 2023)
 
+## New Release: [Wix Data API](wix-data)
+
+The [Wix Data API](wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
+
++ [Data Items](wix-data/data-items): Access and manage items in a Wix site's data collections.
++ [Data Collections](wix-data/data-collections): Create data collections and manage their structure.
++ [Indexes](wix-data/indexes): Create indexes for data collections, to make querying data faster.
++ [External Database Connections](wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
+
+(April 13, 2023)
+
 ## New Release: [OAuth Apps API](auth-management/oauth-apps)
 
 The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
