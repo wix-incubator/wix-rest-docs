@@ -5,10 +5,10 @@ The Wix Data API provides a complete solution for accessing, organizing, configu
 
 With the Wix Data API, you can:
 
-+ Create, modify, and delete [data collections](/docs/wix-data/data-collections).
-+ Access, manage, and perform aggregations on [data items](/docs/wix-data/data-items) stored in a site's existing data collections.
-+ Create [indexes](/docs/wix-data/indexes) for data collections, to speed up data queries.
-+ Connect [external databases](/docs/wix-data/external-database-connections) to a Wix site.
++ Create, modify, and delete [data collections](https://dev.wix.com/api/rest/wix-data/wix-data/data-collections).
++ Access, manage, and perform aggregations on [data items](https://dev.wix.com/api/rest/wix-data/wix-data/data-items) stored in a site's existing data collections.
++ Create [indexes](https://dev.wix.com/api/rest/wix-data/wix-data/indexes) for data collections, to speed up data queries.
++ Connect [external databases](https://dev.wix.com/api/rest/wix-data/wix-data/external-database-connections) to a Wix site.
 
 ## Before you begin
 
@@ -19,12 +19,12 @@ It's important to note the following points before starting to code:
 + The maximum size of an item you can save to a collection is 500 kb.
 + When naming fields in data collections, we recommend avoiding special characters. You can do this by using field names that match this regex pattern: `[a-zA-Z_][a-zA-Z0-9_-]{0,63}`.
 + Each data collection defines a schema of fields for the items it contains. However, this schema isn't enforced. This means that if you add or update an item containing a field or data type that doesn't match the collection's schema specification, your data is stored anyway.
-+ When using data retrieval endpoints such as [Query Data Items](/docs/wix-data/data-items/query-data-items) or [Get Data Item](/docs/wix-data/data-items/get-data-item) following an update to a collection's data, the data retrieved may not yet contain the most recent changes. See [Wix Data and Eventual Consistency](/docs/wix-data/eventual-consistency) for more information and instructions for overriding this.
-+ After connecting external database collections to a Wix site using the [External Database Connections API](/docs/wix-data/external-database-connections), you can use the Data Items API to manage and retrieve data from those collections as if they were Wix Data collections.
++ When using data retrieval endpoints such as [Query Data Items](https://dev.wix.com/api/rest/wix-data/wix-data/data-items/query-data-items) or [Get Data Item](https://dev.wix.com/api/rest/wix-data/wix-data/data-items/get-data-item) following an update to a collection's data, the data retrieved may not yet contain the most recent changes. See [Wix Data and Eventual Consistency](https://dev.wix.com/api/rest/wix-data/wix-data/eventual-consistency) for more information and instructions for overriding this.
++ After connecting external database collections to a Wix site using the [External Database Connections API](https://dev.wix.com/api/rest/wix-data/wix-data/external-database-connections), you can use the Data Items API to manage and retrieve data from those collections as if they were Wix Data collections.
 
 ## Permissions
 
-Access to a [data collection](/docs/wix-data/data-collections) is controlled by its permissions. These permissions are defined in the collection object and they specify which types of user can perform actions on the data contained in the collection.
+Access to a [data collection](https://dev.wix.com/api/rest/wix-data/wix-data/data-collections) is controlled by its permissions. These permissions are defined in the collection object and they specify which types of user can perform actions on the data contained in the collection.
 
 Wix Data recognizes 4 roles: 
 * `ADMIN`: The site owner.

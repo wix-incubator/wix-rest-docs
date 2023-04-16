@@ -8,12 +8,12 @@ The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-sp
 
 ## New Release: [Wix Data API](wix-data)
 
-The [Wix Data API](wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
+The [Wix Data API](wix-data/wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
 
-+ [Data Items](wix-data/data-items): Access and manage items in a Wix site's data collections.
-+ [Data Collections](wix-data/data-collections): Create data collections and manage their structure.
-+ [Indexes](wix-data/indexes): Create indexes for data collections, to make querying data faster.
-+ [External Database Connections](wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
++ [Data Items](wix-data/wix-data/data-items): Access and manage items in a Wix site's data collections.
++ [Data Collections](wix-data/wix-data/data-collections): Create data collections and manage their structure.
++ [Indexes](wix-data/wix-data/indexes): Create indexes for data collections, to make querying data faster.
++ [External Database Connections](wix-data/wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
 
 (April 13, 2023)
 
