@@ -5,11 +5,11 @@ The External Database Connections API enables you to connect an external databas
 
 ## Internal vs. external databases
 
-Wix provides a comprehensive full-stack platform with integrated database capabilities. Your app can use the [Data Collections API](/docs/wix-data/data-collections) to create, modify, and delete data collections in a Wix site on which it is installed. The app can then use the [Data Items API](/docs/wix-data/data-items) to access and manage data within those collections.
+Wix provides a comprehensive full-stack platform with integrated database capabilities. Your app can use the [Data Collections API](https://dev.wix.com/api/rest/wix-data/wix-data/data-collections) to create, modify, and delete data collections in a Wix site on which it is installed. The app can then use the [Data Items API](https://dev.wix.com/api/rest/wix-data/wix-data/data-items) to access and manage data within those collections.
 
 Wix's database capabilities cover a wide range of use cases for apps that need to store data. However, certain projects have very specific requirements that make it necessary to use an external database. For example, you may need to access existing data that is already stored on an external service, or you may need your data to be stored in a relational database.
 
-Once the connection between an external database and a Wix site is established, your app can access the collection using Wix Data APIs, including the [Data Items API](/docs/wix-data/data-items), in the same way you would with a native collection. The owner of the Wix site on which your app is installed can also access the collection through the Content Manager and with [Velo](https://www.wix.com/velo/reference/wix-data), use the collection to create dynamic pages, and connect the collection to user input elements.
+Once the connection between an external database and a Wix site is established, your app can access the collection using Wix Data APIs, including the [Data Items API](https://dev.wix.com/api/rest/wix-data/wix-data/data-items), in the same way you would with a native collection. The owner of the Wix site on which your app is installed can also access the collection through the Content Manager and with [Velo](https://www.wix.com/velo/reference/wix-data), use the collection to create dynamic pages, and connect the collection to user input elements.
 
 For more information on connecting external databases with a Wix site, see [Integrating External Databases with Your Wix Site](https://support.wix.com/en/article/velo-integrating-external-databases-with-your-wix-site).
 
@@ -25,7 +25,7 @@ Otherwise, for details on the required specifications for an external database a
 
 ## Ensuring read-write access
 
-If you want to enable read-write access to your external database using the [Data Items API](/docs/wix-data/data-items), ensure your external database's table or schema includes the following fields:
+If you want to enable read-write access to your external database using the [Data Items API](https://dev.wix.com/api/rest/wix-data/wix-data/data-items), ensure your external database's table or schema includes the following fields:
 * `_id`
 * `_createdDate`
 * `_updatedDate`

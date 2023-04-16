@@ -1,4 +1,4 @@
-SortOrder: 3
+SortOrder: 1
 # Policies v2: Supported Filters and Sorting
 
 The following table shows field support for filters and sorting for the Policy object:
