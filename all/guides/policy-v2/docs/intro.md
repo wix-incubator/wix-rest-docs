@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 0
 # About Policies v2
 
 With Policies APIs, you can manage the policies for a particular event. For example, you can create, update, and delete policies. You can also reorder policies in the Event Dashboard and checkout form.    
