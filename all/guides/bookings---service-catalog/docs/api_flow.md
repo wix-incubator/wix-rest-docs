@@ -1,6 +1,8 @@
 SortOrder: 0
 # Service Catalog API
 
+ > **Deprecation Notice**\n >\n > **The Service Catalog API has been replaced with [Services V2 APIs](https://dev.wix.com/api/rest/wix-bookings/services-v2) and will be removed on December 31, 2023.**\n > **If your app uses these APIs, we recommend updating your code as soon as possible.**\n\n
+
 The service catalog is a detailed list of all the services this business provides.
 The Catalog API enables you to showcase services by staff member, theme or type.
 
