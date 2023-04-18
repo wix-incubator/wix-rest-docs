@@ -7,6 +7,13 @@ Policies define terms & conditions for the events, such as terms for canceling a
 
 A policy agreement checkbox will be added to the RSVP or checkout form. The policy text can be read in a pop-up window if you click the policy name. By default, there are no policies when you first create an event.
 
+## Before you begin
+
+It’s important to note the following points before starting to code:
+
+- Install the **Wix Events & Tickets** app from [Wix App Market](https://www.wix.com/app-market/wix-events?referral=category&appIndex=5&referralTag=booking--events).
+- You can create up to 3 policies per event.
+
 ## Terminology
 
 - **Policy**: text that defines terms & conditions, as relevant.
