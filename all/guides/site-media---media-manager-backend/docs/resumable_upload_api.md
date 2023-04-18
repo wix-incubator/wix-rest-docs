@@ -115,7 +115,6 @@ async function resumableFileUpload(resumableUploadUrlResponse: GenerateFileResum
 
 
 ## Status/Error Codes
-Errors from this endpoint will 
-The response will include a gRPC/HTTP status code.
+The response will include an [HTTP status code](https://dev.wix.com/api/rest/getting-started/errors).
         
 
