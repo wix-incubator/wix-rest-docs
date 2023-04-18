@@ -9,7 +9,7 @@ same service based on their customers' choices.
 
 You can read more about using the:
 + [Wix Bookings Pricing API](https://dev.wix.com/api/rest/wix-bookings/pricing/introduction) to preview and calculate the price.
-+ [Wix Bookings Pricing Provider SPI](https://dev.wix.com/spi/rest/wix-bookings/pricing-integration-spi/introduction) that allows site owners to implement custom pricing logic.
++ [Wix Bookings Pricing Provider SPI](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi/introduction) that allows site owners to implement custom pricing logic.
 
 
 ## Checking for Existing Pricing Options 
