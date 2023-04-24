@@ -3,7 +3,7 @@ SortOrder: 0
 
 The Event Guests API allows you to retrieve information about all guests who bought tickets to an event or who RSVP'ed. This can be particularly useful for event organizers who need to manage large numbers of attendees or who want to integrate their event management system with other software tools. Additionally, with the Event Guests API you can create custom applications that leverage event guest data, such as mobile event apps or marketing automation systems.  
 
-The Event Guests API allows you to:  
+The Event Guests API allow you to:  
 
 * Retrieve a list of guests by event ID.
 * Get information about each individual ticket buyer.
