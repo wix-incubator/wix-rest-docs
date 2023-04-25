@@ -1,5 +1,13 @@
 # Release Notes
 
+## New Release: [Event Guests](wix-events/event-guests)
+
+The [Event Guests](wix-events/event-guests) API enables you to manage guests for a particular event. The new API includes:
+
+- [Query Event Guests](wix-events/event-guests/query-event-guests)
+
+(April 25, 2023)
+
 ## New Release: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
 
 The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
@@ -90,16 +98,16 @@ The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you 
 (March 02, 2023)
 
 
-## New Release: [Policy v2](wix-events/policy-v2)
+## New Release: [Policies v2](wix-events/policies-v2)
 
-The [Policy v2](wix-events/policy-v2) API enables you to manage the policies for a particular event. The new API includes:
+The [Policies v2](wix-events/policies-v2) API enables you to manage the policies for a particular event. The new API includes:
 
-- [Create Policy](wix-events/policy-v2/create-policy)
-- [Delete Policy](wix-events/policy-v2/delete-policy)
-- [Get Policy](wix-events/policy-v2/get-policy)
-- [Query Policies](wix-events/policy-v2/query-policies)
-- [Reorder Event Policies](wix-events/policy-v2/reorder-event-policies)
-- [Update Policy](wix-events/policy-v2/update-policy)
+- [Create Policy](wix-events/policies-v2/create-policy)
+- [Delete Policy](wix-events/policies-v2/delete-policy)
+- [Get Policy](wix-events/policies-v2/get-policy)
+- [Query Policies](wix-events/policies-v2/query-policies)
+- [Reorder Event Policies](wix-events/policies-v2/reorder-event-policies)
+- [Update Policy](wix-events/policies-v2/update-policy)
 
 (March 01, 2023)
 
