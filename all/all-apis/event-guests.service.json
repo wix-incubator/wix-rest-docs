@@ -1,0 +1,2651 @@
+{
+  "name": "Event Guests",
+  "client_id": "https://github.com/wix-private/events/tree/master/events-services/events-guests#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Short description of EventGuestsService",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Event Guest",
+    "entity": "_wix_events_guests_v1_EventGuest",
+    "src": "https://github.com/wix-private/events/tree/master/events-services/events-guests/proto/wix/events/guests/v1/event_guest.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/event-guests/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/event-guests/docs/sample-use-cases-and-flows.md",
+      "name": "Sample Use Cases and Flows"
+    },
+        {
+      "path": "../guides/event-guests/docs/filter-and-sort.md",
+      "name": "Filter and Sort"
+    }
+  ],
+  "operations": [  {
+    "name": "Query Event Guests",
+    "methodName": "QueryEventGuests",
+    "serviceName": "EventGuestsService",
+    "tag": "Event Guest",
+    "permissions": [],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "requiredFields": ["query"],
+    "params": [    {
+      "in": "BODY",
+      "name": "query",
+      "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_QueryV2",
+      "doc": " Query options. See [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more details.\n",
+      "required": true
+    }],
+    "ret":     {
+      "type":       {
+        "name": "QueryEventGuests",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Event Guests._wix_events_guests_v1_QueryEventGuestsResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " Retrieves a list of guests given the provided paging, filtering, and sorting.        \nQuery Event Guests runs with these defaults, which you can override:\n- `createdDate` is sorted in `ASC` order\n- `paging.limit` is `100`\n- `paging.offset` is `0`\nFor field support for filters and sorting, see [Event Guests: Supported Filters and Sorting](https://dev.wix.com/api/rest/wix-events/event-guests/filter-and-sort).    \nTo learn about working with _Query_ endpoints, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language), [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/pagination), and [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/events-guests/v2/guests/query",
+      "links": [],
+      "examples":       [
+                {
+          "title": "Query RSVP-type guests without guest details",
+          "body": ["curl -X POST 'https://www.wixapis.com/events-guests/v2/guests/query' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"query\": {\n    \"filter\": {\n      \"guestType\": \"RSVP\"\n    }\n  }\n}'"],
+          "response": ["{\n  \"guests\": [  {\n    \"id\": \"ab249e78-edb0-4857-8b4b-d42b672ee764\",\n    \"eventId\": \"b189cf8b-a61f-443b-95bb-d9e88af0a277\",\n    \"rsvpId\": \"431321d0-f768-45c8-a390-9827c0107e0f\",\n    \"tickets\": [],\n    \"contactId\": \"023b6403-17e6-42dc-b475-a5ae6c2b8df4\",\n    \"attendanceStatus\": \"IN_WAITLIST\",\n    \"createdDate\": \"2023-01-10T13:22:23.302Z\",\n    \"updatedDate\": \"2023-01-10T13:22:23.302Z\",\n    \"attendanceStatusUpdatedDate\": \"2023-01-10T13:22:23Z\",\n    \"guestType\": \"RSVP\"\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query buyer-type guests with guest details",
+          "body": ["curl -X POST 'https://www.wixapis.com/events-guests/v2/guests/query' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary\n'{\n  \"query\": {\n    \"filter\": {\n      \"guestType\": \"BUYER\"\n    },\n    \"fieldsets\": [\n      \"guestDetails\"\n    ],\n    \"paging\": {\n      \"limit\": 1\n    }\n  }\n}'"],
+          "response": ["{\n  \"guests\": [  {\n    \"id\": \"ccec1209-8a5f-4531-b097-09f4009832f6\",\n    \"eventId\": \"b89aafc0-5473-4a56-8144-333b6c514874\",\n    \"orderNumber\": \"2T0K-2HLF-145\",\n    \"tickets\":     [\n            {\n        \"number\": \"2T90-H5P6-17J1P\",\n        \"definitionId\": \"13fba1ae-657f-47d0-8759-fd8df5a94e65\",\n        \"name\": \"Participant ticket\"\n      },\n            {\n        \"number\": \"2T90-H5P6-17J1Q\",\n        \"definitionId\": \"13fba1ae-657f-47d0-8759-fd8df5a94e65\",\n        \"name\": \"Participant ticket\"\n      }\n    ],\n    \"contactId\": \"023b6403-17e6-42dc-b475-a5ae6c2b8df4\",\n    \"guestDetails\":     {\n      \"email\": \"john.doe@mail.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\",\n      \"formResponse\": {\"inputValues\":       [\n                {\n          \"inputName\": \"firstName\",\n          \"value\": \"John\",\n          \"values\": []\n        },\n                {\n          \"inputName\": \"lastName\",\n          \"value\": \"Doe\",\n          \"values\": []\n        },\n                {\n          \"inputName\": \"email\",\n          \"value\": \"john.doe@mail.com\",\n          \"values\": []\n        }\n      ]},\n      \"checkedIn\": false\n    },\n    \"attendanceStatus\": \"ATTENDING\",\n    \"createdDate\": \"2023-01-11T09:17:07.925Z\",\n    \"updatedDate\": \"2023-01-11T09:17:07.925Z\",\n    \"attendanceStatusUpdatedDate\": \"2023-01-11T09:17:07.841Z\",\n    \"guestType\": \"BUYER\"\n  }],\n  \"pagingMetadata\": {\"count\": 1}\n} "],
+          "type": "curl",
+          "extra": {}
+        },
+                {
+          "title": "Query Ticket holder-type guests with guest details",
+          "body": ["curl -X POST 'https://www.wixapis.com/events-guests/v2/guests/query' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH TOKEN>' \\\n--data-binary '{\n  \"query\": {\n    \"filter\": {\n      \"guestType\": \"TICKET_HOLDER\"\n    },\n    \"fieldsets\": [\n      \"guestDetails\"\n    ],\n  }\n}'"],
+          "response": ["{\n  \"guests\":   [\n        {\n      \"id\": \"60744671-db27-4715-9b86-85f301a736af\",\n      \"eventId\": \"b89aafc0-5473-4a56-8144-333b6c514874\",\n      \"orderNumber\": \"2T0K-2HLF-145\",\n      \"ticketNumber\": \"2T90-H5P6-17J1Q\",\n      \"tickets\": [      {\n        \"number\": \"2T90-H5P6-17J1Q\",\n        \"definitionId\": \"13fba1ae-657f-47d0-8759-fd8df5a94e65\",\n        \"name\": \"Participant ticket\"\n      }],\n      \"contactId\": \"804e6beb-365f-4992-8e35-8f12788e62fa\",\n      \"guestDetails\":       {\n        \"email\": \"patsy.mcbride@mail.com\",\n        \"firstName\": \"Patsy\",\n        \"lastName\": \"McBride\",\n        \"formResponse\": {\"inputValues\":         [\n                    {\n            \"inputName\": \"firstName\",\n            \"value\": \"Patsy\",\n            \"values\": []\n          },\n                    {\n            \"inputName\": \"lastName\",\n            \"value\": \"McBride\",\n            \"values\": []\n          },\n                    {\n            \"inputName\": \"email\",\n            \"value\": \"patsy.mcbride@mail.com\",\n            \"values\": []\n          }\n        ]},\n        \"checkedIn\": false\n      },\n      \"attendanceStatus\": \"ATTENDING\",\n      \"createdDate\": \"2023-01-11T09:17:07.925Z\",\n      \"updatedDate\": \"2023-01-11T09:17:07.925Z\",\n      \"attendanceStatusUpdatedDate\": \"2023-01-11T09:17:07.841Z\",\n      \"guestType\": \"TICKET_HOLDER\"\n    },\n        {\n      \"id\": \"d2ce4031-278d-4f39-a337-d83baf82a109\",\n      \"eventId\": \"b89aafc0-5473-4a56-8144-333b6c514874\",\n      \"orderNumber\": \"2T0K-2HLF-145\",\n      \"ticketNumber\": \"2T90-H5P6-17J1P\",\n      \"tickets\": [      {\n        \"number\": \"2T90-H5P6-17J1P\",\n        \"definitionId\": \"13fba1ae-657f-47d0-8759-fd8df5a94e65\",\n        \"name\": \"Participant ticket\"\n      }],\n      \"contactId\": \"023b6403-17e6-42dc-b475-a5ae6c2b8df4\",\n      \"guestDetails\":       {\n        \"email\": \"john.doe@mail.com\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\",\n        \"formResponse\": {\"inputValues\":         [\n                    {\n            \"inputName\": \"firstName\",\n            \"value\": \"John\",\n            \"values\": []\n          },\n                    {\n            \"inputName\": \"lastName\",\n            \"value\": \"Doe\",\n            \"values\": []\n          },\n                    {\n            \"inputName\": \"email\",\n            \"value\": \"john.doe@mail.com\",\n            \"values\": []\n          }\n        ]},\n        \"checkedIn\": false\n      },\n      \"attendanceStatus\": \"ATTENDING\",\n      \"createdDate\": \"2023-01-11T09:17:07.925Z\",\n      \"updatedDate\": \"2023-01-11T09:17:07.925Z\",\n      \"attendanceStatusUpdatedDate\": \"2023-01-11T09:17:07.841Z\",\n      \"guestType\": \"TICKET_HOLDER\"\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"cursors\": {}\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }
+      ],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "QueryEventGuestsRequest",
+      "rpcResponseName": "QueryEventGuestsResponse"
+    },
+    "customLabels": []
+  }],
+  "events":   [
+        {
+      "type": "_wix_events_guests_v1_EventGuestDeletedDomainEvent",
+      "name": "Event Guest Deleted Webhook",
+      "docs":       {
+        "summary": " Triggered when a guest is deleted.\n",
+        "src": "https://github.com/wix-private/events/tree/master/events-services/events-guests/proto/wix/events/guests/v1/event_guests_service.proto"
+      },
+      "topic": "domain_events_wix.events.guests.v1.guest",
+      "tag": "Event Guest",
+      "permissions": [],
+      "customLabels": [],
+      "eventType": "wix.events.guests.v1.guest_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_wix_events_guests_v1_EventGuestUpdatedDomainEvent",
+      "name": "Event Guest Updated Webhook",
+      "docs":       {
+        "summary": " Triggered when a guest is updated. This webhook always fires together with [Event Guest Created](https://dev.wix.com/api/rest/wix-events/event-guests/event-guest-created-webhook) and [Event Guest Deleted](https://dev.wix.com/api/rest/all-apis/event-guests/event-guest-deleted-webhook) webhooks. When calling it, it might be triggered twice - make sure to explicitly add code to make sure parts of your code only run once.\n",
+        "src": "https://github.com/wix-private/events/tree/master/events-services/events-guests/proto/wix/events/guests/v1/event_guests_service.proto"
+      },
+      "topic": "domain_events_wix.events.guests.v1.guest",
+      "tag": "Event Guest",
+      "permissions": [],
+      "customLabels": [],
+      "eventType": "wix.events.guests.v1.guest_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_wix_events_guests_v1_EventGuestCreatedDomainEvent",
+      "name": "Event Guest Created Webhook",
+      "docs":       {
+        "summary": " Triggered when a guest is created.\n",
+        "src": "https://github.com/wix-private/events/tree/master/events-services/events-guests/proto/wix/events/guests/v1/event_guests_service.proto"
+      },
+      "topic": "domain_events_wix.events.guests.v1.guest",
+      "tag": "Event Guest",
+      "permissions": [],
+      "customLabels": [],
+      "eventType": "wix.events.guests.v1.guest_created",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_events_guests_v1_EventGuestDeletedDomainEvent",
+      "displayName": "Event Guest Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"475b8e92-a888-4300-8611-1e1cd00c512d\",\n  \"entityFqdn\" : \"wix.events.guests.v1.guest\",\n  \"slug\" : \"deleted\",\n  \"entityId\" : \"97b5925a-7c18-4860-a49e-dc65b15cf7f2\",\n  \"deletedEvent\" : { },\n  \"eventTime\" : \"2023-03-29T07:15:05.680060Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.events.guests.v1.guest`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuestEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "EventGuest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuestEntityDeletedEvent",
+      "displayName": "Event Guest Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuestUpdatedDomainEvent",
+      "displayName": "Event Guest Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"7dad15fd-9a59-4757-b9b0-218618b0487a\",\n  \"entityFqdn\" : \"wix.events.guests.v1.guest\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"e3f73127-299b-4736-b864-688711fd0e62\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : {\n      \"id\" : \"e3f73127-299b-4736-b864-688711fd0e62\",\n      \"eventId\" : \"39d16ecc-0ec8-4764-8077-8e991f20ef9d\",\n      \"orderNumber\" : \"2T8L-QWFK-93K\",\n      \"tickets\" : [ ],\n      \"contactId\" : \"023b6403-17e6-42dc-b475-a5ae6c2b8df4\",\n      \"guestDetails\" : {\n        \"email\" : \"john.doe@mail.com\",\n        \"firstName\" : \"John\",\n        \"lastName\" : \"Doe\",\n        \"formResponse\" : {\n          \"inputValues\" : [ {\n            \"inputName\" : \"firstName\",\n            \"value\" : \"John\",\n            \"values\" : [ ]\n          }, {\n            \"inputName\" : \"lastName\",\n            \"value\" : \"Doe\",\n            \"values\" : [ ]\n          }, {\n            \"inputName\" : \"email\",\n            \"value\" : \"john.doe@mail.com\",\n            \"values\" : [ ]\n          } ]\n        },\n        \"checkedIn\" : false\n      },\n      \"attendanceStatus\" : \"ATTENDING\",\n      \"createdDate\" : \"2023-03-13T13:29:25.462Z\",\n      \"updatedDate\" : \"2023-03-29T07:22:41.782Z\",\n      \"attendanceStatusUpdatedDate\" : \"2023-03-13T13:29:25.416Z\",\n      \"guestType\" : \"BUYER\"\n    }\n  },\n  \"eventTime\" : \"2023-03-29T07:22:41.827563Z\",\n  \"triggeredByAnonymizeRequest\" : false,\n  \"entityEventSequence\" : \"3\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.events.guests.v1.guest`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuestEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "EventGuest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuestEntityUpdatedEvent",
+      "displayName": "Event Guest Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuest",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuestCreatedDomainEvent",
+      "displayName": "Event Guest Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"15184957-3b1f-4682-81af-4feca8115203\",\n  \"entityFqdn\" : \"wix.events.guests.v1.guest\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"394f4b2a-5d7f-443f-9a08-c4c72555946a\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : {\n      \"id\" : \"394f4b2a-5d7f-443f-9a08-c4c72555946a\",\n      \"eventId\" : \"39d16ecc-0ec8-4764-8077-8e991f20ef9d\",\n      \"orderNumber\" : \"2TBP-017K-P4Z\",\n      \"tickets\" : [ {\n        \"number\" : \"2TBP-017K-P4Z1P\",\n        \"definitionId\" : \"3804f7b0-3b81-4ede-8c80-72d2558ecd6b\",\n        \"name\" : \"Leather Workshop\"\n      } ],\n      \"contactId\" : \"804e6beb-365f-4992-8e35-8f12788e62fa\",\n      \"guestDetails\" : {\n        \"email\" : \"patsy.mcbride@mail.com\",\n        \"firstName\" : \"Patsy\",\n        \"lastName\" : \"McBride\",\n        \"formResponse\" : {\n          \"inputValues\" : [ {\n            \"inputName\" : \"firstName\",\n            \"value\" : \"Patsy\",\n            \"values\" : [ ]\n          }, {\n            \"inputName\" : \"lastName\",\n            \"value\" : \"McBride\",\n            \"values\" : [ ]\n          }, {\n            \"inputName\" : \"email\",\n            \"value\" : \"patsy.mcbride@mail.com\",\n            \"values\" : [ ]\n          } ]\n        },\n        \"checkedIn\" : false\n      },\n      \"attendanceStatus\" : \"ATTENDING\",\n      \"createdDate\" : \"2023-03-29T07:35:00.863Z\",\n      \"updatedDate\" : \"2023-03-29T07:35:00.863Z\",\n      \"attendanceStatusUpdatedDate\" : \"2023-03-29T07:35:00.801Z\",\n      \"guestType\" : \"BUYER\"\n    }\n  },\n  \"eventTime\" : \"2023-03-29T07:35:00.900837Z\",\n  \"triggeredByAnonymizeRequest\" : false,\n  \"entityEventSequence\" : \"1\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.events.guests.v1.guest`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuestEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "EventGuest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuestEntityCreatedEvent",
+      "displayName": "Event Guest Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entity",
+        "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuest",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_NotifyGuestActionDomainEvent",
+      "displayName": "Notify Guest Action Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.events.guests.v1.guest`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `notify_guest_action`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_NotifyGuestActionActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "NotifyGuestAction ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_NotifyGuestActionActionEvent",
+      "displayName": "Notify Guest Action Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Event Guests._wix_events_guests_v1_NotifyGuestAction",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load per page.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load per page.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Event Guests._wix_common_SortOrder",
+          "doc": "Sort order (ASC/DESC). Defaults to ASC\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object in the following format: <br/> `\"filter\" : { \"fieldName1\": \"value1\", \"fieldName2\":{\"$operator\":\"value2\"} }`. <br/> <br/> **Example:** <br/> `\"filter\" : { \"eventId\": \"sd3f-jhds-4fs77\", \"ticketNumber\": {\"$startsWith\":\"478\"} }` <br/> <br/> See [supported fields and operators](https://dev.wix.com/api/rest/wix-events/wix-events/filter-and-sort) for more information.\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_guests_upstream_wix_common_Sorting"]
+          },
+          "doc": " Sort object in the following format: <br/> `[{\"fieldName\":\"sortField1\"},{\"fieldName\":\"sortField2\",\"direction\":\"DESC\"}]` <br/> <br/> **Example:** <br/> `[{\"fieldName\":\"createdDate\",\"direction\":\"DESC\"}]` <br/> <br/> See [supported fields](https://dev.wix.com/api/rest/wix-events/wix-events/filter-and-sort) for more information.\n"
+        },
+                {
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Currently the only supported fieldset is `guestDetails`. The `WIX_EVENTS.READ_GUESTS_DETAILS` permission is required to access the guest details. <br/> <br/> See [field projection](https://dev.wix.com/api/rest/getting-started/field-projection) for more information.\n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_QueryV2_pagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_upstream_wix_common_QueryV2_pagingMethod",
+      "displayName": "paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_Paging",
+          "doc": "Paging options to limit and skip the number of items.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_CursorPaging",
+          "doc": "Cursor token pointing to a page of results. Not used in the first request. Following requests use the cursor token and not `filter` or `sort`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Subdivision. Usually a state, region, prefecture, or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.Event Guests._wix_common_Address_street",
+          "doc": ""
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Address_street",
+      "displayName": "street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Event Guests._wix_common_StreetAddress",
+          "doc": " Street name and number.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line, usually street and number as free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_Subdivision",
+      "displayName": "Subdivision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Short subdivision code.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Subdivision full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_FormResponse",
+      "displayName": "Form Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "inputValues",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Event Guests._wix_events_InputValue"]
+        },
+        "doc": " Input values entered upon ticket order.    \n\nMax: 200 inputs per form\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_InputValue",
+      "displayName": "Input Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "inputName",
+          "type": "string",
+          "doc": " Input field name.    \n\nMax: 100 characters\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Text entered into the input field.    \n\nMax: 5000 characters\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Multiple selection values. For example, the array will be filled if several checkboxes are ticked.    \n\nMax: 100 items, 5000 characters per item\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_FormattedAddress",
+      "displayName": "Formatted Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "formatted",
+          "type": "string",
+          "doc": " One line address representation.\n"
+        },
+                {
+          "name": "address",
+          "type": "All APIs.Event Guests._wix_common_Address",
+          "doc": " Address components (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_OnlineConferencingLogin",
+      "displayName": "Online Conferencing Login Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "link",
+          "type": "string",
+          "doc": " Link URL to the online conference.\n",
+          "readOnly": true
+        },
+                {
+          "name": "password",
+          "type": "string",
+          "doc": " Password for the online conference.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_EventGuest",
+      "displayName": "Event Guest Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"guests\" : [ {\n    \"id\" : \"ab249e78-edb0-4857-8b4b-d42b672ee764\",\n    \"eventId\" : \"b189cf8b-a61f-443b-95bb-d9e88af0a277\",\n    \"rsvpId\" : \"431321d0-f768-45c8-a390-9827c0107e0f\",\n    \"tickets\" : [ ],\n    \"contactId\" : \"023b6403-17e6-42dc-b475-a5ae6c2b8df4\",\n    \"attendanceStatus\" : \"IN_WAITLIST\",\n    \"createdDate\" : \"2023-01-10T13:22:23.302Z\",\n    \"updatedDate\" : \"2023-01-10T13:22:23.302Z\",\n    \"attendanceStatusUpdatedDate\" : \"2023-01-10T13:22:23Z\",\n    \"guestType\" : \"RSVP\"\n  } ]\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Guest ID.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "rsvpId",
+          "type": "string",
+          "doc": " RSVP ID. <br/> <br/> **Note:** Only applicable when `guestType` is `RSVP`.\n"
+        },
+                {
+          "name": "orderNumber",
+          "type": "string",
+          "doc": " Order number. <br/> <br/> **Note:** Only applicable when `guestType` is `BUYER` or `TICKET_HOLDER`.\n"
+        },
+                {
+          "name": "ticketNumber",
+          "type": "string",
+          "doc": " Ticket number. <br/> <br/> **Note:** Only applicable when `guestType` is `TICKET_HOLDER`.\n"
+        },
+                {
+          "name": "tickets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_guests_v1_TicketDetails"]
+          },
+          "doc": " List of names, numbers, and definition IDs for each ticket.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Guest's contact ID. See [Contacts API](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4) for more details.\n"
+        },
+                {
+          "name": "guestDetails",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_GuestDetails",
+          "doc": " Guest details. <br/> <br/> Returned only when the `guestDetails` fieldset is sent in the request.\n"
+        },
+                {
+          "name": "attendanceStatus",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_AttendanceStatus",
+          "doc": " Attendance status. <br/> <br/> **Note:** For `guestType` `BUYER` or `TICKET_HOLDER` the `IN_WAITLIST` value is not applicable.\n"
+        },
+                {
+          "name": "secondaryLanguageCode",
+          "type": "string",
+          "doc": " Secondary language code in [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Used when the event ticket should be translated into another language.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the guest was created in `yyyy-mm-ddThh:mm:sssZ` format.\n"
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the guest was updated in `yyyy-mm-ddThh:mm:sssZ` format.\n"
+        },
+                {
+          "name": "attendanceStatusUpdatedDate",
+          "type": "string",
+          "doc": " Date and time of guest's latest attendance status update.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Site member ID.\n"
+        },
+                {
+          "name": "guestType",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_GuestType",
+          "doc": " Guest type: <br/> <br/> `RSVP`: An invited guest, no ticket necessary. <br/> <br/> `BUYER`: The guest who bought the tickets. <br/> <br/> `TICKET_HOLDER`: The guest for whom the ticket was bought.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_GuestDetails",
+      "displayName": "Guest Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email.\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " First name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Last name.\n"
+        },
+                {
+          "name": "formResponse",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " Form response.\n"
+        },
+                {
+          "name": "checkedIn",
+          "type": "boolean",
+          "doc": " Whether the guest has checked into the event.\n"
+        },
+                {
+          "name": "onlineConferencingLogin",
+          "type": "All APIs.Event Guests._wix_events_OnlineConferencingLogin",
+          "doc": " The login details for the guest to access the online conference event.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_TicketDetails",
+      "displayName": "Ticket Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Ticket number.\n"
+        },
+                {
+          "name": "definitionId",
+          "type": "string",
+          "doc": " Ticket definition ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Ticket name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_loom_timecapsule_TaskKey",
+      "displayName": "Task Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "subjectId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_loom_timecapsule_Task",
+      "displayName": "Task Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "All APIs.Event Guests._wix_api_loom_timecapsule_TaskKey",
+          "doc": ""
+        },
+                {
+          "name": "executeAt",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "payload",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_events_EventDeleted",
+      "displayName": "Event Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": "Event deleted timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Event title.\n"
+        },
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " Event creator user ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_Money",
+      "displayName": "Money Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " **Deprecated:** Use `value` instead.\n",
+          "deprecated": true
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " ISO 4217 format of the currency i.e. `USD`.\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " Monetary amount. Decimal string with a period as a decimal separator (e.g., 3.99). Optionally, a single (-), to indicate that the amount is negative.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_CheckIn",
+      "displayName": "Check In Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "created",
+        "type": "string",
+        "doc": " Time of check-in\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_rsvp_Guest",
+      "displayName": "Guest Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "index",
+          "type": "integer",
+          "doc": " Index in the RSVP guest list.\n"
+        },
+                {
+          "name": "fullName",
+          "type": "string",
+          "doc": " Guest full name.\n"
+        },
+                {
+          "name": "checkIn",
+          "type": "All APIs.Event Guests._wix_events_CheckIn",
+          "doc": " Guest check-in.\n"
+        },
+                {
+          "name": "id",
+          "type": "integer",
+          "doc": " Unique guest ID per RSVP.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_rsvp_events_RsvpCreated",
+      "displayName": "Rsvp Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " RSVP created timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Site language when RSVP created\n"
+        },
+                {
+          "name": "silent",
+          "type": "boolean",
+          "doc": " Notifications silenced for this domain event.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "rsvpId",
+          "type": "string",
+          "doc": " RSVP ID. \n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this RSVP.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this RSVP.\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Guest first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Guest last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Guest email.\n"
+        },
+                {
+          "name": "rsvpForm",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " RSVP form response.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Event Guests._wix_events_rsvp_RsvpStatus",
+          "doc": " RSVP response status.\n"
+        },
+                {
+          "name": "guests",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_rsvp_Guest"]
+          },
+          "doc": " List of all guests.\n"
+        },
+                {
+          "name": "onlineConferencingLogin",
+          "type": "All APIs.Event Guests._wix_events_OnlineConferencingLogin",
+          "doc": " URL and password to online conference\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_rsvp_events_RsvpUpdated",
+      "displayName": "Rsvp Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " RSVP updated timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Site language when RSVP created\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "rsvpId",
+          "type": "string",
+          "doc": " RSVP ID. \n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this RSVP.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this RSVP.\n"
+        },
+                {
+          "name": "created",
+          "type": "string",
+          "doc": " RSVP created timestamp.\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Guest first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Guest last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Guest email.\n"
+        },
+                {
+          "name": "rsvpForm",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " RSVP form response.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Event Guests._wix_events_rsvp_RsvpStatus",
+          "doc": " RSVP response status.\n"
+        },
+                {
+          "name": "guests",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_rsvp_Guest"]
+          },
+          "doc": " List of the guests.\n"
+        },
+                {
+          "name": "onlineConferencingLogin",
+          "type": "All APIs.Event Guests._wix_events_OnlineConferencingLogin",
+          "doc": " URL and password to online conference\n"
+        },
+                {
+          "name": "silent",
+          "type": "boolean",
+          "doc": " Notifications silenced for this domain event.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_rsvp_events_RsvpDeleted",
+      "displayName": "Rsvp Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " RSVP deleted timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "rsvpId",
+          "type": "string",
+          "doc": " RSVP ID. \n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this RSVP.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this RSVP.\n"
+        },
+                {
+          "name": "anonymized",
+          "type": "boolean",
+          "doc": " Whether RSVP was anonymized by GDPR delete.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_events_Ticket",
+      "displayName": "Ticket Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "ticketNumber",
+          "type": "string",
+          "doc": " Unique issued ticket number.\n"
+        },
+                {
+          "name": "ticketDefinitionId",
+          "type": "string",
+          "doc": " Ticket definition ID.\n"
+        },
+                {
+          "name": "checkIn",
+          "type": "All APIs.Event Guests._wix_events_CheckIn",
+          "doc": " Ticket check-in.\n"
+        },
+                {
+          "name": "price",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Ticket price.\n"
+        },
+                {
+          "name": "archived",
+          "type": "boolean",
+          "doc": " Whether ticket is archived.\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Guest first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Guest last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Guest email.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this ticket.\n"
+        },
+                {
+          "name": "confirmed",
+          "type": "boolean",
+          "doc": " Whether ticket is confirmed\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this ticket.\n"
+        },
+                {
+          "name": "form",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " Ticket form response (only assigned tickets contain separate forms).\n"
+        },
+                {
+          "name": "anonymized",
+          "type": "boolean",
+          "doc": " Anonymized tickets no longer contain personally identifiable information (PII).\n"
+        },
+                {
+          "name": "onlineConferencingLogin",
+          "type": "All APIs.Event Guests._wix_events_OnlineConferencingLogin",
+          "doc": " URL and password to online conference\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_events_OrderUpdated",
+      "displayName": "Order Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " Order updated timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Site language when Order initiated\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "orderNumber",
+          "type": "string",
+          "doc": " Unique order number.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this order.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this order.\n"
+        },
+                {
+          "name": "created",
+          "type": "string",
+          "doc": " Order created timestamp.\n",
+          "readOnly": true
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Buyer first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Buyer last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Buyer email.\n"
+        },
+                {
+          "name": "checkoutForm",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " Checkout form response.\n"
+        },
+                {
+          "name": "confirmed",
+          "type": "boolean",
+          "doc": " Whether order is confirmed - occurs once payment gateway processes the payment and funds reach merchant's account.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Event Guests._wix_events_ticketing_OrderStatus",
+          "doc": " Order status.\n"
+        },
+                {
+          "name": "method",
+          "type": "string",
+          "doc": " Payment method used for paid tickets purchase, i.e. \"payPal\", \"creditCard\", etc.\n"
+        },
+                {
+          "name": "tickets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_events_Ticket"]
+          },
+          "doc": " Tickets generated after payment.\n"
+        },
+                {
+          "name": "archived",
+          "type": "boolean",
+          "doc": " Whether order was archived and excluded from results.\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " Whether event was triggered by GDPR delete request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_events_OrderDeleted",
+      "displayName": "Order Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " Order deleted timestamp in ISO UTC format.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "orderNumber",
+          "type": "string",
+          "doc": " Unique order number.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this order\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this order.\n"
+        },
+                {
+          "name": "anonymized",
+          "type": "boolean",
+          "doc": " Whether order was anonymized by GDPR delete.\n"
+        },
+                {
+          "name": "orderType",
+          "type": "All APIs.Event Guests._wix_events_ticketing_events_OrderType",
+          "doc": " Order type.\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " Whether event was triggered by GDPR delete request.\n"
+        },
+                {
+          "name": "tickets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_events_Ticket"]
+          },
+          "doc": " Tickets generated after payment.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_Discount",
+      "displayName": "Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total discount amount.\n"
+        },
+                {
+          "name": "afterDiscount",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total charge after applied discount.\n"
+        },
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Discount coupon code.\n",
+          "deprecated": true
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Discount coupon name.\n",
+          "deprecated": true
+        },
+                {
+          "name": "couponId",
+          "type": "string",
+          "doc": " Discount coupon ID.\n",
+          "deprecated": true
+        },
+                {
+          "name": "discounts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_DiscountItem"]
+          },
+          "doc": " Discount items.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_DiscountItem",
+      "displayName": "Discount Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total discount amount.\n"
+        },
+                {
+          "name": "discount",
+          "type": "All APIs.Event Guests._wix_events_ticketing_DiscountItem_discount",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_DiscountItem_discount",
+      "displayName": "discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "coupon",
+          "type": "All APIs.Event Guests._wix_events_ticketing_CouponDiscount",
+          "doc": " Coupon discount.\n"
+        },
+                {
+          "name": "paidPlan",
+          "type": "All APIs.Event Guests._wix_events_ticketing_PaidPlanDiscount",
+          "doc": " Pricing plan discount.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_events_ticketing_CouponDiscount",
+      "displayName": "Coupon Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Discount coupon name.\n"
+        },
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Discount coupon code.\n"
+        },
+                {
+          "name": "couponId",
+          "type": "string",
+          "doc": " Discount coupon ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_PaidPlanDiscount",
+      "displayName": "Paid Plan Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Name of pricing plan.\n"
+        },
+                {
+          "name": "discount",
+          "type": "All APIs.Event Guests._wix_events_ticketing_PaidPlanDiscount_discount",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_PaidPlanDiscount_discount",
+      "displayName": "discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "percentDiscount",
+        "type": "All APIs.Event Guests._wix_events_ticketing_PercentDiscount",
+        "doc": " Discount by percentage applied to tickets.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_events_ticketing_PercentDiscount",
+      "displayName": "Percent Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "rate",
+          "type": "string",
+          "doc": " Percent rate.\n"
+        },
+                {
+          "name": "quantityDiscounted",
+          "type": "integer",
+          "doc": " Number of discounted tickets.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_Fee",
+      "displayName": "Fee Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "All APIs.Event Guests._wix_events_ticketing_FeeName",
+          "doc": " Fee identifier.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Event Guests._wix_events_FeeType",
+          "doc": " How fee is calculated.\n"
+        },
+                {
+          "name": "rate",
+          "type": "string",
+          "doc": " Fee rate.\n",
+          "readOnly": true
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total amount of fee charges.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_Item",
+      "displayName": "Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique line item ID.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Line item quantity.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Line item mame.\n"
+        },
+                {
+          "name": "price",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Line item price.\n"
+        },
+                {
+          "name": "total",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total price for line items. Always equal to price * quantity.\n"
+        },
+                {
+          "name": "discount",
+          "type": "All APIs.Event Guests._wix_events_ticketing_Discount",
+          "doc": " Discount applied to the line item.\n"
+        },
+                {
+          "name": "tax",
+          "type": "All APIs.Event Guests._wix_events_ticketing_Tax",
+          "doc": " Tax applied to the item.\n"
+        },
+                {
+          "name": "fees",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_Fee"]
+          },
+          "doc": " Fees applied to the item.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_Tax",
+      "displayName": "Tax Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Event Guests._wix_events_TaxType",
+          "doc": " Tax type.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Tax name.\n",
+          "readOnly": true
+        },
+                {
+          "name": "rate",
+          "type": "string",
+          "doc": " Tax rate.\n"
+        },
+                {
+          "name": "taxable",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Taxable amount.\n"
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total tax amount.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_Invoice",
+      "displayName": "Invoice Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_Item"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "total",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total cart amount.\n",
+          "deprecated": true
+        },
+                {
+          "name": "discount",
+          "type": "All APIs.Event Guests._wix_events_ticketing_Discount",
+          "doc": " Discount applied to cart.\n"
+        },
+                {
+          "name": "tax",
+          "type": "All APIs.Event Guests._wix_events_ticketing_Tax",
+          "doc": " Tax applied to cart.\n"
+        },
+                {
+          "name": "subTotal",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total cart amount before discount, tax, and fees.\n"
+        },
+                {
+          "name": "grandTotal",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total amount of cart after discount, tax, and fees.\n Grand total is calculated in the following order:\n   1. Total prices of all items in the cart are calculated.\n   2. Discount is subtracted from the cart (if applicable).\n   3. Tax is added (if applicable).\n   4. Wix service fee is added.\n"
+        },
+                {
+          "name": "fees",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_Fee"]
+          },
+          "doc": " Fees applied to the cart.\n",
+          "readOnly": true
+        },
+                {
+          "name": "revenue",
+          "type": "All APIs.Event Guests._wix_events_Money",
+          "doc": " Total revenue, excluding fees. (Taxes and payment provider fees are not deducted).\n"
+        },
+                {
+          "name": "previewUrl",
+          "type": "string",
+          "doc": " URL to invoice preview. Returned only if order is paid.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_events_OrderConfirmed",
+      "displayName": "Order Confirmed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": " Order confirmation timestamp in ISO UTC.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Site language when Order initiated\n"
+        },
+                {
+          "name": "silent",
+          "type": "boolean",
+          "doc": " Notifications silenced for this domain event.\n"
+        },
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Event ID.\n"
+        },
+                {
+          "name": "orderNumber",
+          "type": "string",
+          "doc": " Unique order number.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID associated with this order.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID associated with this order.\n"
+        },
+                {
+          "name": "created",
+          "type": "string",
+          "doc": " Order created timestamp\n",
+          "readOnly": true
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Buyer first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Buyer last name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Buyer email address.\n"
+        },
+                {
+          "name": "checkoutForm",
+          "type": "All APIs.Event Guests._wix_events_FormResponse",
+          "doc": " Checkout form response.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Event Guests._wix_events_ticketing_OrderStatus",
+          "doc": " Order status.\n"
+        },
+                {
+          "name": "method",
+          "type": "string",
+          "doc": " Payment method used for paid tickets purchase, i.e. \"payPal\", \"creditCard\", etc.\n"
+        },
+                {
+          "name": "tickets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_ticketing_events_Ticket"]
+          },
+          "doc": " Tickets (generated after payment).\n"
+        },
+                {
+          "name": "invoice",
+          "type": "All APIs.Event Guests._wix_events_ticketing_Invoice",
+          "doc": " Invoice.\n"
+        },
+                {
+          "name": "reservationId",
+          "type": "string",
+          "doc": " Reservation ID associated with this order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_QueryEventGuestsRequest",
+      "displayName": "Query Event Guests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_QueryV2",
+        "doc": " Query options. See [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_QueryEventGuestsResponse",
+      "displayName": "Query Event Guests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "guests",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Event Guests._wix_events_guests_v1_EventGuest"]
+          },
+          "doc": " List of guests.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Event Guests._wix_events_guests_upstream_wix_common_PagingMetadataV2",
+          "doc": " Metadata for the paginated results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_SecondaryLanguagesRequest",
+      "displayName": "Secondary Languages Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "eventId",
+        "type": "string",
+        "doc": " Guest event id.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_SecondaryLanguagesResponse",
+      "displayName": "Secondary Languages Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "secondaryLanguages",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Aggregated guests languages.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_StreamEventGuestsRequest",
+      "displayName": "Stream Event Guests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter.\n"
+        },
+                {
+          "name": "taskContext",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_TaskContext",
+          "doc": " Task context.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_NotifyGuestAction",
+      "displayName": "Notify Guest Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "guest",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_EventGuest",
+          "doc": " Event guest.\n"
+        },
+                {
+          "name": "taskContext",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_TaskContext",
+          "doc": " Task context.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_TaskContext",
+      "displayName": "Task Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Task id.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Event Guests._wix_events_guests_v1_TaskContext_NotifyActionType",
+          "doc": " Notify action type\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_DeleteTicketGuestRequest",
+      "displayName": "Delete Ticket Guest Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Guest id.\n"
+        },
+                {
+          "name": "orderNumber",
+          "type": "string",
+          "doc": " Order number.\n"
+        },
+                {
+          "name": "ticketNumber",
+          "type": "string",
+          "doc": " Ticket number.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Subdivision_SubdivisionType",
+      "displayName": "Subdivision Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SUBDIVISION_TYPE <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_1 -  State\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_2 -  County\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_3 -  City/town\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_4 -  Neighborhood/quarter\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_5 -  Street/block\n <\/code><\/li><li><code> COUNTRY -  ADMINISTRATIVE_AREA_LEVEL_0. Indicates the national political entity, and is typically the highest order type returned by the Geocoder.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_SUBDIVISION_TYPE",
+        "ADMINISTRATIVE_AREA_LEVEL_1",
+        "ADMINISTRATIVE_AREA_LEVEL_2",
+        "ADMINISTRATIVE_AREA_LEVEL_3",
+        "ADMINISTRATIVE_AREA_LEVEL_4",
+        "ADMINISTRATIVE_AREA_LEVEL_5",
+        "COUNTRY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_AttendanceStatus",
+      "displayName": "Attendance Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NOT_ATTENDING -  Not attending.\n <\/code><\/li><li><code> ATTENDING -  Attending.\n <\/code><\/li><li><code> IN_WAITLIST -  In a waiting list.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NOT_ATTENDING",
+        "ATTENDING",
+        "IN_WAITLIST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_GuestType",
+      "displayName": "Guest Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> RSVP -  Rsvp guest.\n <\/code><\/li><li><code> BUYER -  Buyer guest.\n <\/code><\/li><li><code> TICKET_HOLDER -  Ticket holder guest.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "RSVP",
+        "BUYER",
+        "TICKET_HOLDER"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_TaxType",
+      "displayName": "Tax Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> INCLUDED -  Tax is included in the ticket price\n <\/code><\/li><li><code> ADDED -  Tax is added to the order at the checkout\n <\/code><\/li><li><code> ADDED_AT_CHECKOUT -  Tax is added to the final total at the checkout\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "INCLUDED",
+        "ADDED",
+        "ADDED_AT_CHECKOUT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_FeeType",
+      "displayName": "Fee Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> FEE_ADDED -  Fee is added to the ticket price at checkout\n <\/code><\/li><li><code> FEE_INCLUDED -  Seller absorbs the fee. It is deducted from the ticket price\n <\/code><\/li><li><code> FEE_ADDED_AT_CHECKOUT -  Fee is added to the ticket price at checkout\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "FEE_ADDED",
+        "FEE_INCLUDED",
+        "FEE_ADDED_AT_CHECKOUT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_rsvp_RsvpStatus",
+      "displayName": "Rsvp Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> YES <\/code><\/li><li><code> NO <\/code><\/li><li><code> WAITING <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "YES",
+        "NO",
+        "WAITING"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_OrderStatus",
+      "displayName": "Order Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NA_ORDER_STATUS -  Order status not available for this request fieldset\n <\/code><\/li><li><code> FREE -  Order is confirmed, no payment required\n <\/code><\/li><li><code> PENDING -  Order was paid but payment gateway suspended the payment. Eventually changes to PAID\n <\/code><\/li><li><code> PAID -  Order paid via payment gateway\n <\/code><\/li><li><code> OFFLINE_PENDING -  Order confirmed but has to be paid via offline payment and status manually updated to PAID\n <\/code><\/li><li><code> INITIATED -  Order is awaiting for payment in Cashier\n <\/code><\/li><li><code> CANCELED -  Order was canceled\n <\/code><\/li><li><code> DECLINED -  Order payment was declined\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NA_ORDER_STATUS",
+        "FREE",
+        "PENDING",
+        "PAID",
+        "OFFLINE_PENDING",
+        "INITIATED",
+        "CANCELED",
+        "DECLINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_events_OrderType",
+      "displayName": "Order Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNASSIGNED_TICKETS -  Buyer form is used for all tickets\n <\/code><\/li><li><code> ASSIGNED_TICKETS -  Each order ticket has its own form\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNASSIGNED_TICKETS",
+        "ASSIGNED_TICKETS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_ticketing_FeeName",
+      "displayName": "Fee Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> WIX_FEE -  Wix service fee charges applied to the line item.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["WIX_FEE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_events_guests_v1_TaskContext_NotifyActionType",
+      "displayName": "Notify Action Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> EMAIL <\/code><\/li><li><code> AUTOMATION_TRIGGER <\/code><\/li><li><code> PUSH <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "EMAIL",
+        "AUTOMATION_TRIGGER",
+        "PUSH"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.events.events-guests"}
+}
