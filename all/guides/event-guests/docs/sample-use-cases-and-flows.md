@@ -19,11 +19,11 @@ To send invitations about an upcoming event, follow these steps:
 
 4. Filter the list once again by the subscription status.
 
-5. The final list of contacts who have opted-in to marketing emails is now ready to receive the invitations.
+5. The contacts who have opted-in to marketing emails is now ready to receive the invitations.
 
 ## Get guest attendance analytics from your analytics system
 
-An analytics system can provide valuable insights into guest attendance at events, making it easier to track and analyze data on attendance patterns, behavior, and preferences. For example, you can use your app to periodically check attendance for your events to determine which events often have no-shows. This information could help you determine if certain events need more advertizing, reminders or a change to pricing (for example, people are more likely to attend if they have paid, even a small amount, to attend).
+An analytics system can provide valuable insights into guest attendance at events, making it easier to track and analyze data on attendance patterns, behavior, and preferences. For example, you can use your app to periodically check attendance for your events to determine which events often have no-shows. This information could help you determine if certain events need more advertising, reminders, or a change to pricing (for example, people are more likely to attend if they have paid, even a small amount, to attend).
 
 To get attendance analytics, follow these steps:
 
