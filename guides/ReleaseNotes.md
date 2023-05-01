@@ -1,5 +1,13 @@
 # Release Notes
 
+## New Release: [Redirect Session](redirect-session/redirect-session)
+
+The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
+
+- [Create Redirect Session](redirect-session/redirect-session/create-redirect-session)
+
+(April 30, 2023)
+
 ## New Release: [Event Guests](wix-events/event-guests)
 
 The [Event Guests](wix-events/event-guests) API enables you to manage guests for a particular event. The new API includes:
