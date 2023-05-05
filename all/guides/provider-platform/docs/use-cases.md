@@ -9,7 +9,7 @@ The following examples describe flows:
 ### Redirection-based payment with a hosted page
 Payment service provider can support a *Hosted Page*, where *buyer* selects an actual payment method.
 1. Buyer initiates a `$10 US` purchase (transaction) on a merchant's website.
-2. Wix sends [Create Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/create-transaction) request to the payment service provider with transaction details. For example:
+2. Wix sends [Create Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/create-transaction) request to the payment service provider with transaction details. For example:
 ```bash
 curl -X POST https://psp.example.com/sale \
  -H 'Content-Type: application/json' \
@@ -60,7 +60,7 @@ curl -X POST https://psp.example.com/sale \
 }
 ```
 5. Wix displays the `redirectUrl` to the *buyer*, who proceeds with the payment on the hosted page.
-6. *Payment Plugin* redirects the browser to `successUrl`, received in the [Create Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/create-transaction) request, and calls the [Submit Event](https://dev.wix.com/api/rest/payment-provider/provider-platform/event/submit-event) webhook. For example:
+6. *Payment Plugin* redirects the browser to `successUrl`, received in the [Create Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/create-transaction) request, and calls the [Submit Event](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/event/submit-event) webhook. For example:
 ```bash
 curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
  -H 'Content-Type: application/json' \
@@ -78,12 +78,12 @@ curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \
 ```json
 {}
 ```
-8. Transaction is approved on Wix side after the [Submit Event](https://dev.wix.com/api/rest/payment-provider/provider-platform/event/submit-event) is received by Wix.
+8. Transaction is approved on Wix side after the [Submit Event](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/event/submit-event) is received by Wix.
 
 ### Successful full refund initiated by Wix
 1. Buyer requests a refund of a $10 US payment from a site owner.
 2. Site owner initiates the refund.
-3. Wix calls [Refund Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/refund-transaction) for a $10 US refund. For example:
+3. Wix calls [Refund Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/refund-transaction) for a $10 US refund. For example:
 ```bash
 curl -X POST https://psp.example.com/refund \
  -H 'Content-Type: application/json' \
@@ -107,7 +107,7 @@ curl -X POST https://psp.example.com/refund \
   "pluginRefundId": "22222222-2222-2222-2222-222222222222"
 }
 ```
-4. Payment Plugin calls [Submit Event](https://dev.wix.com/api/rest/payment-provider/provider-platform/event/submit-event) to notify Wix about the refund status:
+4. Payment Plugin calls [Submit Event](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/event/submit-event) to notify Wix about the refund status:
 ```bash
 curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \
  -H 'Content-Type: application/json' \

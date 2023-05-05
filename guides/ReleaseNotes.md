@@ -1,5 +1,173 @@
 # Release Notes
 
+## New Release: [Redirect Session](redirect-session/redirect-session)
+
+The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
+
+- [Create Redirect Session](redirect-session/redirect-session/create-redirect-session)
+
+(April 30, 2023)
+
+## New Release: [Event Guests](wix-events/event-guests)
+
+The [Event Guests](wix-events/event-guests) API enables you to manage guests for a particular event. The new API includes:
+
+- [Query Event Guests](wix-events/event-guests/query-event-guests)
+
+(April 25, 2023)
+
+## New Release: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
+
+The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
+
+(April 13, 2023)
+
+## New Release: [Wix Data API](wix-data)
+
+The [Wix Data API](wix-data/wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
+
++ [Data Items](wix-data/wix-data/data-items): Access and manage items in a Wix site's data collections.
++ [Data Collections](wix-data/wix-data/data-collections): Create data collections and manage their structure.
++ [Indexes](wix-data/wix-data/indexes): Create indexes for data collections, to make querying data faster.
++ [External Database Connections](wix-data/wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
+
+(April 13, 2023)
+
+## New Release: [OAuth Apps API](auth-management/oauth-apps)
+
+The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+
++ [Create OAuth App](auth-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](auth-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](auth-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](auth-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](auth-management/oauth-apps/update-oauth-app)
+
+(April 02, 2023)
+
+## New Endpoints: [Wix Media](media/media-manager)
+
+The Media API now includes new endpoints and events:
+
++ [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
++ [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
++ [List Deleted Files](media/media-manager/files/list-deleted-files) retrieves a list of files in the Media Manager's trash bin.
++ [List Folders](media/media-manager/folders/list-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [List Deleted Folders](media/media-manager/folders/list-deleted-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [File Ready Webhook](media/media-manager/files/file-ready-webhook) triggered when a file is ready to be used, after any post-upload processing.
++ [File Failed Webhook](media/media-manager/files/file-failed-webhook) triggered when a file fails during essential post-upload processing.
++ [File Descriptor Updated Webhook](media/media-manager/files/file-descriptor-updated-webhook) triggered when a file is updated, including when a file is moved to a different folder.
++ [File Descriptor Deleted Webhook](media/media-manager/files/file-descriptor-deleted-webhook) triggered when a file is deleted.
++ [Folder Created Webhook](media/media-manager/folders/folder-created-webhook) triggered when a folder is created.
++ [Folder Updated Webhook](media/media-manager/folders/folder-updated-webhook) triggered when a folder is updated.
++ [Folder Deleted Webhook](media/media-manager/folders/folder-deleted-webhook) triggered when a folder is deleted.
+
+(March 30, 2023)
+
+## New Releases: Wix Bookings [Pricing API](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi)
+
+The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi) provide third parties the ability to preview, calculate, and customize pricing for bookings:
+
++ [Preview](wix-bookings/pricing/preview-price) how much a booking will cost based on its line items.
++ [Calculate](wix-bookings/pricing/calculate-price) how much a booking will cost based on either: 
+    + Standard pricing logic supplied with Wix Bookings.
+    + Custom pricing, that you implement.
++ [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings with the [Pricing Integration SPI](wix-bookings/pricing-integration-spi).
+
+(March 28, 2023)
+
+
+## New Release: [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments)
+
+The [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments) API provides third parties the ability to manage eCommerce order fulfillments. The new API includes:
+- [Create Fulfillment](wix-ecommerce/order-fulfillments/create-fulfillment)
+- [Bulk Create Fulfillments](wix-ecommerce/order-fulfillments/bulk-create-fulfillments)
+- [Update Fulfillment](wix-ecommerce/order-fulfillments/update-fulfillment)
+- [List Fulfillments For Single Order](wix-ecommerce/order-fulfillments/list-fulfillments-for-single-order)
+- [List Fulfillments For Multiple Orders](wix-ecommerce/order-fulfillments/list-fulfillments-for-multiple-orders)
+- [Delete Fulfillment](wix-ecommerce/order-fulfillments/delete-fulfillment)
+
+(March 13, 2023)
+
+
+## New Release: [External Calendars V2](wix-bookings/external-calendars-v2)
+
+The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you to connect and sync a Wix site with external calendars. The new API includes the following endpoints:
+- [Connect By Credentials](wix-bookings/external-calendars-v2/connect-by-credentials)
+- [Connect By OAuth](wix-bookings/external-calendars-v2/connect-by-o-auth)
+- [Disconnect](wix-bookings/external-calendars-v2/disconnect)
+- [Get Connection](wix-bookings/external-calendars-v2/get-connection)
+- [List Calendars](wix-bookings/external-calendars-v2/list-calendars)
+- [List Connections](wix-bookings/external-calendars-v2/list-connections)
+- [List Events](wix-bookings/external-calendars-v2/list-events)
+- [List Providers](wix-bookings/external-calendars-v2/list-providers)
+- [Update Sync Config](wix-bookings/external-calendars-v2/update-sync-config)
+
+(March 02, 2023)
+
+
+## New Release: [Policies v2](wix-events/policies-v2)
+
+The [Policies v2](wix-events/policies-v2) API enables you to manage the policies for a particular event. The new API includes:
+
+- [Create Policy](wix-events/policies-v2/create-policy)
+- [Delete Policy](wix-events/policies-v2/delete-policy)
+- [Get Policy](wix-events/policies-v2/get-policy)
+- [Query Policies](wix-events/policies-v2/query-policies)
+- [Reorder Event Policies](wix-events/policies-v2/reorder-event-policies)
+- [Update Policy](wix-events/policies-v2/update-policy)
+
+(March 01, 2023)
+
+
+## New Release: [Bookings Services](wix-bookings/services-v2)
+
+The [Bookings Services V2](wix-bookings/services-v2) API provides third parties the ability to retrieve information about services using the [Get Service](wix-bookings/services-v2/get-service) and 
+[Query Services](wix-bookings/services-v2/query-services) APIs.
+
+(February 27, 2023)
+
+
+## New Endpoints: [Wix eCommerce](wix-ecommerce)
+
+The Wix eCommerce [Cart API](wix-ecommerce/cart) now includes 8 new endpoints:
++ [Create Checkout From Cart](wix-ecommerce/cart/create-checkout-from-cart).
++ [Estimate Totals](wix-ecommerce/cart/estimate-totals).
++ [Add To Cart](wix-ecommerce/cart/add-to-cart).
++ [Update Cart](wix-ecommerce/cart/update-cart).
++ [Update Line Items](wix-ecommerce/cart/update-line-items).
++ [Remove Coupon](wix-ecommerce/cart/remove-coupon).
++ [Remove Line Items](wix-ecommerce/cart/remove-line-items).
++ [Delete Cart](wix-ecommerce/cart/delete-cart).
+
+(February 27, 2023)
+
+## New Endpoints: [Contacts API](contacts/contacts/contacts-v4)
+
+The Contacts API now includes two new endpoints:
+
+- [Merge Contacts](contacts/contacts/contacts-v4/merge-contacts)
+  allows you to merge one or more source contacts into a target contact.
+  Note that a successful merge deletes the source contacts
+  and updates the target contact.
+- [Preview Merge Contacts](contacts/contacts/contacts-v4/preview-merge-contacts)
+  allows you to perform a dry run of a merge
+  without deleting or updating contacts.
+
+## New Release: [Wix Notifications](wix-notifications)
+
+The new [Wix Notifications API](wix-notifications) enables you to trigger the sending of predefined notifications to Wix site owners and contributors. [Create a notification](wix-notifications/notifications/creating-a-notification-template) in the Wix Dev Center, then call the [Notify](wix-notifications/notifications/notify) endpoint to send notifications.
+
+(February 26, 2023)
+
+## New Endpoint: [Bookings Calendar API](wix-bookings/calendar)
+
+The Wix Bookings [Calendar API](wix-bookings/calendar) now includes a new endpoint:
+
++ [Query Sessions](wix-bookings/calendar/sessions/query-sessions) retrieves a list of sessions, given provided time range, filtering, and paging. This replaces [List Sessions](wix-bookings/calendar/sessions/list-sessions) which has been deprecated and will be removed on June 30, 2023.
+
+(February 23, 2023)
+
 ## New Release: [Site Actions](site-actions)
 
 [Account Level APIs](account-level-apis/) has a new Site Actions API that enables you to manage sites. The new API introduces the [Bulk Delete Site](site-actions/bulk-delete-site) endpoint.
@@ -35,9 +203,9 @@ The new Media API
 enables 3rd-parties to view and manage content in the [Media Manager](media/media-manager) such as:
 + [Importing a file](media/media-manager/files/import-file) to the Media Manager.
 + [Generating a video streaming URL](media/media-manager/files/generate-video-streaming-url).
-+ [Searching for a file](https://dev.wix.com/api/rest/media/media-manager/files/search-files) in the Media Manager.
-+ [Creating a new folder](https://dev.wix.com/api/rest/media/media-manager/folders/create-folder) in the Media Manager. 
-+ [Getting a folder](https://dev.wix.com/api/rest/media/media-manager/folders/get-folder) from the Media Manager. 
++ [Searching for a file](media/media-manager/files/search-files) in the Media Manager.
++ [Creating a new folder](media/media-manager/folders/create-folder) in the Media Manager. 
++ [Getting a folder](media/media-manager/folders/get-folder) from the Media Manager. 
 
 (January 17, 2023)
 

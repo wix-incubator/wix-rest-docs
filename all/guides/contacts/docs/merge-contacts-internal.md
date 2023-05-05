@@ -1,4 +1,4 @@
-SortOrder: 10
+SortOrder: 9
 # Merge Contacts
 
 Nowadays, many site owners are suffering from duplicated contacts.
@@ -6,6 +6,12 @@ These duplications can happen for a number of different reasons.
 Therefore we launched the `Contacts Merge` feature
 to allow site owners and contributors to merge duplicate contacts.
 Any contact that is not a site member can be merged into another contact.
+
+## Merge in Business Manager (UI)
+
+In order to merge two or more contacts, go to Contacts List in business manager and select at least two contacts (up to 5). 
+The _Merge Contacts_ will appear, click and follow the instructions.
+
 
 ## Merge endpoint
 
@@ -35,6 +41,8 @@ When some contacts are merged, the following events will be published:
 If your vertical keeps track of the site's contact IDs,
 you should listen to [Merged Contact Domain Event][contact-merged-event]
 (type = `Action`, slug = `merged`).
+
+In case you are using SDL please read [here](https://github.com/wix-private/server-infra/tree/master/iptf/simple-data-layer#contact-merged-events) for built-in support in this feature. 
 
 The following code snippet illustrates a possible approach:
 
@@ -93,10 +101,10 @@ with the Contact Merged event above.
 ## Questions and to get help
 
 For any questions,
-feel free to contact us on [#contacts-merge][slack-contacts-merge] on Slack.
+feel free to contact us on [#contacts][slack-contacts] on Slack.
 
 [contacts-service-proto]: https://github.com/wix-private/crm/blob/master/contacts/core/contacts-api/src/main/proto/v4/contacts_service.proto
 [contact-merged-event]: crm.contacts.contacts-v4.contact-merged-domain-event
 [contact-updated-event]: crm.contacts.contacts-v4.contact-updated-domain-event
 [contact-deleted-event]: crm.contacts.contacts-v4.contact-deleted-domain-event
-[slack-contacts-merge]: https://wix.slack.com/archives/C019MHAFV50
+[slack-contacts]: https://wix.slack.com/archives/C3Y3H3RTL

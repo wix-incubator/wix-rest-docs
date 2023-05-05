@@ -3,9 +3,9 @@ SortOrder: 6
 
 ## Introduction
 *Payment Plugin* is a [web application](https://en.wikipedia.org/wiki/Web_application) that provides a payment service to Wix site owners and implements the following HTTP endpoints:
-* [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) to prepare for future payments.
-* [Create Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/create-transaction) to make a payment.
-* [Refund Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/refund-transaction) to refund a payment.
+* [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) to prepare for future payments.
+* [Create Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/create-transaction) to make a payment.
+* [Refund Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/refund-transaction) to refund a payment.
 
 Wix calls these endpoints exclusively with the [POST](https://en.wikipedia.org/wiki/POST_(HTTP)) HTTP request method and `application/json` as a value for the `Content-Type` header. A request body always has a *JSON* format. The *Payment Plugin* should ignore unknown *JSON* properties in the request.
 

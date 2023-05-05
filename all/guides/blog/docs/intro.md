@@ -13,11 +13,15 @@ With the Wix Blog API, you can:
 - Add tags to posts and draft posts, as well as remove them. 
 
 
-With [Wix Pricing Plans](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/introduction), exclusive content can only be accessed by readers with a subscription. 
-Learn more about [creating blog post subscriptions](https://support.wix.com/en/article/wix-blog-creating-blog-post-subscriptions).
-
+With [Wix Pricing Plans](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/introduction), exclusive blog content can only be accessed by readers with a subscription. Learn more about [creating blog post subscriptions](https://support.wix.com/en/article/wix-blog-creating-blog-post-subscriptions).
 
 Learn more about [Wix Blog](https://support.wix.com/en/article/wix-blog-about-the-wix-blog).
+
+## Sample Use Cases
+
++ Send emails to blog subscribers with the latest blog posts
++ Create and send out social media posts when a new blog post is marked as featured
+<!-- + Mirror a blog on another site -->
 
 ## Terminology
 
