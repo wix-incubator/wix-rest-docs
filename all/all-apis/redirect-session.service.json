@@ -41,7 +41,7 @@
           "in": "BODY",
           "name": "callbacks",
           "type": "All APIs.Redirect Session._wix_headless_v1_CallbackParams",
-          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n",
+          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n When redirecting to any callback URL, Wix passes the boolean `wixMemberLoggedIn` query parameter.\n If `true`, a member logged in during the preceding Wix-managed process.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n",
           "required": false
         },
                 {
@@ -105,7 +105,7 @@
           "in": "BODY",
           "name": "callbacks",
           "type": "All APIs.Redirect Session._wix_headless_v1_CallbackParams",
-          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n",
+          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n When redirecting to any callback URL, Wix passes the boolean `wixMemberLoggedIn` query parameter.\n If `true`, a member logged in during the preceding Wix-managed process.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n",
           "required": false
         },
                 {
@@ -554,7 +554,7 @@
                 {
           "name": "thankYouPageUrl",
           "type": "string",
-          "doc": " The URL for a custom thank you page implemented on a site outside of Wix. The visitor is directed to this page after the Wix-managed process is completed.\n If the process is abandoned or interrupted, the visitor is redirected to the URL specified in `postFlowUrl` instead.\n\n Default: If you don't pass a URL, the visitor is redirected to a Wix thank you page, and from there to the URL specified in `postFlowUrl`.\n"
+          "doc": " The URL for a custom thank you page implemented on a site outside of Wix. The visitor is directed to this page after the Wix-managed process is completed.\n When redirecting to this URL, Wix passes different query parameters depending on the preceding transaction:\n \n After a pricing plans checkout:\n + `planOrderId`: ID of a pricing plan order.\n\n After an eCommerce checkout:\n + `orderId`: ID of an eCommerce order.\n\n After an Events checkout\n + `orderNumber`: Unique order number for the transaction.\n + `eventId`: ID of the event.\n\n If the process is abandoned or interrupted, the visitor is redirected to the URL specified in `postFlowUrl` instead.\n\n Default: If you don't pass a URL, the visitor is redirected to a Wix thank you page, and from there to the URL specified in `postFlowUrl`.\n"
         },
                 {
           "name": "postFlowUrl",
@@ -579,7 +579,7 @@
                 {
           "name": "planListUrl",
           "type": "string",
-          "doc": " The URL for a custom pricing plans page implemented outside of Wix.\n\n Default: If you don't pass a URL, a Wix pricing plans page is used.\n"
+          "doc": " The URL for a custom pricing plans page implemented outside of Wix.\n When redirecting to this URL, Wix passes the following query parameters:\n + `planIds`:  IDs of the pricing plans on the custom page.\n + `checkoutData`: Pass this string back in `paidPlansCheckout.checkoutData` when redirecting back to Wix for checkout. \n\n Default: If you don't pass a URL, a Wix pricing plans page is used.\n"
         }
       ],
       "enum": null,
@@ -602,34 +602,11 @@
           "doc": " The timezone to use when presenting the selected slot to users, in [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) format. For example, `America/Santiago`.\n\n Default: If you don't specify a timezone, the timezone in `slotAvailability.slot.timezone` is used.\n"
         },
                 {
-          "name": "serviceId",
-          "type": "string",
-          "doc": " **Required.** ID of the service for which to select the slot. Use [Query Services](https://dev.wix.com/api/rest/wix-bookings/services-v2/query-services) to obtain a service ID.\n"
-        },
-                {
           "name": "slotAvailability",
           "type": "All APIs.Redirect Session._com_wixpress_bookings_availability_SlotAvailability",
           "doc": " **Required.** The calendar slot to check out.\n"
         }
       ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_headless_v1_RedirectSessionAuthorizeParams",
-      "displayName": "Redirect Session Authorize Params Object",
-      "locations": [],
-      "docs":       {
-        "summary": " Deprecated - replaced by RedirectSessionAuthParams\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "auth",
-        "type": "All APIs.Redirect Session._wix_identity_oauth2_v1_AuthorizeRequest",
-        "doc": " (Required) The authorization request to be sent to the authorization server\n"
-      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -831,7 +808,7 @@
                 {
           "name": "callbacks",
           "type": "All APIs.Redirect Session._wix_headless_v1_CallbackParams",
-          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n"
+          "doc": " Details of pages to redirect the visitor back to on the Wix Headless client site.\n When redirecting to any callback URL, Wix passes the boolean `wixMemberLoggedIn` query parameter.\n If `true`, a member logged in during the preceding Wix-managed process.\n\n **Note**: For an authentication redirect, don't pass a post-flow URL here. Instead, pass one in `auth.authRequest.redirectUri`.\n"
         },
                 {
           "name": "preferences",
