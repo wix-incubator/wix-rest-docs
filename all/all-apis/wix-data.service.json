@@ -88,8 +88,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -202,8 +202,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -278,8 +278,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -324,7 +324,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Adds multiple items to a collection.\n\n\n When each item is inserted into a collection, its ID is automatically assigned to random value.\n You can optionally provide your own ID when inserting the item. If you specify an ID that already exists in the collection, the insertion will fail.\n \n",
+        "summary": " Adds multiple items to a collection.\n\n\n When each item is inserted into a collection, its ID is automatically assigned a random value.\n You can optionally provide your own ID when inserting the item. If you specify an ID that already exists in the collection, the insertion will fail.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/wix-data/v2/bulk/items/insert",
@@ -360,8 +360,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -429,8 +429,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -495,8 +495,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -577,8 +577,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -654,8 +654,8 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Cancel Data Collection Sharing",
-      "methodName": "CancelDataCollectionSharing",
+      "name": "Connect Shared Data Collection",
+      "methodName": "ConnectSharedDataCollection",
       "serviceName": "DataCollectionSharingService",
       "tag": "Data Collection Sharing",
       "permissions": [],
@@ -665,91 +665,48 @@
       "params":       [
                 {
           "in": "BODY",
-          "name": "dataCollectionId",
+          "name": "namespace",
           "type": "string",
-          "doc": " collection ID on current site\n",
+          "doc": " namespace to connect collection with\n",
           "required": false
         },
                 {
           "in": "BODY",
-          "name": "targetSiteId",
+          "name": "displayNamespace",
           "type": "string",
-          "doc": " Target site ID to remove shared collection from\n",
+          "doc": " display name for the namespace\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "by",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionRequest_by",
+          "doc": "",
           "required": false
         }
       ],
       "ret":       {
         "type":         {
-          "name": "CancelDataCollectionSharing",
+          "name": "ConnectSharedDataCollection",
           "statusCode": "200",
-          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_CancelDataCollectionSharingResponse"]
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionResponse"]
         },
         "doc": ""
       },
       "locations": [],
       "docs":       {
-        "summary": " Removes shared collection from target\n called from source site context\n \n",
+        "summary": " Creates SharedDataCollection and performs actual collection sharing with current site\n Possible failures (TODO codes):\n  - insufficient permissions\n  - filter is invalid\n  - namespace collision\n  - collection has single reference to unshared collection\n \n",
         "description": [],
         "request": "POST",
-        "url": "https://www.wixapis.com/wix-data/v1/shared-data-collections:cancelSharing",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/shared",
         "links": [],
         "examples": [],
         "extra": {}
       },
       "extra":       {
         "hasRest": true,
-        "rpcRequestName": "CancelDataCollectionSharingRequest",
-        "rpcResponseName": "CancelDataCollectionSharingResponse"
-      },
-      "customLabels": [{"id": "maturity-alpha"}]
-    },
-        {
-      "name": "Connect Owned Data Collection",
-      "methodName": "ConnectOwnedDataCollection",
-      "serviceName": "DataCollectionSharingService",
-      "tag": "Data Collection Sharing",
-      "permissions": [],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "params":       [
-                {
-          "in": "BODY",
-          "name": "sourceSiteId",
-          "type": "string",
-          "doc": " Meta Site ID to share collection from\n",
-          "required": false
-        },
-                {
-          "in": "BODY",
-          "name": "details",
-          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharingDetails",
-          "doc": " Sharing details\n",
-          "required": false
-        }
-      ],
-      "ret":       {
-        "type":         {
-          "name": "ConnectOwnedDataCollection",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_ConnectOwnedDataCollectionResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Connects shared data collection from other site when user owns it on the source\n requires share permissions on current site and connect permissions on target site\n doesn't create (or require) any sharing policy (ad-hoc)\n same action as `ShareAndConnectDataCollection` but should be called from target site\n Possible failures (TODO codes):\n  - insufficient permissions\n  - filter is invalid\n  - namespace collision\n  - collection has single reference to unshared collection\n \n",
-        "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/wix-data/v1/shared-data-collections:connectOwned",
-        "links": [],
-        "examples": [],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "ConnectOwnedDataCollectionRequest",
-        "rpcResponseName": "ConnectOwnedDataCollectionResponse"
+        "rpcRequestName": "ConnectSharedDataCollectionRequest",
+        "rpcResponseName": "ConnectSharedDataCollectionResponse"
       },
       "customLabels": [{"id": "maturity-alpha"}]
     },
@@ -759,8 +716,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -825,7 +782,10 @@
       "methodName": "CreateDataCollection",
       "serviceName": "DataCollectionService",
       "tag": "Data Collections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write Data Collections",
+        "description": "Request permission to create and delete data collections and modify data collection structure."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -886,7 +846,10 @@
       "methodName": "CreateExternalDatabaseConnection",
       "serviceName": "ExternalDatabaseConnectionService",
       "tag": "External Database Connections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write External Database Connections",
+        "description": "Request permission to create, delete, and modify external database connections."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -947,7 +910,10 @@
       "methodName": "CreateIndex",
       "serviceName": "IndexService",
       "tag": "Indexes",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write Data Collection Indexes",
+        "description": "Request permission to create and modify data collection indexes."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1005,11 +971,56 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "Create Share Policy",
+      "methodName": "CreateSharePolicy",
+      "serviceName": "DataCollectionSharingService",
+      "tag": "Data Collection Sharing",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["sharePolicy.dataCollectionId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " share policy to create\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateSharePolicy",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_CreateSharePolicyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates DataCollectionSharePolicy for a data collection\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/policies",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateSharePolicyRequest",
+        "rpcResponseName": "CreateSharePolicyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
       "name": "Delete Data Collection",
       "methodName": "DeleteDataCollection",
       "serviceName": "DataCollectionService",
       "tag": "Data Collections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write Data Collections",
+        "description": "Request permission to create and delete data collections and modify data collection structure."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1057,7 +1068,10 @@
       "methodName": "DeleteExternalDatabaseConnection",
       "serviceName": "ExternalDatabaseConnectionService",
       "tag": "External Database Connections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write External Database Connections",
+        "description": "Request permission to create, delete, and modify external database connections."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1101,43 +1115,86 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Disconnect Shared Data Collection",
-      "methodName": "DisconnectSharedDataCollection",
+      "name": "Delete Share Policy",
+      "methodName": "DeleteSharePolicy",
       "serviceName": "DataCollectionSharingService",
       "tag": "Data Collection Sharing",
       "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
+      "requiredFields": ["sharePolicyId"],
       "params": [      {
-        "in": "BODY",
-        "name": "dataCollectionId",
+        "in": "PATH",
+        "name": "sharePolicyId",
         "type": "string",
-        "doc": " collection ID on current site\n",
-        "required": false
+        "doc": " share policy ID to delete\n",
+        "required": true
       }],
       "ret":       {
         "type":         {
-          "name": "DisconnectSharedDataCollection",
+          "name": "DeleteSharePolicy",
           "statusCode": "200",
-          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_DisconnectSharedDataCollectionResponse"]
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_DeleteSharePolicyResponse"]
         },
         "doc": ""
       },
       "locations": [],
       "docs":       {
-        "summary": " Removes shared collection from target\n called from source site context\n \n",
+        "summary": " Deletes DataCollectionSharePolicy and all shared collections using it\n \n",
         "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/wix-data/v1/shared-data-collections:disconnect",
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/policies/{sharePolicyId}",
         "links": [],
         "examples": [],
         "extra": {}
       },
       "extra":       {
         "hasRest": true,
-        "rpcRequestName": "DisconnectSharedDataCollectionRequest",
-        "rpcResponseName": "DisconnectSharedDataCollectionResponse"
+        "rpcRequestName": "DeleteSharePolicyRequest",
+        "rpcResponseName": "DeleteSharePolicyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Delete Shared Data Collection",
+      "methodName": "DeleteSharedDataCollection",
+      "serviceName": "DataCollectionSharingService",
+      "tag": "Data Collection Sharing",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["dataCollectionId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "dataCollectionId",
+        "type": "string",
+        "doc": " data collection ID which is shared\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteSharedDataCollection",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_DeleteSharedDataCollectionResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Removes data collection shared with current site by collection ID\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/shared/{dataCollectionId=**}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteSharedDataCollectionRequest",
+        "rpcResponseName": "DeleteSharedDataCollectionResponse"
       },
       "customLabels": [{"id": "maturity-alpha"}]
     },
@@ -1146,7 +1203,10 @@
       "methodName": "DropIndex",
       "serviceName": "IndexService",
       "tag": "Indexes",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write Data Collection Indexes",
+        "description": "Request permission to create and modify data collection indexes."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1203,7 +1263,10 @@
       "methodName": "GetDataCollection",
       "serviceName": "DataCollectionService",
       "tag": "Data Collections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read Data Collections",
+        "description": "Request permission to read data collection structure information."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1284,8 +1347,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -1363,8 +1426,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -1441,7 +1504,10 @@
       "methodName": "GetExternalDatabaseConnection",
       "serviceName": "ExternalDatabaseConnectionService",
       "tag": "External Database Connections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read External Database Connections",
+        "description": "Request permission to view information about established external database connections."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1485,13 +1551,55 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "Get Share Policy",
+      "methodName": "GetSharePolicy",
+      "serviceName": "DataCollectionSharingService",
+      "tag": "Data Collection Sharing",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["sharePolicyId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "sharePolicyId",
+        "type": "string",
+        "doc": " policy ID to request\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetSharePolicy",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_GetSharePolicyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Gets DataCollectionSharePolicy by ID, can be called from context of different site\n if user have permissions to the site of given policy\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/policies/{sharePolicyId}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetSharePolicyRequest",
+        "rpcResponseName": "GetSharePolicyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
       "name": "Insert Data Item",
       "methodName": "InsertDataItem",
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -1562,8 +1670,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -1627,8 +1735,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -1712,7 +1820,10 @@
       "methodName": "ListDataCollections",
       "serviceName": "DataCollectionService",
       "tag": "Data Collections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read Data Collections",
+        "description": "Request permission to read data collection structure information."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1749,7 +1860,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of all data collections associated with the site.\n\n By default, the list is ordered by ID in ascending order.\n \n",
+        "summary": " Retrieves a list of all data collections associated with the site or project.\n\n By default, the list is ordered by ID in ascending order.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/wix-data/v2/collections",
@@ -1798,7 +1909,10 @@
       "methodName": "ListExternalDatabaseConnections",
       "serviceName": "ExternalDatabaseConnectionService",
       "tag": "External Database Connections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read External Database Connections",
+        "description": "Request permission to view information about established external database connections."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1813,7 +1927,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of all external database collections associated with the site.\n \n",
+        "summary": " Retrieves a list of all external database collections associated with the site or project.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/wix-data/v1/external-database-connections",
@@ -1839,7 +1953,10 @@
       "methodName": "ListIndexes",
       "serviceName": "IndexService",
       "tag": "Indexes",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Read Data Collection Indexes",
+        "description": "Request permission to read data collection indexes."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1891,6 +2008,66 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "List Share Policy",
+      "methodName": "ListSharePolicy",
+      "serviceName": "DataCollectionSharingService",
+      "tag": "Data Collection Sharing",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "dataCollectionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " if non-empty returns only policies related to given collections\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListSharePolicy",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_ListSharePolicyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Lists DataCollectionSharePolicy for current site\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/policies",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListSharePolicyRequest",
+        "rpcResponseName": "ListSharePolicyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
       "name": "List Shared Data Collections",
       "methodName": "ListSharedDataCollections",
       "serviceName": "DataCollectionSharingService",
@@ -1938,7 +2115,7 @@
         "summary": " Lists shared collections, both shared by current site and with current site\n If collection is shared with current site source and filter is not returned\n \n",
         "description": [],
         "request": "GET",
-        "url": "https://www.wixapis.com/wix-data/v1/shared-data-collections",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/shared",
         "links": [],
         "examples": [],
         "extra": {}
@@ -1956,8 +2133,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -2049,8 +2226,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -2153,8 +2330,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "View Content",
-        "description": "Can view content in collections."
+        "name": "Read Data",
+        "description": "Request permission to read content in data collections."
       }],
       "events": [],
       "labels": [],
@@ -2257,8 +2434,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2329,8 +2506,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2401,8 +2578,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2467,8 +2644,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2548,8 +2725,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2606,63 +2783,13 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Share And Connect Data Collection",
-      "methodName": "ShareAndConnectDataCollection",
-      "serviceName": "DataCollectionSharingService",
-      "tag": "Data Collection Sharing",
-      "permissions": [],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "params":       [
-                {
-          "in": "BODY",
-          "name": "targetSiteId",
-          "type": "string",
-          "doc": " Meta Site ID to share collection from current site with\n",
-          "required": false
-        },
-                {
-          "in": "BODY",
-          "name": "details",
-          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharingDetails",
-          "doc": " Sharing details\n",
-          "required": false
-        }
-      ],
-      "ret":       {
-        "type":         {
-          "name": "ShareAndConnectDataCollection",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_ShareAndConnectDataCollectionResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Shares a collection with other site and connects to it in one call\n requires share permissions on current site and connect permissions on target site\n doesn't create any sharing policy allowing other connections (ad-hoc)\n same action as `ConnectOwnedDataCollection` but should be called from the source site\n Possible failures (TODO codes):\n  - insufficient permissions\n  - filter is invalid\n  - namespace collision\n  - collection has single reference to unshared collection\n \n",
-        "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/wix-data/v1/shared-data-collections:shareAndConnect",
-        "links": [],
-        "examples": [],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "ShareAndConnectDataCollectionRequest",
-        "rpcResponseName": "ShareAndConnectDataCollectionResponse"
-      },
-      "customLabels": [{"id": "maturity-alpha"}]
-    },
-        {
       "name": "Truncate Data Items",
       "methodName": "TruncateDataItems",
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2711,7 +2838,10 @@
       "methodName": "UpdateDataCollection",
       "serviceName": "DataCollectionService",
       "tag": "Data Collections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write Data Collections",
+        "description": "Request permission to create and delete data collections and modify data collection structure."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -2774,8 +2904,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2845,8 +2975,8 @@
       "serviceName": "DataItemService",
       "tag": "Data Items",
       "permissions": [      {
-        "name": "Modify content in the data collections",
-        "description": "Can add and edit content in existing collections."
+        "name": "Write Data",
+        "description": "Request permission to add and modify content in existing data collections."
       }],
       "events": [],
       "labels": [],
@@ -2908,7 +3038,10 @@
       "methodName": "UpdateExternalDatabaseConnection",
       "serviceName": "ExternalDatabaseConnectionService",
       "tag": "External Database Connections",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Write External Database Connections",
+        "description": "Request permission to create, delete, and modify external database connections."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -2929,7 +3062,7 @@
           "in": "BODY",
           "name": "externalDatabaseConnection",
           "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection",
-          "doc": " Updated external database connection details. The existing collection is replaced with this version.\n",
+          "doc": " Updated external database connection details. The existing connection is replaced with this version.\n",
           "required": false
         }
       ],
@@ -2963,6 +3096,56 @@
         "rpcResponseName": "UpdateExternalDatabaseConnectionResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Share Policy",
+      "methodName": "UpdateSharePolicy",
+      "serviceName": "DataCollectionSharingService",
+      "tag": "Data Collection Sharing",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "sharePolicy.id",
+          "type": "string",
+          "doc": " Unique policy ID\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "sharePolicy",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+          "doc": " share policy to update\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateSharePolicy",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_UpdateSharePolicyResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Updates DataCollectionSharePolicy by ID\n Fields that can be updated at the moment:\n  - filter\n other would be ignored\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v1/data-collection-sharing/policies/{sharePolicy.id}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateSharePolicyRequest",
+        "rpcResponseName": "UpdateSharePolicyResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
     }
   ],
   "events":   [
@@ -2973,11 +3156,11 @@
         "summary": " Event triggered when collection is cloned from other instance\n CREATED event will be also triggered along with this action\n",
         "src": "https://github.com/wix-private/cloud/tree/master/data/cloud-data-api/src/main/proto/com/wixpress/cloud/data/api/collection/data-collection-service.proto"
       },
-      "topic": "domain_events_wix.data.v1.data_collection",
+      "topic": "domain_events_wix.data.v2.data_collection",
       "tag": "Data Collections",
       "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.data.v1.data_collection_data_collection_cloned_event",
+      "eventType": "wix.data.v2.data_collection_data_collection_cloned_event",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -2987,11 +3170,11 @@
         "summary": " Event triggered when collection is changed, describing some of changes\n UPDATED event will be also triggered along with this action\n",
         "src": "https://github.com/wix-private/cloud/tree/master/data/cloud-data-api/src/main/proto/com/wixpress/cloud/data/api/collection/data-collection-service.proto"
       },
-      "topic": "domain_events_wix.data.v1.data_collection",
+      "topic": "domain_events_wix.data.v2.data_collection",
       "tag": "Data Collections",
       "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.data.v1.data_collection_data_collection_changed_event",
+      "eventType": "wix.data.v2.data_collection_data_collection_changed_event",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -3001,11 +3184,11 @@
         "summary": "",
         "src": "https://github.com/wix-private/cloud/tree/master/data/cloud-data-api/src/main/proto/com/wixpress/cloud/data/api/collection/data-collection-service.proto"
       },
-      "topic": "domain_events_wix.data.v1.data_collection",
+      "topic": "domain_events_wix.data.v2.data_collection",
       "tag": "Data Collections",
       "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.data.v1.data_collection_created",
+      "eventType": "wix.data.v2.data_collection_created",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -3015,11 +3198,11 @@
         "summary": "",
         "src": "https://github.com/wix-private/cloud/tree/master/data/cloud-data-api/src/main/proto/com/wixpress/cloud/data/api/collection/data-collection-service.proto"
       },
-      "topic": "domain_events_wix.data.v1.data_collection",
+      "topic": "domain_events_wix.data.v2.data_collection",
       "tag": "Data Collections",
       "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.data.v1.data_collection_updated",
+      "eventType": "wix.data.v2.data_collection_updated",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -3029,11 +3212,11 @@
         "summary": "",
         "src": "https://github.com/wix-private/cloud/tree/master/data/cloud-data-api/src/main/proto/com/wixpress/cloud/data/api/collection/data-collection-service.proto"
       },
-      "topic": "domain_events_wix.data.v1.data_collection",
+      "topic": "domain_events_wix.data.v2.data_collection",
       "tag": "Data Collections",
       "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.data.v1.data_collection_deleted",
+      "eventType": "wix.data.v2.data_collection_deleted",
       "extra": {"isDomainEvent": true}
     }
   ],
@@ -3057,7 +3240,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.data.v1.data_collection`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.data.v2.data_collection`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -3130,7 +3313,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.data.v1.data_collection`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.data.v2.data_collection`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -3203,7 +3386,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.data.v1.data_collection`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.data.v2.data_collection`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -3272,7 +3455,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.data.v1.data_collection`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.data.v2.data_collection`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -3345,7 +3528,7 @@
                 {
           "name": "entityFqdn",
           "type": "string",
-          "doc": "Expected `wix.data.v1.data_collection`.\nFully Qualified Domain Name."
+          "doc": "Expected `wix.data.v2.data_collection`.\nFully Qualified Domain Name."
         },
                 {
           "name": "slug",
@@ -4691,7 +4874,28 @@
       "members": [      {
         "name": "migrated",
         "type": "boolean",
-        "doc": " indicates if tenant is migrated to gridappless or initially on it\n"
+        "doc": " Whether the tenant was migrated to Gridappless.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_collectionservice_Plugin_MultilingualOptions",
+      "displayName": "Multilingual Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "translatableFieldKeys",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " IDs of fields to allow translation.\n"
       }],
       "enum": null,
       "extra": {},
@@ -4710,7 +4914,7 @@
                 {
           "name": "type",
           "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_Plugin_Type",
-          "doc": " Plugin types. The following plugins are supported:\n\n * `PUBLISH`: Allows items to be marked as either draft or published. For each item you can set a publishing time when the item will become visible to site visitors.\n * `SINGLE_ITEM`: Ensures the collection can have one item at most. Can only be applied to a new collection.\n * `URLIZED`: Generates item URLs for collections used by dynamic pages.\n * `GRIDAPPLESS`: This plugin is read-only and can't be manually added. Indicates the collection structure is shared between sandbox and live environments.\n"
+          "doc": " Plugin types. The following plugins are supported:\n\n * `PUBLISH`: Allows items to be marked as either draft or published. For each item you can set a publishing time when the item will become visible to site visitors.\n * `SINGLE_ITEM`: Ensures the collection can have one item at most. Can only be applied to a new collection.\n * `URLIZED`: Generates item URLs for collections used by dynamic pages.\n * `GRIDAPPLESS`: This plugin is read-only and can't be manually added. Indicates the collection structure is shared between sandbox and live environments.\n * `MULTILINGUAL`: Indicates that the collection is translatable. This allows you to manage translation for selected fields using [Wix Multilingual](https://www.wix.com/app-market/wix-multilingual).\n"
         },
                 {
           "name": "options",
@@ -4750,7 +4954,12 @@
                 {
           "name": "gridapplessOptions",
           "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_Plugin_GridapplessPluginOptions",
-          "doc": " Options for Gridappless plugin.\n"
+          "doc": " Options for the Gridappless plugin.\n"
+        },
+                {
+          "name": "multilingualOptions",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_Plugin_MultilingualOptions",
+          "doc": " Options for the Multilingual plugin.\n"
         }
       ],
       "enum": null,
@@ -4767,14 +4976,25 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "dataOperations",
-        "type":         {
-          "name": "array",
-          "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_CollectionCapabilities_DataOperation"]
+      "members":       [
+                {
+          "name": "dataOperations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_CollectionCapabilities_DataOperation"]
+          },
+          "doc": " Data operations the collection supports. The listed operations can be performed on data the collection contains.\n"
         },
-        "doc": " Data operations the collection supports.\n"
-      }],
+                {
+          "name": "collectionOperations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_collectionservice_CollectionCapabilities_CollectionOperationEnum_CollectionOperation"]
+          },
+          "doc": " Collection operations supported. The listed operations can be performed on the collection itself.\n + `UPDATE`: Allows updating the collection's structure, for example adding, updating, or deleting fields. If not included, the collection's structure can't be changed.\n + `REMOVE`: Allows deleting the entire collection. If not included, the collection can't be deleted.\n",
+          "readOnly": true
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -4924,81 +5144,15 @@
       "labels": []
     },
         {
-      "name": "_wix_common_CursorPaging",
-      "displayName": "Cursor Paging Object",
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "limit",
-          "type": "integer",
-          "doc": " Number of items to load.\n"
-        },
-                {
-          "name": "cursor",
-          "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_CursorPagingMetadata",
-      "displayName": "Cursor Paging Metadata Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "count",
-          "type": "integer",
-          "doc": " Number of items returned in the response.\n"
-        },
-                {
-          "name": "cursors",
-          "type": "All APIs.Wix Data._wix_common_Cursors",
-          "doc": " Offset that was requested.\n"
-        },
-                {
-          "name": "hasNext",
-          "type": "boolean",
-          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_Cursors",
-      "displayName": "Cursors Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "next",
-          "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
-        },
-                {
-          "name": "prev",
-          "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
-        }
-      ],
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -6098,6 +6252,86 @@
       "labels": []
     },
         {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Wix Data._wix_common_Cursors",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_cloud_data_api_data_upstream_wix_common_QueryV2",
       "displayName": "Query V 2 Object",
       "locations": [],
@@ -6957,11 +7191,36 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection_ConnectionStatus",
+      "displayName": "Connection Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "successful",
+          "type": "boolean",
+          "doc": " Whether the connection was established successfully.\n"
+        },
+                {
+          "name": "causeOfFailure",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection_ConnectionStatus_CauseOfFailure",
+          "doc": " Reason for the failure, if a connection isn't established successfully.\n + `NONE`: No connection failure.\n +  `COMMUNICATION_FAILURE`: General communication failure.\n + `DESTINATION_HOST_UNREACHABLE`: External database host is unreachable.\n + `UNAUTHORIZED`: Unauthorized to access external database.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection",
       "displayName": "External Database Connection Object",
       "locations": [],
       "docs":       {
-        "summary": " An external database connection defines a connection between an external database and a Wix site.\n",
+        "summary": " An external database connection defines a connection between an external database and a Wix site or project.\n",
         "links": [],
         "examples": []
       },
@@ -6980,6 +7239,12 @@
           "name": "configuration",
           "type": "struct",
           "doc": " Settings passed to the external database connection as part of each request.\n These settings can relate to authentication, tenancy, or provide any other information needed for processing a request.\n Their content and structure depend on the specific requirements of the external database's API.\n"
+        },
+                {
+          "name": "connectionStatus",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection_ConnectionStatus",
+          "doc": " Status of the external database connection. Includes whether the connection was established successfully, and if not, the reason for the failure.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -7105,7 +7370,7 @@
       "members": [      {
         "name": "externalDatabaseConnection",
         "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection",
-        "doc": " Updated external database connection details. The existing collection is replaced with this version.\n"
+        "doc": " Updated external database connection details. The existing connection is replaced with this version.\n"
       }],
       "enum": null,
       "extra": {},
@@ -7388,11 +7653,42 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+      "displayName": "Data Collection Share Policy Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Data Collection Share Policy allows collection sharing with some audience\n Policy also controls existing shared collections created from it and\n is used to change sharing configuration or stop sharing collection.\n One collection may have several policies with different filters/audience\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique policy ID\n",
+          "readOnly": true
+        },
+                {
+          "name": "dataCollectionId",
+          "type": "string",
+          "doc": " Data Collection ID which is subject of this policy\n"
+        },
+                {
+          "name": "dataItemsFilter",
+          "type": "struct",
+          "doc": " Sharing filter, restricting accessible items\n TODO add more audience, for now only policy OWNER can use it\n TODO add permissions, for now RO assumed\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_cloud_data_api_share_SharedDataCollection",
       "displayName": "Shared Data Collection Object",
       "locations": [],
       "docs":       {
-        "summary": " Shared collection details\n Describes collection actually accessible from two sites\n  - \"source\" means collection owner site\n  - \"target\" means shared collection receiving site\n Permission or policy that allows collection sharing would be described by separate entity\n\n Actual DataCollection can be requested using DataCollectionService\n When getting shared collection record from source site all fields are present,\n from target site `source_*` and filter fields are not returned.\n",
+        "summary": " Shared collection details\n Describes collection actually accessible from two sites\n  - \"source\" means collection owner site\n  - \"target\" means shared collection receiving site\n Controlled and created by DataCollectionSharePolicy\n\n Actual DataCollection can be requested using DataCollectionService\n When getting shared collection record from source site all fields are present,\n from target site `source_*` are not returned.\n",
         "links": [],
         "examples": []
       },
@@ -7418,14 +7714,397 @@
           "doc": " Target Meta Site ID\n"
         },
                 {
-          "name": "filter",
-          "type": "struct",
-          "doc": " Sharing filter, restricting accessible items\n"
-        },
-                {
           "name": "targetDisplayNamespace",
           "type": "string",
           "doc": " Displayed target namespace name\n"
+        },
+                {
+          "name": "sharePolicyId",
+          "type": "string",
+          "doc": " Policy ID which controls this sharing\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityCreatedEvent",
+      "displayName": "Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityUpdatedEvent",
+      "displayName": "Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": " Since platformized APIs only expose PATCH and not PUT we can't assume that the fields sent from the client are the actual diff.\n This means that to generate a list of changed fields (as opposed to sent fields) one needs to traverse both objects.\n We don't want to impose this on all developers and so we leave this traversal to the notification recipients which need it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityDeletedEvent",
+      "displayName": "Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ActionEvent",
+      "displayName": "Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ExtendedFieldsUpdatedEvent",
+      "displayName": "Extended Fields Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent",
+      "displayName": "Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " random GUID so clients can tell if event was already handled\n"
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": " Assumes actions are also always typed to an entity_type\n Example: wix.stores.catalog.product, wix.bookings.session, wix.payments.transaction\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " Assuming that all messages including Actions have id\n Example: The id of the specific order, the id of a specific campaign\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Wix Data._wix_common_domainevents_DomainEvent_body",
+          "doc": ""
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": " The time of the event. Useful if there was a delay in dispatching\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " A field that should be set if this event was triggered by an anonymize request.\n For example you must set it to true when sending an event as a result of a GDPR right to be forgotten request.\n NOTE: This field is not relevant for `EntityCreatedEvent` but is located here for better ergonomics of consumers.\n"
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent_body",
+      "displayName": "body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Wix Data._wix_common_domainevents_EntityCreatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Wix Data._wix_common_domainevents_EntityUpdatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Wix Data._wix_common_domainevents_EntityDeletedEvent",
+          "doc": ""
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Wix Data._wix_common_domainevents_ActionEvent",
+          "doc": ""
+        },
+                {
+          "name": "extendedFieldsUpdatedEvent",
+          "type": "All APIs.Wix Data._wix_common_domainevents_ExtendedFieldsUpdatedEvent",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_CreateSharePolicyRequest",
+      "displayName": "Create Share Policy Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " share policy to create\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_CreateSharePolicyResponse",
+      "displayName": "Create Share Policy Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " created share policy\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_UpdateSharePolicyRequest",
+      "displayName": "Update Share Policy Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " share policy to update\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_UpdateSharePolicyResponse",
+      "displayName": "Update Share Policy Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " updated share policy\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_DeleteSharePolicyRequest",
+      "displayName": "Delete Share Policy Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicyId",
+        "type": "string",
+        "doc": " share policy ID to delete\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_DeleteSharePolicyResponse",
+      "displayName": "Delete Share Policy Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_GetSharePolicyRequest",
+      "displayName": "Get Share Policy Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicyId",
+        "type": "string",
+        "doc": " policy ID to request\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_GetSharePolicyResponse",
+      "displayName": "Get Share Policy Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sharePolicy",
+        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy",
+        "doc": " shared policy found\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_ListSharePolicyRequest",
+      "displayName": "List Share Policy Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "dataCollectionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " if non-empty returns only policies related to given collections\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Wix Data._wix_common_CursorPaging",
+          "doc": " paging\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_share_ListSharePolicyResponse",
+      "displayName": "List Share Policy Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sharePolicies",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data._com_wixpress_cloud_data_api_share_DataCollectionSharePolicy"]
+          },
+          "doc": " policies returned\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Wix Data._wix_common_CursorPagingMetadata",
+          "doc": " paging metadata\n"
         }
       ],
       "enum": null,
@@ -7489,8 +8168,8 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_cloud_data_api_share_SharingDetails",
-      "displayName": "Sharing Details Object",
+      "name": "_com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionRequest",
+      "displayName": "Connect Shared Data Collection Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -7499,24 +8178,19 @@
       },
       "members":       [
                 {
-          "name": "dataCollectionId",
+          "name": "namespace",
           "type": "string",
-          "doc": " collection ID to share\n"
+          "doc": " namespace to connect collection with\n"
         },
                 {
-          "name": "filter",
-          "type": "struct",
-          "doc": " Sharing filter, restricting accessible items\n"
+          "name": "displayNamespace",
+          "type": "string",
+          "doc": " display name for the namespace\n"
         },
                 {
-          "name": "targetNamespace",
-          "type": "string",
-          "doc": " Namespace to build target collection ID\n must be unique on target site\n"
-        },
-                {
-          "name": "targetDisplayNamespace",
-          "type": "string",
-          "doc": " Displayed namespace name\n"
+          "name": "by",
+          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionRequest_by",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -7524,33 +8198,27 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_cloud_data_api_share_ShareAndConnectDataCollectionRequest",
-      "displayName": "Share And Connect Data Collection Request Object",
+      "name": "_com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionRequest_by",
+      "displayName": "by Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "targetSiteId",
-          "type": "string",
-          "doc": " Meta Site ID to share collection from current site with\n"
-        },
-                {
-          "name": "details",
-          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharingDetails",
-          "doc": " Sharing details\n"
-        }
-      ],
+      "members": [      {
+        "name": "sharePolicyId",
+        "type": "string",
+        "doc": " connect by share policy ID, it must have POLICY_OWNER audience\n and user should have access to that policy\n"
+      }],
       "enum": null,
       "extra": {},
-      "labels": []
+      "labels": [],
+      "oneOf": true
     },
         {
-      "name": "_com_wixpress_cloud_data_api_share_ShareAndConnectDataCollectionResponse",
-      "displayName": "Share And Connect Data Collection Response Object",
+      "name": "_com_wixpress_cloud_data_api_share_ConnectSharedDataCollectionResponse",
+      "displayName": "Connect Shared Data Collection Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -7560,97 +8228,15 @@
       "members": [      {
         "name": "sharedDataCollection",
         "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharedDataCollection",
-        "doc": " resulting share record\n"
+        "doc": " connected shared data collection\n"
       }],
       "enum": null,
       "extra": {},
       "labels": []
     },
         {
-      "name": "_com_wixpress_cloud_data_api_share_ConnectOwnedDataCollectionRequest",
-      "displayName": "Connect Owned Data Collection Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "sourceSiteId",
-          "type": "string",
-          "doc": " Meta Site ID to share collection from\n"
-        },
-                {
-          "name": "details",
-          "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharingDetails",
-          "doc": " Sharing details\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_cloud_data_api_share_ConnectOwnedDataCollectionResponse",
-      "displayName": "Connect Owned Data Collection Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "sharedDataCollection",
-        "type": "All APIs.Wix Data._com_wixpress_cloud_data_api_share_SharedDataCollection",
-        "doc": " resulting share record\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_cloud_data_api_share_CancelDataCollectionSharingRequest",
-      "displayName": "Cancel Data Collection Sharing Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "dataCollectionId",
-          "type": "string",
-          "doc": " collection ID on current site\n"
-        },
-                {
-          "name": "targetSiteId",
-          "type": "string",
-          "doc": " Target site ID to remove shared collection from\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_cloud_data_api_share_CancelDataCollectionSharingResponse",
-      "displayName": "Cancel Data Collection Sharing Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_cloud_data_api_share_DisconnectSharedDataCollectionRequest",
-      "displayName": "Disconnect Shared Data Collection Request Object",
+      "name": "_com_wixpress_cloud_data_api_share_DeleteSharedDataCollectionRequest",
+      "displayName": "Delete Shared Data Collection Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -7660,15 +8246,15 @@
       "members": [      {
         "name": "dataCollectionId",
         "type": "string",
-        "doc": " collection ID on current site\n"
+        "doc": " data collection ID which is shared\n"
       }],
       "enum": null,
       "extra": {},
       "labels": []
     },
         {
-      "name": "_com_wixpress_cloud_data_api_share_DisconnectSharedDataCollectionResponse",
-      "displayName": "Disconnect Shared Data Collection Response Object",
+      "name": "_com_wixpress_cloud_data_api_share_DeleteSharedDataCollectionResponse",
+      "displayName": "Delete Shared Data Collection Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -7868,7 +8454,7 @@
       "displayName": "Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> PUBLISH -  Allows items to be marked as either draft or published. For each item you can set a publishing time when the item will become visible to site visitors.\n <\/code><\/li><li><code> SINGLE_ITEM -  Ensures the collection can have one item at most. Can only be applied to a new collection.\n <\/code><\/li><li><code> URLIZED -  Generates item URLs for collections used by dynamic pages.\n <\/code><\/li><li><code> GRIDAPPLESS -  This plugin is read-only and can't be manually added. Indicates collection structure is shared between sandbox and live environments.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> PUBLISH -  Allows items to be marked as either draft or published. For each item you can set a publishing time when the item will become visible to site visitors.\n <\/code><\/li><li><code> SINGLE_ITEM -  Ensures the collection can have one item at most. Can only be applied to a new collection.\n <\/code><\/li><li><code> URLIZED -  Generates item URLs for collections used by dynamic pages.\n <\/code><\/li><li><code> GRIDAPPLESS -  This plugin is read-only and can't be manually added. Indicates collection structure is shared between sandbox and live environments.\n <\/code><\/li><li><code> MULTILINGUAL -  Indicates that the collection is translatable. This allows you to manage translation for selected fields using [Wix Multilingual](https://www.wix.com/app-market/wix-multilingual).\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -7877,7 +8463,25 @@
         "PUBLISH",
         "SINGLE_ITEM",
         "URLIZED",
-        "GRIDAPPLESS"
+        "GRIDAPPLESS",
+        "MULTILINGUAL"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_collectionservice_CollectionCapabilities_CollectionOperationEnum_CollectionOperation",
+      "displayName": "Collection Operation Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UPDATE -  Supports updating this collection.\n <\/code><\/li><li><code> REMOVE -  Supports removing this collections.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UPDATE",
+        "REMOVE"
       ],
       "extra": {},
       "labels": []
@@ -8011,6 +8615,25 @@
         "UNKNOWN_ACTION",
         "INSERTED",
         "UPDATED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_cloud_data_api_externaldatabase_ExternalDatabaseConnection_ConnectionStatus_CauseOfFailure",
+      "displayName": "Cause Of Failure Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE -  No connection failure.\n <\/code><\/li><li><code> COMMUNICATION_FAILURE -  General communication failure.\n <\/code><\/li><li><code> DESTINATION_HOST_UNREACHABLE -  External database host is unreachable.\n <\/code><\/li><li><code> UNAUTHORIZED -  Unauthorized to access external database.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "COMMUNICATION_FAILURE",
+        "DESTINATION_HOST_UNREACHABLE",
+        "UNAUTHORIZED"
       ],
       "extra": {},
       "labels": []
