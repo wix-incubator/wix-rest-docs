@@ -18,8 +18,8 @@ Once you have created an OAuth app, learn how to [Set Up the Wix JavaScript SDK 
 
 It's important to note the following points before starting to code:
 
-+ The client secret is provided only when an OAuth app is created, and can't be retrieved later.
 + Each external client should authenticate using its own OAuth app.
++ You can only generate a secret once for each OAuth app, and the secret can't be retrieved later. Store the secret securely.
 + After you delete an OAuth app, an external client can no longer make API calls by authenticating with its client ID.
 
 ## Use cases
