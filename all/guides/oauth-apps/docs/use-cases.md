@@ -14,8 +14,8 @@ For any external app or site to access a Wix project's data, it must be authoriz
 1. Make sure your app requests the Manage OAuth Apps permission scope.
 1. Obtain the domain name for the deployment of the site or app built on the template.
 1. In your app code, call [Create OAuth App](https://dev.wix.com/api/rest/auth-management/oauth-apps/create-oauth-app). Specify a `name` and optional `description` that identify the client clearly. In the `allowedDomains` array, provide the deployment domains from the previous step.
-1. Store the returned OAuth app's `id` and `secret` securely. **Note:** The OAuth app secret is returned only when creating the OAuth app, and can't be retrieved later.
-1. Assign the ID and secret to secure environment variables in the template code. The template can now access the Wix project's data.
+1. Store the returned OAuth app's `id` securely.
+1. Assign the ID to a secure environment variable in the template code. The template can now access the Wix project's data.
 
 ## Change allowed redirect domains for an external client app or site
 
