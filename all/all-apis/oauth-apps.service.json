@@ -62,7 +62,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a new OAuth app for a Wix Headless client.\n\n\n> **Note:** The OAuth app secret is returned only when creating the OAuth app, and can't be retrieved later. Store the secret in a secure location.\n \n",
+        "summary": "\nCreates a new OAuth app for a Wix Headless client.\n\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/oauth-app/v1/oauth-apps",
@@ -131,6 +131,51 @@
         "hasRest": true,
         "rpcRequestName": "DeleteOAuthAppRequest",
         "rpcResponseName": "DeleteOAuthAppResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Generate O Auth App Secret",
+      "methodName": "GenerateOAuthAppSecret",
+      "serviceName": "OAuthAppService",
+      "tag": "OAuth Apps",
+      "permissions": [      {
+        "name": "Manage OAuth Apps",
+        "description": "Request permissions to create and manage OAuth apps enabling headless clients to access business data.\n\n\n\n\n\n"
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["oAuthAppId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "oAuthAppId",
+        "type": "string",
+        "doc": " ID of the OAuth app to generate a secret for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GenerateOAuthAppSecret",
+          "statusCode": "200",
+          "typeParams": ["All APIs.OAuth Apps._wix_headless_v1_GenerateOAuthAppSecretResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGenerates a secret for an existing OAuth app.\n\n\n> **Note:** You can only generate a secret once for each OAuth app, and the secret can't be retrieved later. Store the secret securely.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/oauth-app/v1/oauth-apps/{oAuthAppId}/generate-secret",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GenerateOAuthAppSecretRequest",
+        "rpcResponseName": "GenerateOAuthAppSecretResponse"
       },
       "customLabels": [{"id": "maturity-alpha"}]
     },
@@ -606,8 +651,9 @@
                 {
           "name": "secret",
           "type": "string",
-          "doc": " Client secret for the OAuth app. **Note:** This is returned only when the OAuth app is created. It can't be retrieved later.\n",
-          "readOnly": true
+          "doc": " For internal use only.\n",
+          "readOnly": true,
+          "deprecated": true
         },
                 {
           "name": "loginUrl",
@@ -620,7 +666,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " List of URIs to which redirection from Wix is allowed after authorization.\n\n When a client redirects a user to Wix for authorization, the cliend provides a URI to redirect the user back to after authorization.\n Wix only redirects the user if the exact URI is contained in this array.\n"
+          "doc": " List of URIs to which redirection from Wix is allowed after authentication.\n\n When a client redirects a user to Wix for authentication, the client provides a URI to redirect the user back to after the user has been authenticated.\n Wix only redirects the user if the exact URI is contained in this array.\n"
         },
                 {
           "name": "allowedRedirectDomains",
@@ -628,7 +674,12 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " List of domains to which redirection from Wix is allowed after processes other than authorization.\n\n When a client redirects a user to a Wix page (for example, for checkout), the client provides a URL to redirect the user back to.\n Wix only redirects the user if the URL is in one of the specified domains.\n"
+          "doc": " List of domains to which redirection from Wix is allowed after processes other than authentication.\n\n When a client redirects a user to a Wix page (for example, for checkout), the client provides a URL to redirect the user back to.\n Wix only redirects the user if the URL is in one of the specified domains.\n"
+        },
+                {
+          "name": "allowSecretGeneration",
+          "type": "boolean",
+          "doc": " Whether a secret can be generated for this OAuth app.\n\n Default: `true` until a secret has been generated for the OAuth App.\n"
         }
       ],
       "enum": null,
@@ -1044,6 +1095,42 @@
           "doc": " Paging metadata.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_headless_v1_GenerateOAuthAppSecretRequest",
+      "displayName": "Generate O Auth App Secret Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "oAuthAppId",
+        "type": "string",
+        "doc": " ID of the OAuth app to generate a secret for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_headless_v1_GenerateOAuthAppSecretResponse",
+      "displayName": "Generate O Auth App Secret Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "oAuthAppSecret",
+        "type": "string",
+        "doc": " Secret generated.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
