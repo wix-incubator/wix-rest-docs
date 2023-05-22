@@ -1,5 +1,11 @@
 # Release Notes
 
+## New Functionality: [Wix Blocks](https://support.wix.com/en/wix-blocks)
+3rd party apps can now be written partially or completely using Wix Blocks, powered by [Velo by Wix](https://www.wix.com/velo/reference).
+See [Publishing your Blocks app to the App Market](https://support.wix.com/en/article/wix-blocks-publishing-your-app-to-the-app-market) for details.
+
+(May 22, 2023)
+
 ## New Release: [Redirect Session](redirect-session/redirect-session)
 
 The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
