@@ -21,16 +21,16 @@ for the `serviceOptionsAndVariants` object:
 
 | Field           | Supported Filters                             | Sortable |
 | --------------- | --------------------------------------------- | --------------- |
-| `id` | `eq`, `ne`, `in` | Sortable |
-| `serviceId` | `eq`, `ne`, `in` |   |
-| `options.values` | `exists` |   | 
-| `options.values.id` | `hasSome`, `hasAll` |   | 
-| `options.values.type` | `hasSome`, `hasAll` |   | 
-| `options.values.optionSpecificData.customData.name` | `hasSome`, `hasAll` |   | 
-| `variants.values` | `exists` |   | 
-| `variants.values.choices.choice.custom.value` | `hasSome`, `hasAll` |   | 
-| `variants.values.price` | `hasSome`, `hasAll` |   |
-| `variants.values.choices.optionId` | `hasSome`, `hasAll` |   |
+| `id` | `$eq`, `$ne`, `$in` | Sortable |
+| `serviceId` | `$eq`, `$ne`, `$in` |   |
+| `options.values` | `$exists` |   | 
+| `options.values.id` | `$hasSome`, `$hasAll` |   | 
+| `options.values.type` | `$hasSome`, `$hasAll` |   | 
+| `options.values.optionSpecificData.customData.name` | `$hasSome`, `$hasAll` |   | 
+| `variants.values` | `$exists` |   | 
+| `variants.values.choices.choice.custom.value` | `$hasSome`, `$hasAll` |   | 
+| `variants.values.price` | `$hasSome`, `$hasAll` |   |
+| `variants.values.choices.optionId` | `$hasSome`, `$hasAll` |   |
 
 
 
