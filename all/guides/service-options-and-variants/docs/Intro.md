@@ -23,7 +23,7 @@ There are 3 different possible rates:
    + `priceText`: For services with prices manually set by the business.
    + `defaultPrice`: For services with [varied pricing](https://dev.wix.com/api/rest/wix-bookings/pricing/introduction).
 
-If any of theses 3 rates are defined in the service's active schedule, pricing options have already been defined.
+If any of these 3 rates are defined in the service's active schedule, pricing options have already been defined.
 
 
 ## Terminology
@@ -31,7 +31,7 @@ If any of theses 3 rates are defined in the service's active schedule, pricing o
 For a comprehensive glossary of Wix Bookings terms, see [Terminology](https://dev.wix.com/api/rest/wix-bookings/terminology).
 
 
-## Before You Begin
+## Before you begin
 
 It's important to note the following points before starting to code:
 
