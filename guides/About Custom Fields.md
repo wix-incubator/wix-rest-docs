@@ -24,16 +24,16 @@ To add custom fields for an API object to an app, follow these steps:
 Once you add custom fields to an app, you can read and write them using the API endpoints for the object. In both cases, custom fields are added to the main object using the `customFields` property. This property contains a `namespaces` object that contains the custom fields for each namespace. The namespace is the app's namespace that was created when the custom fields were added to the app. For example:
 ```json
 {
-    "customFields": {
-        "namespaces": {
-            "@my-name/app1": {
-                "myCustomField": "my custom field value"
-            },
-            "@account-name/app2": {
-                "myOtherCustomField": "my other custom field value"
-            }
-        }
+  "customFields": {
+    "namespaces": {
+      "@my-name/app1": {
+        "myCustomField": "my custom field value"
+      },
+      "@account-name/app2": {
+        "myOtherCustomField": "my other custom field value"
+      }
     }
+  }
 }
 ```
 
@@ -113,8 +113,8 @@ We extended the JSON schema to support the following Wix-specific keywords:
 This keyword is used to define the permissions required to read and write a custom field. This keyword is required for all custom fields. The value of this keyword is an object that defines read and write permissions separately. For example:
 ```json
 "x-wix-permissions": {
-    "read": ["apps", "users", "users-of-users"],
-    "write": ["apps", "users"]
+  "read": ["apps", "users", "users-of-users"],
+  "write": ["apps", "users"]
 }
 ```
 The supported permissions values are as follows:
@@ -128,14 +128,51 @@ This keyword is used to archive a custom field. The value of this keyword is a b
 For example:
 ```json
 "myCustomField": {
-    "x-wix-archive": true,
-    "type": "string",
-    "maxLength": 100,
-    "x-wix-permissions": {
-        "read": ["apps"],
-        "write": ["apps"]
-    },
+  "x-wix-archive": true,
+  "type": "string",
+  "maxLength": 100,
+  "x-wix-permissions": {
+    "read": ["apps"],
+    "write": ["apps"]
+  },
 }
 ```
 #### `x-wix-display`
 
+### Example custom field schema
+Here is an example of a custom field schema that defines `firstName`, `lastName`, and `age` properties.
+```json
+{
+  "firstName": {
+    "type": "string",
+    "description": "The person's first name.",
+    "x-wix-permissions": {
+      "read":["apps"],
+      "write":["users"]
+    },
+    "title":"Name",
+    "maxLength": 20
+  },
+  "lastName": {
+    "type": "string",
+    "description": "The person's last name.",
+    "x-wix-permissions": {
+      "read":["apps"],
+      "write":["users"]
+    },
+    "title":"Last Name",
+    "maxLength": 20
+  },
+  "age": {
+    "description": "Age in years which must be equal to or greater than zero.",
+    "type": "integer",
+    "minimum": 0,
+    "x-wix-permissions": {
+      "read":["apps"],
+      "write":["users"]
+    },
+    "title":"Age",
+    "maxLength": 20
+  }
+}
+```
