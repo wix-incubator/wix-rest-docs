@@ -59,6 +59,7 @@ Custom fields are defined using a subset of [JSON schema](https://json-schema.or
 + Max stored data size : 10000 Bytes
 + Custom field schemas can't contain more than 256 properties.
 + The maximum length of a property key is 64 characters.
++ Property keys must start with a letter and can contain only letters, bnubers, and underscores.
 + The maximum storage size for an individual custom field object is 10 KB. This size is calculated based on the properties defined in the object's schema including the maximum lengths of all strings and the maximum items of all arrays.
 
 The custom fields feature supports all the basic JSON schema types with some restrictions, as follows:
