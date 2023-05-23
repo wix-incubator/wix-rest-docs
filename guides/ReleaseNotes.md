@@ -1,5 +1,25 @@
 # Release Notes
 
+## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
+
+The [Bookings Service Options and Variants](wix-bookings/service-options-and-variants) API enables you to retrieve and manage options and variants for a particular bookings service. The new API includes:
+
++ [Get Service Options ](wix-events/event-guests/query-event-guests)
+
++ [Get Service Options And Variants](/wix-bookings/service-options-and-variants/get-service-option-and-variants) by ID 
++ [Get Service Options And Variants By Service ID](/wix-bookings/service-options-and-variants/get-service-options-and-variants-by-serviceid)
++ [Query Service Options And Variants](/wix-bookings/service-options-and-variants/query-service-options-and-variants)
++ [Create Service Options And Variants](/wix-bookings/service-options-and-variants/create-service-options-and-variants)
++ [Clone Service Options And Variants](/wix-bookings/service-options-and-variants/clone-service-options-and-variants)
++ [Update Service Options And Variants](/wix-bookings/service-options-and-variants/update-service-options-and-variants)
++ [Delete Service Options And Variants](/wix-bookings/service-options-and-variants/delete-service-options-and-variants)
++ Webhooks: 
+    + [Service Options And Variants Created](/wix-bookings-v2/events/service-options-and-variants-created-webhook)
+    + [Service Options And Variants Updated](/wix-bookings-v2/events/service-options-and-variants-updated-webhook)
+    + [Service Options And Variants Deleted](/wix-bookings-v2/events/service-options-and-variants-deleted-webhook)
+
+(May 22, 2023)
+
 ## New Functionality: [Wix Blocks](https://support.wix.com/en/wix-blocks)
 3rd party apps can now be written partially or completely using Wix Blocks, powered by [Velo by Wix](https://www.wix.com/velo/reference).
 See [Publishing your Blocks app to the App Market](https://support.wix.com/en/article/wix-blocks-publishing-your-app-to-the-app-market) for details.
