@@ -12,9 +12,9 @@ The [Bookings Service Options and Variants](wix-bookings/service-options-and-var
 + [Update Service Options And Variants](/wix-bookings/service-options-and-variants/update-service-options-and-variants)
 + [Delete Service Options And Variants](/wix-bookings/service-options-and-variants/delete-service-options-and-variants)
 + Webhooks: 
-    + [Service Options And Variants Created](/wix-bookings-v2/service-options-and-variants/service-options-and-variants-created-webhook)
-    + [Service Options And Variants Updated](/wix-bookings-v2/service-options-and-variants/service-options-and-variants-updated-webhook)
-    + [Service Options And Variants Deleted](/wix-bookings-v2/service-options-and-variants/service-options-and-variants-deleted-webhook)
+    + [Service Options And Variants Created](/wix-bookings/service-options-and-variants/service-options-and-variants-created-webhook)
+    + [Service Options And Variants Updated](/wix-bookings/service-options-and-variants/service-options-and-variants-updated-webhook)
+    + [Service Options And Variants Deleted](/wix-bookings/service-options-and-variants/service-options-and-variants-deleted-webhook)
 
 (May 22, 2023)
 
