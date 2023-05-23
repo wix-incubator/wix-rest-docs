@@ -150,7 +150,7 @@ Here is an example of a custom field schema that defines `firstName`, `lastName`
       "read":["apps"],
       "write":["users"]
     },
-    "title":"Name",
+    "title":"First Name",
     "maxLength": 20
   },
   "lastName": {
