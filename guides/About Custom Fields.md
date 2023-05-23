@@ -1,6 +1,6 @@
 # About Custom Fields
 
-The Custom Fields feature allows an app to extend the objects used by Wix's APIs with additional fields. You can use these fields to store information that isn't supported by the object's schema. Custom fields are added to an app in the Wix Dev Center. Once custom fields are added for a particular object, they can be read and written using that object's API endpoints. This article explains how to add custom fields to an app and the details of reading and writing custom fields using APIs.
+The custom fields feature allows an app to extend the objects used by Wix's APIs with additional fields. You can use these fields to store information that isn't supported by the object's schema. Custom fields are added to an app in the Wix Dev Center. Once custom fields are added for a particular object, they can be read and written using that object's API endpoints. This article explains how to add custom fields to an app and the details of reading and writing custom fields using APIs.
 
 > **Note:** Not all the API objects support custom fields. If an object or endpoint supports custom fields, the following message is displayed in the API Reference: `This API supports custom fields. To use this feature, set it up in the Wix Dev Center. ` <!--TODO - Finalize the snippet/tag with Wix Docs -->
 
