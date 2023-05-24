@@ -16,6 +16,7 @@ To add custom fields for an API object to an app, follow these steps:
 1. Select **Data Extension** and click **Add Component**.
 1. If this is the first time you're adding custom fields to the app, you're prompted to create a namespace for the app. This namespace is used when reading and writing any custom fields created for the app.  
    > **Note:** Once a namespace is created, it can't be changed.  
+   
    ![create namespace](../media/create-namespace.png)
 1. Choose the object you want to add custom fields to and click **Choose Entity**.  
    ![choose entity](../media/choose-entity.png)
