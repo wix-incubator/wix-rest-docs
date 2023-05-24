@@ -51,6 +51,8 @@ If the object you extended has a unified endpoint, you can write custom field da
 #### Dedicated Endpoint
 In some cases, there is a dedicated API endpoint for updating custom fields. These endpoints may require a permission scope that's different from the scope required to update the object itself.
 
+> **Note:** If the object you extended has a `revision` field, this field is not incremented when you update custom fields using a dedicated endpoint.
+
 To check if there is a dedicated endpoint for updating your custom fields, see the API Reference for the object you are extending.
 
 
@@ -97,7 +99,8 @@ The `boolean` type is used to define JSON schema [boolean](https://json-schema.o
 
 ### Global keywords
 The following global JSON schema keywords are supported:
-+ [Annotations](https://json-schema.org/understanding-json-schema/reference/generic.html#annotations)
++ [Annotations](https://json-schema.org/understanding-json-schema/reference/generic.html#annotations). 
+  > **Note:** The `title` and `description` annotation keywords are used to display information about the custom field in the site user's dashboard. [Learn more](#title-and-description).
 + [Enumerated values](https://json-schema.org/understanding-json-schema/reference/generic.html#enumerated-values)
 
 The following global keywords aren't supported:
@@ -138,7 +141,12 @@ For example:
   },
 }
 ```
+
+#### `title` and `description`
+
+
 #### `x-wix-display`
+
 
 ### Example custom field schema
 Here is an example of a custom field schema that defines `firstName`, `lastName`, and `age` properties.
