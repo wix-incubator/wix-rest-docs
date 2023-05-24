@@ -9,12 +9,16 @@ The custom fields feature allows an app to extend the objects used by Wix's APIs
 To add custom fields for an API object to an app, follow these steps:
 
 1. Open the [Wix Dev Center](https://dev.wix.com/apps/) and select the app you want to add custom fields to.
-1. In the sidebar on the left, click **Components**.
-1. Hover over **Add Component** and select **Integration Component**.
+1. In the sidebar on the left, click **Components**.  
+   ![sidebar menu](../media/sidebar-components.png)
+1. Hover over **Add Component** and select **Integration Component**.  
+   ![add component](../media/select-integration-component.png)
 1. Select **Data Extension** and click **Add Component**.
 1. If this is the first time you're adding custom fields to the app, you're prompted to create a namespace for the app. This namespace is used when reading and writing any custom fields created for the app.  
-   > **Note:** Once a namespace is created, it can't be changed.
-1. Choose the object you want to add custom fields to and click **Choose Entity**.
+   > **Note:** Once a namespace is created, it can't be changed.  
+   ![create namespace](../media/create-namespace.png)
+1. Choose the object you want to add custom fields to and click **Choose Entity**.  
+   ![choose entity](../media/choose-entity.png)
 1. Use the **JSON Editor** to define the custom fields you want to add the object in [JSON Schema](#json-schema) format.  
    The editor's linter indicates if there are any errors in the JSON Schema.
 1. Once your custom fields are defined, click **Save**.  
