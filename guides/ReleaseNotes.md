@@ -3,7 +3,7 @@
 
 ## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
 
-The Bookings V2 API now includes new webhooks:
+The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks:
 
 + [Booking Created](/wix-bookings/bookings-v2/booking-created-webhook)
 + [Booking Rescheduled](/wix-bookings/bookings-v2/booking-rescheduled-webhook)
