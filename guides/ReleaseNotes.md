@@ -10,7 +10,7 @@ The Bookings V2 API now includes new webhooks:
 + [Booking Confirmed](/wix-bookings/bookings-v2/booking-confirmed-webhook)
 + [Booking Declined](/wix-bookings/bookings-v2/booking-declined-webhook)
 + [Booking Canceled](/wix-bookings/bookings-v2/booking-canceled-webhook)
-+ [Number Of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated -webhook)
++ [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
 
 
 (May 24, 2023)
