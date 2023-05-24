@@ -2,7 +2,11 @@
 
 The extended fields feature allows an app to extend the objects used by Wix's APIs with additional fields. You can use these fields to store information that isn't supported by the object's schema. Extended fields are added to an app in the Wix Dev Center. Once extended fields are added for a particular object, they can be read and written using that object's API endpoints. This article explains how to add extended fields to an app and the details of reading and writing extended fields using APIs.
 
-> **Note:** Not all the API objects support extended fields. If an object or endpoint supports extended fields, the following message is displayed in the API Reference: `This API supports extended fields. To use this feature, set it up in the Wix Dev Center. ` <!--TODO - Finalize the snippet/tag with Wix Docs -->
+<!-- REMOVED FOR DEV PREVIEW
+
+> **Note:** Not all the API objects support extended fields. If an object or endpoint supports extended fields, the following message is displayed in the API Reference: `This API supports extended fields. To use this feature, set it up in the Wix Dev Center. ` <!--TODO - Finalize the snippet/tag with Wix Docs - ->
+
+-->
 
 ## Add extended fields to an app
 
@@ -105,7 +109,7 @@ The `boolean` type is used to define JSON schema [boolean](https://json-schema.o
 ### Global keywords
 The following global JSON schema keywords are supported:
 + [Annotations](https://json-schema.org/understanding-json-schema/reference/generic.html#annotations). 
-  > **Note:** The `title` and `description` annotation keywords are used to display information about the extended field in the site user's dashboard. [Learn more](#title-and-description).
+  > **Note:** The `title` annotation keyword is used to display information about the extended field in the dashboard of sites that install your app. [Learn more](#title).
 + [Enumerated values](https://json-schema.org/understanding-json-schema/reference/generic.html#enumerated-values)
 
 The following global keywords aren't supported:
@@ -147,12 +151,8 @@ For example:
 }
 ```
 
-#### `title` and `description`
-
-
-#### `x-wix-display`
-
-
+#### `title`
+In the extended fields schema the `title` annotation keyword is used as the label for the extended field in the dashboard of sites that install your app. For example, if your app extends the Bookings object, the `title` for extended field is used as the label for the field when a site owner adds a new booking in their dashboard.
 ### Example extended field schema
 Here is an example of an extended field schema that defines `firstName`, `lastName`, and `age` properties.
 ```json
