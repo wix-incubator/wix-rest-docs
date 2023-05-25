@@ -44,6 +44,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "deprecated": true,
       "params":       [
                 {
           "in": "BODY",
@@ -126,8 +127,7 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListSessionsRequest",
-        "rpcResponseName": "ListSessionsResponse",
-        "artifactId": "com.wixpress.bookings.calendar-server-writer"
+        "rpcResponseName": "ListSessionsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -140,6 +140,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "deprecated": true,
       "params":       [
                 {
           "in": "BODY",
@@ -175,7 +176,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "Returns the schedule slots, calculated according to the schedule's availability configuration.  \n  \n The query object supports:  \n\n |FIELD | Supported Filters| Description|\n |--|--|--|\n |`from`|`.eq`| Query range start time. Required. |\n |`to`|`.eq`| Query range end time. Required. |\n |`scheduleIds`|`.eq`| List of scheduleIds. Required. Up to 100 values are allowed. |\n |`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n |isAvailable|`.eq`| Slots with full no availability are returned by default. `Filter.isAvailable = false` is not supported.\n |`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values.|\n |**sort**| Not Supported| Sorted by `start.timestamp` only.|\n |**fields**| Supported|\n |**paging**| Supported| Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n |**fieldsets**| Not supported| |\n  \n > + The following objects in the `listQuery` parameter are not supported for this query:  \n >    - `sort`\n >    - `fieldsets`  \n >\n > + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n  \n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar Availability, the Read Bookings Calendar, the Read Bookings - Public Data, the Read Bookings - Including Participants or the Manage Bookings permission scope.\n \n",
+        "summary": "<blockquote class='warning'>    \n \n  __Deprecation Notice:__  \n\n This endpoint has been deprecated and will be removed on Aug 31, 2023.  \n Please use [Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability) instead.\n<\/blockquote>\n\nReturns the schedule slots, calculated according to the schedule's availability configuration.  \n  \n The query object supports:  \n\n |FIELD | Supported Filters| Description|\n |--|--|--|\n |`from`|`.eq`| Query range start time. Required. |\n |`to`|`.eq`| Query range end time. Required. |\n |`scheduleIds`|`.eq`| List of scheduleIds. Required. Up to 100 values are allowed. |\n |`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n |isAvailable|`.eq`| Slots with full no availability are returned by default. `Filter.isAvailable = false` is not supported.\n |`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values.|\n |**sort**| Not Supported| Sorted by `start.timestamp` only.|\n |**fields**| Supported|\n |**paging**| Supported| Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n |**fieldsets**| Not supported| |\n  \n > + The following objects in the `listQuery` parameter are not supported for this query:  \n >    - `sort`\n >    - `fieldsets`  \n >\n > + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n  \n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar Availability, the Read Bookings Calendar, the Read Bookings - Public Data, the Read Bookings - Including Participants or the Manage Bookings permission scope.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/calendar/listSlots",
@@ -208,8 +209,7 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListSlotsRequest",
-        "rpcResponseName": "ListSlotsResponse",
-        "artifactId": "com.wixpress.bookings.calendar-server-writer"
+        "rpcResponseName": "ListSlotsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -260,7 +260,7 @@
                 {
           "in": "BODY",
           "name": "type",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionType",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
           "doc": " Type of sessions to return.\n + `EVENT`: Returns only sessions of type `EVENT`.\n + `WORKING_HOURS`: Returns only sessions of type `WORKING_HOURS`.\n + `ALL`: Returns sessions of all types.\n \n Default: `EVENT`.\n",
           "required": false
         },
@@ -289,7 +289,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of sessions, given the provided time range, filtering, and paging.\n\n To query for event instances within a specified time range of up to 1 year, provide a `startDate` and `endDate`.\n\n Query Sessions runs with these defaults, which you can override:\n - Only sessions of type `EVENT` are returned. An event is a single or recurring session that appears in a calendar, for example an appointment or a class.\n - `instances` is true. This means only single session instances and instances of recurring sessions are returned.\n - `includeExternal` is false. This means that sessions imported from connected external calendars are not returned. \n - Session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.\n - `query.cursorPaging.limit` is `100`.\n\n Note the following limitations, which you can't override:\n - Sessions are always sorted by `start.timestamp` in `ASC` order.\n - The maximum time range you can query for session instances is 1 year. If you are querying for recurring session definitions, rather than session instances, this limit doesn't apply.\n - Pagination is not supported for recurring session definition queries.\n  \n To query only for working hours sessions, set `type` to `WORKING_HOURS`. A working hours session is a single or recurring session that defines availability in a schedule.\n\n To query for all session types, including events and working hours sessions, set `type` to `ALL`.\n\n To query for recurring session pattern definitions, set `instances` to `false`. In this case, `fromDate` and `toDate` may be more than 1 year apart.\n \n To return session objects including personal information, use the `ALL_PI` fieldset. This requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n\n For details on fieldsets, see [Sessions: Supported Fieldsets](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-fieldsets).\n\n For field support for filters, see [Sessions: Supported Filters](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-filters).\n\n To learn about working with _Query_ endpoints in general, see\n [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) and\n [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n",
+        "summary": " Retrieves a list of sessions, given the provided time range, filtering, and paging.\n\n To query for event instances within a specified time range of up to 1 year, provide a `startDate` and `endDate`.\n\n Query Sessions runs with these defaults, which you can override: \n - Only sessions of type `EVENT` are returned. An event is a single or recurring session that appears in a calendar, for example an appointment or a class.\n - `instances` is true. This means only single session instances and instances of recurring sessions are returned.\n - `includeExternal` is false. This means that sessions imported from connected external calendars are not returned. \n - Session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.\n - `query.cursorPaging.limit` is `100`.\n\n Note the following limitations, which you can't override:\n - Sessions are always sorted by `start.timestamp` in `ASC` order.\n - The maximum time range you can query for session instances is 1 year. If you are querying for recurring session definitions, rather than session instances, this limit doesn't apply.\n - Pagination is not supported for recurring session definition queries.\n  \n To query only for working hours sessions, set `type` to `WORKING_HOURS`. A working hours session is a single or recurring session that defines availability in a schedule.\n\n To query for all session types, including events and working hours sessions, set `type` to `ALL`.\n\n To query for recurring session pattern definitions, set `instances` to `false`. In this case, `fromDate` and `toDate` may be more than 1 year apart.\n \n To return session objects including personal information, use the `ALL_PI` fieldset. This requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n\n For details on fieldsets, see [Sessions: Supported Fieldsets](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-fieldsets).\n\n For field support for filters, see [Sessions: Supported Filters](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-filters).\n\n To learn about working with _Query_ endpoints in general, see\n [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) and\n [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v2/calendar/sessions/query",
@@ -350,8 +350,7 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QuerySessionsRequest",
-        "rpcResponseName": "QuerySessionsResponse",
-        "artifactId": "com.wixpress.bookings.calendar-server"
+        "rpcResponseName": "QuerySessionsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -935,11 +934,6 @@
           "name": "customAddress",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_upstream_wix_common_Address",
           "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
-        },
-                {
-          "name": "businessLocation",
-          "type": "All APIs.Bookings - Calendar._com_wixpress_locations_Location",
-          "doc": " Valid when `locationType` is `OWNER_BUSINESS`. Defaults to the business's location.\n\n`businessSchedule` is not supported by Wix Bookings\n"
         }
       ],
       "enum": null,
@@ -1301,7 +1295,8 @@
                 {
           "name": "rate",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_common_api_v1_Rate",
-          "doc": "The price options offered for the session.  Defaults to the schedule rate.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "timeReservedAfter",
@@ -1325,7 +1320,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "List of participants booked for the session.\nThe list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.\nIf the session is a recurring session, this field must be empty.\n"
+          "doc": " **Partial list** list of participants booked for the session.  \n The list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.  \n If the session is a recurring session, this field must be empty.  \n To retrieve the full list of session participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n"
         },
                 {
           "name": "inheritedFields",
@@ -1339,7 +1334,8 @@
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "Deprecated and will be removed soon.\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -1368,7 +1364,8 @@
                 {
           "name": "calendarConference",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the session according to the details set in the schedule's conference provider information.\nIf the session is a recurring session, this field is inherited from the schedule.\n"
+          "doc": " A conference created for the session according to the details set in the schedule's conference provider information.  \n If the session is a recurring session, this field is inherited from the schedule.  \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         },
                 {
           "name": "recurrence",
@@ -1907,17 +1904,39 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "\nlist of scheduleIds to check if it has free time on the timeframe defined.\nCurrently - support only 1\n"
+          "doc": "\nlist of scheduleIds to check if it has free time on the timeframe defined.\nCurrently - support only 1\n",
+          "deprecated": true
         },
                 {
           "name": "from",
           "type": "string",
-          "doc": "\nQuery range start time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n"
+          "doc": "\nQuery range start time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n",
+          "deprecated": true
         },
                 {
           "name": "to",
           "type": "string",
-          "doc": "\nQuery range end time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n"
+          "doc": "\nQuery range end time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "scheduleIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nlist of scheduleIds to check if it has free time on the timeframe defined.\nCurrently - support only 1\n",
+          "deprecated": true
+        },
+                {
+          "name": "startTime",
+          "type": "string",
+          "doc": "\nQuery range start time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`end_time` is greater than or equal to `start_time`.\n"
+        },
+                {
+          "name": "endTime",
+          "type": "string",
+          "doc": "\nQuery range end time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`end_time` is greater than or equal to `start_time`.\n"
         }
       ],
       "enum": null,
@@ -2137,7 +2156,7 @@
         },
                 {
           "name": "type",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionType",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
           "doc": " Type of sessions to return.\n + `EVENT`: Returns only sessions of type `EVENT`.\n + `WORKING_HOURS`: Returns only sessions of type `WORKING_HOURS`.\n + `ALL`: Returns sessions of all types.\n \n Default: `EVENT`.\n"
         },
                 {
@@ -2426,8 +2445,8 @@
       "labels": []
     },
         {
-      "name": "_com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionType",
-      "displayName": "Session Type Object",
+      "name": "_com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
+      "displayName": "Session Type Filter Object",
       "locations": [],
       "docs":       {
         "summary": " \n Possible values are: <li><code> UNKNOWN_SESSION_TYPE <\/code><\/li><li><code> EVENT -  Filter sessions of type `EVENT`. This is the default.\n <\/code><\/li><li><code> WORKING_HOURS -  Filter sessions of type `WORKING_HOURS`.\n <\/code><\/li><li><code> ALL -  Return sessions of any type.\n <\/code><\/li>",
@@ -2445,5 +2464,5 @@
       "labels": []
     }
   ],
-  "extra": {}
+  "extra": {"artifactId": "com.wixpress.bookings.calendar-server"}
 }
