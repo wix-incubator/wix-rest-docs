@@ -54,10 +54,10 @@ The endpoint used to write extended fields may be different depending on the obj
 
 > **Note:** To delete the value of an extended field, set its value to `null`.
 
-#### Unified Endpoint
+#### Unified endpoint
 If the object you extended has a unified endpoint, you can write extended field data using the same API endpoint used to write the object you extended. The extended fields are written to the `extendedFields` property of the object, as in the example above.
 
-#### Dedicated Endpoint
+#### Dedicated endpoint
 In some cases, there is a dedicated API endpoint for updating extended fields. These endpoints may require a permission scope that's different from the scope required to update the object itself.
 
 > **Note:** If the object you extended has a `revision` field, this field is not incremented when you update extended fields using a dedicated endpoint.
@@ -65,7 +65,7 @@ In some cases, there is a dedicated API endpoint for updating extended fields. T
 To check if there is a dedicated endpoint for updating your extended fields, see the API Reference for the object you are extending.
 
 
-## JSON Schema
+## JSON Schema for extended fields
 Extended fields are defined using a subset of [JSON schema](https://json-schema.org/). There are some general restrictions on the JSON schema to keep in mind when defining extended fields:
 + Extended field schemas can't contain more than 256 properties.
 + The maximum length of a property key is 64 characters.
