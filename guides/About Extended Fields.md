@@ -85,19 +85,19 @@ The `string` type is used to define a JSON schema [string](https://json-schema.o
        > **Note:** If a string is defined as `single-line`, the format can be removed later. However, if a string is created as multi-line text, the format can't be changed later to `single-line`.
 
 ### Numeric types
-The `number` and `integer` types are used to define a JSON schema [numeric type](https://json-schema.org/understanding-json-schema/reference/numeric.html#numeric). The minimum value for a numeric extended field is -2^53 + 1 and the maximum value is 2^53 + 1.
+The `number` and `integer` types are used to define a JSON schema [numeric type](https://json-schema.org/understanding-json-schema/reference/numeric.html#numeric). The minimum value for a numeric extended field is `-2^53 + 1` and the maximum value is `2^53 + 1`.
 
 ### Object
 The `object` type is used to define a JSON schema [object](https://json-schema.org/understanding-json-schema/reference/object.html#object). Please note the following restrictions to the `object` definition:
-+ `object` fields must contain a `properties` object that defines the properties of the object. 
++ `object` field schema must contain a `properties` object that defines the properties of the object. 
 + The items in the properties object must follow the all the restrictions of the other extended field types. 
 + There is maximum of 10 nesting levels for an object.
 
 ### Array
 The `array` type is used to define a JSON schema [array](https://json-schema.org/understanding-json-schema/reference/array.html#array).  Please note the following restrictions:
-+ `array` fields must contain an `items` object that defines the items in the array.
++ `array` field schema must contain an `items` object that defines the items in the array.
 + The items in the array must follow the all the restrictions of the other extended field types.
-+ [Length](https://json-schema.org/understanding-json-schema/reference/array.html#length): The maximum length of an array is 100 items. The maximum number of items of an array field must be defined.
++ The maximum [length](https://json-schema.org/understanding-json-schema/reference/array.html#length) of an array is 100 items. The maximum number of items of an array field must be defined using the `maxItems` keyword.
 + All the items in an array must be the same type.
 + Arrays can only contain items of these types: `string`, `number`, `integer`, and `boolean`.
 
@@ -124,20 +124,21 @@ The following global keywords aren't supported:
 We extended the JSON schema to support the following Wix-specific keywords:
 
 #### `x-wix-permissions`
-This keyword is used to define the permissions required to read and write an extended field. This keyword is required for all extended fields. The value of this keyword is an object that defines read and write permissions separately. For example:
+This keyword is used to define the permissions required to read and write an extended field. This keyword is required for all extended fields. The value of this keyword is an object that defines read and write permissions in separate arrays. For example:
 ```json
 "x-wix-permissions": {
-  "read": ["apps", "users", "users-of-users"],
-  "write": ["apps", "users"]
+  "read": ["owning-app", "apps", "users", "users-of-users"],
+  "write": ["owning-app", "apps", "users"]
 }
 ```
 The supported permissions values are as follows:
++ `owning-app`: Your app, the one that defines the extended field.
 + `apps`: Other apps installed on a site together with the app that defines the extended field.
 + `users`: The owners of sites that have the app installed.
 + `users-of-users`: A site owner's site members.
 
 #### `x-wix-archive`
-This keyword is used to archive an extended field. The value of this keyword is a boolean. Once an extended field is archived, it can't be read or written using the API. If an archived extended field has nested fields, the nested fields are also archived. To unarchive an extended field, change the value of this keyword to `false` or remove it from the schema. 
+This keyword is used to archive an extended field. The value of this keyword is a boolean. Once an extended field is archived, it can't be read or written using APIs. If an archived extended field has nested fields, the nested fields are also archived. To unarchive an extended field, change the value of this keyword to `false` or remove it from the schema. 
 
 For example:
 ```json
@@ -157,39 +158,42 @@ For example:
 In the extended fields schema the `title` annotation keyword is used as the label for the extended field in the dashboard of sites that install your app. For example, if your app extends the Bookings object, the `title` for extended field is used as the label for the field when a site owner adds a new booking in their dashboard.
 <-->
 ### Example extended field schema
-Here is an example of an extended field schema that defines `firstName`, `lastName`, and `age` properties.
+Here is an example of an extended field schema that defines `firstName`, `lastName`, and `age` properties. This is what the final schema looks like in the JSON Editor.
 ```json
 {
-  "firstName": {
-    "type": "string",
-    "description": "The person's first name.",
-    "x-wix-permissions": {
-      "read":["apps"],
-      "write":["users"]
+  "type": "object",
+  "properties":{
+    "firstName": {
+      "type": "string",
+      "description": "The person's first name.",
+      "x-wix-permissions": {
+        "read":["apps"],
+        "write":["users"]
+      },
+      "title":"First Name",
+      "maxLength": 20
     },
-    "title":"First Name",
-    "maxLength": 20
-  },
-  "lastName": {
-    "type": "string",
-    "description": "The person's last name.",
-    "x-wix-permissions": {
-      "read":["apps"],
-      "write":["users"]
+    "lastName": {
+      "type": "string",
+      "description": "The person's last name.",
+      "x-wix-permissions": {
+        "read":["apps"],
+        "write":["users"]
+      },
+      "title":"Last Name",
+      "maxLength": 20
     },
-    "title":"Last Name",
-    "maxLength": 20
-  },
-  "age": {
-    "description": "Age in years which must be equal to or greater than zero.",
-    "type": "integer",
-    "minimum": 0,
-    "x-wix-permissions": {
-      "read":["apps"],
-      "write":["users"]
-    },
-    "title":"Age",
-    "maxLength": 20
+    "age": {
+      "description": "Age in years which must be equal to or greater than zero.",
+      "type": "integer",
+      "minimum": 0,
+      "x-wix-permissions": {
+        "read":["apps"],
+        "write":["users"]
+      },
+      "title":"Age",
+      "maxLength": 20
+    }
   }
 }
 ```
