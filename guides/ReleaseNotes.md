@@ -1,5 +1,7 @@
 # Release Notes
 
+
+
 ## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
 
 The [Bookings Service Options and Variants](wix-bookings/service-options-and-variants) API enables you to retrieve and manage options and variants for a particular bookings service. The new API includes:
@@ -71,7 +73,7 @@ The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and m
 
 ## New Endpoints: [Wix Media](media/media-manager)
 
-The Media API now includes new endpoints and events:
+The Media API now includes new endpoints and webhooks:
 
 + [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
 + [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
