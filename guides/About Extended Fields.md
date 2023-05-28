@@ -47,7 +47,7 @@ Once you add extended fields to an app, you can read and write them using the AP
 ```
 
 ### Read
-To read extended field data, use the same API endpoint used to retrieve object you extended. 
+To read extended field data, use the same API endpoint used to retrieve the object you extended. 
 
 ### Write
 The endpoint used to write extended fields may be different depending on the object you extended. There are 2 possible options, unified endpoint and dedicated endpoint.
