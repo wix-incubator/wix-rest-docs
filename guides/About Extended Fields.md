@@ -67,10 +67,9 @@ To check if there is a dedicated endpoint for updating your extended fields, see
 
 ## JSON Schema
 Extended fields are defined using a subset of [JSON schema](https://json-schema.org/). There are some general restrictions on the JSON schema to keep in mind when defining extended fields:
-+ Max stored data size : 10000 Bytes
 + Extended field schemas can't contain more than 256 properties.
 + The maximum length of a property key is 64 characters.
-+ Property keys must start with a letter and can contain only letters, bnubers, and underscores.
++ Property keys must start with a letter and can contain only letters, numbers, and underscores.
 + The maximum storage size for an individual extended field object is 10 KB. This size is calculated based on the properties defined in the object's schema including the maximum lengths of all strings and the maximum items of all arrays.
 
 The extended fields feature supports all the basic JSON schema types with some restrictions, as follows:
@@ -108,8 +107,10 @@ The `boolean` type is used to define JSON schema [boolean](https://json-schema.o
 
 ### Global keywords
 The following global JSON schema keywords are supported:
-+ [Annotations](https://json-schema.org/understanding-json-schema/reference/generic.html#annotations). 
++ [Annotations](https://json-schema.org/understanding-json-schema/reference/generic.html#annotations) 
+  <!-- Not relevant for first release>
   > **Note:** The `title` annotation keyword is used to display information about the extended field in the dashboard of sites that install your app. [Learn more](#title).
+  <-->
 + [Enumerated values](https://json-schema.org/understanding-json-schema/reference/generic.html#enumerated-values)
 
 The following global keywords aren't supported:
@@ -151,8 +152,10 @@ For example:
 }
 ```
 
+<!-- Not relevant for first release>
 #### `title`
 In the extended fields schema the `title` annotation keyword is used as the label for the extended field in the dashboard of sites that install your app. For example, if your app extends the Bookings object, the `title` for extended field is used as the label for the field when a site owner adds a new booking in their dashboard.
+<-->
 ### Example extended field schema
 Here is an example of an extended field schema that defines `firstName`, `lastName`, and `age` properties.
 ```json
