@@ -65,6 +65,21 @@ APIs that support extended fields also have a dedicated "Update Extended Fields"
 ### Webhooks
 When you update extended fields using either a standard or dedicated endpoint, the standard "Updated" webhook for the extended object is triggered. The webhook payload contains the updated object including the `extendedFields` propety. The payload only includes data for extended fields whose [read permissions](#x-wix-permissions) include `"apps"`. The payload also includes a boolean value called `has_more_data`. This value is set to `true` if extended fields were updated that don't have `"apps"` in their read permissions. In this case, you can see the updated extended fields by reading the object using the appropriate API endpoint.
 
+Here is an example of the `extendedFields` property in a webhook payload:
+```json
+{
+  "extendedFields": {
+    "namespaces": {
+      "@account-name/app1": {
+        "myField": "my field value",
+        "myField2": "another field value"
+      }
+    },
+    "has_more_data": true
+  }
+}
+```
+
 
 ## JSON Schema for extended fields
 Extended fields are defined using a subset of [JSON schema](https://json-schema.org/). There are some general restrictions on the JSON schema to keep in mind when defining extended fields:
