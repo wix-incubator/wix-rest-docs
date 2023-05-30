@@ -68,6 +68,7 @@ When you update extended fields using either a standard or dedicated endpoint, t
 Here is an example of the `extendedFields` property in a webhook payload:
 ```json
 {
+  // ... Other object data
   "extendedFields": {
     "namespaces": {
       "@account-name/app1": {
