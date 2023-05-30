@@ -56,3 +56,25 @@ Specify the `sort` object in the following format:
 
 __Related content:__
 [Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability)
+
+## Fields
+The following table shows supported fields on the returned `slotAvailability` object, if fields is given and not empty, only the given fields will be included in the returned entity:
+
+__Notes:__
++ The following fields will always be included in the returned entity:
+    + bookable
+    + If slot is given, slot.serviceId & slot.scheduleId will always appear on the returned SlotAvailability.slot.
+
+| Field            |                                                                                                                                                                                                            
+|------------------|
+| `slot`           |                                                                                                                                                                                 
+| `slot.startDate` |
+| `slot.endDate`   |                                                                                                                                                                             
+| `slot.sessionId` |                                                                                                                                                                                                              
+| `slot.timezone`  |                                   
+| `slot.resource`  |                                                                                                                                                                                                              
+| `slot.location`  |                                                                                                                                                                                                              
+| `totalSpots`     |                                                                                                                                                                               
+| `openSpots`      |      
+| `waitingList`    |                                                                                                                                                                                                              
+| `bookingPolicyViolations` |                                                                                                                                                                                                              
