@@ -1,6 +1,109 @@
 # Release Notes
 
 
+## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
+
+The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks for helping you manage the booking process flow:
+
++ [Booking Created](/wix-bookings/bookings-v2/booking-created-webhook)
++ [Booking Rescheduled](/wix-bookings/bookings-v2/booking-rescheduled-webhook)
++ [Booking Confirmed](/wix-bookings/bookings-v2/booking-confirmed-webhook)
++ [Booking Declined](/wix-bookings/bookings-v2/booking-declined-webhook)
++ [Booking Canceled](/wix-bookings/bookings-v2/booking-canceled-webhook)
++ [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
+
+
+(May 30, 2023)
+
+
+## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
+
+The [Bookings Service Options and Variants](wix-bookings/service-options-and-variants) API enables you to retrieve and manage options and variants for a particular bookings service. The new API includes:
+
++ [Get Service Options And Variants](/wix-bookings/service-options-and-variants/get-service-options-and-variants)  
++ [Get Service Options And Variants By Service ID](/wix-bookings/service-options-and-variants/get-service-options-and-variants-by-service-id)
++ [Query Service Options And Variants](/wix-bookings/service-options-and-variants/query-service-options-and-variants)
++ [Create Service Options And Variants](/wix-bookings/service-options-and-variants/create-service-options-and-variants)
++ [Clone Service Options And Variants](/wix-bookings/service-options-and-variants/clone-service-options-and-variants)
++ [Update Service Options And Variants](/wix-bookings/service-options-and-variants/update-service-options-and-variants)
++ [Delete Service Options And Variants](/wix-bookings/service-options-and-variants/delete-service-options-and-variants)
++ Webhooks: 
+    + [Service Options And Variants Created](/wix-bookings/service-options-and-variants/service-options-and-variants-created-webhook)
+    + [Service Options And Variants Updated](/wix-bookings/service-options-and-variants/service-options-and-variants-updated-webhook)
+    + [Service Options And Variants Deleted](/wix-bookings/service-options-and-variants/service-options-and-variants-deleted-webhook)
+
+(May 22, 2023)
+
+## New Functionality: [Wix Blocks](https://support.wix.com/en/wix-blocks)
+3rd party apps can now be written partially or completely using Wix Blocks, powered by [Velo by Wix](https://www.wix.com/velo/reference).
+See [Publishing your Blocks app to the App Market](https://support.wix.com/en/article/wix-blocks-publishing-your-app-to-the-app-market) for details.
+
+(May 22, 2023)
+
+## New Release: [Redirect Session](redirect-session/redirect-session)
+
+The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
+
+- [Create Redirect Session](redirect-session/redirect-session/create-redirect-session)
+
+(April 30, 2023)
+
+## New Release: [Event Guests](wix-events/event-guests)
+
+The [Event Guests](wix-events/event-guests) API enables you to manage guests for a particular event. The new API includes:
+
+- [Query Event Guests](wix-events/event-guests/query-event-guests)
+
+(April 25, 2023)
+
+## New Release: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
+
+The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
+
+(April 13, 2023)
+
+## New Release: [Wix Data API](wix-data)
+
+The [Wix Data API](wix-data/wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
+
++ [Data Items](wix-data/wix-data/data-items): Access and manage items in a Wix site's data collections.
++ [Data Collections](wix-data/wix-data/data-collections): Create data collections and manage their structure.
++ [Indexes](wix-data/wix-data/indexes): Create indexes for data collections, to make querying data faster.
++ [External Database Connections](wix-data/wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
+
+(April 13, 2023)
+
+## New Release: [OAuth Apps API](auth-management/oauth-apps)
+
+The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+
++ [Create OAuth App](auth-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](auth-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](auth-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](auth-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](auth-management/oauth-apps/update-oauth-app)
+
+(April 02, 2023)
+
+## New Endpoints: [Wix Media](media/media-manager)
+
+The Media API now includes new endpoints and webhooks:
+
++ [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
++ [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
++ [List Deleted Files](media/media-manager/files/list-deleted-files) retrieves a list of files in the Media Manager's trash bin.
++ [List Folders](media/media-manager/folders/list-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [List Deleted Folders](media/media-manager/folders/list-deleted-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [File Ready Webhook](media/media-manager/files/file-ready-webhook) triggered when a file is ready to be used, after any post-upload processing.
++ [File Failed Webhook](media/media-manager/files/file-failed-webhook) triggered when a file fails during essential post-upload processing.
++ [File Descriptor Updated Webhook](media/media-manager/files/file-descriptor-updated-webhook) triggered when a file is updated, including when a file is moved to a different folder.
++ [File Descriptor Deleted Webhook](media/media-manager/files/file-descriptor-deleted-webhook) triggered when a file is deleted.
++ [Folder Created Webhook](media/media-manager/folders/folder-created-webhook) triggered when a folder is created.
++ [Folder Updated Webhook](media/media-manager/folders/folder-updated-webhook) triggered when a folder is updated.
++ [Folder Deleted Webhook](media/media-manager/folders/folder-deleted-webhook) triggered when a folder is deleted.
+
+(March 30, 2023)
+
 ## New Releases: Wix Bookings [Pricing API](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi)
 
 The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi) provide third parties the ability to preview, calculate, and customize pricing for bookings:
@@ -43,16 +146,16 @@ The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you 
 (March 02, 2023)
 
 
-## New Release: [Policy v2](wix-events/policy-v2)
+## New Release: [Policies v2](wix-events/policies-v2)
 
-The [Policy v2](wix-events/policy-v2) API enables you to manage the policies for a particular event. The new API includes:
+The [Policies v2](wix-events/policies-v2) API enables you to manage the policies for a particular event. The new API includes:
 
-- [Create Policy](wix-events/policy-v2/create-policy)
-- [Delete Policy](wix-events/policy-v2/delete-policy)
-- [Get Policy](wix-events/policy-v2/get-policy)
-- [Query Policies](wix-events/policy-v2/query-policies)
-- [Reorder Event Policies](wix-events/policy-v2/reorder-event-policies)
-- [Update Policy](wix-events/policy-v2/update-policy)
+- [Create Policy](wix-events/policies-v2/create-policy)
+- [Delete Policy](wix-events/policies-v2/delete-policy)
+- [Get Policy](wix-events/policies-v2/get-policy)
+- [Query Policies](wix-events/policies-v2/query-policies)
+- [Reorder Event Policies](wix-events/policies-v2/reorder-event-policies)
+- [Update Policy](wix-events/policies-v2/update-policy)
 
 (March 01, 2023)
 

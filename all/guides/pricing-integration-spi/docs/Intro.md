@@ -56,7 +56,7 @@ It's important to note the following points before starting to code your integra
 
 ## Signing up to the integration
 
-Send an email to this email address: `bookings-provider-integration@wix.com` to request sign-up. Enter "Bookings Pricing Integration" as the subject, and provide the following details: 
+Send an email to this email address: `bookings-integration@wix.com` to request sign-up. Enter "Bookings Pricing Integration" as the subject, and provide the following details: 
 
 - Type of business (gym, spa, ...)
 - A few words about your business and the market you serve (for example, continuing

@@ -1,13 +1,10 @@
 SortOrder: 3
-# Resellers Errors
+# Resellers API: Errors
 
-
-This articles outlines error messages that might be issued when calling 
+This articles outlines error messages that might be issued when calling
 endpoints of the Resellers API.
 
-
 ## Create Package Errors
-
 
 The [Create Package](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2) endpoint might issue the following error messages:
 
@@ -27,9 +24,7 @@ The [Create Package](https://dev.wix.com/api/rest/account-level-apis/resellers/p
 | `NOT_FOUND (404)` | `SITE_NOT_FOUND` | Site `<metaSiteId>` is not owned by `<requestingAccountId>`, but by `<ownerAccountId>`. | Check that the site exists and that it belongs to the source account. |
 
 
-
 ## Adjust Product Instance Specifications Errors
-
 
 The [Adjust Product Instance Specifications](https://dev.wix.com/api/rest/account-level-apis/resellers/product-instances/adjust-product-instance-specifications) endpoint might issue the following error messages:
 

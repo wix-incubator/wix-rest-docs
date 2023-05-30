@@ -58,8 +58,9 @@ The `metadata` in the envelope is common to all SPI endpoints, although some att
 
 The following envelope attributes are:
 * `requestId` - a unique identifier of the request. You may print this ID to your logs to help with future debugging and easier correlation with Wix' logs.
+* `instanceId` - The Service Provider App's instance ID. 
 * `currency` - [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3 letter currency code.
-* `locale` - a string that represents the country and language in which the response from the Service Provider is expected to be returned in concatenated  [ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and [ISO 3166-1: 2 Alpha country-code](https://en.wikipedia.org/wiki/ISO_3166-1) format. E.g. `en-US`.
+* `languages` - a string that represents the country and language in which the response from the Service Provider is expected to be returned in concatenated  [ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and [ISO 3166-1: 2 Alpha country-code](https://en.wikipedia.org/wiki/ISO_3166-1) format. E.g. `en-US`.
 * `identity` - An object that describes the identity that triggered this request, with the following structure:
 
 ```json
