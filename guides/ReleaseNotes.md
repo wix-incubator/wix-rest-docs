@@ -13,7 +13,7 @@ The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks for he
 + [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
 
 
-(May 24, 2023)
+(May 30, 2023)
 
 
 ## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
