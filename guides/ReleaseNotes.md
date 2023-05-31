@@ -1,6 +1,20 @@
 # Release Notes
 
 
+## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
+
+The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks for helping you manage the booking process flow:
+
++ [Booking Created](/wix-bookings/bookings-v2/booking-created-webhook)
++ [Booking Rescheduled](/wix-bookings/bookings-v2/booking-rescheduled-webhook)
++ [Booking Confirmed](/wix-bookings/bookings-v2/booking-confirmed-webhook)
++ [Booking Declined](/wix-bookings/bookings-v2/booking-declined-webhook)
++ [Booking Canceled](/wix-bookings/bookings-v2/booking-canceled-webhook)
++ [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
+
+
+(May 30, 2023)
+
 
 ## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
 
