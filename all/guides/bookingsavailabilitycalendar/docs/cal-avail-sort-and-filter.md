@@ -3,6 +3,29 @@ SortOrder: 1
 
 `Query` endpoints allow you to filter and sort results based on slot availability properties. This article covers field support for filtering and sorting.
 
+## Fields
+The following table shows supported fields for the `slotAvailability` object. 
+If `fields` is provided and not empty, only the provided fields will be included in the returned entity:
+
+__Notes:__
++ The following fields will always be included in the returned entity:
+    + bookable
+    + If slot is given, slot.serviceId & slot.scheduleId will always appear on the returned SlotAvailability.slot.
+
+| Field            |                                                                                                                                                                                                            
+|------------------|
+| `slot`           |                                                                                                                                                                                 
+| `slot.startDate` |
+| `slot.endDate`   |                                                                                                                                                                             
+| `slot.sessionId` |                                                                                                                                                                                                              
+| `slot.timezone`  |                                   
+| `slot.resource`  |                                                                                                                                                                                                              
+| `slot.location`  |                                                                                                                                                                                                              
+| `totalSpots`     |                                                                                                                                                                               
+| `openSpots`      |      
+| `waitingList`    |                                                                                                                                                                                                              
+| `bookingPolicyViolations` |                                                                                                                                                                                                              
+
 ## Filtering
 
 Specify the `filter` object in the following format:  
@@ -57,25 +80,3 @@ Specify the `sort` object in the following format:
 
 __Related content:__
 [Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability)
-
-## Fields
-The following table shows supported fields on the returned `slotAvailability` object, if fields is given and not empty, only the given fields will be included in the returned entity:
-
-__Notes:__
-+ The following fields will always be included in the returned entity:
-    + bookable
-    + If slot is given, slot.serviceId & slot.scheduleId will always appear on the returned SlotAvailability.slot.
-
-| Field            |                                                                                                                                                                                                            
-|------------------|
-| `slot`           |                                                                                                                                                                                 
-| `slot.startDate` |
-| `slot.endDate`   |                                                                                                                                                                             
-| `slot.sessionId` |                                                                                                                                                                                                              
-| `slot.timezone`  |                                   
-| `slot.resource`  |                                                                                                                                                                                                              
-| `slot.location`  |                                                                                                                                                                                                              
-| `totalSpots`     |                                                                                                                                                                               
-| `openSpots`      |      
-| `waitingList`    |                                                                                                                                                                                                              
-| `bookingPolicyViolations` |                                                                                                                                                                                                              
