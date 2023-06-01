@@ -17,6 +17,11 @@ It’s important to note the following points before starting to code:
 - Guest details are returned only when the `guestDetails` fieldset is sent in the request.
 - In some situations, certain webhooks might be triggered twice. For example, changing a guest's name triggers the [Event Guest Updated](https://dev.wix.com/api/rest/wix-events/event-guests/event-guest-updated-webhook) webhook 2 times -- once for the change of name and once for the change of order, which also occured. While technically correct behavior, this might cause the undesired side effect of duplicated actions. Make sure to explicitly add code to make sure parts of your code only run once.
 
+## Use cases
+
+- [Send invitations to customers for a new event](https://dev.wix.com/api/rest/wix-events/event-guests/sample-use-cases-and-flows#wix-events_event-guests_sample-use-cases-and-flows_send-invitations-to-customers-for-a-new-event)
+- [Get guest attendance analytics from your analytics system](https://dev.wix.com/api/rest/wix-events/event-guests/sample-use-cases-and-flows#wix-events_event-guests_sample-use-cases-and-flows_get-guest-attendance-analytics-from-your-analytics-system)
+
 ## Terminology
 
 - **Guest**: The individual who has been invited to the event.
