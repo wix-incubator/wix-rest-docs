@@ -1,5 +1,21 @@
 # Release Notes
 
+## New Release: Wix eCommerce [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts)
+
+Wix eCommerce introduces the new [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts). When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. 
+
+The Abandoned Checkouts API allows an app developer to help a customer recover their abandoned checkout (return to their incomplete checkout and complete the checkout).
+
+The Abandoned Checkouts API provides the following functionalities:
+
++ [Get](wix-ecommerce/abandoned-checkouts/get-abandoned-checkout) an abandoned checkout.
++ [Query](wix-ecommerce/abandoned-checkouts/query-abandoned-checkouts) abandoned checkouts.
++ An event when an abandoned checkout is [created](wix-ecommerce/abandoned-checkouts/abandoned-checkout-created-webhook).
++ An event when an abandoned checkout is [recovered](wix-ecommerce/abandoned-checkouts/abandoned-checkout-recovered-webhook).
+
+
+(June 6, 2023)
+
 
 ## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
 
