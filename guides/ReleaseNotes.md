@@ -1,5 +1,24 @@
 # Release Notes
 
+## New Release: Marketing: [Marketing Consent API](marketing/marketing-consent)
+
+Marketing introduces the new [Marketing Consent API](marketing/marketing-consent). When a visitor signs up to receive non-transactional content (for example, a newsletter), the sign-up is called a marketing consent. 
+
+The Marketing Consent API allows you to manage marketing consents, and includes the following functionalities:
+
++ [Create](marketing-consent/create-marketing-consent) a marketing consent.
++ [Get](marketing-consent/get-marketing-consent) a marketing consent.
++ [Update](marketing-consent/update-marketing-consent) a marketing consent.
++ [Query](marketing-consent/query-marketing-consent) marketing consents.
++ [Remove](marketing-consent/remove-marketing-consent) (cancel) a marketing consent.
++ An event when a marketing consent is [created](marketing-consent/marketing-consent-created-webhook).
++ An event when a marketing consent is [updated](marketing-consent/marketing-consent-updated-webhook).
++ An event when a marketing consent is [deleted](marketing-consent/marketing-consent-deleted-webhook).
+
+
+(June 7, 2023)
+
+
 ## New Release: Wix eCommerce [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts)
 
 Wix eCommerce introduces the new [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts). When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. 
