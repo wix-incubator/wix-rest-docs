@@ -3,7 +3,7 @@
 
 ## New Release: Wix Bookings [Attendance API](wix-bookings/attendance)
 
-Wix Bookings introduces the new [Attendance API](wix-bookings/attendance) APIs. These APIs allow you to track how many participants attended a booked session.
+Wix Bookings introduces the new [Attendance API](wix-bookings/attendance). This API allows you to track how many participants attended a booked session.
 
 + [Set](wix-bookings/attendance/set-attendance) the attendance for a booked session.
 + [Get](wix-bookings/attendance/get-attendance) the attendance for a booked session.
