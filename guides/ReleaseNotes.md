@@ -1,5 +1,18 @@
 # Release Notes
 
+
+## New Release: Wix Bookings [Attendance API](wix-bookings/attendance)
+
+Wix Bookings introduces the new [Attendance API](wix-bookings/attendance) APIs. These APIs allow you to track how many participants attended a booked session.
+
++ [Set](wix-bookings/attendance/set-attendance) the attendance for a booked session.
++ [Get](wix-bookings/attendance/get-attendance) the attendance for a booked session.
++ [Query](wix-bookings/attendance/query-attendance) attendance for booked sessions.
+
+
+(June 8, 2023)
+
+
 ## New Release: Wix eCommerce [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts)
 
 Wix eCommerce introduces the new [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts). When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. 
