@@ -49,9 +49,7 @@
         "ordersWithFulfillments.orderId",
         "ordersWithFulfillments.fulfillments",
         "ordersWithFulfillments.fulfillments.lineItems",
-        "ordersWithFulfillments.fulfillments.lineItems.id",
-        "ordersWithFulfillments.fulfillments.trackingInfo.trackingNumber",
-        "ordersWithFulfillments.fulfillments.trackingInfo.shippingProvider"
+        "ordersWithFulfillments.fulfillments.lineItems.id"
       ],
       "params": [      {
         "in": "BODY",
@@ -116,9 +114,7 @@
         "orderId",
         "fulfillment",
         "fulfillment.lineItems",
-        "fulfillment.lineItems.id",
-        "fulfillment.trackingInfo.trackingNumber",
-        "fulfillment.trackingInfo.shippingProvider"
+        "fulfillment.lineItems.id"
       ],
       "params":       [
                 {
@@ -270,7 +266,7 @@
           "name": "array",
           "typeParams": ["string"]
         },
-        "doc": " Order IDs for which to retrieve fulfillments.\n",
+        "doc": " List of order IDs for which to retrieve fulfillments.\n",
         "required": true
       }],
       "ret":       {
@@ -432,7 +428,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " \nUpdates a fulfillment's properties.\n\nTo update a field's value, include the new value in the `fulfillment` field in the body params.\nTo remove a field's value, pass `null`.\n\n> **Note:** Updating line item IDs or fulfilled quantities with this API is not allowed. To update line item IDs or quantities, it's best to delete the fulfillment, and create it again.\n \n",
+        "summary": " \nUpdates a fulfillment's properties.\n\nTo update a field's value, include the new value in the `fulfillment` field in the body params.\nTo remove a field's value, pass `null`.\n\n> **Note:** Updating line item IDs or fulfilled quantities is not allowed. To update line item IDs or quantities, delete the fulfillment and create it again.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/ecom/v1/fulfillments/{fulfillment.id}/orders/{orderId}",
@@ -458,7 +454,7 @@
     "type": "_com_wix_ecom_orders_fulfillments_v1_OrderWithFulfillmentsUpdatedDomainEvent",
     "name": "Order With Fulfillments Updated Webhook",
     "docs":     {
-      "summary": "\nTriggered when one or more of an order's fulfillments are added, updated, or deleted.\n\nThe response contains the order's ID and details about all of its fulfillments following the change.\n",
+      "summary": "",
       "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-fulfillments-api/proto/com/wix/ecom/orders/fulfillments/v1/fulfillments.proto"
     },
     "topic": "domain_events_wix.ecom.v1.fulfillments",
@@ -570,7 +566,7 @@
       "displayName": "Fulfillment Object",
       "locations": [],
       "docs":       {
-        "summary": "for now, this is a sub-object of Orders, so can refer to order line items by id.\n",
+        "summary": "",
         "links": [],
         "examples": []
       },
@@ -596,14 +592,50 @@
           "doc": " Line items being fulfilled.\n"
         },
                 {
-          "name": "trackingInfo",
-          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_FulfillmentTrackingInfo",
-          "doc": " Fulfillment tracking info.\n"
+          "name": "FulfillmentInfo",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_Fulfillment_FulfillmentInfo",
+          "doc": " Fulfillment tracking info\n"
+        },
+                {
+          "name": "status",
+          "type": "string",
+          "doc": " Fulfillment status\n"
+        },
+                {
+          "name": "completed",
+          "type": "boolean",
+          "doc": " Fulfillment handling completed\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_Fulfillment_FulfillmentInfo",
+      "displayName": "Fulfillment Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "trackingInfo",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_FulfillmentTrackingInfo",
+          "doc": " Tracking info with defined fields\n"
+        },
+                {
+          "name": "customInfo",
+          "type": "All APIs.Order Fulfillments._com_wix_ecom_orders_fulfillments_v1_CustomFulfillmentInfo",
+          "doc": " Custom-made fulfillment info\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
     },
         {
       "name": "_com_wix_ecom_orders_fulfillments_v1_FulfillmentTrackingInfo",
@@ -623,7 +655,7 @@
                 {
           "name": "shippingProvider",
           "type": "string",
-          "doc": " Shipping provider. Using one of the following shipping providers will allow for auto-filling the tracking link:\n * `fedex`\n * `ups`\n * `usps`\n * `dhl`\n * `canadaPost`\n"
+          "doc": " Shipping provider. Using one of the following shipping providers will allow for auto-filling the tracking link:\n * `'fedex'`\n * `'ups'`\n * `'usps'`\n * `'dhl'`\n * `'canadaPost'`\n"
         },
                 {
           "name": "trackingLink",
@@ -631,6 +663,42 @@
           "doc": " Tracking link. Auto-filled if a predefined shipping provider is used, otherwise provided on creation.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "fieldsDataMapEntry",
+      "displayName": "fields Data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. The custom-made keys and values we got, extra info about the fulfillment\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_fulfillments_v1_CustomFulfillmentInfo",
+      "displayName": "Custom Fulfillment Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fieldsData",
+        "type": "All APIs.Order Fulfillments.fieldsDataMapEntry",
+        "doc": "Set of key-value pairs. The custom-made keys and values we got, extra info about the fulfillment\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -653,7 +721,7 @@
                 {
           "name": "quantity",
           "type": "integer",
-          "doc": " Line item quantity.\n * If this property isn't passed on creation, it defaults to the number of items not already linked to a fulfillment.\n * If the order does not have the requested quantity of line items available to add to this fulfillment, the fulfillment will not be created and an error is returned.\n * This property always has a value when returned.\n"
+          "doc": " Line item quantity.\n * If this property isn't passed on creation, it defaults to the number of items not already linked to a fulfillment.\n * If the order does not have the requested quantity of line items available to add to this fulfillment, the fulfillment will not be created and an error is returned.\n\n Min: `1`\n Max: `100000`\n"
         }
       ],
       "enum": null,
@@ -1203,7 +1271,7 @@
           "name": "array",
           "typeParams": ["string"]
         },
-        "doc": " Order IDs for which to retrieve fulfillments.\n"
+        "doc": " List of order IDs for which to retrieve fulfillments.\n"
       }],
       "enum": null,
       "extra": {},
