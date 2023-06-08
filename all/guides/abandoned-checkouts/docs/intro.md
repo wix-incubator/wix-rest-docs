@@ -1,9 +1,15 @@
 SortOrder: 0
 # About the eCommerce Abandoned Checkouts API
 
-When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. The Abandoned Checkouts API allows an app developer to help a customer recover their abandoned checkout (return to their incomplete checkout and complete the checkout). When a customer completes their checkout and makes a purchase, the checkout becomes an [order](https://dev.wix.com/api/rest/wix-ecommerce/orders). 
+An abandoned checkout is created when:
 
-An abandoned checkout holds buyer details, price, reference to the initial checkout, a checkout URL, and more.
++ A customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment).
+
++ A customer who is also a site member creates a cart and closes their browser tab before proceeding to the checkout page. (Wix eCommerce creates an abandoned checkout entity with the cart details).
+
+The Abandoned Checkouts API allows an app developer to help a customer recover their abandoned checkout. When a customer completes their checkout and makes a purchase, the checkout becomes an [order](https://dev.wix.com/api/rest/wix-ecommerce/orders).
+
+An abandoned checkout contains buyer details, prices, reference to the initial cart or checkout, a URL for accessing the abandoned checkout, and more.
 
 The eCommerce Abandoned Checkouts API provides functionality for [getting information about an abandoned checkout](https://dev.wix.com/api/rest/wix-ecommerce/abandoned-checkouts/get-abandoned-checkout) and [retrieving a list of abandoned checkouts](https://dev.wix.com/api/rest/wix-ecommerce/abandoned-checkouts/query-abandoned-checkouts). You can also listen for events when an abandoned checkout is [created](https://dev.wix.com/api/rest/wix-ecommerce/abandoned-checkouts/abandoned-checkout-created-webhook) and [recovered](https://dev.wix.com/api/rest/wix-ecommerce/abandoned-checkouts/abandoned-checkout-recovered-webhook). 
 
