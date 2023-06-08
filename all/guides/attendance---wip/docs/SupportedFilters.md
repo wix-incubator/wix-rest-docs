@@ -2,7 +2,7 @@ SortOrder: 1
 # Supported Filters and Sorting
 
 
-[Query Attendance](https://dev.wix.com/api/rest/wix-bookings/bookings-attendance-v2/query-attendance) runs with these defaults:
+[Query Attendance](https://dev.wix.com/api/rest/wix-bookings/attendance/query-attendance) runs with these defaults:
 
 + sorted by `id` in `ASC` order
 + cursorPaging.limit is `50`
