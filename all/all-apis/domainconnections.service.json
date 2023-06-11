@@ -16,6 +16,10 @@
   }],
   "relatedGuides":   [
         {
+      "path": "../guides/domainconnections/docs/Errors.md",
+      "name": "Error Messages"
+    },
+        {
       "path": "../guides/domainconnections/docs/README.md",
       "name": "READ ME"
     },
@@ -65,7 +69,7 @@
     },
     "locations": [],
     "docs":     {
-      "summary": "\nConnects a domain or subdomain to a Wix site.\n\nThe domain can be assigned as a primary domain or a redirect. \nYou can read more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\n\n> __Note:__ You can't pass the default nameserver record in the `dnsRecords` array of the call's body. \n> This results in an error.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header. API keys are currently available to selected beta users only.\n\n \n",
+      "summary": "\nConnects a root domain or subdomain to a Wix site.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \nYou may also pass a Wix site ID in the header. If you omit the site ID, you \nhave to call Connect Domain again before the site owners can use the domain.\n\nYou can't pass the default nameserver record in the `dnsRecords` array of \nthe call's body. This results in an error.\n\nYou can only connect external domains using this endpoint. Domains purchased \nand billed through Wix can't be connected in this way to a Wix site.\n\nThe domain can be assigned as a primary domain or a redirect. \nYou can read more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n\n \n",
       "description": [],
       "request": "POST",
       "url": "https://www.wixapis.com/domain-connect/v1/connect-domain",
@@ -73,22 +77,22 @@
       "examples":       [
                 {
           "title": "Connect a domain using nameservers",
-          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"NAMESERVERS\",\n    \"assignAs\": \"PRIMARY\",\n    \"nameserverInfo\": {\n        \"dnsRecords\": [\n            {\n                  \"type\": \"MX\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"10 aspmx.l.google.com\"\n                  ]\n            },\n            {\n                  \"type\": \"TXT\",\n                  \"hostName\": \"mysite.com\",\n                  \"ttl\": 3600,\n                  \"values\": [\n                    \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"\n                  ]\n            }\n        ]\n    }\n}'"],
-          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"assignAs\": \"PRIMARY\",\n  \"nameserverInfo\":   {\n    \"nsRecord\":     {\n      \"type\": \"NS\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 86400,\n      \"values\":       [\n        \"ns13.wixdns.net\",\n        \"ns12.wixdns.net\"\n      ]\n    },\n    \"dnsRecords\":     [\n            {\n        \"type\": \"MX\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"10 aspmx.l.google.com\"]\n      },\n            {\n        \"type\": \"TXT\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"]\n      }\n    ]\n  }\n}} "],
+          "body": ["curl -X POST 'https://www.wixapis.com/domain-connect/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domainConnection\": {\n        \"domain\": \"mysite.com\",\n        \"connectionType\": \"NAMESERVERS\",\n        \"assignAs\": \"PRIMARY\",\n        \"nameserverInfo\": {\n            \"dnsRecords\": [\n                {\n                      \"type\": \"MX\",\n                      \"hostName\": \"mysite.com\",\n                      \"ttl\": 3600,\n                      \"values\": [\n                        \"10 aspmx.l.google.com\"\n                      ]\n                },\n                {\n                      \"type\": \"TXT\",\n                      \"hostName\": \"mysite.com\",\n                      \"ttl\": 3600,\n                      \"values\": [\n                        \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"\n                      ]\n                }\n            ]\n        }\n    }\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"assignAs\": \"PRIMARY\",\n  \"nameserverInfo\":   {\n    \"nsRecord\":     {\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 86400,\n      \"values\":       [\n        \"ns13.wixdns.net\",\n        \"ns12.wixdns.net\"\n      ]\n    },\n    \"dnsRecords\":     [\n            {\n        \"type\": \"MX\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"10 aspmx.l.google.com\"]\n      },\n            {\n        \"type\": \"TXT\",\n        \"hostName\": \"mysite.com\",\n        \"ttl\": 3600,\n        \"values\": [\"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\"]\n      }\n    ]\n  }\n}} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Connect a domain by pointing",
-          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"POINTING\",\n    \"assignAs\": \"PRIMARY\"\n}'"],
-          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"POINTING\",\n  \"assignAs\": \"PRIMARY\",\n  \"pointingInfo\":   [\n        {\n      \"type\": \"A\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"23.236.62.147\"]\n    },\n        {\n      \"type\": \"CNAME\",\n      \"hostName\": \"www.mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"www182.wixdns.net\"]\n    }\n  ]\n}} "],
+          "body": ["curl -X POST 'https://www.wixapis.com/domain-connect/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domainConnection\": {\n        \"domain\": \"mysite.com\",\n        \"connectionType\": \"POINTING\",\n        \"assignAs\": \"PRIMARY\"\n    }\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"POINTING\",\n  \"assignAs\": \"PRIMARY\",\n  \"pointingInfo\":   {\n    \"aRecord\":     {\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600,\n      \"values\": [\"185.230.63.107\"]\n    },\n    \"cnameRecord\":     {\n      \"hostName\": \"www.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"pointing.wixdns.net\"\n    }\n  }\n}} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Connect a subdomain",
-          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domain\": \"sub.mysite.com\",\n    \"suppressNotifications\": true\n}'"],
-          "response": ["{\"domainConnection\": {\n  \"domain\": \"sub.mysite.com\",\n  \"connectionType\": \"UNKNOWN\",\n  \"assignAs\": \"UNKNOWN\",\n  \"suppressNotifications\": true,\n  \"subdomainInfo\": {\"cnameRecords\":   [\n        {\n      \"hostName\": \"sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    },\n        {\n      \"hostName\": \"www.sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"www56.wixdns.net\"\n    }\n  ]}\n}} "],
+          "body": ["curl -X POST 'https://www.wixapis.com/v1/connect-domain' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"domainConnection\": {\n        \"domain\": \"sub.mysite.com\",\n        \"suppressNotifications\": true\n    }\n}'"],
+          "response": ["{\"domainConnection\": {\n  \"domain\": \"sub.mysite.com\",\n  \"connectionType\": \"UNKNOWN\",\n  \"assignAs\": \"UNKNOWN\",\n  \"suppressNotifications\": true,\n  \"subdomainInfo\": {\"cnameRecords\":   [\n        {\n      \"hostName\": \"sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"pointing.wixdns.net\"\n    },\n        {\n      \"hostName\": \"www.sub.mysite.com\",\n      \"ttl\": 3600,\n      \"value\": \"pointing.wixdns.net\"\n    }\n  ]}\n}} "],
           "type": "curl",
           "extra": {}
         }
@@ -257,17 +261,17 @@
                 {
           "name": "connectionType",
           "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_ConnectionTypeEnum_ConnectionType",
-          "doc": "\nHow the domain is connected to the Wix site. \n__Note:__ When you connect a domain, you can only pass `POINTING` or `NAMESERVERS` in the request. For subdomains, you aren't allowed to pass any connection type.\n"
+          "doc": "\nHow the domain is connected to the Wix site. \n__Note:__ When you connect a domain, you can only pass `POINTING` or \n`NAMESERVERS` in the request. For subdomains, you aren't allowed to \npass any connection type.\n"
         },
                 {
           "name": "assignAs",
           "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_AssignAsEnum_AssignAs",
-          "doc": "\nWhether the domain is assigned as a primary domain or a redirect. \nRead more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains). \n__Note:__ When you connect a domain or subdomain, you aren't allowed to pass `UNKNOWN` in the request.\n"
+          "doc": "\nWhether the domain is assigned as primary domain or redirect. \nRead more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains). \n__Note:__ When you connect a domain or subdomain, you can't pass `UNKNOWN` \nin the request.\n"
         },
                 {
           "name": "suppressNotifications",
           "type": "boolean",
-          "doc": " Whether the site owner receives standard email notifications from Wix about the domain connection. Defaults to `false`.\n"
+          "doc": "\nWhether the site owner receives standard email notifications from Wix about \nthe domain connection. Returned only when set to `true`.\n\nDefault: `false`\n"
         },
                 {
           "name": "connectionInfo",
@@ -292,18 +296,18 @@
                 {
           "name": "nameserverInfo",
           "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_NameserverInfo",
-          "doc": " Information about domains connected using nameservers.\n"
+          "doc": "\nInformation about domains connected using nameservers. Available only for \n`{\"connectionType\": \"NAMESERVERS\"}`.\n"
         },
                 {
           "name": "pointingInfo",
           "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_PointingInfo",
-          "doc": " Information about domains connected by pointing.\n",
+          "doc": "\nInformation about domains connected by pointing.  Available only for \n`{\"connectionType\": \"POINTING\"}`.\n",
           "readOnly": true
         },
                 {
           "name": "subdomainInfo",
           "type": "All APIs.DomainConnections._com_wixpress_premium_domain_connect_SubdomainInfo",
-          "doc": " Information about subdomains.\n",
+          "doc": "\nInformation about subdomains.  Available only for subdomains.\n",
           "readOnly": true
         }
       ],
