@@ -3,29 +3,6 @@ SortOrder: 1
 
 `Query` endpoints allow you to filter and sort results based on slot availability properties. This article covers field support for filtering and sorting.
 
-## Fields
-The following table shows supported fields for the `slotAvailability` object. 
-If `fields` is provided and not empty, only the provided fields will be included in the returned entity:
-
-__Notes:__
-+ The following fields will always be included in the returned entity:
-    + bookable
-    + If slot is given, slot.serviceId & slot.scheduleId will always appear on the returned SlotAvailability.slot.
-
-| Field            |                                                                                                                                                                                                            
-|------------------|
-| `slot`           |                                                                                                                                                                                 
-| `slot.startDate` |
-| `slot.endDate`   |                                                                                                                                                                             
-| `slot.sessionId` |                                                                                                                                                                                                              
-| `slot.timezone`  |                                   
-| `slot.resource`  |                                                                                                                                                                                                              
-| `slot.location`  |                                                                                                                                                                                                              
-| `totalSpots`     |                                                                                                                                                                               
-| `openSpots`      |      
-| `waitingList`    |                                                                                                                                                                                                              
-| `bookingPolicyViolations` |                                                                                                                                                                                                              
-
 ## Filtering
 
 Specify the `filter` object in the following format:  
@@ -47,27 +24,33 @@ Specify the `filter` object in the following format:
 >     }
 >    ```
 
-
 The following table shows field support for filtering with the `slotAvailability` object:
 
-| Field           | Required | Sortable | Notes                                                                                                                                                                                                                                                                                                                  |
-| --------------- | -------- | -------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `startDate`            | Required | Sortable | Returns slots that start at, or after, this date. If the `timezone` is specified, the `startDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.                                                                                                 |
-| `endDate`            | Required  |  | Returns slots that end at, or before, this date. If the `timezone` is specified, the `endDate` for the query is according to the local date and time. This means that the timezone offset in the format is ignored.                                                                                                    |
-| `serviceId`            |  |  | Supports multiple values.                                                                                                                                                                                                                                                                                              |
-| `resourceId`            |  |  |                                                                                                                                                                                                                                                                                                                        |
-| `bookable`            |  |  | When filtered by `true`, returns only available slots. Otherwise, returns both available and non-available slots.                                                                                                                                                                                                      |
-| `bookingPolicyViolations.tooEarlyToBook` |  |  |                                                                                                                                                                                                                                                                                                                        |
-| `bookingPolicyViolations.tooLateToBook` |  |  |                                                                                                                                                                                                                                                                                                                        |
-| `location.businessLocation.id`  |  |  | Supports multiple values. Currently, you can query for multiple business location IDs but this functionality will change in the near future. At that point, multiple locations will not be supported for appointments. For appointments, you must provide only 1 business location ID as part of any query you run. We recommend you begin to modify your code accordingly. |
-| `openSpots` |  |  | Returns slots with at least this number of open spots.                                                                                                                                                                                                                                                                 |
-| `createdDate`   |  |  |                                                                                                                                                                                                                                                                                                                        |
-| `updatedDate`   |  |  |                                                                                                                                                                                                                                                                                                                        |
+| Field           | Required | Filterable | Sortable | Notes |
+| --------------- | -------- | -------| -------------- |
+| `slot`   |  | Not filterable |  |  |
+| `slot.startDate`            | Required | Not filterable | Sortable | Returns slots that start at, or after, this date. If `timezone` is specified, the `slot.startDate` for the query is according to the local date and time, which means that the timezone offset in the format is ignored.  |
+| `slot.endDate`            | Required  |  |  | Returns slots that end at, or before, this date. If the `timezone `is specified, the `slot.endDate` for the query is according to the local date and time, which means that the timezone offset in the format is ignored. |
+| `slot.serviceId`            |  |  |  | Supports multiple values, returned if slot is provided. |
+| `slot.resourceId`            |  |  |  |  |
+| `slot.scheduleId`  |  | Not filterable  |  | Returned if `slot` is provided.  |
+| `slot.sessionId`   |  | Not filterable  |  |  |
+| `slot.timezone`    |  |  Not filterable |  |  |
+| `slot.resource`    |  |  Not filterable  |  |  |
+| `slot.location`    |  |  Not filterable  |  |  |
+| `bookable`            |  |  |  | When filtered by `true`, returns only available slots. Otherwise, returns both available and non-available slots. This field is always returned. |
+| `bookingPolicyViolations.tooEarlyToBook` |  |  |  |
+| `bookingPolicyViolations.tooLateToBook` |  |  |  |
+| `location.businessLocation.id`  |  |  | Supports multiple values. |
+| `openSpots` |  |  | Returns slots with at least this number of open spots. |
+| `totalSpots`    |  |  Not filterable  |  |  |
+| `waitingList`    |  |  Not filterable  |  |  |
+| `bookingPolicyViolations`    |  |  Not filterable  |  |  |
 
 
-## Sorting 
+## Sorting
 
-Currently, only sorting by `startDate` is supported.
+Currently, only sorting by `slot.startDate` is supported.
 
 Specify the `sort` object in the following format:  
 
