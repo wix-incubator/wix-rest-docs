@@ -1,5 +1,7 @@
 # About Extended Fields
 
+> This feature is currently in developer preview and is subject to change.
+
 The extended fields feature allows an app to extend the objects used by Wix's APIs with additional fields. You can use these fields to store data that isn't supported by the object. Extended fields are added to an app in the Wix Dev Center. Once extended fields are added for a particular object, they can be read and written using that object's API endpoints. This article explains how to add extended fields to an app and the details of reading and writing extended fields using APIs.
 
 <!-- REMOVED FOR DEV PREVIEW
