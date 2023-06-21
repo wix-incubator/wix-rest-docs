@@ -25,7 +25,7 @@
   "relatedGuides":   [
         {
       "path": "../guides/resellers/docs/Errors.md",
-      "name": "Error Messages"
+      "name": "Errors"
     },
         {
       "path": "../guides/resellers/docs/SupportedFilters.md",
@@ -37,7 +37,7 @@
     },
         {
       "path": "../guides/resellers/docs/Flow.md",
-      "name": "Example Flow"
+      "name": "Sample Flows"
     }
   ],
   "operations":   [
@@ -82,6 +82,13 @@
           "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Cycle",
           "doc": "\nInformation about the billing cycle. Required in case you don't provide a new \n`catalogProductId`. The new billing cycle must be supported for the service. \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for \ninformation about a service's supported billing cycles. If \nyou adjust the billing cycle for a product instance with `RECURRING` \npayments, you must also provide `billingInfo.cycleDuration.unit`.\n",
           "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "discountCode",
+          "type": "string",
+          "doc": "\nDiscount code indicating that the reseller provisioned the product instance\nduring a sale. Ignored when you don't pass a new `catalogProductId` as well.\nIn case you pass a code that isn't valid, the call succeeds and\nno discount is applied to the product instance. Wix doesn't guarantee that a\ndiscount code reduces the price between Wix and the reseller, even when it's\nvalid. You can't add a discount code after you've created the\nproduct instance. Contact the [Wix B2B sales team](mailto:bizdev@wix.com) for\nmore information about supported codes.\n\nMax: 25 characters\n",
+          "required": false
         }
       ],
       "ret":       {
@@ -112,6 +119,76 @@
         "hasRest": true,
         "rpcRequestName": "AdjustProductInstanceSpecificationsRequest",
         "rpcResponseName": "AdjustProductInstanceSpecificationsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Assign Product Instance To Site",
+      "methodName": "AssignProductInstanceToSite",
+      "serviceName": "Packages",
+      "tag": "Product Instances",
+      "permissions": [      {
+        "name": "Manage Reseller Packages",
+        "description": "Request permission to read, create and modify the account's packages and assign products to a site."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "instanceId",
+        "siteId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "instanceId",
+          "type": "string",
+          "doc": " ID of the product instance to assign to a site.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "siteId",
+          "type": "string",
+          "doc": " ID of the site to which the product instance is assigned.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "idempotencyKey",
+          "type": "string",
+          "doc": " Idempotency key.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "AssignProductInstanceToSite",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_AssignProductInstanceToSiteResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigns a product instance to a site.\n\n\nYou must pass the ID of the Wix account that the product instance belongs \nto in the header of the call.\n\nThe customer immediately gains access to features included in the\nassigned service. It's up to the reseller to decide whether assigning\na product instance affects the customer’s payment.\n\nIt's possible to assign a product instance that's already assigned to a site,\nto a different site without [unassigning](https://dev.wix.com/api/rest/account-level-apis/resellers/product-instances/unassign-product-instance-from-site)\nit first. But if the call fails in such a situation, the product instance\nmay either remain assigned to the original site or become unassigned. You can\nconfirm the instance's status by\n[retrieving the relevant package](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/get-package).\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.    \n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/resellers/v1/packages/product-instances/{instanceId}/{siteId}",
+        "links": [],
+        "examples": [        {
+          "title": "Assign a product instance to a site.",
+          "body": ["curl -X PATCH \\\n'https://www.wixapis.com/resellers/v1/packages/product-instances/76ffd016-2894-4731-8786-1f3c5f4f494b/c10cf845-bf18-4c10-8428-c4e5c7a39744' \\\n-H 'wix-account-id: 2250b761-b31c-853b-485b-76e9fc04bdc6' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"package\": {\n  \"id\": \"88d0bc6d-ca3b-48b3-9d7b-69c03c0ebcd7\",\n  \"accountId\": \"2250b761-b31c-853b-485b-76e9fc04bdc6\",\n  \"externalId\": \"1234567890ZyXwV\",\n  \"productInstances\": [  {\n    \"instanceId\": \"76ffd016-2894-4731-8786-1f3c5f4f494b\",\n    \"siteId\": \"c10cf845-bf18-4c10-8428-c4e5c7a39744\",\n    \"catalogProductId\": \"92b27e42-4cb3-aa4a-9aff-29c87c8b905a\",\n    \"status\": \"PENDING\",\n    \"billingInfo\":     {\n      \"type\": \"RECURRING\",\n      \"cycleDuration\":       {\n        \"unit\": \"YEAR\",\n        \"count\": 1\n      }\n    },\n    \"createdDate\": \"2023-03-30T09:19:51.333Z\",\n    \"updatedDate\": \"2023-03-30T09:19:51.333Z\",\n    \"countryCode\": \"IN\"\n  }],\n  \"createdDate\": \"2023-03-30T09:19:51.738Z\",\n  \"updatedDate\": \"2023-03-30T09:19:51.738Z\",\n  \"parentAccountId\": \"5128eccb-3b01-4bfd-bba8-29c3e0b89fae\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "AssignProductInstanceToSiteRequest",
+        "rpcResponseName": "AssignProductInstanceToSiteResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -214,7 +291,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCancels a product instance.\n\n\nYou must pass the ID of the Wix account that the product instance belongs \nto in the header of the call. The call fails, if the product instance and \nWix account don't match.\n\nThe customer immediately looses access to features included in the\ncanceled service. It is up to the reseller to decide whether the adjustment\naffects the customer’s payment.\n\nIf a canceled service is a requirement for another service, that service\nmay not be available to the customer any longer. For example, if you cancel\na `Combo Plan` plan, a previously connected domain will be disconnected\nfrom the site.\n\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.\n \n",
+        "summary": "\nCancels a product instance.\n\n\nYou must pass the ID of the Wix account that the product instance belongs \nto in the header of the call. The call fails, if the product instance and \nWix account don't match.\n\nThe customer immediately looses access to features included in the\ncanceled service. It's up to the reseller to decide whether the adjustment\naffects the customer’s payment.\n\nIf a canceled service is a requirement for another service, that service\nmay not be available to the customer any longer. For example, if you cancel\na `Combo Plan` plan, a previously connected domain is disconnected\nfrom the site.\n\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/resellers/v1/packages/product-instances/{instanceId}",
@@ -357,7 +434,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a package of product instances.\n\n\nYou must pass the relevant Wix account ID in the header of the call. In \nthe DIY flow, we recommend to pass the customer's sub-account ID instead \nof your main reseller account ID.\n\nYou may also pass a Wix site ID for each product in the body of the call. \nIf you omit the site ID, a floating product instance is created. Currently, \nyou can't use the Resellers API to assign a floating instance to a specific \nWix site after a package has been created. But customers or agents can \nassign floating product instances to one of their sites in their account's \ndashboard.\n\nYou need to pass a `countryCode` to specify where customers can claim \nvouchers that may come with a product. Contact the \n[Wix B2B sales team](mailto:bizdev@wix.com) to get information about \nvouchers and supported locations.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.\n \n",
+        "summary": "\nCreates a package of product instances.\n\n\nYou must pass the relevant Wix account ID in the header of the call. In \nthe DIY flow, we recommend to pass the customer's sub-account ID instead \nof your main reseller account ID.\n\nYou may also pass a Wix site ID for each product in the body of the call. \nIf you omit the site ID, a floating product instance is created.\n\nYou need to pass a `countryCode` to specify where customers can claim \nvouchers that may come with a product. Contact the \n[Wix B2B sales team](mailto:bizdev@wix.com) to get information about \nvouchers and supported locations.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v2/packages",
@@ -459,7 +536,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a list of packages, given the provided paging, filtering, and sorting.\n\n\nYou must pass the ID of the Wix account that the packages belong to in the \nheader of the call. You can't retrieve packages for multiple accounts in a single \nQuery Packages call.\n\nQuery Packages runs with these defaults, which you can override:\n\n- `createdDate` is sorted in `DESC` order\n- `cursorPaging.limit` is `100`\n\nBy default `pagingMetadata.cursors` are returned, unless you specifically pass \n`query.paging`.\n\nThe maximum for `cursorPaging.limit` is `100`.\n\nIf you pass a cursor token that you have received in a previous Query Package response, \npassing additional sort or filter information results in an invalid cursor \nerror. Since the received cursor token already holds all the needed information \nfor sort and filter. Changing the sort and filter properties during the span of \na cursor query isn't supported. But you can provide a different limit.    \n\nFor field support for filters and sorting,\nsee [Query Packages: Supported Filters and Sorting](https://dev.wix.com/api/rest/account-level-apis/resellers/supported-filters).\n\nTo learn about working with _Query_ endpoints, see\n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),\n[Sorting and Paging](https://dev.wix.com/api/rest/getting-started/pagination),\nand [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.\n \n",
+        "summary": " Retrieves a list of packages, given the provided paging, filtering, and sorting.\n \n \n You must pass the ID of the Wix account that the packages belong to in the \n header of the call. The call returns packages that belong to the parent\n account, regardless if you pass the ID of a parent or sub-account. In case\n you want to retrieve only packages that belong to a sub-account, you must\n pass the sub-account ID as `filter` in the `query` object like this:\n \n ```json\n {\n   \"query\": {\n     \"filter\": {\n       \"accountId\": {\n         \"$eq\": \"<SUB_ACCOUNT_ID>\"\n       }\n     }\n   }\n }\n ```\n \n Query Packages runs with these defaults, which you can override:\n \n - `createdDate` is sorted in `DESC` order\n - `cursorPaging.limit` is `100`\n \n By default `pagingMetadata.cursors` are returned, unless you specifically pass \n `query.paging`.\n \n The maximum for `cursorPaging.limit` is `100`.\n \n If you pass a cursor token that you have received in a previous Query Package response, \n passing additional sort or filter information results in an invalid cursor \n error. Since the received cursor token already holds all the needed information \n for sort and filter. Changing the sort and filter properties during the span of \n a cursor query isn't supported. But you can provide a different limit.    \n \n For field support for filters and sorting,\n see [Query Packages: Supported Filters and Sorting](https://dev.wix.com/api/rest/account-level-apis/resellers/supported-filters).\n \n To learn about working with _Query_ endpoints, see\n [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),\n [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/pagination),\n  and [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n > **Important**: This call requires an account level API key and cannot be\n > authenticated with the standard authorization header.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/resellers/v1/packages/query",
@@ -477,6 +554,66 @@
         "hasRest": true,
         "rpcRequestName": "QueryPackagesRequest",
         "rpcResponseName": "QueryPackagesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Unassign Product Instance From Site",
+      "methodName": "UnassignProductInstanceFromSite",
+      "serviceName": "Packages",
+      "tag": "Product Instances",
+      "permissions": [      {
+        "name": "Manage Reseller Packages",
+        "description": "Request permission to read, create and modify the account's packages and assign products to a site."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["instanceId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "instanceId",
+          "type": "string",
+          "doc": " ID of the product instance to unassign from a site.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "idempotencyKey",
+          "type": "string",
+          "doc": " Idempotency key.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UnassignProductInstanceFromSite",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_UnassignProductInstanceFromSiteResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUnassigns a product instance from a site.\n\n\nYou must pass the ID of the Wix account that the product instance belongs \nto in the header of the call.\n\nThe product instance becomes floating and the customer immediately looses\naccess to features included in the unassigned service. It's up to the\nreseller to decide whether unassigning a product instance affects the\ncustomer’s payment.\n\nIf an unassigned product instance is a requirement for another service, that service\nmay not be available to the customer any longer. For example, if you unassign\na `Combo Plan` plan from a site, a previously connected domain is disconnected.\n\nYou can assign floating product instances to sites using the\n[Assign Product Instance to Site](https://dev.wix.com/api/rest/account-level-apis/resellers/product-instances/assign-product-instance-to-site)\nendpoint.\n\n> **Important**: This call requires an account level API key and cannot be\n> authenticated with the standard authorization header.    \n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/resellers/v1/packages/product-instances/{instanceId}/unassign",
+        "links": [],
+        "examples": [        {
+          "title": "Unassign a product instance from a site.",
+          "body": ["curl -X PATCH \\\n'https://www.wixapis.com/resellers/v1/packages/product-instances/76ffd016-2894-4731-8786-1f3c5f4f494b/unassign' \\\n-H 'wix-account-id: 2250b761-b31c-853b-485b-76e9fc04bdc6' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"package\": {\n  \"id\": \"88d0bc6d-ca3b-48b3-9d7b-69c03c0ebcd7\",\n  \"accountId\": \"2250b761-b31c-853b-485b-76e9fc04bdc6\",\n  \"externalId\": \"AbCdE987654321\",\n  \"productInstances\": [  {\n    \"instanceId\": \"76ffd016-2894-4731-8786-1f3c5f4f494b\",\n    \"catalogProductId\": \"92b27e42-4cb3-aa4a-9aff-29c87c8b905a\",\n    \"status\": \"PENDING\",\n    \"billingInfo\":     {\n      \"type\": \"RECURRING\",\n      \"cycleDuration\":       {\n        \"unit\": \"YEAR\",\n        \"count\": 1\n      }\n    },\n    \"createdDate\": \"2023-03-30T09:19:51.333Z\",\n    \"updatedDate\": \"2023-03-30T09:19:51.333Z\",\n    \"countryCode\": \"BR\"\n  }],\n  \"createdDate\": \"2023-03-30T09:19:51.738Z\",\n  \"updatedDate\": \"2023-03-30T09:19:51.738Z\",\n  \"parentAccountId\": \"5128eccb-3b01-4bfd-bba8-29c3e0b89fae\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UnassignProductInstanceFromSiteRequest",
+        "rpcResponseName": "UnassignProductInstanceFromSiteResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -1277,6 +1414,11 @@
           "type": "string",
           "doc": "\nDate and time the product instance expires in `YYYY-MM-DDThh:mm:ss.sssZ` format.\nUsed only for instances that don't auto renew at the end of the current billing cycle.\n",
           "readOnly": true
+        },
+                {
+          "name": "discountCode",
+          "type": "string",
+          "doc": "\nDiscount code indicating that the reseller provisioned the product instance\nduring a sale. Wix doesn't guarantee that a discount code reduces the\nprice between Wix and the reseller, even when it's valid. Contact the\n[Wix B2B sales team](mailto:bizdev@wix.com) for more information.\n\nMax: 25 characters\n"
         }
       ],
       "enum": null,
@@ -3078,7 +3220,7 @@
             "name": "array",
             "typeParams": ["All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_Package"]
           },
-          "doc": " Retrieved packages.\n"
+          "doc": "\nRetrieved packages.\n\nMax: 1000 packages\n"
         }
       ],
       "enum": null,
@@ -3219,6 +3361,11 @@
           "name": "billingInfo",
           "type": "All APIs.Resellers._com_wixpress_premium_reseller_packages_v1_ProductInstance_Cycle",
           "doc": "\nInformation about the billing cycle. Required in case you don't provide a new \n`catalogProductId`. The new billing cycle must be supported for the service. \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for \ninformation about a service's supported billing cycles. If \nyou adjust the billing cycle for a product instance with `RECURRING` \npayments, you must also provide `billingInfo.cycleDuration.unit`.\n"
+        },
+                {
+          "name": "discountCode",
+          "type": "string",
+          "doc": "\nDiscount code indicating that the reseller provisioned the product instance\nduring a sale. Ignored when you don't pass a new `catalogProductId` as well.\nIn case you pass a code that isn't valid, the call succeeds and\nno discount is applied to the product instance. Wix doesn't guarantee that a\ndiscount code reduces the price between Wix and the reseller, even when it's\nvalid. You can't add a discount code after you've created the\nproduct instance. Contact the [Wix B2B sales team](mailto:bizdev@wix.com) for\nmore information about supported codes.\n\nMax: 25 characters\n"
         }
       ],
       "enum": null,

@@ -1,5 +1,74 @@
 # Release Notes
 
+
+## New Release: Wix Bookings [Attendance API](wix-bookings/attendance)
+
+Wix Bookings introduces the new [Attendance API](wix-bookings/attendance). This API allows you to track how many participants attended a booked session.
+
++ [Set](wix-bookings/attendance/set-attendance) the attendance for a booked session.
++ [Get](wix-bookings/attendance/get-attendance) the attendance for a booked session.
++ [Query](wix-bookings/attendance/query-attendance) attendance for booked sessions.
+
+
+(June 8, 2023)
+
+
+## New Release: Wix eCommerce [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts)
+
+Wix eCommerce introduces the new [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts). When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. 
+
+The Abandoned Checkouts API allows an app developer to help a customer recover their abandoned checkout (return to their incomplete checkout and complete the checkout).
+
+The Abandoned Checkouts API provides the following functionalities:
+
++ [Get](wix-ecommerce/abandoned-checkouts/get-abandoned-checkout) an abandoned checkout.
++ [Query](wix-ecommerce/abandoned-checkouts/query-abandoned-checkouts) abandoned checkouts.
++ An event when an abandoned checkout is [created](wix-ecommerce/abandoned-checkouts/abandoned-checkout-created-webhook).
++ An event when an abandoned checkout is [recovered](wix-ecommerce/abandoned-checkouts/abandoned-checkout-recovered-webhook).
+
+
+(June 6, 2023)
+
+
+## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
+
+The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks for helping you manage the booking process flow:
+
++ [Booking Created](/wix-bookings/bookings-v2/booking-created-webhook)
++ [Booking Rescheduled](/wix-bookings/bookings-v2/booking-rescheduled-webhook)
++ [Booking Confirmed](/wix-bookings/bookings-v2/booking-confirmed-webhook)
++ [Booking Declined](/wix-bookings/bookings-v2/booking-declined-webhook)
++ [Booking Canceled](/wix-bookings/bookings-v2/booking-canceled-webhook)
++ [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
+
+
+(May 30, 2023)
+
+
+## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
+
+The [Bookings Service Options and Variants](wix-bookings/service-options-and-variants) API enables you to retrieve and manage options and variants for a particular bookings service. The new API includes:
+
++ [Get Service Options And Variants](/wix-bookings/service-options-and-variants/get-service-options-and-variants)  
++ [Get Service Options And Variants By Service ID](/wix-bookings/service-options-and-variants/get-service-options-and-variants-by-service-id)
++ [Query Service Options And Variants](/wix-bookings/service-options-and-variants/query-service-options-and-variants)
++ [Create Service Options And Variants](/wix-bookings/service-options-and-variants/create-service-options-and-variants)
++ [Clone Service Options And Variants](/wix-bookings/service-options-and-variants/clone-service-options-and-variants)
++ [Update Service Options And Variants](/wix-bookings/service-options-and-variants/update-service-options-and-variants)
++ [Delete Service Options And Variants](/wix-bookings/service-options-and-variants/delete-service-options-and-variants)
++ Webhooks: 
+    + [Service Options And Variants Created](/wix-bookings/service-options-and-variants/service-options-and-variants-created-webhook)
+    + [Service Options And Variants Updated](/wix-bookings/service-options-and-variants/service-options-and-variants-updated-webhook)
+    + [Service Options And Variants Deleted](/wix-bookings/service-options-and-variants/service-options-and-variants-deleted-webhook)
+
+(May 22, 2023)
+
+## New Functionality: [Wix Blocks](https://support.wix.com/en/wix-blocks)
+3rd party apps can now be written partially or completely using Wix Blocks, powered by [Velo by Wix](https://www.wix.com/velo/reference).
+See [Publishing your Blocks app to the App Market](https://support.wix.com/en/article/wix-blocks-publishing-your-app-to-the-app-market) for details.
+
+(May 22, 2023)
+
 ## New Release: [Redirect Session](redirect-session/redirect-session)
 
 The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
@@ -47,7 +116,7 @@ The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and m
 
 ## New Endpoints: [Wix Media](media/media-manager)
 
-The Media API now includes new endpoints and events:
+The Media API now includes new endpoints and webhooks:
 
 + [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
 + [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
