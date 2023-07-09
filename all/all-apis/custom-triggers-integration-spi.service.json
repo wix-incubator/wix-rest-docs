@@ -1,0 +1,387 @@
+{
+  "name": "Custom Triggers Integration SPI",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-platform-discounts-services/custom-triggers-spi/proto#public",
+  "memberOf": "All APIs",
+  "category": "business-service",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Integration SPI that allows custom triggers to be used with the Discount Rules service.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Custom Trigger",
+    "entity": "_com_wix_ecom_custom_trigger_v1_spi_CustomTrigger",
+    "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-platform-discounts-services/custom-triggers-spi/proto/com/wix/ecom/custom_trigger/v1/spi/custom_trigger.proto"
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/custom-triggers-integration-spi/docs/intro.md",
+    "name": "Introduction"
+  }],
+  "operations":   [
+        {
+      "name": "Get Eligible Triggers",
+      "methodName": "GetEligibleTriggers",
+      "serviceName": "CustomTriggersProvider",
+      "tag": "Custom Trigger",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_LineItem"]
+          },
+          "doc": " List of line items in the cart/checkout.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "triggers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_TriggerToFilterBy"]
+          },
+          "doc": " List of triggers to be checked for discount eligibility.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetEligibleTriggers",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_GetEligibleTriggersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves custom discount trigger logic provided by a custom discount triggers extension.\n\nThis function is automatically called by Wix eCommerce to retrieve the custom discount triggers provided by your extension.\nThis happens when actions are performed on the cart/checkout entities/pages. For example, when an item is added to the cart.\n\n> You cannot try out this endpoint because it has to be implemented by\n> an app and can have an arbitrary URL. Therefore, ignore the **Authorization**\n> and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.<your-deployment-uri>.com/v1/get-eligible-triggers",
+        "links": [],
+        "examples": [        {
+          "title": "Provider Get Eligible Custom Triggers",
+          "body": ["curl -X POST '<your_deployment_uri>' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary '{\n    \"triggers\": [\n      {\n        \"custom_trigger\": {\n          \"id\": \"my-custom-trigger-1\"\n        },\n        \"identifier\": \"123\"\n      },\n      {\n        \"custom_trigger\": {\n          \"id\": \"my-custom-trigger-2\"\n        },\n        \"identifier\": \"234\"\n      }\n    ],\n    \"line_items\": [\n     {\n      \"catalog_reference\": {\n       \"app_id\": \"215238eb-22a5-4c36-9e7b-e7c08025e04e\",\n       \"catalog_item_id\": \"b8b60eb2-f0c0-2519-c884-4e45ba25f0f7\"\n      },\n      \"id\": \"00000000-0000-0000-0000-000000000001\",\n      \"price\": \"250.00\",\n      \"quantity\": {\n       \"value\": 1\n      }\n     },\n     {\n      \"catalog_reference\": {\n       \"app_id\": \"215238eb-22a5-4c36-9e7b-e7c08025e04e\",\n       \"catalog_item_id\": \"c11f4db2-50cd-f4ea-d278-18c0914215d9\",\n      },\n      \"id\": \"00000000-0000-0000-0000-000000000002\",\n      \"price\": \"215.00\",\n      \"quantity\": {\n       \"value\": 1\n      }\n     }\n    ]\n  }"],
+          "response": ["{\"eligible_triggers\": [\n    {\n    \"custom_trigger_id\": \"my-custom-trigger-1\",\n    \"identifier\": \"123\"\n  },\n    {\n    \"custom_trigger_id\": \"my-custom-trigger-2\",\n    \"identifier\": \"234\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "Return a list of custom triggers that are eligible for the given request"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetEligibleTriggersRequest",
+        "rpcResponseName": "GetEligibleTriggersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Triggers",
+      "methodName": "ListTriggers",
+      "serviceName": "CustomTriggersProvider",
+      "tag": "Custom Trigger",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListTriggers",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_ListTriggersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " List all custom triggers\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.<your-deployment-uri>.com/v1/list-triggers",
+        "links": [],
+        "examples": [        {
+          "title": "Provider List Custom Triggers",
+          "body": ["curl '<your_deployment_uri>' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"triggers\": [\n    {\n    \"id\": \"my-custom-trigger-1\",\n    \"name\": \"Every Week Day Between 18:00-20:00\"\n  },\n    {\n    \"id\": \"my-custom-trigger-2\",\n    \"name\": \"Every Week Day Between 16:00-18:00\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "List available custom triggers."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListTriggersRequest",
+        "rpcResponseName": "ListTriggersResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `bookingId` for Wix Bookings.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " \nID of the catalog app. For items from Wix apps, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`    \n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": "\nAdditional info in key:value form. For example, to specify Wix Stores product options or variants:\n+ `{\"options\": {\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}}}`\n+ `{\"options\": {\"variantId\": \"<VARIANT_ID>\"}}`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Line item ID.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Item quantity in this line item.\n"
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Custom Triggers Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Catalog and item reference. Holds IDs for the item and the catalog it came from, as well as further optional info.\n This field is empty in the case of a custom line item.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Price of a single item.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_CustomTrigger",
+      "displayName": "Custom Trigger Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"1\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " Custom trigger ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_ListTriggersRequest",
+      "displayName": "List Triggers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_ListTriggersResponse_CustomTrigger",
+      "displayName": "Custom Trigger Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"1\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique ID of the trigger\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Trigger display name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_ListTriggersResponse",
+      "displayName": "List Triggers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "customTriggers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_ListTriggersResponse_CustomTrigger"]
+        },
+        "doc": " List of custom triggers\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_GetEligibleTriggersRequest",
+      "displayName": "Get Eligible Triggers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_LineItem"]
+          },
+          "doc": " List of line items in the cart/checkout.\n"
+        },
+                {
+          "name": "triggers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_TriggerToFilterBy"]
+          },
+          "doc": " List of triggers to be checked for discount eligibility.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_GetEligibleTriggersResponse",
+      "displayName": "Get Eligible Triggers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "eligibleTriggers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_EligibleTrigger"]
+        },
+        "doc": " List of eligible triggers. These are used by the Discount Rules API and Wix eCommerce to apply the relevant discount.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_EligibleTrigger",
+      "displayName": "Eligible Trigger Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "customTriggerId",
+          "type": "string",
+          "doc": " Custom trigger ID. Must be passed with relevant `identifier`.\n"
+        },
+                {
+          "name": "identifier",
+          "type": "string",
+          "doc": " Unique trigger identifier. The value must be the same as its equivalent in `triggers[i].identifier` in the request payload.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_custom_trigger_v1_spi_TriggerToFilterBy",
+      "displayName": "Trigger To Filter By Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "customTrigger",
+          "type": "All APIs.Custom Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_CustomTrigger",
+          "doc": " Custom trigger info.\n"
+        },
+                {
+          "name": "identifier",
+          "type": "string",
+          "doc": " Unique trigger identifier. The same value must be returned in `eligibleTriggers[i].identifier`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.restaurants.restaurants-custom-triggers-provider"}
+}
