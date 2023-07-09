@@ -60,7 +60,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nArchives a location.\n\n> **Notes:**\n> + Changes the `archived` boolean of a location to `true`.\n> + You can't change a location's `status` using this endpoint.\n> + Archived locations can't be updated.\n> + Currently, it isn't possible to unarchive locations.\n> + The `default` location can't be archived.\n \n",
+        "summary": "\nArchives a location.\n\n\n> **Notes:**\n> + Changes the `archived` boolean of a location to `true`.\n> + You can't change a location's `status` using this endpoint.\n> + Archived locations can't be updated.\n> + Currently, it isn't possible to unarchive locations.\n> + The `default` location can't be archived.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/locations/v1/locations/{id}/archive",
@@ -144,8 +144,8 @@
       "tag": "Locations",
       "permissions":       [
                 {
-          "name": "Manage Locations",
-          "description": "Request permission to manage the site's locations."
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
         },
                 {
           "name": "Read Locations",
@@ -201,8 +201,8 @@
       "tag": "Locations",
       "permissions":       [
                 {
-          "name": "Manage Locations",
-          "description": "Request permission to manage the site's locations."
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
         },
                 {
           "name": "Read Locations",
@@ -224,7 +224,7 @@
           "in": "QUERY",
           "name": "sort.order",
           "type": "All APIs.Locations._wix_common_SortOrder",
-          "doc": " Sort order.\n\n Defaults to `ASC`.\n",
+          "doc": " Sort order.\n",
           "required": false
         },
                 {
@@ -245,7 +245,7 @@
           "in": "QUERY",
           "name": "includeArchived",
           "type": "boolean",
-          "doc": " Whether to include `archived` locations in the response. Defaults to `false`.\n",
+          "doc": " Whether to include `archived` locations in the response. \n\nDefault: `false`\n",
           "required": false
         }
       ],
@@ -287,8 +287,8 @@
       "tag": "Locations",
       "permissions":       [
                 {
-          "name": "Manage Locations",
-          "description": "Request permission to manage the site's locations."
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
         },
                 {
           "name": "Read Locations",
@@ -353,7 +353,7 @@
         "in": "PATH",
         "name": "id",
         "type": "string",
-        "doc": " ID of the location to set as default.\n",
+        "doc": " ID of the location to set as the default location.\n",
         "required": true
       }],
       "ret":       {
@@ -366,7 +366,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nSets a new default location.\n\n> **Notes:**\n> + There can only be one default location per site.\n> + The default location can't be archived.\n \n",
+        "summary": "\nSets a new default location.\n\n\n> **Notes:**\n> + There can only be one default location per site.\n> + The default location can't be archived.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/locations/v1/locations/{id}/set-default",
@@ -432,7 +432,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nReplaces a location.\n\n> **Note:** Currently, it isn't possible to partially update a location. Therefore, you'll need to pass the full location object in the body of the call.\n\n \n",
+        "summary": "\nReplaces a location.\n\n\n> **Note:** Currently, it isn't possible to partially update a location. Therefore, you'll need to pass the full location object in the body of the call.\n\n \n",
         "description": [],
         "request": "PUT",
         "url": "https://www.wixapis.com/locations/v1/locations/{location.id}",
@@ -454,9 +454,358 @@
       "customLabels": [{"id": "maturity-beta"}]
     }
   ],
-  "events": [],
+  "events":   [
+        {
+      "type": "_com_wixpress_locations_ArchiveLocationDomainEvent",
+      "name": "Archive Location Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/wixos/tree/master/locations/src/main/proto/com/wixpress/locations/locations-service.proto"
+      },
+      "topic": "domain_events_wix.locations.v1.location",
+      "tag": "Locations",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.locations.v1.location_archive_status",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_locations_SetDefaultLocationDomainEvent",
+      "name": "Set Default Location Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/wixos/tree/master/locations/src/main/proto/com/wixpress/locations/locations-service.proto"
+      },
+      "topic": "domain_events_wix.locations.v1.location",
+      "tag": "Locations",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.locations.v1.location_set_default_location",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_locations_LocationUpdatedDomainEvent",
+      "name": "Location Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/wixos/tree/master/locations/src/main/proto/com/wixpress/locations/locations-service.proto"
+      },
+      "topic": "domain_events_wix.locations.v1.location",
+      "tag": "Locations",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.locations.v1.location_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_locations_LocationCreatedDomainEvent",
+      "name": "Location Created Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/wixos/tree/master/locations/src/main/proto/com/wixpress/locations/locations-service.proto"
+      },
+      "topic": "domain_events_wix.locations.v1.location",
+      "tag": "Locations",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.locations.v1.location_created",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
   "callbacks": [],
   "messages":   [
+        {
+      "name": "_com_wixpress_locations_ArchiveLocationDomainEvent",
+      "displayName": "Archive Location Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.locations.v1.location`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `archive_status`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Locations._com_wixpress_locations_ArchiveLocationActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ArchiveLocation ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_ArchiveLocationActionEvent",
+      "displayName": "Archive Location Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Locations._com_wixpress_locations_ArchiveLocation",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_SetDefaultLocationDomainEvent",
+      "displayName": "Set Default Location Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.locations.v1.location`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `set_default_location`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Locations._com_wixpress_locations_SetDefaultLocationActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "SetDefaultLocation ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_SetDefaultLocationActionEvent",
+      "displayName": "Set Default Location Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Locations._com_wixpress_locations_SetDefaultLocation",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationUpdatedDomainEvent",
+      "displayName": "Location Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.locations.v1.location`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Locations._com_wixpress_locations_LocationEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Location ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationEntityUpdatedEvent",
+      "displayName": "Location Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Locations._com_wixpress_locations_Location",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationCreatedDomainEvent",
+      "displayName": "Location Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.locations.v1.location`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Locations._com_wixpress_locations_LocationEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Location ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationEntityCreatedEvent",
+      "displayName": "Location Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Locations._com_wixpress_locations_Location",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
       "name": "_google_protobuf_SourceCodeInfo_Location",
       "displayName": "Location Object",
@@ -473,7 +822,7 @@
             "name": "array",
             "typeParams": ["integer"]
           },
-          "doc": " Identifies which part of the FileDescriptorProto was defined at this\n location.\n\n Each element is a field number or an index.  They form a path from\n the root FileDescriptorProto to the place where the definition.  For\n example, this path:\n   [ 4, 3, 2, 7, 1 ]\n refers to:\n   file.message_type(3)  // 4, 3\n       .field(7)         // 2, 7\n       .name()           // 1\n This is because FileDescriptorProto.message_type has field number 4:\n   repeated DescriptorProto message_type = 4;\n and DescriptorProto.field has field number 2:\n   repeated FieldDescriptorProto field = 2;\n and FieldDescriptorProto.name has field number 1:\n   optional string name = 1;\n\n Thus, the above path gives the location of a field name.  If we removed\n the last element:\n   [ 4, 3, 2, 7 ]\n this path refers to the whole field declaration (from the beginning\n of the label to the terminating semicolon).\n"
+          "doc": " Identifies which part of the FileDescriptorProto was defined at this\n location.\n\n Each element is a field number or an index.  They form a path from\n the root FileDescriptorProto to the place where the definition occurs.\n For example, this path:\n   [ 4, 3, 2, 7, 1 ]\n refers to:\n   file.message_type(3)  // 4, 3\n       .field(7)         // 2, 7\n       .name()           // 1\n This is because FileDescriptorProto.message_type has field number 4:\n   repeated DescriptorProto message_type = 4;\n and DescriptorProto.field has field number 2:\n   repeated FieldDescriptorProto field = 2;\n and FieldDescriptorProto.name has field number 1:\n   optional string name = 1;\n\n Thus, the above path gives the location of a field name.  If we removed\n the last element:\n   [ 4, 3, 2, 7 ]\n this path refers to the whole field declaration (from the beginning\n of the label to the terminating semicolon).\n"
         },
                 {
           "name": "span",
@@ -486,7 +835,7 @@
                 {
           "name": "leadingComments",
           "type": "string",
-          "doc": " If this SourceCodeInfo represents a complete declaration, these are any\n comments appearing before and after the declaration which appear to be\n attached to the declaration.\n\n A series of line comments appearing on consecutive lines, with no other\n tokens appearing on those lines, will be treated as a single comment.\n\n leading_detached_comments will keep paragraphs of comments that appear\n before (but not connected to) the current element. Each paragraph,\n separated by empty lines, will be one comment element in the repeated\n field.\n\n Only the comment content is provided; comment markers (e.g. //) are\n stripped out.  For block comments, leading whitespace and an asterisk\n will be stripped from the beginning of each line other than the first.\n Newlines are included in the output.\n\n Examples:\n\n   optional int32 foo = 1;  // Comment attached to foo.\n   // Comment attached to bar.\n   optional int32 bar = 2;\n\n   optional string baz = 3;\n   // Comment attached to baz.\n   // Another line attached to baz.\n\n   // Comment attached to qux.\n   //\n   // Another line attached to qux.\n   optional double qux = 4;\n\n   // Detached comment for corge. This is not leading or trailing comments\n   // to qux or corge because there are blank lines separating it from\n   // both.\n\n   // Detached comment for corge paragraph 2.\n\n   optional string corge = 5;\n   /* Block comment attached\n    * to corge.  Leading asterisks\n    * will be removed. */\n   /* Block comment attached to\n    * grault. */\n   optional int32 grault = 6;\n\n   // ignored detached comments.\n"
+          "doc": " If this SourceCodeInfo represents a complete declaration, these are any\n comments appearing before and after the declaration which appear to be\n attached to the declaration.\n\n A series of line comments appearing on consecutive lines, with no other\n tokens appearing on those lines, will be treated as a single comment.\n\n leading_detached_comments will keep paragraphs of comments that appear\n before (but not connected to) the current element. Each paragraph,\n separated by empty lines, will be one comment element in the repeated\n field.\n\n Only the comment content is provided; comment markers (e.g. //) are\n stripped out.  For block comments, leading whitespace and an asterisk\n will be stripped from the beginning of each line other than the first.\n Newlines are included in the output.\n\n Examples:\n\n   optional int32 foo = 1;  // Comment attached to foo.\n   // Comment attached to bar.\n   optional int32 bar = 2;\n\n   optional string baz = 3;\n   // Comment attached to baz.\n   // Another line attached to baz.\n\n   // Comment attached to moo.\n   //\n   // Another line attached to moo.\n   optional double moo = 4;\n\n   // Detached comment for corge. This is not leading or trailing comments\n   // to moo or corge because there are blank lines separating it from\n   // both.\n\n   // Detached comment for corge paragraph 2.\n\n   optional string corge = 5;\n   /* Block comment attached\n    * to corge.  Leading asterisks\n    * will be removed. */\n   /* Block comment attached to\n    * grault. */\n   optional int32 grault = 6;\n\n   // ignored detached comments.\n"
         },
                 {
           "name": "trailingComments",
@@ -511,7 +860,7 @@
       "displayName": "Business Schedule Object",
       "locations": [],
       "docs":       {
-        "summary": "\nTime periods that this location is open for business. Includes a collection of TimePeriod instances.\nAligned with https://developers.google.com/my-business/reference/rest/v4/accounts.locations#businesshours\nWith a few minor adjustments\n",
+        "summary": "\nBusiness schedule. Regular and exceptional time periods when the business is open or the service is available.\n",
         "links": [],
         "examples": []
       },
@@ -522,7 +871,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_siteproperties_api_v4_TimePeriod"]
           },
-          "doc": "\nTimes that this location is open. Each period represents a range of hours when the location is\nopen during the week. Limited to 100 time periods.\n"
+          "doc": "\nWeekly recurring time periods when the business is regularly open or the service is available. Limited to 100 time periods.\n"
         },
                 {
           "name": "specialHourPeriod",
@@ -530,7 +879,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_siteproperties_api_v4_SpecialHourPeriod"]
           },
-          "doc": " Exceptions to the business's regular hours.\n"
+          "doc": " Exceptions to the business's regular hours. The business can be open or closed during the exception.\n"
         }
       ],
       "enum": null,
@@ -542,7 +891,7 @@
       "displayName": "Time Period Object",
       "locations": [],
       "docs":       {
-        "summary": "\nA span of time that the business is open,\nstarting on the specified open day/time and closing on the specified close day/time.\nClosing time must occur after the opening time, for example later in the same day, or on a subsequent day.\n",
+        "summary": "\nWeekly recurring time periods when the business is regularly open or the service is available.\n",
         "links": [],
         "examples": []
       },
@@ -550,22 +899,22 @@
                 {
           "name": "openDay",
           "type": "All APIs.Locations._com_wixpress_siteproperties_api_v4_DayOfWeek",
-          "doc": " Day of the week this period starts on.\n"
+          "doc": " Day of the week the period starts on.\n"
         },
                 {
           "name": "openTime",
           "type": "string",
-          "doc": "\nTime in 24hr ISO 8601 extended format (hh:mm). Valid values are 00:00-24:00, where 24:00 represents\nmidnight at the end of the specified day field.\n"
+          "doc": "\nTime the period starts in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.\n"
         },
                 {
           "name": "closeDay",
           "type": "All APIs.Locations._com_wixpress_siteproperties_api_v4_DayOfWeek",
-          "doc": " Day of the week this period ends on.\n"
+          "doc": " Day of the week the period ends on.\n"
         },
                 {
           "name": "closeTime",
           "type": "string",
-          "doc": "\nTime in 24hr ISO 8601 extended format (hh:mm). Valid values are 00:00-24:00, where 24:00 represents\nmidnight at the end of the specified day field.\n"
+          "doc": "\nTime the period ends in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.  \n\n__Note:__ If `openDay` and `closeDay` specify the same day of the week `closeTime` must be later than `openTime`.\n"
         }
       ],
       "enum": null,
@@ -577,7 +926,7 @@
       "displayName": "Special Hour Period Object",
       "locations": [],
       "docs":       {
-        "summary": " Set of time periods when a location's operational hours differ from its normal business hours.\n",
+        "summary": " Exception to the business's regular hours. The business can be open or closed during the exception.\n",
         "links": [],
         "examples": []
       },
@@ -585,22 +934,22 @@
                 {
           "name": "startDate",
           "type": "string",
-          "doc": " Date and Time in 24hr iso-8601 Coordinated universal time (UTC)\n"
+          "doc": "\nStart date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
         },
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " Date and Time in 24hr iso-8601 Coordinated universal time (UTC)\n"
+          "doc": "\nEnd date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
         },
                 {
           "name": "isClosed",
           "type": "boolean",
-          "doc": ""
+          "doc": " \nWhether the business is closed (or the service is not available) during the exception. \n\nDefault: `true`.\n"
         },
                 {
           "name": "comment",
           "type": "string",
-          "doc": ""
+          "doc": " Additional info about the exception. For example, \"We close earlier on New Year's Eve.\"\n"
         }
       ],
       "enum": null,
@@ -647,7 +996,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.Locations._com_wixpress_locations_LocationType",
-          "doc": " Location type. **Note:** Currently not supported.\n"
+          "doc": " Location type. \n\n**Note:** Currently not supported.\n"
         },
                 {
           "name": "fax",
@@ -915,7 +1264,7 @@
                 {
           "name": "order",
           "type": "All APIs.Locations._wix_common_SortOrder",
-          "doc": " Sort order.\n\n Defaults to `ASC`.\n"
+          "doc": " Sort order.\n"
         }
       ],
       "enum": null,
@@ -935,7 +1284,7 @@
                 {
           "name": "filter",
           "type": "All APIs.Locations._google_protobuf_Value",
-          "doc": "Filter object in the following format:   \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -943,7 +1292,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "paging",
@@ -1052,7 +1401,7 @@
           "name": "array",
           "typeParams": ["All APIs.Locations._com_wixpress_locations_Location"]
         },
-        "doc": ""
+        "doc": " Locations to create.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1074,7 +1423,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_locations_Location"]
           },
-          "doc": ""
+          "doc": " Locations that were created.\n"
         },
                 {
           "name": "failedLocations",
@@ -1082,7 +1431,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_locations_FailedCreateLocation"]
           },
-          "doc": ""
+          "doc": " Locations that failed.\n"
         }
       ],
       "enum": null,
@@ -1163,17 +1512,17 @@
                 {
           "name": "sort",
           "type": "All APIs.Locations._wix_common_Sorting",
-          "doc": "[Sort order](https://bo.wix.com/wix-docs/rest/crm/contacts/sort-and-filter).\n"
+          "doc": " Sort order.\n"
         },
                 {
           "name": "paging",
           "type": "All APIs.Locations._wix_common_Paging",
-          "doc": "[Pagination](https://bo.wix.com/wix-docs/rest/crm/contacts/pagination), defaults to offset = 0 and limit = 50 (max limit 1,000).\n"
+          "doc": " Pagination.\n\n Default values:\n `offset`: 0\n `limit`: 50 (Max: 1000) \n"
         },
                 {
           "name": "includeArchived",
           "type": "boolean",
-          "doc": " Whether to include `archived` locations in the response. Defaults to `false`.\n"
+          "doc": " Whether to include `archived` locations in the response. \n\nDefault: `false`\n"
         }
       ],
       "enum": null,
@@ -1259,7 +1608,7 @@
           "name": "array",
           "typeParams": ["All APIs.Locations._com_wixpress_locations_Location"]
         },
-        "doc": ""
+        "doc": " Locations to update.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1281,7 +1630,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_locations_Location"]
           },
-          "doc": ""
+          "doc": " Locations that were updated.\n"
         },
                 {
           "name": "failedLocations",
@@ -1289,7 +1638,7 @@
             "name": "array",
             "typeParams": ["All APIs.Locations._com_wixpress_locations_FailedUpdateLocation"]
           },
-          "doc": ""
+          "doc": " Locations that failed.\n"
         }
       ],
       "enum": null,
@@ -1379,7 +1728,7 @@
       "members": [      {
         "name": "id",
         "type": "string",
-        "doc": " ID of the location to set as default.\n"
+        "doc": " ID of the location to set as the default location.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1416,12 +1765,12 @@
                 {
           "name": "prevDefaultLocationId",
           "type": "string",
-          "doc": ""
+          "doc": " Previous default location id.\n"
         },
                 {
           "name": "currDefaultLocationId",
           "type": "string",
-          "doc": ""
+          "doc": " Current default location id.\n"
         }
       ],
       "enum": null,
