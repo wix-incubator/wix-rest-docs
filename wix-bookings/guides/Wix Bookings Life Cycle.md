@@ -1,33 +1,35 @@
 # Wix Bookings Lifecycle
 
-To manage bookings, a life cycle status is used to track their progression through different stages. This status is essential for controlling the possible actions that can be taken, such as confirming a pending booking. By utilizing this life cycle status, the system effectively regulates the booking process from start to finish.
+Managing bookings with Wix is a process tracked through various stages using a lifecycle status. 
+This status is instrumental in controlling potential actions, such as confirming a pending booking, and ensures a smooth transition of the booking from start to finish.
 
-A booking can go through checkout for payment or have no payment, in any case, the validation occurs through [Confirm or decline](https://dev.wix.com/api/rest/wix-bookings/confirmation/confirm-or-decline-booking), where availability, payment and the need for business confirmation are checked.
+Below is a brief outline of possible booking statuses:
 
-A booking does not need payment to be confirmed, but payment will make sure that the booking is confirmed, even in a case of `DOUBLEBOOKING`, another way of allowing `DOUBLEBOOKING` is passing `skipAvailability` as `true` when creating the booking. 
+- `CREATED`: This is the initial status of a booking, indicating creation but not yet visibility on the business calendar. 
+    + It can be used for checkout or undergo separate processing. To create a booking, use [Create Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/create-booking).
 
-The following table describes all the possible status for a booking:
+- `CONFIRMED`: The approval of the booking by the site owner is indicated by this status, and it becomes visible on the business calendar. 
+    + You can manually switch a booking from `PENDING` to `CONFIRMED` using [Confirm Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/confirm-booking). 
+    + A booking can auto-confirm when the [service](https://dev.wix.com/api/rest/wix-bookings/services/service/create-service) is set to do so 
+    + A booking can also auto-confirm when the eCommerce order gets approved (coming soon)
+    + A booking will also auto-confirm when `skipBusinessConfirmation` is `true` at the time of booking creation (default is `false`).
 
-| Status | Definition |
-|---------------|-------------------------|
+- `PENDING`: This status denotes that the booking awaits confirmation or declination by the owner and is visible on the business calendar. 
+    + The system automatically assigns this status when a related eCommerce order is created.
 
-| `CREATED` | The booking has been created, but doesn't yet appear in the business calendar. 
-The first step and status of a booking is created, it can be used for checkout or processed without it.
-You can create a booking with [Create booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/create-booking)
-| `CONFIRMED` | The site owner has confirmed the booking and it appears in the business calendar.
-    + You can manually confirm a booking from pending with [Confirm Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/confirm-booking).
-    + Bookings are automatically confirmed when the [service](https://dev.wix.com/api/rest/wix-bookings/services/service/create-service) is configured to do so and the eCommerce order (coming soon) has been approved. An automatic confirmation includes checking the slot's or schedule's availability.
-    + Bookings are also automatically confirmed if `skipBusinessConfirmation` is passed as `true` when creating the booking, `false` is default.
-| `PENDING` | The booking is waiting to be confirmed or declined by the owner and is displayed in the business calendar.
-You can't manually set bookings as `PENDING` via an API.
-Bookings are automatically set as `PENDING` when an eCommerce order related to the booking has been created (coming soon).
-| `WAITING_LIST` | The booking is pending on a waiting list.
-You must use the [Waitlist APIs](https://dev.wix.com/api/rest/wix-bookings/waitlist/introduction) 
-to create bookings in status `WAITING_LIST`. You can't change a booking's status from `CREATED` to `WAITING_LIST` with the Bookings V2 APIs.
-| `DECLINED` | The booking has been declined by the site owner.
-    + You can manually decline a booking with 
-    [Decline Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/decline-booking).
-    + Bookings are automatically declined when an eCommerce order has been 
-    declined or a double booking happened for free bookings.
-| `CANCELED` | The booking has been canceled by the site owner or the customer.
-You can cancel bookings with [Cancel Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/cancel-booking).
+- `WAITING_LIST`: This status implies that the booking is on a waiting list. 
+    + To create such bookings, you need to use the [Waitlist APIs](https://dev.wix.com/api/rest/wix-bookings/waitlist/introduction). 
+    + You can't change a booking's status from `CREATED` to `WAITING_LIST` using the Bookings V2 APIs.
+
+- `DECLINED`: This status indicates the site owner's rejection of the booking. 
+    + You can manually decline a booking using [Decline Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/decline-booking). 
+    + The system automatically declines bookings when an associated eCommerce order is declined.  
+    + The system also declines double bookings for free bookings..
+
+- `CANCELED`: This status arises when the site owner or the customer cancels the booking. 
+    + To cancel a booking, use [Cancel Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/cancel-booking).
+
+Bookings can be confirmed with or without payment, but there are a few details to keep in mind:
+- Payment ensures confirmation, even under `DOUBLEBOOKING`.
+- [Confirm or Decline](https://dev.wix.com/api/rest/wix-bookings/confirmation/confirm-or-decline-booking) validates bookings, checking for availability and business confirmation.
+- `DOUBLEBOOKING` is also permissible without payment by setting `skipAvailability` as `true` at booking creation.
