@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 2
 # Services: Filtering and Sorting
 
 Query endpoints allow you to filter and sort results based on service properties. This article covers field support for
@@ -21,21 +21,23 @@ Specify the `filter` object in the following format:
 The following table shows field support for filters and sorting
 for the `service` object:
 
-
-| Field                   | Supported Filters                                         | Sortable |
-|-------------------------|-----------------------------------------------------------|----------|
-| `name`                  | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `type`                  | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`                | Sortable |
-| `description`           | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `hidden`                | `$eq`, `$ne`, `$exists`, `$in`                            |          |
-| `tagLine`               | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `staffMemberIds`        | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `form.id`               | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `category.id`           | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `mainSlug.name`         | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `supportedSlugs.name`   | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `onlineBooking.enabled` | `$eq`, `$ne`, `$exists`, `$in`                            |          |
-
+| Field                         | Supported Filters                                         | Sortable |
+|-------------------------------|-----------------------------------------------------------|----------|
+| `name`                        | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `type`                        | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`                | Sortable |
+| `description`                 | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `hidden`                      | `$eq`, `$ne`, `$exists`, `$in`                            |          |
+| `tagLine`                     | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `staffMemberIds`              | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
+| `form.id`                     | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
+| `category.id`                 | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
+| `mainSlug.name`               | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `supportedSlugs.name`         | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `locations.business.id`       | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
+| `onlineBooking.enabled`       | `$eq`, `$ne`, `$exists`, `$in`                            |          |
+| `payment.options.online`      | `$eq`, `$ne`, `$exists`, `$in`                            |          |
+| `payment.options.inPerson`    | `$eq`, `$ne`, `$exists`, `$in`                            |          |
+| `payment.options.pricingPlan` | `$eq`, `$ne`, `$exists`, `$in`                            |          |
 
 ## Sorting
 

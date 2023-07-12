@@ -41,9 +41,14 @@ Services may differ in the offering they provide, but the API differentiates bet
 
 
 
-## Before You Begin
+## Before you begin
 
 Before using the API, make sure to set up [Wix Bookings](https://support.wix.com/en/article/wix-bookings-about-wix-bookings) and [create the right services for your business](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business). 
+
+
+## Sample Use Cases
+
+- [Periodically export new Wix Bookings services to an external catalog](https://dev.wix.com/api/rest/wix-bookings/services-v2sample-use-cases-and-flows)
 
 ## Terminology
 
