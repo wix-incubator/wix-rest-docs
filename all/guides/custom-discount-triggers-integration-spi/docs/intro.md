@@ -1,7 +1,7 @@
 SortOrder: 0
 # About Custom Discount Triggers SPI
 
-The eCommerce Custom Discount Triggers SPI allows you to provide custom triggers that specify when an item can be discounted.
+The eCommerce Custom Discount Triggers SPI allows you to provide custom triggers that specify when a discount can apply to a cart/checkout.
 
 Custom triggers play a part in the definition of discount rules - sets of triggers and scopes that together define the necessary conditions for a discount to apply to items in the cart/checkout.
 
@@ -12,7 +12,7 @@ To use a custom trigger:
 + Implement the [`getEligibleTriggers()`](https://dev.wix.com/api/rest/wix-ecommerce/custom-discount-triggers-integration-spi/get-eligible-triggers) and provide the logic needed for applying the relevant custom trigger.
 + [Create an automatic discount using the dashboard](https://support.wix.com/en/article/wix-stores-creating-automatic-discounts), or by using the [Discount Rules API](https://dev.wix.com/api/rest/wix-ecommerce/discount-rules/create-discount-rule).
 
-The integration is done via an app in the Wix App Market (created in the [Wix Developers Center](https://dev.wix.com/)) and the Wix Custom Discount Triggers Rates SPI.
+The integration is done via an app in the Wix App Market (created in the [Wix Developers Center](https://dev.wix.com/)) and the Wix Custom Discount Triggers SPI.
 
 Learn more about [implementing an SPI with Wix](https://dev.wix.com/api/rest/getting-started/service-provider-interface).
 
