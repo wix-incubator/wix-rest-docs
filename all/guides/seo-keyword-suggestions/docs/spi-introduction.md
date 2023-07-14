@@ -9,18 +9,25 @@ Using the SEO Keyword Suggestions SPI, you can design your app to:
 - Provide analysis about the suggested keywords based on search volume and ranking difficulty.
 - Update Wix users about remaining credit in their plan.
 
+## Prerequisites for integration
 
- ## How to become a keyword suggestions provider
+Create an [app](https://dev.wix.com/dc3/my-apps/) and retrieve its app ID either from the URL or as displayed in the My Apps dashboard in the [Wix Developers Center](https://dev.wix.com/).  
 
-- Create an [app](https://dev.wix.com/apps/) with an integration component. 
+![appId](https://s3.amazonaws.com/wixplorer-readme-images/seo-keyword-suggestions%2FappId-small.jpg "App ID")  
 
-- Configure your app in the JSON Editor of the Wix Dev Center. For more information about SPI integration setup, see Service Provider Interface [Setup](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_setup).
-  - `baseUri`: String. URL of your site.
-  - `upgradeUrl`: String. URL to select a paid plan.
-  - `supportedCountryCodes`: Array of strings. Countries supported by your service. 2-letter country codes in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.
-  - `quotaEnabled`: Boolean. Whether there is a quota limit for the service.
-  - `landingPageUrl`: String. URL of your website.
+## How to become an SEO keyword suggestion provider
 
+Send an email to this email address `seo-integration@wix.com` to request sign-up. Enter "SEO Keyword Suggestion Integration" as the subject, and provide the following details:  
+- Type of business (marketing, web services).  
+- A few words about your business and the market you serve.  
+- URL of the site hosting your app.  
+- URL to select a paid plan (optional).  
+- Countries supported by your service as a 2-letter country code in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.  
+- Whether there is a quota limit for the service.
+- Home page URL for more information.
+- ID of the app you created.
+
+Your sign-up request will be reviewed and you will be notified by return email.
 
 ## Terminology
 
