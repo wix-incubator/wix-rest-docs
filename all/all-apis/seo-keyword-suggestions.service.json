@@ -1,0 +1,322 @@
+{
+  "name": "SEO Keyword Suggestions",
+  "client_id": "https://github.com/wix-private/npm-proto-bazel/tree/master/com_wixpress_proto_promote-seo-keywords-suggestions-host/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Describes the SEO Keyword Suggestions SPI.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Keyword Suggestions SPI",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/seo-keyword-suggestions/docs/spi-example-flows.md",
+      "name": "Sample Flows"
+    },
+        {
+      "path": "../guides/seo-keyword-suggestions/docs/spi-introduction.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Quota",
+      "methodName": "GetQuota",
+      "serviceName": "SeoKeywordsSuggestionsSPI",
+      "tag": "Keyword Suggestions SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "GetQuota",
+          "statusCode": "200",
+          "typeParams": ["All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_GetQuotaResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This endpoint requests information about remaining quota in the plan. \n A Wix user can purchase a paid plan from your site or utilize a free plan \n if you offer one. \n You provide information about the current plan including how many searches remain \n out of the total in the plan, the dates of the plan, and whether the user currently has a paid plan.\n\n Wix calls this endpoint when a Wix user opens the SEO page of the Dashboard.\n\n> You cannot try out this endpoint because it has to be implemented by an app and can \n> have an arbitrary URL. So please ignore the **Authorization** and **POST** sections below \n> as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/v1/get-quota",
+        "links": [],
+        "examples": [        {
+          "title": "Get quota",
+          "body": ["curl POST https://www.provider.example.com/v1/get-quota  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"quota\": {\n  \"remaining\": 9,\n  \"limit\": 10,\n  \"startDate\": \"2022-11-04T07:04:35Z\",\n  \"endDate\": \"2022-11-05T07:04:35Z\",\n  \"paidPlan\": false\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetQuotaRequest",
+        "rpcResponseName": "GetQuotaResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Suggested Keywords",
+      "methodName": "ListSuggestedKeywords",
+      "serviceName": "SeoKeywordsSuggestionsSPI",
+      "tag": "Keyword Suggestions SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "keyword",
+          "type": "string",
+          "doc": " Keyword to analyze for SEO strength.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Specific country for analysis. \n\n 2-letter country code in\n [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\n format.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListSuggestedKeywords",
+          "statusCode": "200",
+          "typeParams": ["All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_ListSuggestedKeywordsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " This endpoint requests keyword suggestions for a specified phrase. \n You provide statistical data about the requested keyword and a list of similar keywords \n so the user can compare the SEO strength of the suggested keywords. \n \n Wix calls this endpoint when a Wix user requests data about a keyword via the SEO page of the Dashboard.\n \n \n> You cannot try out this endpoint because it has to be implemented by an app and can \n> have an arbitrary URL. So please ignore the **Authorization** and **POST** sections below \n> as well as the **Try It Out** button.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/v1/list-suggested-keywords",
+        "links": [],
+        "examples": [        {
+          "title": "List suggested keywords",
+          "body": ["curl POST https://www.provider.example.com/v1/list-suggested-keywords  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>' \\\n  --data '{\n    \"keyword\": \"ice cream\",\n    \"countryCode\": \"US\"\n  }'"],
+          "response": ["{\n  \"data\":   [\n        {\n      \"keyword\": \"ice cream\",\n      \"volume\": 550000,\n      \"difficulty\": 100,\n      \"latestTrends\":       [\n        0.3,\n        0.2,\n        0.24,\n        0.16,\n        0.2,\n        0.2,\n        0.44,\n        0.36,\n        0.36,\n        0.36,\n        0.24,\n        0.2\n      ],\n      \"searcherIntent\": [\"TRANSACTIONAL\"]\n    },\n        {\n      \"keyword\": \"ice cream near me\",\n      \"volume\": 1500000,\n      \"difficulty\": 83,\n      \"latestTrends\":       [\n        0.66,\n        0.44,\n        0.3,\n        0.3,\n        0.3,\n        0.3,\n        0.54,\n        0.66,\n        0.81,\n        1,\n        1,\n        0.66\n      ],\n      \"searcherIntent\": [\"TRANSACTIONAL\"]\n    },\n        {\n      \"keyword\": \"little debbie ice cream\",\n      \"volume\": 110000,\n      \"difficulty\": 50,\n      \"latestTrends\":       [\n        0,\n        0.06,\n        0.16,\n        0.07,\n        0.66,\n        1,\n        0.16,\n        0.11,\n        0.09,\n        0.07,\n        0.09,\n        0.04\n      ],\n      \"searcherIntent\": [\"INFORMATIONAL\"]\n    },\n        {\n      \"keyword\": \"ice cream cake strain\",\n      \"volume\": 74000,\n      \"difficulty\": 43,\n      \"latestTrends\":       [\n        1,\n        1,\n        1,\n        0.81,\n        0.81,\n        0.66,\n        0.81,\n        0.81,\n        0.66,\n        0.66,\n        0.66,\n        0.66\n      ],\n      \"searcherIntent\": [\"INFORMATIONAL\"]\n    },\n        {\n      \"keyword\": \"ice cream places near me\",\n      \"volume\": 74000,\n      \"difficulty\": 61,\n      \"latestTrends\":       [\n        0.44,\n        0.3,\n        0.13,\n        0.16,\n        0.2,\n        0.3,\n        0.36,\n        0.44,\n        1,\n        0.66,\n        0.66,\n        0.44\n      ],\n      \"searcherIntent\": [\"TRANSACTIONAL\"]\n    },\n        {\n      \"keyword\": \"jeni's ice cream\",\n      \"volume\": 74000,\n      \"difficulty\": 70,\n      \"latestTrends\":       [\n        0.67,\n        0.54,\n        0.54,\n        0.54,\n        0.54,\n        0.54,\n        0.67,\n        0.67,\n        0.81,\n        1,\n        0.16,\n        0.16\n      ],\n      \"searcherIntent\": [\"NAVIGATIONAL\"]\n    },\n        {\n      \"keyword\": \"jenis ice cream\",\n      \"volume\": 74000,\n      \"difficulty\": 70,\n      \"latestTrends\":       [\n        0.36,\n        0.55,\n        0.45,\n        0.67,\n        0.55,\n        0.45,\n        0.82,\n        0.45,\n        0.67,\n        0.67,\n        1,\n        0.82\n      ],\n      \"searcherIntent\": [\"NAVIGATIONAL\"]\n    },\n        {\n      \"keyword\": \"rolled ice cream\",\n      \"volume\": 74000,\n      \"difficulty\": 49,\n      \"latestTrends\":       [\n        0.54,\n        0.54,\n        0.44,\n        0.44,\n        0.54,\n        0.44,\n        0.54,\n        0.54,\n        0.67,\n        0.67,\n        0.81,\n        0.81\n      ],\n      \"searcherIntent\": [\"INFORMATIONAL\"]\n    },\n        {\n      \"keyword\": \"ice cream cake\",\n      \"volume\": 60500,\n      \"difficulty\": 71,\n      \"latestTrends\":       [\n        0.66,\n        0.54,\n        0.54,\n        0.54,\n        0.66,\n        0.54,\n        0.66,\n        0.66,\n        0.81,\n        0.81,\n        1,\n        0.81\n      ],\n      \"searcherIntent\": [\"INFORMATIONAL\"]\n    },\n        {\n      \"keyword\": \"ice cream shop\",\n      \"volume\": 60500,\n      \"difficulty\": 48,\n      \"latestTrends\":       [\n        0.24,\n        0.24,\n        0.16,\n        0.16,\n        0.3,\n        0.3,\n        0.44,\n        0.24,\n        0.3,\n        1,\n        0.16,\n        0.66\n      ],\n      \"searcherIntent\": [\"COMMERCIAL\"]\n    },\n        {\n      \"keyword\": \"museum of ice cream\",\n      \"volume\": 60500,\n      \"difficulty\": 80,\n      \"latestTrends\":       [\n        0.66,\n        0.54,\n        0.54,\n        0.54,\n        0.66,\n        0.66,\n        1,\n        0.66,\n        0.54,\n        1,\n        0.66,\n        0.66\n      ],\n      \"searcherIntent\": [\"NAVIGATIONAL\"]\n    }\n  ],\n  \"quota\":   {\n    \"remaining\": 9,\n    \"limit\": 10,\n    \"startDate\": \"2022-11-04T07:04:35Z\",\n    \"endDate\": \"2022-11-05T07:04:35Z\",\n    \"isPaidPlan\": false,\n    \"paidPlan\": false\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListSuggestedKeywordsRequest",
+        "rpcResponseName": "ListSuggestedKeywordsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_ListSuggestedKeywordsRequest",
+      "displayName": "List Suggested Keywords Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "keyword",
+          "type": "string",
+          "doc": " Keyword to analyze for SEO strength.\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Specific country for analysis. \n\n 2-letter country code in\n [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\n format.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_ListSuggestedKeywordsResponse",
+      "displayName": "List Suggested Keywords Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "data",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_SuggestedKeywords"]
+          },
+          "doc": " Analysis of the keyword.\n"
+        },
+                {
+          "name": "quota",
+          "type": "All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_Quota",
+          "doc": " Updated quota after request processed. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_SuggestedKeywords",
+      "displayName": "Suggested Keywords Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "keyword",
+          "type": "string",
+          "doc": " **Required**. Keyword suggestions offered by the SEO tool.\n"
+        },
+                {
+          "name": "volume",
+          "type": "integer",
+          "doc": " **Required**. Average number of searches per month for the keyword.\n"
+        },
+                {
+          "name": "difficulty",
+          "type": "integer",
+          "doc": " **Required**. Indicates how competitive the keyword is and how difficult to rank in an organic search. A higher difficulty means the keyword has a lower search ranking. <br>\n Min: `1` <br>\n Max: `100`\n"
+        },
+                {
+          "name": "latestTrends",
+          "type":           {
+            "name": "array",
+            "typeParams": ["number"]
+          },
+          "doc": " **Required**. Trends in searches for the keyword per month over the last 12 months. \n\n Must include exactly 12 values.\n\n Typically, the trend values represent the number of searches relative to the peak search volume. \n\n A value of `1.0` represents the highest search volume for the term. A value of `0.50` means that there were half as many searches. <br>\n Min: `0.0` <br>\n Max: `1.0` \n"
+        },
+                {
+          "name": "searcherIntent",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_SearcherIntentEnum_SearcherIntent"]
+          },
+          "doc": " User's reason for searching for the keyword (optional): \n - `COMMERCIAL`: Users searched for specific brands or services, usually with an intent to purchase.\n - `INFORMATIONAL`: Users searched for information about a topic.\n - `NAVIGATIONAL`: Users searched for a specific page, site, or physical location.\n - `TRANSACTIONAL`: Users searched to perform a transaction, for example a purchase.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_GetQuotaRequest",
+      "displayName": "Get Quota Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_GetQuotaResponse",
+      "displayName": "Get Quota Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "quota",
+        "type": "All APIs.SEO Keyword Suggestions._wix_promote_seo_keywords_suggestions_spi_v1_Quota",
+        "doc": " **Required if `quotaEnabled` is `true` in the configuration**. Information about remaining credit in the plan.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_Quota",
+      "displayName": "Quota Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "remaining",
+          "type": "integer",
+          "doc": " **Required**. Number of searches left until the end of the current quota cycle.\n"
+        },
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " **Required**. Total number of searches available in the current quota cycle.\n"
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " **Required**. Start date and time of the current quota cycle as UTC datetime in `YYYY-MM-DDThh:mm[:ss][.sss]Z` format.\n"
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": " **Required**. End date and time of the current quota cycle as UTC datetime in `YYYY-MM-DDThh:mm[:ss][.sss]Z` format. \n After this time, the quota is reset \n"
+        },
+                {
+          "name": "paidPlan",
+          "type": "boolean",
+          "doc": " **Required**. Whether the user currently has a paid plan.\n If `false`, the user is offered an upgrade using the `upgradeUrl` from the configuration.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_promote_seo_keywords_suggestions_spi_v1_SearcherIntentEnum_SearcherIntent",
+      "displayName": "Searcher Intent Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> COMMERCIAL <\/code><\/li><li><code> INFORMATIONAL <\/code><\/li><li><code> NAVIGATIONAL <\/code><\/li><li><code> TRANSACTIONAL <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "COMMERCIAL",
+        "INFORMATIONAL",
+        "NAVIGATIONAL",
+        "TRANSACTIONAL"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "serverless.semrush-service"}
+}
