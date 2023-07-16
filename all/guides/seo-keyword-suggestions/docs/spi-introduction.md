@@ -20,11 +20,11 @@ Create an [app](https://dev.wix.com/dc3/my-apps/) and retrieve its app ID either
 Send an email to this email address `seo-integration@wix.com` to request sign-up. Enter "SEO Keyword Suggestion Integration" as the subject, and provide the following details:  
 - Type of business (marketing, web services).  
 - A few words about your business and the market you serve.  
-- URL of the site hosting your app.  
-- URL to select a paid plan (optional).  
-- Countries supported by your service as a 2-letter country code in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.  
-- Whether there is a quota limit for the service.
-- Home page URL for more information.
+- `baseUri`: URL of the site hosting your app.  
+- `upgradeUrl`: URL to select a paid plan (optional).  
+- `supportedCountryCodes`: Countries supported by your service as a 2-letter country code in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.  
+- `quotaEnabled`: Whether there is a quota limit for the service.
+- `landingPageUrl`: Home page URL for more information.
 - ID of the app you created.
 
 Your sign-up request will be reviewed and you will be notified by return email.
