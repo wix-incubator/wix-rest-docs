@@ -3,7 +3,7 @@
 
 ## New Release: [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
 
-The new SEO Keyword Suggestions SPI provides third parties the ability to get SEO keyword quota and list SEO keyword suggestions:
+The new SEO Keyword Suggestions SPI introduces the ability to integrate third-party SEO keyword services with a Wix site. SEO keyword services include getting remaining search quota and listing keyword suggestions:
 
 + [Get Quota](marketing/seo-keyword-suggestions-spi/get-quota).
 + [List Keyword Suggestions](marketing/seo-keyword-suggestions-spi/list-suggested-keywords).
