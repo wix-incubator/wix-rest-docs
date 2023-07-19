@@ -1,6 +1,13 @@
 # Release Notes
 
 
+## New Release: Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
+
+The Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi) introduces the ability to integrate third-party SEO keyword services with a Wix site. SEO keyword services include [getting remaining search quota](marketing/seo-keyword-suggestions-spi/get-quota) and [listing keyword suggestions](marketing/seo-keyword-suggestions-spi/list-suggested-keywords).
+
+
+(July 17, 2023)
+
 ## New Release: Wix Bookings [Attendance API](wix-bookings/attendance)
 
 Wix Bookings introduces the new [Attendance API](wix-bookings/attendance). This API allows you to track how many participants attended a booked session.
