@@ -1,5 +1,16 @@
 # Release Notes
 
+## New Release: [Comments](comments/comments)
+
+The new Comments API allows a third party to manage a site's comments. It includes the following endpoints:
+
++ [Create](comments/comments/create-comment), [Update](comments/comments/update-comment), or [Delete](comments/comments/delete-comment) a comment.
++ [Get](comments/comments/get-comment) or [Query](comments/comments/query-comments) comments.
++ [Mark](comments/comments/mark-comment) and [Unmark](comments/comments/unmark-comment) a comment.
++ [Count Comments](comments/comments/count-comments).
+
+(July 27, 2023)
+
 ## New Release: Wix eCommerce [Validations Integration SPI](wix-ecommerce/validations-integration-spi)
 
 Wix eCommerce introduces the new [Validations Integration SPI](wix-ecommerce/validations-integration-spi). This SPI allows third parties to validate a cart and checkout for their merchant's customers including:
