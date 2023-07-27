@@ -2,7 +2,7 @@
 
 ## New Release: [Comments](comments/comments)
 
-The new Comments API allows a third party to manage a site's comments. It includes the following endpoints:
+The new [Comments API](comments/comments) allows a third party to manage a site's comments. It includes the following endpoints:
 
 + [Create](comments/comments/create-comment), [Update](comments/comments/update-comment), or [Delete](comments/comments/delete-comment) a comment.
 + [Get](comments/comments/get-comment) or [Query](comments/comments/query-comments) comments.
