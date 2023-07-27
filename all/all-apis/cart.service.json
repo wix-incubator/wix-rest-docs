@@ -1158,6 +1158,73 @@
       "oneOf": true
     },
         {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Cart._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Cart._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cart._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
       "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
       "displayName": "Catalog Reference Object",
       "locations": [],
@@ -1170,17 +1237,17 @@
                 {
           "name": "catalogItemId",
           "type": "string",
-          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `eventId` for Wix Events.\n"
+          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `bookingId` for Wix Bookings.\n"
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the catalog app. For example, the Wix Stores `appId`, or the 3rd-party `appId`.\n"
+          "doc": " \nID of the catalog app. For items from Wix apps, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`    \n"
         },
                 {
           "name": "options",
           "type": "struct",
-          "doc": " Additional info in key:value form. For example, `{\"options\":{\"Size\": \"M\", \"Color\": \"Red\"}}` or `{\"variantId\": \"<VARIANT_ID>\"}`.\n"
+          "doc": "\nAdditional info in key:value form. For example, to specify Wix Stores product options or variants:\n+ `{\"options\": {\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}}}`\n+ `{\"options\": {\"variantId\": \"<VARIANT_ID>\"}}`\n"
         }
       ],
       "enum": null,
@@ -1361,7 +1428,7 @@
                 {
           "name": "namespace",
           "type": "string",
-          "doc": " Scope namespace (Wix Stores, Wix Bookings, Wix Events)\n"
+          "doc": " Scope namespace (Wix Stores, Wix Bookings, Wix Events, Wix Pricing Plans)\n"
         },
                 {
           "name": "group",
@@ -1726,7 +1793,7 @@
                 {
           "name": "translated",
           "type": "string",
-          "doc": " Translated subscription option name.\n"
+          "doc": " Translated subscription option description.\n"
         }
       ],
       "enum": null,
@@ -2503,6 +2570,12 @@
           "name": "contactInfo",
           "type": "All APIs.Cart._com_wix_ecommerce_platform_common_api_AddressWithContact",
           "doc": " Contact info.\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -3207,7 +3280,8 @@
                 {
           "name": "calculationDetails",
           "type": "All APIs.Cart._com_wix_ecom_tax_api_TaxCalculationDetails",
-          "doc": " Tax calculator that was active when the order was created.\n"
+          "doc": " Tax calculator that was active when the order was created.\n",
+          "deprecated": true
         }
       ],
       "enum": null,
@@ -3266,7 +3340,7 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Type of tax against which the calculation was performed.\n"
+          "doc": " Name of tax against which the calculation was performed.\n"
         },
                 {
           "name": "rate",
@@ -3561,6 +3635,31 @@
       "labels": []
     },
         {
+      "name": "_com_wix_ecom_totals_calculator_v1_DeliveryTimeSlot",
+      "displayName": "Delivery Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "from",
+          "type": "string",
+          "doc": " starting time of the delivery time slot\n"
+        },
+                {
+          "name": "to",
+          "type": "string",
+          "doc": " ending time of the delivery time slot\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_ecom_totals_calculator_v1_ShippingInformation",
       "displayName": "Shipping Information Object",
       "locations": [],
@@ -3685,7 +3784,8 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Gift Card ID.\n"
+          "doc": " Gift Card ID.\n",
+          "deprecated": true
         },
                 {
           "name": "obfuscatedCode",
@@ -4071,6 +4171,123 @@
           "name": "paymentOption",
           "type": "All APIs.Cart._com_wix_ecommerce_catalog_spi_api_v1_PaymentOptionType",
           "doc": " Type of selected payment option for current item. Supported values:\n + `\"FULL_PAYMENT_ONLINE\"` - The entire payment for this item will happen as part of the checkout\n + `\"FULL_PAYMENT_OFFLINE\"` - The entire payment for this item will happen after the checkout\n + `\"MEMBERSHIP\"` - This item cannot be paid via monetary payment options, only via non monetary option such membership. When this option is used, price must be set to 0\n + `\"DEPOSIT_ONLINE\"` -  Partial payment of the given item will happen as part of the checkout. Amount to be paid is defined by deposit_amount field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_Other",
+      "displayName": "Other Object",
+      "locations": [],
+      "docs":       {
+        "summary": " General (other) violation.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "name",
+        "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target_NameInOther",
+        "doc": " Where on the checkout and cart page the violation will be displayed. \nSupported values:\n+ \"OTHER_DEFAULT\": The default location on a checkout or cart page where a general (other) violation will be displayed. See image in the [introduction](https://dev.wix.com/api/rest/wix-ecommerce/validations-integration-spi/introduction).\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Specific line item violation.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target_NameInLineItem",
+          "doc": " Where on the checkout and cart page the violation belonging to a specific line item will be displayed.\nSupported values:\n+ \"OTHER_DEFAULT\": The default location on a checkout or cart page where a line item violation will be displayed. See image in the [introduction](https://dev.wix.com/api/rest/wix-ecommerce/validations-integration-spi/introduction).\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " ID of the line item containing the violation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target",
+      "displayName": "Target Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "targetType",
+        "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target_TargetType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_TargetType",
+      "displayName": "Target Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "other",
+          "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target_Other",
+          "doc": " Specific line item violation.\n"
+        },
+                {
+          "name": "lineItem",
+          "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target_LineItem",
+          "doc": " Other violation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Violation",
+      "displayName": "Violation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "severity",
+          "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Violation_Severity",
+          "doc": " Severity of the violation. The violations are shown on the cart and checkout pages. A warning is displayed as yellow, and allows a site visitor to proceed with caution. An error is displayed as red, and doesn't allow a site visitor to proceed with the eCommerce flow.\n"
+        },
+                {
+          "name": "target",
+          "type": "All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Target",
+          "doc": " Target location on a checkout or cart page where the violation will be displayed.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Violation description. Can include rich text. Only HTTP or HTTPS links in the following format are allowed: `<a href=\"https://www.wix.com\">Click me<\/a>`.\n"
         }
       ],
       "enum": null,
@@ -4553,24 +4770,6 @@
       "labels": []
     },
         {
-      "name": "_wix_common_domainevents_ExtendedFieldsUpdatedEvent",
-      "displayName": "Extended Fields Updated Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "currentEntityAsJson",
-        "type": "string",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_domainevents_DomainEvent",
       "displayName": "Domain Event Object",
       "locations": [],
@@ -4658,11 +4857,6 @@
                 {
           "name": "actionEvent",
           "type": "All APIs.Cart._wix_common_domainevents_ActionEvent",
-          "doc": ""
-        },
-                {
-          "name": "extendedFieldsUpdatedEvent",
-          "type": "All APIs.Cart._wix_common_domainevents_ExtendedFieldsUpdatedEvent",
           "doc": ""
         }
       ],
@@ -5285,6 +5479,15 @@
             "typeParams": ["All APIs.Cart._com_wix_ecom_totals_calculator_v1_AdditionalFee"]
           },
           "doc": " Additional fees\n"
+        },
+                {
+          "name": "violations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cart._com_wix_ecommerce_validations_spi_v1_Violation"]
+          },
+          "doc": " Violations risen by ValidationsSPI implementers.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -5320,6 +5523,20 @@
       },
       "members": [],
       "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
       "extra": {},
       "labels": []
     },
@@ -5639,11 +5856,56 @@
       "labels": []
     },
         {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_NameInOther",
+      "displayName": "Name In Other Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Available locations on the webpage\n \n Possible values are: <li><code> OTHER_DEFAULT -  default location, in case no specific location is specified\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["OTHER_DEFAULT"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_NameInLineItem",
+      "displayName": "Name In Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Available locations on the line item\n \n Possible values are: <li><code> LINE_ITEM_DEFAULT -  default location, in case no specific location is specified\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["LINE_ITEM_DEFAULT"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Violation_Severity",
+      "displayName": "Severity Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> WARNING -  The user is allowed to move forward in the flow.\n <\/code><\/li><li><code> ERROR -  The user is blocked from moving forward in the flow.\n For example, if callerContext is CART - moving to checkout is blocked. if callerContext is CHECKOUT, placing an order is blocked.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "WARNING",
+        "ERROR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_ecommerce_platform_common_api_ChannelType",
       "displayName": "Channel Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> WEB <\/code><\/li><li><code> POS <\/code><\/li><li><code> EBAY <\/code><\/li><li><code> AMAZON <\/code><\/li><li><code> OTHER_PLATFORM <\/code><\/li><li><code> WIX_APP_STORE <\/code><\/li><li><code> WIX_INVOICES <\/code><\/li><li><code> BACKOFFICE_MERCHANT <\/code><\/li><li><code> WISH <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> WEB <\/code><\/li><li><code> POS <\/code><\/li><li><code> EBAY <\/code><\/li><li><code> AMAZON <\/code><\/li><li><code> OTHER_PLATFORM <\/code><\/li><li><code> WIX_APP_STORE <\/code><\/li><li><code> WIX_INVOICES <\/code><\/li><li><code> BACKOFFICE_MERCHANT <\/code><\/li><li><code> WISH <\/code><\/li><li><code> CLASS_PASS <\/code><\/li><li><code> GLOBAL_E <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5658,7 +5920,9 @@
         "WIX_APP_STORE",
         "WIX_INVOICES",
         "BACKOFFICE_MERCHANT",
-        "WISH"
+        "WISH",
+        "CLASS_PASS",
+        "GLOBAL_E"
       ],
       "extra": {},
       "labels": []
