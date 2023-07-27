@@ -9,8 +9,17 @@ Wix eCommerce introduces the new [Validations Integration SPI](wix-ecommerce/val
 + Line item quantity limit.
 + Valid coupon code.
 
+Using the [Get Validation Violations](wix-ecommerce/validations-integration-spi/get-validation-violations) endpoint, third party developers can provide validation violations for the cart and checkout.
 
-Using the [Get Validation Violations](wix-ecommerce/validations-integration-spi/get-validation-violations) endpoint, third parties can retrive any validation violations to a cart and checkout. 
+
+(July 27, 2023)
+
+## New Release: Wix eCommerce [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi)
+
+Wix eCommerce introduces the new [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi). This SPI allows third parties to create custom triggers that specify when a discount rule can apply to a cart/checkout. Learn more about the [Discount Rules API](wix-ecommerce/discount-rules).
+
++ [Get Eligible Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/get-eligible-triggers).
++ [List Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/list-triggers).
 
 
 (July 27, 2023)
