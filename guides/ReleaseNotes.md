@@ -1,5 +1,19 @@
 # Release Notes
 
+## New Release: Wix eCommerce [Validations Integration SPI](wix-ecommerce/validations-integration-spi)
+
+Wix eCommerce introduces the new [Validations Integration SPI](wix-ecommerce/validations-integration-spi). This SPI allows third parties to validate a cart and checkout for their merchant's customers including:
+
++ Minimum cart value.
++ Age of a customer before they proceed to checkout.
++ Line item quantity limit.
++ Valid coupon code.
+
+
+Using the [Get Validation Violations](wix-ecommerce/validations-integration-spi/get-validation-violations) endpoint, third parties can retrive any validation violations to a cart and checkout. 
+
+
+(July 27, 2023)
 
 ## New Release: Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
 
