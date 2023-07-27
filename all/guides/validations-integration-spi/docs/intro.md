@@ -33,7 +33,7 @@ Select the **Ecom Validations** component and provide the following configuratio
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `baseUri`|object|Required. Base URI which Wix eCommerce will call to retrieve the validation violations.<br/> For example, `"baseUri": { "baseUri": "https://my-validations.com" }` |
+| `deploymentUri`|string|Required. Base URI which Wix eCommerce will call to retrieve the validation violations.<br/> For example, `"deploymentUri": "https://my-validations.com"` |
 | `componentName`|string|A unique name for this component. This is an internal name that will only appear in the Dev Center. |
 | `validateInCart`|boolean|Whether to validate the cart page in addition to the checkout page. Default: `false` |
 
