@@ -22,7 +22,7 @@ Wix eCommerce introduces the new [Custom Discount Triggers Integration SPI](wix-
 + [List Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/list-triggers).
 
 
-(July 27, 2023)
+(July 23, 2023)
 
 ## New Release: Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
 
