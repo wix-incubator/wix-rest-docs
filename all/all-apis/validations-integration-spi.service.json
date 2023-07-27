@@ -1,0 +1,1459 @@
+{
+  "name": "Validations Integration SPI",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-validations-spi/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Describes the validations integration to be called by Wix and received by the relevant validations provider. This integration is used to calculate the validations according to your own custom logic.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Validations SPI",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/validations-integration-spi/docs/sample-flow.md",
+      "name": "Sample Flow"
+    },
+        {
+      "path": "../guides/validations-integration-spi/docs/intro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations": [  {
+    "name": "Get Validation Violations",
+    "methodName": "GetValidationViolations",
+    "serviceName": "ValidationsSPI",
+    "tag": "Validations SPI",
+    "permissions": [],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "sourceInfo",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_SourceInfo",
+        "doc": " Information about the source of the request.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "validationInfo",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_ValidationInfo",
+        "doc": " Information to validate.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "GetValidationViolations",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_GetValidationViolationsResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " \nThis endpoint retrieves validation violations from your app.  \n\nWix calls this endpoint when certain actions are performed on a visitor's cart and checkout. For example, when an item is added to the cart, or when a coupon is added to a checkout. \nThis endpoint validates a visitor's cart and checkout, and returns any validation violations (using the structure provided by Wix eCommerce). Site visitors can see the validation violations in their cart and checkout pages. If there aren't any validation violations, the endpoint returns an object containing an empty list.\n\n> __Notes:__ \n> + By default, this endpoint only retrieves validation violations from a visitor's checkout. If you want to also retrieve validation violations from a visitor's cart, set the `validateInCart` parameter to `true` in the Ecom Validations Integration's config file located in the [Wix Developers Center](https://dev.wix.com/). For more information, see the [prerequisites](https://dev.wix.com/api/rest/drafts/validations-integration-spi/introduction#drafts_validations-integration-spi_introduction_prerequisites) section of the introduction.\n> + You cannot try out this endpoint because it has to be implemented by an app and can have an arbitrary URL. Therefore, ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.<your-deployment-uri>.com/v1/get-violations",
+      "links": [],
+      "examples": [      {
+        "title": "Get Validation Violations",
+        "body": ["curl -X POST https://provider.example.com/v1/getValidationViolations \\\n-H 'user-agent: Wix' \\\n-H 'accept-encoding: gzip, deflate' \\\n-H 'content-type: text/plain; charset=utf-8' \\\n-d '{\n  sourceInfo: {\n    source: 'CART',\n    purchaseFlowId: 'a22ebad0-11ef-4a4d-a567-691fa7cb264c'\n  },\n  validationInfo: {\n    appliedDiscounts: [\n      {\n        lineItemIds: [],\n        discountType: 'GLOBAL',\n        coupon: {\n          id: '435409da-d374-4c44-b08b-6c703c546960',\n          code: 'couponCode',\n          name: 'couponName'\n        }\n      }\n    ],\n    billingInfo: {\n      address: {\n        country: 'USA',\n        subdivision: 'US-California',\n        city: 'Los Angeles',\n        postalCode: '123456'\n      },\n      contactDetails: {\n        firstName: 'John',\n        lastName: 'Doe',\n        phone: '12345678',\n        company: 'Wix',\n        vatId: {\n          id: 'a35409de-d374-4c4b-bf8b-6c703c5b6960',\n          type: 'CPF'\n        }\n      }\n    },\n    buyerDetails: {\n      contactId: 'f463b4ee-0545-45ac-a273-23bf02d38a07',\n      email: 'Johnne@wix.com'\n    },\n    customFields: {\n      fields: [\n        {\n          name: 'John',\n          title: 'Name',\n          translatedTitle: '名前'\n        }\n      ]\n    },\n    giftCard: {\n      id: 'e463b4ee-0145-45ac-a263-23bf02d38a07',\n      appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e',\n      amount: {\n        amount: '2'\n      }\n    },\n    lineItems: [\n      {\n        catalogReference: {\n          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e',\n          catalogItemId: 'e35409da-d374-4c4b-b08b-6c703c5b6960'\n        },\n        id: '00000000-0000-0000-0000-000000000001',\n        itemType: {\n          preset: 'PHYSICAL'\n        },\n        physicalProperties: {\n          shippable: true,\n          sku: '',\n          weight: 11\n        },\n        price: {\n          amount: '1'\n        },\n        productName: {\n          original: 'Cute Silk Worm',\n          translated: 'Cute Silk Worm'\n        },\n        quantity: 4\n      },\n      {\n        catalogReference: {\n          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e',\n          catalogItemId: '74bfa1c0-ce2a-49b7-8cd8-a4c0e0b2af6e'\n        },\n        id: '00000000-0000-0000-0000-000000000002',\n        itemType: {\n          preset: 'PHYSICAL'\n        },\n        physicalProperties: {\n          shippable: true,\n          sku: '',\n          weight: '12'\n        },\n        price: {\n          amount: '600'\n        },\n        productName: {\n          original: 'Khat Leaves',\n          translated: 'Khat Leaves'\n        },\n        quantity: 50\n      }\n    ],\n    priceSummary: {\n      additionalFees: {\n        amount: '0'\n      },\n      discount: {\n        amount: '0'\n      },\n      shipping: {\n        amount: '0.41'\n      },\n      subtotal: {\n        amount: '3.72'\n      },\n      tax: {\n        amount: '0.87'\n      },\n      total: {\n        amount: '5.00'\n      }\n    },\n    shippingAddress: {\n      address: {\n        country: 'USA',\n        subdivision: 'US-California',\n        city: 'Los Angeles',\n        postalCode: '123456'\n      },\n      contactDetails: {\n        firstName: 'John',\n        lastName: 'Doe',\n        phone: '12345678',\n        company: 'Wix',\n        vatId: {\n          id: 'a35409de-d374-4c4b-bf8b-6c703c5b6960',\n          type: 'CPF'\n        }\n      }\n    },\n    shippingInfo: {\n      selectedCarrierServiceOption: {\n        code: '8d782b64-bda4-93f6-d9c4-e40b497b0ec3'\n      },\n      weightUnit: 'KG'\n    }\n  }\n}'"],
+        "response": ["{\"violations\": [{\n  \"description\": {\"value\": \"You must purchase at least 100 items. \"},\n  \"severity\": \"WARNING\",\n  \"target\": {\"other\": {\"name\": \"OTHER_DEFAULT\"}}\n}]} "],
+        "type": "curl",
+        "extra": {}
+      }],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "GetValidationViolationsRequest",
+      "rpcResponseName": "GetValidationViolationsResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+      "displayName": "Multi Currency Price Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Amount.\n"
+        },
+                {
+          "name": "convertedAmount",
+          "type": "string",
+          "doc": " Converted amount.\n",
+          "readOnly": true
+        },
+                {
+          "name": "formattedAmount",
+          "type": "string",
+          "doc": " Amount formatted with currency symbol.\n",
+          "readOnly": true
+        },
+                {
+          "name": "formattedConvertedAmount",
+          "type": "string",
+          "doc": " Converted amount formatted with currency symbol.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Coupon",
+      "displayName": "Coupon Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Coupon\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Coupon ID.\n"
+        },
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Coupon code.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Coupon name.\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_DiscountRule",
+      "displayName": "Discount Rule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Discount rule ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_DiscountRuleName",
+          "doc": " Discount rule name.\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_DiscountRuleName",
+      "displayName": "Discount Rule Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Original discount rule name (in site's default language).\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Translated discount rule name according to buyer language. Defaults to `original` when not provided.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_AppliedDiscount",
+      "displayName": "Applied Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "discountType",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_AppliedDiscount_DiscountType",
+          "doc": " Discount type.\n"
+        },
+                {
+          "name": "lineItemIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of the line items the discount applies to.\n"
+        },
+                {
+          "name": "DiscountSource",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_AppliedDiscount_DiscountSource",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_AppliedDiscount_DiscountSource",
+      "displayName": "Discount Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "coupon",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Coupon",
+          "doc": " Coupon details.\n"
+        },
+                {
+          "name": "merchantDiscount",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_MerchantDiscount",
+          "doc": " Merchant discount.\n"
+        },
+                {
+          "name": "discountRule",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_DiscountRule",
+          "doc": " Discount rule.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_MerchantDiscount",
+      "displayName": "Merchant Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "amount",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_BuyerDetails",
+      "displayName": "Buyer Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Buyer's email address.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " Contact ID if one exists.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Validations Integration SPI._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Validations Integration SPI._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Validations Integration SPI._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_CustomField",
+      "displayName": "Custom Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "All APIs.Validations Integration SPI._google_protobuf_Value",
+          "doc": " Custom field value.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Custom field title.\n"
+        },
+                {
+          "name": "translatedTitle",
+          "type": "string",
+          "doc": " Translated custom field title.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_CustomFields",
+      "displayName": "Custom Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fields",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_CustomField"]
+        },
+        "doc": " List of custom fields\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_GiftCard",
+      "displayName": "Gift Card Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Gift card ID.\n",
+          "deprecated": true
+        },
+                {
+          "name": "obfuscatedCode",
+          "type": "string",
+          "doc": " Gift card obfuscated code.\n"
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Gift card value.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID of the gift card provider.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `bookingId` for Wix Bookings.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " \nID of the catalog app. For items from Wix apps, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`    \n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": "\nAdditional info in key:value form. For example, to specify Wix Stores product options or variants:\n+ `{\"options\": {\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}}}`\n+ `{\"options\": {\"variantId\": \"<VARIANT_ID>\"}}`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+      "displayName": "Physical Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "weight",
+          "type": "number",
+          "doc": " Line item weight. Measurement unit (KG or LB) is taken from `order.weightUnit`.\n"
+        },
+                {
+          "name": "sku",
+          "type": "string",
+          "doc": " Stock-keeping unit. Learn more about [SKUs](https://www.wix.com/encyclopedia/definition/stock-keeping-unit-sku).\n"
+        },
+                {
+          "name": "shippable",
+          "type": "boolean",
+          "doc": " Whether this line item is shippable.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType",
+      "displayName": "Item Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "itemTypeData",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType_itemTypeData",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType_itemTypeData",
+      "displayName": "item Type Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "preset",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType_ItemType",
+          "doc": " Preset item type.\n"
+        },
+                {
+          "name": "custom",
+          "type": "string",
+          "doc": " Custom item type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ProductName",
+      "displayName": "Product Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " \n__Required.__ Original item name in site's default language.  \nMin: 1 character  \nMax: 80 characters\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": "\nOptional. Translated item name according to buyer language. Defaults to `original` when not provided.  \nMin: 1 character  \nMax: 200 characters\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SubscriptionOptionInfo",
+      "displayName": "Subscription Option Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionSettings",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_SubscriptionSettings",
+          "doc": " Subscription option settings.\n"
+        },
+                {
+          "name": "title",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_Title",
+          "doc": " Subscription option title.\n"
+        },
+                {
+          "name": "description",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_Description",
+          "doc": " Subscription option description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SubscriptionSettings",
+      "displayName": "Subscription Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "frequency",
+          "type": "All APIs.Validations Integration SPI._wix_payment_api_pay_v2_SubscriptionFrequency",
+          "doc": " Frequency of recurring payment.\n"
+        },
+                {
+          "name": "autoRenewal",
+          "type": "boolean",
+          "doc": " Whether subscription is renewed automatically at the end of each period.\n"
+        },
+                {
+          "name": "billingCycles",
+          "type": "integer",
+          "doc": " Number of billing cycles before subscription ends. Ignored if `autoRenewal: true`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Title",
+      "displayName": "Title Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Subscription option name.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Translated subscription option name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Description",
+      "displayName": "Description Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Subscription option description.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Translated subscription option description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Line item ID.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " \nItem quantity.\nMin: `1`\nMax: `100000`\n"
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Catalog and item reference. Includes IDs for the item and the catalog it came from, as well as further optional info.\n"
+        },
+                {
+          "name": "productName",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_ProductName",
+          "doc": " Product name. For example,\n + Stores: `product.name`\n + Bookings: `service.info.name`\n + Events: `ticket.name`\n"
+        },
+                {
+          "name": "price",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Price of the item **after** catalog-defined discount and line item discounts.\n"
+        },
+                {
+          "name": "physicalProperties",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+          "doc": " Physical properties of the item. When relevant, contains information such as SKU, item weight, and shippability.\n"
+        },
+                {
+          "name": "itemType",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType",
+          "doc": " \nItem type.\n"
+        },
+                {
+          "name": "subscriptionOptionInfo",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_SubscriptionOptionInfo",
+          "doc": " [Subscription option](https://dev.wix.com/api/rest/wix-stores/subscription-options/introduction) information. A subscription is a product that is sold on a recurring basis.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_PriceSummary",
+      "displayName": "Price Summary Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subtotal",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Subtotal of all line items, before discounts and before tax.\n"
+        },
+                {
+          "name": "shipping",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Total shipping price, before discounts and before tax.\n"
+        },
+                {
+          "name": "tax",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Total tax.\n"
+        },
+                {
+          "name": "discount",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Total calculated discount value.\n"
+        },
+                {
+          "name": "total",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Total price **after** discounts, gift cards, and tax.\n"
+        },
+                {
+          "name": "additionalFees",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_MultiCurrencyPrice",
+          "doc": " Total additional fees price **before** tax.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_ShippingInfo",
+      "displayName": "Shipping Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "selectedCarrierServiceOption",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_SelectedCarrierServiceOption",
+        "doc": " Selected option out of the options allowed for the `region`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_SelectedCarrierServiceOption",
+      "displayName": "Selected Carrier Service Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "code",
+        "type": "string",
+        "doc": " Unique identifier of selected option. For example, `usps_std_overnight`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_SourceInfo",
+      "displayName": "Source Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "source",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_SourceInfo_Source",
+          "doc": " Source of the request.\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_Other",
+      "displayName": "Other Object",
+      "locations": [],
+      "docs":       {
+        "summary": " General (other) violation.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "name",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target_NameInOther",
+        "doc": " Where on the checkout and cart page the violation will be displayed. \nSupported values:\n+ \"OTHER_DEFAULT\": The default location on a checkout or cart page where a general (other) violation will be displayed. See image in the [introduction](https://dev.wix.com/api/rest/wix-ecommerce/validations-integration-spi/introduction).\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Specific line item violation.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target_NameInLineItem",
+          "doc": " Where on the checkout and cart page the violation belonging to a specific line item will be displayed.\nSupported values:\n+ \"OTHER_DEFAULT\": The default location on a checkout or cart page where a line item violation will be displayed. See image in the [introduction](https://dev.wix.com/api/rest/wix-ecommerce/validations-integration-spi/introduction).\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " ID of the line item containing the violation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target",
+      "displayName": "Target Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "targetType",
+        "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target_TargetType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_TargetType",
+      "displayName": "Target Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "other",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target_Other",
+          "doc": " Specific line item violation.\n"
+        },
+                {
+          "name": "lineItem",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target_LineItem",
+          "doc": " Other violation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatId",
+      "displayName": "Vat Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Customer's tax ID.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Validations Integration SPI._wix_common_VatType",
+          "doc": "\nTax type.\n\nSupported values:\n+ `CPF`: for individual tax payers\n+ `CNPJ`: for corporations\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Physical address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Two-letter country code in [ISO-3166 alpha-2](https://www.iso.org/obp/ui/#search/code/) format.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Code for a subdivision (such as state, prefecture, or province) in [ISO 3166-2](https://www.iso.org/standard/72483.html) format.\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Postal or zip code.\n"
+        },
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Validations Integration SPI._wix_common_StreetAddress",
+          "doc": " Street address.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line (usually street name and number).\n"
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains apt, suite, floor.\n"
+        },
+                {
+          "name": "countryFullname",
+          "type": "string",
+          "doc": " Country's full name.",
+          "readOnly": true
+        },
+                {
+          "name": "subdivisionFullname",
+          "type": "string",
+          "doc": " Subdivision full-name.",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_FullAddressContactDetails",
+      "displayName": "Full Address Contact Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Full contact details for an address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " First name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Last name.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number.\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": " Company name.\n"
+        },
+                {
+          "name": "vatId",
+          "type": "All APIs.Validations Integration SPI._wix_common_VatId",
+          "doc": " Tax information (for Brazil only). If ID is provided, `vatId.type` must also be set, `UNSPECIFIED` is not allowed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_AddressWithContact",
+      "displayName": "Address With Contact Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Billing Info and shipping details\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "address",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_Address",
+          "doc": " Address.\n"
+        },
+                {
+          "name": "contactDetails",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_FullAddressContactDetails",
+          "doc": " Contact details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_ValidationInfo",
+      "displayName": "Validation Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "*\nValidationsData is the main entity of ValidationsSPI, which contains all the data required for validations\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "buyerDetails",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_BuyerDetails",
+          "doc": " Buyer details.\n"
+        },
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_LineItem"]
+          },
+          "doc": " Line items. Max: 300 line items\n"
+        },
+                {
+          "name": "giftCard",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_GiftCard",
+          "doc": "\nApplied gift card details.\n\n>**Note:** Gift cards are supported through the Wix UI, though the SPI is not currently available. Learn more about [Wix Gift Cards](https://support.wix.com/en/article/wix-stores-setting-up-wix-gift-cards).\n"
+        },
+                {
+          "name": "weightUnit",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Weight measurement unit. \nDefault: Site's weight unit\n"
+        },
+                {
+          "name": "priceSummary",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_PriceSummary",
+          "doc": " Price summary.\n"
+        },
+                {
+          "name": "billingInfo",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_AddressWithContact",
+          "doc": " Billing information.\n"
+        },
+                {
+          "name": "shippingAddress",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_platform_common_api_AddressWithContact",
+          "doc": " Shipping address and contact details.\n"
+        },
+                {
+          "name": "shippingInfo",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_ShippingInfo",
+          "doc": " Shipping information.\n"
+        },
+                {
+          "name": "customFields",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_CustomFields",
+          "doc": " Custom fields.\n"
+        },
+                {
+          "name": "appliedDiscounts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_AppliedDiscount"]
+          },
+          "doc": " Applied discounts.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Violation",
+      "displayName": "Violation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "severity",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Violation_Severity",
+          "doc": " Severity of the violation. The violations are shown on the cart and checkout pages. A warning is displayed as yellow, and allows a site visitor to proceed with caution. An error is displayed as red, and doesn't allow a site visitor to proceed with the eCommerce flow.\n"
+        },
+                {
+          "name": "target",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Target",
+          "doc": " Target location on a checkout or cart page where the violation will be displayed.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Violation description. Can include rich text. Only HTTP or HTTPS links in the following format are allowed: `<a href=\"https://www.wix.com\">Click me<\/a>`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_GetValidationViolationsRequest",
+      "displayName": "Get Validation Violations Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sourceInfo",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_SourceInfo",
+          "doc": " Information about the source of the request.\n"
+        },
+                {
+          "name": "validationInfo",
+          "type": "All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_ValidationInfo",
+          "doc": " Information to validate.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_GetValidationViolationsResponse",
+      "displayName": "Get Validation Violations Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "violations",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Validations Integration SPI._com_wix_ecommerce_validations_spi_v1_Violation"]
+        },
+        "doc": " List of validation violations.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_AppliedDiscount_DiscountType",
+      "displayName": "Discount Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> GLOBAL <\/code><\/li><li><code> SPECIFIC_ITEMS <\/code><\/li><li><code> SHIPPING <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "GLOBAL",
+        "SPECIFIC_ITEMS",
+        "SHIPPING"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType_ItemType",
+      "displayName": "Item Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNRECOGNISED <\/code><\/li><li><code> PHYSICAL <\/code><\/li><li><code> DIGITAL <\/code><\/li><li><code> GIFT_CARD <\/code><\/li><li><code> SERVICE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNRECOGNISED",
+        "PHYSICAL",
+        "DIGITAL",
+        "GIFT_CARD",
+        "SERVICE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SubscriptionFrequency",
+      "displayName": "Subscription Frequency Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Frequency unit of recurring payment\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> DAY <\/code><\/li><li><code> WEEK <\/code><\/li><li><code> MONTH <\/code><\/li><li><code> YEAR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "YEAR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_SourceInfo_Source",
+      "displayName": "Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> OTHER -  Context cannot be recognized\n <\/code><\/li><li><code> CART -  Called from Ecom's Cart service\n <\/code><\/li><li><code> CHECKOUT -  Called from Ecom's Checkout service\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "OTHER",
+        "CART",
+        "CHECKOUT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_NameInOther",
+      "displayName": "Name In Other Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Available locations on the webpage\n \n Possible values are: <li><code> OTHER_DEFAULT -  default location, in case no specific location is specified\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["OTHER_DEFAULT"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Target_NameInLineItem",
+      "displayName": "Name In Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Available locations on the line item\n \n Possible values are: <li><code> LINE_ITEM_DEFAULT -  default location, in case no specific location is specified\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["LINE_ITEM_DEFAULT"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatType",
+      "displayName": "Vat Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers.\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "CPF",
+        "CNPJ"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_WeightUnit",
+      "displayName": "Weight Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_WEIGHT_UNIT -  Weight unit can't be classified, due to an error\n <\/code><\/li><li><code> KG -  Kilograms\n <\/code><\/li><li><code> LB -  Pounds\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_WEIGHT_UNIT",
+        "KG",
+        "LB"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_validations_spi_v1_Violation_Severity",
+      "displayName": "Severity Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> WARNING -  The user is allowed to move forward in the flow.\n <\/code><\/li><li><code> ERROR -  The user is blocked from moving forward in the flow.\n For example, if callerContext is CART - moving to checkout is blocked. if callerContext is CHECKOUT, placing an order is blocked.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "WARNING",
+        "ERROR"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.restaurants.validations.validations-provider"}
+}
