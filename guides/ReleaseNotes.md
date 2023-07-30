@@ -8,6 +8,7 @@ The new [Comments API](comments/comments) allows a third party to manage a site'
 + [Get](comments/comments/get-comment) or [Query](comments/comments/query-comments) comments.
 + [Mark](comments/comments/mark-comment) and [Unmark](comments/comments/unmark-comment) a comment.
 + [Count Comments](comments/comments/count-comments).
++ Webhooks that trigger when a comment is [created](https://dev.wix.com/api/rest/comments/comments/comment-created-webhook), [updated](https://dev.wix.com/api/rest/comments/comments/comment-updated-webhook), [deleted](https://dev.wix.com/api/rest/comments/comments/comment-deleted-webhook), [marked](https://dev.wix.com/api/rest/comments/comments/comment-marked-webhook), or [unmarked](https://dev.wix.com/api/rest/comments/comments/comment-unmarked-webhook).
 
 (July 27, 2023)
 
