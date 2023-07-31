@@ -12,7 +12,7 @@ Once approved, the updated app is given a new version number following the seque
 
 In the example below, version v2 has been approved and published. This is the version that site owners will get. A draft version with the next version number, v3, is created automatically once v2 was approved. Changes to the app will be saved to v3 from now on until it is submitted and approved, then a v4 draft is created, and so on.
 
-![Version Submissions](./../../../app-submissions2.png)
+![Version Submissions](../media/app-submissions2.png)
 
 ## Major and Minor Updates
 
@@ -26,7 +26,7 @@ The following changes to your app require a major update. These are:
 
 Major updates are not automatically sent to site owners. Instead, they are informed in the App Manager that the update is available. Site owners must click the Update button and follow any on-screen instructions to get the update.
 
-![Manage Apps](./../../../app-manager-update.png)
+![Manage Apps](../media/app-manager-update.png)
 
 > **Note:** Only site owners can update an app, not contributors. Be sure to test your app as a contributor to see how this flow works for them.
 
