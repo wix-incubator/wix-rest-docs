@@ -71,6 +71,7 @@ Example dedicated endpoint request body:
   "namespace": "@account-name/app1",
 	"namespaceData":{
 	  "myField": "my field value"
+  }
 }
 ```
 
