@@ -11,6 +11,6 @@ To use our APIs, site owners must grant you explicit permission to collect this 
 
   <blockquote class='important'><p>
   <strong>Important:</strong><br/>
-Use of Wix APIs are subject to the Wix App Market<a target="_blank" href="https://devforum.wix.com/en/article/app-market-guidelines"> Guidelines</a>.
+Use of Wix APIs are subject to the Wix App Market <a target="_blank" href="https://devforum.wix.com/en/article/app-market-guidelines">Guidelines</a>.
 </p>
 </blockquote>
