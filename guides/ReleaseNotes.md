@@ -1,5 +1,40 @@
 # Release Notes
 
+## New Release: [Comments](comments/comments)
+
+The new [Comments API](comments/comments) allows a third party to manage a site's comments. It includes the following endpoints:
+
++ [Create](comments/comments/create-comment), [Update](comments/comments/update-comment), or [Delete](comments/comments/delete-comment) a comment.
++ [Get](comments/comments/get-comment) or [Query](comments/comments/query-comments) comments.
++ [Mark](comments/comments/mark-comment) and [Unmark](comments/comments/unmark-comment) a comment.
++ [Count Comments](comments/comments/count-comments).
++ Webhooks that trigger when a comment is [created](https://dev.wix.com/api/rest/comments/comments/comment-created-webhook), [updated](https://dev.wix.com/api/rest/comments/comments/comment-updated-webhook), [deleted](https://dev.wix.com/api/rest/comments/comments/comment-deleted-webhook), [marked](https://dev.wix.com/api/rest/comments/comments/comment-marked-webhook), or [unmarked](https://dev.wix.com/api/rest/comments/comments/comment-unmarked-webhook).
+
+(July 27, 2023)
+
+## New Release: Wix eCommerce [Validations Integration SPI](wix-ecommerce/validations-integration-spi)
+
+Wix eCommerce introduces the new [Validations Integration SPI](wix-ecommerce/validations-integration-spi). This SPI allows third parties to validate a cart and checkout for their merchant's customers including:
+
++ Minimum cart value.
++ Age of a customer before they proceed to checkout.
++ Line item quantity limit.
++ Valid coupon code.
+
+Using the [Get Validation Violations](wix-ecommerce/validations-integration-spi/get-validation-violations) endpoint, third party developers can provide validation violations for the cart and checkout.
+
+
+(July 27, 2023)
+
+## New Release: Wix eCommerce [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi)
+
+Wix eCommerce introduces the new [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi). This SPI allows third parties to create custom triggers that specify when a discount rule can apply to a cart/checkout. Learn more about the [Discount Rules API](wix-ecommerce/discount-rules).
+
++ [Get Eligible Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/get-eligible-triggers).
++ [List Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/list-triggers).
+
+
+(July 23, 2023)
 
 ## New Release: Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
 
