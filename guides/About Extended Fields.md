@@ -12,9 +12,9 @@ The extended fields feature allows an app to extend the objects used by Wix's AP
 
 ## Add extended fields to an app
 
-To add extended fields for an API object to an app, follow these steps:
+To add extended fields for an API object to an app, do the following:
 
-1. Open the [Wix Dev Center](https://dev.wix.com/apps/) and select the app you want to add extended fields to.
+1. Open the [Wix Dev Center](https://dev.wix.com/apps/) and select the app you want to add extended fields for.
 1. In the sidebar on the left, click **Components**.  
    ![sidebar menu](../media/sidebar-components.png)
 1. Hover over **Add Component** and select **Integration Component**.  
@@ -26,6 +26,7 @@ To add extended fields for an API object to an app, follow these steps:
    ![choose entity](../media/choose-entity.png)
 1. Use the **JSON Editor** to define the extended fields you want to add the object in [JSON Schema](#json-schema) format.  
    The editor's linter indicates if there are any errors in the JSON Schema.
+   ![json editor](../media/json-editor.png)
 1. Once your extended fields are defined, click **Save**.  
    > **Important:** Once you add an extended field to an app, it can't be removed. You can [archive](#x-wix-archive) an extended field to prevent it from being read or written using APIs.
 
@@ -33,22 +34,24 @@ To add extended fields for an API object to an app, follow these steps:
 Once you add extended fields to an app, you can read and write them using the API endpoints for the object. 
 
 ### Read
-To read extended field data, use the same API endpoint used to retrieve the object you extended. Extended fields are added to the main object in the `extendedFields` field. This field's value is an obejct containing a `namespaces` field. The `namespaces` object contains the extended field data for each app that has extended the main object. Each app in this object is identified by its namespace. Site owners can also add extended fields to objects. These fields are added under the `_user_defined` namespace.
+To read extended field data, use the same API endpoint used to retrieve the object you extended. Your call returns any extended field data your app added to the object as well as data that you have permission to access that was added by other apps or site owners.
+
+Extended fields are added to the main object in the `extendedFields` field. This field's value is an obejct containing a `namespaces` field. The `namespaces` object contains the extended field data for each app that has extended the main object. Each app in this object is identified by its namespace. Data added by site owners is included under the `_user_defined` namespace.
 
 For example:
 ```json
 {
   "extendedFields": {
     "namespaces": {
-      "@account-name/app1": {
-        "myField": "my field value",
-        "myField2": "another field value for the same app"
+      "@account1/myApp": {
+        "myField": "My field value",
+        "myField2": "Another field value for the same app"
       },
-      "@account-name/app2": {
-        "myField": "a field value for a different app"
+      "@account2/anotherApp": {
+        "appField": "A field value for a different app"
       },
       "_user_defined": {
-        "myField": "a field value added by a site owner"
+        "userField": "A field value added by a site owner"
       }
     }
   }
@@ -60,7 +63,7 @@ For example:
 There are 2 ways to write extended field data: standard endpoints and dedicated endpoints.
 
 #### Standard endpoints
-You can write extended field data using the same API endpoints used to write the object you extended. Include the new or updated extended fields data in the `extendedFields` property of the object, as in the [example above](#read). To delete the value of an extended field, set its value to `null`.
+You can write extended field data using the same API endpoints used to write the object you extended. Include the new or updated extended field data in the `extendedFields` field of the object, as in the [example above](#read). To delete the value of an extended field, set its value to `null`.
 
 #### Dedicated endpoint
 APIs that support extended fields also have a dedicated "Update Extended Fields" endpoint. You can use this endpoint to update only the extended fields of an object. If the object you extended has a `revision` field, you don't need to pass it when updating extended fields using a dedicated endpoint. This endpoint may require a permission scope that's different from the scope required to update the object itself. Dedicated endpoints use a slightly different data format. The namespace of the app whose data you want to update and the data itself are separated in the request body.
@@ -76,7 +79,7 @@ Example dedicated endpoint request body:
 ```
 
 ### Webhooks
-When you update extended fields using either a standard or dedicated endpoint, the standard "Updated" webhook for the extended object is triggered. The webhook payload contains the updated object including the `extendedFields` propety. The payload only includes data for extended fields whose [read permissions](#x-wix-permissions) include `"apps"`. The payload also includes a boolean value called `has_more_data`. This value is set to `true` if extended fields were updated that don't have `"apps"` in their read permissions. In this case, you can see the updated extended fields by reading the object using the appropriate API endpoint.
+When you update extended fields using either a standard or dedicated endpoint, the standard "Updated" webhook for the extended object is triggered. The webhook payload contains the updated object including the `extendedFields` field. The payload only includes data for extended fields whose [read permissions](#x-wix-permissions) include `"apps"`. The payload also includes a boolean value called `has_more_data`. This value is set to `true` if extended fields were updated that don't have `"apps"` in their read permissions. In this case, you can see the updated extended fields by reading the object using the appropriate API endpoint.
 
 Here is an example of the `extendedFields` property in a webhook payload:
 ```json
@@ -121,7 +124,7 @@ The `number` and `integer` types are used to define a JSON schema [numeric type]
 The `object` type is used to define a JSON schema [object](https://json-schema.org/understanding-json-schema/reference/object.html#object). Please note the following restrictions to the `object` definition:
 + An `object` extended field's schema must contain a `properties` field that defines the properties of the object. 
 + The properties of an object must follow the all the restrictions of the other extended field types. 
-+ There is maximum of 10 nesting levels for an object.
++ There is a maximum of 10 nesting levels for an object.
 
 ### Array
 The `array` type is used to define a JSON schema [array](https://json-schema.org/understanding-json-schema/reference/array.html#array).  Please note the following restrictions:
@@ -132,7 +135,7 @@ The `array` type is used to define a JSON schema [array](https://json-schema.org
 + Arrays can only contain items of these types: `string`, `number`, `integer`, and `boolean`.
 
 ### Boolean
-The `boolean` type is used to define JSON schema [boolean](https://json-schema.org/understanding-json-schema/reference/boolean.html#boolean). There are no restrictions on the `boolean` type object.
+The `boolean` type is used to define a JSON schema [boolean](https://json-schema.org/understanding-json-schema/reference/boolean.html#boolean). There are no restrictions on the `boolean` type object.
 
 ### Global keywords
 The following global JSON schema keywords are supported:
@@ -150,10 +153,10 @@ The following global keywords are not supported:
 + `writeOnly`
 
 ### Wix-specific keywords
-We extended the JSON schema to support the following Wix-specific keywords:
+Wix extends the JSON schema to support the following Wix-specific keywords:
 
 #### `x-wix-permissions`
-This keyword is used to define the permissions required to read and write an extended field. This keyword is required for all extended fields. The value of this keyword is an object that defines read and write permissions in separate arrays. For example:
+This keyword is used to define the permissions required to read and write an extended field. This keyword is required for all extended fields. Its is an object that defines read and write permissions in separate arrays. For example:
 ```json
 "x-wix-permissions": {
   "read": ["owning-app", "apps", "users", "users-of-users"],
@@ -180,10 +183,10 @@ For example:
   "x-wix-permissions": {
     "read": ["apps"],
     "write": ["apps"]
-  },
+  }
 }
 ```
-
+<!--
 #### `x-wix-pii`
 This keyword is used to indicate whether an extended field contains [personally identifiable information](https://support.wix.com/en/article/about-personally-identifiable-information-pii) (PII). The value of this keyword is a boolean. 
 
@@ -201,6 +204,7 @@ Note the following when using this keyword:
 + Once an extended field is created, its PII status can't be changed. If you want to change the PII status of an extended field, you must archive the field and create a new field with the correct PII status.
 + When an extended field marked as PII is archived, the data associated with the field is deleted.
 + If you mark a field as PII, Wix makes the data available to site owners and their users in accordance with legal regulations such as GDPR.
+-->
 
 #### `x-wix-created-date`
 This optional keyword is used to indicate the date and time when an extended field was created. The value of this keyword is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. This keyword is included whenever the extended field is read.  
