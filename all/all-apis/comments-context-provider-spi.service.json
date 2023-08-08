@@ -1,0 +1,557 @@
+{
+  "name": "Comments Context Provider SPI",
+  "client_id": "https://github.com/wix-private/catalyst-server/tree/master/comments/comments-context-host/proto-spi#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "This service provides user ability to customise different aspects of comments functionality per context",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Comments Context Provider SPI",
+    "entity": "_wix_comments_context_v1_spi_CommentsContextProviderConfig",
+    "src": "https://github.com/wix-private/catalyst-server/tree/master/comments/comments-context-host/proto-spi/wix/comments/context/v1/spi/comments_context_provider.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/comments-context-provider-spi/docs/UseCases.md",
+      "name": "Use Cases"
+    },
+        {
+      "path": "../guides/comments-context-provider-spi/docs/Intro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Comment Context",
+      "methodName": "GetCommentContext",
+      "serviceName": "CommentsContextProvider",
+      "tag": "Comments Context Provider SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["contextId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "contextId",
+        "type": "string",
+        "doc": " Context Id\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetCommentContext",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_GetCommentContextResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns details about given comment context\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/comments/v1/contexts",
+        "links": [],
+        "examples": [        {
+          "title": "Get Comment Context",
+          "body": ["curl POST '<IMPLEMENTER-URL>/comments/v1/contexts' \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{ \"contextId\": \"6026e2fc-9c4a-4544-99a3-4f3ed151b472\" }'"],
+          "response": ["{\"context\": {\n  \"contextId\": \"6026e2fc-9c4a-4544-99a3-4f3ed151b472\",\n  \"permissions\":   {\n    \"viewContext\": true,\n    \"createComment\": true,\n    \"createReply\": true,\n    \"updateAnyComment\": false,\n    \"deleteAnyComment\": false,\n    \"markComment\": false\n  }\n}} "],
+          "type": "curl",
+          "extra": {"description": "Fetches Comment Context"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetCommentContextRequest",
+        "rpcResponseName": "GetCommentContextResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Get Comment Context Resources",
+      "methodName": "GetCommentContextResources",
+      "serviceName": "CommentsContextProvider",
+      "tag": "Comments Context Provider SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
+        "in": "BODY",
+        "name": "resourceIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_ResourceIdentifier"]
+        },
+        "doc": " Resource Ids\n",
+        "required": false
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetCommentContextResources",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_GetCommentContextResourcesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns list of context resources. Method is optional and only will be called if feature toggle `toggle_resource_provider_enabled` enabled\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/comments/v1/contexts/resources",
+        "links": [],
+        "examples": [        {
+          "title": "Get Comment Context",
+          "body": ["curl POST '<IMPLEMENTER-URL>/comments/v1/contexts/resources' \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>' \\\n    -d '{\n      \"resourceIds\": [\n        { \"contextId\": \"6026e2fc-9c4a-4544-99a3-4f3ed151b472\", \"resourceId\": \"e8c27bbe-f53e-44b6-8e65-181888daeae6\" },\n        { \"contextId\": \"53a3302a-8be8-4883-8c10-0cd688d2cda9\", \"resourceId\": \"0a56dd04-5c0f-4b82-af87-f81442ce8381\" }\n      ]\n    }'"],
+          "response": ["{\"resources\": [\n    {\n    \"contextId\": \"6026e2fc-9c4a-4544-99a3-4f3ed151b472\",\n    \"resourceId\": \"e8c27bbe-f53e-44b6-8e65-181888daeae6\",\n    \"title\": \"Bicycle\",\n    \"pageUrl\":     {\n      \"relativePath\": \"/shop/bicycle\",\n      \"url\": \"https://mysite.com/shop/bicycle\"\n    },\n    \"imageUrl\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\"\n  },\n    {\n    \"contextId\": \"53a3302a-8be8-4883-8c10-0cd688d2cda9\",\n    \"resourceId\": \"0a56dd04-5c0f-4b82-af87-f81442ce8381\",\n    \"title\": \"Tricycle\",\n    \"pageUrl\":     {\n      \"relativePath\": \"/shop/tricycle\",\n      \"url\": \"https://mysite.com/shop/tricycle\"\n    },\n    \"imageUrl\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "Fetches Comment Context Resources information"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetCommentContextResourcesRequest",
+        "rpcResponseName": "GetCommentContextResourcesResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_common_spi_SpiBaseUri_AlternativeUri",
+      "displayName": "Alternative Uri Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "methodName",
+          "type": "string",
+          "doc": " name of the method as it appears in the proto\n"
+        },
+                {
+          "name": "absoluteUri",
+          "type": "string",
+          "doc": " absolute uri that will be used by the host to call that method. The path-suffix mapped from the method http option will NOT be appended to this URI. For TPAs. it must be https\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_spi_SpiBaseUri",
+      "displayName": "Spi Base Uri Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "baseUri",
+          "type": "string",
+          "doc": " URI that will be used by the host to call the implementer. The path-suffix defined on the method will be appended to it\n"
+        },
+                {
+          "name": "alternativeUris",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Comments Context Provider SPI._wix_common_spi_SpiBaseUri_AlternativeUri"]
+          },
+          "doc": " override method mappings per method\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_upstream_wix_common_PageUrlV2",
+      "displayName": "Page Url V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "relativePath",
+          "type": "string",
+          "doc": " The path to that page - e.g /product-page/a-product\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " The URL of that page. e.g https://mysite.com/product-page/a-product\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_upstream_wix_common_IdentificationData",
+      "displayName": "Identification Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " ID of of a contact in the site's [CRM by Ascend](https://www.wix.com/ascend/crm) system.\n"
+        },
+                {
+          "name": "id",
+          "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_upstream_wix_common_IdentificationData_id",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_upstream_wix_common_IdentificationData_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": " ID of a site visitor that has not logged in to the site.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " ID of a site visitor that has logged in to the site.\n"
+        },
+                {
+          "name": "wixUserId",
+          "type": "string",
+          "doc": " ID of a Wix user (site owner, contributor, etc.).\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of an app.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_CommentsContextProviderConfig",
+      "displayName": "Comments Context Provider Config Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "baseUri",
+          "type": "All APIs.Comments Context Provider SPI._wix_common_spi_SpiBaseUri",
+          "doc": " URI where the SPI Implementer is deployed\n"
+        },
+                {
+          "name": "environment",
+          "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_CommentsContextProviderConfig_Environment",
+          "doc": " Comments Environment\n"
+        },
+                {
+          "name": "toggleResourceProviderEnabled",
+          "type": "boolean",
+          "doc": " Feature toggle to indicate if method GetCommentContextResources is implemented\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_CommentContext",
+      "displayName": "Comment Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Context details for caller\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contextId",
+          "type": "string",
+          "doc": " Context Id\n"
+        },
+                {
+          "name": "permissions",
+          "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_Permissions",
+          "doc": "\nSet of actions current member or visitor can perform in given context\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_GetCommentContextRequest",
+      "displayName": "Get Comment Context Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contextId",
+        "type": "string",
+        "doc": " Context Id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_GetCommentContextResponse",
+      "displayName": "Get Comment Context Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "context",
+        "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_CommentContext",
+        "doc": " Comments Context\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_GetCommentContextResourcesRequest",
+      "displayName": "Get Comment Context Resources Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "resourceIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_ResourceIdentifier"]
+        },
+        "doc": " Resource Ids\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_GetCommentContextResourcesResponse",
+      "displayName": "Get Comment Context Resources Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "resources",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_ContextResource"]
+        },
+        "doc": " Resources\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_ResourceIdentifier",
+      "displayName": "Resource Identifier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contextId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "resourceId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_ContextResource",
+      "displayName": "Context Resource Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Context Resource\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contextId",
+          "type": "string",
+          "doc": " Context Id\n"
+        },
+                {
+          "name": "resourceId",
+          "type": "string",
+          "doc": " Resource Id\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Resource Title\n"
+        },
+                {
+          "name": "pageUrl",
+          "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_upstream_wix_common_PageUrlV2",
+          "doc": " Resource Page Url\n"
+        },
+                {
+          "name": "imageUrl",
+          "type": "string",
+          "doc": " Image Url\n"
+        },
+                {
+          "name": "resourceOwner",
+          "type": "All APIs.Comments Context Provider SPI._wix_comments_context_v1_spi_upstream_wix_common_IdentificationData",
+          "doc": " Resource owner\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_Permissions",
+      "displayName": "Permissions Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Permissions to indicate what actions can caller do in particular context\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "viewContext",
+          "type": "boolean",
+          "doc": " View Context\n"
+        },
+                {
+          "name": "createComment",
+          "type": "boolean",
+          "doc": " Create Comment\n"
+        },
+                {
+          "name": "createReply",
+          "type": "boolean",
+          "doc": " Create Reply\n"
+        },
+                {
+          "name": "updateAnyComment",
+          "type": "boolean",
+          "doc": " Update any comment\n"
+        },
+                {
+          "name": "deleteAnyComment",
+          "type": "boolean",
+          "doc": " Delete any Comment\n"
+        },
+                {
+          "name": "markComment",
+          "type": "boolean",
+          "doc": " Mark comment\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_upstream_wix_common_IdentificationData_IdentityType",
+      "displayName": "Identity Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ANONYMOUS_VISITOR <\/code><\/li><li><code> MEMBER <\/code><\/li><li><code> WIX_USER <\/code><\/li><li><code> APP <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ANONYMOUS_VISITOR",
+        "MEMBER",
+        "WIX_USER",
+        "APP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_comments_context_v1_spi_CommentsContextProviderConfig_Environment",
+      "displayName": "Environment Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> LIVE_SITE <\/code><\/li><li><code> BUSINESS_MANAGER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "LIVE_SITE",
+        "BUSINESS_MANAGER"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {}
+}
