@@ -13,7 +13,7 @@ We use [OAuth 2.0](https://tools.ietf.org/html/rfc6749) to authorize you to acce
 > **Note:**  
 > You’ll need to [set up OAuth, Permissions, and Webhooks settings](https://devforum.wix.com/en/article/setting-up-oauth-permissions-and-webhooks-in-the-wix-developers-center) in the Wix Developers Center.  
 
-![oauth flow diagram](../media/oauth-diagram.png)
+<img src="../media/oauth-diagram.png" alt="oauth flow diagram" />
 
 ## Step 1: User Installs Your App
 When the user chooses to install your app from within the Wix App Market, we redirect users to the App URL you defined in the Wix Developers Center. We include a `token` query parameter when we direct users to your App URL (we use it to keep track of the user as they go through the OAuth flow).
