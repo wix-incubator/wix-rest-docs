@@ -1,0 +1,507 @@
+{
+  "name": "Items Selection SPI",
+  "client_id": "https://github.com/wix-private/wixos/tree/master/items-selection-service/spi#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "The Items Selection SPI allows you to make your items available to any consumer within the Wix ecosystem.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Items Selection SPI",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/items-selection-spi/src/main/proto/docs/sample-flow.md",
+      "name": "Sample Flow"
+    },
+        {
+      "path": "../guides/items-selection-spi/src/main/proto/docs/intro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations": [  {
+    "name": "Query Items",
+    "methodName": "QueryItems",
+    "serviceName": "ItemsSelectionProviderService",
+    "tag": "Items Selection SPI",
+    "permissions": [],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "query",
+        "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_Query",
+        "doc": " Query options.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "tag",
+        "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_ItemsSelectionProviderConfig_Tag",
+        "doc": " An optional tag to change the content of the request.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "QueryItems",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_QueryItemsResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": "\nThis endpoint retrieves a list of items that match the specified criteria from your app.\n\nWix calls this endpoint when a vertical within the Wix ecosystem wants to make your app's list of items available for selection. For example, when a Wix site owner wants to add an item from your app to an existing order.\n\n> You cannot try out this endpoint because it has to be implemented by\n> an app and can have an arbitrary URL. Therefore, ignore the **Authorization**\n> and **POST** sections below as well as the **Try It Out** button.\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.<your-deployment-uri>.com/v1/items",
+      "links": [],
+      "examples": [      {
+        "title": "Query items for shoes",
+        "body": ["{\n  \"items\": [\n    {\n      \"id\": \"1f7d5ab2-5b0f-4b17-a2c6-3e892c10d6d4\",\n      \"name\": \"Classic Canvas Shoes\",\n      \"description\": \"Versatile and comfortable canvas shoes for everyday wear.\",\n      \"note\": \"$49.99\"\n      \"image\": {\n        \"url\": \"https://example.com/images/classic_canvas_shoes.jpg\"\n      }\n    },\n    {\n      \"id\": \"f84e2efc-6a71-45c3-9cc2-51a86c0b5c7e\",\n      \"name\": \"Sports Performance Shoes\",\n      \"description\": \"Sleek and high-performance shoes for active individuals.\",\n      \"note\": \"$89.99\"\n      \"image\": {\n        \"url\": \"https://example.com/images/sports_performance_sneakers.jpg\"\n      }\n    }\n  ],\n  \"pagingMetadata\": {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n}"],
+        "response": ["{} "],
+        "type": "curl",
+        "extra": {"description": "curl -X POST https://provider.example.com/v1/items \\\n-H 'user-agent: Wix' \\\n-H 'accept-encoding: gzip, deflate' \\\n-H 'content-type: application/json; charset=utf-8' \\\n-d '{\n\t\"query\": { \n    \"search\": \"shoes\", \n    \"paging\": { \n      \"offset\": 0, \n      \"limit\": 100 \n    } \n  },\n\t\"tag\": \"ECOM_EDIT_ORDER\"\n}'"}
+      }],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "QueryItemsRequest",
+      "rpcResponseName": "QueryItemsResponse"
+    },
+    "customLabels": [{"id": "maturity-alpha"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_EcomCatalogData",
+      "displayName": "Ecom Catalog Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the app that owns the order.\n"
+        },
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the catalog item associated with the order.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Price of the item associated with the order.\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional options associated with the order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_AdditionalData",
+      "displayName": "Additional Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "data",
+        "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_AdditionalData_data",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_AdditionalData_data",
+      "displayName": "data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "ecomCatalogData",
+        "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_EcomCatalogData",
+        "doc": " Additional data associated with ecom catalog order.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "url",
+        "type": "string",
+        "doc": " Item's image URL.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Items Selection SPI._wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Items Selection SPI._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_QueryItemsRequest",
+      "displayName": "Query Items Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_Query",
+          "doc": " Query options.\n"
+        },
+                {
+          "name": "tag",
+          "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_ItemsSelectionProviderConfig_Tag",
+          "doc": " An optional tag to change the content of the request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_QueryItemsResponse",
+      "displayName": "Query Items Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_Item"]
+          },
+          "doc": " List of items.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Items Selection SPI._wix_common_PagingMetadataV2",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_Query",
+      "displayName": "Query Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object.\nSee [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)for more information.\n\nFor a detailed list of supported filters, see [Supported Filters]({{SUPPORTED_FILTERS_ARTICLE_URL}}). \n"
+        },
+                {
+          "name": "search",
+          "type": "string",
+          "doc": " Plain text search for an exact match.\n\nSupported properties are defined in the `searchParams` property of the Item Selection Provider configuration in the Wix Developers Center.\n\nMax: 100 characters\n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_Query_PagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_Query_PagingMethod",
+      "displayName": "Paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Items Selection SPI._wix_common_Paging",
+          "doc": " Paging options to limit and skip the number of items.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Items Selection SPI._wix_common_CursorPaging",
+          "doc": " Cursor token pointing to a page of results. Not used in the first request. Following requests use the cursor token and not `filter`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_Item",
+      "displayName": "Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Item name.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Item description.\n"
+        },
+                {
+          "name": "image",
+          "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_Image",
+          "doc": " Item image.\n"
+        },
+                {
+          "name": "note",
+          "type": "string",
+          "doc": " Additional informatin about the item. For example, an item's price.\n"
+        },
+                {
+          "name": "additionalData",
+          "type": "All APIs.Items Selection SPI._com_wixpress_items_selection_spi_v1_AdditionalData",
+          "doc": " Additional data associated with an item, changes based on requested tag.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_items_selection_spi_v1_ItemsSelectionProviderConfig_Tag",
+      "displayName": "Tag Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_TAG <\/code><\/li><li><code> EMBEDDABLE <\/code><\/li><li><code> ECOM_EDIT_ORDER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_TAG",
+        "EMBEDDABLE",
+        "ECOM_EDIT_ORDER"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.forms.form-values-selection-provider"}
+}
