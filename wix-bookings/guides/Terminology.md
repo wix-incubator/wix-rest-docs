@@ -9,7 +9,16 @@ This article contains a comprehensive list of the various terms and concepts use
 |---------------|-------------------------|
 | [Appointment](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) | A specific time slot that a customer can book in a calendar. For example, your hair salon may be open for business from 9:00 AM to 7:00 PM and a customer can book a session at any available time during the day. | 
 | Appointment schedule | The schedule determines when customers can book a session. Bookability is determined using the specified session's duration, the time between sessions, and the schedules of staff members who provide the service.<br />For example, given the following scheduling criteria for a business offering haircuts, the schedule allows customers to book sessions from 9:00 AM to 5:30 PM with the possibility of booking a maximum of 9 sessions per day:<br />- The business offers a 30-minute haircut service.<br />- The schedule allows customers to book 30-minute sessions with 30 minutes between each session.<br />- The staff members are available from 9:00 AM to 6:00 PM. |
-| Availability | Free time on a schedule that customers can book. |
+| Availability | Availability is the free time on a schedule that customers can book. 
+  You can read more about 
+  [Query Availability](https://dev.wix.com/docs/rest/api-reference/wix-bookings/availability-calendar/query-availability).
+  The [Create Booking](https://dev.wix.com/docs/rest/api-reference/wix-bookings/bookings-v-2-and-confirmation/bookings-create-booking) and
+  [Reschedule Booking](https://dev.wix.com/docs/rest/api-reference/wix-bookings/bookings-v-2-and-confirmation/bookings-reschedule-booking) 
+  endpoints check if a slot or schedule is available, unless you pass
+  `skipAvailabilityValidation` in the body of the request.
+  [Confirm Booking](https://dev.wix.com/api/rest/wix-bookings/bookings-v2/confirm-booking) 
+  doesn't check availability. Instead, the availability is checked during the 
+  ecom payment flow(coming soon) and with Confirm or Decline Bookin |
 | Booking | Information about the service that the customer has booked. A booking can be thought of as an order placed by a customer for a service. Includes details about the time, location, participants, and price. |
 | Business owner | The owner of the business offering services that are managed on the Wix site. May or may not be the site owner. This person makes logical, business decisions regarding bookings, such as whether to decline a booking.
 | [Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) | General overview about the availability and bookings of the business, including its services and resources. Manage your appointments, classes and courses on the calendar.| 
