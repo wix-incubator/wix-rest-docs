@@ -1,0 +1,3409 @@
+{
+  "name": "Reviews",
+  "client_id": "https://github.com/wix-private/app-market/tree/master/critique/reviews#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage reviews.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Reviews Service",
+    "entity": "_com_wixpress_critique_reviews_Review",
+    "src": "https://github.com/wix-private/app-market/tree/master/critique/reviews/proto/com/wixpress/critique/reviews/reviews.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/reviews/docs/sort-and-filter.md",
+      "name": "Sort and Filter"
+    },
+        {
+      "path": "../guides/reviews/docs/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/reviews/docs/use-cases.md",
+      "name": "Sample Flows"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Review",
+      "methodName": "CreateReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "review",
+        "review.namespace",
+        "review.entityId",
+        "review.content",
+        "review.author",
+        "review.author.contactId",
+        "review.content.rating"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review data.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_CreateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a new review using a contact ID. \n\n\nThis endpoint requires a [`review.author.contactId`](https://dev.wix.com/api/rest/contacts). \nIf the review author is not a contact, use [Create Review and Contact](https://dev.wix.com/api/rest/reviews/create-review-and-contact). \nAfter a review is created, it may require [moderation](https://dev.wix.com/api/rest/reviews/introduction#reviews_introduction_moderation).\n\nIf `authorName` is left empty, the [member's](https://dev.wix.com/docs/rest/api-reference/members/members/get-member) name will be used. \nIf the author is not a member, the field is left `null`.\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/v1/reviews",
+        "links": [],
+        "examples": [        {
+          "title": "Create Review",
+          "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"review\": \n    {\n      \"namespace\": \"stores\",\n      \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n      \"content\": \n      {\n        \"title\": \"Excellent Laptop with Great Features\",\n        \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n        \"media\": \n        [\n          {\n            \"image\": \n            {\n              \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\"\n            }\n          }\n        ],\n        \"rating\": 4\n      },\n      \"author\": \n      {\n        \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n        \"authorName\": \"Joey\"\n      }\n    }\n }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"IN_MODERATION\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Creates a review and rating for an entity \nin the `stores` namespace. Used when review author is an existing contact."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateReviewRequest",
+        "rpcResponseName": "CreateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Review (Additional Binding 1)",
+      "methodName": "CreateReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "review",
+        "review.namespace",
+        "review.entityId",
+        "review.content",
+        "review.author",
+        "review.author.contactId",
+        "review.content.rating"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review data.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_CreateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a new review using a contact ID. \n\n\nThis endpoint requires a [`review.author.contactId`](https://dev.wix.com/api/rest/contacts). \nIf the review author is not a contact, use [Create Review and Contact](https://dev.wix.com/api/rest/reviews/create-review-and-contact). \nAfter a review is created, it may require [moderation](https://dev.wix.com/api/rest/reviews/introduction#reviews_introduction_moderation).\n\nIf `authorName` is left empty, the [member's](https://dev.wix.com/docs/rest/api-reference/members/members/get-member) name will be used. \nIf the author is not a member, the field is left `null`.\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews",
+        "links": [],
+        "examples": [        {
+          "title": "Create Review",
+          "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"review\": \n    {\n      \"namespace\": \"stores\",\n      \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n      \"content\": \n      {\n        \"title\": \"Excellent Laptop with Great Features\",\n        \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n        \"media\": \n        [\n          {\n            \"image\": \n            {\n              \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\"\n            }\n          }\n        ],\n        \"rating\": 4\n      },\n      \"author\": \n      {\n        \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n        \"authorName\": \"Joey\"\n      }\n    }\n }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"IN_MODERATION\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Creates a review and rating for an entity \nin the `stores` namespace. Used when review author is an existing contact."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateReviewRequest",
+        "rpcResponseName": "CreateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Review And Contact",
+      "methodName": "CreateReviewAndContact",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "namespace",
+        "entityId",
+        "content",
+        "content.rating"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace where the review is created.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity to review.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "name",
+          "type": "string",
+          "doc": "Name of the review author. Displayed as part of the review. Required for 3rd-party apps.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "email",
+          "type": "string",
+          "doc": "Email address of the review author.  Required for 3rd-party apps.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "content",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewContent",
+          "doc": "Review content.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateReviewAndContact",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_CreateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a new review and a new contact.\n\n\nWhen the review author is not a contact, use this endpoint. Include `name` and `email`, \nas they're required to create the contact. If these parameters are missing, a new contact and \nreview won't be created. \n\nWhen the review author is already a contact, use either this endpoint or [Create Review](https://dev.wix.com/api/rest/reviews/create-review). \nA new review is created but a new contact is not created. For a 3rd-party app, include `name` and `email`.\n\nAfter a review is created, it may require [moderation](https://dev.wix.com/api/rest/reviews/introduction#reviews_introduction_moderation).\n\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/v1/reviews/contact",
+        "links": [],
+        "examples": [        {
+          "title": "Create Review And Contact",
+          "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/contact'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"namespace\": \"stores\",\n    \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n    \"content\": \n    {\n      \"title\": \"Excellent Laptop with Great Features\",\n      \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n      \"media\": \n      [\n        {\n          \"image\": \n          {\n            \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\"\n          }\n        }\n      ],\n      \"rating\": 4\n    },\n    \"name\": \"Joey\",\n    \"email\": \"joey@example.com\"\n }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Creates a review and contact ID. \nUsed when review author is not an existing contact."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateReviewAndContactRequest",
+        "rpcResponseName": "CreateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Review And Contact (Additional Binding 1)",
+      "methodName": "CreateReviewAndContact",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "namespace",
+        "entityId",
+        "content",
+        "content.rating"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace where the review is created.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity to review.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "name",
+          "type": "string",
+          "doc": "Name of the review author. Displayed as part of the review. Required for 3rd-party apps.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "email",
+          "type": "string",
+          "doc": "Email address of the review author.  Required for 3rd-party apps.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "content",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewContent",
+          "doc": "Review content.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateReviewAndContact",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_CreateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a new review and a new contact.\n\n\nWhen the review author is not a contact, use this endpoint. Include `name` and `email`, \nas they're required to create the contact. If these parameters are missing, a new contact and \nreview won't be created. \n\nWhen the review author is already a contact, use either this endpoint or [Create Review](https://dev.wix.com/api/rest/reviews/create-review). \nA new review is created but a new contact is not created. For a 3rd-party app, include `name` and `email`.\n\nAfter a review is created, it may require [moderation](https://dev.wix.com/api/rest/reviews/introduction#reviews_introduction_moderation).\n\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews/contact",
+        "links": [],
+        "examples": [        {
+          "title": "Create Review And Contact",
+          "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/contact'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"namespace\": \"stores\",\n    \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n    \"content\": \n    {\n      \"title\": \"Excellent Laptop with Great Features\",\n      \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n      \"media\": \n      [\n        {\n          \"image\": \n          {\n            \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\"\n          }\n        }\n      ],\n      \"rating\": 4\n    },\n    \"name\": \"Joey\",\n    \"email\": \"joey@example.com\"\n }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Creates a review and contact ID. \nUsed when review author is not an existing contact."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateReviewAndContactRequest",
+        "rpcResponseName": "CreateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Review",
+      "methodName": "DeleteReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["reviewId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "reviewId",
+        "type": "string",
+        "doc": " Review ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_DeleteReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDeletes a review by ID.\n\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/reviews/v1/reviews/{reviewId}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete Review",
+          "body": ["curl DELETE \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\": {\"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\"},\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteReviewRequest",
+        "rpcResponseName": "DeleteReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Review (Additional Binding 1)",
+      "methodName": "DeleteReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["reviewId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "reviewId",
+        "type": "string",
+        "doc": " Review ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_DeleteReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDeletes a review by ID.\n\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews/{reviewId}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete Review",
+          "body": ["curl DELETE \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\": {\"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\"},\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteReviewRequest",
+        "rpcResponseName": "DeleteReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Review",
+      "methodName": "GetReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions":       [
+                {
+          "name": "Manage Reviews",
+          "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+        },
+                {
+          "name": "Read Reviews",
+          "description": "Request permission to read Wix Reviews info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["reviewId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "reviewId",
+          "type": "string",
+          "doc": " Review ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_GetReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a review by ID.  \n\nTo include unpublished reviews, pass `returnPrivateReviews` as `true`. By default, unpublished \nreviews are not returned.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/reviews/v1/reviews/{reviewId}",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get Published Review",
+            "body": ["curl GET \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+            "type": "curl",
+            "extra": {"description": "Gets a review. Returns review only if published."}
+          },
+                    {
+            "title": "Get Review",
+            "body": ["curl GET \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905?returnPrivateReviews=true'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"IN_MODERATION\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+            "type": "curl",
+            "extra": {"description": "Gets a review. Returns review whether published or not."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetReviewRequest",
+        "rpcResponseName": "GetReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Review (Additional Binding 1)",
+      "methodName": "GetReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions":       [
+                {
+          "name": "Manage Reviews",
+          "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+        },
+                {
+          "name": "Read Reviews",
+          "description": "Request permission to read Wix Reviews info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["reviewId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "reviewId",
+          "type": "string",
+          "doc": " Review ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_GetReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a review by ID.  \n\nTo include unpublished reviews, pass `returnPrivateReviews` as `true`. By default, unpublished \nreviews are not returned.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews/{reviewId}",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get Published Review",
+            "body": ["curl GET \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+            "type": "curl",
+            "extra": {"description": "Gets a review. Returns review only if published."}
+          },
+                    {
+            "title": "Get Review",
+            "body": ["curl GET \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905?returnPrivateReviews=true'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'"],
+            "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"IN_MODERATION\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+            "type": "curl",
+            "extra": {"description": "Gets a review. Returns review whether published or not."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetReviewRequest",
+        "rpcResponseName": "GetReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Reviews",
+      "methodName": "QueryReviews",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions":       [
+                {
+          "name": "Manage Reviews",
+          "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+        },
+                {
+          "name": "Read Reviews",
+          "description": "Request permission to read Wix Reviews info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "query",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_QueryV2",
+          "doc": " Review query.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QueryReviews",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_QueryReviewsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of reviews, given the provided paging, filtering, and sorting.\n100 reviews can be returned per request.\n\nQuery Reviews runs with these defaults, which you can override:\n\n- `createdDate` is sorted in `ASC` order\n- `paging.limit` is `100`\n\nFor field support for filters and sorting, see \n[Reviews: Supported Filters and Sorting](https://dev.wix.com/api/rest/reviews/sort-and-filter).\nTo learn about working with _Query_ endpoints, see\n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).  \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/v1/reviews/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query Reviews with a namespace filter",
+            "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/query'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"query\": \n    {\n      \"filter\": \n      {\n        \"namespace\": \"stores\"\n      }\n    }\n  }'"],
+            "response": ["{\"reviews\": [{\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}]} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query Reviews",
+            "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/query?returnPrivateReviews=true'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"query\": \n    {\n      \"filter\": \n      {\n        \"namespace\": \"stores\"\n      }\n    }\n  }'"],
+            "response": ["{\"reviews\": [{\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"REJECTED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}]} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves private (unpublished) reviews with `stores` namespace"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryReviewsRequest",
+        "rpcResponseName": "QueryReviewsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Reviews (Additional Binding 1)",
+      "methodName": "QueryReviews",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions":       [
+                {
+          "name": "Manage Reviews",
+          "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+        },
+                {
+          "name": "Read Reviews",
+          "description": "Request permission to read Wix Reviews info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "query",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_QueryV2",
+          "doc": " Review query.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QueryReviews",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_QueryReviewsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of reviews, given the provided paging, filtering, and sorting.\n100 reviews can be returned per request.\n\nQuery Reviews runs with these defaults, which you can override:\n\n- `createdDate` is sorted in `ASC` order\n- `paging.limit` is `100`\n\nFor field support for filters and sorting, see \n[Reviews: Supported Filters and Sorting](https://dev.wix.com/api/rest/reviews/sort-and-filter).\nTo learn about working with _Query_ endpoints, see\n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).  \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query Reviews with a namespace filter",
+            "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/query'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"query\": \n    {\n      \"filter\": \n      {\n        \"namespace\": \"stores\"\n      }\n    }\n  }'"],
+            "response": ["{\"reviews\": [{\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}]} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query Reviews",
+            "body": ["curl POST \\\n  'https://www.wixapis.com/reviews/v1/reviews/query?returnPrivateReviews=true'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"query\": \n    {\n      \"filter\": \n      {\n        \"namespace\": \"stores\"\n      }\n    }\n  }'"],
+            "response": ["{\"reviews\": [{\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": \"1\",\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 4\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"REJECTED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}]} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves private (unpublished) reviews with `stores` namespace"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryReviewsRequest",
+        "rpcResponseName": "QueryReviewsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Review",
+      "methodName": "UpdateReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "review.id",
+        "review.revision"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "review.id",
+          "type": "string",
+          "doc": "Review ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "review",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+          "doc": " Review to update.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_UpdateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdates a review.\n\n\nEach time the review is updated, `revision` increments by 1. The existing `revision` must be included\nwhen updating the review. This ensures you're working with the latest review information, and it prevents unintended overwrites.\n\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/reviews/v1/reviews/{review.id}",
+        "links": [],
+        "examples": [        {
+          "title": "Update Review",
+          "body": ["curl PATCH \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"review\": \n    {\n      \"revision\": 1,\n      \"content\": \n      {\n        \"rating\": 5\n      }\n    }\n  }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": 2,\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 5\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Updates only the given fields (`revision` and `rating`)"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateReviewRequest",
+        "rpcResponseName": "UpdateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Review (Additional Binding 1)",
+      "methodName": "UpdateReview",
+      "serviceName": "Reviews",
+      "tag": "Reviews Service",
+      "permissions": [      {
+        "name": "Manage Reviews",
+        "description": "Request permission to read, create and modify Wix Reviews reviews and replies."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "review.id",
+        "review.revision"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "review.id",
+          "type": "string",
+          "doc": "Review ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "review",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+          "doc": " Review to update.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateReview",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_UpdateReviewResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdates a review.\n\n\nEach time the review is updated, `revision` increments by 1. The existing `revision` must be included\nwhen updating the review. This ensures you're working with the latest review information, and it prevents unintended overwrites.\n\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/reviews/api/v1/reviews/{review.id}",
+        "links": [],
+        "examples": [        {
+          "title": "Update Review",
+          "body": ["curl PATCH \\\n  'https://www.wixapis.com/reviews/v1/reviews/605c64b4-d40c-4d53-a777-015209763905'  \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"review\": \n    {\n      \"revision\": 1,\n      \"content\": \n      {\n        \"rating\": 5\n      }\n    }\n  }'"],
+          "response": ["{\"review\": {\n  \"id\": \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\": 2,\n  \"namespace\": \"stores\",\n  \"entityId\": \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\":   {\n    \"title\": \"Excellent Laptop with Great Features\",\n    \"body\": \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\": [{\"image\":     {\n      \"id\": \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n      \"url\": \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpg\",\n      \"height\": 1976,\n      \"width\": 1572,\n      \"altText\": \"laptop.jpeg\",\n      \"filename\": \"laptop.jpeg\"\n    }}],\n    \"rating\": 5\n  },\n  \"createdDate\": \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\": \"2023-05-15T13:09:27.270Z\",\n  \"author\":   {\n    \"contactId\": \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\": \"Joey\"\n  },\n  \"reply\":   {\n    \"message\": \"Thanks!\",\n    \"createdDate\": \"2023-07-10T09:31:06.700Z\",\n    \"updatedDate\": \"2023-07-10T09:31:06.700Z\"\n  },\n  \"foundHelpful\": 0,\n  \"foundUnhelpful\": 0,\n  \"helpfulness\": 0,\n  \"moderation\":   {\n    \"moderationStatus\": \"APPROVED\",\n    \"manuallyChanged\": false\n  },\n  \"verified\": false,\n  \"origin\": {\"type\": \"ORGANIC\"}\n}} "],
+          "type": "curl",
+          "extra": {"description": "Updates only the given fields (`revision` and `rating`)"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateReviewRequest",
+        "rpcResponseName": "UpdateReviewResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_critique_reviews_ReviewCreatedDomainEvent",
+      "name": "Review Created Webhook",
+      "docs":       {
+        "summary": "Triggered when a review is created.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/reviews/proto/com/wixpress/critique/reviews/reviews_api.proto"
+      },
+      "topic": "domain_events_wix.reviews.v1.review",
+      "tag": "Reviews Service",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.reviews.v1.review_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_critique_reviews_ReviewDeletedDomainEvent",
+      "name": "Review Deleted Webhook",
+      "docs":       {
+        "summary": "Triggered when a review is deleted.\n",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/reviews/proto/com/wixpress/critique/reviews/reviews_api.proto"
+      },
+      "topic": "domain_events_wix.reviews.v1.review",
+      "tag": "Reviews Service",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.reviews.v1.review_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_critique_reviews_ReviewUpdatedDomainEvent",
+      "name": "Review Updated Webhook",
+      "docs":       {
+        "summary": "Triggered when a review is updated. \n",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/reviews/proto/com/wixpress/critique/reviews/reviews_api.proto"
+      },
+      "topic": "domain_events_wix.reviews.v1.review",
+      "tag": "Reviews Service",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.reviews.v1.review_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_critique_reviews_ModerationStatusChangedDomainEvent",
+      "name": "Moderation Status Changed Webhook",
+      "docs":       {
+        "summary": "Triggered when moderation status is changed or a review is created. \n",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/reviews/proto/com/wixpress/critique/reviews/reviews_api.proto"
+      },
+      "topic": "domain_events_wix.reviews.v1.review",
+      "tag": "Reviews Service",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.reviews.v1.review_moderation_status_changed",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewDeletedDomainEvent",
+      "displayName": "Review Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.reviews.v1.review\",\n  \"slug\" : \"deleted\",\n  \"entityId\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"eventTime\" : \"2023-05-15T13:09:26.856Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.reviews.v1.review`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Review ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewEntityDeletedEvent",
+      "displayName": "Review Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewUpdatedDomainEvent",
+      "displayName": "Review Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.reviews.v1.review\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : {\n      \"id\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n      \"revision\" : \"1\",\n      \"namespace\" : \"stores\",\n      \"entityId\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n      \"content\" : {\n        \"title\" : \"Excellent Laptop with Great Features\",\n        \"body\" : \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n        \"media\" : [ {\n          \"image\" : {\n            \"id\" : \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n            \"url\" : \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n            \"height\" : 1976,\n            \"width\" : 1572,\n            \"altText\" : \"laptop.jpge\",\n            \"filename\" : \"laptop.jpeg\"\n          }\n        } ],\n        \"rating\" : 4\n      },\n      \"createdDate\" : \"2023-05-15T13:09:26.856Z\",\n      \"updatedDate\" : \"2023-05-15T13:09:27.270Z\",\n      \"author\" : {\n        \"contactId\" : \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n        \"authorName\" : \"Joey\"\n      },\n      \"foundHelpful\" : 0,\n      \"foundUnhelpful\" : 0,\n      \"helpfulness\" : 0,\n      \"moderation\" : {\n        \"moderationStatus\" : \"APPROVED\",\n        \"manuallyChanged\" : false\n      },\n      \"verified\" : false,\n      \"origin\" : {\n        \"type\" : \"ORGANIC\"\n      }\n    }\n  },\n  \"eventTime\" : \"2023-05-15T13:10:26.856Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.reviews.v1.review`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Review ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewEntityUpdatedEvent",
+      "displayName": "Review Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ModerationStatusChangedDomainEvent",
+      "displayName": "Moderation Status Changed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.reviews.v1.review\",\n  \"slug\" : \"moderation_status_changed\",\n  \"entityId\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"review\" : {\n        \"id\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n        \"revision\" : \"1\",\n        \"namespace\" : \"stores\",\n        \"entityId\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n        \"content\" : {\n          \"title\" : \"Excellent Laptop with Great Features\",\n          \"body\" : \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n          \"media\" : [ {\n            \"image\" : {\n              \"id\" : \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n              \"url\" : \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n              \"height\" : 1976,\n              \"width\" : 1572,\n              \"altText\" : \"laptop.jpeg\",\n              \"filename\" : \"laptop.jpeg\"\n            }\n          } ],\n          \"rating\" : 4\n        },\n        \"createdDate\" : \"2023-05-15T13:09:26.856Z\",\n        \"updatedDate\" : \"2023-05-15T13:09:27.270Z\",\n        \"author\" : {\n          \"contactId\" : \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n          \"authorName\" : \"Joey\"\n        },\n        \"foundHelpful\" : 0,\n        \"foundUnhelpful\" : 0,\n        \"helpfulness\" : 0,\n        \"moderation\" : {\n          \"moderationStatus\" : \"APPROVED\",\n          \"manuallyChanged\" : false\n        },\n        \"verified\" : false,\n        \"origin\" : {\n          \"type\" : \"ORGANIC\"\n        }\n      }\n    }\n  },\n  \"eventTime\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.reviews.v1.review`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `moderation_status_changed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ModerationStatusChangedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ModerationStatusChanged ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ModerationStatusChangedActionEvent",
+      "displayName": "Moderation Status Changed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_ModerationStatusChanged",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewCreatedDomainEvent",
+      "displayName": "Review Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"0ec75a41-ae29-4e5e-8063-46f5a5d925d9\",\n  \"entityFqdn\" : \"wix.reviews.v1.review\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : {\n      \"id\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n      \"revision\" : \"1\",\n      \"namespace\" : \"stores\",\n      \"entityId\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n      \"content\" : {\n        \"title\" : \"Excellent Laptop with Great Features\",\n        \"body\" : \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n        \"media\" : [ {\n          \"image\" : {\n            \"id\" : \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n            \"url\" : \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n            \"height\" : 1976,\n            \"width\" : 1572,\n            \"altText\" : \"laptop.jpeg\",\n            \"filename\" : \"laptop.jpeg\"\n          }\n        } ],\n        \"rating\" : 4\n      },\n      \"createdDate\" : \"2023-05-15T13:09:26.856Z\",\n      \"updatedDate\" : \"2023-05-15T13:09:27.270Z\",\n      \"author\" : {\n        \"contactId\" : \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n        \"authorName\" : \"Joey\"\n      },\n      \"foundHelpful\" : 0,\n      \"foundUnhelpful\" : 0,\n      \"helpfulness\" : 0,\n      \"moderation\" : {\n        \"moderationStatus\" : \"APPROVED\",\n        \"manuallyChanged\" : false\n      },\n      \"verified\" : false,\n      \"origin\" : {\n        \"type\" : \"ORGANIC\"\n      }\n    }\n  },\n  \"eventTime\" : \"2023-05-15T13:09:26.856Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.reviews.v1.review`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Review ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewEntityCreatedEvent",
+      "displayName": "Review Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entity",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia image ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Image URL.\n",
+          "readOnly": true
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text.\n",
+          "readOnly": true
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_VideoV2",
+      "displayName": "Video V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia video ID.\n"
+        },
+                {
+          "name": "resolutions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_VideoResolution"]
+          },
+          "doc": " Available resolutions for the video, starting with the optimal resolution.\n",
+          "readOnly": true
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Video URL.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_VideoResolution",
+      "displayName": "Video Resolution Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Video URL.\n",
+          "readOnly": true
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Video height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Video width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "poster",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_Image",
+          "doc": " Video thumbnail.\n",
+          "readOnly": true
+        },
+                {
+          "name": "format",
+          "type": "string",
+          "doc": " Video format for example, mp4, hls.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Review",
+      "displayName": "Review Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nA Review object includes all of the details related to the review of an entity. An entity is a specific resource to be reviewed, \nfor example, a store product. \nYou can manage existing reviews, create new reviews, and retrieve reviews. \nRead more about reviews in this [tutorial](https://support.wix.com/en/article/wix-stores-adding-and-setting-up-wix-reviews).\n\n\n",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\" : \"1\",\n  \"namespace\" : \"stores\",\n  \"entityId\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"content\" : {\n    \"title\" : \"Excellent Laptop with Great Features\",\n    \"body\" : \"This laptop excels in speed, battery life, display quality, and is great for both work and gaming.\",\n    \"media\" : [ {\n      \"image\" : {\n        \"id\" : \"344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n        \"url\" : \"https://static.wixstatic.com/media/344592895_182127404391791_355010341914573594_n~mv2.jpeg\",\n        \"height\" : 1976,\n        \"width\" : 1572,\n        \"altText\" : \"laptop.jpeg\",\n        \"filename\" : \"laptop.jpeg\"\n      }\n    } ],\n    \"rating\" : 4\n  },\n  \"createdDate\" : \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\" : \"2023-05-15T13:09:27.270Z\",\n  \"author\" : {\n    \"contactId\" : \"453faee9-8e67-45f1-87dc-f247bdf3510e\",\n    \"authorName\" : \"Joey\"\n  },\n  \"foundHelpful\" : 0,\n  \"foundUnhelpful\" : 0,\n  \"helpfulness\" : 0,\n  \"moderation\" : {\n    \"moderationStatus\" : \"APPROVED\",\n    \"manuallyChanged\" : false\n  },\n  \"verified\" : false,\n  \"origin\" : {\n    \"type\" : \"ORGANIC\"\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "Review namespace. Currently integrated with Wix Stores, as `stores`.\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity to review. For example, a Wix Stores product ID.\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Review ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewContent",
+          "doc": "Review content.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "Date and time the review was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "Date and time the review was updated.\n",
+          "readOnly": true
+        },
+                {
+          "name": "author",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Author",
+          "doc": "Author of the review.\n",
+          "readOnly": true
+        },
+                {
+          "name": "reply",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Reply",
+          "doc": "Reply to the review. \n",
+          "readOnly": true
+        },
+                {
+          "name": "foundHelpful",
+          "type": "integer",
+          "doc": "Number of site visitors who found the review helpful.\n",
+          "readOnly": true
+        },
+                {
+          "name": "foundUnhelpful",
+          "type": "integer",
+          "doc": "Number of site visitors who found the review unhelpful.\n",
+          "readOnly": true
+        },
+                {
+          "name": "helpfulness",
+          "type": "integer",
+          "doc": "Helpfulness score. \n\nCalculated by subtracting `foundUnhelpful` from `foundHelpful`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "moderation",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Moderation",
+          "doc": "Moderation status of the review. \n",
+          "readOnly": true
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "Revision number, which increments by 1 each time the review is updated.\nTo prevent conflicting changes,\nthe current revision must be passed when updating the review.\nIgnored when creating a review.\n",
+          "readOnly": true
+        },
+                {
+          "name": "verified",
+          "type": "boolean",
+          "doc": "Indicates whether the review has been verified through a Verify Product Purchase call to the Review Product catalog SPI.\n",
+          "readOnly": true
+        },
+                {
+          "name": "origin",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Origin",
+          "doc": "Provides information about the origin of the review.\nOrganic reviews are created by site visitors or members.\nApp reviews are created by apps even though a site visitor or member is the author of the review.\nApps can not create or update organic reviews.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ReviewContent",
+      "displayName": "Review Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nThe Review object.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": "Review title.\n"
+        },
+                {
+          "name": "body",
+          "type": "string",
+          "doc": "Review body.\n\nMax: 3,000 characters\n"
+        },
+                {
+          "name": "media",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_Media"]
+          },
+          "doc": "List of media items associated with the review.\n\nMax: 10 items\n"
+        },
+                {
+          "name": "rating",
+          "type": "integer",
+          "doc": "Rating of the review. \n\nMin: `1` <br />\nMax: `5`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Reply",
+      "displayName": "Reply Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nReply to the review. \n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "message",
+          "type": "string",
+          "doc": "Reply content.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "Date and time the reply was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "Date and time the reply was updated.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Media",
+      "displayName": "Media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "media",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Media_media",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Media_media",
+      "displayName": "media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "image",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_Image",
+          "doc": "Image media item.\n"
+        },
+                {
+          "name": "video",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_VideoV2",
+          "doc": "Video media item.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Author",
+      "displayName": "Author Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nReview author.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": "Contact ID of the author.\n"
+        },
+                {
+          "name": "authorName",
+          "type": "string",
+          "doc": "Display name of the author.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Moderation",
+      "displayName": "Moderation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nModeration status of the review.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "moderationStatus",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Moderation_ModerationStatus",
+          "doc": "  \n- `APPROVED`: The review is approved and published.  \n- `IN_MODERATION`: The review is pending moderation. Moderation can be applied in the site owner's [Dashboard](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Freviews/pending).\n- `REJECTED`: The review is rejected and deleted from the site.\n- `SUBMITTED`: Initial status of the review before the moderation process.\n"
+        },
+                {
+          "name": "manuallyChanged",
+          "type": "boolean",
+          "doc": "Indicates whether a moderator manually changed the `moderationStatus` of the review.  \n\nIf the `moderationStatus` changed automatically because the review \npassed the moderation rules or if moderation is turned off, this field is set to `false`.  \n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Origin",
+      "displayName": "Origin Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Origin_OriginType",
+          "doc": " The type of the review origin.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " The app ID of the APP review origin.\n Set only when the review origin is APP.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_ModerationStatusChanged",
+      "displayName": "Moderation Status Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "*\nAction describing changed review moderation status\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review entity\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Reviews._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Reviews._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_domainevents_EntityCreatedEvent",
+      "displayName": "Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityUpdatedEvent",
+      "displayName": "Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": " Since platformized APIs only expose PATCH and not PUT we can't assume that the fields sent from the client are the actual diff.\n This means that to generate a list of changed fields (as opposed to sent fields) one needs to traverse both objects.\n We don't want to impose this on all developers and so we leave this traversal to the notification recipients which need it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityDeletedEvent",
+      "displayName": "Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ActionEvent",
+      "displayName": "Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent",
+      "displayName": "Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " random GUID so clients can tell if event was already handled\n"
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": " Assumes actions are also always typed to an entity_type\n Example: wix.stores.catalog.product, wix.bookings.session, wix.payments.transaction\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " Assuming that all messages including Actions have id\n Example: The id of the specific order, the id of a specific campaign\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Reviews._wix_common_domainevents_DomainEvent_body",
+          "doc": ""
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": " The time of the event. Useful if there was a delay in dispatching\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " A field that should be set if this event was triggered by an anonymize request.\n For example you must set it to true when sending an event as a result of a GDPR right to be forgotten request.\n NOTE: This field is not relevant for `EntityCreatedEvent` but is located here for better ergonomics of consumers.\n"
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent_body",
+      "displayName": "body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Reviews._wix_common_domainevents_EntityCreatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Reviews._wix_common_domainevents_EntityUpdatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Reviews._wix_common_domainevents_EntityDeletedEvent",
+          "doc": ""
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Reviews._wix_common_domainevents_ActionEvent",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Sort options.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_SortOrder",
+          "doc": " Sort order.\n\n Default: `ASC`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " The number of items to load.\n Cursor token returned in the query response. To be used on the next query request, but not the first query request.  \n\n Max: `100` <br />\n Default: `50` \n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": " Cursor returned in last query response. Should not be provided on first page request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next result page.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous result page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": "Filter object. See [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more information. \n For a detailed list of supported filters, see [Reviews: Supported Filters and Sorting](https://dev.wix.com/api/rest/reviews/sort-and-filter),\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_Sorting"]
+          },
+          "doc": "Sorting options. See [Reviews: Supported Filters and Sorting](https://dev.wix.com/api/rest/reviews/sort-and-filter) for more information,\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_CursorPaging",
+          "doc": "Cursor paging options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_FieldMask",
+      "displayName": "Field Mask Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paths",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The set of field mask paths.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia image ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Image URL.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Video",
+      "displayName": "Video Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Deprecated - use VideoV2\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia ID\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " URL of video\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width\n",
+          "readOnly": true
+        },
+                {
+          "name": "thumbnail",
+          "type": "All APIs.Reviews._wix_common_Image",
+          "doc": " Video poster\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_wix_common_Document",
+      "displayName": "Document Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Document URL.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Document filename.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_MediaItem",
+      "displayName": "Media Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "media",
+        "type": "All APIs.Reviews._wix_common_MediaItem_media",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_MediaItem_media",
+      "displayName": "media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "image",
+          "type": "All APIs.Reviews._wix_common_Image",
+          "doc": " WixMedia image\n"
+        },
+                {
+          "name": "video",
+          "type": "All APIs.Reviews._wix_common_Video",
+          "doc": " WixMedia video\n"
+        },
+                {
+          "name": "document",
+          "type": "All APIs.Reviews._wix_common_Document",
+          "doc": " WixMedia document\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_PageUrl",
+      "displayName": "Page Url Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "base",
+          "type": "string",
+          "doc": " The base URL. For premium sites, this will be the domain. For free sites, this would be site URL (e.g mysite.wixsite.com/mysite)\n"
+        },
+                {
+          "name": "path",
+          "type": "string",
+          "doc": " The path to that page - e.g /product-page/a-product\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_Content",
+      "displayName": "Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": " content data\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " content id\n"
+        },
+                {
+          "name": "fqdn",
+          "type": "string",
+          "doc": " fqdn for the content\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " optional content title\n"
+        },
+                {
+          "name": "contentParts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._wix_contentprovider_spi_ContentPart"]
+          },
+          "doc": " content parts\n"
+        },
+                {
+          "name": "classifierValues",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._wix_contentprovider_spi_ClassifierValues"]
+          },
+          "doc": " classifier values that apply to content (i.e. Blog categories)\n"
+        },
+                {
+          "name": "authorInfo",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_AuthorInfo",
+          "doc": " author info\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " time of content creation\n"
+        },
+                {
+          "name": "parent",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_ParentInfo",
+          "doc": " parent content info, optional\n"
+        },
+                {
+          "name": "deepLink",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_Link",
+          "doc": " optional deep link to content in vertical ui\n"
+        },
+                {
+          "name": "visibility",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_Visibility",
+          "doc": " content visibility (read access) settings\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_ContentPart",
+      "displayName": "Content Part Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " content part name\n"
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_ContentPart_content",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_ContentPart_content",
+      "displayName": "content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "textContent",
+          "type": "string",
+          "doc": " plain text content\n"
+        },
+                {
+          "name": "draftJs",
+          "type": "string",
+          "doc": " draftJs content\n"
+        },
+                {
+          "name": "attachment",
+          "type": "All APIs.Reviews._wix_common_MediaItem",
+          "doc": " Wix Media item\n"
+        },
+                {
+          "name": "storedContentId",
+          "type": "string",
+          "doc": " content id stored in the future (rich) content server\n"
+        },
+                {
+          "name": "jsonData",
+          "type": "All APIs.Reviews._google_protobuf_Value",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_contentprovider_spi_ParentInfo",
+      "displayName": "Parent Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fqdn",
+          "type": "string",
+          "doc": " fqdn for the parent\n"
+        },
+                {
+          "name": "parentId",
+          "type": "string",
+          "doc": " parent id\n"
+        },
+                {
+          "name": "classifierValues",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._wix_contentprovider_spi_ClassifierValues"]
+          },
+          "doc": " classifier values that apply to parent (i.e. Blog categories)\n"
+        },
+                {
+          "name": "classifiersUnknown",
+          "type": "boolean",
+          "doc": " classifier values for parent are not known and should be queried from SPI for parent if possible\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_ClassifierValues",
+      "displayName": "Classifier Values Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "string",
+          "doc": " classifier type, fqdn if applicable\n"
+        },
+                {
+          "name": "valueIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " applicable value ids\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_AuthorInfo",
+      "displayName": "Author Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "identity",
+        "type": "All APIs.Reviews._wix_contentprovider_spi_AuthorInfo_identity",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_AuthorInfo_identity",
+      "displayName": "identity Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "visitorId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "siteMemberId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "service",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "externalApp",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_contentprovider_spi_Link",
+      "displayName": "Link Object",
+      "locations": [],
+      "docs":       {
+        "summary": " to be replaced by commons wix.common.Link once merged\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "url",
+          "type": "All APIs.Reviews._wix_common_PageUrl",
+          "doc": " Page url\n"
+        },
+                {
+          "name": "mobileLink",
+          "type": "string",
+          "doc": " The mobile deeplink - e.g wix://app/1234-1234-1234-1234/memberships/manager\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_Visibility",
+      "displayName": "Visibility Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "visibilityType",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_Visibility_VisibilityType",
+          "doc": " enum stating content visibility type\n"
+        },
+                {
+          "name": "permissions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " array of permission ids or member groups that can be used with isPermitted to check content visibility\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_moderation_v2_AsyncSubmitModeratedContentRequest",
+      "displayName": "Async Submit Moderated Content Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": " meta_site_id\n"
+        },
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " App Def Id of moderated content owner vertical, if not provided, will be taken from CallScope\n"
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Reviews._wix_contentprovider_spi_Content",
+          "doc": " Content to moderate\n"
+        },
+                {
+          "name": "contentRevision",
+          "type": "string",
+          "doc": "optional content revision supplied and managed by vertical\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Reviews._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_GetReviewRequest",
+      "displayName": "Get Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reviewId",
+          "type": "string",
+          "doc": " Review ID.\n"
+        },
+                {
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_GetReviewResponse",
+      "displayName": "Get Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_GetDeletedReviewRequest",
+      "displayName": "Get Deleted Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "reviewId",
+        "type": "string",
+        "doc": " Review ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_GetDeletedReviewResponse",
+      "displayName": "Get Deleted Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_CreateReviewAndContactRequest",
+      "displayName": "Create Review And Contact Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace where the review is created.\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity to review.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": "Name of the review author. Displayed as part of the review. Required for 3rd-party apps.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": "Email address of the review author.  Required for 3rd-party apps.\n"
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewContent",
+          "doc": "Review content.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_CreateReviewResponse",
+      "displayName": "Create Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Created review.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_CreateReviewRequest",
+      "displayName": "Create Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review data.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkCreateReviewRequest",
+      "displayName": "Bulk Create Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reviews",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_Review"]
+          },
+          "doc": " Reviews to create.\n"
+        },
+                {
+          "name": "returnEntity",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkReviewResult",
+      "displayName": "Bulk Review Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Reviews._wix_common_ItemMetadata",
+          "doc": " ItemMetadata\n"
+        },
+                {
+          "name": "review",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+          "doc": " New Reviews\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkCreateReviewResponse",
+      "displayName": "Bulk Create Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_BulkReviewResult"]
+          },
+          "doc": "\nCreated reviews, only returned if returnEntity is set to true.\nItems are returned for successful operations and when returnEntity in the request is set to true.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Reviews._wix_common_BulkActionMetadata",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_UpdateReviewContentRequest",
+      "displayName": "Update Review Content Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reviewId",
+          "type": "string",
+          "doc": " Review ID.\n"
+        },
+                {
+          "name": "content",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_ReviewContent",
+          "doc": " Review content.\n"
+        },
+                {
+          "name": "fieldMask",
+          "type": "All APIs.Reviews._google_protobuf_FieldMask",
+          "doc": " Fieldmask for update.\n Supported fields: content.title, content.body, content.media, content.rating\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_UpdateReviewContentResponse",
+      "displayName": "Update Review Content Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Updated review data.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_UpdateReviewRequest",
+      "displayName": "Update Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review to update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_UpdateReviewResponse",
+      "displayName": "Update Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Updated review data.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_DeleteReviewRequest",
+      "displayName": "Delete Review Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "reviewId",
+        "type": "string",
+        "doc": " Review ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_DeleteReviewResponse",
+      "displayName": "Delete Review Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review entity.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkDeleteReviewsRequest",
+      "displayName": "Bulk Delete Reviews Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "struct",
+        "doc": "Filter object.\n\nPossible filters:\n`$eq`, `$gt`, `$gte`, `$in`, `$lt`, `$lte`, `$ne`.\n\nFor a detailed list of supported filters, see\nfiltering and sorting for\n[review properties](https://dev.wix.com/api/rest/reviews/sort-and-filter).\n\nExample:\n`{ \"filter\": { \"namespace\":  \"$eq\": [\"stores\"] } }`\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkDeleteReviewsResponse",
+      "displayName": "Bulk Delete Reviews Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "jobId",
+        "type": "string",
+        "doc": " Bulk job ID. \n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_QueryReviewsRequest",
+      "displayName": "Query Reviews Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_QueryV2",
+          "doc": " Review query.\n"
+        },
+                {
+          "name": "returnPrivateReviews",
+          "type": "boolean",
+          "doc": " Whether to return private (unpublished) reviews.  \n\n Default: `false`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_QueryReviewsResponse",
+      "displayName": "Query Reviews Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metadata",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_upstream_wix_common_PagingMetadataV2",
+          "doc": " Paging metadata.\n"
+        },
+                {
+          "name": "reviews",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Reviews._com_wixpress_critique_reviews_Review"]
+          },
+          "doc": " List of returned reviews.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_SetReplyRequest",
+      "displayName": "Set Reply Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reviewId",
+          "type": "string",
+          "doc": " Review id\n"
+        },
+                {
+          "name": "message",
+          "type": "string",
+          "doc": " Response to review author\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_SetReplyResponse",
+      "displayName": "Set Reply Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review entity\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_RemoveReplyRequest",
+      "displayName": "Remove Reply Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "reviewId",
+        "type": "string",
+        "doc": " Review ID\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_RemoveReplyResponse",
+      "displayName": "Remove Reply Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "review",
+        "type": "All APIs.Reviews._com_wixpress_critique_reviews_Review",
+        "doc": " Review ID\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkUpdateModerationStatusRequest",
+      "displayName": "Bulk Update Moderation Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Reviews to moderate\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Reviews._com_wixpress_critique_reviews_BulkUpdateModerationStatusRequest_ModerationStatus",
+          "doc": " Moderation status to set\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkUpdateModerationStatusResponse",
+      "displayName": "Bulk Update Moderation Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "jobId",
+        "type": "string",
+        "doc": " Reference to async job\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Author_AuthorType",
+      "displayName": "Author Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Supported types of review author.\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> MEMBER <\/code><\/li><li><code> VISITOR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "MEMBER",
+        "VISITOR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Moderation_ModerationStatus",
+      "displayName": "Moderation Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Supported states of the review.\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> IN_MODERATION <\/code><\/li><li><code> REJECTED <\/code><\/li><li><code> SUBMITTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "APPROVED",
+        "IN_MODERATION",
+        "REJECTED",
+        "SUBMITTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_Origin_OriginType",
+      "displayName": "Origin Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Supported types of review origin.\n \n Possible values are: <li><code> UNKNOWN -  Indicates that the review origin is unknown.\n <\/code><\/li><li><code> ORGANIC -  Indicates that the review was created organically.\n <\/code><\/li><li><code> APP -  Indicates that the review was created by an application.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ORGANIC",
+        "APP"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_upstream_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_contentprovider_spi_Visibility_VisibilityType",
+      "displayName": "Visibility Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PUBLIC <\/code><\/li><li><code> RESTRICTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "PUBLIC",
+        "RESTRICTED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_reviews_BulkUpdateModerationStatusRequest_ModerationStatus",
+      "displayName": "Moderation Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> REJECTED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "APPROVED",
+        "REJECTED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.critique.reviews"}
+}
