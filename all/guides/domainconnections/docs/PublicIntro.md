@@ -1,10 +1,20 @@
 SortOrder: 1
 # About the Domain Connections API
 
-With the Domain Connections API you can connect a root domain or subdomain to a Wix 
+<blockquote class='warning'>
+
+__Deprecation Notice:__
+
+Domain Connections has been replaced with
+[Connected Domains](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/connected-domains/introduction)
+and will be removed on December 31, 2023.
+
+</blockquote>
+
+With the Domain Connections API you can connect a root domain or subdomain to a Wix
 site. You can only connect external domains.
 
-The domain can be assigned as a primary domain or a redirect. You can read more 
+The domain can be assigned as a primary domain or a redirect. You can read more
 about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).
 
 ## Before you begin
