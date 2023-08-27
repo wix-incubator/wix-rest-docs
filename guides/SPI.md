@@ -25,7 +25,7 @@ In order to become a _service provider_, you have two options:
 In order to enable Wix to communicate with your app, add configurations for your extension:
 1. In the side menu under **Build your app**, click **Extensions** .
 2. In the upper right corner of the page, select **Create Extension**.
-3. Select the relevant component and click **Createt**. You can filter by tag or search to find the extension you need.
+3. Select the relevant component and click **Create**. You can filter by tag or search to find the extension you need.
 
     ![screenshot of extension picker](../media/spi-extension-search-and-filter.png) 
    
