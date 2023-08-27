@@ -1,4 +1,4 @@
-# SPI - Service Provider Interface
+sio# SPI - Service Provider Interface
 
 ## Introduction
 
@@ -31,7 +31,7 @@ In order to enable Wix to communicate with your app, add configurations for your
    
 4. In the JSON editor, configure the parameters by referencing the **Documentation** section on the right side of the page. For each parameter, add the parameter name and value in the JSON editor.
 
-    ![screenshot of json editor](../media/spi-config.png)  
+    ![screenshot of json editor](../media/spi-extension-config.png)  
 
 5. Click **Save**.
 
