@@ -18,14 +18,17 @@ Once installed and enabled on a site, this provider will be called to fetch appl
 
 ## Setup
 In order to become a _service provider_, you have two options:
-* Register an application in the Wix Developers Center, and add the integration component that you wish to implement as described below. 
+* Register an application in the Wix Developers Center, and add the extension that you wish to implement as described below. 
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
 
-### Configure an integration component in the Development Center
-In order to enable Wix to communicate with your app, add configurations for your component:
-1. In the side menu under **Build your app**, click **Components** .
-2. In the upper right corner of the page, select **Add Component** > **Integration component**.
-3. Select the relevant component and click **Add Component**.
+### Configure an extension in the Development Center
+In order to enable Wix to communicate with your app, add configurations for your extension:
+1. In the side menu under **Build your app**, click **Extensions** .
+2. In the upper right corner of the page, select **Create Extension**.
+3. Select the relevant component and click **Createt**. You can filter by tag or search to find the extension you need.
+
+    ![screenshot of extension picker](../media/spi-config.png) 
+   
 4. In the JSON editor, configure the parameters by referencing the **Documentation** section on the right side of the page. For each parameter, add the parameter name and value in the JSON editor.
 
     ![screenshot of json editor](../media/spi-config.png)  
