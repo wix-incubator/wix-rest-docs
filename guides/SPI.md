@@ -27,7 +27,7 @@ In order to enable Wix to communicate with your app, add configurations for your
 2. In the upper right corner of the page, select **Create Extension**.
 3. Select the relevant component and click **Createt**. You can filter by tag or search to find the extension you need.
 
-    ![screenshot of extension picker](../media/spi-config.png) 
+    ![screenshot of extension picker](../media/spi-extension-search-and-filter.png) 
    
 4. In the JSON editor, configure the parameters by referencing the **Documentation** section on the right side of the page. For each parameter, add the parameter name and value in the JSON editor.
 
