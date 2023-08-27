@@ -1,4 +1,4 @@
-sio# SPI - Service Provider Interface
+# SPI - Service Provider Interface
 
 ## Introduction
 
