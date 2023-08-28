@@ -21,7 +21,7 @@ The changes made to your app are reviewed and the new version is classified as e
 ### Major Updates
 The following changes to your app require a major update. These are:
 - Adding or removing [Permissions](https://devforum.wix.com/kb/en/article/about-permissions)
-- Adding an [Embedded Script](https://devforum.wix.com/kb/en/article/set-up-an-embedded-script-component) component
+- Adding an [Embedded Script](https://dev.wix.com/docs/build-apps/developer-tools/extensions/embedded-scripts) extension
 - Changing [Dynamic Key Parameters](https://devforum.wix.com/kb/en/article/embedded-script-dynamic-parameters) of an Embedded Script
 
 Major updates are not automatically sent to site owners. Instead, they are informed in the App Manager that the update is available. Site owners must click the Update button and follow any on-screen instructions to get the update.
