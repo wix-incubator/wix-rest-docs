@@ -1,24 +1,21 @@
 SortOrder: 3
 # Domain Search Errors
 
-
 This article outlines error messages that might be issued when calling endpoints of the Domain Search API.
-
 
 ## Check Domain Availability Errors
 
-
-The [Check Domain Availability](https://dev.wix.com/api/rest/account-level-apis/domain-search/check-domain-availibility) endpoint might issue the following error message:
+The [Check Domain Availability](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/availability-v-2/check-domain-availability)
+endpoint might issue the following error message:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting </div> |
 | --------------------------- | ----------------------------------- | ------------------------------------------------------------ | ------------------------------ |
 | `INVALID_ARGUMENT (400)` | `INVALID_DOMAIN` | Failed to extract root domain from `<domain>`, or TLD is missing or invalid. | Start a new query including a domain name and supported TLD. Domain name and TLD must be separated by a dot. For example, `my-new-domain.com`. |
 
-
 ## Suggest Domains Errors
 
-
-The [Suggest Domains](https://dev.wix.com/api/rest/account-level-apis/domain-search/suggest-domains) endpoint might issue the following error messages:
+The [Suggest Domains](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/suggestion-v-2/suggest-domains)
+endpoint might issue the following error messages:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting </div> |
 | --------------------------- | ----------------------------------- | ------------------------------------------------------------ | ------------------------------ |
