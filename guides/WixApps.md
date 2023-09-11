@@ -8,7 +8,7 @@ Other API calls may return a reference to the app made by Wix. For example, call
 
 See the following apps made by Wix and their corresponding IDs. Regardless of the API call, each app always has the same `app ID`.
 
-| **App made by Wix**    | **app ID**                           |
+| **App made by Wix**    | **`appId`**                          |
 |------------------------|--------------------------------------|
 | Wix Bookings           | 13d21c63-b5ec-5912-8397-c3a5ddb27a97 |
 | Wix Blog               | 14bcded7-0066-7c35-14d7-466cb3f09103 |
