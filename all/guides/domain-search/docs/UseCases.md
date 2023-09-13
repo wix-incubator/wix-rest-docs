@@ -1,5 +1,5 @@
 SortOrder: 1
-# Sample Use Case & Flow: Domain Search
+# Sample Use Cases & Flows: Domain Search
 
 This article shares possible use cases your app could support, as well as example flows.
 You're certainly not limited to these use cases, but they can be a helpful jumping off point
@@ -17,12 +17,9 @@ To discover and register a domain:
 1. Display the suggestions to the site owners and let them select their preferred choice.
 1. Optional: In case the relevant site is a free Wix site, use the
    [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
-   to assign a Premium plan to it. Make sure to save the `productInstanceId`
-   for the next step.
+   to assign a Premium plan to it. Make sure to save the `productInstanceId`.
 1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
-   to create a product instance for the relevant domain TLD and privacy. You
-   must pass the `productInstanceId` of the site's Premium plan from step 3 as
-   `products.referenceProductInstanceId`.
+   to create a product instance for the relevant domain TLD and privacy.
 1. Register the domain through Wix by calling
     [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/create-registered-domain).
     Make sure to pass a site ID to assign it to the relevant Wix site.
@@ -44,12 +41,9 @@ To check a domain's availability and register it:
     [flow above](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/sample-flows#discover-and-register-a-domain).
 1. Optional: In case the relevant site is a free Wix site, use the
    [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
-   to assign a Premium plan to it. Make sure to save the `productInstanceId`
-   for the next step.
+   to assign a Premium plan to it. Make sure to save the `productInstanceId`.
 1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
-   to create a product instance for the relevant domain TLD and privacy. You
-   must pass the `productInstanceId` of the site's Premium plan from step 3 as
-   `products.referenceProductInstanceId`.
+   to create a product instance for the relevant domain TLD and privacy.
 1. Register the domain through Wix by calling
     [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/create-registered-domain).
     Make sure to pass a site ID to assign it to the relevant Wix site.
