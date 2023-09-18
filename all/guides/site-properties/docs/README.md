@@ -6,7 +6,7 @@ Site Properties is a service that holds all the public information about the sit
 It’s a single source of truth of the data across all the verticals, so the user have only one place to update its details, no vertical/horizontal should need to manage its own data about a site/business, and all the apps will always be synced.
 
 For discussions, bug reports, announcements and other bits please use the 
-[#site-properties](https://wix.slack.com/messages/site-properties/) channel on Slack.
+[#site-management](https://wix.slack.com/messages/site-management/) channel on Slack.
 
 ## Domain - All the data in Site Properties
 
