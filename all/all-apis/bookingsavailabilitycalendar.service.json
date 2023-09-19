@@ -53,7 +53,7 @@
         "in": "BODY",
         "name": "timezone",
         "type": "string",
-        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n",
+        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n",
         "required": false
       },
             {
@@ -74,7 +74,7 @@
     },
     "locations": [],
     "docs":     {
-      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (paging, filtering, and sorting). \n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n + **The sessions' open slots**. A slot is considered open if the session's \n   capacity is greater than number of participants.\n + **Booking policies**. Policies that affect whether a slot is considered \n   available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n sesssion remains locked because there is still a waitlist, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the waitlist from grabbing the slot.\n\n #### Handling Daylight Savings Time (DST) for local time zones\n\n Because of DST, there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the tine `00:05` on September 5th 2021 might not exist in Santiago, Chile, \n because at `00:00` the clock moved\n 1 hour forward to `01:00`.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existant local time is \n automtically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
+      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (filtering and sorting).\n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n - **The sessions' open slots**. A slot is considered open if the session's capacity is greater than number of participants.\n - **Booking policies**. Policies that affect whether a slot is considered available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n session remains locked because there is still a wait-list, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the wait-list from grabbing the slot.\n\n #### Handling Daylight Savings Time (DST) for local time zones\n\n Because of DST, there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the time `00:05` on September 5th 2021 might not exist in Santiago, Chile,\n because at `00:00` the clock moved\n 1 hour forward to `01:00`.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existent local time is\n automatically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
       "description": [],
       "request": "POST",
       "url": "https://www.wixapis.com/bookings/v1/availability/query",
@@ -83,35 +83,35 @@
                 {
           "title": "Query for available slots for a specific service in a given time range",
           "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\"832adc1f-d6cc-412d-894d-f04455baec68\"],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\"\n        }\n      }\n    }'"],
-          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"66bf9f11-1253-4ea8-ba43-a303578be1fb\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "response": ["{\"availabilityEntries\": [{\n  \"slot\":   {\n    \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n    \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n    \"startDate\": \"2023-05-20T12:30:00.000Z\",\n    \"endDate\": \"2023-05-20T13:00:00.000Z\",\n    \"resource\":     {\n      \"id\": \"66bf9f11-1253-4ea8-ba43-a303578be1fb\",\n      \"name\": \"John Smith\",\n      \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n    },\n    \"location\":     {\n      \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n      \"name\": \"Headquarters\",\n      \"locationType\": \"OWNER_BUSINESS\"\n    }\n  },\n  \"bookable\": false,\n  \"totalSpots\": 1,\n  \"openSpots\": 1,\n  \"waitingList\": {},\n  \"bookingPolicyViolations\":   {\n    \"tooEarlyToBook\": false,\n    \"tooLateToBook\": true,\n    \"bookOnlineDisabled\": false\n  }\n}]} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Query for a service's available slots by resource ID for a given time range",
           "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\",\n          \"resourceId\":[\"70586e51-b75c-4425-818b-68cfd7954022\"]\n        }\n      }\n    }'"],
-          "response": ["{\n  \"availabilityEntries\":   [\n        {\n      \"slot\":       {\n        \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n        \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n        \"startDate\": \"2023-05-20T12:30:00.000Z\",\n        \"endDate\": \"2023-05-20T13:00:00.000Z\",\n        \"resource\":         {\n          \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n          \"name\": \"John Smith\",\n          \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n        },\n        \"location\":         {\n          \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n          \"name\": \"Headquarters\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        }\n      },\n      \"bookable\": false,\n      \"totalSpots\": 1,\n      \"openSpots\": 1,\n      \"waitingList\": {},\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": true,\n        \"bookOnlineDisabled\": false\n      }\n    },\n        {\n      \"slot\":       {\n        \"serviceId\": \"f018ad57-0403-488f-971d-fc33511bbc3a\",\n        \"scheduleId\": \"175fa56c-66b3-4357-a09c-29cce7ae9bf9\",\n        \"startDate\": \"2023-05-20T12:45:00.000Z\",\n        \"endDate\": \"2023-05-20T13:15:00.000Z\",\n        \"resource\":         {\n          \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n          \"name\": \"John Smith\",\n          \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n        },\n        \"location\":         {\n          \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n          \"name\": \"Headquarters\",\n          \"locationType\": \"OWNER_BUSINESS\"\n        }\n      },\n      \"bookable\": true,\n      \"totalSpots\": 1,\n      \"openSpots\": 1,\n      \"waitingList\": {},\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      }\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"cursors\": {}\n  }\n} "],
+          "response": ["{\"availabilityEntries\": [\n    {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  },\n    {\n    \"slot\":     {\n      \"serviceId\": \"f018ad57-0403-488f-971d-fc33511bbc3a\",\n      \"scheduleId\": \"175fa56c-66b3-4357-a09c-29cce7ae9bf9\",\n      \"startDate\": \"2023-05-20T12:45:00.000Z\",\n      \"endDate\": \"2023-05-20T13:15:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": true,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    }\n  }\n]} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Query for available slots for a service by location and date range",
-          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\"\n          ],\n          \"startDate\": \"2023-05-20T12:00:00.000Z\",\n          \"endDate\": \"2023-05-20T13:00:00.000Z\",\n          \"location.id\": [\"3dd710bd-3480-49b4-a549-0522b035a8d7\"]\n        }\n      }\n    }'"],
-          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 1,\n    \"openSpots\": 1,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\"\n          ],\n          \"startDate\": \"2023-05-20T12:00:00.000Z\",\n          \"endDate\": \"2023-05-20T13:00:00.000Z\",\n          \"location.businessLocation.id\": [\"3dd710bd-3480-49b4-a549-0522b035a8d7\"]\n        }\n      }\n    }'"],
+          "response": ["{\"availabilityEntries\": [{\n  \"slot\":   {\n    \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n    \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n    \"startDate\": \"2023-05-20T12:30:00.000Z\",\n    \"endDate\": \"2023-05-20T13:00:00.000Z\",\n    \"resource\":     {\n      \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n      \"name\": \"John Smith\",\n      \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n    },\n    \"location\":     {\n      \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n      \"name\": \"Headquarters\",\n      \"locationType\": \"OWNER_BUSINESS\"\n    }\n  },\n  \"bookable\": false,\n  \"totalSpots\": 1,\n  \"openSpots\": 1,\n  \"waitingList\": {},\n  \"bookingPolicyViolations\":   {\n    \"tooEarlyToBook\": false,\n    \"tooLateToBook\": true,\n    \"bookOnlineDisabled\": false\n  }\n}]} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Query for available open slots for a specific service in a given time range",
           "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:00:00.000Z\",\n          \"endDate\": \"2023-05-20T13:30:00.000Z\",\n          \"openSpots\": {\"$gte\": \"10\"}\n        }\n      }\n    }'"],
-          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": false,\n    \"totalSpots\": 17,\n    \"openSpots\": 13,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": true,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "response": ["{\"availabilityEntries\": [{\n  \"slot\":   {\n    \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n    \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n    \"startDate\": \"2023-05-20T12:30:00.000Z\",\n    \"endDate\": \"2023-05-20T13:00:00.000Z\",\n    \"resource\":     {\n      \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n      \"name\": \"John Smith\",\n      \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n    },\n    \"location\":     {\n      \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n      \"name\": \"Headquarters\",\n      \"locationType\": \"OWNER_BUSINESS\"\n    }\n  },\n  \"bookable\": false,\n  \"totalSpots\": 17,\n  \"openSpots\": 13,\n  \"waitingList\": {},\n  \"bookingPolicyViolations\":   {\n    \"tooEarlyToBook\": false,\n    \"tooLateToBook\": true,\n    \"bookOnlineDisabled\": false\n  }\n}]} "],
           "type": "curl",
           "extra": {}
         },
                 {
           "title": "Query for available, bookable slots for a service in a given time range",
           "body": ["curl -X POST 'https://www.wixapis.com/availability-calendar/v1/availability/query' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"query\": {\n        \"filter\": {\n          \"serviceId\": [\n            \"832adc1f-d6cc-412d-894d-f04455baec68\", \"f018ad57-0403-488f-971d-fc33511bbc3a\"\n          ],\n          \"startDate\": \"2023-05-20T12:17:08.912Z\",\n          \"endDate\": \"2023-05-25T10:13:49.549Z\",\n          \"bookable\": \"true\"\n        }\n      }\n    }'"],
-          "response": ["{\n  \"availabilityEntries\": [  {\n    \"slot\":     {\n      \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n      \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n      \"startDate\": \"2023-05-20T12:30:00.000Z\",\n      \"endDate\": \"2023-05-20T13:00:00.000Z\",\n      \"resource\":       {\n        \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n        \"name\": \"John Smith\",\n        \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n      },\n      \"location\":       {\n        \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n        \"name\": \"Headquarters\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"bookable\": true,\n    \"totalSpots\": 17,\n    \"openSpots\": 13,\n    \"waitingList\": {},\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    }\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\": {}\n  }\n} "],
+          "response": ["{\"availabilityEntries\": [{\n  \"slot\":   {\n    \"serviceId\": \"832adc1f-d6cc-412d-894d-f04455baec68\",\n    \"scheduleId\": \"bf39eded-4d22-4c36-b8ca-a3f995673feb\",\n    \"startDate\": \"2023-05-20T12:30:00.000Z\",\n    \"endDate\": \"2023-05-20T13:00:00.000Z\",\n    \"resource\":     {\n      \"id\": \"70586e51-b75c-4425-818b-68cfd7954022\",\n      \"name\": \"John Smith\",\n      \"scheduleId\": \"a1c0ebbb-4446-430b-85e5-291682ef68d0\"\n    },\n    \"location\":     {\n      \"id\": \"3dd710bd-3480-49b4-a549-0522b035a8d7\",\n      \"name\": \"Headquarters\",\n      \"locationType\": \"OWNER_BUSINESS\"\n    }\n  },\n  \"bookable\": true,\n  \"totalSpots\": 17,\n  \"openSpots\": 13,\n  \"waitingList\": {},\n  \"bookingPolicyViolations\":   {\n    \"tooEarlyToBook\": false,\n    \"tooLateToBook\": false,\n    \"bookOnlineDisabled\": false\n  }\n}]} "],
           "type": "curl",
           "extra": {}
         }
@@ -267,14 +267,6 @@
           "doc": " Sort options.\n Currently, only sorting by `startDate` is supported. For details\n on sorting, see [Calendar Availability: Supported Fields, Filters and Sorting](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/supported-fields,-filters,-and-sorting).\n"
         },
                 {
-          "name": "fields",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " List of projected fields to return. All fields are supported. \n"
-        },
-                {
           "name": "pagingMethod",
           "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_upstream_wix_common_QueryV2_pagingMethod",
           "doc": ""
@@ -293,11 +285,7 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "cursorPaging",
-        "type": "All APIs.BookingsAvailabilityCalendar._wix_common_CursorPaging",
-        "doc": "Cursor token pointing to a page of results. Not used in the first request. Following requests use the cursor token and not `filter` or `sort`.\n"
-      }],
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": [],
@@ -321,7 +309,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
+          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n"
         },
                 {
           "name": "slotsPerDay",
@@ -342,21 +330,14 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "availabilityEntries",
-          "type":           {
-            "name": "array",
-            "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability"]
-          },
-          "doc": " List of slots that potentially can be booked. \n"
+      "members": [      {
+        "name": "availabilityEntries",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability"]
         },
-                {
-          "name": "pagingMetadata",
-          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_PagingMetadataV2",
-          "doc": " Details on the paged set of returned results. \n"
-        }
-      ],
+        "doc": " List of slots that potentially can be booked. \n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -498,6 +479,11 @@
           "name": "locked",
           "type": "boolean",
           "doc": " Indicates whether the slot is locked because a waitlist exists. \nWhen a slot frees up, the slot is offered to the next customer on the waitlist. Read-only.\n"
+        },
+                {
+          "name": "isFromV2",
+          "type": "boolean",
+          "doc": ""
         }
       ],
       "enum": null,

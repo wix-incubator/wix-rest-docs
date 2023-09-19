@@ -72,7 +72,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaDataForWrite"]
           },
-          "doc": "",
+          "doc": " Sources of media items already uploaded to the Wix site.\n",
           "required": false
         }
       ],
@@ -130,7 +130,7 @@
           "in": "PATH",
           "name": "id",
           "type": "string",
-          "doc": "Product ID.\n",
+          "doc": " Product ID.\n",
           "required": true
         },
                 {
@@ -140,7 +140,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaAssignmentToChoice"]
           },
-          "doc": "",
+          "doc": " Product media items and the choices to add the media to.\n",
           "required": false
         }
       ],
@@ -204,7 +204,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "IDs of the products to add to the collection.\n",
+          "doc": "IDs of the products to add to the collection, separated by commas.\n",
           "required": false
         }
       ],
@@ -286,6 +286,79 @@
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/stores/v1/bulk/products/adjust-properties",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Adjust the price of 3 products by amount",
+            "body": ["curl -X POST \\\n  https://www.wixapis.com/stores/v1/bulk/products/adjust-properties \\\n  -H 'Authorization: <AUTH>'\n  -H 'Content-Type: application/json' \\\n  --data-binary '{\n    \"ids\": [\n      \"80a584c3-78c1-4e2f-84f8-b8d0bf65b518\",\n      \"e5419878-8284-4f02-98bb-087e1d8dc781\",\n      \"cc30ba06-2b9a-4962-8b34-7a265d495d7e\"\n    ],\n    \"adjust\": {\n      \"price\": {\n        \"amount\": 30\n      }\n    }\n  }'"],
+            "response": ["{\n  \"results\":   [\n    {\"itemMetadata\":     {\n      \"id\": \"80a584c3-78c1-4e2f-84f8-b8d0bf65b518\",\n      \"originalIndex\": 0,\n      \"success\": true\n    }},\n    {\"itemMetadata\":     {\n      \"id\": \"e5419878-8284-4f02-98bb-087e1d8dc781\",\n      \"originalIndex\": 1,\n      \"success\": true\n    }},\n    {\"itemMetadata\":     {\n      \"id\": \"cc30ba06-2b9a-4962-8b34-7a265d495d7e\",\n      \"originalIndex\": 2,\n      \"success\": true\n    }}\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 3,\n    \"totalFailures\": 0,\n    \"undetailedFailures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Adjust the price of 2 products by percentage",
+            "body": ["curl -X POST \\\n  https://www.wixapis.com/stores/v1/bulk/products/adjust-properties \\\n  -H 'Authorization: <AUTH>'\n  -H 'Content-Type: application/json' \\\n  --data-binary '{\n    \"ids\": [\n      \"bfcafbe6-b671-4ebe-8e3d-49f242cef188\",\n      \"e5419878-8284-4f02-98bb-087e1d8dc781\"\n    ],\n    \"adjust\": {\n      \"price\": {\n        \"percentage\": {\n          \"roundToInt\": false,\n          \"rate\": 200\n        }\n      }\n    }\n  }'"],
+            "response": ["{\n  \"results\":   [\n    {\"itemMetadata\":     {\n      \"id\": \"bfcafbe6-b671-4ebe-8e3d-49f242cef188\",\n      \"originalIndex\": 0,\n      \"success\": true\n    }},\n    {\"itemMetadata\":     {\n      \"id\": \"e5419878-8284-4f02-98bb-087e1d8dc781\",\n      \"originalIndex\": 1,\n      \"success\": true\n    }}\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 2,\n    \"totalFailures\": 0,\n    \"undetailedFailures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkAdjustProductPropertiesRequest",
+        "rpcResponseName": "BulkAdjustProductPropertiesResponse",
+        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-web"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Bulk Adjust Product Property (Additional Binding 1)",
+      "methodName": "BulkAdjustProductProperties",
+      "serviceName": "CatalogWriteApi",
+      "tag": "Products",
+      "permissions": [      {
+        "name": "Manage Products",
+        "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["ids"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "ids",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Product IDs.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "adjust",
+          "type": "All APIs.Stores Catalog._wix_catalog_api_v1_AdjustValue",
+          "doc": " Numerical property to adjust.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkAdjustProductProperties",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_BulkAdjustProductPropertiesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Adjusts a specified numerical property for up to 100 products at a time.\n The property can be increased or decreased either by percentage or amount.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/stores/v1/bulk/products/adjust",
         "links": [],
         "examples":         [
                     {
@@ -427,7 +500,7 @@
         "in": "BODY",
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": "Collection information.\n",
+        "doc": " Collection info.\n",
         "required": true
       }],
       "ret":       {
@@ -448,7 +521,7 @@
         "examples": [        {
           "title": "",
           "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections' \\\n    --data-binary '{\n                   \t\"collection\": {\n                   \t\t\"name\": \"My New Collection\"\n                   \t}\n                   }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
-          "response": ["{\"collection\": {\n  \"id\": \"81093e7d-a251-4a22-a238-df3aa816f3dc\",\n  \"name\": \"My New Collection\",\n  \"media\": {\"items\": []}\n}} "],
+          "response": ["{\"collection\": {\n  \"id\": \"81093e7d-a251-4a22-a238-df3aa816f3dc\",\n  \"name\": \"My New Collection\",\n  \"slug\": \"my-new-collection\",\n  \"visible\": true,\n  \"media\": {\"items\": []}\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -536,7 +609,7 @@
         "in": "PATH",
         "name": "id",
         "type": "string",
-        "doc": "Collection ID.\n",
+        "doc": " ID of the collection to delete.\n",
         "required": true
       }],
       "ret":       {
@@ -588,7 +661,7 @@
         "in": "PATH",
         "name": "id",
         "type": "string",
-        "doc": "ID of the product to be deleted.\n",
+        "doc": "ID of the product to delete.\n",
         "required": true
       }],
       "ret":       {
@@ -640,7 +713,7 @@
         "in": "PATH",
         "name": "id",
         "type": "string",
-        "doc": "Product ID.\n",
+        "doc": " ID of the product with options to delete.\n",
         "required": true
       }],
       "ret":       {
@@ -653,7 +726,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Delete all options from a specific product (only available when variant management is disabled).\n \n",
+        "summary": " Delete all options from a specific product. Only available when [variant management](https://support.wix.com/en/article/wix-stores-adding-and-customizing-product-options#setting-different-prices-for-variants) is disabled.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/stores/v1/products/{id}/options",
@@ -682,6 +755,10 @@
       "tag": "Collections",
       "permissions":       [
                 {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
+                {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
         },
@@ -706,7 +783,7 @@
           "in": "QUERY",
           "name": "includeNumberOfProducts",
           "type": "boolean",
-          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to false, in which case the value of `collection.numberOfProducts` will be 0.\n",
+          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to `false`, in which case the value of `collection.numberOfProducts` will be `0`.\n",
           "required": false
         }
       ],
@@ -728,7 +805,7 @@
         "examples": [        {
           "title": "Get Collection and include number of products",
           "body": ["curl -X GET \\\n   'https://www.wixapis.com/stores/v1/collections/32fd0b3a-2d38-2235-7754-78a3f819274a?includeNumberOfProducts=true' \\\n   -H 'Authorization: <AUTH>'"],
-          "response": ["{\"collection\": {\n  \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n  \"name\": \"Coffee Products\",\n  \"media\":   {\n    \"mainMedia\":     {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    },\n    \"items\": [    {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    }]\n  },\n  \"numberOfProducts\": 5\n}} "],
+          "response": ["{\"collection\": {\n  \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n  \"name\": \"Coffee Products\",\n  \"slug\": \"coffee-products\",\n  \"visible\": true,\n  \"description\": \"Some Coffee Products\",\n  \"media\":   {\n    \"mainMedia\":     {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    },\n    \"items\": [    {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    }]\n  },\n  \"numberOfProducts\": 5\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -738,7 +815,7 @@
         "hasRest": true,
         "rpcRequestName": "GetCollectionRequest",
         "rpcResponseName": "GetCollectionResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -748,6 +825,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -773,7 +854,7 @@
           "in": "QUERY",
           "name": "includeNumberOfProducts",
           "type": "boolean",
-          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to false, in which case the value of `collection.numberOfProducts` will be 0.\n",
+          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to `false`, in which case the value of `collection.numberOfProducts` will be `0`.\n",
           "required": false
         }
       ],
@@ -795,7 +876,7 @@
         "examples": [        {
           "title": "Get Collection and include number of products",
           "body": ["curl -X GET \\\n   'https://www.wixapis.com/stores/v1/collections/32fd0b3a-2d38-2235-7754-78a3f819274a?includeNumberOfProducts=true' \\\n   -H 'Authorization: <AUTH>'"],
-          "response": ["{\"collection\": {\n  \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n  \"name\": \"Coffee Products\",\n  \"media\":   {\n    \"mainMedia\":     {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    },\n    \"items\": [    {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    }]\n  },\n  \"numberOfProducts\": 5\n}} "],
+          "response": ["{\"collection\": {\n  \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n  \"name\": \"Coffee Products\",\n  \"slug\": \"coffee-products\",\n  \"visible\": true,\n  \"description\": \"Some Coffee Products\",\n  \"media\":   {\n    \"mainMedia\":     {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    },\n    \"items\": [    {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    }]\n  },\n  \"numberOfProducts\": 5\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -805,7 +886,69 @@
         "hasRest": true,
         "rpcRequestName": "GetCollectionRequest",
         "rpcResponseName": "GetCollectionResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
+      },
+      "customLabels": []
+    },
+        {
+      "name": "Get Collection By Slug",
+      "methodName": "GetCollectionBySlug",
+      "serviceName": "CatalogReadApi",
+      "tag": "Collections",
+      "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
+                {
+          "name": "Manage Products",
+          "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
+        },
+                {
+          "name": "Read Products",
+          "description": "Request permission to read the site's Wix Stores product and inventory info."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["slug"],
+      "params": [      {
+        "in": "PATH",
+        "name": "slug",
+        "type": "string",
+        "doc": " Slug of the collection to retrieve.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetCollectionBySlug",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_GetCollectionBySlugResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a collection with the provided slug.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/stores/v1/collections/slug/{slug}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n   'https://www.wixapis.com/stores/v1/collections/slug/coffee-products' \\\n   -H 'Authorization: <AUTH>'"],
+          "response": ["{\"collection\": {\n  \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n  \"name\": \"Coffee Products\",\n  \"slug\": \"coffee-products\",\n  \"visible\": true,\n  \"description\": \"Some Coffee Products\",\n  \"media\":   {\n    \"mainMedia\":     {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    },\n    \"items\": [    {\n      \"thumbnail\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\": 50,\n        \"height\": 50\n      },\n      \"mediaType\": \"image\",\n      \"title\": \"\",\n      \"image\":       {\n        \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n        \"width\": 6630,\n        \"height\": 5304\n      },\n      \"id\": \"\"\n    }]\n  },\n  \"numberOfProducts\": 5\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetCollectionBySlugRequest",
+        "rpcResponseName": "GetCollectionBySlugResponse",
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -815,6 +958,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -872,7 +1019,7 @@
         "hasRest": true,
         "rpcRequestName": "GetProductRequest",
         "rpcResponseName": "GetProductResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -882,6 +1029,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -939,7 +1090,7 @@
         "hasRest": true,
         "rpcRequestName": "GetProductRequest",
         "rpcResponseName": "GetProductResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -949,6 +1100,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -974,7 +1129,7 @@
           "in": "BODY",
           "name": "options",
           "type": "All APIs.Stores Catalog.optionsMapEntry",
-          "doc": "Set of key-value pairs. Array containing the selected options (e.g, color: Blue, size: Large).\n",
+          "doc": "Set of key-value pairs. Array containing the selected options. For example, `[\"color\": \"Blue\", \"size\": \"Large\"]`.\n",
           "required": false
         }
       ],
@@ -1006,7 +1161,7 @@
         "hasRest": true,
         "rpcRequestName": "ProductOptionsAvailabilityRequest",
         "rpcResponseName": "ProductOptionsAvailabilityResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1016,6 +1171,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1041,7 +1200,7 @@
           "in": "BODY",
           "name": "options",
           "type": "All APIs.Stores Catalog.optionsMapEntry",
-          "doc": "Set of key-value pairs. Array containing the selected options (e.g, color: Blue, size: Large).\n",
+          "doc": "Set of key-value pairs. Array containing the selected options. For example, `[\"color\": \"Blue\", \"size\": \"Large\"]`.\n",
           "required": false
         }
       ],
@@ -1073,7 +1232,7 @@
         "hasRest": true,
         "rpcRequestName": "ProductOptionsAvailabilityRequest",
         "rpcResponseName": "ProductOptionsAvailabilityResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1083,6 +1242,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Store Variants",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1131,7 +1294,7 @@
         "hasRest": true,
         "rpcRequestName": "GetStoreVariantRequest",
         "rpcResponseName": "GetStoreVariantResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1141,6 +1304,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1158,7 +1325,7 @@
           "in": "BODY",
           "name": "query",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Query",
-          "doc": "",
+          "doc": " Query options.\n",
           "required": false
         },
                 {
@@ -1166,6 +1333,13 @@
           "name": "includeNumberOfProducts",
           "type": "boolean",
           "doc": " Whether number of products should be included in the response.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "includeDescription",
+          "type": "boolean",
+          "doc": " Wether to include collection description in the response. When `false` is passed, `collection.description` will return null.\n",
           "required": false
         }
       ],
@@ -1187,15 +1361,15 @@
         "examples":         [
                     {
             "title": "",
-            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                      \"query\": {},\n                      \"includeNumberOfProducts\": true\n                    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"All Products\",\n      \"media\": {\"items\": []},\n      \"numberOfProducts\": 6\n    },\n        {\n      \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n      \"name\": \"Coffee Products\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        }]\n      },\n      \"numberOfProducts\": 5\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
+            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                      \"query\": {},\n                      \"includeNumberOfProducts\": true,\n                      \"includeDescription\": true\n                    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"All Products\",\n      \"slug\": \"all-products\",\n      \"visible\": true,\n      \"description\": \"All of the products in the store\",\n      \"media\": {\"items\": []},\n      \"numberOfProducts\": 6\n    },\n        {\n      \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n      \"name\": \"Coffee Products\",\n      \"slug\": \"coffee-products\",\n      \"visible\": true,\n      \"description\": \"Coffee related products\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        }]\n      },\n      \"numberOfProducts\": 5\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "",
-            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                     \"query\": {\n                       \"filter\": \"{\\\"name\\\": \\\"my collection\\\"}}\"\n                     }\n                   }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"my collection\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        }]\n      }\n    },\n        {\n      \"id\": \"7f79cca8-80b6-d24b-e6f8-356187d95050\",\n      \"name\": \"C A C T I\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        }]\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
+            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n      \"query\": {\n        \"filter\": {\n          \"name\": \"my collection\"\n          }\n        }\n    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"my collection\",\n      \"slug\": \"my-collection\",\n      \"visible\": true,\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        }]\n      }\n    },\n        {\n      \"id\": \"7f79cca8-80b6-d24b-e6f8-356187d95050\",\n      \"name\": \"C A C T I\",\n      \"slug\": \"c-a-c-t-i\",\n      \"visible\": true,\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        }]\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -1206,7 +1380,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryCollectionsRequest",
         "rpcResponseName": "QueryCollectionsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -1216,6 +1390,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1233,7 +1411,7 @@
           "in": "BODY",
           "name": "query",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Query",
-          "doc": "",
+          "doc": " Query options.\n",
           "required": false
         },
                 {
@@ -1241,6 +1419,13 @@
           "name": "includeNumberOfProducts",
           "type": "boolean",
           "doc": " Whether number of products should be included in the response.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "includeDescription",
+          "type": "boolean",
+          "doc": " Wether to include collection description in the response. When `false` is passed, `collection.description` will return null.\n",
           "required": false
         }
       ],
@@ -1262,15 +1447,15 @@
         "examples":         [
                     {
             "title": "",
-            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                      \"query\": {},\n                      \"includeNumberOfProducts\": true\n                    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"All Products\",\n      \"media\": {\"items\": []},\n      \"numberOfProducts\": 6\n    },\n        {\n      \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n      \"name\": \"Coffee Products\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        }]\n      },\n      \"numberOfProducts\": 5\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
+            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                      \"query\": {},\n                      \"includeNumberOfProducts\": true,\n                      \"includeDescription\": true\n                    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"All Products\",\n      \"slug\": \"all-products\",\n      \"visible\": true,\n      \"description\": \"All of the products in the store\",\n      \"media\": {\"items\": []},\n      \"numberOfProducts\": 6\n    },\n        {\n      \"id\": \"32fd0b3a-2d38-2235-7754-78a3f819274a\",\n      \"name\": \"Coffee Products\",\n      \"slug\": \"coffee-products\",\n      \"visible\": true,\n      \"description\": \"Coffee related products\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/11062b_5ccf31f886ec449f84a18ecdf58e05ec~mv2.jpg/v1/fit/w_6630,h_5304,q_90/file.jpg\",\n            \"width\": 6630,\n            \"height\": 5304\n          },\n          \"id\": \"\"\n        }]\n      },\n      \"numberOfProducts\": 5\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "",
-            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n                     \"query\": {\n                       \"filter\": \"{\\\"name\\\": \\\"my collection\\\"}}\"\n                     }\n                   }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"my collection\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        }]\n      }\n    },\n        {\n      \"id\": \"7f79cca8-80b6-d24b-e6f8-356187d95050\",\n      \"name\": \"C A C T I\",\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        }]\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
+            "body": ["curl -X POST \\\n   'https://www.wixapis.com/stores/v1/collections/query' \\\n    --data-binary '{\n      \"query\": {\n        \"filter\": {\n          \"name\": \"my collection\"\n          }\n        }\n    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"collections\":   [\n        {\n      \"id\": \"00000000-000000-000000-000000000001\",\n      \"name\": \"my collection\",\n      \"slug\": \"my-collection\",\n      \"visible\": true,\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_43b2c20a2d4144c797ca3cf4d2a7290f~mv2_d_2489_2251_s_2.jpg/v1/fit/w_2489,h_2251,q_90/file.jpg\",\n            \"width\": 2489,\n            \"height\": 2251\n          },\n          \"id\": \"\"\n        }]\n      }\n    },\n        {\n      \"id\": \"7f79cca8-80b6-d24b-e6f8-356187d95050\",\n      \"name\": \"C A C T I\",\n      \"slug\": \"c-a-c-t-i\",\n      \"visible\": true,\n      \"media\":       {\n        \"mainMedia\":         {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        },\n        \"items\": [        {\n          \"thumbnail\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n            \"width\": 50,\n            \"height\": 50\n          },\n          \"mediaType\": \"image\",\n          \"title\": \"\",\n          \"image\":           {\n            \"url\": \"https://static.wixstatic.com/media/697bc8_49e72a53cd064655ba1991bf1d7c1deb~mv2_d_1920_1920_s_2.jpg/v1/fit/w_1920,h_1920,q_90/file.jpg\",\n            \"width\": 1920,\n            \"height\": 1920\n          },\n          \"id\": \"\"\n        }]\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"items\": 100,\n    \"offset\": 0\n  },\n  \"totalResults\": 2\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -1281,7 +1466,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryCollectionsRequest",
         "rpcResponseName": "QueryCollectionsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -1291,6 +1476,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1372,7 +1561,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryProductVariantsRequest",
         "rpcResponseName": "QueryProductVariantsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -1382,6 +1571,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1489,7 +1682,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryProductsRequest",
         "rpcResponseName": "QueryProductsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -1499,6 +1692,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1606,7 +1803,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryProductsRequest",
         "rpcResponseName": "QueryProductsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": []
     },
@@ -1616,6 +1813,10 @@
       "serviceName": "CatalogReadApi",
       "tag": "Store Variants",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -1663,7 +1864,7 @@
         "hasRest": true,
         "rpcRequestName": "QueryStoreVariantsRequest",
         "rpcResponseName": "QueryStoreVariantsResponse",
-        "artifactId": "com.wixpress.ecommerce.wix-ecommerce-catalog-reader-web"
+        "artifactId": "com.wixpress.stores.catalog.proxy.catalog-read-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1801,7 +2002,7 @@
           "in": "PATH",
           "name": "id",
           "type": "string",
-          "doc": "Product ID.\n",
+          "doc": " Product ID from whose choices to remove media items.\n",
           "required": true
         },
                 {
@@ -1811,7 +2012,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaAssignmentToChoice"]
           },
-          "doc": " Optional - if an empty array is passed, all media will be removed from all choices.\n",
+          "doc": " Media to remove from choices. If an empty array is passed, all media will be removed from all choices for the given product.\n",
           "required": false
         }
       ],
@@ -1878,7 +2079,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "IDs of the products that will be deleted from the collection.\n",
+          "doc": "IDs of the products to remove from the collection.\n",
           "required": true
         }
       ],
@@ -1996,7 +2197,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "Resets all variant information to default values (price = current product price; weight = current product weight; SKU = current product SKU; visibility = true).\n \n",
+        "summary": "Resets the data (such as the price and the weight) of all variants for a given product to their default values.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/stores/v1/products/{id}/variants/resetToDefault",
@@ -2032,22 +2233,21 @@
       "nameParams": [],
       "requiredFields":       [
         "collection",
-        "collection.id",
-        "collection.name"
+        "collection.id"
       ],
       "params":       [
                 {
           "in": "PATH",
           "name": "collection.id",
           "type": "string",
-          "doc": " Collection ID (generated automatically by the catalog)\n",
+          "doc": " Collection ID (generated automatically by the catalog).\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "collection",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-          "doc": "Collection information.\n",
+          "doc": " Collection info.\n",
           "required": true
         }
       ],
@@ -2061,7 +2261,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Updates specified properties of a collection.\n To add products to a collection, call the [Add Products to Collection](https://dev.wix.com/api/rest/wix-stores/catalog/collection/add-products-to-collection) endpoint.\n \n",
+        "summary": " Updates specified properties of a collection.\n To add products to a collection, call the [Add Products to Collection](https://dev.wix.com/api/rest/wix-stores/catalog/collections/add-products-to-collection) endpoint.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/stores/v1/collections/{collection.id}",
@@ -2175,7 +2375,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_VariantOverride"]
           },
-          "doc": "",
+          "doc": " Variant info to update.\n",
           "required": false
         }
       ],
@@ -2217,12 +2417,16 @@
       "type": "_wix_catalog_api_v1_event_ProductCreated",
       "name": "Product Created Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a product is created.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-product-created",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2238,12 +2442,16 @@
       "type": "_wix_catalog_api_v1_event_ProductChanged",
       "name": "Product Changed Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a product is changed.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-product-changed",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2259,12 +2467,16 @@
       "type": "_wix_catalog_api_v1_event_ProductDeleted",
       "name": "Product Deleted Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a product is deleted.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-product-deleted",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2280,12 +2492,16 @@
       "type": "_wix_catalog_api_v1_event_CollectionCreated",
       "name": "Collection Created Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a collection is created.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-collection-created",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2301,12 +2517,16 @@
       "type": "_wix_catalog_api_v1_event_CollectionChanged",
       "name": "Collection Changed Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a collection is changed.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-collection-changed",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2322,12 +2542,16 @@
       "type": "_wix_catalog_api_v1_event_CollectionDeleted",
       "name": "Collection Deleted Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a collection is deleted.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-collection-deleted",
       "tag": "Collections",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2343,12 +2567,16 @@
       "type": "_wix_catalog_api_v1_event_VariantsChanged",
       "name": "Variants Changed Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " Triggered when a product variant is changed.\n",
         "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog/wix-ecommerce-catalog-api/src/main/proto/wix/catalog/api/v1/catalog.proto"
       },
       "topic": "wixStores-catalog-variants-changed",
       "tag": "Products",
       "permissions":       [
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        },
                 {
           "name": "Manage Products",
           "description": "Request permission to read, create and modify the site's Wix Stores products and inventory."
@@ -2443,17 +2671,17 @@
                 {
           "name": "code",
           "type": "string",
-          "doc": ""
+          "doc": " Error code.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": ""
+          "doc": " Description of the error.\n"
         },
                 {
           "name": "data",
           "type": "struct",
-          "doc": ""
+          "doc": " Data related to the error.\n"
         }
       ],
       "enum": null,
@@ -2718,12 +2946,12 @@
                 {
           "name": "option",
           "type": "string",
-          "doc": ""
+          "doc": " Option to add the media to.\n"
         },
                 {
           "name": "choice",
           "type": "string",
-          "doc": ""
+          "doc": " Choice to add the media to.\n"
         }
       ],
       "enum": null,
@@ -2748,7 +2976,7 @@
                 {
           "name": "choice",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_MediaDataForWrite_OptionAndChoice",
-          "doc": " Optional - assign this media item to a specific product choice.\n Note that you may set media items for choices under only one option (e.g., if Colors blue, green, and red have media items, Sizes S, M, and L can't have media items assigned to them).\n You may clear existing media from choices via the Remove Product Media From Choices endpoint\n"
+          "doc": " Assign this media item to a specific product choice.\n Note that you may set media items for choices under only one option (e.g., if Colors blue, green, and red have media items, Sizes S, M, and L can't have media items assigned to them).\n You may clear existing media from choices with the [Remove Product Media From Choices](/catalog/products/remove-product-media-from-choices).\n"
         }
       ],
       "enum": null,
@@ -2794,12 +3022,12 @@
                 {
           "name": "option",
           "type": "string",
-          "doc": " Product option. For example, color or size.\n"
+          "doc": " Option name.\n"
         },
                 {
           "name": "choice",
           "type": "string",
-          "doc": " Choice within the option. For example, red or L.\n"
+          "doc": " Choice name.\n"
         },
                 {
           "name": "mediaIds",
@@ -2833,7 +3061,7 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Option name (e.g., color, size)\n"
+          "doc": " Option name.\n"
         },
                 {
           "name": "choices",
@@ -2841,7 +3069,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_Choice"]
           },
-          "doc": " Choices available for this option\n"
+          "doc": " Choices available for this option.\n"
         }
       ],
       "enum": null,
@@ -2861,12 +3089,12 @@
                 {
           "name": "value",
           "type": "string",
-          "doc": " Color hex value or choice name\n"
+          "doc": " Choice value.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": " Choice name\n"
+          "doc": " Choice description.\n"
         },
                 {
           "name": "media",
@@ -2883,7 +3111,7 @@
                 {
           "name": "visible",
           "type": "boolean",
-          "doc": "  Based on the customer’s choices, which (if any) variants that include the selected choices are visible\n",
+          "doc": " Based on the customer’s choices, which (if any) variants that include the selected choices are visible\n",
           "readOnly": true
         }
       ],
@@ -2979,7 +3207,7 @@
                 {
           "name": "type",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Discount_DiscountType",
-          "doc": " Discount type: amount / percent\n"
+          "doc": " \nDiscount type:  \n+ `\"AMOUNT\"`  \n+ `\"PERCENT\"`\n"
         },
                 {
           "name": "value",
@@ -3095,12 +3323,12 @@
                 {
           "name": "altText",
           "type": "string",
-          "doc": " Image alt text. Optional.\n"
+          "doc": " Image alt text.\n"
         },
                 {
           "name": "filename",
           "type": "string",
-          "doc": " Image filename. Optional.\n",
+          "doc": " Image filename.\n",
           "readOnly": true
         }
       ],
@@ -3135,7 +3363,7 @@
                 {
           "name": "filename",
           "type": "string",
-          "doc": " Video filename. Optional.\n",
+          "doc": " Video filename.\n",
           "readOnly": true
         }
       ],
@@ -3221,6 +3449,36 @@
       "extra": {},
       "labels": [],
       "oneOf": true
+    },
+        {
+      "name": "_wix_inventory_api_v1_PreorderInfo",
+      "displayName": "Preorder Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "enabled",
+          "type": "boolean",
+          "doc": " Whether the item is available for preorder.\n"
+        },
+                {
+          "name": "message",
+          "type": "string",
+          "doc": " A message the buyer will see when the item is out of stock and preorder is enabled.\n"
+        },
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of products that can be preordered after stock reaches zero.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
     },
         {
       "name": "_wix_catalog_api_v1_VariantData",
@@ -3530,6 +3788,11 @@
           "type": "All APIs.Stores Catalog._com_wix_ecommerce_commons_api_PlatformMedia",
           "doc": " Media items (images, videos) associated with this variant.\n",
           "readOnly": true
+        },
+                {
+          "name": "preorderInfo",
+          "type": "All APIs.Stores Catalog._wix_inventory_api_v1_PreorderInfo",
+          "doc": " Preorder information.\n"
         }
       ],
       "enum": null,
@@ -3579,22 +3842,22 @@
                 {
           "name": "type",
           "type": "string",
-          "doc": " SEO tag type. Supported values: `title`, `meta`, `script`, `link`.\n"
+          "doc": " SEO tag type. \n\n\n Supported values: `title`, `meta`, `script`, `link`.\n"
         },
                 {
           "name": "props",
           "type": "struct",
-          "doc": " SEO tag attributes/properties (name, content, rel, href).\n"
+          "doc": " A `{'key':'value'}` pair object where each SEO tag property (`'name'`, `'content'`, `'rel'`, `'href'`) contains a value.\n For example: `{'name': 'description', 'content': 'the description itself'}`.\n"
         },
                 {
           "name": "meta",
           "type": "struct",
-          "doc": " Tag meta data, e.g. {height: 300, width: 240}.\n"
+          "doc": " SEO tag meta data. For example, `{height: 300, width: 240}`.\n"
         },
                 {
           "name": "children",
           "type": "string",
-          "doc": " Tag inner content e.g. `<title> inner content <\/title>`.\n"
+          "doc": " SEO tag inner content. For example, `<title> inner content <\/title>`.\n"
         },
                 {
           "name": "custom",
@@ -3620,11 +3883,46 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "preventAutoRedirect",
-        "type": "boolean",
-        "doc": " disable auto creation of 301 redirects on slug changes (enabled by default).\n"
-      }],
+      "members":       [
+                {
+          "name": "preventAutoRedirect",
+          "type": "boolean",
+          "doc": " Whether the Auto Redirect feature, which creates `301 redirects` on a slug change, is enabled. \n\n\n Default: `false` (Auto Redirect is enabled.)\n"
+        },
+                {
+          "name": "keywords",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Stores Catalog._com_wixpress_advanced_seo_SeoSchema_Keyword"]
+          },
+          "doc": " User-selected keyword terms for a specific page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_advanced_seo_SeoSchema_Keyword",
+      "displayName": "Keyword Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "term",
+          "type": "string",
+          "doc": " Keyword value.\n"
+        },
+                {
+          "name": "isMain",
+          "type": "boolean",
+          "doc": " Whether the keyword is the main focus keyword.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3645,7 +3943,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._com_wixpress_advanced_seo_SeoSchema_Tag"]
           },
-          "doc": " SEO tags information.\n"
+          "doc": " SEO tag information.\n"
         },
                 {
           "name": "settings",
@@ -3756,13 +4054,12 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Product name.\n"
+          "doc": "\nProduct name.\n\nMin: 1 character  \nMax: 80 characters\n"
         },
                 {
           "name": "slug",
           "type": "string",
-          "doc": " A permanent, friendly URL name (generated automatically by the catalog).\n",
-          "readOnly": true
+          "doc": " A friendly URL name (generated automatically by the catalog when a product is created), can be updated.\n"
         },
                 {
           "name": "visible",
@@ -3782,12 +4079,12 @@
                 {
           "name": "sku",
           "type": "string",
-          "doc": " Stock keeping unit (if variant management is enabled, SKUs will be set per variant, and this field will be empty).\n"
+          "doc": " Stock keeping unit. If [variant management](https://support.wix.com/en/article/wix-stores-adding-and-customizing-product-options#setting-different-prices-for-variants) is enabled, SKUs will be set per variant, and this field will be empty.\n"
         },
                 {
           "name": "weight",
           "type": "number",
-          "doc": " Product weight (if variant management is enabled, weight will be set per variant, and this field will be empty).\n"
+          "doc": " Product weight. If [variant management](https://support.wix.com/en/article/wix-stores-adding-and-customizing-product-options#setting-different-prices-for-variants) is enabled, weight will be set per variant, and this field will be empty.\n"
         },
                 {
           "name": "weightRange",
@@ -3847,8 +4144,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_AdditionalInfoSection"]
           },
-          "doc": " Additional text that the store owner can assign to the product (e.g. shipping details, refund policy, etc.). Currently writable only from the UI.\n",
-          "readOnly": true
+          "doc": " Additional text that the store owner can assign to the product (e.g. shipping details, refund policy, etc.).\n"
         },
                 {
           "name": "ribbons",
@@ -3886,7 +4182,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_ProductOption"]
           },
-          "doc": " Options (color, size, etc) for this product.\n"
+          "doc": " Options for this product.\n"
         },
                 {
           "name": "productPageUrl",
@@ -4253,13 +4549,13 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Collection ID (generated automatically by the catalog)\n",
+          "doc": " Collection ID (generated automatically by the catalog).\n",
           "readOnly": true
         },
                 {
           "name": "name",
           "type": "string",
-          "doc": " Collection name\n"
+          "doc": " Collection name.\n"
         },
                 {
           "name": "media",
@@ -4272,6 +4568,21 @@
           "type": "integer",
           "doc": " Number of products in the collection. Read only.\n",
           "readOnly": true
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Collection description.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Collection slug.\n"
+        },
+                {
+          "name": "visible",
+          "type": "boolean",
+          "doc": " Collection visibility. Only impacts dynamic pages, no impact on static pages. Default: `true`.\n"
         }
       ],
       "enum": null,
@@ -4567,6 +4878,24 @@
       "labels": []
     },
         {
+      "name": "_wix_catalog_api_v1_QueryProductsPlatformizedRequest",
+      "displayName": "Query Products Platformized Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Stores Catalog._com_wix_ecommerce_commons_api_PlatformQuery",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_catalog_api_v1_QueryProductsWithBigPageLimitRequest",
       "displayName": "Query Products With Big Page Limit Request Object",
       "locations": [],
@@ -4627,6 +4956,34 @@
                 {
           "name": "totalResults",
           "type": "integer",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_catalog_api_v1_QueryProductsPlatformizedResponse",
+      "displayName": "Query Products Platformized Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "products",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_Product"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Stores Catalog._com_wix_ecommerce_commons_api_PlatformPagingMetadata",
           "doc": ""
         }
       ],
@@ -4732,14 +5089,37 @@
                 {
           "name": "query",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Query",
-          "doc": ""
+          "doc": " Query options.\n"
         },
                 {
           "name": "includeNumberOfProducts",
           "type": "boolean",
           "doc": " Whether number of products should be included in the response.\n"
+        },
+                {
+          "name": "includeDescription",
+          "type": "boolean",
+          "doc": " Wether to include collection description in the response. When `false` is passed, `collection.description` will return null.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_catalog_api_v1_GetCollectionBySlugRequest",
+      "displayName": "Get Collection By Slug Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "slug",
+        "type": "string",
+        "doc": " Slug of the collection to retrieve.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -4760,16 +5140,62 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_Collection"]
           },
-          "doc": ""
+          "doc": " List of collections.\n"
         },
                 {
           "name": "metadata",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_PagingMetadata",
-          "doc": ""
+          "doc": " Details on the paged set of results returned.\n"
         },
                 {
           "name": "totalResults",
           "type": "integer",
+          "doc": " Total number of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_catalog_api_v1_QueryCollectionsPlatformizedRequest",
+      "displayName": "Query Collections Platformized Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Stores Catalog._com_wix_ecommerce_commons_api_PlatformQuery",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_catalog_api_v1_QueryCollectionsPlatformizedResponse",
+      "displayName": "Query Collections Platformized Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "collections",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_Collection"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Stores Catalog._com_wix_ecommerce_commons_api_PlatformPagingMetadata",
           "doc": ""
         }
       ],
@@ -4795,7 +5221,7 @@
                 {
           "name": "includeNumberOfProducts",
           "type": "boolean",
-          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to false, in which case the value of `collection.numberOfProducts` will be 0.\n"
+          "doc": " Whether to return the `collection.numberOfProducts` field in the response.\n Defaults to `false`, in which case the value of `collection.numberOfProducts` will be `0`.\n"
         }
       ],
       "enum": null,
@@ -4814,7 +5240,7 @@
       "members": [      {
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": ""
+        "doc": " The requested collection.\n"
       }],
       "enum": null,
       "extra": {},
@@ -4825,7 +5251,7 @@
       "displayName": "options Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Array containing the selected options (e.g, color: Blue, size: Large).\n",
+        "summary": "Set of key-value pairs. Array containing the selected options. For example, `[\"color\": \"Blue\", \"size\": \"Large\"]`.\n",
         "links": [],
         "examples": []
       },
@@ -4856,7 +5282,7 @@
                 {
           "name": "options",
           "type": "All APIs.Stores Catalog.optionsMapEntry",
-          "doc": "Set of key-value pairs. Array containing the selected options (e.g, color: Blue, size: Large).\n"
+          "doc": "Set of key-value pairs. Array containing the selected options. For example, `[\"color\": \"Blue\", \"size\": \"Large\"]`.\n"
         }
       ],
       "enum": null,
@@ -5408,7 +5834,7 @@
       "members": [      {
         "name": "id",
         "type": "string",
-        "doc": "ID of the product to be deleted.\n"
+        "doc": "ID of the product to delete.\n"
       }],
       "enum": null,
       "extra": {},
@@ -5484,7 +5910,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_VariantOverride"]
           },
-          "doc": ""
+          "doc": " Variant info to update.\n"
         }
       ],
       "enum": null,
@@ -5533,7 +5959,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "IDs of the products to add to the collection.\n"
+          "doc": "IDs of the products to add to the collection, separated by commas.\n"
         }
       ],
       "enum": null,
@@ -5575,7 +6001,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "IDs of the products that will be deleted from the collection.\n"
+          "doc": "IDs of the products to remove from the collection.\n"
         }
       ],
       "enum": null,
@@ -5617,7 +6043,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaDataForWrite"]
           },
-          "doc": ""
+          "doc": " Sources of media items already uploaded to the Wix site.\n"
         }
       ],
       "enum": null,
@@ -5692,7 +6118,7 @@
       "members": [      {
         "name": "id",
         "type": "string",
-        "doc": "Product ID.\n"
+        "doc": " ID of the product with options to delete.\n"
       }],
       "enum": null,
       "extra": {},
@@ -5757,7 +6183,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": "Product ID.\n"
+          "doc": " Product ID.\n"
         },
                 {
           "name": "media",
@@ -5765,7 +6191,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaAssignmentToChoice"]
           },
-          "doc": ""
+          "doc": " Product media items and the choices to add the media to.\n"
         }
       ],
       "enum": null,
@@ -5799,7 +6225,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": "Product ID.\n"
+          "doc": " Product ID from whose choices to remove media items.\n"
         },
                 {
           "name": "media",
@@ -5807,7 +6233,7 @@
             "name": "array",
             "typeParams": ["All APIs.Stores Catalog._wix_catalog_api_v1_MediaAssignmentToChoice"]
           },
-          "doc": " Optional - if an empty array is passed, all media will be removed from all choices.\n"
+          "doc": " Media to remove from choices. If an empty array is passed, all media will be removed from all choices for the given product.\n"
         }
       ],
       "enum": null,
@@ -6070,7 +6496,7 @@
       "members": [      {
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": "Collection information.\n"
+        "doc": " Collection info.\n"
       }],
       "enum": null,
       "extra": {},
@@ -6088,7 +6514,7 @@
       "members": [      {
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": ""
+        "doc": " Collection.\n"
       }],
       "enum": null,
       "extra": {},
@@ -6106,7 +6532,7 @@
       "members": [      {
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": "Collection information.\n"
+        "doc": " Collection info.\n"
       }],
       "enum": null,
       "extra": {},
@@ -6124,7 +6550,25 @@
       "members": [      {
         "name": "collection",
         "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
-        "doc": ""
+        "doc": " Updated collection.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_catalog_api_v1_GetCollectionBySlugResponse",
+      "displayName": "Get Collection By Slug Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "collection",
+        "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Collection",
+        "doc": " The requested collection.\n"
       }],
       "enum": null,
       "extra": {},
@@ -6142,7 +6586,7 @@
       "members": [      {
         "name": "id",
         "type": "string",
-        "doc": "Collection ID.\n"
+        "doc": " ID of the collection to delete.\n"
       }],
       "enum": null,
       "extra": {},
@@ -6582,7 +7026,7 @@
                 {
           "name": "rate",
           "type": "integer",
-          "doc": " Percentage value, as a whole number (integer) between -100 and 1000.\n For example, pass 100 to increase value by 100% (multiply original value by 2).\n"
+          "doc": " Percentage value, as a whole number (integer) between `-100` and `1000`.\n\n For example: \n + Pass `100` to increase value by 100% (multiply original value by 2).\n + Pass `1000` to increase value by 1000% (multiply original value by 10).\n + Pass `-50` to decrease value by 50% (original value is halved).\n"
         }
       ],
       "enum": null,
@@ -6803,7 +7247,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"collectionId\" : \"1044e7e4-37d1-0705-c5b3-623baae212fd\",\n  \"name\" : \"My collection\",\n  \"media\" : {\n    \"mainMedia\" : {\n      \"thumbnail\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\" : 50,\n        \"height\" : 50\n      },\n      \"mediaType\" : \"image\",\n      \"title\" : \"\",\n      \"image\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_1920,h_1280,q_90/file.jpg\",\n        \"width\" : 1920,\n        \"height\" : 1280\n      },\n      \"id\" : \"\"\n    },\n    \"items\" : [ {\n      \"thumbnail\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\" : 50,\n        \"height\" : 50\n      },\n      \"mediaType\" : \"image\",\n      \"title\" : \"\",\n      \"image\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_1920,h_1280,q_90/file.jpg\",\n        \"width\" : 1920,\n        \"height\" : 1280\n      },\n      \"id\" : \"\"\n    } ]\n  }\n} "],
+          "body": ["{\n  \"collectionId\" : \"1044e7e4-37d1-0705-c5b3-623baae212fd\",\n  \"name\" : \"My collection\",\n  \"slug\" : \"my-collection\",\n  \"visible\" : true,\n  \"media\" : {\n    \"mainMedia\" : {\n      \"thumbnail\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\" : 50,\n        \"height\" : 50\n      },\n      \"mediaType\" : \"image\",\n      \"title\" : \"\",\n      \"image\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_1920,h_1280,q_90/file.jpg\",\n        \"width\" : 1920,\n        \"height\" : 1280\n      },\n      \"id\" : \"\"\n    },\n    \"items\" : [ {\n      \"thumbnail\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_50,h_50,q_90/file.jpg\",\n        \"width\" : 50,\n        \"height\" : 50\n      },\n      \"mediaType\" : \"image\",\n      \"title\" : \"\",\n      \"image\" : {\n        \"url\" : \"https://static.wixstatic.com/media/bc001baa4397444f809fa5f147c28a9e.jpg/v1/fit/w_1920,h_1280,q_90/file.jpg\",\n        \"width\" : 1920,\n        \"height\" : 1280\n      },\n      \"id\" : \"\"\n    } ]\n  }\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -6823,6 +7267,16 @@
           "name": "media",
           "type": "All APIs.Stores Catalog._wix_catalog_api_v1_Media",
           "doc": " Media items (images, videos, etc.) associated with this collection.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Collection slug\n"
+        },
+                {
+          "name": "visible",
+          "type": "boolean",
+          "doc": " Collection visible status\n"
         }
       ],
       "enum": null,
