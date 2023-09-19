@@ -6,7 +6,7 @@
   "mixes": [],
   "labels": [],
   "docs":   {
-    "summary": "Reads the sessions of the schedules in the calendar",
+    "summary": "Read sessions in a calendar",
     "description": []
   },
   "properties": [],
@@ -16,15 +16,24 @@
       "entity": null
     },
         {
-      "name": "Feed Event",
-      "entity": "_com_wix_bookings_calendar_api_v1_CalendarFeedEvent",
-      "src": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/calendar/calendar-api/com/wix/bookings/calendar/api/v1/entities/calendarFeedEvent.proto"
+      "name": "Schedules",
+      "entity": null
     }
   ],
-  "relatedGuides": [  {
-    "path": "../guides/bookings---calendar/com/wix/bookings/calendar/api/v1/docs/api_flow.md",
-    "name": "API Overview"
-  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/bookings---calendar/com/wix/bookings/calendar/api/v2/docs/filtering.md",
+      "name": "Supported Filters"
+    },
+        {
+      "path": "../guides/bookings---calendar/com/wix/bookings/calendar/api/v1/docs/api_flow.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/bookings---calendar/com/wix/bookings/calendar/api/v2/docs/fieldsets.md",
+      "name": "Supported Fieldsets"
+    }
+  ],
   "operations":   [
         {
       "name": "List Sessions",
@@ -35,6 +44,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "deprecated": true,
       "params":       [
                 {
           "in": "BODY",
@@ -70,7 +80,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nReturns sessions from the business calendar. \n\n\n<blockquote class='warning'>\n\n__Deprecation Notice:__\n\nThis endpoint has been deprecated and will be replaced in the future.\n\n<\/blockquote>\n\nThe query object supports:  \n\n|FIELD | Supported Filters| Description|\n|--|--|--|\n|`from`|`.eq`| Query range start time. Required when `recurringSessions` is `false`. Ignored when `recurringSessions` is `true`.|\n|`to`|`.eq`| Query range end time. Required when `recurringSessions` is `false`. Ignored when `recurringSessions` is `true`.|\n|`scheduleIds`|`.eq`| Filter by list of scheduleIds. Up to 100 values are allowed. Required when `recurringSessions` is `true`.|\n|`scheduleId`|`.eq`| Deprecated, use scheduleIds instead.|\n|`end.timestamp` |`.ge`| Query range from. For example, `.ge(\"start.timestamp\",\"2020-04-27T10:00:00.000Z\")`|\n|`start.timestamp `|`.le`| Query range to. For example, `.le(\"start.timestamp\",\"2020-04-27T10:00:00.000Z\")`|\n|`tags`|`.eq`| Filter by list of tags. Ignored when `recurringSessions` is `true`.|\n|`type`|`.eq`| Filter by session type. Only `scheduleIds` filter is supported when provided with `WORKING_HOURS` type. Ignored when `recurringSessions` is `true`.|\n|`hasCalendarConference`|`.eq`| Filter sessions that have calendar conference created. Ignored when `recurringSessions` is `true`.|\n|`intervalIds`|`.eq`| __Deprecated__. Use `recurringSessionIds` instead. |\n|`recurringSessionIds`|`.eq`| Filter by a list of recurring session ids. Ignored when `recurringSessions` is `true`.|\n|`scheduleOwnerIds`|`.eq`| Filter by list of scheduleOwnerIds The response contains sessions with the given scheduleOwnerIds and sessions with affectedSchedules with the given scheduleOwnerIds. Ignored when `recurringSessions` is `true`.|\n|`transparency`| Not supported. | |\n|`contactIds`|`.eq`| Filter by list of contactIds. The response contains sessions with participants with the given contactIds. Ignored when `recurringSessions` is `true`.|\n|`recurringSessions`|`.eq`| Deprecated, use Recurrence instead.|\n|`recurrence`|`.ne`| Filter by `session.recurrence`, Only `{\"$ne\": null}` is supported.|\n|`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n|`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values. Not supported for recurring sessions.|\n|**sort**| Not Supported. | Sorted by `start.timestamp` only.|\n|**fields**| Supported. |\n|**paging**| Supported. | Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n|**fieldsets**| Not supported. | |\n\n> + The following objects in the `listQuery` parameter are not supported for this query:  \n>    - `sort`\n>    - `fieldsets`  \n>\n> + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n\n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar, the Read Bookings Calendar - Including Participants, the Read Bookings - Including Participants or the Manage Bookings permission.\n \n",
+        "summary": "\nReturns sessions from the business calendar. \n\n\n<blockquote class='warning'>\n\n__Deprecation Notice:__\n\nThis endpoint has been deprecated and will be removed on June 30, 2023. Please use [Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar/sessions/query-sessions) instead.\n\n<\/blockquote>\n\nThe query object supports:  \n\n|FIELD | Supported Filters| Description|\n|--|--|--|\n|`from`|`.eq`| Query range start time. Required when `recurringSessions` is `false`. Ignored when `recurringSessions` is `true`.|\n|`to`|`.eq`| Query range end time. Required when `recurringSessions` is `false`. Ignored when `recurringSessions` is `true`.|\n|`scheduleIds`|`.eq`| Filter by list of scheduleIds. Up to 100 values are allowed. Required when `recurringSessions` is `true`.|\n|`scheduleId`|`.eq`| Deprecated, use scheduleIds instead.|\n|`end.timestamp` |`.ge`| Query range from. For example, `.ge(\"start.timestamp\",\"2020-04-27T10:00:00.000Z\")`|\n|`start.timestamp `|`.le`| Query range to. For example, `.le(\"start.timestamp\",\"2020-04-27T10:00:00.000Z\")`|\n|`tags`|`.eq`| Filter by list of tags. Ignored when `recurringSessions` is `true`.|\n|`type`|`.eq`| Filter by session type. Only `scheduleIds` filter is supported when provided with `WORKING_HOURS` type. Ignored when `recurringSessions` is `true`.|\n|`hasCalendarConference`|`.eq`| Filter sessions that have calendar conference created. Ignored when `recurringSessions` is `true`.|\n|`intervalIds`|`.eq`| __Deprecated__. Use `recurringSessionIds` instead. |\n|`recurringSessionIds`|`.eq`| Filter by a list of recurring session ids. Ignored when `recurringSessions` is `true`.|\n|`scheduleOwnerIds`|`.eq`| Filter by list of scheduleOwnerIds The response contains sessions with the given scheduleOwnerIds and sessions with affectedSchedules with the given scheduleOwnerIds. Ignored when `recurringSessions` is `true`.|\n|`transparency`| Not supported. | |\n|`contactIds`|`.eq`| Filter by list of contactIds. The response contains sessions with participants with the given contactIds. Ignored when `recurringSessions` is `true`.|\n|`recurringSessions`|`.eq`| Deprecated, use Recurrence instead.|\n|`recurrence`|`.ne`| Filter by `session.recurrence`, Only `{\"$ne\": null}` is supported.|\n|`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n|`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values. Not supported for recurring sessions.|\n|**sort**| Not Supported. | Sorted by `start.timestamp` only.|\n|**fields**| Not Supported. |\n|**paging**| Supported. | Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n|**fieldsets**| Not supported. | |\n\n> + The following objects in the `listQuery` parameter are not supported for this query:  \n>    - `sort`\n>    - `fieldsets`  \n>\n> + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n\n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar, the Read Bookings Calendar - Including Participants, the Read Bookings - Including Participants or the Manage Bookings permission.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/calendar/listSessions",
@@ -130,6 +140,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "deprecated": true,
       "params":       [
                 {
           "in": "BODY",
@@ -165,7 +176,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "Returns the schedule slots, calculated according to the schedule's availability configuration.  \n  \n The query object supports:  \n\n |FIELD | Supported Filters| Description|\n |--|--|--|\n |`from`|`.eq`| Query range start time. Required. |\n |`to`|`.eq`| Query range end time. Required. |\n |`scheduleIds`|`.eq`| List of scheduleIds. Required. Up to 100 values are allowed. |\n |`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n |isAvailable|`.eq`| Slots with full no availability are returned by default. `Filter.isAvailable = false` is not supported.\n |`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values.|\n |**sort**| Not Supported| Sorted by `start.timestamp` only.|\n |**fields**| Supported|\n |**paging**| Supported| Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n |**fieldsets**| Not supported| |\n  \n > + The following objects in the `listQuery` parameter are not supported for this query:  \n >    - `sort`\n >    - `fieldsets`  \n >\n > + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n  \n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar Availability, the Read Bookings Calendar, the Read Bookings - Public Data, the Read Bookings - Including Participants or the Manage Bookings permission scope.\n \n",
+        "summary": "<blockquote class='warning'>    \n \n  __Deprecation Notice:__  \n\n This endpoint has been deprecated and will be removed on Aug 31, 2023.  \n Please use [Query Availability](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability) instead.\n<\/blockquote>\n\nReturns the schedule slots, calculated according to the schedule's availability configuration.  \n  \n The query object supports:  \n\n |FIELD | Supported Filters| Description|\n |--|--|--|\n |`from`|`.eq`| Query range start time. Required. |\n |`to`|`.eq`| Query range end time. Required. |\n |`scheduleIds`|`.eq`| List of scheduleIds. Required. Up to 100 values are allowed. |\n |`location.locationType`|`.eq`| Filter by `session.location.location_type`. Supported values: `OWNER_BUSINESS`, `OWNER_CUSTOM` and `CUSTOM`. Not supported for recurring sessions.|\n |isAvailable|`.eq`| Slots with full no availability are returned by default. `Filter.isAvailable = false` is not supported.\n |`location.businessLocation.id`|`.eq`| Filter by `session.location.business_location.id`. Supports multiple values.|\n |**sort**| Not Supported| Sorted by `start.timestamp` only.|\n |**fields**| Supported|\n |**paging**| Supported| Use cursorPaging tokens. <br>For example, `\"cursorPaging\" : { \"limit\": 2}`.<br> The response includes `nextPageToken` field. Pass this value in the `pageToken` field in the following query,leaving the `query` field empty.|\n |**fieldsets**| Not supported| |\n  \n > + The following objects in the `listQuery` parameter are not supported for this query:  \n >    - `sort`\n >    - `fieldsets`  \n >\n > + The `businessLocation.businessSchedule` object in the `location` object is not supported.  \n  \n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar Availability, the Read Bookings Calendar, the Read Bookings - Public Data, the Read Bookings - Including Participants or the Manage Bookings permission scope.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/calendar/listSlots",
@@ -199,6 +210,147 @@
         "hasRest": true,
         "rpcRequestName": "ListSlotsRequest",
         "rpcResponseName": "ListSlotsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Sessions",
+      "methodName": "QuerySessions",
+      "serviceName": "SessionsService",
+      "tag": "Sessions",
+      "permissions":       [
+                {
+          "name": "Read Bookings Calendar Availability",
+          "description": "Request permission to read the site's bookings calendar availability."
+        },
+                {
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
+        },
+                {
+          "name": "Read Bookings Calendar",
+          "description": "Request permission to read the site's bookings calendar info, including all sessions, scheduleable assets, and staff member data."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "fromDate",
+          "type": "string",
+          "doc": "\nStart of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\n\nSessions that begin before the `fromDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `fromDate` and the `UNTIL` value in the `recurrence` property is after the `fromDate`.\n\nRequired, unless `query.cursorPaging` is provided.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "toDate",
+          "type": "string",
+          "doc": "\nEnd of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\n\nSessions that begin before the `toDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `toDate` and the `UNTIL` value in the `recurrence` property is after the `toDate`.\n\nRequired, unless `query.cursorPaging` is provided.\n\nMax: 1 year after `fromDate` for session instance queries. This limit doesn't apply to recurring session definition queries.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "query",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_QueryV2",
+          "doc": " Query options.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "type",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
+          "doc": " Type of sessions to return.\n + `EVENT`: Returns only sessions of type `EVENT`.\n + `WORKING_HOURS`: Returns only sessions of type `WORKING_HOURS`.\n + `ALL`: Returns sessions of all types.\n \n Default: `EVENT`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "instances",
+          "type": "boolean",
+          "doc": "\nWhether to return only single session instances and instances of recurring sessions.\n\nIf `true`, only single session instances and instances of recurring sessions are returned.\n\nIf `false`, only recurring session definitions are returned. **Note:** Cursor pagination is not supported for recurring session definition queries.\n\nDefault: `true`.  \n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "includeExternal",
+          "type": "boolean",
+          "doc": "\nWhether to include sessions imported from connected external calendars in the results.\n\nDefault: `false`.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QuerySessions",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a list of sessions, given the provided time range, filtering, and paging.\n\n To query for event instances within a specified time range of up to 1 year, provide a `startDate` and `endDate`.\n\n Query Sessions runs with these defaults, which you can override: \n - Only sessions of type `EVENT` are returned. An event is a single or recurring session that appears in a calendar, for example an appointment or a class.\n - `instances` is true. This means only single session instances and instances of recurring sessions are returned.\n - `includeExternal` is false. This means that sessions imported from connected external calendars are not returned. \n - Session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.\n - `query.cursorPaging.limit` is `100`.\n\n Note the following limitations, which you can't override:\n - Sessions are always sorted by `start.timestamp` in `ASC` order.\n - The maximum time range you can query for session instances is 1 year. If you are querying for recurring session definitions, rather than session instances, this limit doesn't apply.\n - Pagination is not supported for recurring session definition queries.\n  \n To query only for working hours sessions, set `type` to `WORKING_HOURS`. A working hours session is a single or recurring session that defines availability in a schedule.\n\n To query for all session types, including events and working hours sessions, set `type` to `ALL`.\n\n To query for recurring session pattern definitions, set `instances` to `false`. In this case, `fromDate` and `toDate` may be more than 1 year apart.\n \n To return session objects including personal information, use the `ALL_PI` fieldset. This requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n\n For details on fieldsets, see [Sessions: Supported Fieldsets](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-fieldsets).\n\n For field support for filters, see [Sessions: Supported Filters](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-filters).\n\n To learn about working with _Query_ endpoints in general, see\n [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) and\n [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/calendar/sessions/query",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Query session instances within a given time period",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"instances\": true\n}'"],
+            "response": ["{\n  \"sessions\":   [\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXepun53wXZ10birRy12YgkpdMjZ7baghNVRN8vmLDnkZccaQiMvpcNeey0u0FwXoNIszi00YKGp21ZFV6Bcd2w3D3hhO5e0ENvMnZ41t\",\n      \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n      \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n      \"start\":       {\n        \"timestamp\": \"2022-12-18T09:30:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-12-18T11:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n        \"scheduleOwnerName\": \"MICHAEL\"\n      }],\n      \"title\": \"The 7 Kings\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"version\":       {\n        \"scheduleVersion\": 21,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hv8vR80J28PRbGViGmpjKzJyheWVgfa6t5bWNQIgUMccjenHiovFUcmT74dMuPhczZ2Udi26JNVesJlGWqWFuB5NxtZamktCmoOluLcopBYGxjlGF7RBpgljNouOMCNHrWMWWI9gg4MjgzCQAoCk5rSUUlxfjBpL9ssatQ3GWgAQsw9MMRchYhRqPb7D5oPg1Y6cG8DqgxkOqseLKEft5EqG82lmNZ0nwIjF2ubpl0O1XZjcoIS4bL8uFIvgehtjtQymMDKBaf\",\n      \"scheduleId\": \"58aabcad-45bf-4270-ac89-2ee77e674c0a\",\n      \"scheduleOwnerId\": \"8b0e1e3c-9923-4a60-acb3-f2f83188fbd7\",\n      \"start\":       {\n        \"timestamp\": \"2022-12-18T11:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-12-18T12:30:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 14,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"c7831755-b08c-48bb-925a-43515c8c28df\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e5d9dedc-dc5e-4900-a327-78b61de92241\",\n        \"scheduleOwnerName\": \"VERONICA\"\n      }],\n      \"title\": \"The City of David\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"58aabcad45bf4270ac892ee77e674c0a-c24f616b27504634bee10eec8911c4a1\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"version\":       {\n        \"scheduleVersion\": 31,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    }\n  ],\n  \"pagingMetadata\": {\"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSF9ObGwwREwifQ.CUeKdaL6qLh6PF39HOJjrgoqG4wir-mGn6vViopOmLQ3UBEDnvVrvg.HDryXRLGgcnaQ3o6dmquQA.9klvmBOHxQBJfgKV3_PwoGVp3F7wkJj8mdKGRQcJcvI5-RxQ7_ndQMbJHVtEqqRVKA7y9_WflN3YFp5CReCTLWDdFqB4hp7GcxcC5cFAc_nk8Z6OAs_VirjL7RMd2dWfDuADVXcqbFqBjNNXXiG1GXzPptNnsUj5JpgmMgMQO9idSjDnO8cQ4uvHvs-jNsGc2YO9rfNOEECoi5T8EdEtLadgnf1qDrlINbwMtV-fhiERztGyE3cS51TRKPPF_YuqFWs3yZOjkFJiI1O2kAYB13X4Ylj_jeEN582lFL3W_5VEtFoy-u9wGQCe5qzMCrEIi6UbJu37U2xZIyLOCq6vntAlB0dk8tF7y6fMp8DrNWnpdaOyRL0D89dMoOux-YV02hGXMN5YBKlCCbxJeJSxhKkKF2I5o6PlMp7-YIWeJJTngeEHc9AfIYNZ0hk2hFo_WyEBC8hLwlI2oMHmHFVP2lyzYiXKHunXvTXFmfkD1N0wVpD-2F9Fhu0REnO78BxRmM1oCrYR5oSbNrifxcRcdu7Wl68hwfNbwwGBVFER9N64Atz-El9sRgNKxwekohZCAgC5zwhDBDmfEeQ19PA3yNO2WikJLrfZBrVVtjDEMdham-T9HwcAT1tbuY8Rw8gQQ0axyDZrzL-VDSfEbnu7-orqOimDT8tQCJiXrVqytn3czhe6MWp5PfsH45Mp77z9cylyqjDjbD1bvf-fvPQdJ9ORkA6sgOEXIbSEeA0SWirQrg47goBUIeg3VOEfKDr6EH3g-hmASiyhdp_wwZ7u7LMui0RbqkeXPt-hoqqevj7sJpOa5qluawWx4jH3eBO4JW6Pr3fswd5FCYx5aNthJ_FMqo_lPKw1_bqoICThB2SGloLM8187FHQ_pV5Va6RmrK1k4hAXU0OtElwNz-Gjh1bZTMcyxccH8sLmPyfRZ0LYDBlh-p_tOzBphGvLltEc3-CSs6MXonMmjuyykuumvqrcPgnN7BSklCPu3ESM4Nd9kSGqPLzbbwqYGyGXgYg7I4XaaSNMHspXdFj8ioZVgewJE161DUcIW-kA4jlKumziIk2OmF5OK6oGYJNEXWC_vjLPRe6NYKH_snYn2_IAnULYtoVHQhphuDoTjCQ3RiurtDX_rhLOOXwENSYjbAizITB0oYlG6GdNa38bo-UgOWLCDNw6cVA7PJ_DsIzDCdGLp7q2bXtGa0Diud9RLP7YMZFmUfueEwPqQbt0mdYjyzr5hVVoGNgkcnCBB8FejWvAiK6--ctQJ9T5YHrsNC03EYai4Vx-WGcQsVcDzGgYng.lTwrVvfll8UKJvAoSBrybg\"}}\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query session instances with a least 1 of the specified tags",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"query\": {\n    \"filter\": {\n      \"tags\": {\n        \"$hasSome\": [\n          \"Custom Tag 1\", \n          \"Custom Tag 2\"\n        ]\n      }\n    }\n  }\n}'\n\n{\n  \"sessions\": [\n    {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXepun53wXZ10birRy12YgkpdMjZ7baghNVRN8vmLDnkZccaQiMvpcNeey0u0FwXoNIszi00YKGp21ZFV6Bcd2w3D3hhO5e0ENvMnZ41t\",\n      \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n      \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n      \"start\": {\n        \"timestamp\": \"2022-12-18T09:30:00Z\",\n        \"localDateTime\": {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\": {\n        \"timestamp\": \"2022-12-18T11:00:00Z\",\n        \"localDateTime\": {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [\n        {\n          \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n          \"transparency\": \"BUSY\",\n          \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n          \"scheduleOwnerName\": \"MICHAEL\"\n        }\n      ],\n      \"title\": \"The 7 Kings\",\n      \"tags\": [\n        \"GROUP\", \n        \"Custom Tag 1\"\n      ],\n      \"location\": {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\": {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\n        \"labeledPriceOptions\": {\n          \"general\": {\n            \"amount\": \"5\",\n            \"currency\": \"EUR\",\n            \"downPayAmount\": \"0\"\n          }\n        }\n      },\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\": [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"version\": {\n        \"scheduleVersion\": 21,\n        \"sessionVersion\": 1,\n        \"participantsVersion\": 0\n      }\n    }\n  ]\n}"],
+            "response": ["{} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query for working hours session instances",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"type\": \"WORKING_HOURS\"\n}'"],
+            "response": ["{\"sessions\": [\n    {\n    \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8ww97DPTz4qokXvEOEIdGKAwEWovrMkeFaxgsaBMxOKNxtapbKp9iqC1n3WamivUqPrmbErGOwdzHQPDkUeMNFlQWoX6DvAQTvQ6DtKS8Or2234AllzcAx6BvQ6LL3HG2qf6dCTRvJ6s6Wo0VFFZZcHYZeivgQXyHcgPzXQI9aIg6v8qWzIiJxgehRh1w4C4RwD7tofFd5oMOu6q7vFomPutBia9XFPPGrlEH5esrdYTCTStccDUMNoBrVaNaEcN65rKrWBzqHFi85\",\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"start\":     {\n      \"timestamp\": \"2022-12-18T08:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 18,\n        \"hourOfDay\": 10,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-12-18T19:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 18,\n        \"hourOfDay\": 21,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [],\n    \"tags\": [],\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"b936298d18a64ae88e9f10bf49314c95-bbbe2e1bb955444d820627c59ca903bd\",\n    \"type\": \"WORKING_HOURS\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\",\n    \"version\":     {\n      \"scheduleVersion\": 21,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  },\n    {\n    \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvJz4pGH7i3ZPHFs7dbFpxjGhbJG9kO1jO4uXc5JevcvmHqFo8wDq9eK4eQ11C3Jl1bbFDNH16MLOB3LNPWGMyD6rMaxmbzH6h7RYImXMPgmLeQX40bQFLA9lj4kb8O6reSusA52iOOHQRlhnWRB6v6XVUo5XiiLn6oL5lk1pESiNv2KO60ciGXWRc6uzjPTVxGydewGz04bqN9nrnq4tlYqEAcVNKHb7ktpSMoccG2hx3rPuc3KzDt4gqhjA84hrSeeQ1AE1dZ7d\",\n    \"scheduleId\": \"556e59d4-4875-4760-b8b1-61cc64aa1680\",\n    \"scheduleOwnerId\": \"e6b6108c-92bc-462b-937c-dab386909fd2\",\n    \"start\":     {\n      \"timestamp\": \"2022-12-18T09:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 18,\n        \"hourOfDay\": 11,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-12-18T19:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 18,\n        \"hourOfDay\": 21,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [],\n    \"tags\": [],\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"556e59d448754760b8b161cc64aa1680-b4f54958ae2248fea65740d50b5bbb08\",\n    \"type\": \"WORKING_HOURS\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n    \"scheduleOwnerName\": \"business\",\n    \"version\":     {\n      \"scheduleVersion\": 10,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  }\n]} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query for event session instances belonging to or affecting a schedule",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"instances\": true,\n  \"type\": \"EVENT\",\n  \"query\": {\n    \"filter\": {\n      \"$or\": [\n        {\n          \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\"\n        },\n        {\n          \"affectedSchedules.scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\"\n        }\n      ]\n    }\n  }\n}'"],
+            "response": ["{\"sessions\": [\n    {\n    \"id\": \"2mmoW0vwKcSFyxtOfCdKT7MxLHaIqZ0gyf4gh68lfJSUbNEHwDZlpgjBvFiMH9wN9j29TpTMSGGCnC2iCcx6R3hzM5B7zZGzG9qn\",\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"start\":     {\n      \"timestamp\": \"2022-12-26T11:00:00Z\",\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-12-26T12:00:00Z\",\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [],\n    \"title\": \"\",\n    \"tags\": [\"Blocked\"],\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"type\": \"EVENT\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\",\n    \"version\":     {\n      \"scheduleVersion\": 21,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  },\n    {\n    \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1UqLNweIqEtnrBwHt5mOqu0sdehKn75xVzWvE5BFts0SxehqQrsK4BisEs83Wzpt6rCDBexAH0DmxMQao5RfCWBHei0RbtruFqaLjru8bVbqxb7i4GxzjxXS7R8czzDQZCQzvepcEi67rkr8Ud4ljrhuCPLHxdZWG2UbBPAXQR0BP9fyrto7B1DBBGydjJXtLBIkqruAo3ybYe6lUgZagDe487MzpWnWJu52krhIH4TG2pjZ6HVWDxy3Owxmm5JibZtL0td7EpJ\",\n    \"scheduleId\": \"d20ffeb7-2f13-4e02-9653-47e98b9e52a5\",\n    \"scheduleOwnerId\": \"60f8e2d9-dc8b-420c-8c3c-41f65318b98f\",\n    \"start\":     {\n      \"timestamp\": \"2022-12-26T14:30:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 26,\n        \"hourOfDay\": 16,\n        \"minutesOfHour\": 30\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-12-26T15:30:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 12,\n        \"dayOfMonth\": 26,\n        \"hourOfDay\": 17,\n        \"minutesOfHour\": 30\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n    }],\n    \"title\": \"Service 14\",\n    \"tags\":     [\n      \"GROUP\",\n      \"Custom Tag 1\"\n    ],\n    \"location\":     {\n      \"locationType\": \"OWNER_CUSTOM\",\n      \"customAddress\":       {\n        \"formattedAddress\": \"Some Location 123\",\n        \"subdivisions\": []\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 50,\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"d20ffeb72f134e02965347e98b9e52a5-1198a72857de4424974b3efdc0a68f87\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=MO\",\n    \"version\":     {\n      \"scheduleVersion\": 4,\n      \"sessionVersion\": 2,\n      \"participantsVersion\": 0\n    }\n  }\n]} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query sessions and include personal information in results",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"query\": {\n    \"fieldsets\": [\"ALL_PI\"]\n  }\n}'"],
+            "response": ["{\"sessions\": [{\n  \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeT9GQKVhJB8P1EzF9MWSwVE8lo6rlYgt2tg03qMK3A3RY3sx27SS1A3ZMIVeBtCXoHLuYLyoTh57s5Dazm6cmU71nG2JaShtRc2WHKzIQynEW6nYI9ZhDJrOMAXYxfoLUxw4gU23XBhjdty4uwuDhPMUDCiQrnt94ak90VzW0sxXq2CW5mj2hGyMNQ5\",\n  \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n  \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n  \"start\":   {\n    \"timestamp\": \"2022-12-20T12:30:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 12,\n      \"dayOfMonth\": 20,\n      \"hourOfDay\": 14,\n      \"minutesOfHour\": 30\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"end\":   {\n    \"timestamp\": \"2022-12-20T14:30:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 12,\n      \"dayOfMonth\": 20,\n      \"hourOfDay\": 16,\n      \"minutesOfHour\": 30\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n  }],\n  \"title\": \"Be Courageous and Trust\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_BUSINESS\",\n    \"businessLocation\":     {\n      \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n      \"name\": \"Teviotdale\",\n      \"default\": false,\n      \"status\": \"ACTIVE\",\n      \"locationType\": \"UNKNOWN\",\n      \"timeZone\": \"Europe/Dublin\",\n      \"email\": \"\",\n      \"phone\": \"\",\n      \"revision\": \"2\",\n      \"archived\": false\n    }\n  },\n  \"capacity\": 50,\n  \"remainingCapacity\": 49,\n  \"rate\": {\"labeledPriceOptions\": {\"general\":   {\n    \"amount\": \"5\",\n    \"currency\": \"EUR\",\n    \"downPayAmount\": \"0\"\n  }}},\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 1,\n  \"participants\": [  {\n    \"id\": \"e6a01fac-3d9f-4116-b7d4-7bff022fa1fa\",\n    \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n    \"name\": \"Dan Smith (Demo)\",\n    \"email\": \"dan_demo@wix.com\",\n    \"partySize\": 1,\n    \"approvalStatus\": \"APPROVED\",\n    \"inherited\": false\n  }],\n  \"inheritedFields\":   [\n    \"affectedSchedules\",\n    \"calendarConference\",\n    \"capacity\",\n    \"end\",\n    \"externalCalendarOverrides\",\n    \"location\",\n    \"rate\",\n    \"start\",\n    \"tags\",\n    \"title\"\n  ],\n  \"status\": \"CONFIRMED\",\n  \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-6b9f6dc5d8c8484ebab4d764db927e1b\",\n  \"type\": \"EVENT\",\n  \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TU;UNTIL=20221220T215959Z\",\n  \"version\":   {\n    \"scheduleVersion\": 50,\n    \"sessionVersion\": 0,\n    \"participantsVersion\": 1\n  }\n}]} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query for sessions and request the next page of results using a cursor",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"query\": {\n    \"cursorPaging\": {\n      \"limit\": 50,\n      \"cursor\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJB...\"\n    }\n  }\n}'\n\n{\n  \"sessions\": [\n    {\n      \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvJz4pGH7i3ZPHFs7dbFpxjGhbJG9kO1jO4uXc5JevcvmHqFo8wDq9eK4eQ11C3Jl1bbFDNH16MLOB3LNPWGMyD6rMaxmbzH6h7RYImXMPgmLeQX40bQFLA9lj4kb8O6reSusA52iOOHQRlhnWRB6v6XVUo5XiiLn6oL5lk1pESiNv2KO60ciGXWRc6uzjPTVxGydewGz04bqN9nrnq4tlYqEAcVNKHb7ktpSMoccG2hx3rPuc3KzDt4gqhjA84hrSeeQ1AE1dZ7d\",\n      \"scheduleId\": \"556e59d4-4875-4760-b8b1-61cc64aa1680\",\n      \"scheduleOwnerId\": \"e6b6108c-92bc-462b-937c-dab386909fd2\",\n      \"start\": {\n        \"timestamp\": \"2022-12-18T09:00:00Z\",\n        \"localDateTime\": {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\": {\n        \"timestamp\": \"2022-12-18T19:00:00Z\",\n        \"localDateTime\": {\n          \"year\": 2022,\n          \"monthOfYear\": 12,\n          \"dayOfMonth\": 18,\n          \"hourOfDay\": 21,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [],\n      \"tags\": [],\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\": [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"556e59d448754760b8b161cc64aa1680-b4f54958ae2248fea65740d50b5bbb08\",\n      \"type\": \"WORKING_HOURS\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"scheduleOwnerName\": \"business\",\n      \"version\": {\n        \"scheduleVersion\": 10,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    }\n  ]\n}"],
+            "response": ["{} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Query for a schedule's recurring sessions",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-12-25T00:00:00Z\",\n  \"toDate\": \"2022-12-31T00:00:00Z\",\n  \"instances\": false,\n  \"query\": {\n    \"scheduleId\": \"d20ffeb7-2f13-4e02-9653-47e98b9e52a5\"\n  }\n}'"],
+            "response": ["{\"sessions\": [{\n  \"id\": \"d20ffeb72f134e02965347e98b9e52a5-1198a72857de4424974b3efdc0a68f87\",\n  \"scheduleId\": \"d20ffeb7-2f13-4e02-9653-47e98b9e52a5\",\n  \"scheduleOwnerId\": \"60f8e2d9-dc8b-420c-8c3c-41f65318b98f\",\n  \"start\": {\"localDateTime\":   {\n    \"year\": 2022,\n    \"monthOfYear\": 10,\n    \"dayOfMonth\": 31,\n    \"hourOfDay\": 16,\n    \"minutesOfHour\": 30\n  }},\n  \"end\": {\"localDateTime\":   {\n    \"year\": 2022,\n    \"monthOfYear\": 10,\n    \"dayOfMonth\": 31,\n    \"hourOfDay\": 17,\n    \"minutesOfHour\": 30\n  }},\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n  }],\n  \"title\": \"Service 14\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_CUSTOM\",\n    \"address\": \"Some Location 123\",\n    \"customAddress\":     {\n      \"formattedAddress\": \"Some Location 123\",\n      \"subdivisions\": []\n    }\n  },\n  \"capacity\": 50,\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 0,\n  \"participants\": [],\n  \"inheritedFields\":   [\n    \"rate\",\n    \"tags\",\n    \"externalCalendarOverrides\",\n    \"title\",\n    \"capacity\"\n  ],\n  \"status\": \"UNDEFINED\",\n  \"type\": \"EVENT\",\n  \"recurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=MO\"\n}]} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QuerySessionsRequest",
+        "rpcResponseName": "QuerySessionsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -782,11 +934,6 @@
           "name": "customAddress",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_upstream_wix_common_Address",
           "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
-        },
-                {
-          "name": "businessLocation",
-          "type": "All APIs.Bookings - Calendar._com_wixpress_locations_Location",
-          "doc": " Valid when `locationType` is `OWNER_BUSINESS`. Defaults to the business's location.\n \n`businessSchedule` is not supported by Wix Bookings\n"
         }
       ],
       "enum": null,
@@ -976,7 +1123,7 @@
                 {
           "name": "accountOwnerId",
           "type": "string",
-          "doc": "Account owner id in vc service\n"
+          "doc": "ID of the account owner in the video conferencing service.\n"
         }
       ],
       "enum": null,
@@ -996,17 +1143,17 @@
                 {
           "name": "timestamp",
           "type": "string",
-          "doc": "UTC date-time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. If a timezone offset is specified, the time is converted to UTC. For example, if you specify  `new Date('2021-01-06T16:00:00.000-07:00')`, the stored value will be `\"2021-01-06T23:00:00.000Z\"`.\nRequired if `localDateTime` is not specified.\nIf `localDateTime` is specified, `timestamp` is calculated as `localDateTime`, using the business's timezone.\n"
+          "doc": "UTC date-time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. If a time zone offset is specified, the time is converted to UTC. For example, if you specify  `new Date('2021-01-06T16:00:00.000-07:00')`, the stored value will be `\"2021-01-06T23:00:00.000Z\"`.\nRequired if `localDateTime` is not specified.\nIf `localDateTime` is specified, `timestamp` is calculated as `localDateTime`, using the business's time zone.\n"
         },
                 {
           "name": "localDateTime",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "An object containing the local date and time for the business's timezone.\n"
+          "doc": "An object containing the local date and time for the business's time zone.\n"
         },
                 {
           "name": "timeZone",
           "type": "string",
-          "doc": "The time zone. Optional. derived from the schedule.timezone.\nIn case this field is associated with recurring session, this field is empty.\n",
+          "doc": "The time zone. Optional. Derived from the schedule's time zone.\nIn case this field is associated with recurring session, this field is empty.\n",
           "readOnly": true
         }
       ],
@@ -1063,18 +1210,11 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "scheduleVersion",
-          "type": "integer",
-          "doc": "Schedule version number, updated each time the schedule is updated.\n"
-        },
-                {
-          "name": "sessionVersion",
-          "type": "integer",
-          "doc": "Session version number, updated each time the session is updated.\n"
-        }
-      ],
+      "members": [      {
+        "name": "number",
+        "type": "string",
+        "doc": " Incremental version number, which is updated on each change to the session or on changes affecting the session. \n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1155,7 +1295,8 @@
                 {
           "name": "rate",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_common_api_v1_Rate",
-          "doc": "The price options offered for the session.  Defaults to the schedule rate.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "timeReservedAfter",
@@ -1179,7 +1320,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "List of participants booked for the session.\nThe list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.\nIf the session is a recurring session, this field must be empty.\n"
+          "doc": " **Partial list** list of participants booked for the session.  \n The list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.  \n If the session is a recurring session, this field must be empty.  \n To retrieve the full list of session participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n"
         },
                 {
           "name": "inheritedFields",
@@ -1193,7 +1334,8 @@
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "Deprecated and will be removed soon.\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -1222,7 +1364,8 @@
                 {
           "name": "calendarConference",
           "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the session according to the details set in the schedule's conference provider information.\nIf the session is a recurring session, this field is inherited from the schedule.\n"
+          "doc": " A conference created for the session according to the details set in the schedule's conference provider information.  \n If the session is a recurring session, this field is inherited from the schedule.  \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         },
                 {
           "name": "recurrence",
@@ -1234,269 +1377,12 @@
           "type": "string",
           "doc": "A string representing a recurrence rule (RRULE) if the session is an instance of a recurrence pattern.\nEmpty when the session is not an instance of a recurrence rule, or if the session defines a recurrence pattern, and `recurrence` is not empty.\n",
           "readOnly": true
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_CalendarFeedEvent",
-      "displayName": "Calendar Feed Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "event",
-        "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_CalendarFeedEvent_event",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_CalendarFeedEvent_event",
-      "displayName": "event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "created",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionCreatedInWindow",
-          "doc": ""
         },
                 {
-          "name": "updated",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionUpdatedInWindow",
-          "doc": ""
-        },
-                {
-          "name": "cancelled",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionCancelledInWindow",
-          "doc": ""
-        },
-                {
-          "name": "sessionMovedOutOfWindow",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionMovedOutOfWindow",
-          "doc": ""
-        },
-                {
-          "name": "sessionEnteredWindow",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionEnteredWindow",
-          "doc": ""
-        },
-                {
-          "name": "windowReachedSession",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_WindowReachedSession",
-          "doc": ""
-        },
-                {
-          "name": "sessionReplayed",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_SessionReplayed",
-          "doc": ""
-        },
-                {
-          "name": "replayCompleted",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v1_ReplayCompleted",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": [],
-      "oneOf": true
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_WindowReachedSession",
-      "displayName": "Window Reached Session Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This previously created session is now within the current 90 days window.\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "session",
-        "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionEnteredWindow",
-      "displayName": "Session Entered Window Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This session, which was previously scheduled to occur outside of the current 90 day window, has been updated with a new date that is in the current window.\n",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "old",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        },
-                {
-          "name": "new",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionMovedOutOfWindow",
-      "displayName": "Session Moved Out Of Window Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This session, which was previously scheduled within the current 90 day window, has been updated with a new date, which occurs outside the window. (You will not get updates about this session until the window reaches the session or the session’s date is updated again to occur within the window.)\n",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "old",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        },
-                {
-          "name": "new",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionUpdatedInWindow",
-      "displayName": "Session Updated In Window Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This session, which is in the current 90 day window, has been updated.\n",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "old",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        },
-                {
-          "name": "new",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": ""
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": " Indicate that this notification was created as a result of GDPR anonymize request\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionCancelledInWindow",
-      "displayName": "Session Cancelled In Window Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This session, which was previously scheduled in the current 90 day window, has been removed from the calendar completely.\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "session",
-        "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionCreatedInWindow",
-      "displayName": "Session Created In Window Object",
-      "locations": [],
-      "docs":       {
-        "summary": " This session has been created within the current 90 day window.\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "session",
-        "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_SessionReplayed",
-      "displayName": "Session Replayed Object",
-      "locations": [],
-      "docs":       {
-        "summary": " Replayed session within the topic time window.\n",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "replayId",
-          "type": "string",
-          "doc": " The replay id.\n"
-        },
-                {
-          "name": "externalReplyId",
-          "type": "string",
-          "doc": " The external replay id, if given.\n"
-        },
-                {
-          "name": "session",
-          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": " The replayed session within the topic time window.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wix_bookings_calendar_api_v1_ReplayCompleted",
-      "displayName": "Replay Completed Object",
-      "locations": [],
-      "docs":       {
-        "summary": " Replay completed\n",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "replayId",
-          "type": "string",
-          "doc": " The replay id.\n"
-        },
-                {
-          "name": "externalReplyId",
-          "type": "string",
-          "doc": " The external replay id, if given.\n"
+          "name": "version",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session_Version",
+          "doc": " The session version.   \n Composed by the schedule, session and participants versions.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -1723,7 +1609,7 @@
                 {
           "name": "filter",
           "type": "All APIs.Bookings - Calendar._google_protobuf_Value",
-          "doc": "Filter object in the following format:   \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -1731,7 +1617,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Calendar._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "paging",
@@ -1772,7 +1658,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": "Filter object in the following format:  \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -1780,7 +1666,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Calendar._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "fields",
@@ -1967,6 +1853,356 @@
       "labels": []
     },
         {
+      "name": "_com_wix_bookings_calendar_api_v2_CheckFreeWorkingTimesRequest",
+      "displayName": "Check Free Working Times Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleTimeFrames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_ScheduleTimeFrame"]
+          },
+          "doc": "list of schedule timeframes to check if the times requested are free\n min 1; max- 50/100.\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": "\nThe timezone for which we check free time for. If specified,\ndates are based on the local date/time, meaning that the timezone offset\nin the date's format is ignored.\n"
+        },
+                {
+          "name": "sessionIdsToIgnore",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "list of session ids to ignore when checking if the time is free\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_ScheduleTimeFrame",
+      "displayName": "Schedule Time Frame Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleId",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nlist of scheduleIds to check if it has free time on the timeframe defined.\nCurrently - support only 1\n",
+          "deprecated": true
+        },
+                {
+          "name": "from",
+          "type": "string",
+          "doc": "\nQuery range start time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "to",
+          "type": "string",
+          "doc": "\nQuery range end time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`to` is greater than or equal to `from`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "scheduleIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nlist of scheduleIds to check if it has free time on the timeframe defined.\nCurrently - support only 1\n",
+          "deprecated": true
+        },
+                {
+          "name": "startTime",
+          "type": "string",
+          "doc": "\nQuery range start time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`end_time` is greater than or equal to `start_time`.\n"
+        },
+                {
+          "name": "endTime",
+          "type": "string",
+          "doc": "\nQuery range end time to check if it is free.\nFormatted according to RFC3339. When optional timezone field present, will be treated as local-date-time (timezone offset in the format is ignored).\nRequired.\n`end_time` is greater than or equal to `start_time`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_CheckFreeWorkingTimesResponse",
+      "displayName": "Check Free Working Times Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "freeWorkingTimeResults",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_FreeWorkingTimeResult"]
+        },
+        "doc": "for each timeframe requested state if it is free or not and the reason if it is not free\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_FreeWorkingTimeResult",
+      "displayName": "Free Working Time Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleTimeFrame",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_ScheduleTimeFrame",
+          "doc": "the data from the request - state the schedule id, from and to\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": "the index in the list of the request\n"
+        },
+                {
+          "name": "free",
+          "type": "boolean",
+          "doc": "is this timeframe free or not\n"
+        },
+                {
+          "name": "notFreeReason",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_FreeWorkingTimeResult_NotFreeReason",
+          "doc": "the reason why this timeframe is not free\n"
+        },
+                {
+          "name": "timezone",
+          "type": "string",
+          "doc": " The timezone for which FreeWorkingTime is to be calculated.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_upstream_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of sessions to return.\n\n Default: `100`\n Max: `1000`\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_upstream_wix_common_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": " This is the preferred message for cursor-paging enabled services\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of sessions returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_Cursors",
+          "doc": " Cursors to navigate through the result pages.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_upstream_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "next",
+        "type": "string",
+        "doc": " Cursor pointing to next page in the list of results.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_upstream_wix_common_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": "\nFilter object. For field support for filters, see\n[Sessions: Supported Filters](./filtering).\nSee [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more information about querying with filters.\n"
+        },
+                {
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n\nDefault: `NO_PI`\n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_QueryV2_pagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_upstream_wix_common_QueryV2_pagingMethod",
+      "displayName": "paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cursorPaging",
+        "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_CursorPaging",
+        "doc": " Cursor token pointing to a page of results.\n Not used in the first request.\n Following requests use the cursor token and not `filter`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_QuerySessionsRequest",
+      "displayName": "Query Sessions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fromDate",
+          "type": "string",
+          "doc": "\nStart of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\n\nSessions that begin before the `fromDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `fromDate` and the `UNTIL` value in the `recurrence` property is after the `fromDate`.\n\nRequired, unless `query.cursorPaging` is provided.\n"
+        },
+                {
+          "name": "toDate",
+          "type": "string",
+          "doc": "\nEnd of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\n\nSessions that begin before the `toDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `toDate` and the `UNTIL` value in the `recurrence` property is after the `toDate`.\n\nRequired, unless `query.cursorPaging` is provided.\n\nMax: 1 year after `fromDate` for session instance queries. This limit doesn't apply to recurring session definition queries.\n"
+        },
+                {
+          "name": "query",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_QueryV2",
+          "doc": " Query options.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
+          "doc": " Type of sessions to return.\n + `EVENT`: Returns only sessions of type `EVENT`.\n + `WORKING_HOURS`: Returns only sessions of type `WORKING_HOURS`.\n + `ALL`: Returns sessions of all types.\n \n Default: `EVENT`.\n"
+        },
+                {
+          "name": "instances",
+          "type": "boolean",
+          "doc": "\nWhether to return only single session instances and instances of recurring sessions.\n\nIf `true`, only single session instances and instances of recurring sessions are returned.\n\nIf `false`, only recurring session definitions are returned. **Note:** Cursor pagination is not supported for recurring session definition queries.\n\nDefault: `true`.  \n"
+        },
+                {
+          "name": "includeExternal",
+          "type": "boolean",
+          "doc": "\nWhether to include sessions imported from connected external calendars in the results.\n\nDefault: `false`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_QuerySessionsResponse",
+      "displayName": "Query Sessions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sessions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Calendar._com_wix_bookings_schedules_api_v1_Session"]
+          },
+          "doc": " List of sessions matching the query.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Bookings - Calendar._com_wix_bookings_calendar_api_v2_upstream_wix_common_CursorPagingMetadata",
+          "doc": " Paging metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_siteproperties_api_v4_DayOfWeek",
       "displayName": "Day Of Week Object",
       "locations": [],
@@ -2067,7 +2303,7 @@
       "displayName": "Calendar Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> GOOGLE <\/code><\/li><li><code> I_CAL <\/code><\/li><li><code> OUTLOOK - use MICROSOFT\n <\/code><\/li><li><code> OFFICE_365 - use MICROSOFT\n <\/code><\/li><li><code> MICROSOFT <\/code><\/li><li><code> OTHER <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> GOOGLE <\/code><\/li><li><code> I_CAL <\/code><\/li><li><code> OUTLOOK -  Use `MICROSOFT` instead.\n <\/code><\/li><li><code> OFFICE_365 -  Use `MICROSOFT` instead.\n <\/code><\/li><li><code> MICROSOFT <\/code><\/li><li><code> OTHER <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -2189,7 +2425,44 @@
       ],
       "extra": {},
       "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_FreeWorkingTimeResult_NotFreeReason",
+      "displayName": "Not Free Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> BLOCKED <\/code><\/li><li><code> NOT_IN_WORKING_HOURS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "BLOCKED",
+        "NOT_IN_WORKING_HOURS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_calendar_api_v2_QuerySessionsRequest_SessionTypeFilter",
+      "displayName": "Session Type Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SESSION_TYPE <\/code><\/li><li><code> EVENT -  Filter sessions of type `EVENT`. This is the default.\n <\/code><\/li><li><code> WORKING_HOURS -  Filter sessions of type `WORKING_HOURS`.\n <\/code><\/li><li><code> ALL -  Return sessions of any type.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_SESSION_TYPE",
+        "EVENT",
+        "WORKING_HOURS",
+        "ALL"
+      ],
+      "extra": {},
+      "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.bookings.calendar-server-writer"}
+  "extra": {"artifactId": "com.wixpress.bookings.calendar-server"}
 }
