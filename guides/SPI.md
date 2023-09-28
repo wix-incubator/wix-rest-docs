@@ -13,13 +13,31 @@ Once installed and enabled on a site, this provider will be called to fetch appl
 * _SPI_ - Service Provider Interface - the API specification that has to be implemented by _Service Providers_.
 * _SPI Host_ - the Wix service that calls your application during one of its business flows.  
 * _Service Provider_  (a.k.a. _implementer_) - the application that implements the _SPI_.  
-* _Public Key_ - a key available to you in the Wix Developers Center to very Wix’s request signatures.  
+* _Public Key_ - a key available to you in the Wix Developers Center to verify Wix’s request signatures.  
 * _Events_ - asynchronous events sent from the _service provider_ to the _SPI host_ (the equivalent of an API call under other circumstances, and using the standard OAuth2 authorization).
 
 ## Setup
 In order to become a _service provider_, you have two options:
-* Register an application in the Wix Developer Center, and add the SPI component that you wish to implement. 
+* Register an application in the Wix Developers Center, and add the extension that you wish to implement as described below. 
 * Become a _service provider_ in a single site by implementing the SPI using Velo. 
+
+### Configure an extension in the Development Center
+In order to enable Wix to communicate with your app, add configurations for your extension:
+1. In the side menu under **Build your app**, click **Extensions** .
+2. In the upper right corner of the page, select **Create Extension**.
+3. Filter by tag, or search to find the extension you need.
+4. Select the relevant extension and click **Create**.
+
+    ![screenshot of extension picker](../media/spi-extension-search-and-filter.png) 
+   
+5. In the JSON editor, configure the parameters by referencing the **Documentation** section on the right side of the page. For each parameter, add the parameter name and value in the JSON editor.
+
+    ![screenshot of json editor](../media/spi-extension-config.png)  
+
+6. Click **Save**.
+
+> **Note:**
+> If you are working with a legacy SPI, configuration may not be via the Wix Developers Center. See instructions in the specific SPI. 
 
 ## Request envelope
 As a _Service Provider_ you are required to implement an API specification exactly as documented. Each request that your endpoints will receive 
@@ -44,8 +62,9 @@ The `metadata` in the envelope is common to all SPI endpoints, although some att
 
 The following envelope attributes are:
 * `requestId` - a unique identifier of the request. You may print this ID to your logs to help with future debugging and easier correlation with Wix' logs.
+* `instanceId` - The Service Provider App's instance ID. 
 * `currency` - [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 3 letter currency code.
-* `locale` - a string that represents the country and language in which the response from the Service Provider is expected to be returned in concatenated  [ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and [ISO 3166-1: 2 Alpha country-code](https://en.wikipedia.org/wiki/ISO_3166-1) format. E.g. `en-US`.
+* `languages` - a string that represents the country and language in which the response from the Service Provider is expected to be returned in concatenated  [ISO 639-1: 2 Alpha language-code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and [ISO 3166-1: 2 Alpha country-code](https://en.wikipedia.org/wiki/ISO_3166-1) format. E.g. `en-US`.
 * `identity` - An object that describes the identity that triggered this request, with the following structure:
 
 ```json

@@ -2,19 +2,19 @@ SortOrder: 3
 # Connecting Account
 
 ## Introduction
-When a merchant connects their [PSP](https://en.wikipedia.org/wiki/Payment_service_provider) account to a Wix site, a [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) request (as implemented by a *Payment Plugin*) will be triggered. The *Payment Plugin* must:
+When a merchant connects their [PSP](https://en.wikipedia.org/wiki/Payment_service_provider) account to a Wix site, a [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) request (as implemented by a *Payment Plugin*) will be triggered. The *Payment Plugin* must:
 * verify the passed credentials as those provided by the merchant.
 * ensure the merchant has an operational account with the *Payment Service Provider*.
 * ensure merchant's country and currency are appropriate for further payments.
 
-The country and currency fields may be omitted from a [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) request, or they may be changed later without notifying a *Payment Plugin* about it. Validate currency on each payment request.
+The country and currency fields may be omitted from a [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) request, or they may be changed later without notifying a *Payment Plugin* about it. Validate currency on each payment request.
 
-This endpoint has a `Digest` header. Use it for [validation](https://dev.wix.com/api/rest/payment-provider/provider-platform/payment-plugins#payment-provider_provider-platform_payment-plugins_request-validation).
+This endpoint has a `Digest` header. Use it for [validation](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/payment-plugins#payment-provider_provider-platform_payment-plugins_request-validation).
 
 In response, *Payment Plugin* must return the following:
 * `accountId` - must be unique for each merchant but same when a merchant connects an account multiple times
 * `accountName` - can be displayed on Wix side
-* `credentials` - passed back to the *Payment Plugin* in [Create Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/create-transaction) and [Refund Transaction](https://dev.wix.com/api/rest/payment-provider/provider-platform/transaction/refund-transaction) calls
+* `credentials` - passed back to the *Payment Plugin* in [Create Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/create-transaction) and [Refund Transaction](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/transaction/refund-transaction) calls
 
 *Payment Plugin* must use `credentials` from a request and add new properties if needed. No properties can be removed or renamed. The `credentials` can only hold string values. Therefore, booleans, numbers, or dates must be represented as strings.
 
@@ -23,7 +23,7 @@ In response, *Payment Plugin* must return the following:
 The following *JWT* values are fake and used for example purposes. Examples are applicable for both `live` and `sandbox` modes.
 
 ### Connecting without enriching credentials
-1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) with some credentials provided by a merchant:
+1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) with some credentials provided by a merchant:
 
 ```bash
 curl -X POST https://psp.example.com/connect \
@@ -56,7 +56,7 @@ curl -X POST https://psp.example.com/connect \
 
 ### Connecting with numeric and boolean credentials
 
-1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account) with credentials of different types:
+1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account) with credentials of different types:
 
 ```bash
 curl -X POST https://psp.example.com/connect \
@@ -93,7 +93,7 @@ curl -X POST https://psp.example.com/connect \
 
 ### Connecting with enriching credentials
 
-1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account):
+1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account):
 
 ```bash
 curl -X POST https://psp.example.com/connect \
@@ -127,7 +127,7 @@ curl -X POST https://psp.example.com/connect \
 
 ### Connecting fails because a currency is unsupported
 
-1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider/provider-platform/account/connect-account):
+1. Wix calls [Connect Account](https://dev.wix.com/api/rest/payment-provider-spi/provider-platform/account/connect-account):
 
 ```bash
 curl -X POST https://psp.example.com/connect \
