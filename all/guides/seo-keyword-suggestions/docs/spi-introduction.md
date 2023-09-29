@@ -9,25 +9,21 @@ Using the SEO Keyword Suggestions SPI, you can design your app to:
 - Provide analysis about the suggested keywords based on search volume and ranking difficulty.
 - Update Wix users about remaining credit in their plan.
 
-## Prerequisites for integration
-
-Create an [app](https://dev.wix.com/dc3/my-apps/) and retrieve its app ID either from the URL or as displayed in the My Apps dashboard in the [Wix Developers Center](https://dev.wix.com/).  
-
-![appId](https://s3.amazonaws.com/wixplorer-readme-images/seo-keyword-suggestions%2FappId-small.jpg "App ID")  
-
 ## How to become an SEO keyword suggestion provider
 
-Send an email to this email address `seo-integration@wix.com` to request sign-up. Enter "SEO Keyword Suggestion Integration" as the subject, and provide the following details:  
-- Type of business (marketing, web services).  
-- A few words about your business and the market you serve.  
-- `baseUri`: URL of the site hosting your app.  
-- `upgradeUrl`: URL to select a paid plan (optional).  
-- `supportedCountryCodes`: Countries supported by your service as a 2-letter country code in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format.  
-- `quotaEnabled`: Whether there is a quota limit for the service.
-- `landingPageUrl`: Home page URL for more information.
-- ID of the app you created.
+To become an SEO keyword suggestion provider,
+[add the **Seo Keywords Suggestions** extension](https://dev.wix.com/docs/rest/articles/getting-started/service-provider-interface#configure-an-extension-in-the-development-center)
+in your app's configuration in Wix Developers Center.
 
-Your sign-up request will be reviewed and you will be notified by return email.
+Provide the necessary configuration for your app:
+
+| Name                    | Type          | Description                                                                                                                                                                                           |
+| ----------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUri`               | string        | **Required.** Base URL of your SEO implementation. Wix sends API requests to endpoints implemented using this URL.                                                                                                  |
+| `upgradeUrl`            | string        | URL of the page where users can purchase a paid plan. Wix offers a link to this page when you respond with a value of `false` in quota's `paidPlan` property.                                         |
+| `supportedCountryCodes` | array<string> | **Required.** List of countries you support for SEO analysis. 2-letter country code in [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) format. |
+| `quotaEnabled`          | boolean       | Whether there is a quota limit in the service. When set to true, include the quota object in responses.                                                                                               |
+| `landingPageUrl`        | string        | **Required.** Your website's landing page.                                                                                                                                                            |
 
 ## Terminology
 
