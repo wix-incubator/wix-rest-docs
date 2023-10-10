@@ -21,7 +21,7 @@ The Orders API allows your app to:
         > **Note:** Site owners can't see **pending** orders in their dashboard.
     * **New:** The order has passed validation checks and the payment has cleared, but the site owners have not **accepted** or **canceled** the order yet.
     * **Accepted:** The site owners have agreed to fulfill the order.
-        > **Note:** Site owners can set up an automation in the Business Manager to immediately accept every **new** order.
+        > **Note:** Site owners can set up an automation in the dashboard to immediately accept every **new** order.
     * **Canceled:** The site owners have decided not to fulfill the order or to mark an already **fulfilled** order as problematic.
     * **Fulfilled:** The order has been successfully distributed.
 
