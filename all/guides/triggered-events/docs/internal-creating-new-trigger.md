@@ -277,7 +277,7 @@ Reevaluate the schema for dynamic properties - Check this checkbox if your paylo
 
 For example - if for specific forms, you also want to include form fields in the trigger payload, check this checkbox, and whenever the user makes a filter selection, the `getDynamicSchema` SPI endpoint will be called and we will receive an additional json-schema representing the new dynamic payload fields. For more information, please review [`getDynamicSchema` documentation.](https://bo.wix.com/wix-docs/rest/drafts/trigger-spi-provider/get-dynamic-schema)
 
-### Testing your trigger in Business Manager
+### Testing your trigger in the Dashboard
 
 After you’ve configured your payload schema, you can now create your trigger and test it E2E. Find the relevant trigger in the triggers table and press ‘Test’ - choose a site where you have your app installed, and you’ll be redirected to the Automations wizard, and will be able to create a new automation with your newly created trigger.
 
