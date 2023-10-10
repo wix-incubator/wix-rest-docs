@@ -33,7 +33,7 @@ There are 3 types of events available:
 When a guest responds to a RSVP **Registration Form** then a new RSVP 
 is created *and a confirmation email is sent*.
 
-Rsvp registration settings can be configured in Business Manager.
+Rsvp registration settings can be configured in the dashboard.
 Rsvp options can be Yes only or Yes and No. 
 
 Limiting the number of guests is optional. Once the guest list is
@@ -62,7 +62,7 @@ Payment collection is provided by [Cashier](https://wixplorer.wixpress.com/cashi
 #### External
 
 Registration button can be linked to an external website from 
-the business manager. Once this option is selected event guest 
+the dashboard. Once this option is selected event guest 
 management (RSVP, tickets) is disabled. 
 
 #### Registration Form
