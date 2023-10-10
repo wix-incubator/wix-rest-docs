@@ -54,9 +54,9 @@ The "Cashier Pay" service can also be used with the "Save Credit Cards" service 
 
 ## What is the main workflow and advantage for the users?
 
-The main workflow for the users and especially for their buyers is the following
+The main workflow for the users and especially for their buyers is the following:
 
-1. Wix User connect payment method(s) to his website through the business manager.
+1. Wix User connects payment method(s) to their website through the dashboard.
 2. During checkout on the website, the UoU will be presented with the Cashier payment component, allowing him to pay for a service or a product by selecting a payment method he would like to pay with and actually pay.
 
 ## What is provided by the Cashier Pay service?
