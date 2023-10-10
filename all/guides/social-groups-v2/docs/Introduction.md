@@ -9,7 +9,7 @@ Site owners can provide site members permissions to create groups, add members t
 
 
 ## Terminology
-- **Group**: Place where group members can connect with each other, get updates and share media. Groups can always be created by a groups manager, and may be created by a site member depending on the site owner's discretion. (Permission to create groups is defined in the groups application settings in the Wix Business Manager.)
+- **Group**: Place where group members can connect with each other, get updates and share media. Groups can always be created by a groups manager, and may be created by a site member depending on the site owner's discretion. (Permission to create groups is defined in the groups application settings in the dashboard.)
 - **Group Member**: Site member that joined a group.
 - **Groups List**: List of groups as displayed to members in the Wix Groups app home page. Groups displayed will vary based on the viewer's role (see **Group Role**).
 - **Group Privacy Level**: Defines the visibility of a group in the groups list and how a site member can join the group:
@@ -21,7 +21,7 @@ Site owners can provide site members permissions to create groups, add members t
   - **Admin**: Group administrator.
 - **Group Join Request**: Request submitted by a site member to join a private group. The request can be approved or rejected by a group admin or groups manager (see **Roles**).
 - **Group Request**: When a site member is not allowed to create a group, they can submit a request that may be approved or rejected by a groups manager.
-- **Groups Application Settings**: Settings available in the Wix Business Manager that define the behavior of the Wix Groups app.
+- **Groups Application Settings**: Settings available in the dashboard that define the behavior of the Wix Groups app.
 
 ## Roles
 - **Anonymous**: Site visitor that is not currently logged in.
