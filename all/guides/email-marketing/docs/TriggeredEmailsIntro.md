@@ -3,7 +3,7 @@ SortOrder: 3
 
 A Triggered Email allows you to send a personalized message to a site member or a contact.
 
-For more information, learn more about how to [create a Triggered Email](https://support.wix.com/en/article/creating-a-triggered-email) in the Business Manager.
+For more information, learn more about how to [create a Triggered Email](https://support.wix.com/en/article/creating-a-triggered-email) in the dashboard.
 
 Current Limitations:
 1. The API supports sending an email to 1 contact at a time.
