@@ -1,0 +1,3417 @@
+{
+  "name": "Billing Management",
+  "client_id": "https://github.com/wix-p/premium-billing/tree/master/checkout-view/billing-management-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "This service is intended for our UI componenets to be able to guide the process of paying for an SBS service, this includes adding payment methods",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "BillingManagementService",
+    "entity": null
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/billing-management/docs/README.md",
+    "name": "Introduction"
+  }],
+  "operations":   [
+        {
+      "name": "Get Pay Now Options",
+      "methodName": "GetPayNowOptions",
+      "serviceName": "PayNowService",
+      "tag": "BillingManagementService",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["serviceId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "serviceId",
+        "type": "string",
+        "doc": " The Id of the service in SBS for which we want to pay now.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetPayNowOptions",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Billing Management._com_wixpress_billing_management_v1_GetPayNowOptionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieve the necessary information to pay for an SBS service.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/billing-management/v1/paynow/{serviceId}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetPayNowOptionsRequest",
+        "rpcResponseName": "GetPayNowOptionsResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "Submit Pay Now",
+      "methodName": "SubmitPayNow",
+      "serviceName": "PayNowService",
+      "tag": "BillingManagementService",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "serviceId",
+        "idempotencyKey",
+        "paymentSourceSelector",
+        "paymentSourceSelector.selection",
+        "paymentSourceSelector.selection.paymentSourceDetails.billingContact.fullName.firstName",
+        "paymentSourceSelector.selection.paymentSourceDetails.billingContact.fullName.lastName",
+        "paymentSourceSelector.selection.paymentSourceDetails.billingContact.country",
+        "paymentSourceSelector.selection.paymentSourceDetails.paymentMethodSelector.creditCardDetails.billingToken",
+        "paymentSourceSelector.selection.paymentSourceDetails.paymentMethodSelector.creditCardDetails.cardBrand",
+        "paymentSourceSelector.selection.paymentSourceDetails.paymentMethodSelector.creditCardDetails.expiration",
+        "paymentSourceSelector.selection.paymentSourceDetails.paymentMethodSelector.sepaDetails.iban",
+        "paymentSourceSelector.selection.paymentSourceDetails.paymentMethodSelector.sepaDetails.accountHolderName"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentSourceSelector",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSourceSelector",
+          "doc": " Selector for PaymentSource. OneOf:  payment_source_details (new), payment_source_id (existing)\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "threeDsData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsData",
+          "doc": " 3DS Data Holder\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "idempotencyKey",
+          "type": "string",
+          "doc": " Idempotency Key - Mandatory in CheckoutView\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "serviceId",
+          "type": "string",
+          "doc": " The Id of the service in SBS for which we want to pay now.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "SubmitPayNow",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Billing Management._com_wixpress_billing_management_v1_SubmitPayNowResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Submit the necessary information to pay for an SBS service after payment method details became invalid.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/billing-management/v1/paynow",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SubmitPayNowRequest",
+        "rpcResponseName": "SubmitPayNowResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_billing_api_v1_Interval",
+      "displayName": "Interval Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "unit",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Interval_IntervalUnit",
+          "doc": " interval unit of measure\n"
+        },
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " number of interval\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_OneTime",
+      "displayName": "One Time Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Cycle",
+      "displayName": "Cycle Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cycleSelector",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Cycle_CycleSelector",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Cycle_CycleSelector",
+      "displayName": "Cycle Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "interval",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Interval",
+          "doc": " repetitive interval\n"
+        },
+                {
+          "name": "oneTime",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_OneTime",
+          "doc": " one time\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsProvider",
+      "displayName": "Three Ds Provider Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "providerType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider_ThreeDsProviderEnum",
+          "doc": ""
+        },
+                {
+          "name": "failedProviders",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "hash",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "gatewayGuid",
+          "type": "string",
+          "doc": " Gateway guid of the specific gateway (StripeUS, BraintreeUS, Stripe India, etc.)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_BrowserInfo",
+      "displayName": "Browser Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userAgent",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "acceptHeader",
+          "type": "string",
+          "doc": " should be filled by the server that received browser's request\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "colorDepth",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "screenHeight",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "screenWidth",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "timeZoneOffset",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "javaEnabled",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsInitialData",
+      "displayName": "Three Ds Initial Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "failedProvider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "challengeDisplaySize",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeDisplaySize_ThreeDsChallengeDisplaySizeEnum",
+          "doc": ""
+        },
+                {
+          "name": "browserInfo",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_BrowserInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintData",
+      "displayName": "Three Ds Device Fingerprint Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "challengeDisplaySize",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeDisplaySize_ThreeDsChallengeDisplaySizeEnum",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        },
+                {
+          "name": "threeDsStatusSelect",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintData_threeDsStatusSelect",
+          "doc": ""
+        },
+                {
+          "name": "browserInfo",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_BrowserInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintData_threeDsStatusSelect",
+      "displayName": "three Ds Status Select Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "received",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsReceived",
+          "doc": ""
+        },
+                {
+          "name": "notReceived",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNotReceived",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsChallengeData",
+      "displayName": "Three Ds Challenge Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "challengeDisplaySize",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeDisplaySize_ThreeDsChallengeDisplaySizeEnum",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        },
+                {
+          "name": "threeDsStatusSelect",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeData_threeDsStatusSelect",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsChallengeData_threeDsStatusSelect",
+      "displayName": "three Ds Status Select Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "received",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsReceived",
+          "doc": ""
+        },
+                {
+          "name": "notReceived",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNotReceived",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsV1FallbackData",
+      "displayName": "Three Ds V 1 Fallback Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        },
+                {
+          "name": "threeDsStatusSelect",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsV1FallbackData_threeDsStatusSelect",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsV1FallbackData_threeDsStatusSelect",
+      "displayName": "three Ds Status Select Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "received",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsReceived",
+          "doc": ""
+        },
+                {
+          "name": "notReceived",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNotReceived",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsReceived",
+      "displayName": "Three Ds Received Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsNotReceived",
+      "displayName": "Three Ds Not Received Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "error",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsInitialAction",
+      "displayName": "Three Ds Initial Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "provider",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintAction",
+      "displayName": "Three Ds Device Fingerprint Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "methodUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "notificationUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "bin",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsChallengeAction",
+      "displayName": "Three Ds Challenge Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "methodUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "notificationUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsRedirectAction",
+      "displayName": "Three Ds Redirect Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "notificationUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "methodUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "methodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsRedirectAction_MethodType",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsV1FallbackAction",
+      "displayName": "Three Ds V 1 Fallback Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "methodUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "notificationUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsNextAction",
+      "displayName": "Three Ds Next Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "threeDsActionSelector",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNextAction_ThreeDsActionSelector",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsNextAction_ThreeDsActionSelector",
+      "displayName": "Three Ds Action Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "retry",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsInitialAction",
+          "doc": " 3ds initial\n"
+        },
+                {
+          "name": "deviceFingerprint",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintAction",
+          "doc": " 3ds device fingerprint\n"
+        },
+                {
+          "name": "challenge",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeAction",
+          "doc": " 3ds challenge\n"
+        },
+                {
+          "name": "v1Fallback",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsV1FallbackAction",
+          "doc": " 3ds v1 fallback\n"
+        },
+                {
+          "name": "redirect",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsRedirectAction",
+          "doc": " An action that the provider requires, no regards to the flow and allow the provider to implement what ever follow it likes\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. metadata to be used on passing information from the redirect url response back into the system\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsRedirectData",
+      "displayName": "Three Ds Redirect Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "provider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsProvider",
+          "doc": ""
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs. metadata to be used on passing information from the redirect url response back into the system\n"
+        },
+                {
+          "name": "threeDsStatusSelect",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsRedirectData_threeDsStatusSelect",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsRedirectData_threeDsStatusSelect",
+      "displayName": "three Ds Status Select Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "received",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsReceived",
+          "doc": ""
+        },
+                {
+          "name": "notReceived",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNotReceived",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsData",
+      "displayName": "Three Ds Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "threeDsDataSelector",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsData_ThreeDsDataSelector",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsData_ThreeDsDataSelector",
+      "displayName": "Three Ds Data Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "initialData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsInitialData",
+          "doc": " 3ds initial data\n"
+        },
+                {
+          "name": "fingerprintData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsDeviceFingerprintData",
+          "doc": " 3ds device fingerprint data\n"
+        },
+                {
+          "name": "challengeData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsChallengeData",
+          "doc": " 3ds challenge data\n"
+        },
+                {
+          "name": "v1FallbackData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsV1FallbackData",
+          "doc": " 3ds v1 fallback data\n"
+        },
+                {
+          "name": "redirectData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsRedirectData",
+          "doc": " 3ds redirect data\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fullName",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_FullName",
+          "doc": " first name\n"
+        },
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " country code (two characters, i.e. US, GB, BR, etc)\n"
+        },
+                {
+          "name": "stateCode",
+          "type": "string",
+          "doc": " state code (ISO 3166-2 format, i.e. US-AL for US state Alabama)\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " city\n"
+        },
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " zip code\n"
+        },
+                {
+          "name": "phoneNumber",
+          "type": "string",
+          "doc": " phone number\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": " company name\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Street",
+          "doc": " street\n"
+        },
+                {
+          "name": "taxInfo",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_TaxInfo",
+          "doc": " tax information\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " email\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_FullName",
+      "displayName": "Full Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " first name\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " last name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Street",
+      "displayName": "Street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " street name\n"
+        },
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " street number\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_TaxInfo",
+      "displayName": "Tax Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "taxId",
+          "type": "string",
+          "doc": " tax id\n"
+        },
+                {
+          "name": "taxType",
+          "type": "string",
+          "doc": " tax type, accepting values: REGULAR / EU_VAT/ JAPAN_JCT / AU_GST / US_TAX / SG_GST\n"
+        },
+                {
+          "name": "models",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_TaxInfoModel"]
+          },
+          "doc": " tax info models\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_TaxInfoModel",
+      "displayName": "Tax Info Model Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "taxId",
+          "type": "string",
+          "doc": " tax id\n"
+        },
+                {
+          "name": "taxType",
+          "type": "string",
+          "doc": " tax type, accepting values: REGULAR / EU_VAT/ JAPAN_JCT / AU_GST / US_TAX / SG_GST\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_YearMonth",
+      "displayName": "Year Month Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "year",
+          "type": "integer",
+          "doc": " year\n"
+        },
+                {
+          "name": "month",
+          "type": "integer",
+          "doc": " month\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_BoletoTicket",
+      "displayName": "Boleto Ticket Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Boleto response data\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "ticketId",
+          "type": "string",
+          "doc": "Reference code of the ticket\n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": "The expiration date of the ticket.\n"
+        },
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Numeric code of the ticket\n"
+        },
+                {
+          "name": "barcode",
+          "type": "string",
+          "doc": " Code to be included in the barcode of the ticket.\n"
+        },
+                {
+          "name": "imageUrl",
+          "type": "string",
+          "doc": "URL of the full version of the ticket.\n"
+        },
+                {
+          "name": "providerLogo",
+          "type": "string",
+          "doc": "URL of the logo of the company/bank that is creating the ticket.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentOrderData",
+      "displayName": "Payment Order Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": " payment order data for payment widget sdk\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": "payment order id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Tax",
+      "displayName": "Tax Object",
+      "locations": [],
+      "docs":       {
+        "summary": " tax entity\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " tax name\n"
+        },
+                {
+          "name": "percent",
+          "type": "number",
+          "doc": " tax percent, will save two numeric values after decimal point\n"
+        },
+                {
+          "name": "isTaxExempt",
+          "type": "boolean",
+          "doc": "If taxId is valid and country can be exempted for tax => set to true\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Amounts",
+      "displayName": "Amounts Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subTotalAmount",
+          "type": "string",
+          "doc": " setupPriceAmount + priceAmount\n"
+        },
+                {
+          "name": "creditAmount",
+          "type": "string",
+          "doc": " credit amount from previous purchase, usually from upgrade\n"
+        },
+                {
+          "name": "discountAmount",
+          "type": "string",
+          "doc": " discount from applied coupon that will be reduces\n"
+        },
+                {
+          "name": "beforeTaxAmount",
+          "type": "string",
+          "doc": " == subTotal - couponDiscountAmount- creditAmount\n"
+        },
+                {
+          "name": "taxAmounts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_TaxAmount"]
+          },
+          "doc": " all taxes\n"
+        },
+                {
+          "name": "totalAmount",
+          "type": "string",
+          "doc": " == beforeTaxAmount + taxAmounts\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_TaxAmount",
+      "displayName": "Tax Amount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tax",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Tax",
+          "doc": " tax entity\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": "tax amount\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Card_AllCardBrands",
+      "displayName": "All Card Brands Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Card_CardBrands",
+      "displayName": "Card Brands Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "brand",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Card_CardBrand"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Card",
+      "displayName": "Card Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "supportedBrands",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Card_SupportedBrands",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Card_SupportedBrands",
+      "displayName": "Supported Brands Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "brands",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Card_CardBrands",
+          "doc": ""
+        },
+                {
+          "name": "allBrands",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Card_AllCardBrands",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_DirectDebit",
+      "displayName": "Direct Debit Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "brand",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_DirectDebit_DirectDebitBrand",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Cash",
+      "displayName": "Cash Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cashType",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Cash_CashType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_BankTransfer",
+      "displayName": "Bank Transfer Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bankTransferType",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_BankTransfer_BankTransferType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_PaymentType",
+      "displayName": "Payment Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "isOnline",
+          "type": "boolean",
+          "doc": " if payment will be made online, if yes user will redirect to pay else user will get information how to pay\n"
+        },
+                {
+          "name": "isRealtime",
+          "type": "boolean",
+          "doc": " if payment will get status response immediately\n"
+        },
+                {
+          "name": "recurringType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_PaymentType_RecurringType",
+          "doc": " type of payment recurring\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_Account",
+      "displayName": "Account Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " the external app id to connect payments widget on rendering\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " the external appInstance id to connect payments widget on rendering\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod",
+      "displayName": "Alternative Payment Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " billing unique id for payment method, can be several for each payment method\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": "APM name to show in order page\n"
+        },
+                {
+          "name": "logoUrl",
+          "type": "string",
+          "doc": "URL of the logo of the apm.\n"
+        },
+                {
+          "name": "paymentType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_PaymentType",
+          "doc": " payment configuration of the alternative payment method\n"
+        },
+                {
+          "name": "minimalPaymentAmount",
+          "type": "string",
+          "doc": " price of minimum amount in APM to send validate payment transaction\n"
+        },
+                {
+          "name": "paymentExpiryByDays",
+          "type": "integer",
+          "doc": " to communicate to the user the expiry of the offline payment instructions\n",
+          "readOnly": true
+        },
+                {
+          "name": "externalPaymentMethodUniqueId",
+          "type": "string",
+          "doc": " the external unique id of the payment method\n"
+        },
+                {
+          "name": "externalAccount",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_Account",
+          "doc": " the external account to connect payments widget\n"
+        },
+                {
+          "name": "alternativePaymentMethodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_AlternativePaymentMethodType",
+          "doc": " the identifier of the payment method\n"
+        },
+                {
+          "name": "brand",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentBrand"]
+          },
+          "doc": " payment brand\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType",
+      "displayName": "Payment Method Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "typeSelector",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_TypeSelector",
+          "doc": ""
+        },
+                {
+          "name": "shouldVerify",
+          "type": "boolean",
+          "doc": " indicates if the payment method should be explicitly verified\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_TypeSelector",
+      "displayName": "Type Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "card",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Card",
+          "doc": ""
+        },
+                {
+          "name": "directDebit",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_DirectDebit",
+          "doc": ""
+        },
+                {
+          "name": "cash",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Cash",
+          "doc": ""
+        },
+                {
+          "name": "bankTransfer",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_BankTransfer",
+          "doc": ""
+        },
+                {
+          "name": "alternativePaymentMethod",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_CashierSetupInfo_Account",
+      "displayName": "Account Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " app id to connect payments widget on rendering\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " appInstance id to connect payments widget on rendering\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_CashierSetupInfo",
+      "displayName": "Cashier Setup Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " billing unique id for payment method, can be several for each payment method\n"
+        },
+                {
+          "name": "externalPaymentMethodUniqueId",
+          "type": "string",
+          "doc": " the external unique id of the payment method\n"
+        },
+                {
+          "name": "externalAccount",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_CashierSetupInfo_Account",
+          "doc": " the external account to connect payments widget\n"
+        },
+                {
+          "name": "paymentMethodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentMethodType",
+          "doc": " the payment method offered by this setup\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_OnlinePayment",
+      "displayName": "Online Payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": " not yet used, to be discussed later. To note the problem in have amount as a DECIMAL_VALUE.\n google.protobuf.StringValue minimal_payment_amount = 1 [(wix.api.format) = DECIMAL_VALUE]; // The minimum amount that can be used for validation (or any other transactions)\nbool is_realtime = 2; // if payment will get status response immediately\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_OfflinePayment",
+      "displayName": "Offline Payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": " not yet used, to be discussed later.\ngoogle.protobuf.Int32Value payment_expiry_by_days = 4 [(wix.api.readOnly) = true]; // The expiry of the offline payment instructions\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig",
+      "displayName": "Payment Method Config Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "recurringType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentRecurringType",
+          "doc": " type of payment recurring\n"
+        },
+                {
+          "name": "brand",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentBrand"]
+          },
+          "doc": " payment brand\n",
+          "readOnly": true
+        },
+                {
+          "name": "shouldVerify",
+          "type": "boolean",
+          "doc": " indicates if the payment method should be explicitly verified\n"
+        },
+                {
+          "name": "paymentType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentType",
+          "doc": ""
+        },
+                {
+          "name": "paymentProvider",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentProvider",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentType",
+      "displayName": "Payment Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "onlinePayment",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_OnlinePayment",
+          "doc": " if payment will be made online\n"
+        },
+                {
+          "name": "offlinePayment",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_OfflinePayment",
+          "doc": "if payment will be made offline\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentProvider",
+      "displayName": "Payment Provider Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cashierPaymentMethod",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_CashierSetupInfo",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentBrand",
+      "displayName": "Payment Brand Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "brand",
+          "type": "string",
+          "doc": " payment brand type\n"
+        },
+                {
+          "name": "logoUrl",
+          "type": "string",
+          "doc": " URL of the logo of the payment brand\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSource_PaymentMethod",
+      "displayName": "Payment Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paymentMethodSelector",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSource_PaymentMethod_PaymentMethodSelector",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSource_PaymentMethod_PaymentMethodSelector",
+      "displayName": "Payment Method Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "publicCreditCard",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PublicCreditCard",
+          "doc": " credit card\n"
+        },
+                {
+          "name": "publicSepaDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PublicSepaDetails",
+          "doc": " DEPRECATED -> Use PublicDirectDebitDetails.PublicSepaDetails instead\n"
+        },
+                {
+          "name": "publicDirectDebitDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PublicDirectDebitDetails",
+          "doc": " Direct Debit\n"
+        },
+                {
+          "name": "cashDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_CashDetails",
+          "doc": " cash payment for example Boleto\n"
+        },
+                {
+          "name": "bankTransferDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_BankTransferDetails",
+          "doc": "bank transfer for example SOFORT, iDeal\n"
+        },
+                {
+          "name": "publicAlternativePaymentMethodDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PublicAlternativePaymentMethodDetails",
+          "doc": " cashier payment method for example PayPal\n"
+        },
+                {
+          "name": "externalPaymentMethodDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ExternalPaymentMethodDetails",
+          "doc": " external payment method (for example Cashier-PayPal)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSource",
+      "displayName": "Payment Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Payment source entity\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentSourceId",
+          "type": "string",
+          "doc": " payment source id\n",
+          "readOnly": true
+        },
+                {
+          "name": "paymentMethod",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSource_PaymentMethod",
+          "doc": " payment method\n"
+        },
+                {
+          "name": "billingContact",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Address",
+          "doc": " billing contact\n"
+        },
+                {
+          "name": "isDefault",
+          "type": "boolean",
+          "doc": " is default - ABOUT TO BE DEPRECATED, do not use.\n"
+        },
+                {
+          "name": "isSaved",
+          "type": "boolean",
+          "doc": " is saved\n"
+        },
+                {
+          "name": "ownerId",
+          "type": "string",
+          "doc": "owner of this payment source\n",
+          "readOnly": true
+        },
+                {
+          "name": "isVerified",
+          "type": "boolean",
+          "doc": " is verified\n"
+        },
+                {
+          "name": "paymentMethodDisplayLabel",
+          "type": "string",
+          "doc": " displayable label for payment method\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PublicCreditCard",
+      "displayName": "Public Credit Card Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Public credit card\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "holderName",
+          "type": "string",
+          "doc": " name of credit card holder\n",
+          "readOnly": true
+        },
+                {
+          "name": "lastDigits",
+          "type": "string",
+          "doc": " last digits (usually last 4)\n",
+          "readOnly": true
+        },
+                {
+          "name": "expiration",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_YearMonth",
+          "doc": " credit card expiration\n",
+          "readOnly": true
+        },
+                {
+          "name": "cardBrand",
+          "type": "string",
+          "doc": " card brand, i.e. Visa, AmericanExpress\n",
+          "readOnly": true
+        },
+                {
+          "name": "bin",
+          "type": "string",
+          "doc": " id of bin record\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PublicDirectDebitDetails",
+      "displayName": "Public Direct Debit Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Public presentation of a Direct Debit\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sepaDetails",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PublicSepaDetails",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PublicSepaDetails",
+      "displayName": "Public Sepa Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Public presentation of SEPA Direct Debit\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountHolderName",
+          "type": "string",
+          "doc": " name of account holder\n",
+          "readOnly": true
+        },
+                {
+          "name": "ibanCountryCode",
+          "type": "string",
+          "doc": "",
+          "readOnly": true
+        },
+                {
+          "name": "ibanLastChars",
+          "type": "string",
+          "doc": " last chars (usually last 5)\n",
+          "readOnly": true
+        },
+                {
+          "name": "accountOriginPaymentMethod",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType",
+          "doc": " The payment method type this account was created from if it was not created as a Direct Debit by user (ex: Sofort, iDeal)\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSourceDetails",
+      "displayName": "Payment Source Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentMethodSelector",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSourceDetails_PaymentMethodSelector",
+          "doc": ""
+        },
+                {
+          "name": "billingContact",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Address",
+          "doc": " billing contact\n"
+        },
+                {
+          "name": "isDefault",
+          "type": "boolean",
+          "doc": " is default\n"
+        },
+                {
+          "name": "isSaved",
+          "type": "boolean",
+          "doc": " is saved payment source for future purchases\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSourceDetails_PaymentMethodSelector",
+      "displayName": "Payment Method Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "creditCardDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_CreditCardDetails",
+          "doc": " credit card details\n"
+        },
+                {
+          "name": "sepaDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_SepaDetails",
+          "doc": "ABOUT TO BE DEPRECATED -> Use DirectDebitDetails.sepa_details instead\n"
+        },
+                {
+          "name": "directDebitDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_DirectDebitDetails",
+          "doc": " Direct Debit\n"
+        },
+                {
+          "name": "cashDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_CashDetails",
+          "doc": " cash payment for example Boleto\n"
+        },
+                {
+          "name": "bankTransferDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_BankTransferDetails",
+          "doc": "bank transfer for example SOFORT, iDeal\n"
+        },
+                {
+          "name": "alternativePaymentMethodDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_AlternativePaymentMethodDetails",
+          "doc": " cashier payment method for example PayPal\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_CreditCardDetails",
+      "displayName": "Credit Card Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Full credit card details for creating a new payment source with a credit card.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "billingToken",
+          "type": "string",
+          "doc": " token acquired from billing tokenizer\n"
+        },
+                {
+          "name": "expiration",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_YearMonth",
+          "doc": " credit card expiration\n"
+        },
+                {
+          "name": "cardBrand",
+          "type": "string",
+          "doc": " credit card brand, such as visa, mastercard, etc\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_DirectDebitDetails",
+      "displayName": "Direct Debit Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Full Sepa details for creating a new payment source with Sepa.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "sepaDetails",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_SepaDetails",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_SepaDetails",
+      "displayName": "Sepa Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "iban",
+          "type": "string",
+          "doc": " The International Bank Account Number (IBAN).\n"
+        },
+                {
+          "name": "accountHolderName",
+          "type": "string",
+          "doc": " full name of account holder\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_CashDetails",
+      "displayName": "Cash Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cashType",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_Cash_CashType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_BankTransferDetails",
+      "displayName": "Bank Transfer Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "type",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_BankTransfer_BankTransferType",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. specific gateway data. For example, \"emandate\" for India gateways.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PublicAlternativePaymentMethodDetails",
+      "displayName": "Public Alternative Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "alternativePaymentMethodId",
+          "type": "string",
+          "doc": " billing unique id, using for filtering the available payment method\n"
+        },
+                {
+          "name": "buyerPaymentMethodName",
+          "type": "string",
+          "doc": " Display name of the payment method used\n"
+        },
+                {
+          "name": "alternativePaymentMethodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_AlternativePaymentMethodType",
+          "doc": " payment method type, for example PAYPAL\n"
+        },
+                {
+          "name": "paymentBrand",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentBrand",
+          "doc": " payment brand\n"
+        },
+                {
+          "name": "buyerNameDescriptor",
+          "type": "string",
+          "doc": " Display name of the buyer\n"
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs. specific gateway data. For example, \"emandate\" for India gateways.\n",
+          "readOnly": true
+        },
+                {
+          "name": "expiration",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_YearMonth",
+          "doc": " payment method expiration\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "dataMapEntry",
+      "displayName": "data Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. specific gateway data. For example, \"mandate\" for India gateways.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ExternalPaymentMethodDetails_PaymentDisplayProperties",
+      "displayName": "Payment Display Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "buyerNameDescriptor",
+          "type": "string",
+          "doc": " Display name of the buyer\n"
+        },
+                {
+          "name": "buyerPaymentDescriptor",
+          "type": "string",
+          "doc": " Display name of the payment method\n"
+        },
+                {
+          "name": "paymentBrand",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentBrand",
+          "doc": " payment brand\n"
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Billing Management.dataMapEntry",
+          "doc": "Set of key-value pairs. specific gateway data. For example, \"mandate\" for India gateways.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ExternalPaymentMethodDetails",
+      "displayName": "External Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " billing unique id, using for filtering the available payment method\n"
+        },
+                {
+          "name": "paymentDisplayProperties",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ExternalPaymentMethodDetails_PaymentDisplayProperties",
+          "doc": ""
+        },
+                {
+          "name": "paymentMethodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentMethodType",
+          "doc": " payment method type, for example PAYPAL, CREDIT_CARD\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_AlternativePaymentMethodDetails",
+      "displayName": "Alternative Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "alternativePaymentMethodId",
+          "type": "string",
+          "doc": "// APM id on cashier side\n"
+        },
+                {
+          "name": "alternativePaymentMethodType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_AlternativePaymentMethodType",
+          "doc": " payment method type, for example PAYPAL\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSourceSelector",
+      "displayName": "Payment Source Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "selection",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSourceSelector_selection",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentSourceSelector_selection",
+      "displayName": "selection Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentSourceDetails",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSourceDetails",
+          "doc": " Payment Source details for a new Payment Source\n"
+        },
+                {
+          "name": "paymentSourceId",
+          "type": "string",
+          "doc": " Id of an existing, saved Payment Source\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_NextAction",
+      "displayName": "Next Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "additionalPaymentDataSelector",
+        "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_NextAction_AdditionalPaymentDataSelector",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_NextAction_AdditionalPaymentDataSelector",
+      "displayName": "Additional Payment Data Selector Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "threeDsNextAction",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsNextAction",
+          "doc": " Data defining the next required action for 3Ds flow\n"
+        },
+                {
+          "name": "boletoTicket",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_BoletoTicket",
+          "doc": " Boleto response data\n"
+        },
+                {
+          "name": "paymentOrderData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentOrderData",
+          "doc": " Payment order data for payments client sdk setup\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxTypeCountry",
+      "displayName": "Tax Type Country Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "taxType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxType",
+          "doc": ""
+        },
+                {
+          "name": "taxIdMode",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxIdFieldMode",
+          "doc": ""
+        },
+                {
+          "name": "requiresServerValidation",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "hasExemption",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "state",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration",
+      "displayName": "Tax Type Configuration Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Tax information that should be used for rendering UPM / EditInvoice / Checkout / etc.\n Calculation is based on invoice’s currency.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "defaultTaxType",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxType",
+          "doc": " The tax field that should be rendered on UPM / EditInvoice / Checkout / etc loading.\n"
+        },
+                {
+          "name": "taxTypeCountries",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxTypeCountry"]
+          },
+          "doc": " After loading, for every country the user choose, taxTypeConfiguration.defaultTaxType should be rendered, except when user choose one of the countries from this list, and for those, the taxType in list should be used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_BillingPreferences",
+      "displayName": "Billing Preferences Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nBilling preferences to set up the checkout such as:\n- The user existing billing accounts (PaymentSource)\n- Suggested billing country\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "savedPaymentSources",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_SavedPaymentSource"]
+          },
+          "doc": " list of existing user payment sources (Currently return only the default payment sources).\n"
+        },
+                {
+          "name": "suggestedBillingCountry",
+          "type": "string",
+          "doc": " If service first purchase suggested billing country is based on Request Geo, otherwise is based on past purchase\n"
+        },
+                {
+          "name": "supportedPaymentMethodTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodType"]
+          },
+          "doc": "\nThe allowed payment methods the user will be allowed to use for this order,\ngiven he is purchasing in a currency and from a country that supports that payment_method.\n",
+          "readOnly": true
+        },
+                {
+          "name": "supportedPaymentMethodTypesV2",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentMethodConfig"]
+          },
+          "doc": " The allowed payment methods the user will be allowed to use for this order, given he is purchasing in a currency and from a country that supports that payment method.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_SavedPaymentSource",
+      "displayName": "Saved Payment Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentSourceId",
+          "type": "string",
+          "doc": " payment source id\n"
+        },
+                {
+          "name": "paymentMethod",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSource_PaymentMethod",
+          "doc": " payment method display info\n"
+        },
+                {
+          "name": "isDefault",
+          "type": "boolean",
+          "doc": " is default\n"
+        },
+                {
+          "name": "address",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Address",
+          "doc": " address display info\n"
+        },
+                {
+          "name": "contributors",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_PaymentSourceContributor"]
+          },
+          "doc": "contributors list\n"
+        },
+                {
+          "name": "isVerified",
+          "type": "boolean",
+          "doc": " is verified //TODO should be deprecated in favor of should_verify\n"
+        },
+                {
+          "name": "shouldVerify",
+          "type": "boolean",
+          "doc": " indicates if the payment source should be explicitly verified\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_PaymentSourceContributor",
+      "displayName": "Payment Source Contributor Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": "contributor name\n"
+        },
+                {
+          "name": "image",
+          "type": "string",
+          "doc": "contributor image path\n"
+        },
+                {
+          "name": "isPaymentSourceOwner",
+          "type": "boolean",
+          "doc": "is the logged in account the payment\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "contributor account guid\n"
+        },
+                {
+          "name": "isLoggedInAccount",
+          "type": "boolean",
+          "doc": "is this contributor the logged in account\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": "contributor email\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_IdentityContext",
+      "displayName": "Identity Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "isTeamMember",
+        "type": "boolean",
+        "doc": " is the user a team member\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_GetPayNowOptionsRequest",
+      "displayName": "Get Pay Now Options Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "serviceId",
+        "type": "string",
+        "doc": " The Id of the service in SBS for which we want to pay now.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_GetPayNowOptionsResponse",
+      "displayName": "Get Pay Now Options Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "billingPreferences",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_BillingPreferences",
+          "doc": " The billing preferences available to use in for the service we want to pay for\n"
+        },
+                {
+          "name": "taxTypeConfiguration",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration",
+          "doc": " The tax configuration to use in for the service we want to pay for\n"
+        },
+                {
+          "name": "paymentSource",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_SavedPaymentSource",
+          "doc": " Payment Source currently used with this service\n"
+        },
+                {
+          "name": "invoiceData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_management_v1_InvoiceData",
+          "doc": " Data for invoice to be used for pay now. For frontend display purposes\n"
+        },
+                {
+          "name": "assetInfo",
+          "type": "All APIs.Billing Management._com_wixpress_billing_management_v1_AssetInfo",
+          "doc": " Information about the asset (service) to be paid for\n"
+        },
+                {
+          "name": "identityContext",
+          "type": "All APIs.Billing Management._com_wixpress_billing_checkout_api_v1_IdentityContext",
+          "doc": " Identity context containing isTeamMember for logged in account\n"
+        },
+                {
+          "name": "iframeBaseUrl",
+          "type": "string",
+          "doc": " URL for Wix checkout iFrame\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_SubmitPayNowRequest",
+      "displayName": "Submit Pay Now Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentSourceSelector",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSourceSelector",
+          "doc": " Selector for PaymentSource. OneOf:  payment_source_details (new), payment_source_id (existing)\n"
+        },
+                {
+          "name": "threeDsData",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_ThreeDsData",
+          "doc": " 3DS Data Holder\n"
+        },
+                {
+          "name": "idempotencyKey",
+          "type": "string",
+          "doc": " Idempotency Key - Mandatory in CheckoutView\n"
+        },
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " The Id of the service in SBS for which we want to pay now.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_SubmitPayNowResponse",
+      "displayName": "Submit Pay Now Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentSource",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_PaymentSource",
+          "doc": " The Payment Source that was used to Pay Now\n"
+        },
+                {
+          "name": "invoiceId",
+          "type": "string",
+          "doc": " The Id of the Invoice that was paid\n",
+          "readOnly": true
+        },
+                {
+          "name": "invoiceStatus",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Invoice_InvoiceStatus",
+          "doc": " Invoice Status\n",
+          "readOnly": true
+        },
+                {
+          "name": "nextAction",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_NextAction",
+          "doc": " Data for next step of a payment flow.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_InvoiceData",
+      "displayName": "Invoice Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "invoiceId",
+          "type": "string",
+          "doc": " The Id of the Invoice to be paid\n",
+          "readOnly": true
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency used to pay\n"
+        },
+                {
+          "name": "amounts",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Amounts",
+          "doc": " Amounts making up the invoice to be paid\n"
+        },
+                {
+          "name": "invoiceStatus",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Invoice_InvoiceStatus",
+          "doc": " Current Status of the invoice\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_management_v1_AssetInfo",
+      "displayName": "Asset Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "premiumAssetType",
+          "type": "All APIs.Billing Management._com_wixpress_premium_dataview_assets_v1_PremiumAssetType",
+          "doc": " The type of premium asset\n"
+        },
+                {
+          "name": "cycle",
+          "type": "All APIs.Billing Management._com_wixpress_billing_api_v1_Cycle",
+          "doc": " Period of billing cycle in SBS\n"
+        },
+                {
+          "name": "productTypeName",
+          "type": "string",
+          "doc": " Name of the product type for example Ascend, Plan, Domain etc. From PremiumAsset.CatalogProductData.ProductData\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Interval_IntervalUnit",
+      "displayName": "Interval Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN -  unknown interval unit\n <\/code><\/li><li><code> DAY -  day\n <\/code><\/li><li><code> WEEK -  week\n <\/code><\/li><li><code> MONTH -  month\n <\/code><\/li><li><code> YEAR -  year\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "YEAR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsProvider_ThreeDsProviderEnum",
+      "displayName": "Three Ds Provider Enum Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ADYEN <\/code><\/li><li><code> WORLDPAY <\/code><\/li><li><code> PAYMENTS -  Used for both ApmGatewayPlatform (Stripe India) and GatewayPlatform (StripeUS, BraintreeUS)\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ADYEN",
+        "WORLDPAY",
+        "PAYMENTS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsChallengeDisplaySize_ThreeDsChallengeDisplaySizeEnum",
+      "displayName": "Three Ds Challenge Display Size Enum Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> SMALL -  250 x 400\n <\/code><\/li><li><code> MEDIUM -  390 x 400\n <\/code><\/li><li><code> LARGE -  600 x 400\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "SMALL",
+        "MEDIUM",
+        "LARGE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_ThreeDsRedirectAction_MethodType",
+      "displayName": "Method Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> GET <\/code><\/li><li><code> POST <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "GET",
+        "POST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_Invoice_InvoiceStatus",
+      "displayName": "Invoice Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> DRAFT <\/code><\/li><li><code> PAID <\/code><\/li><li><code> VOID <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> PAYMENT_IN_PROGRESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "DRAFT",
+        "PAID",
+        "VOID",
+        "REFUNDED",
+        "DECLINED",
+        "PAYMENT_IN_PROGRESS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentRecurringType",
+      "displayName": "Payment Recurring Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "type of recurring\n \n Possible values are: <li><code> None <\/code><\/li><li><code> AUTO <\/code><\/li><li><code> HYBRID <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "None",
+        "AUTO",
+        "HYBRID"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Card_CardBrand",
+      "displayName": "Card Brand Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> VISA <\/code><\/li><li><code> MASTERCARD <\/code><\/li><li><code> AMEX -  American Express\n <\/code><\/li><li><code> DISCOVER <\/code><\/li><li><code> JCB <\/code><\/li><li><code> DINERS -  Diners Club\n <\/code><\/li><li><code> CARTE_BLUE -  Carte Bancaire\n <\/code><\/li><li><code> ELO <\/code><\/li><li><code> UNION_PAY -  deprecated, please use UNIONPAY\n <\/code><\/li><li><code> UNIONPAY <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "VISA",
+        "MASTERCARD",
+        "AMEX",
+        "DISCOVER",
+        "JCB",
+        "DINERS",
+        "CARTE_BLUE",
+        "ELO",
+        "UNION_PAY",
+        "UNIONPAY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_DirectDebit_DirectDebitBrand",
+      "displayName": "Direct Debit Brand Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> SEPA <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "SEPA"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_Cash_CashType",
+      "displayName": "Cash Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BOLETO - Boleto Bancário, simply referred to as Boleto (English: Ticket) is a cash-based payment method used in Brazil.\nA boleto can be paid at ATMs, branch facilities and internet banking of any Bank, Post Office, Lottery Agent and some supermarkets until its due date. After the due date it can only be paid at the issuer bank facilities.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "BOLETO"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_BankTransfer_BankTransferType",
+      "displayName": "Bank Transfer Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> SOFORT -  IDEAL = 2;\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "SOFORT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_PaymentType_RecurringType",
+      "displayName": "Recurring Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "type of recurring\n \n Possible values are: <li><code> None <\/code><\/li><li><code> AUTO <\/code><\/li><li><code> HYBRID <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "None",
+        "AUTO",
+        "HYBRID"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodType_AlternativePaymentMethod_AlternativePaymentMethodType",
+      "displayName": "Alternative Payment Method Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "type of payment method types\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PAYPAL <\/code><\/li><li><code> EXTERNAL_CREDIT_CARD <\/code><\/li><li><code> SOFORT <\/code><\/li><li><code> SEPA_OFFLINE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "PAYPAL",
+        "EXTERNAL_CREDIT_CARD",
+        "SOFORT",
+        "SEPA_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_api_v1_PaymentMethodConfig_PaymentMethodType",
+      "displayName": "Payment Method Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "type of payment method types\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PAYPAL <\/code><\/li><li><code> EXTERNAL_CREDIT_CARD <\/code><\/li><li><code> SOFORT <\/code><\/li><li><code> SEPA_OFFLINE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "PAYPAL",
+        "EXTERNAL_CREDIT_CARD",
+        "SOFORT",
+        "SEPA_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxType",
+      "displayName": "Tax Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NOT_APPLICABLE <\/code><\/li><li><code> REGULAR <\/code><\/li><li><code> EU_VAT <\/code><\/li><li><code> JAPAN_JCT <\/code><\/li><li><code> AU_GST <\/code><\/li><li><code> BR_CNPJ <\/code><\/li><li><code> RU_TIN <\/code><\/li><li><code> IN_RNR <\/code><\/li><li><code> IL_VAT <\/code><\/li><li><code> US_TAX <\/code><\/li><li><code> SG_GST <\/code><\/li><li><code> CA_GST <\/code><\/li><li><code> CA_HST <\/code><\/li><li><code> CA_PST <\/code><\/li><li><code> CA_QST <\/code><\/li><li><code> NZ_GST <\/code><\/li><li><code> MD_VAT <\/code><\/li><li><code> CL_VAT <\/code><\/li><li><code> MY_VAT <\/code><\/li><li><code> KR_VAT <\/code><\/li><li><code> TW_VAT <\/code><\/li><li><code> AE_VAT <\/code><\/li><li><code> NG_VAT <\/code><\/li><li><code> IS_VAT <\/code><\/li><li><code> GE_VAT <\/code><\/li><li><code> TH_VAT <\/code><\/li><li><code> TR_VAT <\/code><\/li><li><code> NO_VAT <\/code><\/li><li><code> UA_VAT <\/code><\/li><li><code> IN_GST <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NOT_APPLICABLE",
+        "REGULAR",
+        "EU_VAT",
+        "JAPAN_JCT",
+        "AU_GST",
+        "BR_CNPJ",
+        "RU_TIN",
+        "IN_RNR",
+        "IL_VAT",
+        "US_TAX",
+        "SG_GST",
+        "CA_GST",
+        "CA_HST",
+        "CA_PST",
+        "CA_QST",
+        "NZ_GST",
+        "MD_VAT",
+        "CL_VAT",
+        "MY_VAT",
+        "KR_VAT",
+        "TW_VAT",
+        "AE_VAT",
+        "NG_VAT",
+        "IS_VAT",
+        "GE_VAT",
+        "TH_VAT",
+        "TR_VAT",
+        "NO_VAT",
+        "UA_VAT",
+        "IN_GST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_billing_checkout_api_v1_TaxTypeConfiguration_TaxIdFieldMode",
+      "displayName": "Tax Id Field Mode Object",
+      "locations": [],
+      "docs":       {
+        "summary": "TAX ID in the UI. should we display a field for tax id, and should it be required.\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> HIDE <\/code><\/li><li><code> OPTIONAL <\/code><\/li><li><code> MANDATORY <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "HIDE",
+        "OPTIONAL",
+        "MANDATORY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_dataview_assets_v1_PremiumAssetType",
+      "displayName": "Premium Asset Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ASSET_TYPE <\/code><\/li><li><code> PLAN - Plan is a package purchased by the user\nPlan enables or disables usage of plan capabiltieis for a specific site <\/code><\/li><li><code> DOMAIN - Domain can be a domain purchased through Wix or a domain purchased outside of Wix but configured to use Wix <\/code><\/li><li><code> MAILBOX - Mailbox purchased through Wix <\/code><\/li><li><code> APP - Wix or third party app <\/code><\/li><li><code> DIGITAL_GOOD - Stock image, logo or other on-time-payment premium asset <\/code><\/li><li><code> CATALOG_PRODUCT - Dynamic product, created using the product catalog <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ASSET_TYPE",
+        "PLAN",
+        "DOMAIN",
+        "MAILBOX",
+        "APP",
+        "DIGITAL_GOOD",
+        "CATALOG_PRODUCT"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.billing.checkout-view-server"}
+}
