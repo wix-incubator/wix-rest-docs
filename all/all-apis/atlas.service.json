@@ -1,0 +1,1427 @@
+{
+  "name": "Atlas",
+  "client_id": "https://github.com/wix-private/velocity-infra/tree/master/rnd-tools/wix-atlas/wix-atlas-service/wix-atlas-service-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "gRPC platformized API for global search, address validation and autocompletion",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "DEPRECATED - Geolocation - DEPRECATED",
+      "entity": "_com_wixpress_vi_atlas_service_Address",
+      "src": "https://github.com/wix-private/velocity-infra/tree/master/rnd-tools/wix-atlas/wix-atlas-service/wix-atlas-service-api/location.proto"
+    },
+        {
+      "name": "DEPRECATED - Places - DEPRECATED",
+      "entity": ""
+    },
+        {
+      "name": "Geolocation V2",
+      "entity": "_com_wixpress_vi_atlas_service_v2_SearchResult",
+      "src": "https://github.com/wix-private/velocity-infra/tree/master/rnd-tools/wix-atlas/wix-atlas-service/wix-atlas-service-api/com/wixpress/vi/atlas/service/v2/location_service_v2.proto"
+    },
+        {
+      "name": "Autocomplete V2",
+      "entity": "_com_wixpress_vi_atlas_service_v2_Prediction",
+      "src": "https://github.com/wix-private/velocity-infra/tree/master/rnd-tools/wix-atlas/wix-atlas-service/wix-atlas-service-api/com/wixpress/vi/atlas/service/v2/autocomplete_service_v2.proto"
+    },
+        {
+      "name": "Places V2",
+      "entity": "_com_wixpress_vi_atlas_service_v2_Place",
+      "src": "https://github.com/wix-private/velocity-infra/tree/master/rnd-tools/wix-atlas/wix-atlas-service/wix-atlas-service-api/com/wixpress/vi/atlas/service/v2/places_service_v2.proto"
+    }
+  ],
+  "relatedGuides": [  {
+    "path": "../guides/atlas/docs/README.md",
+    "name": "Introduction"
+  }],
+  "operations":   [
+        {
+      "name": "Get Place",
+      "methodName": "GetPlace",
+      "serviceName": "PlacesServiceV2",
+      "tag": "Places V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["searchId"],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "searchId",
+          "type": "string",
+          "doc": "",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "sessionToken",
+          "type": "string",
+          "doc": " A random string which identifies an autocomplete session for billing purposes. The session begins when the user starts typing a query, and concludes when they select a place and a call to Get Place is made. Once a session has concluded, the token is no longer valid. your app must generate a fresh token for each session.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetPlace",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_GetPlaceResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nOnce you have a search_id from a autocomplete Search, you can request more details about a particular establishment or point of interest by initiating a get place request.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://bo.wix.com/wix-atlas-service-web/v2/place",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetPlaceRequest",
+        "rpcResponseName": "GetPlaceResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Predict",
+      "methodName": "Predict",
+      "serviceName": "AutocompleteServiceV2",
+      "tag": "Autocomplete V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["input"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "input",
+          "type": "string",
+          "doc": " The text the predictions will be based on.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "origin",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The origin point from which to calculate straight-line distance to the destination\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "location",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The point around which you wish to retrieve place information\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "radius",
+          "type": "string",
+          "doc": " The acceptable distance from that location (in meters)\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "countryCodes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " alpha-2 or alpha-3 ISO-3166 country codes to filter by\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "sessionToken",
+          "type": "string",
+          "doc": " A random string which identifies an autocomplete session for billing purposes. The session begins when the user starts typing a query, and concludes when they select a place and a call to Get Place is made. Once a session has concluded, the token is no longer valid. your app must generate a fresh token for each session.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Predict",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_PredictResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nA Predict end-point take an input and returns an list of Prediction object.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://bo.wix.com/wix-atlas-service-web/v2/predict",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "PredictRequest",
+        "rpcResponseName": "PredictResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Search",
+      "methodName": "Search",
+      "serviceName": "LocationServiceV2",
+      "tag": "Geolocation V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "query",
+          "type": "string",
+          "doc": " Free text\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "filterBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_FilterBy"]
+          },
+          "doc": " Deprecate! - Please use 'zipCode' and 'countryCodes' fields\n",
+          "required": false,
+          "deprecated": true
+        },
+                {
+          "in": "QUERY",
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Zip code filter the user can add in order to get more accurate results\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "countryCodes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Country codes filter the user can add in order to get more accurate results\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Search",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_SearchResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nA Search request takes a free text as an input and returns a list of 'Address' objects.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://bo.wix.com/wix-atlas-service-web/v2/search",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SearchRequest",
+        "rpcResponseName": "SearchResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Search (Additional Binding 1)",
+      "methodName": "Search",
+      "serviceName": "LocationServiceV2",
+      "tag": "Geolocation V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "query",
+          "type": "string",
+          "doc": " Free text\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "filterBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_FilterBy"]
+          },
+          "doc": " Deprecate! - Please use 'zipCode' and 'countryCodes' fields\n",
+          "required": false,
+          "deprecated": true
+        },
+                {
+          "in": "QUERY",
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Zip code filter the user can add in order to get more accurate results\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "countryCodes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Country codes filter the user can add in order to get more accurate results\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Search",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_SearchResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nA Search request takes a free text as an input and returns a list of 'Address' objects.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://bo.wix.com/wix-atlas-service-web/v2/location/search",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SearchRequest",
+        "rpcResponseName": "SearchResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_vi_atlas_service_Prediction",
+      "displayName": "Prediction Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " The human-readable name of the prediction\n"
+        },
+                {
+          "name": "placeId",
+          "type": "string",
+          "doc": " The place id\n"
+        },
+                {
+          "name": "matchedSubstrings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_MatchedSubstrings"]
+          },
+          "doc": " Contains an array with offset value and length. These describe the location of the entered term in the prediction result text, so that the term can be highlighted if desired\n"
+        },
+                {
+          "name": "textStructure",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_TextStructure",
+          "doc": " Provides pre-formatted text that can be shown in your autocomplete results\n"
+        },
+                {
+          "name": "distanceInMeters",
+          "type": "integer",
+          "doc": " Contains an integer indicating the straight-line distance between the predicted place, and the specified origin point, in meters.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_TextStructure",
+      "displayName": "Text Structure Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "mainText",
+          "type": "string",
+          "doc": " Contains the main text of a prediction, usually the name of the place\n"
+        },
+                {
+          "name": "secondaryText",
+          "type": "string",
+          "doc": " Contains the secondary text of a prediction, usually the location of the place\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_MatchedSubstrings",
+      "displayName": "Matched Substrings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "length",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_FilterBy",
+      "displayName": "Filter By Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filterType",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_v2_FilterBy_FilterType",
+          "doc": " One of the filter types enum\n"
+        },
+                {
+          "name": "filterValue",
+          "type": "string",
+          "doc": " Free text like \"us\"\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Subdivision. Usually a state, region, prefecture, or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_Address_street",
+          "doc": ""
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_Address_street",
+      "displayName": "street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_StreetAddress",
+          "doc": " Street name and number.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line, usually street and number as free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_Subdivision",
+      "displayName": "Subdivision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Short subdivision code.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Subdivision full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_SearchRequest",
+      "displayName": "Search Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " User must provide query or filter by parameters\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "string",
+          "doc": " Free text\n"
+        },
+                {
+          "name": "filterBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_FilterBy"]
+          },
+          "doc": " Deprecate! - Please use 'zipCode' and 'countryCodes' fields\n",
+          "deprecated": true
+        },
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Zip code filter the user can add in order to get more accurate results\n"
+        },
+                {
+          "name": "countryCodes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Country codes filter the user can add in order to get more accurate results\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_SearchResponse",
+      "displayName": "Search Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "searchResults",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_SearchResult"]
+        },
+        "doc": " List of 'Address' objects\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_SearchResult",
+      "displayName": "Search Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "address",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_Address",
+          "doc": " The Address object\n"
+        },
+                {
+          "name": "proximity",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_v2_Proximity",
+          "doc": " stores additional data about the proximity to the specified location\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_ReverseGeocodingRequest",
+      "displayName": "Reverse Geocoding Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "addressLocation",
+        "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+        "doc": " The latitude and longitude values specifying the location for which you wish to obtain the closest, human-readable address.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_ReverseGeocodingResponse",
+      "displayName": "Reverse Geocoding Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "searchResults",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_SearchResult"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_ListPredictionsRequest",
+      "displayName": "List Predictions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "input",
+          "type": "string",
+          "doc": " The text the predictions will be based on.\n"
+        },
+                {
+          "name": "origin",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The origin point from which to calculate straight-line distance to the destination\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The point around which you wish to retrieve place information\n"
+        },
+                {
+          "name": "radius",
+          "type": "string",
+          "doc": " The acceptable distance from that location (in meters)\n"
+        },
+                {
+          "name": "filterBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_FilterBy"]
+          },
+          "doc": " Filters the user can add in order to get more accurate results\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_ListPredictionsResponse",
+      "displayName": "List Predictions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "predictions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_Prediction"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_PredictRequest",
+      "displayName": "Predict Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "input",
+          "type": "string",
+          "doc": " The text the predictions will be based on.\n"
+        },
+                {
+          "name": "origin",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The origin point from which to calculate straight-line distance to the destination\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_AddressLocation",
+          "doc": " The point around which you wish to retrieve place information\n"
+        },
+                {
+          "name": "radius",
+          "type": "string",
+          "doc": " The acceptable distance from that location (in meters)\n"
+        },
+                {
+          "name": "countryCodes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " alpha-2 or alpha-3 ISO-3166 country codes to filter by\n"
+        },
+                {
+          "name": "sessionToken",
+          "type": "string",
+          "doc": " A random string which identifies an autocomplete session for billing purposes. The session begins when the user starts typing a query, and concludes when they select a place and a call to Get Place is made. Once a session has concluded, the token is no longer valid. your app must generate a fresh token for each session.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_PredictResponse",
+      "displayName": "Predict Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "predictions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_Prediction"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_Prediction",
+      "displayName": "Prediction Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " The human-readable name of the prediction\n"
+        },
+                {
+          "name": "searchId",
+          "type": "string",
+          "doc": " The id of the prediction that can be use in place api. Available for short time.\n"
+        },
+                {
+          "name": "matchedSubstrings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_MatchedSubstrings"]
+          },
+          "doc": " Contains an array with offset value and length. These describe the location of the entered term in the prediction result text, so that the term can be highlighted if desired\n"
+        },
+                {
+          "name": "textStructure",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_v2_TextStructure",
+          "doc": " Provides pre-formatted text that can be shown in your autocomplete results\n"
+        },
+                {
+          "name": "distanceInMeters",
+          "type": "integer",
+          "doc": " Contains an integer indicating the straight-line distance between the predicted place, and the specified origin point, in meters.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_TextStructure",
+      "displayName": "Text Structure Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "mainText",
+          "type": "string",
+          "doc": " Contains the main text of a prediction, usually the name of the place\n"
+        },
+                {
+          "name": "secondaryText",
+          "type": "string",
+          "doc": " Contains the secondary text of a prediction, usually the location of the place\n"
+        },
+                {
+          "name": "mainTextMatchedSubstrings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_v2_MatchedSubstrings"]
+          },
+          "doc": " Contains an array with offset value and length. These describe the location of the entered term in the prediction result text, so that the term can be highlighted if desired\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_MatchedSubstrings",
+      "displayName": "Matched Substrings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "length",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_GetPlaceRequest",
+      "displayName": "Get Place Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "searchId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "sessionToken",
+          "type": "string",
+          "doc": " A random string which identifies an autocomplete session for billing purposes. The session begins when the user starts typing a query, and concludes when they select a place and a call to Get Place is made. Once a session has concluded, the token is no longer valid. your app must generate a fresh token for each session.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_GetPlaceResponse",
+      "displayName": "Get Place Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "place",
+        "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_v2_Place",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_Place",
+      "displayName": "Place Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "placeId",
+          "type": "string",
+          "doc": " The given place id\n"
+        },
+                {
+          "name": "address",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_upstream_wix_common_Address",
+          "doc": " The Address object\n"
+        },
+                {
+          "name": "types",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " The Place type. For example: airport, library etc...\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Worldwide zip-code. Example: 90210 for 5 digit US zip code or 90210-0804 for 9 digit US zip-code.\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Deprecated - use country field\n",
+          "deprecated": true
+        },
+                {
+          "name": "state",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_State",
+          "doc": " The state within the country\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " The city within the state\n"
+        },
+                {
+          "name": "subAreaOfCity",
+          "type": "string",
+          "doc": " The sub area of the city\n"
+        },
+                {
+          "name": "subAreaOfState",
+          "type": "string",
+          "doc": " The sub area of the state\n"
+        },
+                {
+          "name": "streetNumber",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "route",
+          "type": "string",
+          "doc": " Deprecated - use routes field\n",
+          "deprecated": true
+        },
+                {
+          "name": "neighborhood",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "geolocation",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_Geolocation",
+          "doc": ""
+        },
+                {
+          "name": "country",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_Country",
+          "doc": ""
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "premise",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "sublocality",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_Sublocality",
+          "doc": ""
+        },
+                {
+          "name": "routes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_Country",
+      "displayName": "Country Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "longName",
+          "type": "string",
+          "doc": " Example: United States\n"
+        },
+                {
+          "name": "shortName",
+          "type": "string",
+          "doc": " Two-letter combination (ISO 2) that stands for the country; Example: US\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_State",
+      "displayName": "State Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "longName",
+          "type": "string",
+          "doc": " Example: New York\n"
+        },
+                {
+          "name": "shortName",
+          "type": "string",
+          "doc": " Example: NY\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_Sublocality",
+      "displayName": "Sublocality Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "level2",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "level3",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "level4",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_FilterBy",
+      "displayName": "Filter By Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filterType",
+          "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_FilterBy_FilterType",
+          "doc": " One of the filter types enum\n"
+        },
+                {
+          "name": "filterValue",
+          "type": "string",
+          "doc": " Free text like \"us\"\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_Geolocation",
+      "displayName": "Geolocation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lat",
+          "type": "number",
+          "doc": ""
+        },
+                {
+          "name": "lng",
+          "type": "number",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_SearchByZipCodeRequest",
+      "displayName": "Search By Zip Code Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": " Worldwide zip-code. Example: 90210 for 5 digit US zip code or 90210-0804 for 9 digit US zip-code.\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": "\ncountry_code is A two-letter combination (ISO 2) that stands for a country.\nThe service will search the zip-code in the provided country or return 'ZIP_CODE_FORMAT_ERROR' if the zip-code not\nmatch the country format.\nExample: 'US' for United States of America, 'BR' for Brazil. You can find all country code list here:\nnationsonline.org/oneworld/country_code_list.htm\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_SearchByZipCodeResponse",
+      "displayName": "Search By Zip Code Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "address",
+        "type": "All APIs.Atlas._com_wixpress_vi_atlas_service_Address",
+        "doc": " 'Address' object\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_SearchRequestV1",
+      "displayName": "Search Request V 1 Object",
+      "locations": [],
+      "docs":       {
+        "summary": " User must provide query or filter by parameters\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "string",
+          "doc": " Free text\n"
+        },
+                {
+          "name": "languageCode",
+          "type": "string",
+          "doc": " Language code like 'en' or 'he'. default value is 'en'\n"
+        },
+                {
+          "name": "filterBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_FilterBy"]
+          },
+          "doc": " Filters the user can add in order to get more accurate results\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_SearchResponseV1",
+      "displayName": "Search Response V 1 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "addresses",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Atlas._com_wixpress_vi_atlas_service_Address"]
+        },
+        "doc": " List of 'Address' objects\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_FilterBy_FilterType",
+      "displayName": "Filter Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> zip_code -  Filter by zip code\n <\/code><\/li><li><code> country_code -  Filter by 2-letters or 3-letters country code\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "zip_code",
+        "country_code"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_upstream_wix_common_Subdivision_SubdivisionType",
+      "displayName": "Subdivision Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SUBDIVISION_TYPE <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_1 -  State\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_2 -  County\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_3 -  City/town\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_4 -  Neighborhood/quarter\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_5 -  Street/block\n <\/code><\/li><li><code> COUNTRY -  ADMINISTRATIVE_AREA_LEVEL_0. Indicates the national political entity, and is typically the highest order type returned by the Geocoder.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_SUBDIVISION_TYPE",
+        "ADMINISTRATIVE_AREA_LEVEL_1",
+        "ADMINISTRATIVE_AREA_LEVEL_2",
+        "ADMINISTRATIVE_AREA_LEVEL_3",
+        "ADMINISTRATIVE_AREA_LEVEL_4",
+        "ADMINISTRATIVE_AREA_LEVEL_5",
+        "COUNTRY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_v2_Proximity",
+      "displayName": "Proximity Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_PROXIMITY <\/code><\/li><li><code> PINPOINT -  indicates that the returned result is a precise geocode for which we have location information accurate down to street address precision\n <\/code><\/li><li><code> APPROXIMATE -  indicates that the returned result is the geometric center of a result\n <\/code><\/li><li><code> GENERAL_AREA -  indicates that the returned result is around an area\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_PROXIMITY",
+        "PINPOINT",
+        "APPROXIMATE",
+        "GENERAL_AREA"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_vi_atlas_service_FilterBy_FilterType",
+      "displayName": "Filter Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> zip_code -  Filter by zip code\n <\/code><\/li><li><code> country_code -  Filter by country code\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "zip_code",
+        "country_code"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.vi.wix-atlas-service-web"}
+}
