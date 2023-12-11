@@ -23,11 +23,11 @@
     },
         {
       "name": "Billing",
-      "entity": null
+      "entity": ""
     },
         {
       "name": "BI Event",
-      "entity": null
+      "entity": ""
     }
   ],
   "relatedGuides":   [
@@ -191,6 +191,72 @@
         "rpcResponseName": "GetEmbeddedScriptResponse"
       },
       "customLabels": []
+    },
+        {
+      "name": "Get Metered Billing Charges",
+      "methodName": "GetMeteredBillingCharges",
+      "serviceName": "Checkout",
+      "tag": "Billing",
+      "permissions": [      {
+        "name": "Manage Your App",
+        "description": "Request permission to manage basic app activity."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency of the charges\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "startDate",
+          "type": "string",
+          "doc": " Start period of the purchase\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "endDate",
+          "type": "string",
+          "doc": " End period of the purchase\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetMeteredBillingCharges",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Apps._com_wixpress_market_aim_api_GetMeteredBillingChargesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " The Metered Billing Charges is an API endpoint that calls an external developer's SPI to retrieve charges based on metered billing.\n This API serves as a testing tool for external developers to ensure that their SPI is working as expected.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/apps/v1/metered-billing-charges",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n https://www.wixapis.com/apps/v1/metered-billing-charges \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n    \"currency\": \"EUR\",\n    \"startDate\": \"2023-01-01T00:00:00.000Z\",\n    \"endDate\": \"2023-01-31T23:59:59.999Z\"\n}'"],
+          "response": ["{\"charges\": [\n    {\n    \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"description\": \"Charges for GOLD-metered-billing plan\",\n    \"amount\": \"4.53\"\n  },\n    {\n    \"id\": \"3546df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"description\": \"Charges for Silver-metered-billing plan\",\n    \"amount\": \"10.53\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetMeteredBillingChargesRequest",
+        "rpcResponseName": "GetMeteredBillingChargesResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
     },
         {
       "name": "Get Purchase History",
@@ -493,6 +559,18 @@
       },
       "topic": "app-subscription-canceled-webhook",
       "tag": "App Instance",
+      "permissions": [],
+      "customLabels": []
+    },
+        {
+      "type": "_com_wixpress_market_aim_api_InvoiceStatusUpdate",
+      "name": "Invoice Status Update Webhook",
+      "docs":       {
+        "summary": "\n >**Note:** Currently only supported for invoices that use [Metered Billing Charges](https://dev.wix.com/docs/rest/api-reference/app-management/apps/billing/get-metered-billing-charges).\n\n Triggered when there is an update to the payment status of an invoice that includes \n charges for your app.\n\n Integrated with Wix Premium, you can implement the \n [Custom Charges](https://dev.wix.com/api/rest/drafts/custom-charges-spi/introduction?branch=custom-charges-spi)\n SPI to configure and manage a list of monthly charges associated with your app. \n At the end of a billing cycle, calling `List Charges` determines the total amount \n your customer must pay to use your app based on their usage. \n\n Leverage this feature as a notification mechanism to update the payment status of an \n invoice that includes charges for your app.\n",
+        "src": "https://github.com/wix-private/devcenter/tree/master/app-instance-manager/app-instance-manager-api/src/main/proto/billing/checkout_service.proto"
+      },
+      "topic": "app-invoice-status-updated-webhook",
+      "tag": "Billing",
       "permissions": [],
       "customLabels": []
     }
@@ -1169,12 +1247,93 @@
                 {
           "name": "billingCycle",
           "type": "All APIs.Apps._com_wixpress_market_aim_api_PaymentCycle",
-          "doc": ""
+          "doc": " The billing cycle of the purchased plan.\n"
         },
                 {
           "name": "dateCreated",
           "type": "string",
           "doc": " Order date.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_market_aim_api_GetMeteredBillingChargesRequest",
+      "displayName": "Get Metered Billing Charges Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency of the charges\n"
+        },
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": " Start period of the purchase\n"
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": " End period of the purchase\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_market_aim_api_GetMeteredBillingChargesResponse",
+      "displayName": "Get Metered Billing Charges Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "charges",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Apps._com_wixpress_market_aim_api_Charge"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_market_aim_api_Charge",
+      "displayName": "Charge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique id with 64 characters\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the charge\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Amount to charge the user\n"
         }
       ],
       "enum": null,
@@ -1370,7 +1529,7 @@
                 {
           "name": "originInstanceId",
           "type": "string",
-          "doc": " Instance Id of the app in the original website (relevant only when this site was [duplicated from another site](https://support.wix.com/en/article/duplicating-your-site-1472847)).\n"
+          "doc": " Instance ID of the app in the original website (relevant only when this site was [duplicated from another site](https://support.wix.com/en/article/duplicating-your-site-1472847)).\n"
         }
       ],
       "enum": null,
@@ -1556,6 +1715,41 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_market_aim_api_InvoiceStatusUpdate",
+      "displayName": "Invoice Status Update Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Apps._com_wixpress_market_aim_api_InvoiceStatus",
+          "doc": " Invoice payment status.\n"
+        },
+                {
+          "name": "invoiceId",
+          "type": "string",
+          "doc": " Wix Premium invoice ID.\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " App instance ID - a unique ID assigned to each app in each site.\n"
+        },
+                {
+          "name": "recurring",
+          "type": "boolean",
+          "doc": " Whether the invoice is for a single payment or for multiple, recurring payments.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_siteproperties_api_v4_ResolutionMethod",
       "displayName": "Resolution Method Object",
       "locations": [],
@@ -1578,7 +1772,7 @@
       "displayName": "Payment Cycle Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> NO_CYCLE <\/code><\/li><li><code> MONTHLY <\/code><\/li><li><code> YEARLY <\/code><\/li><li><code> ONE_TIME <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> NO_CYCLE <\/code><\/li><li><code> MONTHLY <\/code><\/li><li><code> YEARLY <\/code><\/li><li><code> ONE_TIME <\/code><\/li><li><code> TWO_YEARS <\/code><\/li><li><code> THREE_YEARS <\/code><\/li><li><code> FOUR_YEARS <\/code><\/li><li><code> FIVE_YEARS <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -1587,7 +1781,32 @@
         "NO_CYCLE",
         "MONTHLY",
         "YEARLY",
-        "ONE_TIME"
+        "ONE_TIME",
+        "TWO_YEARS",
+        "THREE_YEARS",
+        "FOUR_YEARS",
+        "FIVE_YEARS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_market_aim_api_InvoiceStatus",
+      "displayName": "Invoice Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_INVOICE_STATUS <\/code><\/li><li><code> PAYMENT_FAILED <\/code><\/li><li><code> PAID <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> VOIDED <\/code><\/li><li><code> CHARGEDBACK <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_INVOICE_STATUS",
+        "PAYMENT_FAILED",
+        "PAID",
+        "REFUNDED",
+        "VOIDED",
+        "CHARGEDBACK"
       ],
       "extra": {},
       "labels": []
