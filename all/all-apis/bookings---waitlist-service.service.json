@@ -1,232 +1,230 @@
 {
   "name": "Bookings - Waitlist Service",
+  "client_id": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/waiting-list/waiting-list-api/src/main/proto#public",
   "memberOf": "All APIs",
   "category": "business-service",
   "mixes": [],
   "labels": [],
-  "docs": {
+  "docs":   {
     "summary": "Manage Waitlists.",
     "description": []
   },
-  "customLabels": [
-    {
-      "id": "maturity-beta"
-    }
-  ],
   "properties": [],
-  "tags": [
-    {
-      "name": "Waitlist",
-      "entity": null
-    }
-  ],
-  "relatedGuides": [
-    {
-      "path": "../guides/bookings---waitlist-service/API Overview.md"
-    }
-  ],
-  "operations": [
-    {
+  "tags": [  {
+    "name": "Waitlist",
+    "entity": ""
+  }],
+  "relatedGuides": [  {
+    "path": "../guides/bookings---waitlist-service/com/wix/bookings/api/v1/docs/api_flow.md",
+    "name": "API Overview"
+  }],
+  "operations":   [
+        {
       "name": "Book from Waitlist",
       "methodName": "Enroll",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
-        "registrationId"
-      ],
-      "params": [
-        {
+      "requiredFields": ["registrationId"],
+      "params":       [
+                {
           "in": "PATH",
           "name": "registrationId",
           "type": "string",
           "doc": " Registration to book.\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
           "name": "couponCode",
           "type": "string",
           "doc": " Coupon code to apply to this booking at checkout.\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
           "name": "planSelection",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_PaidPlan",
           "doc": " Selected paid plan to apply to this booking at checkout.\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
           "name": "notifyParticipants",
           "type": "boolean",
           "doc": "",
           "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "selectedPaymentOption",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollRequest_FlowControlSettings",
+          "doc": " Sets the book flow behavior, some behaviors required permissions.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created. This is the default status.\n - `\"CONFIRMED\"` - The booking has been confirmed and appears on the bookings calendar. Required BOOKINGS.MANAGE_BOOKINGS permission.\n Without the required permission, a \"CONFIRMED\" status will cause \"Missing required permission to create booking with overridden bookingStatus\" error.\n Providing a status other than \"CREATED\" or \"CONFIRMED\" will cause an error.\n For example, \"CANCEL\" status will throw an \"Invalid status. CANCEL is not permitted\" error.\n",
+          "required": false
         }
       ],
-      "ret": {
-        "type": {
+      "ret":       {
+        "type":         {
           "name": "Enroll",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Books a site member into the session for which they are waitlisted (waiting resource), and the associated booking is checked out.\n Waitlist registration status is changed to ENROLLED.\n> **Permissions**  \n> This endpoint requires the Manage Bookings permissions scope\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/waitingList/{registrationId}",
         "links": [],
-        "examples": [
-          {
-            "title": "Enroll from wait list",
-            "body": [
-              "curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/enroll' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"\n         }'"
-            ],
-            "response": [
-              "\n{\n  \"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n  \"booking\":   {\n    \"id\": \"668bfc5c-b022-4fea-8c14-c19416bfb710\",\n    \"bookedEntity\":     {\n      \"serviceId\": \"7a371719-1250-4a62-b559-8b758bc7a359\",\n      \"scheduleId\": \"fc836136-2ce9-4d8a-8f7f-a4a932fdf20a\",\n      \"singleSession\":       {\n        \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\",\n        \"start\": \"2020-05-05T07:00:00Z\",\n        \"end\": \"2020-05-05T08:00:00Z\"\n      },\n      \"title\": \"class\",\n      \"location\": {\"locationType\": \"OWNER_BUSINESS\"},\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"12\",\n        \"currency\": \"USD\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"tags\": [\"GROUP\"]\n    },\n    \"bookedResources\": [    {\n      \"id\": \"936d2078-79ba-49ca-b82d-8f12b8a050ac\",\n      \"name\": \"Dorgal\",\n      \"email\": \"dorga@wix.com\"\n    }],\n    \"formInfo\":     {\n      \"contactDetails\":       {\n        \"contactId\": \"bbcbea1c-d492-45cd-9d30-d6685137ebd5\",\n        \"firstName\": \"Homer\",\n        \"lastName\": \"Simpson\",\n        \"email\": \"Doh@Doh.com\",\n        \"phone\": \"5558707\",\n        \"timeZone\": \"Asia/Jerusalem\",\n        \"countryCode\": \"IL\"\n      },\n      \"paymentSelection\": [      {\n        \"rateLabel\": \"general\",\n        \"numberOfParticipants\": 1\n      }],\n      \"customFormFields\": {},\n      \"additionalFields\": []\n    },\n    \"paymentDetails\":     {\n      \"balance\":       {\n        \"finalPrice\":         {\n          \"amount\": \"12\",\n          \"currency\": \"USD\",\n          \"downPayAmount\": \"0\"\n        },\n        \"amountReceived\": \"0\"\n      },\n      \"state\": \"READY\",\n      \"wixPayMultipleDetails\": []\n    },\n    \"status\": \"CONFIRMED\",\n    \"created\": \"2020-05-04T17:36:15.647Z\"\n  }\n}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Books a site member into the session for which he was waitlisted, according to the provided registration Id."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "Enroll from wait list",
+          "body": ["curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/enroll' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"\n         }'"],
+          "response": ["{\n  \"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n  \"booking\":   {\n    \"id\": \"668bfc5c-b022-4fea-8c14-c19416bfb710\",\n    \"bookedEntity\":     {\n      \"serviceId\": \"7a371719-1250-4a62-b559-8b758bc7a359\",\n      \"scheduleId\": \"fc836136-2ce9-4d8a-8f7f-a4a932fdf20a\",\n      \"singleSession\":       {\n        \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\",\n        \"start\": \"2020-05-05T07:00:00Z\",\n        \"end\": \"2020-05-05T08:00:00Z\"\n      },\n      \"title\": \"class\",\n      \"location\": {\"locationType\": \"OWNER_BUSINESS\"},\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"12\",\n        \"currency\": \"USD\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"tags\": [\"GROUP\"]\n    },\n    \"bookedResources\": [    {\n      \"id\": \"936d2078-79ba-49ca-b82d-8f12b8a050ac\",\n      \"name\": \"Dorgal\",\n      \"email\": \"dorga@wix.com\"\n    }],\n    \"formInfo\":     {\n      \"contactDetails\":       {\n        \"contactId\": \"bbcbea1c-d492-45cd-9d30-d6685137ebd5\",\n        \"firstName\": \"Homer\",\n        \"lastName\": \"Simpson\",\n        \"email\": \"Doh@Doh.com\",\n        \"phone\": \"5558707\",\n        \"timeZone\": \"Asia/Jerusalem\",\n        \"countryCode\": \"IL\"\n      },\n      \"paymentSelection\": [      {\n        \"rateLabel\": \"general\",\n        \"numberOfParticipants\": 1\n      }],\n      \"customFormFields\": {},\n      \"additionalFields\": []\n    },\n    \"paymentDetails\":     {\n      \"balance\":       {\n        \"finalPrice\":         {\n          \"amount\": \"12\",\n          \"currency\": \"USD\",\n          \"downPayAmount\": \"0\"\n        },\n        \"amountReceived\": \"0\"\n      },\n      \"state\": \"READY\",\n      \"wixPayMultipleDetails\": []\n    },\n    \"status\": \"CONFIRMED\",\n    \"created\": \"2020-05-04T17:36:15.647Z\"\n  }\n} "],
+          "type": "curl",
+          "extra": {"description": "Books a site member into the session for which he was waitlisted, according to the provided registration Id."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "EnrollRequest",
         "rpcResponseName": "EnrollResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
-      "name": "Book from Waitlist 1",
+        {
+      "name": "Book from Waitlist (Additional Binding 1)",
       "methodName": "Enroll",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
-        "registrationId"
-      ],
-      "params": [
-        {
+      "requiredFields": ["registrationId"],
+      "params":       [
+                {
           "in": "BODY",
           "name": "registrationId",
           "type": "string",
           "doc": " Registration to book.\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
           "name": "couponCode",
           "type": "string",
           "doc": " Coupon code to apply to this booking at checkout.\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
           "name": "planSelection",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_PaidPlan",
           "doc": " Selected paid plan to apply to this booking at checkout.\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
           "name": "notifyParticipants",
           "type": "boolean",
           "doc": "",
           "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "selectedPaymentOption",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollRequest_FlowControlSettings",
+          "doc": " Sets the book flow behavior, some behaviors required permissions.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created. This is the default status.\n - `\"CONFIRMED\"` - The booking has been confirmed and appears on the bookings calendar. Required BOOKINGS.MANAGE_BOOKINGS permission.\n Without the required permission, a \"CONFIRMED\" status will cause \"Missing required permission to create booking with overridden bookingStatus\" error.\n Providing a status other than \"CREATED\" or \"CONFIRMED\" will cause an error.\n For example, \"CANCEL\" status will throw an \"Invalid status. CANCEL is not permitted\" error.\n",
+          "required": false
         }
       ],
-      "ret": {
-        "type": {
+      "ret":       {
+        "type":         {
           "name": "Enroll",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Books a site member into the session for which they are waitlisted (waiting resource), and the associated booking is checked out.\n Waitlist registration status is changed to ENROLLED.\n> **Permissions**  \n> This endpoint requires the Manage Bookings permissions scope\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/waitlist/enroll",
         "links": [],
-        "examples": [
-          {
-            "title": "Enroll from wait list",
-            "body": [
-              "curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/enroll' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"\n         }'"
-            ],
-            "response": [
-              "\n{\n  \"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n  \"booking\":   {\n    \"id\": \"668bfc5c-b022-4fea-8c14-c19416bfb710\",\n    \"bookedEntity\":     {\n      \"serviceId\": \"7a371719-1250-4a62-b559-8b758bc7a359\",\n      \"scheduleId\": \"fc836136-2ce9-4d8a-8f7f-a4a932fdf20a\",\n      \"singleSession\":       {\n        \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\",\n        \"start\": \"2020-05-05T07:00:00Z\",\n        \"end\": \"2020-05-05T08:00:00Z\"\n      },\n      \"title\": \"class\",\n      \"location\": {\"locationType\": \"OWNER_BUSINESS\"},\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"12\",\n        \"currency\": \"USD\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"tags\": [\"GROUP\"]\n    },\n    \"bookedResources\": [    {\n      \"id\": \"936d2078-79ba-49ca-b82d-8f12b8a050ac\",\n      \"name\": \"Dorgal\",\n      \"email\": \"dorga@wix.com\"\n    }],\n    \"formInfo\":     {\n      \"contactDetails\":       {\n        \"contactId\": \"bbcbea1c-d492-45cd-9d30-d6685137ebd5\",\n        \"firstName\": \"Homer\",\n        \"lastName\": \"Simpson\",\n        \"email\": \"Doh@Doh.com\",\n        \"phone\": \"5558707\",\n        \"timeZone\": \"Asia/Jerusalem\",\n        \"countryCode\": \"IL\"\n      },\n      \"paymentSelection\": [      {\n        \"rateLabel\": \"general\",\n        \"numberOfParticipants\": 1\n      }],\n      \"customFormFields\": {},\n      \"additionalFields\": []\n    },\n    \"paymentDetails\":     {\n      \"balance\":       {\n        \"finalPrice\":         {\n          \"amount\": \"12\",\n          \"currency\": \"USD\",\n          \"downPayAmount\": \"0\"\n        },\n        \"amountReceived\": \"0\"\n      },\n      \"state\": \"READY\",\n      \"wixPayMultipleDetails\": []\n    },\n    \"status\": \"CONFIRMED\",\n    \"created\": \"2020-05-04T17:36:15.647Z\"\n  }\n}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Books a site member into the session for which he was waitlisted, according to the provided registration Id."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "Enroll from wait list",
+          "body": ["curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/enroll' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"\n         }'"],
+          "response": ["{\n  \"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n  \"booking\":   {\n    \"id\": \"668bfc5c-b022-4fea-8c14-c19416bfb710\",\n    \"bookedEntity\":     {\n      \"serviceId\": \"7a371719-1250-4a62-b559-8b758bc7a359\",\n      \"scheduleId\": \"fc836136-2ce9-4d8a-8f7f-a4a932fdf20a\",\n      \"singleSession\":       {\n        \"sessionId\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\",\n        \"start\": \"2020-05-05T07:00:00Z\",\n        \"end\": \"2020-05-05T08:00:00Z\"\n      },\n      \"title\": \"class\",\n      \"location\": {\"locationType\": \"OWNER_BUSINESS\"},\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"12\",\n        \"currency\": \"USD\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"tags\": [\"GROUP\"]\n    },\n    \"bookedResources\": [    {\n      \"id\": \"936d2078-79ba-49ca-b82d-8f12b8a050ac\",\n      \"name\": \"Dorgal\",\n      \"email\": \"dorga@wix.com\"\n    }],\n    \"formInfo\":     {\n      \"contactDetails\":       {\n        \"contactId\": \"bbcbea1c-d492-45cd-9d30-d6685137ebd5\",\n        \"firstName\": \"Homer\",\n        \"lastName\": \"Simpson\",\n        \"email\": \"Doh@Doh.com\",\n        \"phone\": \"5558707\",\n        \"timeZone\": \"Asia/Jerusalem\",\n        \"countryCode\": \"IL\"\n      },\n      \"paymentSelection\": [      {\n        \"rateLabel\": \"general\",\n        \"numberOfParticipants\": 1\n      }],\n      \"customFormFields\": {},\n      \"additionalFields\": []\n    },\n    \"paymentDetails\":     {\n      \"balance\":       {\n        \"finalPrice\":         {\n          \"amount\": \"12\",\n          \"currency\": \"USD\",\n          \"downPayAmount\": \"0\"\n        },\n        \"amountReceived\": \"0\"\n      },\n      \"state\": \"READY\",\n      \"wixPayMultipleDetails\": []\n    },\n    \"status\": \"CONFIRMED\",\n    \"created\": \"2020-05-04T17:36:15.647Z\"\n  }\n} "],
+          "type": "curl",
+          "extra": {"description": "Books a site member into the session for which he was waitlisted, according to the provided registration Id."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "EnrollRequest",
         "rpcResponseName": "EnrollResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
+        {
       "name": "Leave Waitlist",
       "methodName": "Leave",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
+      "requiredFields":       [
         "registrationId",
         "waitingResource"
       ],
-      "params": [
-        {
+      "params":       [
+                {
           "in": "BODY",
           "name": "registrationId",
           "type": "string",
           "doc": "",
           "required": true
         },
-        {
+                {
           "in": "BODY",
           "name": "waitingResource",
           "type": "string",
@@ -234,501 +232,599 @@
           "required": true
         }
       ],
-      "ret": {
-        "type": {
+      "ret":       {
+        "type":         {
           "name": "Leave",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_LeaveResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_LeaveResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Removes a site member's registration to a waitlist (and cancels the associated pending-state booking).  \n If a spot has become available for booking and the server is SUGGESTING registration to waitlist registrants, the next member registered to the waitlist will receive an invitation to the opened spot.  \n> **Permissions**   \n> This endpoint requires the Manage Bookings permissions scope\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/waitlist/leave",
         "links": [],
-        "examples": [
-          {
-            "title": "Leave waitlist",
-            "body": [
-              "curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/leave' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n          \t\"registrationId\" : \"f0213bd9-a663-40d4-9b07-25832d17d33e\",\n          \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\"\n          }'"
-            ],
-            "response": [
-              "\n{\n  \"registrationId\": \"f0213bd9-a663-40d4-9b07-25832d17d33e\",\n  \"waitingResource\": \"\"\n}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Removes a site member's registration to a waitlist by the registration Id."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "Leave waitlist",
+          "body": ["curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/leave' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n          \t\"registrationId\" : \"f0213bd9-a663-40d4-9b07-25832d17d33e\",\n          \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmFokncR3Y5PHqiIRaLeERqoPVfZbwXR7nJIOAe5EjjoMPFhRTOoczpbq9zjDLsREsYtStLaYvO2zhufHEWlp5Gq7mB9cXh1UmPbR7rp\"\n          }'"],
+          "response": ["{\n  \"registrationId\": \"f0213bd9-a663-40d4-9b07-25832d17d33e\",\n  \"waitingResource\": \"\"\n} "],
+          "type": "curl",
+          "extra": {"description": "Removes a site member's registration to a waitlist by the registration Id."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "LeaveRequest",
         "rpcResponseName": "LeaveResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
+        {
       "name": "List Waitlisted Entities",
       "methodName": "List",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
-        "waitingResources"
-      ],
-      "params": [
-        {
-          "in": "QUERY",
-          "name": "waitingResources",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "string"
-            ]
-          },
-          "doc": " List of sessions (waitingResources) with active waitlists.\n",
-          "required": true
-        }
-      ],
-      "ret": {
-        "type": {
+      "requiredFields": ["waitingResources"],
+      "params": [      {
+        "in": "QUERY",
+        "name": "waitingResources",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of sessions (waitingResources) with active waitlists.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
           "name": "List",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ListWaitingListResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ListWaitingListResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Returns a list of waitlisted entries.\n Each WaitingListEntry returned holds the current Waitlist registrations, configuration and suggesting status.\n> **Permissions**  \n> This endpoint requires the Read Bookings - Public Data permissions scope\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/bookings/v1/waitingList",
         "links": [],
-        "examples": [
-          {
-            "title": "List waitlist",
-            "body": [
-              "curl --X GET /\n    'https://www.wixapis.com/bookings/v1/waitlist/list?waitingResources=193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F' \\\n  -H 'Authorization: <AUTH>'"
-            ],
-            "response": [
-              "\n{\"list\": [{\n  \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n  \"registrations\":   [\n        {\n      \"id\": \"4f59e278-2fef-465c-a0d3-6f5c36b58667\",\n      \"bookingId\": \"b1ebcbf5-ca5b-47aa-8c4e-739becf3c0cc\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"SUGGESTING\"\n    },\n        {\n      \"id\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n      \"bookingId\": \"a4b4ad07-2c58-451e-a79d-4d59d31f8cc2\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"WAITING\"\n    }\n  ],\n  \"numberOfRegistrations\": 2,\n  \"capacity\": 10,\n  \"timeWindowMinutes\": 5,\n  \"status\": \"SUGGESTING\"\n}]}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Returns the wait list of the waiting resource."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "List waitlist",
+          "body": ["curl --X GET /\n    'https://www.wixapis.com/bookings/v1/waitlist/list?waitingResources=193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"list\": [{\n  \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n  \"registrations\":   [\n        {\n      \"id\": \"4f59e278-2fef-465c-a0d3-6f5c36b58667\",\n      \"bookingId\": \"b1ebcbf5-ca5b-47aa-8c4e-739becf3c0cc\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"SUGGESTING\"\n    },\n        {\n      \"id\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n      \"bookingId\": \"a4b4ad07-2c58-451e-a79d-4d59d31f8cc2\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"WAITING\"\n    }\n  ],\n  \"numberOfRegistrations\": 2,\n  \"capacity\": 10,\n  \"timeWindowMinutes\": 5,\n  \"status\": \"SUGGESTING\"\n}]} "],
+          "type": "curl",
+          "extra": {"description": "Returns the wait list of the waiting resource."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListWaitingListRequest",
         "rpcResponseName": "ListWaitingListResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
-      "name": "List Waitlisted Entities 1",
+        {
+      "name": "List Waitlisted Entities (Additional Binding 1)",
       "methodName": "List",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
-        "waitingResources"
-      ],
-      "params": [
-        {
-          "in": "QUERY",
-          "name": "waitingResources",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "string"
-            ]
-          },
-          "doc": " List of sessions (waitingResources) with active waitlists.\n",
-          "required": true
-        }
-      ],
-      "ret": {
-        "type": {
+      "requiredFields": ["waitingResources"],
+      "params": [      {
+        "in": "QUERY",
+        "name": "waitingResources",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of sessions (waitingResources) with active waitlists.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
           "name": "List",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ListWaitingListResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ListWaitingListResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Returns a list of waitlisted entries.\n Each WaitingListEntry returned holds the current Waitlist registrations, configuration and suggesting status.\n> **Permissions**  \n> This endpoint requires the Read Bookings - Public Data permissions scope\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/bookings/v1/waitlist/list",
         "links": [],
-        "examples": [
-          {
-            "title": "List waitlist",
-            "body": [
-              "curl --X GET /\n    'https://www.wixapis.com/bookings/v1/waitlist/list?waitingResources=193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F' \\\n  -H 'Authorization: <AUTH>'"
-            ],
-            "response": [
-              "\n{\"list\": [{\n  \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n  \"registrations\":   [\n        {\n      \"id\": \"4f59e278-2fef-465c-a0d3-6f5c36b58667\",\n      \"bookingId\": \"b1ebcbf5-ca5b-47aa-8c4e-739becf3c0cc\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"SUGGESTING\"\n    },\n        {\n      \"id\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n      \"bookingId\": \"a4b4ad07-2c58-451e-a79d-4d59d31f8cc2\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"WAITING\"\n    }\n  ],\n  \"numberOfRegistrations\": 2,\n  \"capacity\": 10,\n  \"timeWindowMinutes\": 5,\n  \"status\": \"SUGGESTING\"\n}]}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Returns the wait list of the waiting resource."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "List waitlist",
+          "body": ["curl --X GET /\n    'https://www.wixapis.com/bookings/v1/waitlist/list?waitingResources=193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"list\": [{\n  \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n  \"registrations\":   [\n        {\n      \"id\": \"4f59e278-2fef-465c-a0d3-6f5c36b58667\",\n      \"bookingId\": \"b1ebcbf5-ca5b-47aa-8c4e-739becf3c0cc\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"SUGGESTING\"\n    },\n        {\n      \"id\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\",\n      \"bookingId\": \"a4b4ad07-2c58-451e-a79d-4d59d31f8cc2\",\n      \"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n      \"availableActions\":       {\n        \"leave\": true,\n        \"enroll\": true\n      },\n      \"status\": \"WAITING\"\n    }\n  ],\n  \"numberOfRegistrations\": 2,\n  \"capacity\": 10,\n  \"timeWindowMinutes\": 5,\n  \"status\": \"SUGGESTING\"\n}]} "],
+          "type": "curl",
+          "extra": {"description": "Returns the wait list of the waiting resource."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListWaitingListRequest",
         "rpcResponseName": "ListWaitingListResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
+        {
       "name": "Register to Waitlist",
       "methodName": "Register",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
+      "requiredFields":       [
         "waitingResource",
         "formInfo"
       ],
-      "params": [
-        {
+      "params":       [
+                {
           "in": "BODY",
           "name": "waitingResource",
           "type": "string",
           "doc": " Resource to be waitlisted for.\n Currently only supports session ID.\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
           "name": "formInfo",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
           "doc": " Participant information as filled in the booking form (required).\n Contains contact details and other form fields specified by the owner for this 'waiting resource' (service).\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
-          "name": "presentedStartTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service start time as presented to the user. For validation - Optional.\n",
+          "name": "participantsInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
-          "name": "presentedEndTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service end time presented to the user. For validation - Optional.\n",
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_FlowControlSettings",
+          "doc": " Sets the cancel flow behavior, some settings required permissions.\n",
           "required": false
         }
       ],
-      "ret": {
-        "type": {
+      "ret":       {
+        "type":         {
           "name": "Register",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Registers a site member to a waitlist. \n If the requested session does not have a waitlist, or if the waitlist is already full, an error is received.\n> **Permissions**   \n> This endpoint requires the Manage Bookings permissions scope\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/waitingList",
         "links": [],
-        "examples": [
-          {
-            "title": "Register to waitlist",
-            "body": [
-              "curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/register' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n         \t    \"formInfo\": {\n                 \"paymentSelection\": [\n                     {\n                         \"rateLabel\": \"general\",\n                         \"numberOfParticipants\": 1\n                     }\n                 ],\n                 \"contactDetails\": {\n                     \"email\": \"Doh@Doh.com\",\n                     \"firstName\": \"Homer\",\n                     \"lastName\": \"Simpson\",\n                     \"phone\": \"5558707\"\n                 }\n             }\n         }'"
-            ],
-            "response": [
-              "\n{\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Adds a contact details to a wait list and return its registration Id."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "Register to waitlist",
+          "body": ["curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/register' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n         \t    \"formInfo\": {\n                 \"paymentSelection\": [\n                     {\n                         \"rateLabel\": \"general\",\n                         \"numberOfParticipants\": 1\n                     }\n                 ],\n                 \"contactDetails\": {\n                     \"email\": \"Doh@Doh.com\",\n                     \"firstName\": \"Homer\",\n                     \"lastName\": \"Simpson\",\n                     \"phone\": \"5558707\"\n                 }\n             }\n         }'"],
+          "response": ["{\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"} "],
+          "type": "curl",
+          "extra": {"description": "Adds a contact details to a wait list and return its registration Id."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "RegisterRequest",
         "rpcResponseName": "RegisterResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    {
-      "name": "Register to Waitlist 1",
+        {
+      "name": "Register to Waitlist (Additional Binding 1)",
       "methodName": "Register",
       "serviceName": "WaitingList",
       "tag": "Waitlist",
       "permissions": [],
-      "customLabels": [
-        {
-          "id": "maturity-beta"
-        }
-      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": [
+      "requiredFields":       [
         "waitingResource",
         "formInfo"
       ],
-      "params": [
-        {
+      "params":       [
+                {
           "in": "BODY",
           "name": "waitingResource",
           "type": "string",
           "doc": " Resource to be waitlisted for.\n Currently only supports session ID.\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
           "name": "formInfo",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
           "doc": " Participant information as filled in the booking form (required).\n Contains contact details and other form fields specified by the owner for this 'waiting resource' (service).\n",
           "required": true
         },
-        {
+                {
           "in": "BODY",
-          "name": "presentedStartTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service start time as presented to the user. For validation - Optional.\n",
+          "name": "participantsInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n",
           "required": false
         },
-        {
+                {
           "in": "BODY",
-          "name": "presentedEndTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service end time presented to the user. For validation - Optional.\n",
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_FlowControlSettings",
+          "doc": " Sets the cancel flow behavior, some settings required permissions.\n",
           "required": false
         }
       ],
-      "ret": {
-        "type": {
+      "ret":       {
+        "type":         {
           "name": "Register",
           "statusCode": "200",
-          "typeParams": [
-            "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterResponse"
-          ]
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterResponse"]
         },
         "doc": ""
       },
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": " Registers a site member to a waitlist. \n If the requested session does not have a waitlist, or if the waitlist is already full, an error is received.\n> **Permissions**   \n> This endpoint requires the Manage Bookings permissions scope\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/waitlist/register",
         "links": [],
-        "examples": [
-          {
-            "title": "Register to waitlist",
-            "body": [
-              "curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/register' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n         \t    \"formInfo\": {\n                 \"paymentSelection\": [\n                     {\n                         \"rateLabel\": \"general\",\n                         \"numberOfParticipants\": 1\n                     }\n                 ],\n                 \"contactDetails\": {\n                     \"email\": \"Doh@Doh.com\",\n                     \"firstName\": \"Homer\",\n                     \"lastName\": \"Simpson\",\n                     \"phone\": \"5558707\"\n                 }\n             }\n         }'"
-            ],
-            "response": [
-              "\n{\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"}"
-            ],
-            "type": "curl",
-            "extra": {
-              "description": "Adds a contact details to a wait list and return its registration Id."
-            }
-          }
-        ],
+        "examples": [        {
+          "title": "Register to waitlist",
+          "body": ["curl --X POST /\n 'https://www.wixapis.com/bookings/v1/waitlist/register' \\\n  -H 'Authorization: <AUTH>'\n  --data '{\n         \t\"waitingResource\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1VRioAcbF7zzwvoBTEIScx8fykHVtU2r5GoJrd7PuRidnB3zvYGeB6vu46SF7RN6M20Jg3OP1PZhRjhbotC5iz5mBXEncK2sHCaVgGczVpDEUts19ULscMtZ8dzmp6Hd6caRs6g5UcGtKSnvH5KJPYdojijsgantqsSTmGCItRoTcYi0dBhYzvxxB6Sv51iSs7tupi36hkw6Eau5FhC7P8jBQfZ0eFi7tZIeGUyoV39wexfMbu0kLn5nRTUVx5r0eSzENSJcV7F\",\n         \t    \"formInfo\": {\n                 \"paymentSelection\": [\n                     {\n                         \"rateLabel\": \"general\",\n                         \"numberOfParticipants\": 1\n                     }\n                 ],\n                 \"contactDetails\": {\n                     \"email\": \"Doh@Doh.com\",\n                     \"firstName\": \"Homer\",\n                     \"lastName\": \"Simpson\",\n                     \"phone\": \"5558707\"\n                 }\n             }\n         }'"],
+          "response": ["{\"registrationId\": \"2724acf6-fedd-402b-8cbc-48bc784481d9\"} "],
+          "type": "curl",
+          "extra": {"description": "Adds a contact details to a wait list and return its registration Id."}
+        }],
         "extra": {}
       },
-      "extra": {
+      "extra":       {
         "hasRest": true,
         "rpcRequestName": "RegisterRequest",
         "rpcResponseName": "RegisterResponse"
-      }
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     }
   ],
   "events": [],
   "callbacks": [],
-  "messages": [
-    {
+  "messages":   [
+        {
       "name": "_com_wix_bookings_schedules_api_v1_LocalDateTime",
       "displayName": "Local Date Time Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "hourOfDay",
-          "type": "integer",
-          "doc": ""
-        },
-        {
-          "name": "dayOfMonth",
-          "type": "integer",
-          "doc": ""
-        },
-        {
+      "members":       [
+                {
           "name": "year",
           "type": "integer",
-          "doc": ""
+          "doc": " Year. 4-digit format.\n"
         },
-        {
+                {
           "name": "monthOfYear",
           "type": "integer",
-          "doc": ""
+          "doc": " Month number, from 1-12.\n"
         },
-        {
+                {
+          "name": "dayOfMonth",
+          "type": "integer",
+          "doc": " Day of the month, from 1-31.\n"
+        },
+                {
+          "name": "hourOfDay",
+          "type": "integer",
+          "doc": "Hour of the day in 24-hour format, from 0-23.\n"
+        },
+                {
           "name": "minutesOfHour",
           "type": "integer",
-          "doc": ""
+          "doc": "Minute, from 0-59.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": "Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": "Subdivision. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_Address_street",
+          "doc": ""
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " A string containing the full address of this location.\n"
+        },
+                {
+          "name": "hint",
+          "type": "string",
+          "doc": " Free text to help find the address.\n"
+        },
+                {
+          "name": "geocode",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_AddressLocation",
+          "doc": " Coordinates of the physical address.\n"
+        },
+                {
+          "name": "countryFullname",
+          "type": "string",
+          "doc": " Country full name.\n"
+        },
+                {
+          "name": "subdivisions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_Subdivision"]
+          },
+          "doc": " Multi-level subdivisions from top to bottom.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Address_street",
+      "displayName": "street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_StreetAddress",
+          "doc": " Street name, number and apartment number.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line, usually street and number, as free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Subdivision",
+      "displayName": "Subdivision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Subdivision code. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Subdivision full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        },
+                {
+          "name": "apt",
+          "type": "string",
+          "doc": " Apartment number.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": "  Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_bookings_api_v1_FormInfo_CustomFormField",
       "displayName": "Custom Form Field Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "id",
           "type": "string",
-          "doc": "The id of the form field as defined in the form entity\n"
+          "doc": "ID of the form field as defined in the form.\n"
         },
-        {
+                {
           "name": "value",
           "type": "string",
-          "doc": "Value that was submitted per this field\n"
+          "doc": "Value that was submitted for this field.\n"
         },
-        {
+                {
           "name": "label",
           "type": "string",
-          "doc": "Snapshot of the form field label during form submission.\n",
+          "doc": "Form field's label at the time of submission.\n",
           "readOnly": true
         },
-        {
+                {
           "name": "valueType",
           "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_services_api_v1_ValueTypeConsts_ValueType",
-          "doc": ""
+          "doc": "<!--ONLY:VELO\nOne of:\n - `\"SHORT_TEXT\"`\n - `\"LONG_TEXT\"`\n - `\"CHECK_BOX\"`\n<!--END:ONLY:VELO-->\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "customFormFieldsMapEntry",
       "displayName": "custom Form Fields Map Entry Object",
       "locations": [],
-      "docs": {
-        "summary": "Set of key-value pairs. Other custom field values that were specified by the user. In the form of field_id to value mapping.\n Deprecated. Is being replaced with additional_fields.\n",
+      "docs":       {
+        "summary": "Set of key-value pairs. Other custom field values that were specified by the user. In the form of field_id to value mapping.\n Deprecated. use `additional_fields`.\n",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "key:value",
-          "type": "string",
-          "doc": "`key` of type string, `value` of type string"
-        }
-      ],
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
       "enum": null,
       "extra": {},
-      "labels": []
+      "labels": [],
+      "deprecated": true
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_FormInfo",
       "displayName": "Form Info Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "contactDetails",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ContactDetails",
-          "doc": " The contact details describing the owner of this booking.\n"
+          "doc": "  Contact details of the customer making the booking.\n"
         },
-        {
+                {
           "name": "paymentSelection",
-          "type": {
+          "type":           {
             "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentSelection"
-            ]
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentSelection"]
           },
-          "doc": ""
+          "doc": " A list of rates and the number of participants for each rate. //<!--ONLY:REST-->\nRequired.\n<!--END:ONLY:REST-->\n"
         },
-        {
+                {
           "name": "customFormFields",
           "type": "All APIs.Bookings - Waitlist Service.customFormFieldsMapEntry",
-          "doc": "Set of key-value pairs. Other custom field values that were specified by the user. In the form of field_id to value mapping.\n Deprecated. Is being replaced with additional_fields.\n"
+          "doc": "Set of key-value pairs. Other custom field values that were specified by the user. In the form of field_id to value mapping.\n Deprecated. use `additional_fields`.\n",
+          "deprecated": true
         },
-        {
+                {
           "name": "additionalFields",
-          "type": {
+          "type":           {
             "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo_CustomFormField"
-            ]
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo_CustomFormField"]
           },
           "doc": " Additional custom fields submitted with the form.\n"
         }
@@ -737,473 +833,830 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_ContactDetails",
       "displayName": "Contact Details Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "email",
-          "type": "string",
-          "doc": " Contact email. Mandatory field. used to create a new contact or get existing one from Contacts Service.\n"
-        },
-        {
-          "name": "lastName",
-          "type": "string",
-          "doc": " Contact last name.\n"
-        },
-        {
-          "name": "firstName",
-          "type": "string",
-          "doc": " Contact first name.\n"
-        },
-        {
-          "name": "countryCode",
-          "type": "string",
-          "doc": " Contact country of origin\n"
-        },
-        {
+      "members":       [
+                {
           "name": "contactId",
           "type": "string",
-          "doc": " Contact identifier used in Contact Service.  this field is read-only except in Book method.\n"
+          "doc": " Contact's ID.\n"
         },
-        {
-          "name": "address",
+                {
+          "name": "firstName",
           "type": "string",
-          "doc": " Contact address.\n"
+          "doc": " Contact's first name. When populated from a standard booking form, this property corresponds to the **Name** field.\n"
         },
-        {
-          "name": "timeZone",
+                {
+          "name": "lastName",
           "type": "string",
-          "doc": " Contact time-zone.\n"
+          "doc": " Contact's last name.\n"
         },
-        {
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Contact's email, used to create a new contact or get an existing contact from the [Contacts API](https://dev.wix.com/api/rest/contacts/contacts). Calling Book and CreateBooking validates email address, and fails if the email is invalid. Email addresses are used to validate coupon usage limitations per contact. If not passed, the coupon usage limitation will not be enforced. (Coupon usage limitation validation is not supported yet).\n"
+        },
+                {
           "name": "phone",
           "type": "string",
-          "doc": " Contact phone.\n"
+          "doc": " Contact's phone number.\n"
+        },
+                {
+          "name": "address",
+          "type": "string",
+          "doc": " DEPRECATED. Use `fullAddress`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "fullAddress",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_Address",
+          "doc": " Contact's full address.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Contact's time zone.\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " Contact's country in [ISO 3166-1 alpha-2 code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_PaymentSelection",
       "displayName": "Payment Selection Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "rateLabel",
           "type": "string",
-          "doc": " The label represent this booking rate, or free/custom if unspecified.\n"
+          "doc": " Label corresponding to the booking rate. Default is free/custom.\n"
         },
-        {
+                {
           "name": "numberOfParticipants",
           "type": "integer",
-          "doc": " The number of participants register to this booking. Mandatory field.\n"
+          "doc": " Number of participants for this rate. <!-- Mandatory field -->\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_common_api_v1_PaidPlan",
       "displayName": "Paid Plan Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "orderId",
           "type": "string",
-          "doc": ""
+          "doc": " Order ID when the Pricing Plan was purchased.\n"
         },
-        {
+                {
           "name": "benefitId",
           "type": "string",
-          "doc": ""
+          "doc": " Benefit ID.\n"
         },
-        {
+                {
           "name": "planId",
           "type": "string",
-          "doc": ""
+          "doc": " ID of the pricing plan.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_AttendanceInfo",
       "displayName": "Attendance Info Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "attendanceStatus",
           "type": "boolean",
-          "doc": "Indicated whether the booked contact attended the session\n"
+          "doc": "Whether the booked contact attended the session.\n"
         },
-        {
+                {
           "name": "numberOfAttendees",
           "type": "integer",
-          "doc": "The number of attendees that attended. Can be more than 1 if the booking was with accompanied party\n"
+          "doc": "The number of attendees that attended the session. This can be greater than 1 when the booking is made for a group of people.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_common_api_v1_Price",
       "displayName": "Price Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "amount",
           "type": "string",
-          "doc": "The price amount\n"
+          "doc": "Required payment amount.\n"
         },
-        {
+                {
           "name": "currency",
           "type": "string",
-          "doc": "Currency\n"
+          "doc": "Currency in which the amount is quoted.\n"
         },
-        {
+                {
           "name": "downPayAmount",
           "type": "string",
-          "doc": "Optional. Represents a required down payment as part of the transaction process.\n"
+          "doc": " Amount of a down payment or deposit as part of the transaction.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_PaymentDetails",
       "displayName": "Payment Details Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "state",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentDetails_CheckoutStatus",
-          "doc": " Checkout current state.\n"
-        },
-        {
-          "name": "wixPayDetails",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails",
-          "doc": " [DEPRECATED]. USE wix_pay_multiple_details.\n"
-        },
-        {
-          "name": "paidPlanDetails",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaidPlanDetails",
-          "doc": " Paid plan details used to pay for the booking.\n"
-        },
-        {
-          "name": "balance",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Balance",
-          "doc": " The booking Balance.\n"
-        },
-        {
+      "members":       [
+                {
           "name": "id",
           "type": "string",
-          "doc": " Checkout identifier.\n"
+          "doc": " Checkout ID.\n"
         },
-        {
-          "name": "wixPayMultipleDetails",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails"
-            ]
-          },
-          "doc": " In case of wix-pay service, holds all payment history for a booking.\n"
+                {
+          "name": "balance",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Balance",
+          "doc": " The final price, currency, down payment, and amount received.\n"
         },
-        {
+                {
+          "name": "paidPlanDetails",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaidPlanDetails",
+          "doc": " Pricing plan details, if a pricing plan was used to pay for the booking.\n"
+        },
+                {
           "name": "couponDetails",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_CouponDetails",
-          "doc": " temporarily in-out , when available indicate coupon usage.\n"
+          "doc": " Coupon details, if a coupon was used to pay for the booking.\n"
+        },
+                {
+          "name": "wixPayDetails",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails",
+          "doc": " Deprecated. Use `wixPayMultipleDetails`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "state",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentDetails_CheckoutStatus",
+          "doc": " Checkout current state.\n<!--ONLY:VELO\n One of:\n - `\"COMPLETE\"` Amount paid in full.\n - `\"PENDING_CASHIER\"` An online payment is in progress and awaiting a response.\n - `\"REJECTED\"` The checkout request was rejected by the online payment process. \n - `\"READY\"` All online checkout requirements were met. For example, when the service uses pay in person, or a partial or down payment was paid online.\n - `\"CANCELED\"`  Checkout canceled.\n - `\"REFUNDED\"` When using Pricing Plans, if the booking was canceled, it will be automatically refunded.\n - `\"PENDING_MERCHANT\"` An online payment was made, but the owner has not set up the necessary details.\n - `\"WIX_PAY_FAILURE\"` Online payment failure.\n - `\"PENDING_MARK_AS_PAID\"` Offline transaction. The transaction will be complete when explicitly marked as paid.\n - `\"PENDING_BUYER\"`  The transaction started, but is waiting for confirmation on the buyer's side. This can be due to credit or fraud checking on the provider's side, a long bank transfer, or similar processes.\n<!--END:ONLY:VELO-->\n"
+        },
+                {
+          "name": "wixPayMultipleDetails",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails"]
+          },
+          "doc": " All payment history for a booking, when the Wix Pay service is used.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_Balance",
       "displayName": "Balance Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "finalPrice",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Price",
-          "doc": " The final calculated price.\n Calculated using the service price multiplied by the booking's number of participants deducted any discount (coupons, etc.)\n"
+          "doc": " Final calculated price.\n Calculated using the service's price, multiplied by the booking's number of participants, deducting any discounts or coupons.\nRequired payment amount, currency, and any down payment required.\n"
         },
-        {
+                {
           "name": "amountReceived",
           "type": "string",
-          "doc": " Amount paid.\n"
+          "doc": " Current total amount paid.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_CouponDetails",
       "displayName": "Coupon Details Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "couponName",
           "type": "string",
-          "doc": ""
+          "doc": " Coupon name.\n"
         },
-        {
+                {
           "name": "couponCode",
           "type": "string",
-          "doc": ""
+          "doc": " Coupon code.\n"
         },
-        {
+                {
           "name": "couponDiscount",
           "type": "string",
-          "doc": ""
+          "doc": " Coupon discount amount.\n"
         },
-        {
+                {
           "name": "couponId",
           "type": "string",
-          "doc": ""
+          "doc": " Coupon ID.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_PaidPlanDetails",
       "displayName": "Paid Plan Details Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "currentCredit",
-          "type": "integer",
-          "doc": "",
-          "deprecated": true
-        },
-        {
-          "name": "planName",
-          "type": "string",
-          "doc": " Plan name\n"
-        },
-        {
-          "name": "originalCredit",
-          "type": "integer",
-          "doc": "",
-          "deprecated": true
-        },
-        {
+      "members":       [
+                {
           "name": "plan",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_PaidPlan",
-          "doc": " Plan details\n"
+          "doc": " Plan details.\n"
         },
-        {
+                {
+          "name": "planName",
+          "type": "string",
+          "doc": " Plan name.\n"
+        },
+                {
           "name": "transactionId",
           "type": "string",
-          "doc": " Transaction id created in Paid Plans Benefit service.\n"
+          "doc": " Transaction ID created in the Pricing Plans service when the member redeemed a benefit to pay for this booking.\n"
+        },
+                {
+          "name": "originalCredit",
+          "type": "integer",
+          "doc": " Deprecated.\n",
+          "deprecated": true
+        },
+                {
+          "name": "currentCredit",
+          "type": "integer",
+          "doc": " Deprecated.\n",
+          "deprecated": true
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_WixPayDetails",
       "displayName": "Wix Pay Details Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "orderApprovalTime",
-          "type": "string",
-          "doc": ""
-        },
-        {
-          "name": "orderId",
-          "type": "string",
-          "doc": "  Cashier order Id\n"
-        },
-        {
-          "name": "orderAmount",
-          "type": "string",
-          "doc": " The order amount we issued to Cashier.\n"
-        },
-        {
-          "name": "orderStatus",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails_Status",
-          "doc": " Transaction status\n"
-        },
-        {
-          "name": "paymentVendorName",
-          "type": "string",
-          "doc": " Payment vendor name\n"
-        },
-        {
+      "members":       [
+                {
           "name": "txId",
           "type": "string",
-          "doc": " Cashier transaction Id\n"
+          "doc": " Wix Pay payment transaction ID.\n"
+        },
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Wix Pay payment order ID.\n"
+        },
+                {
+          "name": "orderAmount",
+          "type": "string",
+          "doc": " Order amount was sent to the Wix Pay system.\n"
+        },
+                {
+          "name": "orderStatus",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WixPayDetails_Status",
+          "doc": " Transaction status\n<!--ONLY:VELO\n One of:\n - `\"CREATED\"`  The transaction has been started.\n - `\"PENDING_MERCHANT\"` An online payment was made, but the owner has not set up the necessary details.\n - `\"COMPLETE\"`  The current part of the payment was completed.\n - `\"FAILED\"`  The Wix online payment system is unavailable or failed processing.\n - `\"DECLINED\"` The payment was declined.\n - `\"PENDING_MARK_AS_PAID\"` Offline transaction. The transaction will be complete when explicitly marked as paid.\n - `\"CANCELED\"` The transaction was canceled.\n<!--END:ONLY:VELO-->\n"
+        },
+                {
+          "name": "orderApprovalTime",
+          "type": "string",
+          "doc": " Date and time that the order was approved.\n"
+        },
+                {
+          "name": "paymentVendorName",
+          "type": "string",
+          "doc": " Payment vendor name. The company processing the payment, such as Pay Pal or a credit card company. `inPerson` is used for cash payments.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
+      "name": "_com_wix_bookings_api_v1_InvoiceDetails",
+      "displayName": "Invoice Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Invoice ID.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_InvoiceDetails_Status",
+          "doc": "Invoice status.\n"
+        },
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Invoice number\n"
+        },
+                {
+          "name": "issueDate",
+          "type": "string",
+          "doc": " use UTC midnight date to set the issue date according to the site time zone\n"
+        },
+                {
+          "name": "dueDate",
+          "type": "string",
+          "doc": " use UTC midnight date to set the issue date according to the site time zone\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_siteproperties_api_v4_BusinessSchedule",
+      "displayName": "Business Schedule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nBusiness schedule. Regular and exceptional time periods when the business is open or the service is available.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "periods",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wixpress_siteproperties_api_v4_TimePeriod"]
+          },
+          "doc": "\nWeekly recurring time periods when the business is regularly open or the service is available. Limited to 100 time periods.\n"
+        },
+                {
+          "name": "specialHourPeriod",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wixpress_siteproperties_api_v4_SpecialHourPeriod"]
+          },
+          "doc": " Exceptions to the business's regular hours. The business can be open or closed during the exception.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_siteproperties_api_v4_TimePeriod",
+      "displayName": "Time Period Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nWeekly recurring time periods when the business is regularly open or the service is available.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "openDay",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_siteproperties_api_v4_DayOfWeek",
+          "doc": " Day of the week the period starts on.\n"
+        },
+                {
+          "name": "openTime",
+          "type": "string",
+          "doc": "\nTime the period starts in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.\n"
+        },
+                {
+          "name": "closeDay",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_siteproperties_api_v4_DayOfWeek",
+          "doc": " Day of the week the period ends on.\n"
+        },
+                {
+          "name": "closeTime",
+          "type": "string",
+          "doc": "\nTime the period ends in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.  \n\n__Note:__ If `openDay` and `closeDay` specify the same day of the week `closeTime` must be later than `openTime`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_siteproperties_api_v4_SpecialHourPeriod",
+      "displayName": "Special Hour Period Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Exception to the business's regular hours. The business can be open or closed during the exception.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "startDate",
+          "type": "string",
+          "doc": "\nStart date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
+        },
+                {
+          "name": "endDate",
+          "type": "string",
+          "doc": "\nEnd date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
+        },
+                {
+          "name": "isClosed",
+          "type": "boolean",
+          "doc": " \nWhether the business is closed (or the service is not available) during the exception. \n\nDefault: `true`.\n"
+        },
+                {
+          "name": "comment",
+          "type": "string",
+          "doc": " Additional info about the exception. For example, \"We close earlier on New Year's Eve.\"\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_Location",
+      "displayName": "Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Location ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Location name.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Location description.\n"
+        },
+                {
+          "name": "default",
+          "type": "boolean",
+          "doc": "\nWhether this is the default location. There can only be one default location per site. The default location can't be archived.\n",
+          "readOnly": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_locations_LocationStatus",
+          "doc": "\nLocation status. Defaults to `ACTIVE`. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect the location's status. `INACTIVE` is currently not supported.\n"
+        },
+                {
+          "name": "locationType",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_locations_LocationType",
+          "doc": " Location type. \n\n**Note:** Currently not supported.\n",
+          "deprecated": true
+        },
+                {
+          "name": "fax",
+          "type": "string",
+          "doc": " Fax number.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Timezone in `America/New_York` format.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number.\n"
+        },
+                {
+          "name": "address",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_locations_Address",
+          "doc": " Address.\n"
+        },
+                {
+          "name": "businessSchedule",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_siteproperties_api_v4_BusinessSchedule",
+          "doc": "\nBusiness schedule. Array of weekly recurring time periods when the location is open for business. Limited to 100 time periods.\n\n__Note:__ Not supported by Wix Bookings.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the location is updated. \nTo prevent conflicting changes, the existing revision must be used when updating a location.\n"
+        },
+                {
+          "name": "archived",
+          "type": "boolean",
+          "doc": "\nWhether the location is archived. Archived locations can't be updated. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect its `status`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "locationTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wixpress_locations_LocationType"]
+          },
+          "doc": " Location types.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " 2-letter country code in an [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Code for a subdivision (such as state, prefecture, or province) in [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) format.\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Postal or zip code.\n"
+        },
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_locations_StreetAddress",
+          "doc": " Street address. Includes street name, number, and apartment number in separate fields.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " Full address of the location.\n"
+        },
+                {
+          "name": "hint",
+          "type": "string",
+          "doc": " Extra information that helps finding the location.\n"
+        },
+                {
+          "name": "geocode",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_locations_AddressLocation",
+          "doc": " Geographic coordinates of location.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Street address. Includes street name, number, and apartment number in separate fields.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": "Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        },
+                {
+          "name": "apt",
+          "type": "string",
+          "doc": " Apartment number.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Address Geolocation\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Latitude of the location. Must be between -90 and 90.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Longitude of the location. Must be between -180 and 180.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_bookings_common_api_v1_Location",
       "displayName": "Location Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "locationType",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Location_LocationType",
-          "doc": ""
+          "doc": "Location type.\n One of:\n - `\"OWNER_BUSINESS\"` The business address as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"` The address as set when creating the service.\n - `\"CUSTOM\"` The address set for the individual session.\n"
         },
-        {
+                {
           "name": "address",
           "type": "string",
-          "doc": "The address as set by the owner. Valid only when location_type is OWNER_CUSTOM.\n"
+          "doc": "Free text address used when locationType is `OWNER_CUSTOM`.\n",
+          "deprecated": true
+        },
+                {
+          "name": "customAddress",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_common_Address",
+          "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "labeledPriceOptionsMapEntry",
       "displayName": "labeled Price Options Map Entry Object",
       "locations": [],
-      "docs": {
-        "summary": "Set of key-value pairs.Mapping between a named price option and the Price itself.\n",
+      "docs":       {
+        "summary": "Set of key-value pairs. Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "key:value",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Price",
-          "doc": "`key` of type string, `value` of type ref"
-        }
-      ],
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Price",
+        "doc": "`key` of type string, `value` of type object"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_common_api_v1_Rate",
       "displayName": "Rate Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "labeledPriceOptions",
           "type": "All APIs.Bookings - Waitlist Service.labeledPriceOptionsMapEntry",
-          "doc": "Set of key-value pairs.Mapping between a named price option and the Price itself.\n"
+          "doc": "Set of key-value pairs. Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n"
         },
-        {
+                {
           "name": "priceText",
           "type": "string",
-          "doc": "User defined textual price. Optional.\n"
+          "doc": " Textual price information used when **Price Per Session** is set to **Custom Price** in the app's service details page.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_BookingSource",
       "displayName": "Booking Source Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "platform",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookingSource_Platform",
-          "doc": " The platform from which a booking was created\n"
+          "doc": " Platform from which a booking was created\n<!--ONLY:VELO\n One of:\n - `\"WEB\"` Desktop browser.\n - `\"MOBILE_APP\"` Mobile application.\n<!--END:ONLY:VELO-->\n"
         },
-        {
+                {
           "name": "actor",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookingSource_Actor",
-          "doc": " The actor that created this booking\n"
+          "doc": " Actor that created this booking.\n<!--ONLY:VELO\nOne of:\n - `\"BUSINESS\"`\n - `\"CUSTOMER\"`\n<!--END:ONLY:VELO-->\n"
         },
-        {
+                {
           "name": "appDefId",
           "type": "string",
-          "doc": " The appDefId of the application that created this booking\n",
+          "doc": " Wix site ID of the application that created this booking.\n",
           "readOnly": true
         },
-        {
+                {
           "name": "appName",
           "type": "string",
-          "doc": " The name of the application that created this booking, as saved in Wix-dev-center at the time of booking\n",
+          "doc": " Name of the application that created this booking, as saved in Wix-dev-center at the time of booking.\n",
           "readOnly": true
         }
       ],
@@ -1211,155 +1664,265 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
+      "name": "_com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice",
+      "displayName": "Service Choice Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "optionId",
+          "type": "string",
+          "doc": " ID of the corresponding option for the choice. For example, the choice `child`\n could correspond to the option `ageGroup`. In this case, `optionId` is the ID \n for the `ageGroup` option. \n"
+        },
+                {
+          "name": "choice",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice_choice",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice_choice",
+      "displayName": "choice Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "custom",
+        "type": "string",
+        "doc": " Value for one of the choices in the [`CustomServiceOption.choices`](https://example.com) list. \n Choices are specific values for an option the customer can choose to book. For example, \n the option `ageGroup` may have these choices: `child`, `student`, `adult`, and `senior`. \n Each choice may have a different price.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
       "name": "_com_wix_bookings_api_v1_Booking",
       "displayName": "Booking Object",
       "locations": [],
-      "docs": {
-        "summary": " The booking domain object\n",
+      "docs":       {
+        "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "bookedResources",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookedResource"
-            ]
-          },
-          "doc": ""
-        },
-        {
-          "name": "formInfo",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
-          "doc": " Form info submitted when booking. Contains contact details, participants, other form fields specified by the owner for the choosen service.\n Contact information. Mandatory. contains contact details, participants, other form fields specified by the owner for the choosen service.\n"
-        },
-        {
-          "name": "bookingSource",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookingSource",
-          "doc": ""
-        },
-        {
-          "name": "paymentDetails",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentDetails",
-          "doc": " Payment Details. Optional. On Create, in case of a given empty field, this booking will not be send to checkout for payment.\n"
-        },
-        {
+      "members":       [
+                {
           "name": "id",
           "type": "string",
-          "doc": ""
+          "doc": "Booking ID.\n"
         },
-        {
-          "name": "externalUserId",
-          "type": "string",
-          "doc": " External Id provided by the client on creation\n"
-        },
-        {
-          "name": "status",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking_BookingStatus",
-          "doc": ""
-        },
-        {
+                {
           "name": "bookedEntity",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookedEntity",
-          "doc": ""
+          "doc": " An object describing the entity that was booked.\n"
         },
-        {
-          "name": "attendanceInfo",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_AttendanceInfo",
-          "doc": "Attendance Info. Optional\n"
+                {
+          "name": "bookedResources",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookedResource"]
+          },
+          "doc": " A list of booked resources. Currently, only one is supported. The booked resource would generally be the staff-member giving the session.\n"
         },
-        {
+                {
+          "name": "formInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
+          "doc": " Form information submitted when booking. FormInfo contains contact details, participants, and other form fields, set up for the service.\n"
+        },
+                {
+          "name": "paymentDetails",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_PaymentDetails",
+          "doc": " Payment Details.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking_BookingStatus",
+          "doc": " Booking status.\n<!--ONLY:VELO\n One of:\n - `\"PENDING_CHECKOUT\"` The booking is waiting to be checked out.\n - `\"CONFIRMED\"` The booking has beed approved by the owner.\n - `\"CANCELED\"` The booking has been canceled.\n - `\"PENDING\"` The booking has been created.\n - `\"PENDING_APPROVAL\"` The booking is waiting for the owner to approve or decline.\n - `\"DECLINED\"` The booking was declined by the owner.\n<!--END:ONLY:VELO-->\n"
+        },
+                {
           "name": "created",
           "type": "string",
-          "doc": " Created timestamp. Read-only.\n"
+          "doc": " Date and time when the booking was created.\n",
+          "deprecated": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "Date and time the booking was created.\n"
+        },
+                {
+          "name": "attendanceInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_AttendanceInfo",
+          "doc": "Attendance information.\n"
+        },
+                {
+          "name": "externalUserId",
+          "type": "string",
+          "doc": " External ID provided by the client app on creation.\n"
+        },
+                {
+          "name": "bookingSource",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookingSource",
+          "doc": " An object describing the platform and application that made the booking.\n"
+        },
+                {
+          "name": "participantsInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_api_v1_BookedEntity",
-      "displayName": "Booked Entity Object",
+        {
+      "name": "_com_wix_bookings_api_v1_Booking_ParticipantsInfo",
+      "displayName": "Participants Info Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
         {
-          "name": "rate",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Rate",
-          "doc": " The price options offered to book this session at the time of booking.\n"
+      "name": "_com_wix_bookings_api_v1_ParticipantChoices",
+      "displayName": "Participant Choices Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "serviceChoices",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_ServiceChoices"]
         },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
-          "name": "location",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Location",
-          "doc": " Geographic location of the session.\n"
+      "name": "_com_wix_bookings_api_v1_ServiceChoices",
+      "displayName": "Service Choices Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "numberOfParticipants",
+          "type": "integer",
+          "doc": ""
         },
-        {
-          "name": "tags",
-          "type": {
+                {
+          "name": "choices",
+          "type":           {
             "name": "array",
-            "typeParams": [
-              "string"
-            ]
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice"]
           },
           "doc": ""
-        },
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
+      "name": "_com_wix_bookings_api_v1_BookedEntity",
+      "displayName": "Booked Entity Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": "ID of the booked service.\n"
+        },
+                {
           "name": "scheduleId",
           "type": "string",
-          "doc": ""
+          "doc": "ID of the booked schedule.\n"
         },
-        {
-          "name": "title",
-          "type": "string",
-          "doc": " Session title at the time of booking.\n"
-        },
-        {
+                {
           "name": "type",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_BookedEntity_type",
           "doc": ""
         },
-        {
-          "name": "serviceId",
+                {
+          "name": "title",
           "type": "string",
-          "doc": ""
+          "doc": " Session title at the time of booking.\n"
         },
-        {
-          "name": "onlineConference",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_OnlineConference",
-          "doc": " Online conference information\n"
+                {
+          "name": "location",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Location",
+          "doc": " Location of the session.\n"
+        },
+                {
+          "name": "rate",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_Rate",
+          "doc": " Price options offered to book this session at the time of booking.\n"
+        },
+                {
+          "name": "tags",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " A list of tags for the booking.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_BookedEntity_type",
       "displayName": "type Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "setOfSessions",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_SetOfSessions",
-          "doc": ""
-        },
-        {
+      "members":       [
+                {
           "name": "singleSession",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_SingleSession",
-          "doc": ""
+          "doc": " Start and end time of the booked sessions.\n"
+        },
+                {
+          "name": "setOfSessions",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_SetOfSessions",
+          "doc": " First start and last end time of the booked sessions.\n"
         }
       ],
       "enum": null,
@@ -1367,247 +1930,335 @@
       "labels": [],
       "oneOf": true
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_OnlineConference",
       "displayName": "Online Conference Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "guestUrl",
           "type": "string",
-          "doc": " participant url\n"
+          "doc": " Participant url.\n"
         },
-        {
+                {
           "name": "providerId",
           "type": "string",
-          "doc": " online conference provider identifier\n"
+          "doc": " Online conference provider identifier.\n"
         },
-        {
+                {
           "name": "password",
           "type": "string",
-          "doc": " online conference password\n"
+          "doc": " Online conference password.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_SingleSession",
       "displayName": "Single Session Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "sessionId",
           "type": "string",
           "doc": ""
         },
-        {
+                {
           "name": "start",
           "type": "string",
-          "doc": " The start time of the session.\n"
+          "doc": " Start time of the session.\n"
         },
-        {
+                {
           "name": "end",
           "type": "string",
-          "doc": " The end time of the session.\n"
+          "doc": " End time of the session.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_SetOfSessions",
       "displayName": "Set Of Sessions Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "firstSessionStart",
           "type": "string",
-          "doc": " The start time of the first session.\n"
+          "doc": " Start time of the first session.\n"
         },
-        {
+                {
           "name": "lastSessionEnd",
           "type": "string",
-          "doc": " The end time of the last session.\n"
+          "doc": " End time of the last session.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_BookedResource",
       "displayName": "Booked Resource Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "id",
           "type": "string",
-          "doc": ""
+          "doc": " Booked resource ID.\n"
         },
-        {
+                {
           "name": "name",
           "type": "string",
-          "doc": " Resource's name at the time of booking\n"
+          "doc": " Resource's name at the time of booking.\n"
         },
-        {
+                {
           "name": "email",
           "type": "string",
-          "doc": " Resource's email at the time of booking. Optional.\n"
+          "doc": " Resource's email at the time of booking.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_api_v1_JoinRequest",
-      "displayName": "Join Request Object",
+        {
+      "name": "_com_wix_bookings_api_v1_JoinRequest_FlowControlSettings",
+      "displayName": "Flow Control Settings Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
+      "members": [      {
+        "name": "ignoreWaitlistCapacity",
+        "type": "boolean",
+        "doc": " when defined as true, skips the waitlist defined capacity policy.\n required BOOKINGS.IGNORE_BOOKING_POLICY permission.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
+      "name": "_com_wix_bookings_api_v1_JoinRequest",
+      "displayName": "Join Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
           "name": "waitingResource",
           "type": "string",
           "doc": ""
         },
-        {
+                {
           "name": "formInfo",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
           "doc": ""
         },
-        {
-          "name": "presentedStartTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Session start time as presented to the user. For validation - optional.\n"
+                {
+          "name": "participantsInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_JoinRequest_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n"
         },
-        {
-          "name": "presentedEndTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Session end time as presented to the user. For validation - optional.\n"
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_JoinRequest_FlowControlSettings",
+          "doc": " Sets the cancel flow behavior, some settings required permissions.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
+      "name": "_com_wix_bookings_api_v1_JoinRequest_ParticipantsInfo",
+      "displayName": "Participants Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
       "name": "_com_wix_bookings_api_v1_JoinResponse",
       "displayName": "Join Response Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
-          "doc": " this is also the booking ID.\n"
+          "doc": " Use registration.id instead\n",
+          "deprecated": true
+        },
+                {
+          "name": "booking",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking",
+          "doc": "The booking that is created as a result of a successful join request. This booking has PENDING status\n"
+        },
+                {
+          "name": "registration",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Registration",
+          "doc": "A wait-list registration.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_api_v1_RegisterRequest",
-      "displayName": "Register Request Object",
+        {
+      "name": "_com_wix_bookings_api_v1_RegisterRequest_FlowControlSettings",
+      "displayName": "Flow Control Settings Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
+      "members": [      {
+        "name": "ignoreWaitlistCapacity",
+        "type": "boolean",
+        "doc": " when defined as true, skips the waitlist defined capacity policy.\n required BOOKINGS.IGNORE_BOOKING_POLICY permission.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
+      "name": "_com_wix_bookings_api_v1_RegisterRequest",
+      "displayName": "Register Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
           "name": "waitingResource",
           "type": "string",
           "doc": " Resource to be waitlisted for.\n Currently only supports session ID.\n"
         },
-        {
+                {
           "name": "formInfo",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_FormInfo",
           "doc": " Participant information as filled in the booking form (required).\n Contains contact details and other form fields specified by the owner for this 'waiting resource' (service).\n"
         },
-        {
-          "name": "presentedStartTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service start time as presented to the user. For validation - Optional.\n"
+                {
+          "name": "participantsInfo",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n"
         },
-        {
-          "name": "presentedEndTime",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "Service end time presented to the user. For validation - Optional.\n"
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_RegisterRequest_FlowControlSettings",
+          "doc": " Sets the cancel flow behavior, some settings required permissions.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
+      "name": "_com_wix_bookings_api_v1_RegisterRequest_ParticipantsInfo",
+      "displayName": "Participants Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
       "name": "_com_wix_bookings_api_v1_RegisterResponse",
       "displayName": "Register Response Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
-          "doc": ""
+          "doc": "",
+          "deprecated": true
+        },
+                {
+          "name": "booking",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking",
+          "doc": "The booking that is created as a result of a successful join request. This booking has PENDING status\n"
+        },
+                {
+          "name": "registration",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Registration",
+          "doc": "A wait-list registration.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_LeaveRequest",
       "displayName": "Leave Request Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
           "doc": ""
         },
-        {
+                {
           "name": "waitingResource",
           "type": "string",
           "doc": ""
@@ -1617,22 +2268,22 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_LeaveResponse",
       "displayName": "Leave Response Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
           "doc": ""
         },
-        {
+                {
           "name": "waitingResource",
           "type": "string",
           "doc": ""
@@ -1642,57 +2293,97 @@
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_api_v1_EnrollRequest",
-      "displayName": "Enroll Request Object",
+        {
+      "name": "_com_wix_bookings_api_v1_EnrollRequest_FlowControlSettings",
+      "displayName": "Flow Control Settings Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
+      "members":       [
+                {
+          "name": "forceEnrollment",
+          "type": "boolean",
+          "doc": " when defined as true, enroll the specifid registration to the session, with no regard to the registration status.\n required BBOOKINGS.IGNORE_BOOKING_POLICY and BOOKINGS.OVERRIDE_AVAILABILITY permission.\n"
+        },
+                {
+          "name": "forceInPersonCheckout",
+          "type": "boolean",
+          "doc": " when defined as true, checkout the booking as \"in-person\" method, that doesnt required online payment.\n required BOOKINGS.MANAGE_PAYMENTS permission.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
+      "name": "_com_wix_bookings_api_v1_EnrollRequest",
+      "displayName": "Enroll Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
           "doc": " Registration to book.\n"
         },
-        {
+                {
           "name": "couponCode",
           "type": "string",
           "doc": " Coupon code to apply to this booking at checkout.\n"
         },
-        {
+                {
           "name": "planSelection",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_common_api_v1_PaidPlan",
           "doc": " Selected paid plan to apply to this booking at checkout.\n"
         },
-        {
+                {
           "name": "notifyParticipants",
           "type": "boolean",
           "doc": ""
+        },
+                {
+          "name": "selectedPaymentOption",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+          "doc": ""
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_EnrollRequest_FlowControlSettings",
+          "doc": " Sets the book flow behavior, some behaviors required permissions.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+          "doc": " Booking status.\n One of:\n - `\"CREATED\"` - The booking was created. This is the default status.\n - `\"CONFIRMED\"` - The booking has been confirmed and appears on the bookings calendar. Required BOOKINGS.MANAGE_BOOKINGS permission.\n Without the required permission, a \"CONFIRMED\" status will cause \"Missing required permission to create booking with overridden bookingStatus\" error.\n Providing a status other than \"CREATED\" or \"CONFIRMED\" will cause an error.\n For example, \"CANCEL\" status will throw an \"Invalid status. CANCEL is not permitted\" error.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_EnrollResponse",
       "displayName": "Enroll Response Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "registrationId",
           "type": "string",
           "doc": ""
         },
-        {
+                {
           "name": "booking",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Booking",
           "doc": " Checked-out booking.\n (Online-payments can only be completed in the Wix Bookings UI.)\n"
@@ -1702,62 +2393,62 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_Registration",
       "displayName": "Registration Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "bookingId",
-          "type": "string",
-          "doc": " Registration's associated booking\n"
-        },
-        {
+      "members":       [
+                {
           "name": "id",
           "type": "string",
           "doc": " Registration ID\n"
         },
-        {
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " Registration's associated booking\n"
+        },
+                {
+          "name": "waitingResource",
+          "type": "string",
+          "doc": " Resource to be waitlisted for.\n Currently only supports session ID.\n"
+        },
+                {
           "name": "availableActions",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_AvailableActions",
           "doc": " Currently available actions for this registration.\n"
         },
-        {
+                {
           "name": "status",
           "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Registration_Status",
           "doc": " Registration status\n WAITING - Registrant is on the waitlist. Waiting to be suggested a spot.\n SUGGESTING - Registrant is currently being suggested an opened spot.\n DECLINED - Registration has been declined.\n ENROLLED - Registrant has been enrolled to a suggested spot.\n"
-        },
-        {
-          "name": "waitingResource",
-          "type": "string",
-          "doc": " Resource to be waitlisted for.\n Currently only supports session ID.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_AvailableActions",
       "displayName": "Available Actions Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
+      "members":       [
+                {
           "name": "leave",
           "type": "boolean",
           "doc": " Whether the registrant can leave the waitlist.\n"
         },
-        {
+                {
           "name": "enroll",
           "type": "boolean",
           "doc": " Whether the registrant can book from the waitlist.\n"
@@ -1767,117 +2458,107 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_ListWaitingListRequest",
       "displayName": "List Waiting List Request Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "waitingResources",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "string"
-            ]
-          },
-          "doc": " List of sessions (waitingResources) with active waitlists.\n"
-        }
-      ],
+      "members": [      {
+        "name": "waitingResources",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " List of sessions (waitingResources) with active waitlists.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_ListWaitingListResponse",
       "displayName": "List Waiting List Response Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "list",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WaitingListEntry"
-            ]
-          },
-          "doc": ""
-        }
-      ],
+      "members": [      {
+        "name": "list",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WaitingListEntry"]
+        },
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_WaitingListEntry",
       "displayName": "Waiting List Entry Object",
       "locations": [],
-      "docs": {
+      "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [
-        {
-          "name": "registrations",
-          "type": {
-            "name": "array",
-            "typeParams": [
-              "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Registration"
-            ]
-          },
-          "doc": " List of registrants to the waitlist.\n"
-        },
-        {
-          "name": "status",
-          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WaitingListEntry_Status",
-          "doc": " The Waitlist's current status:\n IDLE - Waiting for a cancellation that will free up a spot in the session.\n SUGGESTING - Currently suggesting a free spot to a registrant in the waitlist. The service will keep suggesting until the end of the list is reached, or until all free spots are filled.\n OPEN_TO_ALL - Once we got to the end of the list - booking is opened for the session, and any registrant on the list can book.\n"
-        },
-        {
+      "members":       [
+                {
           "name": "waitingResource",
           "type": "string",
           "doc": " The waitlisted session ID.\n"
         },
-        {
-          "name": "timeWindowMinutes",
-          "type": "integer",
-          "doc": " Waitlisted session's \"suggesting\" time window. Defined as part of the service's booking policy.\n"
+                {
+          "name": "registrations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_Registration"]
+          },
+          "doc": " List of registrants to the waitlist.\n"
         },
-        {
+                {
           "name": "numberOfRegistrations",
           "type": "integer",
           "doc": ""
         },
-        {
+                {
           "name": "capacity",
           "type": "integer",
           "doc": " Waitlisted session's capacity. Defined as part of the service's booking policy.\n"
+        },
+                {
+          "name": "timeWindowMinutes",
+          "type": "integer",
+          "doc": " Waitlisted session's \"suggesting\" time window. Defined as part of the service's booking policy.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Bookings - Waitlist Service._com_wix_bookings_api_v1_WaitingListEntry_Status",
+          "doc": " The Waitlist's current status:\n IDLE - Waiting for a cancellation that will free up a spot in the session.\n SUGGESTING - Currently suggesting a free spot to a registrant in the waitlist. The service will keep suggesting until the end of the list is reached, or until all free spots are filled.\n OPEN_TO_ALL - Once we got to the end of the list - booking is opened for the session, and any registrant on the list can book.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wixpress_bookings_services_api_v1_ValueTypeConsts_ValueType",
       "displayName": "Value Type Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> SHORT_TEXT -  Short text. This is the default value type.\n </code></li><li><code> LONG_TEXT -  Long text\n </code></li><li><code> CHECK_BOX -  a text that represent the check box value: if selected the value is \"true\", otherwise \"false\".\n </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SHORT_TEXT -  Short text. This is the default value type.\n <\/code><\/li><li><code> LONG_TEXT -  Long text\n <\/code><\/li><li><code> CHECK_BOX -  a text that represent the check box value: if selected the value is \"true\", otherwise \"false\".\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "SHORT_TEXT",
         "LONG_TEXT",
         "CHECK_BOX"
@@ -1885,17 +2566,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_PaymentDetails_CheckoutStatus",
       "displayName": "Checkout Status Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED </code></li><li><code> COMPLETE -  nothing left to pay.\n </code></li><li><code> PENDING_CASHIER -  cashier order id exists. waiting for callback\n </code></li><li><code> REJECTED -  rejected checkout request\n </code></li><li><code> READY -  initial state of non-cashier flow, expect balance adjustment\n </code></li><li><code> CANCELED -  canceled CHECKOUT\n </code></li><li><code> REFUNDED </code></li><li><code> PENDING_MERCHANT </code></li><li><code> WIX_PAY_FAILURE </code></li><li><code> PENDING_MARK_AS_PAID -  Offline transaction, will be complete when explicitly updated to balance mark as paid\n </code></li><li><code> PENDING_BUYER -  Transaction actually started, cause of pending can be fraud check at provider side, long bank transfer, etc.\n </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> COMPLETE -  Amount paid in full.\n <\/code><\/li><li><code> PENDING_CASHIER -  An online payment is in progress and awaiting a response.\n <\/code><\/li><li><code> REJECTED -  The checkout request was rejected by the online payment process. \n <\/code><\/li><li><code> READY -   All online checkout requirements were met. For example, when the service uses pay in person, or a partial or down payment was paid online.\n <\/code><\/li><li><code> CANCELED -  Checkout cancelled.\n <\/code><\/li><li><code> REFUNDED -  When using Pricing Plans, if the booking was cancelled, it will be automatically refunded.\n <\/code><\/li><li><code> PENDING_MERCHANT -  An online payment was made, but the owner has not set up the necessary details.\n <\/code><\/li><li><code> WIX_PAY_FAILURE -  Online payment failure.\n <\/code><\/li><li><code> PENDING_MARK_AS_PAID -  Offline transaction. The transaction will be complete when explicitly marked as paid.\n <\/code><\/li><li><code> PENDING_BUYER -  The transaction started, but is waiting for confirmation on the buyer's side. This can be due to credit or fraud checking on the provider's side, a long bank transfer, or similar processes.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED",
         "COMPLETE",
         "PENDING_CASHIER",
@@ -1911,17 +2592,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_WixPayDetails_Status",
       "displayName": "Status Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED </code></li><li><code> CREATED </code></li><li><code> PENDING_MERCHANT </code></li><li><code> COMPLETE </code></li><li><code> FAILED -  cashier is unavailable or failed processing\n </code></li><li><code> DECLINED </code></li><li><code> PENDING_MARK_AS_PAID </code></li><li><code> CANCELED </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> CREATED <\/code><\/li><li><code> PENDING_MERCHANT <\/code><\/li><li><code> COMPLETE -  This part of the payment was completed.\n <\/code><\/li><li><code> FAILED -  cashier is unavailable or failed processing\n <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> PENDING_MARK_AS_PAID <\/code><\/li><li><code> CANCELED <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED",
         "CREATED",
         "PENDING_MERCHANT",
@@ -1934,17 +2615,99 @@
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_common_api_v1_Location_LocationType",
-      "displayName": "Location Type Object",
+        {
+      "name": "_com_wix_bookings_api_v1_InvoiceDetails_Status",
+      "displayName": "Status Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED </code></li><li><code> OWNER_BUSINESS - The address is determined by the business address as set by the owner in the site’s general settings.\n </code></li><li><code> OWNER_CUSTOM - The address is determined by the owner.\n </code></li><li><code> CUSTOM - The address is determined and managed elsewhere\n </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> CREATED <\/code><\/li><li><code> VOIDED <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> SENT <\/code><\/li><li><code> PARTIALLY_PAID <\/code><\/li><li><code> PAID <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
+        "UNDEFINED",
+        "CREATED",
+        "VOIDED",
+        "DELETED",
+        "SENT",
+        "PARTIALLY_PAID",
+        "PAID"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_siteproperties_api_v4_DayOfWeek",
+      "displayName": "Day Of Week Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Enumerates the days of the week.\n \n Possible values are: <li><code> MONDAY <\/code><\/li><li><code> TUESDAY <\/code><\/li><li><code> WEDNESDAY <\/code><\/li><li><code> THURSDAY <\/code><\/li><li><code> FRIDAY <\/code><\/li><li><code> SATURDAY <\/code><\/li><li><code> SUNDAY <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
+        "SUNDAY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationStatus",
+      "displayName": "Location Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " For future use\n \n Possible values are: <li><code> ACTIVE <\/code><\/li><li><code> INACTIVE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_locations_LocationType",
+      "displayName": "Location Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li><li><code> INVENTORY <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "BRANCH",
+        "OFFICES",
+        "RECEPTION",
+        "HEADQUARTERS",
+        "INVENTORY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_common_api_v1_Location_LocationType",
+      "displayName": "Location Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OWNER_BUSINESS <\/code><\/li><li><code> OWNER_CUSTOM <\/code><\/li><li><code> CUSTOM <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
         "UNDEFINED",
         "OWNER_BUSINESS",
         "OWNER_CUSTOM",
@@ -1953,17 +2716,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_BookingSource_Platform",
       "displayName": "Platform Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED_PLATFORM </code></li><li><code> WEB </code></li><li><code> MOBILE_APP </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_PLATFORM <\/code><\/li><li><code> WEB <\/code><\/li><li><code> MOBILE_APP <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED_PLATFORM",
         "WEB",
         "MOBILE_APP"
@@ -1971,17 +2734,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_BookingSource_Actor",
       "displayName": "Actor Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED_ACTOR </code></li><li><code> BUSINESS </code></li><li><code> CUSTOMER </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_ACTOR <\/code><\/li><li><code> BUSINESS <\/code><\/li><li><code> CUSTOMER <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED_ACTOR",
         "BUSINESS",
         "CUSTOMER"
@@ -1989,17 +2752,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_Booking_BookingStatus",
       "displayName": "Booking Status Object",
       "locations": [],
-      "docs": {
-        "summary": " Booking status. read-only.\n \n Possible values are: <li><code> UNDEFINED </code></li><li><code> PENDING_CHECKOUT </code></li><li><code> CONFIRMED </code></li><li><code> CANCELED </code></li><li><code> PENDING </code></li><li><code> PENDING_APPROVAL </code></li><li><code> DECLINED </code></li>",
+      "docs":       {
+        "summary": " Booking status.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> PENDING_CHECKOUT -  The booking is waiting to be checked out.\n <\/code><\/li><li><code> CONFIRMED -  The booking has beed approved by the owner.\n <\/code><\/li><li><code> CANCELED -  The booking has been canceled.\n <\/code><\/li><li><code> PENDING -  The booking has been created.\n <\/code><\/li><li><code> PENDING_APPROVAL -  The booking is waiting for the owner to approve or decline.\n <\/code><\/li><li><code> DECLINED -  The booking was declined by the owner.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED",
         "PENDING_CHECKOUT",
         "CONFIRMED",
@@ -2011,17 +2774,76 @@
       "extra": {},
       "labels": []
     },
-    {
-      "name": "_com_wix_bookings_api_v1_Registration_Status",
-      "displayName": "Status Object",
+        {
+      "name": "_com_wix_bookings_api_v1_OnlineConference_ConferenceType",
+      "displayName": "Conference Type Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED </code></li><li><code> WAITING </code></li><li><code> SUGGESTING </code></li><li><code> DECLINED </code></li><li><code> ENROLLED </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> ONLINE_MEETING_PROVIDER - API-generated online meeting.\n <\/code><\/li><li><code> CUSTOM - User-defined meeting.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
+        "UNDEFINED",
+        "ONLINE_MEETING_PROVIDER",
+        "CUSTOM"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_SelectedPaymentOption",
+      "displayName": "Selected Payment Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": " The selected payment option.  \n One of the payment options offered by the service. \n This field is be set when the user selects an option during booking.  \n If left undefined, the payment option is resolved by the service configuration on checkout.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> OFFLINE <\/code><\/li><li><code> ONLINE <\/code><\/li><li><code> MEMBERSHIP <\/code><\/li><li><code> MEMBERSHIP_OFFLINE -  Payment can only be done using a membership and must be manually redeemed in the dashboard by the site owner.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "OFFLINE",
+        "ONLINE",
+        "MEMBERSHIP",
+        "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+      "displayName": "Booking Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Booking status.\n \n Possible values are: <li><code> CREATED <\/code><\/li><li><code> CONFIRMED <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> WAITING_LIST <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "CREATED",
+        "CONFIRMED",
+        "CANCELED",
+        "PENDING",
+        "DECLINED",
+        "WAITING_LIST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_api_v1_Registration_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> WAITING <\/code><\/li><li><code> SUGGESTING <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> ENROLLED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
         "UNDEFINED",
         "WAITING",
         "SUGGESTING",
@@ -2031,17 +2853,17 @@
       "extra": {},
       "labels": []
     },
-    {
+        {
       "name": "_com_wix_bookings_api_v1_WaitingListEntry_Status",
       "displayName": "Status Object",
       "locations": [],
-      "docs": {
-        "summary": " \n Possible values are: <li><code> UNDEFINED </code></li><li><code> IDLE </code></li><li><code> SUGGESTING </code></li><li><code> OPEN_TO_ALL </code></li>",
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> IDLE <\/code><\/li><li><code> SUGGESTING <\/code><\/li><li><code> OPEN_TO_ALL <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
-      "enum": [
+      "enum":       [
         "UNDEFINED",
         "IDLE",
         "SUGGESTING",
@@ -2051,7 +2873,5 @@
       "labels": []
     }
   ],
-  "extra": {
-    "artifactId": "com.wixpress.bookings.waiting-list-server"
-  }
+  "extra": {"artifactId": "com.wixpress.bookings.waiting-list-server"}
 }
