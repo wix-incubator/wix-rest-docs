@@ -4,7 +4,7 @@ SortOrder: 1
 [//]: # (TODO: Fix links)
 
 With the Wix Bookings Multi Service Availability Time Slots API, you can retrieve information about the
-availability of multiple sequenced slots for multiple [Service's](https://bo.wix.com/wix-docs/rest/bookings/bookings---services-v2/service-object) in your business calendar.
+availability of multiple sequenced slots for multiple [Services](https://bo.wix.com/wix-docs/rest/bookings/bookings---services-v2/service-object) in your business calendar,
 within a given range of time, by:
 
 + [Listing](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/multi-service-availability-time-slots/list-multi-service-availability-time-slots)
