@@ -1,0 +1,1301 @@
+{
+  "name": "Wix Service Availability",
+  "client_id": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/service-availability#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Returns availability for a single service slot or a multi service slot. Currently only supports services of type `APPOINTMENT`. Supports both multi & single",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Service Availability Time Slots",
+      "entity": "_com_wixpress_bookings_availability_v2_TimeSlot",
+      "src": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/service-availability/com/wixpress/bookings/availability/v2/time_slot.proto"
+    },
+        {
+      "name": "Multi Service Availability Time Slots",
+      "entity": "_com_wixpress_bookings_availability_v2_TimeSlot",
+      "src": "https://github.com/wix-private/scheduler/tree/master/bookings-backend/service-availability/com/wixpress/bookings/availability/v2/time_slot.proto"
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/wix-service-availability/docs/Introduction.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/wix-service-availability/docs/availability/Introduction.md",
+      "name": "Introduction",
+      "tag": "Service Availability Time Slots"
+    },
+        {
+      "path": "../guides/wix-service-availability/docs/multi/SampleFlows.md",
+      "name": "Sample Flows",
+      "tag": "Multi Service Availability Time Slots"
+    },
+        {
+      "path": "../guides/wix-service-availability/docs/multi/Introduction.md",
+      "name": "Introduction",
+      "tag": "Multi Service Availability Time Slots"
+    },
+        {
+      "path": "../guides/wix-service-availability/docs/availability/SampleFlows.md",
+      "name": "Sample Flows",
+      "tag": "Service Availability Time Slots"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Availability Time Slot",
+      "methodName": "GetAvailabilityTimeSlot",
+      "serviceName": "AvailabilityTimeSlots",
+      "tag": "Service Availability Time Slots",
+      "permissions": [      {
+        "name": "Read Bookings Calendar Availability",
+        "description": "Request permission to read the site's bookings calendar availability."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "serviceId",
+        "localStartDate",
+        "localEndDate",
+        "timeZone",
+        "location"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID of the time slot.\n Currently supports only services of type `Appointment`.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " The location of the time slot.\n\n You must provide a specific `locationType`.\n If locationType is `BUSINESS`, you __must__ also provide a locationId.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `name` and `formattedAddress` are ignored.\n    <\/p>\n    <\/blockquote>\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "resourceIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resources to include in response.\n\n If specified,\n the returned time slot contain only the available resources out of provided list.\n Otherwise, the returned time slot returned with all possible `AvailableResources`.\n > __Note:__ This can be handy in case you want to avoid large response in flows that only\n > interested to check the availability of the time slot for specific resources.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "includeResourceTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resource type ID's to include in response, this is in addition to the requested resourceIds.\n\n If specified in request, the returned time slot contain only the `AvailableResources` with `ResourceTypeId`\n out of those specified, each contains all the available resources of this type.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetAvailabilityTimeSlot",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_GetAvailabilityTimeSlotResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves an available `TimeSlot` that match the provided filters.\n\nThrows `SlotNotFound` if there is no such available time slot.\n\n<blockquote class=\"important\">\n<p><strong>Important:<\/strong><br/>\nCurrently supported only for services of type `APPOINTMENT`.\n<\/p>\n<\/blockquote>\n\nBy default,\nif you don't provide `includeResourceTypeIds` or `resourceIds` in request,\nwe return all `AvailableResources` with all `AvailableResources`.`resources` which are available to provide\nthe service within the time slot.\n\nIf you specify `includeResourceTypeIds` or `resourceIds` in request,\nthe returned `TimeSlot` will contain only `AvailableResources` with at least one available resource\nwhich match the given resources filters,\neach contains all available resources out of those requested.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/service-availability/v2/time-slots/get",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get Availability Time Slot",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/time-slots/get' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"location\":\n      {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"locationType\": \"BUSINESS\"\n      },\n    \"localStartDate\": \"2024-02-01T14:00:00\",\n    \"localEndDate\": \"2024-02-01T15:00:00\",\n    \"timeZone\": \"Asia/Jerusalem\"\n}'"],
+            "response": ["{\n  \"timeSlot\":   {\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"localStartDate\": \"2024-02-01T14:00:00\",\n    \"localEndDate\": \"2024-02-01T15:00:00\",\n    \"bookable\": true,\n    \"location\":     {\n      \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"formattedAddress\": \"Tel Aviv, Israel\",\n      \"locationType\": \"BUSINESS\"\n    },\n    \"totalCapacity\": 1,\n    \"remainingCapacity\": 1,\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    },\n    \"availableResources\": [    {\n      \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n      \"resources\":       [\n                {\n          \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n          \"name\": \"staff 5\"\n        },\n                {\n          \"id\": \"43eb802c-0491-43de-8b60-ab0f036213a1\",\n          \"name\": \"replace staff 5\"\n        },\n                {\n          \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n          \"name\": \"staff4\"\n        },\n                {\n          \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n          \"name\": \"staff10\"\n        },\n                {\n          \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n          \"name\": \"Tom Jones\"\n        },\n                {\n          \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n          \"name\": \"Ali Baba\"\n        },\n                {\n          \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n          \"name\": \"staff11\"\n        },\n                {\n          \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n          \"name\": \"staff8\"\n        },\n                {\n          \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n          \"name\": \"Staff Member #1\"\n        },\n                {\n          \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n          \"name\": \"staff9\"\n        },\n                {\n          \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n          \"name\": \"staff12\"\n        },\n                {\n          \"id\": \"d5034039-c4f2-4ff6-989d-a3283ede4a22\",\n          \"name\": \"staff6\"\n        },\n                {\n          \"id\": \"fd01e7c0-4ffc-42c3-9f7b-73b46c9e1664\",\n          \"name\": \"staff7\"\n        }\n      ],\n      \"hasMoreAvailableResources\": true\n    }],\n    \"nestedTimeSlots\": []\n  },\n  \"timeZone\": \"Asia/Jerusalem\"\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the availability of a given time slot for all available resources."}
+          },
+                    {
+            "title": "Get Availability Time Slot",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/time-slots/get' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n     \"resourceIds\": [\n        \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n        \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n        \"fd01e7c0-4ffc-42c3-9f7b-73b46c9e1664\",\n        \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n        \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n        \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\"\n      ],\n    \"location\":\n      {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"locationType\": \"BUSINESS\"\n      },\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"localStartDate\": \"2024-02-01T14:00:00\",\n    \"localEndDate\": \"2024-02-01T15:00:00\",\n    \"timeZone\": \"Asia/Jerusalem\"\n}'"],
+            "response": ["{\n  \"timeSlot\":   {\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"localStartDate\": \"2024-02-01T14:00:00\",\n    \"localEndDate\": \"2024-02-01T15:00:00\",\n    \"bookable\": true,\n    \"location\":     {\n      \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"formattedAddress\": \"Tel Aviv, Israel\",\n      \"locationType\": \"BUSINESS\"\n    },\n    \"totalCapacity\": 1,\n    \"remainingCapacity\": 1,\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    },\n    \"availableResources\": [    {\n      \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n      \"resources\":       [\n                {\n          \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n          \"name\": \"staff 5\"\n        },\n                {\n          \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n          \"name\": \"staff10\"\n        },\n                {\n          \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n          \"name\": \"Tom Jones\"\n        },\n                {\n          \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n          \"name\": \"staff8\"\n        },\n                {\n          \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n          \"name\": \"staff12\"\n        },\n                {\n          \"id\": \"fd01e7c0-4ffc-42c3-9f7b-73b46c9e1664\",\n          \"name\": \"staff7\"\n        }\n      ],\n      \"hasMoreAvailableResources\": false\n    }],\n    \"nestedTimeSlots\": []\n  },\n  \"timeZone\": \"Asia/Jerusalem\"\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the availability of the given time slot for available resources out of the specifically requested resources."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetAvailabilityTimeSlotRequest",
+        "rpcResponseName": "GetAvailabilityTimeSlotResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Multi Service Availability Time Slot",
+      "methodName": "GetMultiServiceAvailabilityTimeSlot",
+      "serviceName": "MultiServiceAvailabilityTimeSlots",
+      "tag": "Multi Service Availability Time Slots",
+      "permissions": [      {
+        "name": "Read Bookings Calendar Availability",
+        "description": "Request permission to read the site's bookings calendar availability."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "services",
+        "services.serviceId",
+        "localStartDate",
+        "localEndDate",
+        "timeZone",
+        "location",
+        "location.locationType"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "services",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Service"]
+          },
+          "doc": " Services for which the multiService time slots are being returned for.\n Each service contains its own resources filters within.\n\n MinSize: 2.\n MaxSize: 8.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " The location of the time slot.\n\n You must provide a specific `locationType`.\n If locationType is `BUSINESS`, you __must__ also provide a locationId.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `name` and `formattedAddress` are ignored.\n    <\/p>\n    <\/blockquote>\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetMultiServiceAvailabilityTimeSlot",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_GetMultiServiceAvailabilityTimeSlotResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves an available multiService `TimeSlot` that match the provided filters.\n\nThrows `SlotNotFound` if there is no such available time slot.\n\n<blockquote class=\"important\">\n<p><strong>Important:<\/strong><br/>\nCurrently supported only for services of type `APPOINTMENT`.\n<\/p>\n<\/blockquote>\n\nBy default,\nif you don't provide a `service`.`includeResourceTypeIds` or `service`.`resourceIds` in request,\nwe return for each `TimeSlot`.`NestedTimeSlot` all `AvailableResources` with all `AvailableResources`.`resources` which are available to provide\nthe corresponding service within the time slot.\n\nIf you specify `service`.`includeResourceTypeIds` or `service`.`resourceIds` in request,\nthe returned `TimeSlot`.`NestedTimeSlot` for this service will contain only `AvailableResources` with at least one available resource\nwhich match the given resources filters,\neach contains all available resources out of those requested.\n\n+ Notes:\n+ All nested time slots share the same location.\n+ You can pass up to 8 services.\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/service-availability/v2/multi-service-time-slots/get",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get Multi Service Availability Time Slot",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/multi-service-time-slots/get' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"services\": [\n    {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\"\n    },\n    {\n      \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\"\n    }\n  ],\n  \"localStartDate\": \"2023-12-08T10:00:00\",\n  \"localEndDate\": \"2023-12-08T12:59:59\",\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"location\": {\n    \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n    \"locationType\": \"BUSINESS\"\n  }\n}'"],
+            "response": ["{\n  \"timeSlot\":   {\n    \"localStartDate\": \"2023-12-08T12:00:00\",\n    \"localEndDate\": \"2023-12-08T14:00:00\",\n    \"bookable\": true,\n    \"location\":     {\n      \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"formattedAddress\": \"Tel Aviv, Israel\",\n      \"locationType\": \"BUSINESS\"\n    },\n    \"totalCapacity\": 1,\n    \"remainingCapacity\": 1,\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    },\n    \"availableResources\": [],\n    \"nestedTimeSlots\":     [\n            {\n        \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n        \"localStartDate\": \"2023-12-08T12:00:00\",\n        \"localEndDate\": \"2023-12-08T13:00:00\",\n        \"availableResources\": [        {\n          \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n          \"resources\":           [\n                        {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            },\n                        {\n              \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n              \"name\": \"staff10\"\n            },\n                        {\n              \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n              \"name\": \"Tom Jones\"\n            },\n                        {\n              \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n              \"name\": \"Ali Baba\"\n            },\n                        {\n              \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n              \"name\": \"staff11\"\n            },\n                        {\n              \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n              \"name\": \"staff8\"\n            },\n                        {\n              \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n              \"name\": \"Staff Member #1\"\n            },\n                        {\n              \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n              \"name\": \"staff9\"\n            },\n                        {\n              \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n              \"name\": \"staff12\"\n            },\n                        {\n              \"id\": \"d5034039-c4f2-4ff6-989d-a3283ede4a22\",\n              \"name\": \"staff6\"\n            },\n                        {\n              \"id\": \"fd01e7c0-4ffc-42c3-9f7b-73b46c9e1664\",\n              \"name\": \"staff7\"\n            },\n                        {\n              \"id\": \"43eb802c-0491-43de-8b60-ab0f036213a1\",\n              \"name\": \"replace staff 5\"\n            }\n          ],\n          \"hasMoreAvailableResources\": true\n        }]\n      },\n            {\n        \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n        \"localStartDate\": \"2023-12-08T13:00:00\",\n        \"localEndDate\": \"2023-12-08T14:00:00\",\n        \"availableResources\": [        {\n          \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n          \"resources\":           [\n                        {\n              \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n              \"name\": \"STAFF5\"\n            },\n                        {\n              \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n              \"name\": \"STAFF3\"\n            },\n                        {\n              \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n              \"name\": \"STAFF1\"\n            },\n                        {\n              \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n              \"name\": \"STAFF2\"\n            },\n                        {\n              \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n              \"name\": \"STAFF4\"\n            }\n          ],\n          \"hasMoreAvailableResources\": false\n        }]\n      }\n    ]\n  },\n  \"timeZone\": \"Asia/Jerusalem\"\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the availability of a given time slot for all available resources."}
+          },
+                    {
+            "title": "Get Multi Service Availability Time Slot",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/multi-service-time-slots/get' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"services\": [\n    {\n      \"resourceIds\": [\n        \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n        \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n        \"fd01e7c0-4ffc-42c3-9f7b-73b46c9e1664\",\n        \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n        \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n        \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\"\n      ],\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\"\n    },\n    {\n      \"resourceIds\": [\n        \"2dc664dd-e897-4c37-b389-571145432a4d\",\n        \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n        \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n        \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\"\n      ],\n      \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\"\n    }\n  ],\n  \"localStartDate\": \"2023-12-08T00:00:00\",\n  \"localEndDate\": \"2023-12-30T23:59:59\",\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"location\": {\n    \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n    \"locationType\": \"BUSINESS\"\n  }\n}'"],
+            "response": ["{\n  \"timeSlot\":   {\n    \"localStartDate\": \"2023-12-08T11:00:00\",\n    \"localEndDate\": \"2023-12-08T13:00:00\",\n    \"bookable\": true,\n    \"location\":     {\n      \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"formattedAddress\": \"Tel Aviv, Israel\",\n      \"locationType\": \"BUSINESS\"\n    },\n    \"totalCapacity\": 1,\n    \"remainingCapacity\": 1,\n    \"bookingPolicyViolations\":     {\n      \"tooEarlyToBook\": false,\n      \"tooLateToBook\": false,\n      \"bookOnlineDisabled\": false\n    },\n    \"availableResources\": [],\n    \"nestedTimeSlots\":     [\n            {\n        \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n        \"localStartDate\": \"2023-12-08T11:00:00\",\n        \"localEndDate\": \"2023-12-08T12:00:00\",\n        \"availableResources\": [        {\n          \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n          \"resources\": [          {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          }],\n          \"hasMoreAvailableResources\": false\n        }]\n      },\n            {\n        \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n        \"localStartDate\": \"2023-12-08T12:00:00\",\n        \"localEndDate\": \"2023-12-08T13:00:00\",\n        \"availableResources\": [        {\n          \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n          \"resources\":           [\n                        {\n              \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n              \"name\": \"STAFF5\"\n            },\n                        {\n              \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n              \"name\": \"STAFF3\"\n            },\n                        {\n              \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n              \"name\": \"STAFF2\"\n            },\n                        {\n              \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n              \"name\": \"STAFF4\"\n            }\n          ],\n          \"hasMoreAvailableResources\": false\n        }]\n      }\n    ]\n  },\n  \"timeZone\": \"Asia/Jerusalem\"\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the availability of the given time slot for available resources out of the specifically requested resources."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetMultiServiceAvailabilityTimeSlotRequest",
+        "rpcResponseName": "GetMultiServiceAvailabilityTimeSlotResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Availability Time Slots",
+      "methodName": "ListAvailabilityTimeSlots",
+      "serviceName": "AvailabilityTimeSlots",
+      "tag": "Service Availability Time Slots",
+      "permissions": [      {
+        "name": "Read Bookings Calendar Availability",
+        "description": "Request permission to read the site's bookings calendar availability."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID for which the time slots are being returned for.\n Currently supports only services of type `Appointment`.\n Required, unless `cursorPaging`.`cursor` is provided.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "fromLocalDate",
+          "type": "string",
+          "doc": " Lower boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "toLocalDate",
+          "type": "string",
+          "doc": " Upper boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n > The `localEndDate` of the returned `TimeSlot` is the `TimeSlot`'s `localStartDate` + the service duration\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Required, unless `cursorPaging`.`cursor` is provided.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "locations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location"]
+          },
+          "doc": " Locations to include in response.\n\n By default,\n if no locations are provided,\n the response contains `TimeSlot`'s for all locations where the service is available.\n\n You can specify locations or location types for which the time slots will be returned for.\n > __Note:__ Supports filtering by location type, or by locationId. Other fields like `name` are ignored.\n > If locationType is `BUSINESS`, you __must__ provide a locationId.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "resourceIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resources to include in response.\n\n If specified,\n the returned time slots will contain __up__ to 10 available resources out of the provided list.\n Otherwise, the returned time slots returns with an empty `AvailableResources`.\n > __Note:__ Not specifying `resourceIds` can be handy in case you want to avoid large response in flows that only\n > interested whether the time slots are available or not. [An example for such flow](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/service-availability-time-slots/sample-flows#all-apis_wix-service-availability_service-availability-time-slots_sample-flows_let-your-customers-to-dynamically-select-an-available-time-slot-for-any-of-your-business-services).\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "includeResourceTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resource type ID's to include in response, this is in addition to the requested resourceIds.\n\n If specified in request, the returned time slots will contain __up__ to 10 `AvailableResources` with `ResourceTypeId`\n out of those specified, each contains __up__ to 10 available resources of this type.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the `TimeSlot` is bookable according to the service's booking policies.\n\n If booking this time slot does not violates any of the service's booking policies,\n  returns as `true`. Otherwise, returns as `false`.\n\n > __Note:__\n > A time slot that doesn't meet the service's bookings policies will be returned with `bookable` = false,\n > while a time slot with no available resources will not be returned at all.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+          "doc": " Indicators for service's booking policy violations for booking the `TimeSlot`.\n\n  A bookable time slot must not violate any policy,\n  therefor, this filter is only relevant when `bookable` filter is false.\n\n Each nested field is checked on its own. i.e. if `tooEarlyToBook` is defined and `bookOnlineDisabled` is not defined\n we return slots for which `tooEarlyToBook` is same as on the request, regardless of `bookOnlineDisabled`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "timeSlotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each day. For example, if `timeSlotsPerDay` is set to `3`,\n we return at most 3 available `TimeSlot`'s for each day within the date range specified in request.\n\n By default,\n if `bookable` filter was not specified,\n and a day has both `bookable` and `un-bookable` slots, `bookable` slots are returned first.\n\n If the number of `bookable` slots is less than the requested `timeSlotsPerDay`,\n `un-bookable` slots will be returned according to the specified filters.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "cursorPaging",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPaging",
+          "doc": "  CursorPaging.\n\n  Enables you to fetch `TimeSlot`'s in smaller, more manageable chunks\n  by setting a limit on the number of `TimeSlots` returned in response.\n  This is useful in order to enhance efficiency of data retrieval and reduce load on both the client and server.\n\n  If there are more results than the specified limit, the response will contain a `cursorPagingMetaData`\n  with a cursor pointing to next page of results. In order to fetch the next page of results, you should pass the\n  returned cursor to the next call as `cursorPaging`.`cursor`.\n\n  For the first call, you should only specify the `limit` for the results page.\n  For each following call, you should only pass the previous returned cursor as `cursorPaging`.`cursor`\n  the `cursorPaging`.`limit`. You may pass a different `limit`.\n  No need to specify any additional parameters.\n\n __TODO: This is only describes the current behavior, should be fixed__\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      If you only provide a `cursorPaging`.`cursor`,\n      the response will contain the default size of results = 1000.\n    <\/p>\n    <\/blockquote>\n\n  cursorPaging.limit:\n  Default: 1000\n  Max: 1000\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListAvailabilityTimeSlots",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_ListAvailabilityTimeSlotsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "  Retrieves a list of `TimeSlot`'s that match the provided filters.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n    Currently supported only for services of type `APPOINTMENT`.\n    <\/p>\n   <\/blockquote>\n\n  The request body __must__ include one of:\n\n  + All of the following filters:  `serviceId`, `fromLocalDate`, `toLocalDate`, and `timeZone`. You may add additional filters as you wish.\n  + A `cursorPaging` with a valid `cursor` from previous response.\n\n  Each [TimeSlot](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/availability-time-slots/time-slot-object) in response\n  represents the availability of the service in a specific location,\n  and has a `localStartDate` within the range of the provided `fromLocalDate` and `toLocalDate` exclusive.\n\n\n ### AvailableResources in response:\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n        By default,\n        if you don't specify `includeResourceTypeIds` or `resourceIds` filters in request,\n        we return `TimeSlot`'s with an empty `AvailableResources`.\n   <\/p>\n   <\/blockquote>\n\n  If you wish to get a list of available resources for each `TimeSlot` you should either:\n    + provide `resourceIds` in request.\n    + provide `includeResourceTypeIds` in request.\n\n  > __Notes:__\n  >\n  > + In both cases the returned `TimeSlot`'s contains  __up__ to 10 `AvailableResources` that match the provided filters.\n  > Each `AvailableResources` contains __up__ to 10 available `resources` of the same type that match the provided filters.\n  >\n  > + If an `AvailableResources` has more available resources which are not listed within it,\n  > we return `AvailableResources`.`hasMoreAvailableResources` as true.\n  > + If you wish to get the full available resources list for a specific `TimeSlot`,\n  > you can call [GetAvailabilityTimeSlot](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/service-availability-time-slots/get-availability-time-slot).\n\n\n ### Availability VS Bookability:\n  An available time slot is not necessarily bookable.\n\n  The `bookable` field of a `TimeSlot` indicates whether a customer can book the service within the given time slot,\n  at a specific period of time.\n  Read more about [Availability VS Bookability](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/service-availability-time-slots/introduction#all-apis_wix-service-availability_service-availability-time-slots_introduction_availability-vs-bookability).\n\n  By default,\n  + The response does not contains unavailable `TimeSlot`'s.\n    For example,\n    if there are no available resources to provide the service from `2024-01-30T14:30:00` to `2024-01-30T15:30:00`,\n    we don't return `TimeSlot`'s with `localStartDate` within this range.\n  + The response contains both `bookable` and `un-bookable` `TimeSlot`'s.\n    For example,\n    if the service has a booking policy which enforces booking the service up to 10 minutes before the session starts,\n    we return `TimeSlot`'s with the violating `localStartDate` with `bookable` as false.\n    If you want to list only __bookable__ `TimeSlots` you should pass `bookable` as true.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      Because of DST, there are edge cases where certain times either do not exist or exist twice for a local time zone.\n      Read about [DST Handling](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/service-availability-time-slots/introduction#all-apis_wix-service-availability_service-availability-time-slots_introduction_daylight-saving-time-dst-handling)\n   <\/p>\n   <\/blockquote>\n\n\n ### Pagination:\n  You can specify how many `TimeSlot`'s will return in response by providing a `limit`\n  for the `cursorPaging` in request.\n\n  If there are more `TimeSlot`s that match the provided filters, we return a `cursorPagingMetaData`\n  with `hasNext` = true and a `cursors`.`next` that points to the next page of results.\n  In order to retrieve the next page of results, you should only provide `cursorPaging` with a limit and the cursor\n  you got in previous call to `cursorPaging`.`cursor` in the request of the following call.\n\n  By default,\n  the response contains at most 1000 results.\n  If there are more than 1000 results, we return a `cursorPagingMetadata` with\n    a cursor for the next page of results, regardless of whether a `cursorPaging`\n    was provided in request.\n\n #### ListAvailabilityTimeSlots runs with the following defaults:\n  + `cursorPaging`.`limit` is 1000.\n  + `localStartDate` is sorted in `ASC` order.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/service-availability/v2/time-slots",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "List Availability Time Slots",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/time-slots' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"includeResourceTypeIds\": [\n    \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\"\n    ],\n    \"locations\": [\n      {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"locationType\": \"BUSINESS\"\n      }\n    ],\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"fromLocalDate\": \"2024-02-01T00:00:00\",\n    \"toLocalDate\": \"2024-02-28T23:59:00\",\n    \"timeZone\": \"Asia/Jerusalem\",\n    \"bookable\": true,\n    \"timeSlotsPerDay\": 1,\n    \"cursorPaging\": {\n      \"limit\": 5\n    }\n}'"],
+            "response": ["{\n  \"timeSlots\":   [\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-01T00:00:00\",\n      \"localEndDate\": \"2024-02-01T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T00:00:00\",\n      \"localEndDate\": \"2024-02-02T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-03T00:00:00\",\n      \"localEndDate\": \"2024-02-03T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-04T00:00:00\",\n      \"localEndDate\": \"2024-02-04T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-05T00:00:00\",\n      \"localEndDate\": \"2024-02-05T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    }\n  ],\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"cursorPagingMetadata\":   {\n    \"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.v62ZlVblOLN7Ba6AYq-mgwThqthA90F21nWdq77ziu9fqNmCO0T50g.7MFaJBVR6iivKV2gZuO_qg.W9dKt-UKfiocW2RfEseCyIE_mXBoFdg0LFxIYCykv8jtqkZVCcTWJ7X1sedwLIGt2FApoGxVo3gWpOr4sLbDPOpb5qMeSJKG5tppUw5Kr_squAFTFEZzDqUq1DSEbvLwxOoPZZp3YAsgX4P-Yi37UEC4OPYLNQkBOaunrGzP9IPCs-y5TONrIIa1eZud-AU85xXha5jRFH_d3s7fTJtHmHVH1W0sygQHgSyBtANsvcIouwFBGb9wSy-Ox9_O6ik87uBaKe6zNS8YQZo98WcoECmmrhCCCkJORkytuiDZGAja65GxJu9KIaLVLF6PjR7g1bvAj26kBoB-XWSk76BHt16ty68toBfUhKONMQtmtY5gF7U1CU9hsTzij0Hs2ppRVTJjhxBHzBs6aWz0gLg7bYeS7pvchJSnighIvf3WPNZn8dSuBXOs_j0g8-QAsUyyRb8YOyq_zUiHKh7PnMtaY9OM8PvVej9Vjll2Bj6pxyddw_L2EE234TwnIXh5ORfyOlM6HELDWnI-SUThqXreI2iyyUe1ml_5tuumiJ5t1kJoGnYC5bs8rlY8f5wfscJNT91Dxbb_rtLV9TL_qvpyghxlTW99y_FtpMQgfecoQ3Y.H412krucVqw99MaFH-FKSg\"},\n    \"hasNext\": true\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves at most one available time slot per day for each day of the month."}
+          },
+                    {
+            "title": "List Availability Time Slots",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/time-slots' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"cursorPaging\": {\n        \"cursor\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.v62ZlVblOLN7Ba6AYq-mgwThqthA90F21nWdq77ziu9fqNmCO0T50g.7MFaJBVR6iivKV2gZuO_qg.W9dKt-UKfiocW2RfEseCyIE_mXBoFdg0LFxIYCykv8jtqkZVCcTWJ7X1sedwLIGt2FApoGxVo3gWpOr4sLbDPOpb5qMeSJKG5tppUw5Kr_squAFTFEZzDqUq1DSEbvLwxOoPZZp3YAsgX4P-Yi37UEC4OPYLNQkBOaunrGzP9IPCs-y5TONrIIa1eZud-AU85xXha5jRFH_d3s7fTJtHmHVH1W0sygQHgSyBtANsvcIouwFBGb9wSy-Ox9_O6ik87uBaKe6zNS8YQZo98WcoECmmrhCCCkJORkytuiDZGAja65GxJu9KIaLVLF6PjR7g1bvAj26kBoB-XWSk76BHt16ty68toBfUhKONMQtmtY5gF7U1CU9hsTzij0Hs2ppRVTJjhxBHzBs6aWz0gLg7bYeS7pvchJSnighIvf3WPNZn8dSuBXOs_j0g8-QAsUyyRb8YOyq_zUiHKh7PnMtaY9OM8PvVej9Vjll2Bj6pxyddw_L2EE234TwnIXh5ORfyOlM6HELDWnI-SUThqXreI2iyyUe1ml_5tuumiJ5t1kJoGnYC5bs8rlY8f5wfscJNT91Dxbb_rtLV9TL_qvpyghxlTW99y_FtpMQgfecoQ3Y.H412krucVqw99MaFH-FKSg\",\n        \"limit\": 5\n    }\n}'"],
+            "response": ["{\n  \"timeSlots\":   [\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-06T00:00:00\",\n      \"localEndDate\": \"2024-02-06T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-07T00:00:00\",\n      \"localEndDate\": \"2024-02-07T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-08T00:00:00\",\n      \"localEndDate\": \"2024-02-08T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-09T00:00:00\",\n      \"localEndDate\": \"2024-02-09T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-10T00:00:00\",\n      \"localEndDate\": \"2024-02-10T01:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"92310bc9-10db-4163-85d2-65f83e0ddda9\",\n        \"name\": \"Location 1\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\": []\n    }\n  ],\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"cursorPagingMetadata\":   {\n    \"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.kCW5RwNpPpNdpalS-nxAScn6FH-12OdjWiMqGhwJ7Ih0HLuiVHE_wA._J9j4MZvKvFWRCjMu1i_zg.o4-JRrCIRBujQax6xtQXksv2OjTDTS5X_dE0mUGq1809x1vbZ6hM20cvDjdkR43hw7p9LMnvSYbPE2c2LKtxP4C_bErpv3QxSfWOcXX8zRefWyWTfK0W87J2h-fHKXT1xp6B_SOOA2dsQ0Ho691qnBUhV-qhlwcCYy1ZXBsdUp2_qt8oDKuXGwuTgU35Jd9swc0ZjtkERCSDTPrtiXfjz_Kqwe-AGsJCkdtReYknlnZrV3KHwBRUMoCVN7mP9xWUbO0lSBOK_Pzzm0g1hqfae21jkfQZw9_S9JO7aoLt3lZzg-AjBQMdbzu_zQG5tItyZMd90pNLAYACtllWjs034PtSG4V0Y0KV9xjVXbxapcXGRcfjtGzTKAitaE8H9liReEG_58bVcGuWXXTlLRGncb0PU2qFDh8x4jarodc6l1p2ho6v6_PGb-gUrPmW4OLa3rcC9FfgLqCINJ8Lh1obzSCQ8if2xRcfQb5R25c58IGgaQgI-syYmVeKZ83JOF3TStASBGNif12ODo2xxZnN7eSmCa7jW6gzgERs2V7WNAljmAIUJfEd1AiCX1vVgQ6v1CrFrRfVTQxC6_P6-P6xLbmoqgqatq4T0M6-MYK2eHc.jGzu9sRG8ssk5wY_nf07rg\"},\n    \"hasNext\": true\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the next five results of a former call by passing cursorPaging"}
+          },
+                    {
+            "title": "List Availability Time Slots",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/time-slots' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"includeResourceTypeIds\": [\n        \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\"\n    ],\n    \"locations\": [],\n    \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n    \"fromLocalDate\": \"2024-02-02T12:00:00\",\n    \"toLocalDate\": \"2024-02-02T12:10:00\",\n    \"timeZone\": \"Asia/Jerusalem\",\n    \"bookable\": true,\n    \"cursorPaging\": {\n      \"limit\": 5\n    }\n}'"],
+            "response": ["{\n  \"timeSlots\":   [\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T12:00:00\",\n      \"localEndDate\": \"2024-02-02T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"735dd659-9d48-4b0a-8030-01e4523c840e\",\n        \"name\": \"Dublin\",\n        \"formattedAddress\": \"Dublin, Ireland\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [      {\n        \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n        \"resources\":         [\n                    {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          },\n                    {\n            \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n            \"name\": \"staff4\"\n          },\n                    {\n            \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n            \"name\": \"staff10\"\n          },\n                    {\n            \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n            \"name\": \"Tom Jones\"\n          },\n                    {\n            \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n            \"name\": \"Ali Baba\"\n          },\n                    {\n            \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n            \"name\": \"staff11\"\n          },\n                    {\n            \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n            \"name\": \"staff8\"\n          },\n                    {\n            \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n            \"name\": \"Staff Member #1\"\n          },\n                    {\n            \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n            \"name\": \"staff9\"\n          },\n                    {\n            \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n            \"name\": \"staff12\"\n          }\n        ],\n        \"hasMoreAvailableResources\": true\n      }],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T12:00:00\",\n      \"localEndDate\": \"2024-02-02T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"74cc1656-9063-47e2-9a99-6b18ab3710ec\",\n        \"name\": \"Lisbon\",\n        \"formattedAddress\": \"lisbon\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [      {\n        \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n        \"resources\":         [\n                    {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          },\n                    {\n            \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n            \"name\": \"staff4\"\n          },\n                    {\n            \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n            \"name\": \"staff10\"\n          },\n                    {\n            \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n            \"name\": \"Tom Jones\"\n          },\n                    {\n            \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n            \"name\": \"Ali Baba\"\n          },\n                    {\n            \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n            \"name\": \"staff11\"\n          },\n                    {\n            \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n            \"name\": \"staff8\"\n          },\n                    {\n            \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n            \"name\": \"Staff Member #1\"\n          },\n                    {\n            \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n            \"name\": \"staff9\"\n          },\n                    {\n            \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n            \"name\": \"staff12\"\n          }\n        ],\n        \"hasMoreAvailableResources\": true\n      }],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T12:00:00\",\n      \"localEndDate\": \"2024-02-02T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"7d60d462-6e11-4f65-b5e0-9d6008e5281c\",\n        \"name\": \"AD\",\n        \"formattedAddress\": \"Andora\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [      {\n        \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n        \"resources\":         [\n                    {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          },\n                    {\n            \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n            \"name\": \"staff4\"\n          },\n                    {\n            \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n            \"name\": \"staff10\"\n          },\n                    {\n            \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n            \"name\": \"Tom Jones\"\n          },\n                    {\n            \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n            \"name\": \"Ali Baba\"\n          },\n                    {\n            \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n            \"name\": \"staff11\"\n          },\n                    {\n            \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n            \"name\": \"staff8\"\n          },\n                    {\n            \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n            \"name\": \"Staff Member #1\"\n          },\n                    {\n            \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n            \"name\": \"staff9\"\n          },\n                    {\n            \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n            \"name\": \"staff12\"\n          }\n        ],\n        \"hasMoreAvailableResources\": true\n      }],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T12:00:00\",\n      \"localEndDate\": \"2024-02-02T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [      {\n        \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n        \"resources\":         [\n                    {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          },\n                    {\n            \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n            \"name\": \"staff4\"\n          },\n                    {\n            \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n            \"name\": \"staff10\"\n          },\n                    {\n            \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n            \"name\": \"Tom Jones\"\n          },\n                    {\n            \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n            \"name\": \"Ali Baba\"\n          },\n                    {\n            \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n            \"name\": \"staff11\"\n          },\n                    {\n            \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n            \"name\": \"staff8\"\n          },\n                    {\n            \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n            \"name\": \"Staff Member #1\"\n          },\n                    {\n            \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n            \"name\": \"staff9\"\n          },\n                    {\n            \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n            \"name\": \"staff12\"\n          }\n        ],\n        \"hasMoreAvailableResources\": true\n      }],\n      \"nestedTimeSlots\": []\n    },\n        {\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n      \"localStartDate\": \"2024-02-02T12:05:00\",\n      \"localEndDate\": \"2024-02-02T13:05:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"735dd659-9d48-4b0a-8030-01e4523c840e\",\n        \"name\": \"Dublin\",\n        \"formattedAddress\": \"Dublin, Ireland\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [      {\n        \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n        \"resources\":         [\n                    {\n            \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n            \"name\": \"staff 5\"\n          },\n                    {\n            \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n            \"name\": \"staff4\"\n          },\n                    {\n            \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n            \"name\": \"staff10\"\n          },\n                    {\n            \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n            \"name\": \"Tom Jones\"\n          },\n                    {\n            \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n            \"name\": \"Ali Baba\"\n          },\n                    {\n            \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n            \"name\": \"staff11\"\n          },\n                    {\n            \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n            \"name\": \"staff8\"\n          },\n                    {\n            \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n            \"name\": \"Staff Member #1\"\n          },\n                    {\n            \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n            \"name\": \"staff9\"\n          },\n                    {\n            \"id\": \"b44e0801-223e-4124-bcbc-0eb4c07cba13\",\n            \"name\": \"staff12\"\n          }\n        ],\n        \"hasMoreAvailableResources\": true\n      }],\n      \"nestedTimeSlots\": []\n    }\n  ],\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"cursorPagingMetadata\":   {\n    \"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.P4mw114KkQxwz0Ni9PYffiE3RYg18fX1_NVqjBqMM2Yxr9beMv8qCA.1fdd4p_SwSgwPBeMiG3Upg.5_0llUWKU2snN_oSLS8lMduQOlYEIAcsSq895VFMt-MasDVXthyudMm7UQBV9Uv1xikKJEkzjsbwHQET4NUnXUuIFQaMt83ivmWoDNMh3pppscOSiBBOExUoCLSbMZFZhQZh5oMvnBYU5h3Qbr8mB3Eqw2C8U42FWFZlkMBMGBAv01jYYQJm3GarFPke1UZE1bl8f4ZiTRyn54fYHhXJ_TSlEaWwRGgtCtDlcnhRMu0aaot08jmVSKmTiJWN8TxnO40rItcv60eyPcuKUAKjsD3p05-kWsLtdtcaCGPP-x9LLVv3G00XjycVIR8eN_CGPcr92lBIAY2ea-ukYVF654iONLK8dGz3H6H1tLsvLIepDkcjLOOArB9eHbIJG3mDiFs6Axvx69cfYzZQEs-u1K6t6OG-wGDtsaQyy9IVTZdpP0D8eHNm3dvrNxxLNItNrmR9Z3JzkE7bTopurRgFnIVRSGjHRCn-G-PG15O7IsaLojictKCrRQJt99JtU1om0y1snEfQWcR3LD3hXW5tMiPBTy50Rqal9j8wCTXYm4pF5F-Om4ULDx74TQggzb8p4-nqxz-hcMqPGnEOsfTqzs8bYMh9wDNbXPx8skkAI0eB6bP-C4i8jeddid83f0Vz1XrXX0Opguu79L3BNAVZ3Q.hw0ReL0FAF26UjdB_vMPaQ\"},\n    \"hasNext\": true\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves available, bookable time slots for a service in a given time range, with all possible locations and available resources of type `Staff Member`"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAvailabilityTimeSlotsRequest",
+        "rpcResponseName": "ListAvailabilityTimeSlotsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Multi Service Availability Time Slots",
+      "methodName": "ListMultiServiceAvailabilityTimeSlots",
+      "serviceName": "MultiServiceAvailabilityTimeSlots",
+      "tag": "Multi Service Availability Time Slots",
+      "permissions": [      {
+        "name": "Read Bookings Calendar Availability",
+        "description": "Request permission to read the site's bookings calendar availability."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "services",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Service"]
+          },
+          "doc": " Services for which the multiService time slots are being returned for.\n Each service contains its own resources filters within.\n\n MinSize: 2.\n MaxSize: 8.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "fromLocalDate",
+          "type": "string",
+          "doc": " Lower boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "toLocalDate",
+          "type": "string",
+          "doc": " Upper boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Required, unless `cursorPaging`.`cursor` is provided.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " Location for which the multiService time slots are being returned for.\n\n You can specify location or location type for which the time slots will be returned for.\n > __Note:__ Supports filtering by location type, or by locationId. Other fields like `name` are ignored.\n > If locationType is `BUSINESS`, you __must__ provide a locationId.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the `TimeSlot` is bookable according all of the services booking policies.\n\n If booking any of the `TimeSlot`.`NestedTimeSlot`'s violates any of its services bookings policies,\n  returns as `false`. Otherwise, returns as `true`.\n\n > __Note:__\n > A `TimeSlot` with a `NestedTimeSlot` that doesn't meet its service's bookings policies will be returned with `bookable` = false,\n > while a `TimeSlot` with no available resources will not be returned at all.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+          "doc": " Indicators for service's booking policy violations for booking the `TimeSlot`.\n\n  A bookable time slot must not violate any policy,\n  therefor, this filter is only relevant when `bookable` filter is false.\n\n  Each nested field is checked on all `NestedTimeSlot`'s. For example, if only one of the `NestedTimeSlot`'s\n  has a service with `tooEarlyToBook` same as in the request, we return the `TimeSlot` regardless of whether\n  the other `NestedTimeSlots` has the same `tooEarlyToBook` as in request.\n\n Each nested field is checked on its own. For example, if `tooEarlyToBook` is defined and `bookOnlineDisabled` is not defined\n we return slots for which `tooEarlyToBook` is same as on the request, regardless of `bookOnlineDisabled`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "timeSlotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each day. For example, if `timeSlotsPerDay` is set to `3`,\n we return at most 3 available `TimeSlot`'s for each day within the date range specified in request.\n\n By default,\n if `bookable` filter was not specified,\n and a day has both `bookable` and `un-bookable` slots, `bookable` slots are returned first.\n\n If the number of `bookable` slots is less than the requested `timeSlotsPerDay`,\n `un-bookable` slots will be returned according to the specified filters.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "cursorPaging",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPaging",
+          "doc": "  CursorPaging.\n\n  Enables you to fetch `TimeSlot`'s in smaller, more manageable chunks\n  by setting a limit on the number of `TimeSlots` returned in response.\n  This is useful in order to enhance efficiency of data retrieval and reduce load on both the client and server.\n\n  If there are more results than the specified limit, the response will contain a `cursorPagingMetaData`\n  with a cursor pointing to next page of results. In order to fetch the next page of results, you should pass the\n  returned cursor to the next call as `cursorPaging`.`cursor`.\n\n  For the first call, you should only specify the `limit` for the results page.\n  For each following call, you should only pass the previous returned cursor as `cursorPaging`.`cursor`\n  the `cursorPaging`.`limit`. You may pass a different `limit`.\n  No need to specify any additional parameters.\n\n __TODO: This is only describes the current behavior, should be fixed__\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      If you only provide a `cursorPaging`.`cursor`,\n      the response will contain the default size of results = 1000.\n    <\/p>\n    <\/blockquote>\n\n  cursorPaging.limit:\n  Default: 1000\n  Max: 1000\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListMultiServiceAvailabilityTimeSlots",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_ListMultiServiceAvailabilityTimeSlotsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of multiService `TimeSlot`'s that match the provided filters.\n<blockquote class=\"important\">\n<p><strong>Important:<\/strong><br/>\nCurrently supported only for services of type `APPOINTMENT`.\n<\/p>\n<\/blockquote>\n\nThe request body __must__ include one of:\n\n+ All of the following filters:  `serviceId`, `fromLocalDate`, `toLocalDate`, `location`, and `timeZone`. You may add additional filters as you wish.\n+ A `cursorPaging` with a valid `cursor` from previous response.\n\n\nEach [TimeSlot](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/availability-time-slots/time-slot-object) in response\nrepresents the availability of the given list of services in a specific location, within a given range of time.\n\nEach `TimeSlot`.`NestedTimeSlot` represents a single service from the given list. The order of the `NestedTimeSlots` is the same as the order\nof the given services in request.\n\nThe first `NestedTimeSlot` has `localStartDate` within the given `fromLocalDate` and `toLocalDate` - exclusive,\nand each following `NestedTimeSlot` has a `localStartDate` that equals to the previous `NestedTimeSlot`'s `localEndDate`.\n\n> __Notes:__\n>  + All nested time slots share the same location.\n>  + You can pass up to 8 services in request.\n\n### AvailableResources in response:\n<blockquote class=\"important\">\n<p><strong>Important:<\/strong><br/>\nBy default,\nif you don't specify `service`.`includeResourceTypeIds` or `service`.`resourceIds` filters in request,\nwe return `TimeSlot`.`NestedTimeSlot`'s with an empty `AvailableResources`.\n<\/p>\n<\/blockquote>\n\nIf you wish to get a list of available resources for a `TimeSlot`.`NestedTimeSlot` you should either:\n+ provide `service`.`resourceIds` in request.\n+ provide `service`.`includeResourceTypeIds` in request.\n\n> __Notes:__\n>\n> + In both cases the returned `TimeSlot`.`NestedTimeSlot`'s contains  __up__ to 10 `AvailableResources` that match the provided filters.\n> Each `AvailableResources` contains __up__ to 10 available `resources` of the same type that match the provided filters.\n>\n> + If an `AvailableResources` has more available resources which are not listed within it,\n> we return `AvailableResources`.`hasMoreAvailableResources` as true.\n> + If you wish to get the full available resources list for all `NestedTimeSlot` of a specific `TimeSlot`,\n> you can call [GetMultiServiceAvailabilityTimeSlot](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/multi-service-availability-time-slots/get-multi-service-availability-time-slot).\n\n\n### Availability VS Bookability:\nAn available time slot is not necessarily bookable.\n\nThe `bookable` field of a `TimeSlot` indicates whether the customer can book all of the of the services within the given time slot,\nat a specific period of time.\nRead more about [Availability VS Bookability](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/multi-service-availability-time-slots/introduction#all-apis_wix-service-availability_multi-service-availability-time-slots_introduction_availability-vs-bookability).\n\nBy default,\n+ The response does not contains unavailable `TimeSlot`'s.\nFor example,\nif there are no available resources to provide the service from `2024-01-30T14:30:00` to `2024-01-30T15:30:00`,\nwe don't return `TimeSlot`'s with `localStartDate` within this range.\n+ The response contains both `bookable` and `un-bookable` `TimeSlot`'s.\nFor example,\nif one of the services has a booking policy which enforces booking the service up to 10 minutes before the session starts,\nwe return `TimeSlot`'s with the violating `localStartDate` with `bookable` as false.\nIf you want to list only __bookable__ `TimeSlots` you should pass `bookable` as true.\n+ If booking one of the `NestedTimeSlot`'s violates one of the corresponding service's booking policies,\nthe `TimeSlot` returns with `bookable` as false. There is no indication which service's policy was violated.\n\n<blockquote class=\"important\">\n<p><strong>Important:<\/strong><br/>\nBecause of DST, there are edge cases where certain times either do not exist or exist twice for a local time zone.\nRead about [DST Handling](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/multi-service-availability-time-slots/introduction#all-apis_wix-service-availability_multi-service-availability-time-slots_introduction_daylight-saving-time-dst-handling)\n<\/p>\n<\/blockquote>\n\n\n### Pagination:\nYou can specify how many `TimeSlot`'s will return in response by providing a `limit`\nfor the `cursorPaging` in request.\n\nIf there are more `TimeSlot`s that match the provided filters, we return a `cursorPagingMetaData`\nwith `hasNext` = true and a `cursors`.`next` that points to the next page of results.\nIn order to retrieve the next page of results, you should only provide `cursorPaging` with a limit and the cursor\nyou got in previous call to `cursorPaging`.`cursor` in the request of the following call.\n\nBy default,\nthe response contains at most 1000 results.\nIf there are more than 1000 results, we return a `cursorPagingMetadata` with\na cursor for the next page of results, regardless of whether a `cursorPaging`\nwas provided in request.\n\n#### ListAvailabilityTimeSlots runs with the following defaults:\n+ `cursorPaging`.`limit` is 1000.\n+ `localStartDate` is sorted in `ASC` order.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/service-availability/v2/multi-service-time-slots",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "List Multi Service Availability Time Slots",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/multi-service-time-slots' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"services\": [\n    {\n      \"includeResourceTypeIds\": [\n        \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\"\n      ],\n      \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\"\n    },\n    {\n      \"includeResourceTypeIds\": [],\n      \"resourceIds\": [\n        \"2dc664dd-e897-4c37-b389-571145432a4d\",\n        \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n        \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n        \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n        \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\"\n      ],\n      \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\"\n    }\n  ],\n  \"fromLocalDate\": \"2023-12-08T00:00:00\",\n  \"toLocalDate\": \"2023-12-30T23:59:59\",\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"location\": {\n    \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n    \"locationType\": \"BUSINESS\"\n  },\n  \"timeSlotsPerDay\": 1,\n  \"cursorPaging\": {\n        \"limit\": 5\n  }\n}'"],
+            "response": ["{\n  \"timeSlots\":   [\n        {\n      \"localStartDate\": \"2023-12-08T11:00:00\",\n      \"localEndDate\": \"2023-12-08T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-08T11:00:00\",\n          \"localEndDate\": \"2023-12-08T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-08T12:00:00\",\n          \"localEndDate\": \"2023-12-08T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-10T10:00:00\",\n      \"localEndDate\": \"2023-12-10T12:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-10T10:00:00\",\n          \"localEndDate\": \"2023-12-10T11:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-10T11:00:00\",\n          \"localEndDate\": \"2023-12-10T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-11T11:00:00\",\n      \"localEndDate\": \"2023-12-11T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-11T11:00:00\",\n          \"localEndDate\": \"2023-12-11T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-11T12:00:00\",\n          \"localEndDate\": \"2023-12-11T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-12T11:00:00\",\n      \"localEndDate\": \"2023-12-12T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-12T11:00:00\",\n          \"localEndDate\": \"2023-12-12T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-12T12:00:00\",\n          \"localEndDate\": \"2023-12-12T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-13T11:00:00\",\n      \"localEndDate\": \"2023-12-13T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-13T11:00:00\",\n          \"localEndDate\": \"2023-12-13T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-13T12:00:00\",\n          \"localEndDate\": \"2023-12-13T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    }\n  ],\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"cursorPagingMetadata\":   {\n    \"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.WjIC6Jq1obLASY3YUD4E81rAEG0dC2iuLgAZ_R_IIe3yODIVXWMLfg.0DYReO5DgulBSDi1s-mnZw.kH5h9VeGE2fFMlVLUmi7sBjG1E9G64Bx8QuF4EtDvtQoXnbyJkke_TnYQ6XRv6vEj3D7UHruu6ZY_IRA4OMVkW58DVN418R4J2KfsLWFtKujmtTEeR5RP0zBQWF-tawHtt2bp_xbVxPRkJxdHEfiAXnhMS80wTm3rUb1gYMFvpPLBNAxeqxaVkiS-9jB4USa-gQExRt11R96TJbWquaNDOukkF456IEtxv9WpBQgQd41P58qZaXJAl40IrHJIqLDJMz7XGRRDcK0gNcrO0h1ep2Mmjc8TP9FeqL7TDGUvy4FqkDvqRSqkpnQbLTLjkh6HwQWfbfCJGVw0lKzab9HtrFwifLxpgCb8XrYISCjmYqEcB-YnwJ0CSrxFUVhNQx5Ld6pc0BRWG_p57YM8vOWJNfh8BRG3x3aiG4KfeaO8t0rD_lJTJxHqYqMaW2YR5rzHZ6gveq6R1v946j-Xd35Z8cEitjzqQTZLi04uiM6jVLk4CfSFo4eQDqKotR3mPnU1ySBo-PBYWL7WHrv-n61thGWJir2RQ8mzdPP8XS9mwn3nunq6UjJVytB3CpKkMsooUIzUwkDq0aotXQcIk56xHdEsUkr_CPe_gZyCD5cfmnkNsNYax5p5q5eVxcJUwqDD7qBLYm6N9N69gpQqW0ioy-TsG488oDYMvw7-Pb9R2_Jm47FRln2scofOnimbcu6wmBwfUa650M4MnWEa5gekpW3tkSYKU_FnjQYL_jtQT2hmLcTR62FdkuqMhonG5h7H7lJbgktx7PmspGLOX9MT4HiHdDPL9O4JdhR2nuq6Qxwp_yetryZ-Cw3_k1yC8VBr91muWTYkxBSgbKTXI_o1PTn0AyBe8A4uydmOy5rGDkjqRkn93KivU2bsE3jKDQOB_SebLwSMQHCdDOq8ngOX9s4lfiVuCPix-4367JbBOnAucspLcLZIPO-qVv_Vxuj._BtL_oMfO9HhTq2ahUAjfA\"},\n    \"hasNext\": true\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves at most one available time slot per day for each day of the month."}
+          },
+                    {
+            "title": "List Multi Service Availability Time Slots",
+            "body": ["curl -X POST 'https://www.wixapis.com/_api/service-availability/v2/multi-service-time-slots' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n   \"cursorPaging\": {\n    \"cursor\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiSGp3NWZDbWcifQ.WjIC6Jq1obLASY3YUD4E81rAEG0dC2iuLgAZ_R_IIe3yODIVXWMLfg.0DYReO5DgulBSDi1s-mnZw.kH5h9VeGE2fFMlVLUmi7sBjG1E9G64Bx8QuF4EtDvtQoXnbyJkke_TnYQ6XRv6vEj3D7UHruu6ZY_IRA4OMVkW58DVN418R4J2KfsLWFtKujmtTEeR5RP0zBQWF-tawHtt2bp_xbVxPRkJxdHEfiAXnhMS80wTm3rUb1gYMFvpPLBNAxeqxaVkiS-9jB4USa-gQExRt11R96TJbWquaNDOukkF456IEtxv9WpBQgQd41P58qZaXJAl40IrHJIqLDJMz7XGRRDcK0gNcrO0h1ep2Mmjc8TP9FeqL7TDGUvy4FqkDvqRSqkpnQbLTLjkh6HwQWfbfCJGVw0lKzab9HtrFwifLxpgCb8XrYISCjmYqEcB-YnwJ0CSrxFUVhNQx5Ld6pc0BRWG_p57YM8vOWJNfh8BRG3x3aiG4KfeaO8t0rD_lJTJxHqYqMaW2YR5rzHZ6gveq6R1v946j-Xd35Z8cEitjzqQTZLi04uiM6jVLk4CfSFo4eQDqKotR3mPnU1ySBo-PBYWL7WHrv-n61thGWJir2RQ8mzdPP8XS9mwn3nunq6UjJVytB3CpKkMsooUIzUwkDq0aotXQcIk56xHdEsUkr_CPe_gZyCD5cfmnkNsNYax5p5q5eVxcJUwqDD7qBLYm6N9N69gpQqW0ioy-TsG488oDYMvw7-Pb9R2_Jm47FRln2scofOnimbcu6wmBwfUa650M4MnWEa5gekpW3tkSYKU_FnjQYL_jtQT2hmLcTR62FdkuqMhonG5h7H7lJbgktx7PmspGLOX9MT4HiHdDPL9O4JdhR2nuq6Qxwp_yetryZ-Cw3_k1yC8VBr91muWTYkxBSgbKTXI_o1PTn0AyBe8A4uydmOy5rGDkjqRkn93KivU2bsE3jKDQOB_SebLwSMQHCdDOq8ngOX9s4lfiVuCPix-4367JbBOnAucspLcLZIPO-qVv_Vxuj._BtL_oMfO9HhTq2ahUAjfA\",\n     \"limit\": 5\n  }\n}'"],
+            "response": ["{\n  \"timeSlots\":   [\n        {\n      \"localStartDate\": \"2023-12-13T12:00:00\",\n      \"localEndDate\": \"2023-12-13T14:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-13T12:00:00\",\n          \"localEndDate\": \"2023-12-13T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n                \"name\": \"staff 5\"\n              },\n                            {\n                \"id\": \"38f06a80-c44c-464a-95ee-01f0f58c04d1\",\n                \"name\": \"Ali Baba\"\n              },\n                            {\n                \"id\": \"423f5e66-ebb6-402e-952d-c00ff2f5eb79\",\n                \"name\": \"staff4\"\n              },\n                            {\n                \"id\": \"43eb802c-0491-43de-8b60-ab0f036213a1\",\n                \"name\": \"replace staff 5\"\n              },\n                            {\n                \"id\": \"167b22cd-0521-47b9-b0c2-baca665351c5\",\n                \"name\": \"staff10\"\n              },\n                            {\n                \"id\": \"1bd089a1-726b-4fdd-9a70-4b19cffeb392\",\n                \"name\": \"Tom Jones\"\n              },\n                            {\n                \"id\": \"57347352-dfc0-4729-a821-28cf734f106b\",\n                \"name\": \"staff11\"\n              },\n                            {\n                \"id\": \"627d45ed-71bd-4f6c-b90f-fc5b037accc6\",\n                \"name\": \"staff8\"\n              },\n                            {\n                \"id\": \"76570209-101f-409b-af97-b445bdb63125\",\n                \"name\": \"Staff Member #1\"\n              },\n                            {\n                \"id\": \"a699f4ae-6fcf-41e4-bf57-fbe42aac0ddf\",\n                \"name\": \"staff9\"\n              }\n            ],\n            \"hasMoreAvailableResources\": true\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-13T13:00:00\",\n          \"localEndDate\": \"2023-12-13T14:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-14T11:00:00\",\n      \"localEndDate\": \"2023-12-14T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-14T11:00:00\",\n          \"localEndDate\": \"2023-12-14T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-14T12:00:00\",\n          \"localEndDate\": \"2023-12-14T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-15T11:00:00\",\n      \"localEndDate\": \"2023-12-15T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-15T11:00:00\",\n          \"localEndDate\": \"2023-12-15T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-15T12:00:00\",\n          \"localEndDate\": \"2023-12-15T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-17T10:00:00\",\n      \"localEndDate\": \"2023-12-17T12:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-17T10:00:00\",\n          \"localEndDate\": \"2023-12-17T11:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-17T11:00:00\",\n          \"localEndDate\": \"2023-12-17T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-18T11:00:00\",\n      \"localEndDate\": \"2023-12-18T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-18T11:00:00\",\n          \"localEndDate\": \"2023-12-18T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-18T12:00:00\",\n          \"localEndDate\": \"2023-12-18T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-19T11:00:00\",\n      \"localEndDate\": \"2023-12-19T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-19T11:00:00\",\n          \"localEndDate\": \"2023-12-19T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-19T12:00:00\",\n          \"localEndDate\": \"2023-12-19T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-20T11:00:00\",\n      \"localEndDate\": \"2023-12-20T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-20T11:00:00\",\n          \"localEndDate\": \"2023-12-20T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-20T12:00:00\",\n          \"localEndDate\": \"2023-12-20T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-21T11:00:00\",\n      \"localEndDate\": \"2023-12-21T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-21T11:00:00\",\n          \"localEndDate\": \"2023-12-21T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-21T12:00:00\",\n          \"localEndDate\": \"2023-12-21T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-22T11:00:00\",\n      \"localEndDate\": \"2023-12-22T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-22T11:00:00\",\n          \"localEndDate\": \"2023-12-22T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-22T12:00:00\",\n          \"localEndDate\": \"2023-12-22T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-24T10:00:00\",\n      \"localEndDate\": \"2023-12-24T12:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-24T10:00:00\",\n          \"localEndDate\": \"2023-12-24T11:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-24T11:00:00\",\n          \"localEndDate\": \"2023-12-24T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-25T11:00:00\",\n      \"localEndDate\": \"2023-12-25T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-25T11:00:00\",\n          \"localEndDate\": \"2023-12-25T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-25T12:00:00\",\n          \"localEndDate\": \"2023-12-25T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-26T11:00:00\",\n      \"localEndDate\": \"2023-12-26T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-26T11:00:00\",\n          \"localEndDate\": \"2023-12-26T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-26T12:00:00\",\n          \"localEndDate\": \"2023-12-26T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-27T11:00:00\",\n      \"localEndDate\": \"2023-12-27T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-27T11:00:00\",\n          \"localEndDate\": \"2023-12-27T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-27T12:00:00\",\n          \"localEndDate\": \"2023-12-27T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-28T11:00:00\",\n      \"localEndDate\": \"2023-12-28T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-28T11:00:00\",\n          \"localEndDate\": \"2023-12-28T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-28T12:00:00\",\n          \"localEndDate\": \"2023-12-28T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    },\n        {\n      \"localStartDate\": \"2023-12-29T11:00:00\",\n      \"localEndDate\": \"2023-12-29T13:00:00\",\n      \"bookable\": true,\n      \"location\":       {\n        \"id\": \"b4698671-3412-49b5-bff1-f50d4d0fe3b3\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"formattedAddress\": \"Tel Aviv, Israel\",\n        \"locationType\": \"BUSINESS\"\n      },\n      \"totalCapacity\": 1,\n      \"remainingCapacity\": 1,\n      \"bookingPolicyViolations\":       {\n        \"tooEarlyToBook\": false,\n        \"tooLateToBook\": false,\n        \"bookOnlineDisabled\": false\n      },\n      \"availableResources\": [],\n      \"nestedTimeSlots\":       [\n                {\n          \"serviceId\": \"27f2fb02-8925-4ede-be26-991411d6c905\",\n          \"localStartDate\": \"2023-12-29T11:00:00\",\n          \"localEndDate\": \"2023-12-29T12:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\": [            {\n              \"id\": \"510fc9f3-f291-4155-a3dc-cb96ae06f14f\",\n              \"name\": \"staff 5\"\n            }],\n            \"hasMoreAvailableResources\": false\n          }]\n        },\n                {\n          \"serviceId\": \"79301196-ae46-4f47-b5cd-62c5d3cfa48f\",\n          \"localStartDate\": \"2023-12-29T12:00:00\",\n          \"localEndDate\": \"2023-12-29T13:00:00\",\n          \"availableResources\": [          {\n            \"resourceTypeId\": \"1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\",\n            \"resources\":             [\n                            {\n                \"id\": \"2dc664dd-e897-4c37-b389-571145432a4d\",\n                \"name\": \"STAFF5\"\n              },\n                            {\n                \"id\": \"2ef6ba0d-6270-4a9f-aab3-7dfd70f0887a\",\n                \"name\": \"STAFF3\"\n              },\n                            {\n                \"id\": \"3f1f9e43-5bab-4a99-b4c9-5a6219e51d18\",\n                \"name\": \"STAFF1\"\n              },\n                            {\n                \"id\": \"409760c8-aaac-4a6f-aa60-c9d94f57d2a4\",\n                \"name\": \"STAFF2\"\n              },\n                            {\n                \"id\": \"acb5a567-6a52-41d0-94df-ca56bd4eb2fb\",\n                \"name\": \"STAFF4\"\n              }\n            ],\n            \"hasMoreAvailableResources\": false\n          }]\n        }\n      ]\n    }\n  ],\n  \"timeZone\": \"Asia/Jerusalem\",\n  \"cursorPagingMetadata\":   {\n    \"cursors\": {},\n    \"hasNext\": false\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Retrieves the next five results of a former call by passing cursorPaging"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMultiServiceAvailabilityTimeSlotsRequest",
+        "rpcResponseName": "ListMultiServiceAvailabilityTimeSlotsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_bookings_availability_v2_TimeSlot",
+      "displayName": "Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "  The `TimeSlot` object represents the availability information\n  for an `Appointment` service's specific slot, including:\n\n  1. Whether the slot is bookable for the given service?\n\n  2. In what location the service is available for this slot?\n\n  3. Which available resources can provide the service for this slot?\n\n  4. Does booking the slot for the service violates any of the service booking policies?\n\n  5. What is the total capacity and remaining capacity of the service at the time of the calculation of the `TimeSlot`?\n\n  > __Note:__\n  When the `TimeSlot` has a non empty `NestedTimeSlots`, it represents the availability information\n  > for a given list of `Appointment` services within a specific time slot.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID.\n\n > Not returned from `MultiServiceAvailabilityTimeSlots` API calls.\n > Instead, each nested time slot has its own serviceId.\n"
+        },
+                {
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the time slot in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > represents the earliest `localStartDate` of the `TimeSlot`'s nested time slots.\n"
+        },
+                {
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the time slot in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > represents the latest `localEndDate` of the `TimeSlot`'s nested time slots.\n"
+        },
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the slot is bookable according to the service's booking policies.\n\n If booking this time slot does not violates any of the service's booking policies,\n  the returned value is `true`. Otherwise, returns `false`.\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > + `bookable` is `false` if at least one of the provided services is not bookable within the time slot.\n > + `bookable` is `true` if all provided services are bookable within the time slot.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " The geographic location of the slot.\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > the geographic location of all nested time slots of the `TimeSlot`.\n"
+        },
+                {
+          "name": "totalCapacity",
+          "type": "integer",
+          "doc": " Total number of spots for the slot.\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > `totalCapacity` is always 1, regardless the number of requested services.\n"
+        },
+                {
+          "name": "remainingCapacity",
+          "type": "integer",
+          "doc": " Remaining number of spots for the slot.\n For example, for an appointment service with total capacity of 1 spot and one booked spot, the remaining capacity will be 0.\n\n > When returned from `MultiServiceAvailabilityTimeSlots` API calls,\n > `remainingCapacity` is 1 if all requested services has `remainingCapacity` >= 1.\n > `remainingCapacity` is 0, if there is at least one requested service with `remainingCapacity` < 1.\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+          "doc": " > When returned from `ListMultiServiceAvailabilityTimeSlots`,\n > indicates that at least one of the nested time slots does not meet with at least one of the service's booking policies.\n > There is no indication which of the requested services violates a booking policy.\n"
+        },
+                {
+          "name": "availableResources",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_AvailableResources"]
+          },
+          "doc": " List of `AvailableResources` for the time slot.\n Each `AvailableResources` contains information about available resources of the same type.\n\n > Not returned from `MultiServiceAvailabilityTimeSlots` API calls.\n > Instead, each nested time slot has its own available resources.\n"
+        },
+                {
+          "name": "nestedTimeSlots",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_NestedTimeSlot"]
+          },
+          "doc": " > Nested time slots.\n > Returned only from `MultiServiceAvailabilityTimeSlots` API calls.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_Resource",
+      "displayName": "Resource Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Resource ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Resource name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_AvailableResources",
+      "displayName": "Available Resources Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "resourceTypeId",
+          "type": "string",
+          "doc": " Resource type ID.\n"
+        },
+                {
+          "name": "resources",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Resource"]
+          },
+          "doc": " Available resources for the time slot.\n\n + When returned from `ListAvailabilityTimeSlots`, empty by default.\n + + If you provided `includeResourceTypeIds` or  `resourceIds` in request,\n contains __up__ to 10 available resources out of those provided.\n\n + When returned from `GetAvailabilityTimeSlots`, contains all available resources by default.\n + + If you provided `includeResourceTypeIds` or  `resourceIds` in request,\n contains all of the available resources out of those provided.\n\n\n > + When returned from `ListMultiServiceAvailabilityTimeSlots`, empty by default.\n > + + If you provided `includeResourceTypeIds` or  `resourceIds` in request,\n > contains __up__ to 10 available resources out of those provided.\n\n > + When returned from `GetMultiServiceAvailabilityTimeSlots`, contains all available resources by default.\n > + + If you provided `includeResourceTypeIds` or  `resourceIds` in request,\n > contains all of the available resources out of those provided.\n"
+        },
+                {
+          "name": "hasMoreAvailableResources",
+          "type": "boolean",
+          "doc": " Whether there are more available resources for the slot that are not listed in `resources` due to size limitations.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+      "displayName": "Booking Policy Violations Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "tooEarlyToBook",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Too early to book this slot.\n"
+        },
+                {
+          "name": "tooLateToBook",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Too late to book this slot.\n"
+        },
+                {
+          "name": "bookOnlineDisabled",
+          "type": "boolean",
+          "doc": " Bookings policy violation. Online booking is disabled for the `TimeSlot` service.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_Location",
+      "displayName": "Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Business Location ID. Present only if the location is a business location.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " The location name.\n"
+        },
+                {
+          "name": "formattedAddress",
+          "type": "string",
+          "doc": " A string representation for the full address of the location.\n"
+        },
+                {
+          "name": "locationType",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location_LocationType",
+          "doc": " The type of location:\n - `CUSTOM`: The location is specific to this service, and is not derived from the business location.\n - `BUSINESS`: A business location, either the default business address, or locations defined for the business by the Business Info.\n - `CUSTOMER`: The location is determined by the customer and is not set up beforehand.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_EventInfo",
+      "displayName": "Event Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " relevant for event based slots, and not for availability based slots\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_WaitingList",
+      "displayName": "Waiting List Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalCapacity",
+          "type": "integer",
+          "doc": " Total number of spots in this wait list.\n"
+        },
+                {
+          "name": "remainingCapacity",
+          "type": "integer",
+          "doc": " Number of remaining spots for this wait list.\n For example, a Yoga event with 10 waitList spots and 3 registered\n on the waitList has 10 `total_capacity` and 7 `remaining_capacity`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_NestedTimeSlot",
+      "displayName": "Nested Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID of the nested time slot.\n"
+        },
+                {
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the nested time slot in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n"
+        },
+                {
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the nested time slot in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n"
+        },
+                {
+          "name": "availableResources",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_AvailableResources"]
+          },
+          "doc": " List of `AvailableResources` for the nested time slot.\n Each `AvailableResources` contains information about available resources of the same type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_Service",
+      "displayName": "Service Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID.\n"
+        },
+                {
+          "name": "resourceIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resources to include in response.\n"
+        },
+                {
+          "name": "includeResourceTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " The resource type ID's to include in returned time slots.\nThis is in addition to the specifically requested resources.\n\n<blockquote class=\"important\">\nCurrently supported only for Staff Member resource type.\nStaff Member type ID: 1cd44cf8-756f-41c3-bd90-3e2ffcaf1155\n<\/blockquote>\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n\n Default: `1000`\n Max: `1000`\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "cursors",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_Cursors",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_upstream_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_ListAvailabilityTimeSlotsRequest",
+      "displayName": "List Availability Time Slots Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID for which the time slots are being returned for.\n Currently supports only services of type `Appointment`.\n Required, unless `cursorPaging`.`cursor` is provided.\n"
+        },
+                {
+          "name": "fromLocalDate",
+          "type": "string",
+          "doc": " Lower boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n"
+        },
+                {
+          "name": "toLocalDate",
+          "type": "string",
+          "doc": " Upper boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n > The `localEndDate` of the returned `TimeSlot` is the `TimeSlot`'s `localStartDate` + the service duration\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Required, unless `cursorPaging`.`cursor` is provided.\n"
+        },
+                {
+          "name": "locations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location"]
+          },
+          "doc": " Locations to include in response.\n\n By default,\n if no locations are provided,\n the response contains `TimeSlot`'s for all locations where the service is available.\n\n You can specify locations or location types for which the time slots will be returned for.\n > __Note:__ Supports filtering by location type, or by locationId. Other fields like `name` are ignored.\n > If locationType is `BUSINESS`, you __must__ provide a locationId.\n"
+        },
+                {
+          "name": "resourceIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resources to include in response.\n\n If specified,\n the returned time slots will contain __up__ to 10 available resources out of the provided list.\n Otherwise, the returned time slots returns with an empty `AvailableResources`.\n > __Note:__ Not specifying `resourceIds` can be handy in case you want to avoid large response in flows that only\n > interested whether the time slots are available or not. [An example for such flow](https://bo.wix.com/wix-docs/rest/all-apis/wix-service-availability/service-availability-time-slots/sample-flows#all-apis_wix-service-availability_service-availability-time-slots_sample-flows_let-your-customers-to-dynamically-select-an-available-time-slot-for-any-of-your-business-services).\n"
+        },
+                {
+          "name": "includeResourceTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resource type ID's to include in response, this is in addition to the requested resourceIds.\n\n If specified in request, the returned time slots will contain __up__ to 10 `AvailableResources` with `ResourceTypeId`\n out of those specified, each contains __up__ to 10 available resources of this type.\n"
+        },
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the `TimeSlot` is bookable according to the service's booking policies.\n\n If booking this time slot does not violates any of the service's booking policies,\n  returns as `true`. Otherwise, returns as `false`.\n\n > __Note:__\n > A time slot that doesn't meet the service's bookings policies will be returned with `bookable` = false,\n > while a time slot with no available resources will not be returned at all.\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+          "doc": " Indicators for service's booking policy violations for booking the `TimeSlot`.\n\n  A bookable time slot must not violate any policy,\n  therefor, this filter is only relevant when `bookable` filter is false.\n\n Each nested field is checked on its own. i.e. if `tooEarlyToBook` is defined and `bookOnlineDisabled` is not defined\n we return slots for which `tooEarlyToBook` is same as on the request, regardless of `bookOnlineDisabled`.\n"
+        },
+                {
+          "name": "timeSlotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each day. For example, if `timeSlotsPerDay` is set to `3`,\n we return at most 3 available `TimeSlot`'s for each day within the date range specified in request.\n\n By default,\n if `bookable` filter was not specified,\n and a day has both `bookable` and `un-bookable` slots, `bookable` slots are returned first.\n\n If the number of `bookable` slots is less than the requested `timeSlotsPerDay`,\n `un-bookable` slots will be returned according to the specified filters.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPaging",
+          "doc": "  CursorPaging.\n\n  Enables you to fetch `TimeSlot`'s in smaller, more manageable chunks\n  by setting a limit on the number of `TimeSlots` returned in response.\n  This is useful in order to enhance efficiency of data retrieval and reduce load on both the client and server.\n\n  If there are more results than the specified limit, the response will contain a `cursorPagingMetaData`\n  with a cursor pointing to next page of results. In order to fetch the next page of results, you should pass the\n  returned cursor to the next call as `cursorPaging`.`cursor`.\n\n  For the first call, you should only specify the `limit` for the results page.\n  For each following call, you should only pass the previous returned cursor as `cursorPaging`.`cursor`\n  the `cursorPaging`.`limit`. You may pass a different `limit`.\n  No need to specify any additional parameters.\n\n __TODO: This is only describes the current behavior, should be fixed__\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      If you only provide a `cursorPaging`.`cursor`,\n      the response will contain the default size of results = 1000.\n    <\/p>\n    <\/blockquote>\n\n  cursorPaging.limit:\n  Default: 1000\n  Max: 1000\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_ListAvailabilityTimeSlotsResponse",
+      "displayName": "List Availability Time Slots Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timeSlots",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_TimeSlot"]
+          },
+          "doc": " Time slots.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Shared for all `TimeSlot`'s in response.\n"
+        },
+                {
+          "name": "cursorPagingMetadata",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPagingMetadata",
+          "doc": " CursorPagingMetaData.\n Contains information about the next page of results.\n\n By default,\n if there are more than 1000 results,\n the response will contain a `cursorPagingMetaData` with a cursor to the next page of results.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `count` is not supported.\n    <\/p>\n    <\/blockquote>\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_GetAvailabilityTimeSlotRequest",
+      "displayName": "Get Availability Time Slot Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": " Service ID of the time slot.\n Currently supports only services of type `Appointment`.\n"
+        },
+                {
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n"
+        },
+                {
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " The location of the time slot.\n\n You must provide a specific `locationType`.\n If locationType is `BUSINESS`, you __must__ also provide a locationId.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `name` and `formattedAddress` are ignored.\n    <\/p>\n    <\/blockquote>\n"
+        },
+                {
+          "name": "resourceIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resources to include in response.\n\n If specified,\n the returned time slot contain only the available resources out of provided list.\n Otherwise, the returned time slot returned with all possible `AvailableResources`.\n > __Note:__ This can be handy in case you want to avoid large response in flows that only\n > interested to check the availability of the time slot for specific resources.\n"
+        },
+                {
+          "name": "includeResourceTypeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Resource type ID's to include in response, this is in addition to the requested resourceIds.\n\n If specified in request, the returned time slot contain only the `AvailableResources` with `ResourceTypeId`\n out of those specified, each contains all the available resources of this type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_GetAvailabilityTimeSlotResponse",
+      "displayName": "Get Availability Time Slot Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timeSlot",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_TimeSlot",
+          "doc": " Time slot.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_ListMultiServiceAvailabilityTimeSlotsRequest",
+      "displayName": "List Multi Service Availability Time Slots Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "services",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Service"]
+          },
+          "doc": " Services for which the multiService time slots are being returned for.\n Each service contains its own resources filters within.\n\n MinSize: 2.\n MaxSize: 8.\n"
+        },
+                {
+          "name": "fromLocalDate",
+          "type": "string",
+          "doc": " Lower boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n"
+        },
+                {
+          "name": "toLocalDate",
+          "type": "string",
+          "doc": " Upper boundary for `localStartDate` to include in response, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n Required, unless `cursorPaging`.`cursor` is provided.\n > __Note:__: Each returned `TimeSlot` in response has a `localStartDate`\n > within the provided `fromLocalDate` and `toLocalDate` exclusive.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Required, unless `cursorPaging`.`cursor` is provided.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " Location for which the multiService time slots are being returned for.\n\n You can specify location or location type for which the time slots will be returned for.\n > __Note:__ Supports filtering by location type, or by locationId. Other fields like `name` are ignored.\n > If locationType is `BUSINESS`, you __must__ provide a locationId.\n"
+        },
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether the `TimeSlot` is bookable according all of the services booking policies.\n\n If booking any of the `TimeSlot`.`NestedTimeSlot`'s violates any of its services bookings policies,\n  returns as `false`. Otherwise, returns as `true`.\n\n > __Note:__\n > A `TimeSlot` with a `NestedTimeSlot` that doesn't meet its service's bookings policies will be returned with `bookable` = false,\n > while a `TimeSlot` with no available resources will not be returned at all.\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_BookingPolicyViolations",
+          "doc": " Indicators for service's booking policy violations for booking the `TimeSlot`.\n\n  A bookable time slot must not violate any policy,\n  therefor, this filter is only relevant when `bookable` filter is false.\n\n  Each nested field is checked on all `NestedTimeSlot`'s. For example, if only one of the `NestedTimeSlot`'s\n  has a service with `tooEarlyToBook` same as in the request, we return the `TimeSlot` regardless of whether\n  the other `NestedTimeSlots` has the same `tooEarlyToBook` as in request.\n\n Each nested field is checked on its own. For example, if `tooEarlyToBook` is defined and `bookOnlineDisabled` is not defined\n we return slots for which `tooEarlyToBook` is same as on the request, regardless of `bookOnlineDisabled`.\n"
+        },
+                {
+          "name": "timeSlotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each day. For example, if `timeSlotsPerDay` is set to `3`,\n we return at most 3 available `TimeSlot`'s for each day within the date range specified in request.\n\n By default,\n if `bookable` filter was not specified,\n and a day has both `bookable` and `un-bookable` slots, `bookable` slots are returned first.\n\n If the number of `bookable` slots is less than the requested `timeSlotsPerDay`,\n `un-bookable` slots will be returned according to the specified filters.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPaging",
+          "doc": "  CursorPaging.\n\n  Enables you to fetch `TimeSlot`'s in smaller, more manageable chunks\n  by setting a limit on the number of `TimeSlots` returned in response.\n  This is useful in order to enhance efficiency of data retrieval and reduce load on both the client and server.\n\n  If there are more results than the specified limit, the response will contain a `cursorPagingMetaData`\n  with a cursor pointing to next page of results. In order to fetch the next page of results, you should pass the\n  returned cursor to the next call as `cursorPaging`.`cursor`.\n\n  For the first call, you should only specify the `limit` for the results page.\n  For each following call, you should only pass the previous returned cursor as `cursorPaging`.`cursor`\n  the `cursorPaging`.`limit`. You may pass a different `limit`.\n  No need to specify any additional parameters.\n\n __TODO: This is only describes the current behavior, should be fixed__\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      If you only provide a `cursorPaging`.`cursor`,\n      the response will contain the default size of results = 1000.\n    <\/p>\n    <\/blockquote>\n\n  cursorPaging.limit:\n  Default: 1000\n  Max: 1000\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_ListMultiServiceAvailabilityTimeSlotsResponse",
+      "displayName": "List Multi Service Availability Time Slots Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timeSlots",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_TimeSlot"]
+          },
+          "doc": " Time slots.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n Shared for all `TimeSlot`'s in response.\n"
+        },
+                {
+          "name": "cursorPagingMetadata",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_upstream_wix_common_CursorPagingMetadata",
+          "doc": " CursorPagingMetaData.\n Contains information about the next page of results.\n\n By default,\n if there are more than 1000 results,\n the response will contain a `cursorPagingMetaData` with a cursor to the next page of results.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `count` is not supported.\n    <\/p>\n    <\/blockquote>\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_GetMultiServiceAvailabilityTimeSlotRequest",
+      "displayName": "Get Multi Service Availability Time Slot Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "services",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Service"]
+          },
+          "doc": " Services for which the multiService time slots are being returned for.\n Each service contains its own resources filters within.\n\n MinSize: 2.\n MaxSize: 8.\n"
+        },
+                {
+          "name": "localStartDate",
+          "type": "string",
+          "doc": " Local start date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T13:30:00\".\n"
+        },
+                {
+          "name": "localEndDate",
+          "type": "string",
+          "doc": " Local end date of the time slot, in ISO-8601 format.\n For example, \"2024-01-30T14:30:00\".\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " Time zone, in IANA time zone format.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_Location",
+          "doc": " The location of the time slot.\n\n You must provide a specific `locationType`.\n If locationType is `BUSINESS`, you __must__ also provide a locationId.\n\n  <blockquote class=\"important\">\n   <p><strong>Important:<\/strong><br/>\n      `name` and `formattedAddress` are ignored.\n    <\/p>\n    <\/blockquote>\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_GetMultiServiceAvailabilityTimeSlotResponse",
+      "displayName": "Get Multi Service Availability Time Slot Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "timeSlot",
+          "type": "All APIs.Wix Service Availability._com_wixpress_bookings_availability_v2_TimeSlot",
+          "doc": " Time slot.\n"
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": " The time zone, in IANA time zone format.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_v2_Location_LocationType",
+      "displayName": "Location Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_LOCATION_TYPE <\/code><\/li><li><code> BUSINESS -  A business location, either the default business address, or locations defined for the business by the Business Info.\n <\/code><\/li><li><code> CUSTOM -  The location is unique to this service and isn't defined as one of the business locations.\n <\/code><\/li><li><code> CUSTOMER -  The location can be determined by the customer and is not set up beforehand.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_LOCATION_TYPE",
+        "BUSINESS",
+        "CUSTOM",
+        "CUSTOMER"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.bookings.availability.service-availability"}
+}
