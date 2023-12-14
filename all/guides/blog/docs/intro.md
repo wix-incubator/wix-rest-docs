@@ -1,7 +1,7 @@
 SortOrder: 0
 # About Blog
 
-Wix Blog allows users to create and manage blogs. Site owners can create and manage posts, draft posts, categories and tags on their blog page. Site collaborators can also create and manage blogs, given the appropriate rols and permissions. These roles include: 
+Wix Blog allows users to create and manage blogs. Site owners can create and manage posts, draft posts, categories and tags on their blog page. Site collaborators can also create and manage blogs, given the appropriate roles and permissions. These roles include: 
 - **Blog Editors** can fully manage the blog, but not other areas of a site.
 - **Blog Writers** can create and publish their own posts on a blog.
 - **Guest Writers** can create posts, but can't publish them. 
