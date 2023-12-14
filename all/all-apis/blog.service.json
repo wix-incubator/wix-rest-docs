@@ -37,7 +37,7 @@
     },
         {
       "name": "Post Stats",
-      "entity": null
+      "entity": ""
     }
   ],
   "relatedGuides":   [
@@ -279,7 +279,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Creates a draft post. \n\n The draft post's [memberId](https://dev.wix.com/api/rest/members/members) is required for third-party apps. \n \n",
+        "summary": " Creates a draft post.\n\n A draft post's [memberId](https://dev.wix.com/api/rest/members/members) is required for 3rd-party apps.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/blog/v3/draft-posts",
@@ -1429,6 +1429,16 @@
             "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
           },
           "doc": " List of additional draft post fields to include in the response. For example, use the `URL` fieldset to retrieve the url field in\n the response in addition to the draft post's base fields. Base fields don’t include any of the supported fieldset values. By default\n only the draft post's base fields are returned.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "draftPostIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Draft post ids.\n",
           "required": false
         }
       ],
@@ -2670,6 +2680,29 @@
       "extra": {"isDomainEvent": true}
     },
         {
+      "type": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostDeletedDomainEvent",
+      "name": "Draft Post Deleted Webhook",
+      "docs":       {
+        "summary": " Triggered when a draft post is deleted.\n",
+        "src": "https://github.com/wix-private/blog-node/tree/master/blog-node/packages/platformized-proto/com/wixpress/npm/communities/platformized/blog/v3/draft-post-service.proto"
+      },
+      "topic": "domain_events_wix.blog.v3.draft",
+      "tag": "Draft posts",
+      "permissions":       [
+                {
+          "name": "Manage Blog",
+          "description": "Request permission to read, create and modify Wix Blog data, including posts, tags and categories. This scope includes all blog permissions."
+        },
+                {
+          "name": "Read Draft Blog Posts",
+          "description": "Request permission to read private draft blog posts, tag and category data."
+        }
+      ],
+      "customLabels": [],
+      "eventType": "wix.blog.v3.draft_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
       "type": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostCreatedDomainEvent",
       "name": "Draft Post Created Webhook",
       "docs":       {
@@ -2821,80 +2854,6 @@
   "callbacks": [],
   "messages":   [
         {
-      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostDeletedDomainEvent",
-      "displayName": "Draft Post Deleted Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"entityId\" : \"26710dab-d343-4608-b002-6e1590945656\",\n  \"slug\" : \"deleted\",\n  \"id\" : \"c18f458a-d127-4d26-a8f0-97ed689b4ff7\",\n  \"entityFqdn\" : \"wix.blog.draft\",\n  \"eventTime\" : \"2021-03-02T08:40:50.352Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.blog.v3.draft`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `deleted`.\nEvent name."
-        },
-                {
-          "name": "deletedEvent",
-          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityDeletedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "DraftPost ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityDeletedEvent",
-      "displayName": "Draft Post Entity Deleted Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostCreatedDomainEvent",
       "displayName": "Draft Post Created Domain Event Object",
       "locations": [],
@@ -2964,10 +2923,84 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPost",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostDeletedDomainEvent",
+      "displayName": "Draft Post Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"entityId\" : \"26710dab-d343-4608-b002-6e1590945656\",\n  \"slug\" : \"deleted\",\n  \"id\" : \"c18f458a-d127-4d26-a8f0-97ed689b4ff7\",\n  \"entityFqdn\" : \"wix.blog.draft\",\n  \"eventTime\" : \"2021-03-02T08:40:50.352Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.blog.v3.draft`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DraftPost ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_DraftPostEntityDeletedEvent",
+      "displayName": "Draft Post Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -4402,6 +4435,24 @@
         "name": "bodyAsJson",
         "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_InitialTagsCopied",
         "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_BytesValue",
+      "displayName": "Bytes Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "value",
+        "type": "string",
+        "doc": " The bytes value.\n"
       }],
       "enum": null,
       "extra": {},
@@ -9493,7 +9544,7 @@
                 {
           "name": "translationId",
           "type": "string",
-          "doc": " ID of the draft post's translations.\n\n All translations of a single post share the same `translationId`.\n"
+          "doc": " ID of the draft post's translations.\n\n All translations of a single post share the same `translationId`.\n Available only if the [Multilingual](https://support.wix.com/en/article/wix-multilingual-an-overview) app is installed.\n"
         },
                 {
           "name": "language",
@@ -9972,6 +10023,12 @@
           "readOnly": true
         },
                 {
+          "name": "preview",
+          "type": "boolean",
+          "doc": " Whether the returned content is a preview of premium content. Defaults to `false`.\n A preview displays a limited number of paragraphs of paid content to non-subscribed users.\n",
+          "readOnly": true
+        },
+                {
           "name": "contentId",
           "type": "string",
           "doc": " Reserved for internal use.\n"
@@ -9992,6 +10049,18 @@
           "name": "media",
           "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_Media",
           "doc": " Post cover media.\n"
+        },
+                {
+          "name": "richContentString",
+          "type": "string",
+          "doc": " Post rich content as a string\n",
+          "readOnly": true
+        },
+                {
+          "name": "hasUnpublishedChanges",
+          "type": "boolean",
+          "doc": " Indicates if there is a draft post with changes that have not yet been published.\n",
+          "readOnly": true
         },
                 {
           "name": "internalId",
@@ -10016,6 +10085,46 @@
           },
           "doc": " Reserved for internal use.\n",
           "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_PostTranslation",
+      "displayName": "Post Translation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Post ID.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Language the post is written in.\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " Post slug. For example, 'post-slug'.\n"
+        },
+                {
+          "name": "seoData",
+          "type": "All APIs.Blog._com_wixpress_advanced_seo_SeoSchema",
+          "doc": " SEO data.\n"
+        },
+                {
+          "name": "url",
+          "type": "All APIs.Blog._wix_common_PageUrl",
+          "doc": " Post URL.\n"
         }
       ],
       "enum": null,
@@ -11232,6 +11341,98 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_LikePostRequest",
+      "displayName": "Like Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "postId",
+          "type": "string",
+          "doc": " Post ID.\n"
+        },
+                {
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostField_Field"]
+          },
+          "doc": " List of additional post fields to include in the response. For example, use the `URL` fieldset to retrieve the url field in\n the response in addition to the post’s base fields. Base fields don’t include any of the supported fieldset values. By default\n only the post’s base fields are returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_LikePostResponse",
+      "displayName": "Like Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "post",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Post",
+        "doc": " Post info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UnlikePostRequest",
+      "displayName": "Unlike Post Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "postId",
+          "type": "string",
+          "doc": " Post ID.\n"
+        },
+                {
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_PostField_Field"]
+          },
+          "doc": " List of additional post fields to include in the response. For example, use the `URL` fieldset to retrieve the url field in\n the response in addition to the post’s base fields. Base fields don’t include any of the supported fieldset values. By default\n only the post’s base fields are returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UnlikePostResponse",
+      "displayName": "Unlike Post Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "post",
+        "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_Post",
+        "doc": " Post info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_PinPostRequest",
       "displayName": "Pin Post Request Object",
       "locations": [],
@@ -12391,9 +12592,9 @@
           "doc": " Draft post ID.\n"
         },
                 {
-          "name": "content",
-          "type": "string",
-          "doc": " Content to update.\n"
+          "name": "draftContent",
+          "type": "All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_UpdateDraftPostContentRequest_DraftContent",
+          "doc": ""
         },
                 {
           "name": "changeOrigin",
@@ -12412,6 +12613,32 @@
       "enum": null,
       "extra": {},
       "labels": []
+    },
+        {
+      "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateDraftPostContentRequest_DraftContent",
+      "displayName": "Draft Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "content",
+          "type": "string",
+          "doc": " DraftJs content to update.\n"
+        },
+                {
+          "name": "richContent",
+          "type": "All APIs.Blog._wix_rich_content_v1_RichContent",
+          "doc": " Draft Post rich content.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
     },
         {
       "name": "_com_wixpress_npm_communities_platformized_blog_v3_UpdateDraftPostContentResponse",
@@ -12563,6 +12790,14 @@
             "typeParams": ["All APIs.Blog._com_wixpress_npm_communities_platformized_blog_v3_DraftPostField_Field"]
           },
           "doc": " List of additional draft post fields to include in the response. For example, use the `URL` fieldset to retrieve the url field in\n the response in addition to the draft post's base fields. Base fields don’t include any of the supported fieldset values. By default\n only the draft post's base fields are returned.\n"
+        },
+                {
+          "name": "draftPostIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Draft post ids.\n"
         }
       ],
       "enum": null,
@@ -13109,7 +13344,7 @@
       "displayName": "Text Alignment Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> AUTO -  browser default, eqivalent to `initial`\n <\/code><\/li><li><code> LEFT -  Left align\n <\/code><\/li><li><code> RIGHT -  Right align\n <\/code><\/li><li><code> CENTER -  Center align\n <\/code><\/li><li><code> JUSTIFY -  Text is spaced to line up its left and right edges to the left and right edges of the line box, except for the last line\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> AUTO -  browser default, eqivalent to `initial`\n <\/code><\/li><li><code> LEFT -  Left align\n <\/code><\/li><li><code> RIGHT -  Right align\n <\/code><\/li><li><code> CENTER -  Center align\n <\/code><\/li><li><code> JUSTIFY -  Text is spaced to line up its left and right edges to the left and right edges of the line box, except for the last line.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -13685,7 +13920,7 @@
       "displayName": "Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PUBLISHED -  Status indicating the draft post is published.\n <\/code><\/li><li><code> UNPUBLISHED -  Status indicating the draft post is unpublished.\n <\/code><\/li><li><code> SCHEDULED -  Status indicating the draft post is scheduled for publication.\n <\/code><\/li><li><code> DELETED -  Status indicating the draft post is deleted.\n <\/code><\/li><li><code> IN_MODERATION -  Deprecated. Use `IN_REVIEW` instead. Status indicating the draft post is in review.\n Target removal date 2023-06-30\n Reserved for internal use.\n <\/code><\/li><li><code> IN_REVIEW -  Status indicating the draft post is in review.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PUBLISHED -  Status indicating the draft post is published.\n <\/code><\/li><li><code> UNPUBLISHED -  Status indicating the draft post is unpublished.\n <\/code><\/li><li><code> SCHEDULED -  Status indicating the draft post is scheduled for publication.\n <\/code><\/li><li><code> DELETED -  Status indicating the draft post is deleted.\n <\/code><\/li><li><code> IN_MODERATION -  Deprecated. Use `IN_REVIEW` instead. Status indicating the draft post is in review.\n Target removal date 2024-06-30\n Reserved for internal use.\n <\/code><\/li><li><code> IN_REVIEW -  Status indicating the draft post is in review.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -13789,7 +14024,7 @@
       "displayName": "Field Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> COUNTERS -  Deprecated use `METRICS` instead\n <\/code><\/li><li><code> URL -  Includes Post url when present\n <\/code><\/li><li><code> CONTENT_TEXT -  Includes Post content text string when present\n <\/code><\/li><li><code> METRICS -  Includes Post metrics when present\n <\/code><\/li><li><code> SEO -  Includes SEO data\n <\/code><\/li><li><code> CONTENT -  Includes Post content as a stringified DraftJS document\n Reserved for internal use\n <\/code><\/li><li><code> INTERNAL_ID -  Includes internal id field\n Reserved for internal use\n <\/code><\/li><li><code> CONTACT_ID -  Includes post owners Contact Id\n <\/code><\/li><li><code> RICH_CONTENT -  Includes post rich content\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> COUNTERS -  Deprecated use `METRICS` instead\n <\/code><\/li><li><code> URL -  Includes Post url when present\n <\/code><\/li><li><code> CONTENT_TEXT -  Includes Post content text string when present\n <\/code><\/li><li><code> METRICS -  Includes Post metrics when present\n <\/code><\/li><li><code> SEO -  Includes SEO data\n <\/code><\/li><li><code> CONTENT -  Includes Post content as a stringified DraftJS document\n Reserved for internal use\n <\/code><\/li><li><code> INTERNAL_ID -  Includes internal id field\n Reserved for internal use\n <\/code><\/li><li><code> CONTACT_ID -  Includes post owners Contact Id\n <\/code><\/li><li><code> RICH_CONTENT -  Includes post rich content\n <\/code><\/li><li><code> RICH_CONTENT_STRING -  Includes post rich content string\n <\/code><\/li><li><code> RICH_CONTENT_COMPRESSED -  Includes compressed post rich content string\n <\/code><\/li><li><code> TRANSLATIONS -  Includes post translations\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -13804,7 +14039,10 @@
         "CONTENT",
         "INTERNAL_ID",
         "CONTACT_ID",
-        "RICH_CONTENT"
+        "RICH_CONTENT",
+        "RICH_CONTENT_STRING",
+        "RICH_CONTENT_COMPRESSED",
+        "TRANSLATIONS"
       ],
       "extra": {},
       "labels": []
