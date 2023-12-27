@@ -17,12 +17,12 @@
   }],
   "relatedGuides":   [
         {
-      "path": "../guides/calendar/docs/InternalFieldsets.md",
-      "name": "Internal Fieldsets"
+      "path": "../guides/calendar/docs/Fieldsets.md",
+      "name": "Supported Fieldsets"
     },
         {
       "path": "../guides/calendar/docs/Filters.md",
-      "name": "Filters"
+      "name": "Supported Filters"
     },
         {
       "path": "../guides/calendar/docs/Intro.md",
@@ -30,6 +30,88 @@
     }
   ],
   "operations":   [
+        {
+      "name": "Get Session",
+      "methodName": "GetSession",
+      "serviceName": "Calendar",
+      "tag": "Calendar V2",
+      "permissions":       [
+                {
+          "name": "Read Bookings Calendar Availability",
+          "description": "Request permission to read the site's bookings calendar availability."
+        },
+                {
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
+        },
+                {
+          "name": "Read Bookings Calendar",
+          "description": "Request permission to read the site's bookings calendar info, including all sessions, scheduleable assets, and staff member data."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " ID of the session to retrieve.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the CALENDAR.SESSION_READ_PI permission scope.\n\nDefault: `NO_PI`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetSession",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Calendar._wix_bookings_calendar_v2_GetSessionResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a session by ID.\n\n\nBy default, a session object is returned with the fields specified in the `NO_PI` fieldset. This means it doesn't contain personal information.\nTo retrieve a full session object including all personal information, use the `ALL_PI` fieldset. This requires the CALENDAR.SESSION_READ_PI permission scope.\n\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/bookings/v2/calendar/sessions/{id}",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Retrieve a session without personal information.",
+            "body": ["curl 'https://www.wixapis.com/bookings/v2/calendar/sessions/2mmoW0vwKcSFyxtOfCdMkKJSmJpbpxc7xKXftDIQYc8F5GHobVsZtByQmzaTsfsB6EBfEWqZ8xtmV3o4yimMDerzL0GpReG8oKNh' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\"],
+            "response": ["{\"session\": {\n  \"id\": \"2mmoW0vwKcSFyxtOfCdMkKJSmJpbpxc7xKXftDIQYc8F5GHobVsZtByQmzaTsfsB6EBfEWqZ8xtmV3o4yimMDerzL0GpReG8oKNh\",\n  \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n  \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n  \"start\":   {\n    \"timestamp\": \"2022-07-31T08:30:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 7,\n      \"dayOfMonth\": 31,\n      \"hourOfDay\": 11,\n      \"minutesOfHour\": 30\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"end\":   {\n    \"timestamp\": \"2022-07-31T10:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 7,\n      \"dayOfMonth\": 31,\n      \"hourOfDay\": 13,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n    \"scheduleOwnerName\": \"MICHAEL\"\n  }],\n  \"title\": \"The 7 Kings\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_BUSINESS\",\n    \"businessLocation\":     {\n      \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"default\": false,\n      \"status\": \"ACTIVE\",\n      \"locationType\": \"UNKNOWN\",\n      \"timeZone\": \"Europe/Dublin\",\n      \"phone\": \"\",\n      \"revision\": \"2\",\n      \"archived\": false\n    }\n  },\n  \"capacity\": 50,\n  \"remainingCapacity\": 50,\n  \"rate\": {\"labeledPriceOptions\": {\"general\":   {\n    \"amount\": \"5\",\n    \"currency\": \"EUR\",\n    \"downPayAmount\": \"0\"\n  }}},\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 0,\n  \"participants\": [],\n  \"inheritedFields\":   [\n    \"affectedSchedules\",\n    \"calendarConference\",\n    \"capacity\",\n    \"end\",\n    \"externalCalendarOverrides\",\n    \"location\",\n    \"rate\",\n    \"start\",\n    \"tags\",\n    \"title\"\n  ],\n  \"status\": \"CONFIRMED\",\n  \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n  \"type\": \"EVENT\",\n  \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n  \"version\":   {\n    \"scheduleVersion\": 20,\n    \"sessionVersion\": 0,\n    \"participantsVersion\": 0\n  }\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Retrieve a session including personal information.",
+            "body": ["curl 'https://www.wixapis.com/bookings/v2/calendar/sessions/2mmoW0vwKcSFyxtOfCdMkKJSmJpbpxc7xKXftDIQYc8F5GHobVsZtByQmzaTsfsB6EBfEWqZ8xtmV3o4yimMDerzL0GpReG8oKNh?fieldsets=ALL_PI' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\"],
+            "response": ["{\"session\": {\n  \"id\": \"2mmoW0vwKcSFyxtOfCdMkKJSmJpbpxc7xKXftDIQYc8F5GHobVsZtByQmzaTsfsB6EBfEWqZ8xtmV3o4yimMDerzL0GpReG8oKNh\",\n  \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n  \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n  \"start\":   {\n    \"timestamp\": \"2022-07-31T08:30:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 7,\n      \"dayOfMonth\": 31,\n      \"hourOfDay\": 11,\n      \"minutesOfHour\": 30\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"end\":   {\n    \"timestamp\": \"2022-07-31T10:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 7,\n      \"dayOfMonth\": 31,\n      \"hourOfDay\": 13,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n    \"scheduleOwnerName\": \"MICHAEL\"\n  }],\n  \"title\": \"The 7 Kings\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_BUSINESS\",\n    \"businessLocation\":     {\n      \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n      \"name\": \"Tel Aviv-Yafo\",\n      \"default\": false,\n      \"status\": \"ACTIVE\",\n      \"locationType\": \"UNKNOWN\",\n      \"timeZone\": \"Europe/Dublin\",\n      \"phone\": \"\",\n      \"revision\": \"2\",\n      \"archived\": false\n    }\n  },\n  \"capacity\": 50,\n  \"remainingCapacity\": 50,\n  \"rate\": {\"labeledPriceOptions\": {\"general\":   {\n    \"amount\": \"5\",\n    \"currency\": \"EUR\",\n    \"downPayAmount\": \"0\"\n  }}},\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 0,\n  \"participants\": [],\n  \"inheritedFields\":   [\n    \"affectedSchedules\",\n    \"calendarConference\",\n    \"capacity\",\n    \"end\",\n    \"externalCalendarOverrides\",\n    \"location\",\n    \"rate\",\n    \"start\",\n    \"tags\",\n    \"title\"\n  ],\n  \"status\": \"CONFIRMED\",\n  \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n  \"type\": \"EVENT\",\n  \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n  \"version\":   {\n    \"scheduleVersion\": 20,\n    \"sessionVersion\": 0,\n    \"participantsVersion\": 0\n  }\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetSessionRequest",
+        "rpcResponseName": "GetSessionResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
         {
       "name": "List Sessions",
       "methodName": "ListSessions",
@@ -71,7 +153,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "\nSupported values: `ALL_PI`.\n\nPredefined sets of fields to return.\n\n- `ALL_PI`: Returns complete session objects.\n\nIf you don't pass a value in the `fieldsets` array, session objects without \npersonal information are returned by default. This means without `participants`, \n`location`, `calendarConference`, and `externalCalendarOverrides`.\n",
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the CALENDAR.SESSION_READ_PI permission scope.\n\nDefault: `NO_PI`\n",
           "required": false
         }
       ],
@@ -85,21 +167,21 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " \nRetrieves a list of sessions.\n\n\nBy default session objects without any personal information are returned. \nThis means without `participants`, `location`, `calendarConference`, and \n`externalCalendarOverrides`. You can retrieve full session objects by passing \n`ALL_PI` in the `fieldsets` array. It isn't possible to retrieve sessions \nwith personal information just for specific participants.\n \n",
+        "summary": " \nRetrieves a list of sessions by their IDs.\n\n\nBy default, session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.\nTo retrieve full session objects including all personal information, use the `ALL_PI` fieldset. This requires the CALENDAR.SESSION_READ_PI permission scope.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v2/calendar/sessions/list",
         "links": [],
         "examples":         [
                     {
-            "title": "Retrieve sessions without personal information.",
+            "title": "Retrieve sessions by ID without personal information.",
             "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/list' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"ids\": [\n    \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXbhR9Ks5ahQD9U1KidCajSAMF6xxDftfDVPOcURRso1sdwfvQpiL1ycoTkS0nujvHFTfoW9z0Zi0FGSCwUEma2CvIPSHryT8ZOj2j8Rx\",\n    \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\"\n  ]\n}'"],
             "response": ["{\"sessions\": [\n    {\n    \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXbhR9Ks5ahQD9U1KidCajSAMF6xxDftfDVPOcURRso1sdwfvQpiL1ycoTkS0nujvHFTfoW9z0Zi0FGSCwUEma2CvIPSHryT8ZOj2j8Rx\",\n    \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n    \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n    \"start\":     {\n      \"timestamp\": \"2022-07-31T08:30:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 7,\n        \"dayOfMonth\": 31,\n        \"hourOfDay\": 11,\n        \"minutesOfHour\": 30\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-07-31T10:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 7,\n        \"dayOfMonth\": 31,\n        \"hourOfDay\": 13,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n      \"scheduleOwnerName\": \"MICHAEL\"\n    }],\n    \"title\": \"The 7 Kings\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 50,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n    \"version\":     {\n      \"scheduleVersion\": 20,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  },\n    {\n    \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\",\n    \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n    \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n    \"start\":     {\n      \"timestamp\": \"2022-08-05T12:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 5,\n        \"hourOfDay\": 15,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-08-05T13:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 5,\n        \"hourOfDay\": 16,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n    }],\n    \"title\": \"Be Courageous and Trust\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n        \"name\": \"Teviotdale\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 50,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-7788631f7a154b608b05c94284606fda\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR;UNTIL=20221008T205959Z\",\n    \"version\":     {\n      \"scheduleVersion\": 41,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  }\n]} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Retrieve sessions including personal information.",
+            "title": "Retrieve sessions by ID including personal information.",
             "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/list' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"ids\": [\n    \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\"\n  ],\n  \"fieldsets\": [\n    \"ALL_PI\"\n  ]\n}'"],
             "response": ["{\"sessions\": [{\n  \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n  \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n  \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n  \"start\":   {\n    \"timestamp\": \"2022-08-04T08:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 8,\n      \"dayOfMonth\": 4,\n      \"hourOfDay\": 11,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"end\":   {\n    \"timestamp\": \"2022-08-04T10:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 8,\n      \"dayOfMonth\": 4,\n      \"hourOfDay\": 13,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n  }],\n  \"title\": \"Be Courageous and Trust\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_BUSINESS\",\n    \"businessLocation\":     {\n      \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n      \"name\": \"Teviotdale\",\n      \"default\": false,\n      \"status\": \"ACTIVE\",\n      \"locationType\": \"UNKNOWN\",\n      \"timeZone\": \"Europe/Dublin\",\n      \"email\": \"\",\n      \"phone\": \"\",\n      \"revision\": \"2\",\n      \"archived\": false\n    }\n  },\n  \"capacity\": 50,\n  \"remainingCapacity\": 49,\n  \"rate\": {\"labeledPriceOptions\": {\"general\":   {\n    \"amount\": \"5\",\n    \"currency\": \"EUR\",\n    \"downPayAmount\": \"0\"\n  }}},\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 1,\n  \"participants\": [  {\n    \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n    \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n    \"name\": \"Dan\",\n    \"email\": \"dan_demo@wix.com\",\n    \"partySize\": 1,\n    \"inherited\": false\n  }],\n  \"inheritedFields\":   [\n    \"affectedSchedules\",\n    \"calendarConference\",\n    \"capacity\",\n    \"end\",\n    \"externalCalendarOverrides\",\n    \"location\",\n    \"rate\",\n    \"start\",\n    \"tags\",\n    \"title\"\n  ],\n  \"status\": \"CONFIRMED\",\n  \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n  \"type\": \"EVENT\",\n  \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n  \"version\":   {\n    \"scheduleVersion\": 41,\n    \"sessionVersion\": 0,\n    \"participantsVersion\": 2\n  }\n}]} "],
             "type": "curl",
@@ -116,8 +198,8 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Query Sessions",
-      "methodName": "QuerySessions",
+      "name": "List Sessions (Additional Binding 1)",
+      "methodName": "ListSessions",
       "serviceName": "Calendar",
       "tag": "Calendar V2",
       "permissions":       [
@@ -137,84 +219,56 @@
       "events": [],
       "labels": [],
       "nameParams": [],
+      "requiredFields": ["ids"],
       "params":       [
                 {
-          "in": "BODY",
-          "name": "fromDate",
-          "type": "string",
-          "doc": "\nStart of the time range for which sessions are returned \nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)). \nRequired, if `query.cursorPaging` is omitted.\n`end.timestamp` of all returned sessions is greater than or equal to `fromDate`.\n",
-          "required": false
+          "in": "QUERY",
+          "name": "ids",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of the sessions to retrieve.\n",
+          "required": true
         },
                 {
-          "in": "BODY",
-          "name": "toDate",
-          "type": "string",
-          "doc": "\nEnd of the time range for which sessions are returned \nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)). \nRequired, if `query.cursorPaging` is omitted.\n`start.timestamp` of all returned sessions is less than or equal to `toDate`.\n",
-          "required": false
-        },
-                {
-          "in": "BODY",
-          "name": "query",
-          "type": "All APIs.Calendar._wix_bookings_calendar_upstream_wix_common_QueryV2",
-          "doc": "\nInformation about filters, paging, and returned fields. \n",
+          "in": "QUERY",
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the CALENDAR.SESSION_READ_PI permission scope.\n\nDefault: `NO_PI`\n",
           "required": false
         }
       ],
       "ret":       {
         "type":         {
-          "name": "QuerySessions",
+          "name": "ListSessions",
           "statusCode": "200",
-          "typeParams": ["All APIs.Calendar._wix_bookings_calendar_v2_QuerySessionsResponse"]
+          "typeParams": ["All APIs.Calendar._wix_bookings_calendar_v2_ListSessionsResponse"]
         },
         "doc": ""
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a list of sessions, given the provided paging and filtering.\n\n\nBy default session objects without any personal information are returned. \nThis means without `participants`, `location`, `calendarConference`, and \n`externalCalendarOverrides`. You can retrieve full session objects by passing \n`ALL_PI` in the `fieldsets` array. It isn't possible to retrieve sessions \nwith personal information just for specific participants.\n\n> __Note:__ Sessions are sorted by `start.timestamp`, in ascending order. \n> Other sorting options aren't supported.\n\n\nFor a detailed list of supported operations in the Bookings Calendar V2 API, see\n[filtering](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/filters).\n\n\nTo learn about working with _Query_ endpoints, see\n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)\nand [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/sorting-and-paging).\n \n",
+        "summary": " \nRetrieves a list of sessions by their IDs.\n\n\nBy default, session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.\nTo retrieve full session objects including all personal information, use the `ALL_PI` fieldset. This requires the CALENDAR.SESSION_READ_PI permission scope.\n \n",
         "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/bookings/v2/calendar/sessions/query",
+        "request": "GET",
+        "url": "https://www.wixapis.com/bookings/v2/calendar/sessions",
         "links": [],
         "examples":         [
                     {
-            "title": "Retrieve sessions within a given time range.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-08-04T10:00:00Z\",\n  \"toDate\": \"2022-08-05T14:00:00Z\"\n}'"],
-            "response": ["{\n  \"sessions\":   [\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFxCqrC52aJ0ghriSYMqqYztz4fYXUn0ltmH3qNkGlwGTygxz4SjcI17o2e6ENpOtJ8fgYo1HJgXyahSfRxIxTVnXI3yy1sHHUaskeshGarWvlXgN8pozt1VDHijcihHLHXPVn9Oir9R1hdOkunTpGeyTTx7a2tzsmk9is0AFujwWPNZNQRGT2z3trJ\",\n      \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n      \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-05T08:30:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-05T10:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"The 7 Kings\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"44de147c540546018491de514d815bf2-f3f2c3b4d87a4d1dbdcb6b1f408241b6\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR\",\n      \"version\":       {\n        \"scheduleVersion\": 20,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\",\n      \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n      \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-05T12:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 15,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-05T13:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 16,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"Be Courageous and Trust\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n          \"name\": \"Teviotdale\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-7788631f7a154b608b05c94284606fda\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR;UNTIL=20221008T205959Z\",\n      \"version\":       {\n        \"scheduleVersion\": 41,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    }\n  ],\n  \"pagingMetadata\": {\"hasNext\": false}\n} "],
+            "title": "Retrieve sessions by ID without personal information.",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/list' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"ids\": [\n    \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXbhR9Ks5ahQD9U1KidCajSAMF6xxDftfDVPOcURRso1sdwfvQpiL1ycoTkS0nujvHFTfoW9z0Zi0FGSCwUEma2CvIPSHryT8ZOj2j8Rx\",\n    \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\"\n  ]\n}'"],
+            "response": ["{\"sessions\": [\n    {\n    \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFwvaZDMhHc1Qoa3MnL6EbXON6JusUwKE9aZDI3PqT1WZcPMPsQuzOgSsBUy8NRZcLzDhHZ57ZCR6WOBBKEXbhR9Ks5ahQD9U1KidCajSAMF6xxDftfDVPOcURRso1sdwfvQpiL1ycoTkS0nujvHFTfoW9z0Zi0FGSCwUEma2CvIPSHryT8ZOj2j8Rx\",\n    \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n    \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n    \"start\":     {\n      \"timestamp\": \"2022-07-31T08:30:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 7,\n        \"dayOfMonth\": 31,\n        \"hourOfDay\": 11,\n        \"minutesOfHour\": 30\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-07-31T10:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 7,\n        \"dayOfMonth\": 31,\n        \"hourOfDay\": 13,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"8f78fe42-f522-44d6-acce-38a0b0c47dc9\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"196a406f-f54b-4602-8f41-0a4be7562f1d\",\n      \"scheduleOwnerName\": \"MICHAEL\"\n    }],\n    \"title\": \"The 7 Kings\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n        \"name\": \"Tel Aviv-Yafo\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 50,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"44de147c540546018491de514d815bf2-177e5b08160149eba112ea7b698b4a82\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n    \"version\":     {\n      \"scheduleVersion\": 20,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  },\n    {\n    \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\",\n    \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n    \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n    \"start\":     {\n      \"timestamp\": \"2022-08-05T12:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 5,\n        \"hourOfDay\": 15,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-08-05T13:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 5,\n        \"hourOfDay\": 16,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n    }],\n    \"title\": \"Be Courageous and Trust\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n        \"name\": \"Teviotdale\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 50,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 0,\n    \"participants\": [],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-7788631f7a154b608b05c94284606fda\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR;UNTIL=20221008T205959Z\",\n    \"version\":     {\n      \"scheduleVersion\": 41,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 0\n    }\n  }\n]} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Retrieve sessions within a given time range including personal inforrmation.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-08-04T09:00:00Z\",\n  \"toDate\": \"2022-08-04T15:00:00Z\",\n  \"query\": {\n    \"fieldsets\": [\n      \"ALL_PI\"\n    ]\n  }\n}'"],
-            "response": ["{\n  \"sessions\": [  {\n    \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n    \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n    \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n    \"start\":     {\n      \"timestamp\": \"2022-08-04T08:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 4,\n        \"hourOfDay\": 11,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-08-04T10:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 4,\n        \"hourOfDay\": 13,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n    }],\n    \"title\": \"Be Courageous and Trust\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n        \"name\": \"Teviotdale\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"email\": \"\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 50,\n    \"remainingCapacity\": 49,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 1,\n    \"participants\": [    {\n      \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n      \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n      \"name\": \"Dan\",\n      \"email\": \"dan_demo@wix.com\",\n      \"partySize\": 1,\n      \"approvalStatus\": \"UNDEFINED\",\n      \"inherited\": false\n    }],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n    \"version\":     {\n      \"scheduleVersion\": 41,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 2\n    }\n  }],\n  \"pagingMetadata\": {\"hasNext\": false}\n} "],
-            "type": "curl",
-            "extra": {}
-          },
-                    {
-            "title": "Retrieve sessions with at least 1 of the specified tags.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-07-31T00:00:00Z\",\n  \"toDate\": \"2022-08-07T00:00:00Z\",\n  \"query\": {\n    \"filter\": {\n      \"tags\": {\n        \"$hasSome\": [\n          \"Custom Tag 1\",\n          \"Custom Tag 2\"\n        ]\n      }\n    }\n  }\n}'"],
-            "response": ["{\n  \"sessions\":   [\n        {\n      \"id\": \"2mmoW0vwKcSFyxtOfCdKJxxiXf4sFafCzmlLDqyt0XcfkfSYncL6p86dadnlfm2pfOvBtDaMW6pCFvWbS19MiXR8J9jzE87h8oPN\",\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-03T10:30:00Z\",\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-03T12:00:00Z\",\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [],\n      \"title\": \"Out Of Office\",\n      \"tags\":       [\n        \"Blocked\",\n        \"Custom Tag 1\"\n      ],\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"type\": \"EVENT\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\",\n      \"version\":       {\n        \"scheduleVersion\": 13,\n        \"sessionVersion\": 1,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n      \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n      \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-04T08:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 4,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-04T10:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 4,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"Be Courageous and Trust\",\n      \"tags\":       [\n        \"GROUP\",\n        \"Custom Tag 2\"\n      ],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n          \"name\": \"Teviotdale\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 49,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 1,\n      \"participants\": [      {\n        \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n        \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n        \"partySize\": 1,\n        \"approvalStatus\": \"UNDEFINED\",\n        \"inherited\": false\n      }],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n      \"version\":       {\n        \"scheduleVersion\": 41,\n        \"sessionVersion\": 1,\n        \"participantsVersion\": 2\n      }\n    }\n  ],\n  \"pagingMetadata\": {\"hasNext\": false}\n} "],
-            "type": "curl",
-            "extra": {}
-          },
-                    {
-            "title": "Retrieve sessions with at least 1 open spot.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-07-31T00:00:00Z\",\n  \"toDate\": \"2022-08-07T00:00:00Z\",\n  \"query\": {\n    \"filter\": {\n      \"remainingCapacity\": {\n        \"$gt\": 0\n      }\n    }\n  }\n}'"],
-            "response": ["{\n  \"sessions\": [  {\n    \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n    \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n    \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n    \"start\":     {\n      \"timestamp\": \"2022-08-04T08:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 4,\n        \"hourOfDay\": 11,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"end\":     {\n      \"timestamp\": \"2022-08-04T10:00:00Z\",\n      \"localDateTime\":       {\n        \"year\": 2022,\n        \"monthOfYear\": 8,\n        \"dayOfMonth\": 4,\n        \"hourOfDay\": 13,\n        \"minutesOfHour\": 0\n      },\n      \"timeZone\": \"Asia/Jerusalem\"\n    },\n    \"affectedSchedules\": [    {\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"transparency\": \"BUSY\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n    }],\n    \"title\": \"Be Courageous and Trust\",\n    \"tags\": [\"GROUP\"],\n    \"location\":     {\n      \"locationType\": \"OWNER_BUSINESS\",\n      \"businessLocation\":       {\n        \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n        \"name\": \"Teviotdale\",\n        \"default\": false,\n        \"status\": \"ACTIVE\",\n        \"locationType\": \"UNKNOWN\",\n        \"timeZone\": \"Europe/Dublin\",\n        \"phone\": \"\",\n        \"revision\": \"2\",\n        \"archived\": false\n      }\n    },\n    \"capacity\": 5,\n    \"remainingCapacity\": 4,\n    \"rate\": {\"labeledPriceOptions\": {\"general\":     {\n      \"amount\": \"5\",\n      \"currency\": \"EUR\",\n      \"downPayAmount\": \"0\"\n    }}},\n    \"notes\": \"\",\n    \"totalNumberOfParticipants\": 1,\n    \"participants\": [    {\n      \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n      \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n      \"partySize\": 1,\n      \"approvalStatus\": \"UNDEFINED\",\n      \"inherited\": false\n    }],\n    \"inheritedFields\":     [\n      \"affectedSchedules\",\n      \"calendarConference\",\n      \"capacity\",\n      \"end\",\n      \"externalCalendarOverrides\",\n      \"location\",\n      \"rate\",\n      \"start\",\n      \"tags\",\n      \"title\"\n    ],\n    \"status\": \"CONFIRMED\",\n    \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n    \"type\": \"EVENT\",\n    \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n    \"version\":     {\n      \"scheduleVersion\": 41,\n      \"sessionVersion\": 0,\n      \"participantsVersion\": 2\n    }\n  }],\n  \"pagingMetadata\": {\"hasNext\": false}\n} "],
-            "type": "curl",
-            "extra": {}
-          },
-                    {
-            "title": "Retrieve sessions belonging to a specific schedule.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-07-31T00:00:00Z\",\n  \"toDate\": \"2022-08-07T00:00:00Z\",\n  \"query\": {\n    \"filter\": {\n      \"$or\": [\n        {\n          \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\"\n        },\n        {\n          \"affectedSchedules.scheduleId\": {\n            \"$hasSome\": [\n              \"b936298d-18a6-4ae8-8e9f-10bf49314c95\"\n            ]\n          }\n        }\n      ]\n    }\n  }\n}'"],
-            "response": ["{\n  \"sessions\":   [\n        {\n      \"id\": \"2mmoW0vwKcSFyxtOfCdKJxxiXf4sFafCzmlLDqyt0XcfkfSYncL6p86dadnlfm2pfOvBtDaMW6pCFvWbS19MiXR8J9jzE87h8oPN\",\n      \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n      \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-03T10:30:00Z\",\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-03T12:00:00Z\",\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [],\n      \"title\": \"Out Of Office\",\n      \"tags\": [\"Blocked\"],\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"type\": \"EVENT\",\n      \"scheduleOwnerName\": \"ANITA\",\n      \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\",\n      \"version\":       {\n        \"scheduleVersion\": 13,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n      \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n      \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-04T08:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 4,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-04T10:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 4,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"Be Courageous and Trust\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n          \"name\": \"Teviotdale\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 49,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 1,\n      \"participants\": [      {\n        \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n        \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n        \"partySize\": 1,\n        \"approvalStatus\": \"UNDEFINED\",\n        \"inherited\": false\n      }],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n      \"version\":       {\n        \"scheduleVersion\": 41,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 2\n      }\n    },\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hdp0Ird6iyxZHRVdpbgnFQ1A8TFAqwlb99bRYhgPbdrsM2KdA4n8FTg8WSwi5SBXcLVvpJKmHIqcD34lFxCqrC52aJ0ghriSYMqqYztz4fYXUn0ltmH3qNkGlwGTygxz4SjcI17o2e6ENpOtJ8fgYo1HJgXyahSfRxIxTVnXI3yy1sHHUaskeshGarWvlXgN8pozt1VDHijcihHLHXPVn9Oir9R1hdOkunTpGeyTTx7a2tzsmk9is0AFujwWPNZNQRGT2z3trJ\",\n      \"scheduleId\": \"44de147c-5405-4601-8491-de514d815bf2\",\n      \"scheduleOwnerId\": \"9fe3d2d6-bbb4-46bf-805d-5cc276c12e73\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-05T08:30:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 11,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-05T10:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"The 7 Kings\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"44de147c540546018491de514d815bf2-f3f2c3b4d87a4d1dbdcb6b1f408241b6\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR\",\n      \"version\":       {\n        \"scheduleVersion\": 20,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Lau8ubo5M2rc8ZbKKgSnTBlHPBOQcU45Ho3JMuapWJXozaCwQ6qTVKUxKFpjnkRkPYCTDp6543rCyF9uBhDrMxcSEmYGWtd6NZSsdVgx38UmNS3fZbFEiS7CxjxAkxTFjKrHg2LOcBRvzcNPvpHEayfzw7NqvdX8IlyBlQwXthxy6yslxICs047Y5\",\n      \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n      \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n      \"start\":       {\n        \"timestamp\": \"2022-08-05T12:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 15,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-08-05T13:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 8,\n          \"dayOfMonth\": 5,\n          \"hourOfDay\": 16,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n        \"scheduleOwnerName\": \"ANITA\",\n        \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n      }],\n      \"title\": \"Be Courageous and Trust\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n          \"name\": \"Teviotdale\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-7788631f7a154b608b05c94284606fda\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=FR;UNTIL=20221008T205959Z\",\n      \"version\":       {\n        \"scheduleVersion\": 41,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    }\n  ],\n  \"pagingMetadata\": {\"hasNext\": false}\n} "],
-            "type": "curl",
-            "extra": {"description": "Retrieve sessions belonging to a specific schedule. This allows you for example to block time in an external calendar."}
-          },
-                    {
-            "title": "Retrieve the next 2 sessions from a previous Query result using the cursor.",
-            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/query' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"fromDate\": \"2022-07-31T00:00:00Z\",\n  \"toDate\": \"2022-08-07T00:00:00Z\",\n  \"query\": {\n    \"cursorPaging\": {\n      \"limit\": 2,\n      \"cursor\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRXRmUlR0VFkifQ.57uX6MSKGK11CKgVYUM2-gU9BHRxsYyPsgNwTvCjawRsl3aEFkw-VA.aDPsEsTMJrW6mEUKy6xMsw.o1W4gafX63EgZOjZ3KjvigA11lgH_wVbO7Dq8uEqMYGcdvaPSKamg6s1uMYZ6YUMv6O25YeqWXHEx9Ejo0pElePLkm704PyDu5RIptz-6uWkdzOH7GQSgudfjXZlEVRj2LgCHeuWvApWdttPngMn4afu2kyQxAU1P8jNIGqNooQf0r51dSrzy6Smm9G7bb3VLoCudITcDfCV5CshbmPLjw3F6TcmYx2nBxp8aY1ZjJ1X0dkSBVzdIGwc3UQeN1-rak1lyFFangXdQoNaxQ4cTfXg6_WxXSxNcKUb93mvJ89w6GV59UfGrpPqRBXTrq0G4CSBRMHcbO5MiSpfoN8dNiSAVBIdkThEg73Y77WPfYPl7oUWo__5vVkqrqGboPGCbiWYWMyxJD83LrX5GOIA02mYW16Z_W6eAPZlH2SWTsR-XJ1lzpSoWMEC950yon1oKArszIxkMa1hBQ052tfdcDGQQaDWJA0Sh4bMVBjRDEQ5y1Pxojkyy8hyUkQ5NLcjJQ5DOedaqgNSZQJTo2JHL3iFup6rizky-MtrHFhij2iZaW4u99l95rqlb6HidBLBHeD52DQ-u72jvaqTYvq1HBOPeaGl2tmT1ThHKU1Fe3n6UOeBsXmkyd7vXYK-pT05dcDgGLv7cJWSDFWEdtLMdJCar4vx3aJgaqozOkAbHTx2QcgcY-X3t4mZ05Ve2IB1.BlMnVahmA_G_cG4QyfMcvw\"\n    }\n  }\n}'"],
-            "response": ["{\n  \"sessions\":   [\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1Hv8vR80J28PRbGViGmpjKzJyheWVgfa6t5bWNQIgUMccjenHiovFUcmT74dMuPhczZ2Udi26JNVesJlGWqWFuB5NxtZamktCmoOluLcopBYGxjlGF7RBpgljNouOMCNHrWMWWI9gg4MjgzCQAoCk5rSUUlxfjBpL9ssXkwPWKUyE4ZaLXA6uSxz50CaBjhnOh2X9VUlPoa8UTiQ7ONB2vrhBx3koA38jRmI8tYRvkKJcYQ4ZGm6bp3zLApZcuuLQjyUBaIra4z\",\n      \"scheduleId\": \"58aabcad-45bf-4270-ac89-2ee77e674c0a\",\n      \"scheduleOwnerId\": \"8b0e1e3c-9923-4a60-acb3-f2f83188fbd7\",\n      \"start\":       {\n        \"timestamp\": \"2022-07-31T10:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 7,\n          \"dayOfMonth\": 31,\n          \"hourOfDay\": 13,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-07-31T11:30:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 7,\n          \"dayOfMonth\": 31,\n          \"hourOfDay\": 14,\n          \"minutesOfHour\": 30\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"c7831755-b08c-48bb-925a-43515c8c28df\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"e5d9dedc-dc5e-4900-a327-78b61de92241\",\n        \"scheduleOwnerName\": \"VERONICA\"\n      }],\n      \"title\": \"The City of David\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"58aabcad45bf4270ac892ee77e674c0a-c24f616b27504634bee10eec8911c4a1\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"version\":       {\n        \"scheduleVersion\": 31,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    },\n        {\n      \"id\": \"193ZPR9ppP9emJUCLevcLf6orynNEIDt5nc0520xjGQILnPPaF5s62yK3BWz7ExgIRM1HMtnY9hMaiuNxhEm2CTL1hGCs9v5uWNWujzX0bG1yoUhcBrin1rsJyZabo7c8yKb8dnixTH1nA4osqGt8Loa3vRkZlelKdKSOgfzGhOQZ4wT6PKXeq7qvLOkFybbiRtfad5KQPkyeWqcU0PnPOFIQ1paQjsQhCYZVGxD25yokr4YBsTInyZfioM59VqnjmZnO8ewJv89ezzqbrxEupwa11ensmaw3TnFU4945f4eCIQKOQDY58GbjHjrGllNLWix6ODFUZGolZ\",\n      \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n      \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n      \"start\":       {\n        \"timestamp\": \"2022-07-31T16:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 7,\n          \"dayOfMonth\": 31,\n          \"hourOfDay\": 19,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"end\":       {\n        \"timestamp\": \"2022-07-31T17:00:00Z\",\n        \"localDateTime\":         {\n          \"year\": 2022,\n          \"monthOfYear\": 7,\n          \"dayOfMonth\": 31,\n          \"hourOfDay\": 20,\n          \"minutesOfHour\": 0\n        },\n        \"timeZone\": \"Asia/Jerusalem\"\n      },\n      \"affectedSchedules\": [      {\n        \"scheduleId\": \"3e47ec65-2975-447c-a7ed-75041e850d5e\",\n        \"transparency\": \"BUSY\",\n        \"scheduleOwnerId\": \"76570209-101f-409b-af97-b445bdb63125\",\n        \"scheduleOwnerName\": \"JONATHAN\"\n      }],\n      \"title\": \"Be Courageous and Trust\",\n      \"tags\": [\"GROUP\"],\n      \"location\":       {\n        \"locationType\": \"OWNER_BUSINESS\",\n        \"businessLocation\":         {\n          \"id\": \"5a5b25b0-4005-4f92-b2cb-802448ecd6c1\",\n          \"name\": \"Tel Aviv-Yafo\",\n          \"default\": false,\n          \"status\": \"ACTIVE\",\n          \"locationType\": \"UNKNOWN\",\n          \"timeZone\": \"Europe/Dublin\",\n          \"phone\": \"\",\n          \"revision\": \"2\",\n          \"archived\": false\n        }\n      },\n      \"capacity\": 50,\n      \"remainingCapacity\": 50,\n      \"rate\": {\"labeledPriceOptions\": {\"general\":       {\n        \"amount\": \"5\",\n        \"currency\": \"EUR\",\n        \"downPayAmount\": \"0\"\n      }}},\n      \"notes\": \"\",\n      \"totalNumberOfParticipants\": 0,\n      \"participants\": [],\n      \"inheritedFields\":       [\n        \"affectedSchedules\",\n        \"calendarConference\",\n        \"capacity\",\n        \"end\",\n        \"externalCalendarOverrides\",\n        \"location\",\n        \"rate\",\n        \"start\",\n        \"tags\",\n        \"title\"\n      ],\n      \"status\": \"CONFIRMED\",\n      \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-a181686adb4e4c4e977997a2a0f23756\",\n      \"type\": \"EVENT\",\n      \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=SU\",\n      \"version\":       {\n        \"scheduleVersion\": 41,\n        \"sessionVersion\": 0,\n        \"participantsVersion\": 0\n      }\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"cursors\": {\"next\": \"JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRXRmUlR0VFkifQ.CTsbhTb51J5ZOZVcxc31ruhx3Jo3A2orvhqBaZMcXg3Xl4WwAfjCHw.Gbsb5Mv3_eBXpZnpizg8kg.nT_vpkiHTmOuPJDY4vu4n4LffPPTdhPFF7nuTP6bU5hFFlRM5vrWGXMIbypEqiu0mzqCjuUdyop9q6S1FDPKbxlpkAHyNAsclaQKrsYXPn6iDgGdcMTr1FSYIeTeMvQgop4ORc3NT3E-6vDhLQQICMGx5nJiJ-d4SUT8j1vQaWmO5tRcDm2Z9HA21avvKARPwmo5mI-tz_jhsTVcIo3qbJLpUYOLyA21rO3MZtYP0ZsZxebg8knCzCV4JGTZ4snZJZEsk4fMk6LZFU4AWViJLgqNIXYBIsfT1Ihxtzogkx4oIXLTqHuGexgfyByinpPIaRkISzFQOYx71o3He6auXAOV_m9n2g7wgsr3LtEZP97zPCb8K_kwmhWHvazDfXYZZ-xbo-CNPwh90hsLH4mfLMFuaERX1Ql4W4o-657YksyD13p-fEtQSWYnlYZR317Bb-Bm_mLI5QdqihYn8nF2Z0_wT0EoxToMopQ6wK32HmSz33PNUzgryno3uoYG0NvbY9RF0coxfgMf3EtzQkxlBgWmAWXFOxkvc4uouEkjz5FXqfijGjw2jTyYGq9rGZdZXtDsaCZdCqzo5jt7wSFrFc5I1hc_xaLQSaRhV2vijmoJJ6-MhMecFxm4sk88yAWYyW1qXVd9cpbahF4Tfwr4vjxRc4_hz7bgJ8_bUmG4o7t9eLkirq2quNDMF7NEYmoG.BfE5b7fATx1M-NhXIgKptQ\"},\n    \"hasNext\": true\n  }\n} "],
+            "title": "Retrieve sessions by ID including personal information.",
+            "body": ["curl -X POST 'https://www.wixapis.com/bookings/v2/calendar/sessions/list' \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"ids\": [\n    \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\"\n  ],\n  \"fieldsets\": [\n    \"ALL_PI\"\n  ]\n}'"],
+            "response": ["{\"sessions\": [{\n  \"id\": \"4jOkD28c0FrsNUSgzQzuLRkA2t1rv1FLTwquKmJyctoZm00vdeKFMyH4n9cCLtmQe8wvHiYOb233HdQowUX0L5V8p0cv9cxkPNh9uHu4ITqCB6Um5gzowRiSIU6xA6xRV373LgLJdYsJOzbu6RpjeU6C2ijpbhVdVfKWUarLs6UUW9UQ0FYQxrkraW0slAiEB9QHmEwAULY3Vu4maYXPYMf1ykpwnQlK0duKoj4uYuOWJtYx4RO32Ul9AOuh4391z6OmIGM2JUlEbgE5gagBK2g7NSjZhCPBc3iMr1gKeUVp7pmQKuBK7pa2QbkP4DQ2ADd1Mig9hxc1Ird\",\n  \"scheduleId\": \"36c043ff-82ca-42aa-b980-f75f7364e4f3\",\n  \"scheduleOwnerId\": \"7fdf3b1e-71f4-4170-b9b6-ff3cab95f22b\",\n  \"start\":   {\n    \"timestamp\": \"2022-08-04T08:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 8,\n      \"dayOfMonth\": 4,\n      \"hourOfDay\": 11,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"end\":   {\n    \"timestamp\": \"2022-08-04T10:00:00Z\",\n    \"localDateTime\":     {\n      \"year\": 2022,\n      \"monthOfYear\": 8,\n      \"dayOfMonth\": 4,\n      \"hourOfDay\": 13,\n      \"minutesOfHour\": 0\n    },\n    \"timeZone\": \"Asia/Jerusalem\"\n  },\n  \"affectedSchedules\": [  {\n    \"scheduleId\": \"b936298d-18a6-4ae8-8e9f-10bf49314c95\",\n    \"transparency\": \"BUSY\",\n    \"scheduleOwnerId\": \"e2c75c80-0c1e-4091-8ff1-98cc7865bfc0\",\n    \"scheduleOwnerName\": \"ANITA\",\n    \"scheduleOwnerUserId\": \"f7f363b1-8ef8-4118-9612-0e6b3910745a\"\n  }],\n  \"title\": \"Be Courageous and Trust\",\n  \"tags\": [\"GROUP\"],\n  \"location\":   {\n    \"locationType\": \"OWNER_BUSINESS\",\n    \"businessLocation\":     {\n      \"id\": \"1d73c049-63dc-4c22-9482-283444b7cba8\",\n      \"name\": \"Teviotdale\",\n      \"default\": false,\n      \"status\": \"ACTIVE\",\n      \"locationType\": \"UNKNOWN\",\n      \"timeZone\": \"Europe/Dublin\",\n      \"email\": \"\",\n      \"phone\": \"\",\n      \"revision\": \"2\",\n      \"archived\": false\n    }\n  },\n  \"capacity\": 50,\n  \"remainingCapacity\": 49,\n  \"rate\": {\"labeledPriceOptions\": {\"general\":   {\n    \"amount\": \"5\",\n    \"currency\": \"EUR\",\n    \"downPayAmount\": \"0\"\n  }}},\n  \"notes\": \"\",\n  \"totalNumberOfParticipants\": 1,\n  \"participants\": [  {\n    \"id\": \"3d1b5873-6441-4c73-91d7-a0a1cebdad19\",\n    \"contactId\": \"41d2f296-c09f-46b3-bdb9-245111d9af43\",\n    \"name\": \"Dan\",\n    \"email\": \"dan_demo@wix.com\",\n    \"partySize\": 1,\n    \"inherited\": false\n  }],\n  \"inheritedFields\":   [\n    \"affectedSchedules\",\n    \"calendarConference\",\n    \"capacity\",\n    \"end\",\n    \"externalCalendarOverrides\",\n    \"location\",\n    \"rate\",\n    \"start\",\n    \"tags\",\n    \"title\"\n  ],\n  \"status\": \"CONFIRMED\",\n  \"recurringSessionId\": \"36c043ff82ca42aab980f75f7364e4f3-b0e250d12c6845e5af64cdd7fcac1e6c\",\n  \"type\": \"EVENT\",\n  \"instanceOfRecurrence\": \"FREQ=WEEKLY;INTERVAL=1;BYDAY=TH;UNTIL=20220930T225959Z\",\n  \"version\":   {\n    \"scheduleVersion\": 41,\n    \"sessionVersion\": 0,\n    \"participantsVersion\": 2\n  }\n}]} "],
             "type": "curl",
             "extra": {}
           }
@@ -223,8 +277,8 @@
       },
       "extra":       {
         "hasRest": true,
-        "rpcRequestName": "QuerySessionsRequest",
-        "rpcResponseName": "QuerySessionsResponse"
+        "rpcRequestName": "ListSessionsRequest",
+        "rpcResponseName": "ListSessionsResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -343,6 +397,11 @@
           "name": "sessionCount",
           "type": "integer",
           "doc": ""
+        },
+                {
+          "name": "cachedDate",
+          "type": "string",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -416,12 +475,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -644,17 +703,17 @@
                 {
           "name": "timestamp",
           "type": "string",
-          "doc": "UTC date-time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. If a timezone offset is specified, the time is converted to UTC. For example, if you specify  `new Date('2021-01-06T16:00:00.000-07:00')`, the stored value will be `\"2021-01-06T23:00:00.000Z\"`.\nRequired if `localDateTime` is not specified.\nIf `localDateTime` is specified, `timestamp` is calculated as `localDateTime`, using the business's timezone.\n"
+          "doc": "UTC date-time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. If a time zone offset is specified, the time is converted to UTC. For example, if you specify  `new Date('2021-01-06T16:00:00.000-07:00')`, the stored value will be `\"2021-01-06T23:00:00.000Z\"`.\nRequired if `localDateTime` is not specified.\nIf `localDateTime` is specified, `timestamp` is calculated as `localDateTime`, using the business's time zone.\n"
         },
                 {
           "name": "localDateTime",
           "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_LocalDateTime",
-          "doc": "An object containing the local date and time for the business's timezone.\n"
+          "doc": "An object containing the local date and time for the business's time zone.\n"
         },
                 {
           "name": "timeZone",
           "type": "string",
-          "doc": "The time zone. Optional. derived from the schedule.timezone.\nIn case this field is associated with recurring session, this field is empty.\n",
+          "doc": "The time zone. Optional. Derived from the schedule's time zone.\nIn case this field is associated with recurring session, this field is empty.\n",
           "readOnly": true
         }
       ],
@@ -755,7 +814,7 @@
                 {
           "name": "accountOwnerId",
           "type": "string",
-          "doc": "Account owner id in vc service\n"
+          "doc": "ID of the account owner in the video conferencing service.\n"
         }
       ],
       "enum": null,
@@ -903,7 +962,8 @@
                 {
           "name": "locationType",
           "type": "All APIs.Calendar._com_wixpress_locations_LocationType",
-          "doc": " Location type. **Note:** Currently not supported.\n"
+          "doc": " Location type. \n\n**Note:** Currently not supported.\n",
+          "deprecated": true
         },
                 {
           "name": "fax",
@@ -945,6 +1005,14 @@
           "type": "boolean",
           "doc": "\nWhether the location is archived. Archived locations can't be updated. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect its `status`.\n",
           "readOnly": true
+        },
+                {
+          "name": "locationTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Calendar._com_wixpress_locations_LocationType"]
+          },
+          "doc": " Location types.\n"
         }
       ],
       "enum": null,
@@ -1265,11 +1333,6 @@
           "name": "customAddress",
           "type": "All APIs.Calendar._com_wix_bookings_upstream_wix_common_Address",
           "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
-        },
-                {
-          "name": "businessLocation",
-          "type": "All APIs.Calendar._com_wixpress_locations_Location",
-          "doc": " Valid when `locationType` is `OWNER_BUSINESS`. Defaults to the business's location.\n \n`businessSchedule` is not supported by Wix Bookings\n"
         }
       ],
       "enum": null,
@@ -1285,18 +1348,11 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "scheduleVersion",
-          "type": "integer",
-          "doc": "Schedule version number, updated each time the schedule is updated.\n"
-        },
-                {
-          "name": "sessionVersion",
-          "type": "integer",
-          "doc": "Session version number, updated each time the session is updated.\n"
-        }
-      ],
+      "members": [      {
+        "name": "number",
+        "type": "string",
+        "doc": " Incremental version number, which is updated on each change to the session or on changes affecting the session. \n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1362,7 +1418,8 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "Tags for the session.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "__Deprecated.__ \nTags for the session.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n",
+          "deprecated": true
         },
                 {
           "name": "location",
@@ -1377,7 +1434,8 @@
                 {
           "name": "rate",
           "type": "All APIs.Calendar._com_wix_bookings_common_api_v1_Rate",
-          "doc": "The price options offered for the session.  Defaults to the schedule rate.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "timeReservedAfter",
@@ -1401,7 +1459,7 @@
             "name": "array",
             "typeParams": ["All APIs.Calendar._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "List of participants booked for the session.\nThe list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.\nIf the session is a recurring session, this field must be empty.\n"
+          "doc": " **Partial list** list of participants booked for the session.  \n The list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.  \n If the session is a recurring session, this field must be empty.  \n To retrieve the full list of session participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n"
         },
                 {
           "name": "inheritedFields",
@@ -1415,7 +1473,8 @@
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "__Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -1444,7 +1503,8 @@
                 {
           "name": "calendarConference",
           "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the session according to the details set in the schedule's conference provider information.\nIf the session is a recurring session, this field is inherited from the schedule.\n"
+          "doc": " A conference created for the session according to the details set in the schedule's conference provider information.  \n If the session is a recurring session, this field is inherited from the schedule.  \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         },
                 {
           "name": "recurrence",
@@ -1456,6 +1516,62 @@
           "type": "string",
           "doc": "A string representing a recurrence rule (RRULE) if the session is an instance of a recurrence pattern.\nEmpty when the session is not an instance of a recurrence rule, or if the session defines a recurrence pattern, and `recurrence` is not empty.\n",
           "readOnly": true
+        },
+                {
+          "name": "version",
+          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session_Version",
+          "doc": " The session version.   \n Composed by the schedule, session and participants versions.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendarfeed_v2_SessionAddedOrUpdated",
+      "displayName": "Session Added Or Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "session",
+          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+          "doc": " The session which was added or updated within the view.\n"
+        },
+                {
+          "name": "previousSession",
+          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+          "doc": " Optionally, the previous session.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendarfeed_v2_SessionRemoved",
+      "displayName": "Session Removed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "session",
+          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+          "doc": " The updated session which was removed from the view.\n"
+        },
+                {
+          "name": "previousSession",
+          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+          "doc": " Optionally, the previous session.\n"
         }
       ],
       "enum": null,
@@ -1504,89 +1620,12 @@
           "name": "windowExtended",
           "type": "All APIs.Calendar._wix_bookings_calendarfeed_v2_WindowExtended",
           "doc": " The feed window has been extended.\n"
-        },
-                {
-          "name": "windowMoved",
-          "type": "All APIs.Calendar._wix_bookings_calendarfeed_v2_WindowMoved",
-          "doc": " Deprecated. Please use `window_extended` instead.\n",
-          "deprecated": true
         }
       ],
       "enum": null,
       "extra": {},
       "labels": [],
       "oneOf": true
-    },
-        {
-      "name": "_wix_bookings_calendarfeed_v2_SessionAddedOrUpdated",
-      "displayName": "Session Added Or Updated Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "session",
-          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": " The session which was added or updated within the feed window.\n"
-        },
-                {
-          "name": "sessionVersion",
-          "type": "string",
-          "doc": " The feed session version.\n"
-        },
-                {
-          "name": "previousAffectedScheduleIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " The session previous affected schedule ids.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_bookings_calendarfeed_v2_SessionRemoved",
-      "displayName": "Session Removed Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "sessionId",
-          "type": "string",
-          "doc": " The removed session id.\n"
-        },
-                {
-          "name": "sessionVersion",
-          "type": "string",
-          "doc": " The feed session version.\n"
-        },
-                {
-          "name": "scheduleId",
-          "type": "string",
-          "doc": " The schedule id of the removed session.\n"
-        },
-                {
-          "name": "affectedScheduleIds",
-          "type":           {
-            "name": "array",
-            "typeParams": ["string"]
-          },
-          "doc": " The affected schedule ids of the removed session.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
     },
         {
       "name": "_wix_bookings_calendarfeed_v2_WindowExtended",
@@ -1691,18 +1730,11 @@
         "links": [],
         "examples": []
       },
-      "members":       [
-                {
-          "name": "session",
-          "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
-          "doc": " The session which was added within the feed window.\n"
-        },
-                {
-          "name": "sessionVersion",
-          "type": "string",
-          "doc": " The feed session version.\n"
-        }
-      ],
+      "members": [      {
+        "name": "session",
+        "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+        "doc": " The session which was added within the feed window.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1726,8 +1758,8 @@
       "labels": []
     },
         {
-      "name": "_wix_bookings_calendar_v2_QuerySessionsRequest",
-      "displayName": "Query Sessions Request Object",
+      "name": "_wix_bookings_calendar_v2_QueryEventSessionInstancesRequest",
+      "displayName": "Query Event Session Instances Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -1738,17 +1770,17 @@
                 {
           "name": "fromDate",
           "type": "string",
-          "doc": "\nStart of the time range for which sessions are returned \nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)). \nRequired, if `query.cursorPaging` is omitted.\n`end.timestamp` of all returned sessions is greater than or equal to `fromDate`.\n"
+          "doc": "\nStart of the time range for which sessions are returned\nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\nRequired, if `query.cursorPaging` is omitted.\n`end.timestamp` of all returned sessions is greater than or equal to `fromDate`.\n"
         },
                 {
           "name": "toDate",
           "type": "string",
-          "doc": "\nEnd of the time range for which sessions are returned \nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)). \nRequired, if `query.cursorPaging` is omitted.\n`start.timestamp` of all returned sessions is less than or equal to `toDate`.\n"
+          "doc": "\nEnd of the time range for which sessions are returned\nin [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).\nRequired, if `query.cursorPaging` is omitted.\n`start.timestamp` of all returned sessions is less than or equal to `toDate`.\n"
         },
                 {
           "name": "query",
           "type": "All APIs.Calendar._wix_bookings_calendar_upstream_wix_common_QueryV2",
-          "doc": "\nInformation about filters, paging, and returned fields. \n"
+          "doc": "\nInformation about filters, paging, and returned fields.\n"
         }
       ],
       "enum": null,
@@ -1756,8 +1788,8 @@
       "labels": []
     },
         {
-      "name": "_wix_bookings_calendar_v2_QuerySessionsResponse",
-      "displayName": "Query Sessions Response Object",
+      "name": "_wix_bookings_calendar_v2_QueryEventSessionInstancesResponse",
+      "displayName": "Query Event Session Instances Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -1779,6 +1811,52 @@
           "doc": " Paging metadata.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendar_v2_GetSessionRequest",
+      "displayName": "Get Session Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " ID of the session to retrieve.\n"
+        },
+                {
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the CALENDAR.SESSION_READ_PI permission scope.\n\nDefault: `NO_PI`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendar_v2_GetSessionResponse",
+      "displayName": "Get Session Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "session",
+        "type": "All APIs.Calendar._com_wix_bookings_schedules_api_v1_Session",
+        "doc": " Retrieved session.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1807,7 +1885,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "\nSupported values: `ALL_PI`.\n\nPredefined sets of fields to return.\n\n- `ALL_PI`: Returns complete session objects.\n\nIf you don't pass a value in the `fieldsets` array, session objects without \npersonal information are returned by default. This means without `participants`, \n`location`, `calendarConference`, and `externalCalendarOverrides`.\n"
+          "doc": "\nPredefined sets of fields to return.\n- `NO_PI`: Returns session objects without personal information.\n- `ALL_PI`: Returns complete session objects, including personal information. Requires the CALENDAR.SESSION_READ_PI permission scope.\n\nDefault: `NO_PI`\n"
         }
       ],
       "enum": null,
@@ -1895,6 +1973,42 @@
         "examples": []
       },
       "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendar_v2_ShortenCacheRequest",
+      "displayName": "Shorten Cache Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fromDate",
+        "type": "string",
+        "doc": " The new cache from date to set.\n Must be after than the current from date.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_bookings_calendar_v2_ShortenCacheResponse",
+      "displayName": "Shorten Cache Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cacheInfo",
+        "type": "All APIs.Calendar._wix_bookings_calendar_v2_CacheInfo",
+        "doc": " The updated cache.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1996,7 +2110,7 @@
       "displayName": "Calendar Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> GOOGLE <\/code><\/li><li><code> I_CAL <\/code><\/li><li><code> OUTLOOK - use MICROSOFT\n <\/code><\/li><li><code> OFFICE_365 - use MICROSOFT\n <\/code><\/li><li><code> MICROSOFT <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> GOOGLE <\/code><\/li><li><code> I_CAL <\/code><\/li><li><code> OUTLOOK -  Use `MICROSOFT` instead.\n <\/code><\/li><li><code> OFFICE_365 -  Use `MICROSOFT` instead.\n <\/code><\/li><li><code> MICROSOFT <\/code><\/li><li><code> OTHER <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -2007,7 +2121,8 @@
         "I_CAL",
         "OUTLOOK",
         "OFFICE_365",
-        "MICROSOFT"
+        "MICROSOFT",
+        "OTHER"
       ],
       "extra": {},
       "labels": []
@@ -2094,7 +2209,7 @@
       "displayName": "Location Type Object",
       "locations": [],
       "docs":       {
-        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li>",
+        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li><li><code> INVENTORY <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -2104,7 +2219,8 @@
         "BRANCH",
         "OFFICES",
         "RECEPTION",
-        "HEADQUARTERS"
+        "HEADQUARTERS",
+        "INVENTORY"
       ],
       "extra": {},
       "labels": []
@@ -2147,5 +2263,5 @@
       "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.bookings.calendar-2-writer"}
+  "extra": {"artifactId": "com.wixpress.bookings.calendar-2"}
 }
