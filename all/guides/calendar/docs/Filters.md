@@ -1,55 +1,64 @@
 SortOrder: 1
-# Supported Filters
+# Sessions: Supported Filters
 
+Field support for filters depends on the type of sessions you are querying: session instances of type `EVENT`, session instances of all types, or recurring session definitions.
+They also depend on whether `includeExternal` is `true`.
 
-[Query Sessions](https://dev.wix.com/api/rest/wix-bookings/calendar-v2/sessions/query-sessions) runs with these defaults:
+## Wix Calendar session instances of type `EVENT` (Default)
 
-- sorted by `start.timestamp` in `ASC` order
-- `cursorPaging.limit` is `50`
+The following table shows field support for filters for session instances of type `EVENT` when `includeExternal` is `false`:
 
-> __Note:__ You can't override the default sorting.
-
-The following table shows field support for filters
-for the session object:
+| Logical Operators |
+| ----------------- |
+| `$and`, `$or`, `$not` |
 
 | Field           | Supported Filters                             |
 | --------------- | --------------------------------------------- |
 | `scheduleId` | `eq`, `ne`, `in` |
-| `scheduleOwnerId` | `eq`, `ne`, `in`, `exists` |
+| `scheduleOwnerId` | `eq`, `ne`, `in` |
 | `affectedSchedules` | `exists` | 
 | `affectedSchedules.scheduleId` | `hasSome`, `hasAll` | 
 | `affectedSchedules.transparency` | `hasSome`, `hasAll` | 
 | `affectedSchedules.scheduleOwnerId` | `hasSome`, `hasAll` | 
-| `affectedSchedules.scheduleOwnerName` | `hasSome`, `hasAll` | 
-| `title` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
 | `tags` | `hasSome`, `hasAll` | 
 | `location` | `exists` | 
-| `location.locationType` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
+| `location.locationType` | `eq`, `ne`, `in` | 
 | `location.customAddress` | `exists` | 
-| `location.customAddress.formattedAddress` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
 | `location.businessLocation` | `exists` | 
-| `location.businessLocation.id` | `eq`, `ne`, `in`, `exists` | 
-| `location.businessLocation.name` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
-| `location.businessLocation.address.formattedAddress` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
+| `location.businessLocation.id` | `eq`, `ne`, `in` | 
 | `capacity` | `eq`, `ne`, `gt`, `lt`, `gte`, `lte`, `exists` | 
-| `remainingCapacity` | `eq`, `ne`, `gt`, `lt`, `gte`, `lte`, `exists` |
-| `rate` | `exists` |  
-| `rate.priceText` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
-| `notes` | `eq`, `ne`, `in`, `exists`, `startsWith` | 
+| `remainingCapacity` | `eq`, `ne`, `gt`, `lt`, `gte`, `lte` |
 | `numberOfParticipants` | `eq`, `ne`, `gt`, `lt`, `gte`, `lte` | 
-| `participants` | `exists` | 
-| `participants.id` | `hasSome`, `hasAll` | 
-| `participants.contactId` | `hasSome`, `hasAll` | 
-| `participants.approvalStatus` | `hasSome`, `hasAll` | 
 | `inheritedFields` | `hasSome`, `hasAll` | 
-| `recurringSessionId` | `eq`, `ne`, `in`, `exists` | 
-| `calendarConference.id` | `eq`, `ne`, `in`, `exists` | 
-| `calendarConference.externalId` | `eq`, `ne`, `in`, `exists` | 
-| `calendarConference.providerId` | `eq`, `ne`, `in`, `exists` | 
+| `recurringSessionId` | `eq`, `ne`, `in`, `exists` |
+| `calendarConference` | `exists` |
 | `instanceOfRecurrence` | `eq`, `ne`, `in`, `exists` | 
-| `scheduleOwnerName` | `eq`, `ne`, `in`, `exists` | 
 
+## Session instances of all types
+
+The following table shows field support for filters for session instances of all types. When `includeExternal` is `true` this table always applies, even if you only query session instances of type `EVENT`:
+
+| Logical Operators |
+| ----------------- |
+| `$and` |
+
+| Field | Supported Filters  |
+| ----- | ------------------ |
+| `scheduleId` | `eq`, `in` | 
+| `affectedSchedules.scheduleId` | `hasSome`, `hasAll` | 
+| `tags` | `hasSome` |
+| `location.locationType` | `eq`, `in` |
+| `location.businessLocation.id` | `eq`, `in` |
+| `recurringSessionId` | `eq`, `in` |
+| `calendarConference` | `exists` |
+
+## Recurring sessions
+
+The following table shows field support for filters for recurring session definitions:
+
+| Field           | Supported Filters                             |
+| --------------- | --------------------------------------------- |
+| `scheduleId` | `eq`, `in` |
 
 To learn about working with _Query_ endpoints in general, see
-[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)
-and [Sorting and Paging](https://dev.wix.com/api/rest/getting-started/sorting-and-paging).
+[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).
