@@ -1,14 +1,13 @@
 SortOrder: 0
 # About the Site Actions API
 
-The Site Actions API enables management of Wix sites. Currently, the Site Actions API enables deleting multiple sites.
-
-## Terminology
-* **Site**:  A website that belongs to a specific account. 
-* **Trash**: A Wix site can be moved to trash, but not permanently deleted.
+The Site Actions API allows you to manage the sites owned by a Wix account. 
+  
+With the Wix Site Actions API, your app can:
+- Delete site in bulk.
+- Publish sites.
 
 ## Before you begin
+It’s important to note the following before starting to code:
 
-It’s important to note the following before starting to code:  
-
-* A maximum of 20 sites can be deleted each time the Bulk Delete Site endpoint is run.
+- A maximum of 20 sites can be deleted each time the Bulk Delete Site endpoint is run.
