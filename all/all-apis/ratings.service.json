@@ -1,0 +1,1753 @@
+{
+  "name": "Ratings",
+  "client_id": "https://github.com/wix-private/app-market/tree/master/critique/ratings#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage ratings",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Ratings",
+    "entity": "_com_wixpress_critique_ratings_Rating",
+    "src": "https://github.com/wix-private/app-market/tree/master/critique/ratings/proto/com/wixpress/critique/ratings/rating.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/ratings/docs/sort-and-filter.md",
+      "name": "Sort and Filter"
+    },
+        {
+      "path": "../guides/ratings/docs/introduction.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/ratings/docs/use-cases.md",
+      "name": "Sample Flows"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Entity Summary",
+      "methodName": "GetEntitySummary",
+      "serviceName": "Ratings",
+      "tag": "Ratings",
+      "permissions":       [
+                {
+          "name": "Manage Ratings",
+          "description": "Request permission to read, create and modify Wix Ratings data."
+        },
+                {
+          "name": "Read Ratings",
+          "description": "Request permission to read Wix Ratings data."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "group",
+        "entityId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "group",
+          "type": "string",
+          "doc": "Name of group to calculate the summaries for.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "entityId",
+          "type": "string",
+          "doc": "Entity ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "attributeNames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "List of attributes for the summaries.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace for the summaries.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetEntitySummary",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_GetEntitySummaryResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a rating summary for the requested entity.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/ratings/v1/ratings/groups/{group}/entities/{entityId}/summary",
+        "links": [],
+        "examples": [        {
+          "title": "Get Entity Summary",
+          "body": ["curl -X GET \\\n  'https://www.wixapis.com/ratings/v1/ratings/groups/stores/entities/f24a88ec-2659-4fe6-aa68-c6da82d693e0/summary?attributeNames[]=quality&attributeNames[]=fit' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <ACCESS_TOKEN>'"],
+          "response": ["{\n  \"group\": \"stores\",\n  \"entityId\": \"f24a88ec-2659-4fe6-aa68-c6da82d693e0\",\n  \"attribute_summaries\":   [\n        {\n      \"attributeName\": \"quality\",\n      \"total\": 18,\n      \"average\": 5.1666,\n      \"valueBreakdown\":       [\n                {\n          \"value\": 1,\n          \"total\": 2\n        },\n                {\n          \"value\": 2,\n          \"total\": 3\n        },\n                {\n          \"value\": 3,\n          \"total\": 1\n        },\n                {\n          \"value\": 4,\n          \"total\": 8\n        },\n                {\n          \"value\": 5,\n          \"total\": 10\n        }\n      ]\n    },\n        {\n      \"attributeName\": \"fit\",\n      \"total\": 18,\n      \"average\": 5.1666,\n      \"valueBreakdown\":       [\n                {\n          \"value\": 1,\n          \"total\": 2\n        },\n                {\n          \"value\": 2,\n          \"total\": 3\n        },\n                {\n          \"value\": 3,\n          \"total\": 1\n        },\n                {\n          \"value\": 4,\n          \"total\": 8\n        },\n                {\n          \"value\": 5,\n          \"total\": 10\n        }\n      ]\n    }\n  ]\n} "],
+          "type": "curl",
+          "extra": {"description": "Gets a rating summary for entities"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetEntitySummaryRequest",
+        "rpcResponseName": "GetEntitySummaryResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Attribute Averages By Entity",
+      "methodName": "ListAttributeAveragesByEntity",
+      "serviceName": "Ratings",
+      "tag": "Ratings",
+      "permissions":       [
+                {
+          "name": "Manage Ratings",
+          "description": "Request permission to read, create and modify Wix Ratings data."
+        },
+                {
+          "name": "Read Ratings",
+          "description": "Request permission to read Wix Ratings data."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "group",
+        "attributeName"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "group",
+          "type": "string",
+          "doc": "Name of group to calculate rating averages for.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "entityIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Entity IDs to calculate rating averages for.\n TODO - change to 100 once WR-206 is fixed\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "attributeName",
+          "type": "string",
+          "doc": "Attribute to calculate rating averages for.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace to calculate rating averages for.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListAttributeAveragesByEntity",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_ListAttributeAveragesByEntityResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves average attribute ratings for entities in a group.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ratings/v1/ratings/groups/{group}/attributes/average",
+        "links": [],
+        "examples": [        {
+          "title": "List Attribute Averages by Entity",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ratings/v1/ratings/groups/stores/attributes/average' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'Authorization: <ACCESS_TOKEN>' \\\n  -d '{\n    \"entityIds\":\n    [\n      \"985f3c2e-f94b-4b70-a75e-44931e468067\",\n      \"2ad4660d-1767-475d-b45a-ecfda29f9043\"\n    ],\n    \"attributeName\":\"overall\"\n  }'"],
+          "response": ["{\n  \"group\": \"stores\",\n  \"entityAverages\":   [\n        {\n      \"entityId\": \"985f3c2e-f94b-4b70-a75e-44931e468067\",\n      \"total\": 5,\n      \"average\": 3.5\n    },\n        {\n      \"entityId\": \"2ad4660d-1767-475d-b45a-ecfda29f9043\",\n      \"total\": 5,\n      \"average\": 4\n    }\n  ]\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAttributeAveragesByEntityRequest",
+        "rpcResponseName": "ListAttributeAveragesByEntityResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_critique_ratings_GroupAttributeSummaryUpdatedDomainEvent",
+      "name": "Group Attribute Summary Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/ratings/proto/com/wixpress/critique/ratings/ratings.proto"
+      },
+      "topic": "domain_events_wix.ratings.v1.rating",
+      "tag": "Ratings",
+      "permissions":       [
+                {
+          "name": "Manage Ratings",
+          "description": "Request permission to read, create and modify Wix Ratings data."
+        },
+                {
+          "name": "Read Ratings",
+          "description": "Request permission to read Wix Ratings data."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.ratings.v1.rating_group_attribute_summary_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_critique_ratings_EntityAttributeSummaryUpdatedDomainEvent",
+      "name": "Entity Attribute Summary Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/app-market/tree/master/critique/ratings/proto/com/wixpress/critique/ratings/ratings.proto"
+      },
+      "topic": "domain_events_wix.ratings.v1.rating",
+      "tag": "Ratings",
+      "permissions":       [
+                {
+          "name": "Manage Ratings",
+          "description": "Request permission to read, create and modify Wix Ratings data."
+        },
+                {
+          "name": "Read Ratings",
+          "description": "Request permission to read Wix Ratings data."
+        }
+      ],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.ratings.v1.rating_entity_attribute_summary_updated",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_critique_ratings_RatingUpdatedDomainEvent",
+      "displayName": "Rating Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"81af17ee-e022-11ec-9d64-0242ac120002\",\n  \"entityFqdn\" : \"wix.ratings.v1.rating\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n  \"updatedEvent\" : {\n    \"currentEntity\" : {\n      \"id\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n      \"revision\" : \"1\",\n      \"namespace\" : \"reviews\",\n      \"group\" : \"stores\",\n      \"entityId\" : \"985f3c2e-f94b-4b70-a75e-44931e468067\",\n      \"attributeName\" : \"overall\",\n      \"value\" : 1,\n      \"ratingOwner\" : {\n        \"memberId\" : \"2062863b-3772-40ff-8a8e-28f927fb9f8b\"\n      },\n      \"createdDate\" : \"2022-05-30T15:15:10.000Z\",\n      \"updatedDate\" : \"2022-05-30T15:15:10.000Z\",\n      \"relatedEntityIds\" : [ \"5839c1cc-7b79-4b46-85bd-f3066db498e8\" ]\n    }\n  },\n  \"eventTime\" : \"2022-05-30T15:15:10.000Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ratings.v1.rating`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_RatingEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Rating ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_RatingEntityUpdatedEvent",
+      "displayName": "Rating Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_RatingDeletedDomainEvent",
+      "displayName": "Rating Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"81af17ee-e022-11ec-9d64-0242ac120002\",\n  \"entityFqdn\" : \"wix.ratings.v1.rating\",\n  \"slug\" : \"delete\",\n  \"entityId\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n  \"deletedEvent\" : { },\n  \"eventTime\" : \"2022-05-30T15:15:10.000Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ratings.v1.rating`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_RatingEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Rating ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_RatingEntityDeletedEvent",
+      "displayName": "Rating Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_RatingCreatedDomainEvent",
+      "displayName": "Rating Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"81af17ee-e022-11ec-9d64-0242ac120002\",\n  \"entityFqdn\" : \"wix.ratings.v1.rating\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n  \"createdEvent\" : {\n    \"entity\" : {\n      \"id\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n      \"revision\" : \"1\",\n      \"namespace\" : \"reviews\",\n      \"group\" : \"stores\",\n      \"entityId\" : \"985f3c2e-f94b-4b70-a75e-44931e468067\",\n      \"attributeName\" : \"overall\",\n      \"value\" : 1,\n      \"ratingOwner\" : {\n        \"memberId\" : \"2062863b-3772-40ff-8a8e-28f927fb9f8b\"\n      },\n      \"createdDate\" : \"2022-05-30T15:15:10.000Z\",\n      \"updatedDate\" : \"2022-05-30T15:15:10.000Z\",\n      \"relatedEntityIds\" : [ \"5839c1cc-7b79-4b46-85bd-f3066db498e8\" ]\n    }\n  },\n  \"eventTime\" : \"2022-05-30T15:15:10.000Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ratings.v1.rating`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_RatingEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Rating ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_RatingEntityCreatedEvent",
+      "displayName": "Rating Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GroupAttributeSummaryUpdatedDomainEvent",
+      "displayName": "Group Attribute Summary Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"81af17ee-e022-11ec-9d64-0242ac120002\",\n  \"entityFqdn\" : \"wix.ratings.v1.rating\",\n  \"slug\" : \"group_attribute_summary_updated\",\n  \"entityId\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : {\n      \"namespace\" : \"reviews\",\n      \"group\" : \"stores\",\n      \"attributeSummary\" : {\n        \"attributeName\" : \"quality\",\n        \"total\" : 18,\n        \"average\" : 5.1666,\n        \"valueBreakdown\" : [ {\n          \"value\" : 1,\n          \"total\" : 2\n        }, {\n          \"value\" : 2,\n          \"total\" : 3\n        }, {\n          \"value\" : 3,\n          \"total\" : 1\n        }, {\n          \"value\" : 4,\n          \"total\" : 8\n        }, {\n          \"value\" : 5,\n          \"total\" : 10\n        } ]\n      }\n    }\n  },\n  \"eventTime\" : \"2022-05-30T15:15:10.000Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ratings.v1.rating`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `group_attribute_summary_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_GroupAttributeSummaryUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "GroupAttributeSummaryUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GroupAttributeSummaryUpdatedActionEvent",
+      "displayName": "Group Attribute Summary Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_GroupAttributeSummaryUpdated",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_EntityAttributeSummaryUpdatedDomainEvent",
+      "displayName": "Entity Attribute Summary Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"81af17ee-e022-11ec-9d64-0242ac120002\",\n  \"entityFqdn\" : \"wix.ratings.v1.rating\",\n  \"slug\" : \"entity_attribute_summary_updated\",\n  \"entityId\" : \"076716da-57ee-4821-a244-8c17c89df863\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : {\n      \"namespace\" : \"reviews\",\n      \"group\" : \"stores\",\n      \"entityId\" : \"f24a88ec-2659-4fe6-aa68-c6da82d693e0\",\n      \"attributeSummary\" : {\n        \"attributeName\" : \"quality\",\n        \"total\" : 18,\n        \"average\" : 5.1666,\n        \"valueBreakdown\" : [ {\n          \"value\" : 1,\n          \"total\" : 2\n        }, {\n          \"value\" : 2,\n          \"total\" : 3\n        }, {\n          \"value\" : 3,\n          \"total\" : 1\n        }, {\n          \"value\" : 4,\n          \"total\" : 8\n        }, {\n          \"value\" : 5,\n          \"total\" : 10\n        } ]\n      }\n    }\n  },\n  \"eventTime\" : \"2022-05-30T15:15:10.000Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ratings.v1.rating`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `entity_attribute_summary_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_EntityAttributeSummaryUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "EntityAttributeSummaryUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_EntityAttributeSummaryUpdatedActionEvent",
+      "displayName": "Entity Attribute Summary Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_EntityAttributeSummaryUpdated",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_IdentificationData",
+      "displayName": "Identification Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": "ID of a contact in the site's [CRM by Ascend](https://www.wix.com/ascend/crm) system.\n"
+        },
+                {
+          "name": "id",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_IdentificationData_id",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_IdentificationData_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "anonymousVisitorId",
+          "type": "string",
+          "doc": "ID of a site visitor that has not logged in to the site.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": "ID of a site visitor that has logged in to the site.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_Rating",
+      "displayName": "Rating Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nA Rating object includes all of the details related to the rating of an entity or its attributes. \nAn entity is a resource to be rated, for example, a Wix Stores product. \nYou can manage existing ratings, create new ratings, and retrieve rating data. \nRead more about ratings in this [tutorial](https://support.wix.com/en/article/velo-tutorial-capturing-and-displaying-ratings).\n",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"605c64b4-d40c-4d53-a777-015209763905\",\n  \"revision\" : \"1\",\n  \"namespace\" : \"reviews\",\n  \"group\" : \"stores\",\n  \"entityId\" : \"df19c1f7-07d8-a265-42f8-e8dfa824cc6e\",\n  \"attributeName\" : \"fit\",\n  \"value\" : 67,\n  \"owner\" : {\n    \"contactId\" : \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"anonymousVisitorId\" : \"5b430771-e6f1-4bea-9eb5-ad7472270605\"\n  },\n  \"createdDate\" : \"2023-05-15T13:09:26.856Z\",\n  \"updatedDate\" : \"2023-05-15T13:09:27.270Z\",\n  \"relatedEntityIds\" : [ \"d009f926-3273-11eb-adc1-0242ac120002\", \"cf2ca920-6ac7-451f-a19b-d0382ab3892f\" ]\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Rating ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "Revision number, which increments by 1 each time the rating is updated.\nTo prevent conflicting changes,\nthe current revision must be passed when updating the rating.\nIgnored when creating a rating.\n",
+          "readOnly": true
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "The Wix module or app that the Ratings API is integrated with. For example, Wix Reviews as `reviews`.\n"
+        },
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "A group of entities in a namespace. A namespace can have one or more groups. For example, `blog` and `forum` groups in the `comments` namespace. \n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity being rated. For example, a Wix Stores product.\n"
+        },
+                {
+          "name": "attributeName",
+          "type": "string",
+          "doc": "Characteristic of an entity that can be rated individually. For example, `value for money`.\n"
+        },
+                {
+          "name": "value",
+          "type": "integer",
+          "doc": "Rating score.\n\nMin = `0` <br />\nMax = `100` \n"
+        },
+                {
+          "name": "owner",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_IdentificationData",
+          "doc": "Rating owner.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "Date and time the rating was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "Date and time the rating was updated.\n",
+          "readOnly": true
+        },
+                {
+          "name": "relatedEntityIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Entities related to the entity being rated.\n[Query Ratings](https://dev.wix.com/api/rest/ratings/query-ratings) can filter by this parameter.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_AttributeSummary",
+      "displayName": "Attribute Summary Object",
+      "locations": [],
+      "docs":       {
+        "summary": "*\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "attributeName",
+          "type": "string",
+          "doc": "Attribute name. An attribute is a feature of an entity that can be rated individually.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": "Total number of ratings.\n"
+        },
+                {
+          "name": "average",
+          "type": "number",
+          "doc": "Average rating score for the attribute.\n"
+        },
+                {
+          "name": "valueBreakdown",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_ValueBreakdown"]
+          },
+          "doc": "Details of the rating scores. This includes every rating `value` given for the attribute and the `total` number of ratings with the `value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_ValueBreakdown",
+      "displayName": "Value Breakdown Object",
+      "locations": [],
+      "docs":       {
+        "summary": "*\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "value",
+          "type": "integer",
+          "doc": "Rating score.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": "Total number of ratings scored with the `value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GroupAttributeSummaryUpdated",
+      "displayName": "Group Attribute Summary Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "The Wix module or app that the Ratings API is integrated with. For example, Wix Reviews as `reviews`.\n"
+        },
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "A group of entities in a namespace. A namespace can have one or more groups. For example, `blog` and `forum` groups in the `comments` namespace. \n"
+        },
+                {
+          "name": "attributeSummary",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_AttributeSummary",
+          "doc": "Rating summary of the attributes.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_EntityAttributeSummaryUpdated",
+      "displayName": "Entity Attribute Summary Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "The Wix module or app that the Ratings API is integrated with. For example, Wix Reviews as `reviews`.\n"
+        },
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "A group of entities in a namespace. A namespace can have one or more groups. For example, `blog` and `forum` groups in the `comments` namespace. \n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ID of the entity. \n"
+        },
+                {
+          "name": "attributeSummary",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_AttributeSummary",
+          "doc": "Rating summary of the attributes.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Ratings._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Ratings._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_domainevents_EntityCreatedEvent",
+      "displayName": "Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityUpdatedEvent",
+      "displayName": "Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": " Since platformized APIs only expose PATCH and not PUT we can't assume that the fields sent from the client are the actual diff.\n This means that to generate a list of changed fields (as opposed to sent fields) one needs to traverse both objects.\n We don't want to impose this on all developers and so we leave this traversal to the notification recipients which need it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityDeletedEvent",
+      "displayName": "Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deletedEntityAsJson",
+        "type": "string",
+        "doc": " Entity that was deleted\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ActionEvent",
+      "displayName": "Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent",
+      "displayName": "Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique event ID.\n Allows clients to ignore duplicate webhooks.\n"
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": " Assumes actions are also always typed to an entity_type\n Example: wix.stores.catalog.product, wix.bookings.session, wix.payments.transaction\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " ID of the entity associated with the event.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Ratings._wix_common_domainevents_DomainEvent_body",
+          "doc": ""
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": " Event timestamp.\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " Whether the event was triggered as a result of a privacy regulation application\n (for example, GDPR).\n"
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent_body",
+      "displayName": "body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Ratings._wix_common_domainevents_EntityCreatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Ratings._wix_common_domainevents_EntityUpdatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Ratings._wix_common_domainevents_EntityDeletedEvent",
+          "doc": ""
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Ratings._wix_common_domainevents_ActionEvent",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_google_protobuf_FieldMask",
+      "displayName": "Field Mask Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paths",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The set of field mask paths.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": "The number of items to load.\nCursor token returned in the query response. To be used on the next query request, but not the first query request.  \n\nMax: `100` <br />\nDefault: `50` \n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "Cursor returned in last query response. Should not be provided on first page request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": "Number of items returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_Cursors",
+          "doc": "Cursors to navigate through the result pages using `next` and `prev`. Returned if cursor paging is used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": "Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": "Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Sort options.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": "Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_SortOrder",
+          "doc": "Sort order.\n\nDefault: `ASC`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_QueryV2",
+      "displayName": "Query V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": "Filter object. See [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more information. \nFor a detailed list of supported filters, see [Ratings: Supported Filters and Sorting](https://dev.wix.com/api/rest/ratings/sort-and-filter),\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_Sorting"]
+          },
+          "doc": "Sorting options. See [Ratings: Supported Filters and Sorting](https://dev.wix.com/api/rest/ratings/sort-and-filter) for more information,\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_CursorPaging",
+          "doc": "Cursor paging options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_CreateRatingRequest",
+      "displayName": "Create Rating Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rating",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Rating to create.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_CreateRatingResponse",
+      "displayName": "Create Rating Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rating",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Created rating.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetRatingRequest",
+      "displayName": "Get Rating Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": "ID of the rating to retrieve.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetRatingResponse",
+      "displayName": "Get Rating Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rating",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Retrieved rating.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_UpdateRatingRequest",
+      "displayName": "Update Rating Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rating",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Rating to update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_UpdateRatingResponse",
+      "displayName": "Update Rating Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rating",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_Rating",
+        "doc": "Updated rating.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_DeleteRatingRequest",
+      "displayName": "Delete Rating Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": "ID of the rating to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_DeleteRatingResponse",
+      "displayName": "Delete Rating Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetGroupSummaryRequest",
+      "displayName": "Get Group Summary Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Name of group to calculate the rating summaries for.\n"
+        },
+                {
+          "name": "attributeNames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "List of attributes for the summaries.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace for the summaries.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetGroupSummaryResponse",
+      "displayName": "Get Group Summary Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Group name.\n"
+        },
+                {
+          "name": "attributeSummaries",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_AttributeSummary"]
+          },
+          "doc": "List of attribute summaries.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetEntitySummaryRequest",
+      "displayName": "Get Entity Summary Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Name of group to calculate the summaries for.\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Entity ID.\n"
+        },
+                {
+          "name": "attributeNames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "List of attributes for the summaries.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace for the summaries.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_GetEntitySummaryResponse",
+      "displayName": "Get Entity Summary Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Group name.\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Entity ID.\n"
+        },
+                {
+          "name": "attributeSummaries",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_AttributeSummary"]
+          },
+          "doc": "List of attribute summaries.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_ListAttributeAveragesByEntityRequest",
+      "displayName": "List Attribute Averages By Entity Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Name of group to calculate rating averages for.\n"
+        },
+                {
+          "name": "entityIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Entity IDs to calculate rating averages for.\n TODO - change to 100 once WR-206 is fixed\n"
+        },
+                {
+          "name": "attributeName",
+          "type": "string",
+          "doc": "Attribute to calculate rating averages for.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "Namespace to calculate rating averages for.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_ListAttributeAveragesByEntityResponse",
+      "displayName": "List Attribute Averages By Entity Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Group name.\n"
+        },
+                {
+          "name": "entityAverages",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_EntityAverage"]
+          },
+          "doc": "Entity averages.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_EntityAverage",
+      "displayName": "Entity Average Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Entity ID.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": "Total number of ratings for the entity.\n"
+        },
+                {
+          "name": "average",
+          "type": "number",
+          "doc": "Average rating for the attributes of the entity.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_QueryRatingsRequest",
+      "displayName": "Query Ratings Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_QueryV2",
+        "doc": "Rating query.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_QueryRatingsResponse",
+      "displayName": "Query Ratings Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "ratings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Ratings._com_wixpress_critique_ratings_Rating"]
+          },
+          "doc": "List of returned ratings.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Ratings._com_wixpress_critique_ratings_upstream_wix_common_PagingMetadataV2",
+          "doc": "Paging metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_critique_ratings_upstream_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.critique.ratings"}
+}
