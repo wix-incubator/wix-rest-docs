@@ -24,5 +24,3 @@ With the Menus menu API, you can:
 This API requires that:
 * The site owner installs the `Wix Restaurants Menus (New)` app.
 
-## Terminology
-* **Menu:** Catalogs are made up of menus. For example "Breakfast", "Lunch", and "Dinner" menus.
