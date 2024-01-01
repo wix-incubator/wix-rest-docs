@@ -9,7 +9,7 @@ Responsible for managing a restaurant's menu
 ## Collaborators
 - [Sections Service](https://github.com/wix-private/restaurants-bazel/tree/master/restaurants-menus-section)
     - Section deletion by the Sections Service triggers its deletion from all associated menus
-    - Menu deletion triggers the deletion of its contained sections
+    - Menu deletion triggers the deletion of its contained sections as long as those sections belong only for this menu
   
 ## Worth mentioning
 - [Multilingual support](https://github.com/wix-private/server-infra/tree/master/framework/loom-prime/examples/prime-multilingual)
