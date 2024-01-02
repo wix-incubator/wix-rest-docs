@@ -90,9 +90,12 @@ with a flow like this one:
     ```json
     {
       "subscription": {
+        "id": "9c130f52-31c4-11ed-a261-0242ac120002",
         "email": "changed-subscription@wix.com",
         "subscriptionStatus": "UNSUBSCRIBED",
-        "deliverabilityStatus": "VALID"
+        "deliverabilityStatus": "VALID",
+        "createdDate" : "2019-10-30T17:22:10.299Z",
+        "updatedDate" : "2019-11-13T20:14:49.458Z"
       }
     }
     ```
