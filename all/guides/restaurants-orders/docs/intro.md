@@ -1,6 +1,8 @@
 SortOrder: 0
 # About Wix Restaurants Orders
 
+> **Note:** This API only works with the original Wix Restaurants Orders app. Call [GetAppInstance](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/get-app-instance) to confirm that the app named “restaurants_orders” is installed on the site.
+
 With Wix Restaurants Orders, site owners can retrieve orders and update their statuses. They can also receive a notification when a new order has been placed.
 
 The Orders API allows your app to:
