@@ -320,7 +320,7 @@
           "in": "BODY",
           "name": "paymentMethodTypeId",
           "type": "string",
-          "doc": " Type ID of payment method to use.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`.\n Pass specific data for each payment method type using a corresponding parameter.\n For example, pass the parameter `card` when passing `creditCard` for this field.\n",
+          "doc": " Type ID of payment method to use.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `googlePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`.\n Pass specific data for each payment method type using a corresponding parameter.\n For example, pass the parameter `card` when passing `creditCard` for this field.\n",
           "required": false
         },
                 {
@@ -644,7 +644,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves transaction info by ID.\n \n",
+        "summary": " Retrieves transaction info by ID. \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/payments/v3/transactions/{transactionId}",
@@ -1573,32 +1573,32 @@
                 {
           "name": "firstName",
           "type": "string",
-          "doc": " Contact first name\n"
+          "doc": " Contact's first name.\n"
         },
                 {
           "name": "lastName",
           "type": "string",
-          "doc": " Contact last name\n"
+          "doc": " Contact's last name.\n"
         },
                 {
           "name": "phone",
           "type": "string",
-          "doc": " Contact phone number\n"
+          "doc": " Contact's phone number.\n"
         },
                 {
           "name": "company",
           "type": "string",
-          "doc": " Contact's company\n"
+          "doc": " Contact's company name.\n"
         },
                 {
           "name": "email",
           "type": "string",
-          "doc": " Email associated with the address\n"
+          "doc": " Email associated with the address.\n"
         },
                 {
           "name": "vatId",
           "type": "All APIs.Wix Payments Transactions._wix_common_VatId",
-          "doc": " tax info (Currently usable only in Brazil)\n"
+          "doc": " Tax info. Currently usable only in Brazil.\n"
         }
       ],
       "enum": null,
@@ -1618,12 +1618,12 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Customer's tax ID\n"
+          "doc": " Customer's tax ID.\n"
         },
                 {
           "name": "type",
           "type": "All APIs.Wix Payments Transactions._wix_common_VatType",
-          "doc": " tax type\n"
+          "doc": "\nTax type.\n\nSupported values:\n+ `CPF`: for individual tax payers\n+ `CNPJ`: for corporations\n"
         }
       ],
       "enum": null,
@@ -1691,7 +1691,7 @@
                 {
           "name": "currency",
           "type": "string",
-          "doc": " Payment currency according to ISO 4217. For example: USD, EUR, GBP.  \n"
+          "doc": " Payment currency according to ISO 4217. For example: USD, EUR, GBP.\n"
         },
                 {
           "name": "capturableAmount",
@@ -1804,7 +1804,7 @@
                 {
           "name": "typeId",
           "type": "string",
-          "doc": " Type ID of payment method used.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`.\n"
+          "doc": " Type ID of payment method used.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`, 'tapToPay'\n"
         },
                 {
           "name": "displayName",
@@ -1850,6 +1850,11 @@
           "name": "cardReader",
           "type": "All APIs.Wix Payments Transactions._wix_wixpay_transaction_api_v3_CardReaderInfo",
           "doc": " Card Reader payment method.\n"
+        },
+                {
+          "name": "tapToPay",
+          "type": "All APIs.Wix Payments Transactions._wix_wixpay_transaction_api_v3_TapToPayInfo",
+          "doc": " Tap to pay payment method.\n"
         }
       ],
       "enum": null,
@@ -2828,6 +2833,11 @@
           "name": "iban",
           "type": "string",
           "doc": " International bank account number.\n"
+        },
+                {
+          "name": "ibanLastDigits",
+          "type": "string",
+          "doc": " International bank account number last 4 digits for display.\n"
         }
       ],
       "enum": null,
@@ -2860,6 +2870,41 @@
       "labels": []
     },
         {
+      "name": "_wix_wixpay_transaction_api_v3_CardReaderReceipt",
+      "displayName": "Card Reader Receipt Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Additinal information about card reader transaction\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "applicationCryptogram",
+          "type": "string",
+          "doc": " cryptogram generated by the integrated circuit chip.\n"
+        },
+                {
+          "name": "applicationPreferredName",
+          "type": "string",
+          "doc": " Mnenomic of the Application Identifier.\n"
+        },
+                {
+          "name": "authorizationCode",
+          "type": "string",
+          "doc": " Identifier for this transaction.\n"
+        },
+                {
+          "name": "dedicatedFileName",
+          "type": "string",
+          "doc": " Similar to the application identifier stored on the integrated circuit chip.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_wixpay_transaction_api_v3_CardReaderInfo",
       "displayName": "Card Reader Info Object",
       "locations": [],
@@ -2868,11 +2913,73 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "readerToken",
-        "type": "string",
-        "doc": " Card reader token.\n"
-      }],
+      "members":       [
+                {
+          "name": "readerToken",
+          "type": "string",
+          "doc": " Card reader token.\n"
+        },
+                {
+          "name": "network",
+          "type": "string",
+          "doc": " Card reader network\n"
+        },
+                {
+          "name": "lastDigits",
+          "type": "string",
+          "doc": " The last 4 digits of the card number.\n"
+        },
+                {
+          "name": "expiryMonth",
+          "type": "integer",
+          "doc": " Card expiration month.\n"
+        },
+                {
+          "name": "expiryYear",
+          "type": "integer",
+          "doc": " Card expiration year (4 digits, for example, 2022, 2025).\n"
+        },
+                {
+          "name": "holderName",
+          "type": "string",
+          "doc": " Cardholder name printed on the card.\n"
+        },
+                {
+          "name": "brandId",
+          "type": "string",
+          "doc": " Card issuer's brand.\n Supported values are `MasterCard`, `Visa`, `Electron`, `Amex`, `Diners`, `Discover`, `Jcb`, `ChinaUnionPay`, `Maestro`, `CartesBancaires`.\n"
+        },
+                {
+          "name": "receipt",
+          "type": "All APIs.Wix Payments Transactions._wix_wixpay_transaction_api_v3_CardReaderReceipt",
+          "doc": "  Card reader receipt\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_wixpay_transaction_api_v3_TapToPayInfo",
+      "displayName": "Tap To Pay Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Tap to pay payment method info.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "readerToken",
+          "type": "string",
+          "doc": " Tap to pay reader token.\n"
+        },
+                {
+          "name": "network",
+          "type": "string",
+          "doc": " Tap to pay payment card network\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2961,6 +3068,61 @@
           "name": "cardholderName",
           "type": "string",
           "doc": " Card holder name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_wixpay_transaction_api_v3_GooglePayPayment",
+      "displayName": "Google Pay Payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Integrate a mobile payment and digital wallet service by Google Inc. that allows users to make payments in person, in Android apps, and on the web\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "panToken",
+          "type": "string",
+          "doc": " PAN token\n"
+        },
+                {
+          "name": "expiryYear",
+          "type": "integer",
+          "doc": " Full year of the PAN card expiration date.\n"
+        },
+                {
+          "name": "expiryMonth",
+          "type": "integer",
+          "doc": " Month of the PAN card expiration date.\n"
+        },
+                {
+          "name": "authMethod",
+          "type": "string",
+          "doc": " Auth method\n"
+        },
+                {
+          "name": "onlinePaymentCryptogram",
+          "type": "string",
+          "doc": " Online payment cryptogram aka 3ds 2.0 challenge result.\n"
+        },
+                {
+          "name": "eci",
+          "type": "string",
+          "doc": " ECI indicator.\n"
+        },
+                {
+          "name": "accountVerified",
+          "type": "boolean",
+          "doc": " Is Account verified\n"
+        },
+                {
+          "name": "cardHolderAuthenticated",
+          "type": "boolean",
+          "doc": " Is cardholder authenticated\n"
         }
       ],
       "enum": null,
@@ -3570,7 +3732,7 @@
                 {
           "name": "paymentMethodTypeId",
           "type": "string",
-          "doc": " Type ID of payment method to use.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`.\n Pass specific data for each payment method type using a corresponding parameter.\n For example, pass the parameter `card` when passing `creditCard` for this field.\n"
+          "doc": " Type ID of payment method to use.\n Supported values are `creditCard`, `cardReader`, `ach`, `applePay`, `googlePay`, `boleto`, `giropay`, `iDeal`, `payPal`, `pix`, `sepa`, `sofort`.\n Pass specific data for each payment method type using a corresponding parameter.\n For example, pass the parameter `card` when passing `creditCard` for this field.\n"
         },
                 {
           "name": "amount",
@@ -3770,6 +3932,11 @@
           "name": "applePay",
           "type": "All APIs.Wix Payments Transactions._wix_wixpay_transaction_api_v3_ApplePayPayment",
           "doc": " Mobile payment and digital wallet service provided by Apple Inc.\n"
+        },
+                {
+          "name": "googlePay",
+          "type": "All APIs.Wix Payments Transactions._wix_wixpay_transaction_api_v3_GooglePayPayment",
+          "doc": " Mobile payment and digital wallet service provided by Google LLC.\n"
         },
                 {
           "name": "boleto",
@@ -4434,7 +4601,7 @@
       "displayName": "Vat Type Object",
       "locations": [],
       "docs":       {
-        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
+        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers.\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
