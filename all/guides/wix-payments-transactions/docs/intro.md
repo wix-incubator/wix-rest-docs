@@ -4,9 +4,9 @@ Use Wix Payments server-to-server API integration to accept different payment me
 
 ### **Wix Payments integration prerequisites**
 Before testing the Transactions API, you need to get a Wix Payments account ID. Wix also applies a Know Your Customer (KYC) and evaluation procedure. Contact Wix via transactions-api-support@wix.com and provide the following details to start the evaluation process:
-- Put "Wix Payments integration" in the subject of the email
-- Provide your name and email
-- Include the purpose of your integration with the Transactions API
+- Put "Wix Payments integration" in the subject of the email.
+- Provide your name and email.
+- Include the purpose of your integration with the Transactions API.
 
 **Transactions API supports the following flows:**
 -   Authorization (reserving funds)
