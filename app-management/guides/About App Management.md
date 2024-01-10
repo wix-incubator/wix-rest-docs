@@ -33,18 +33,10 @@ It’s important to note the following points before starting to code:
 
 ## Use cases
 
-+ [Track new app instances](link-to-the-relevant-flow)
-  -> listen to app installed webhook 
-  save instance ID
-  Any app using REST apis must have OAUTh -> you get notified with access token (that includes app instance ID)
-
-  If free version is installed -> reach out to user (Upgrade button/email/...)
-+ [Manage invoices with usage-based charges](link-to-the-relevant-article)
-+ [How can I tell Wix apps]()
-  Get App Instance -> installed Wix apps
-+ [Automatically create user logins]()
-  get app instance -> ownerInfo.email (must have Read ... permission)
-  Ste up auto login on app's side
++ [Encourage new users to upgrade](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#encourage-new-users-to-upgrade)
++ [Manage invoices with usage-based charges](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/sample-flows#bill-a-customer)
++ [Identify a site's installed Wix business solutions](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#identify-a-sites-installed-wix-business-solutions)
++ [Automatically create user login](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#automatically-create-user-login)
 
 ## Terminology
 
