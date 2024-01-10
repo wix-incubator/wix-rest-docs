@@ -33,10 +33,10 @@ It’s important to note the following points before starting to code:
 
 ## Use cases
 
-+ [Encourage new users to upgrade](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#encourage-new-users-to-upgrade)
-+ [Manage invoices with usage-based charges](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/sample-flows#bill-a-customer)
++ [Reach out to new users](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#reach-out-to-new-users)
++ [Manage usage-based invoices](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/sample-flows#bill-a-customer)
 + [Identify a site's installed Wix business solutions](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#identify-a-sites-installed-wix-business-solutions)
-+ [Automatically create user login](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#automatically-create-user-login)
++ [Automatically create user logins](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#automatically-create-user-logins)
 
 ## Terminology
 

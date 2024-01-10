@@ -4,20 +4,21 @@ This article shares some possible use cases your app could support, as well as
 a sample flow that could support each use case. This can be a helpful jumping
 off point as you plan your app's implementation.
 
-## Encourage new users to upgrade
+## Reach out to new users
 
-You could reach out to new users who install the free version of your app and
-encourage them to upgrade.
+You could reach out to your app's new users. For example, you could encourage
+free users to upgrade their version.
 
-To encourage upgrades:
+To reach out to new users:
 
 1. Listen to the [Instance App Installed](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/instance-app-installed)
    webhook. Make sure to save the `data.instanceId` from the payload.
 1. Pass the `instanceID` when calling
    [Get App Instance](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/get-app-instance).
-1. In the response data, confirm that the site owner's have installed the free
-   version of your app by checking `instance.isFree`. Also save the site owner's
-   email, you can find it in `instance.ownerInfo.email`.
+1. Optional: In the response data, confirm that the site owner's have installed the free
+   version of your app by checking `instance.isFree`. You may use this information
+   to encourage them to upgrade.
+1. Save the site owner's email, you can find it in `instance.ownerInfo.email`.
    Make sure to confirm that the user has opted in to receive communication by
    checking that `instance.ownerInfo.emailStatus` is either `"VERIFIED_OPT_IN"` or
    `"NOT_VERIFIED_OPT_IN"`. Note that you must have added the
@@ -25,9 +26,11 @@ To encourage upgrades:
    process in the [Wix Developers Center](https://dev.wix.com/docs/build-apps/developer-tools/developers-center/example-app-walkthrough/build-an-app#4-add-permissions).
    In case you, haven't requested this permission, the `ownerInfo` object is
    always returned empty.
-1. In case the owner's have opted in to receive notifications, send them an email that includes a link to the
+1. Optional: In case the owner's have opted in to receive notifications, send
+   them an email that includes a link to the
    [Upgrade Button]().
-1. Listen to the [Paid Plan Purchased](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/paid-plan-purchased)
+   Then, you could listen to the
+   [Paid Plan Purchased](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/paid-plan-purchased)
    webhook to get notified about the upgrade.
 
 We recommend signing up for the [Instance App Installed](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/instance-app-installed)
@@ -66,7 +69,7 @@ To Identify a site's installed Wix apps:
    In case you, haven't requested this permission, the `ownerInfo` object is
    always returned empty.
 
-## Automatically create user login
+## Automatically create user logins
 
 You could automatically create a user login for new customers of your app.
 
