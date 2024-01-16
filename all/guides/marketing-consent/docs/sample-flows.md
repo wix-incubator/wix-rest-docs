@@ -10,7 +10,7 @@ A visitor signs up on your app to receive non-transactional content. If the visi
 
 To confirm the marketing consent:
 
-1. Use [Create Marketing Consent](https://dev.wix.com/api/rest/marketing/marketing-consent/create-marketing-consent) to create a marketing consent with a double confirmation opt in level.
+1. Use [Upsert Marketing Consent](https://dev.wix.com/docs/rest/api-reference/marketing/marketing-consent/upsert-marketing-consent) to create a marketing consent with a double confirmation opt in level.
 
 2. Notice the returned `state` property of the response is `PENDING` until the visitor confirms the sign up. 
 
