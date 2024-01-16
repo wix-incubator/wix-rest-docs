@@ -1,0 +1,909 @@
+{
+  "name": "DomainDns",
+  "client_id": "https://github.com/wix-private/premium/tree/master/domains/domain-dns#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage domain DNS zones.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "DomainDns",
+    "entity": "_com_wixpress_premium_domain_dns_DnsZone",
+    "src": "https://github.com/wix-private/premium/tree/master/domains/domain-dns/com/wixpress/premium/domain/dns/dns_zone.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/domaindns/docs/Errors.md",
+      "name": "Error Messages"
+    },
+        {
+      "path": "../guides/domaindns/docs/README.md",
+      "name": "READ ME"
+    },
+        {
+      "path": "../guides/domaindns/docs/UseCases.md",
+      "name": "Internal Use Cases"
+    },
+        {
+      "path": "../guides/domaindns/docs/PublicIntro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/domaindns/docs/Intro.md",
+      "name": "Internal Introduction"
+    },
+        {
+      "path": "../guides/domaindns/docs/Flows.md",
+      "name": "Sample Flows"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Dns Zone",
+      "methodName": "CreateDnsZone",
+      "serviceName": "DomainDns",
+      "tag": "DomainDns",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["dnsZone"],
+      "params": [      {
+        "in": "BODY",
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nDNS zone to create.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateDnsZone",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_CreateDnsZoneResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a DNS zone in [Google's Cloud DNS](https://cloud.google.com/dns).\n\n\nIf there is an existing DNS zone for the domain, it's deleted before\nthe new zone is created.\n\nThe call is synchronous, that means it fails in case of an error on\nGoogle's side.\n\nYou can only set up a single `record` object per DNS record\ntype. If you want to specify multiple values for the same record type, you\nmust save them in the `values` for the relevant type.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/domains/v1/dns-zones",
+        "links": [],
+        "examples": [        {
+          "title": "Create a DNS zone.",
+          "body": ["curl -X POST\n'https://www.wixapis.com/domains/v1/dns-zones' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"dnsZone\": {\n    \"records\": [\n      {\n        \"values\": [\n          \"10 aspmx.l.google.com\"\n        ],\n        \"ttl\": 3600,\n        \"hostName\": \"mysite.com\",\n        \"type\": \"MX\"\n      }\n    ],\n    \"domainName\": \"mysite.com\"\n  }\n}'"],
+          "response": ["{\"dnsZone\": {\n  \"records\": [  {\n    \"values\": [\"10 aspmx.l.google.com\"],\n    \"ttl\": 3600,\n    \"hostName\": \"mysite.com\",\n    \"type\": \"MX\"\n  }],\n  \"domainName\": \"mysite.com\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateDnsZoneRequest",
+        "rpcResponseName": "CreateDnsZoneResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Dns Zone",
+      "methodName": "DeleteDnsZone",
+      "serviceName": "DomainDns",
+      "tag": "DomainDns",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domainName"],
+      "params": [      {
+        "in": "PATH",
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain name to delete the DNS zone for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteDnsZone",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DeleteDnsZoneResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDeletes a DNS zone in [Google's Cloud DNS](https://cloud.google.com/dns).\n\n\nThe call is synchronous, that means it fails in case of an error on\nGoogle's side.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/domains/v1/dns-zones/{domainName}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete a DNS zone.",
+          "body": ["curl -X DELETE\n'https://www.wixapis.com/domains/v1/dns-zones/mysite.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteDnsZoneRequest",
+        "rpcResponseName": "DeleteDnsZoneResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Dns Zone",
+      "methodName": "GetDnsZone",
+      "serviceName": "DomainDns",
+      "tag": "DomainDns",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domainName"],
+      "params": [      {
+        "in": "PATH",
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain to retrieve the DNS zone for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetDnsZone",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_GetDnsZoneResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the DNS zone belonging to the domain from\n[Google's Cloud DNS](https://cloud.google.com/dns).\n\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/dns-zones/{domainName}",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a DNS zone.",
+          "body": ["curl -X GET\n'https://www.wixapis.com/domains/v1/dns-zones/mysite.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"dnsZone\": {\n  \"records\": [  {\n    \"values\": [\"10 aspmx.l.google.com\"],\n    \"ttl\": 3600,\n    \"hostName\": \"mysite.com\",\n    \"type\": \"MX\"\n  }],\n  \"domainName\": \"mysite.com\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetDnsZoneRequest",
+        "rpcResponseName": "GetDnsZoneResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Preview Dns Zone",
+      "methodName": "PreviewDnsZone",
+      "serviceName": "DomainDns",
+      "tag": "DomainDns",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domainName"],
+      "params": [      {
+        "in": "PATH",
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain name to generate a DNS zone preview for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "PreviewDnsZone",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_PreviewDnsZoneResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGenerates a preview for a DNS zone based on\n[Google's Cloud DNS](https://cloud.google.com/dns).\n\n\nThis includes calculating the `A`, `CNAME`, `NS` and `SOA` records.\nYou can use this information to configure a domain from an external\nprovider, before connecting it to a Wix site.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/dns-zones/{domainName}/preview",
+        "links": [],
+        "examples": [        {
+          "title": "Preview a DNS zone.",
+          "body": ["curl -X GET \n'https://www.wixapis.com/domains/v1/dns-zones/mysite.com/preview' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\\n\n{\n  \"dnsZone\": {\n    \"records\": [\n      {\n        \"values\": [\n          \"10 aspmx.l.google.com\"\n        ],\n        \"ttl\": 3600,\n        \"hostName\": \"mysite.com\",\n        \"type\": \"MX\"\n      }\n    ],\n    \"domainName\": \"mysite.com\"\n  }\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "PreviewDnsZoneRequest",
+        "rpcResponseName": "PreviewDnsZoneResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Dns Zone",
+      "methodName": "UpdateDnsZone",
+      "serviceName": "DomainDns",
+      "tag": "DomainDns",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domainName"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "domainName",
+          "type": "string",
+          "doc": "\nDomain to update the DNS zone for. Must include the TLD.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "additions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord"]
+          },
+          "doc": "\nDNS records to add to the DNS zone.\n\nMax: 10 additions\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "deletions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord"]
+          },
+          "doc": "\nDNS records to remove from the DNS zone.\n\nMax: 10 deletions\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateDnsZone",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_UpdateDnsZoneResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nAdds DNS records to and removes DNS records from a DNS zone in\n[Google's Cloud DNS](https://cloud.google.com/dns).\n\nThe call is synchronous, that means it fails in case of an error on\nGoogle's side.\n\nYou can only set up a single `record` object per DNS record\ntype. If you want to specify multiple values for the same record type, you\nmust save them in the `values` for the relevant type. This means, you must\ndelete the relevant record and add a new `addition` object for this type\nto the request, in case you want to add values for an existing DNS record\ntype.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "PATCH",
+        "url": "https://www.wixapis.com/domains/v1/dns-zones/{domainName}",
+        "links": [],
+        "examples": [        {
+          "title": "Update a DNS zone.",
+          "body": ["curl -X PATCH\n'https://www.wixapis.com/domains/v1/dns-zones/mysite.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"deletions\": [\n    {\n      \"values\": \"google-site-verification=epsWybsHVqJqkw0dD2xrIaSO_jYJAmczAU7IqLWToVM\",\n      \"type\": \"TXT\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600\n    }\n  ],\n  \"additions\": [\n    {\n      \"values\": \"10 aspmx.l.google.com\",\n      \"type\": \"MX\",\n      \"hostName\": \"mysite.com\",\n      \"ttl\": 3600\n    }\n  ],\n  \"domainName\": \"mysite.com\"\n}'"],
+          "response": ["{\"dnsZone\": {\n  \"records\": [  {\n    \"values\": [\"10 aspmx.l.google.com\"],\n    \"ttl\": 3600,\n    \"hostName\": \"mysite.com\",\n    \"type\": \"MX\"\n  }],\n  \"domainName\": \"mysite.com\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateDnsZoneRequest",
+        "rpcResponseName": "UpdateDnsZoneResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneCreatedDomainEvent",
+      "displayName": "Dns Zone Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.dns_zone`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZoneEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DnsZone ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneEntityCreatedEvent",
+      "displayName": "Dns Zone Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneUpdatedDomainEvent",
+      "displayName": "Dns Zone Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.dns_zone`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZoneEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DnsZone ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneEntityUpdatedEvent",
+      "displayName": "Dns Zone Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneDeletedDomainEvent",
+      "displayName": "Dns Zone Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.dns_zone`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZoneEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DnsZone ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneEntityDeletedEvent",
+      "displayName": "Dns Zone Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneDomainEvent",
+      "displayName": "Dns Zone Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.dns_zone`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `dns_zone`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZoneActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "DnsZone ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZoneActionEvent",
+      "displayName": "Dns Zone Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsRecord",
+      "displayName": "Dns Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord_RecordType",
+          "doc": "\n[DNS record type](https://en.wikipedia.org/wiki/List_of_DNS_record_types).\n\n+ `UNKNOWN`: Default value. Used in case the record type isn't known. You can't set a record type to `UNKNOWN`.\n+ `A`: Address record. Most fundamental type of DNS record that indicates the IP address of a given domain.\n+ `AAAA`: Address record in [IPv6 format](https://en.wikipedia.org/wiki/IPv6).\n+ `NS`: Name server record. Describes which server contains the actual DNS record.\n+ `SOA`: [Start of authority record](https://en.wikipedia.org/wiki/SOA_record). Holds adminstrative information about the zone.\n+ `CNAME`: [CNAME record](https://en.wikipedia.org/wiki/CNAME_record). Maps an alias name to the canonical domain name.\n+ `MX`: MX record. Directs emails to mail servers.\n+ `TXT`: [TXT record](https://en.wikipedia.org/wiki/TXT_record). Used by domain admins to add human readable descriptions.\n+ `SPF`: SPF record. Used for email authentication.\n+ `SRV`: [Service record](https://en.wikipedia.org/wiki/SRV_record). Defines the server location.\n+ `PTR`: Pointer record. Specifies which host is supported for a given IP address.\n+ `NAPTR`: [Name Authority Pointer record](https://en.wikipedia.org/wiki/NAPTR_record). Used by Internet telephony applications.\n"
+        },
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": "\nHost name. Can be a subdomain. For example, `domain.com` or \n`mail.domain.com`. Equal to the domain name, except for `CNAME` records. \n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": "\n[Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nDNS record values. Wix limits DNS records to 50 values per type. External\nproviders may support a different maximum number of DNS records for a\nspecific type, Wix doesn't validate that you don't exceed these external\nlimits. \n\nMax: 50 records\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsZone",
+      "displayName": "Dns Zone Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nDNS zones hold information about the records that map a domain's URL to an IP address.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "domainName",
+          "type": "string",
+          "doc": "\nDomain name including the TLD. Both root domains and subdomains are supported.\n"
+        },
+                {
+          "name": "records",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord"]
+          },
+          "doc": "\nDNS records. You can only set up a single `record` object per DNS record\ntype. If you want to specify multiple values for the same record type, you\nmust save them in the `values` for the relevant type.\n\nMax: 10 DNS records\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "\nID of the Dns Zone. Identical to the domain name including TLD.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_CreateDnsZoneRequest",
+      "displayName": "Create Dns Zone Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nDNS zone to create.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_CreateDnsZoneResponse",
+      "displayName": "Create Dns Zone Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nCreated DNS zone.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_GetDnsZoneRequest",
+      "displayName": "Get Dns Zone Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain to retrieve the DNS zone for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_GetDnsZoneResponse",
+      "displayName": "Get Dns Zone Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nRetrieved DNS zone.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_UpdateDnsZoneRequest",
+      "displayName": "Update Dns Zone Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "domainName",
+          "type": "string",
+          "doc": "\nDomain to update the DNS zone for. Must include the TLD.\n"
+        },
+                {
+          "name": "additions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord"]
+          },
+          "doc": "\nDNS records to add to the DNS zone.\n\nMax: 10 additions\n"
+        },
+                {
+          "name": "deletions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsRecord"]
+          },
+          "doc": "\nDNS records to remove from the DNS zone.\n\nMax: 10 deletions\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_UpdateDnsZoneResponse",
+      "displayName": "Update Dns Zone Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nUpdated DNS zone.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DeleteDnsZoneRequest",
+      "displayName": "Delete Dns Zone Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain name to delete the DNS zone for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DeleteDnsZoneResponse",
+      "displayName": "Delete Dns Zone Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_PreviewDnsZoneRequest",
+      "displayName": "Preview Dns Zone Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainName",
+        "type": "string",
+        "doc": "\nDomain name to generate a DNS zone preview for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_PreviewDnsZoneResponse",
+      "displayName": "Preview Dns Zone Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "dnsZone",
+        "type": "All APIs.DomainDns._com_wixpress_premium_domain_dns_DnsZone",
+        "doc": "\nDNS zone preview.\n\nIncludes calculated `A`, `CNAME`, `NS` and `SOA` records.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_dns_DnsRecord_RecordType",
+      "displayName": "Record Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> A <\/code><\/li><li><code> AAAA <\/code><\/li><li><code> NS <\/code><\/li><li><code> SOA <\/code><\/li><li><code> CNAME <\/code><\/li><li><code> MX <\/code><\/li><li><code> TXT <\/code><\/li><li><code> SPF <\/code><\/li><li><code> SRV <\/code><\/li><li><code> PTR <\/code><\/li><li><code> NAPTR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "A",
+        "AAAA",
+        "NS",
+        "SOA",
+        "CNAME",
+        "MX",
+        "TXT",
+        "SPF",
+        "SRV",
+        "PTR",
+        "NAPTR"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.domain.dns.domain-dns"}
+}
