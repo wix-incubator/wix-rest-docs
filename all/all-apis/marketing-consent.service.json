@@ -42,10 +42,7 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields":       [
-        "info.details",
-        "info.state"
-      ],
+      "requiredFields": ["info.details"],
       "params": [      {
         "in": "BODY",
         "name": "info",
@@ -66,15 +63,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " \nCreates or updates multiple marketing consents.\n\nNote that `info.lastConfirmationActivity` is required unless the `state` is `REVOKED` or `NEVER_CONFIRMED`.\n \n",
+        "summary": " \nCreates or updates multiple marketing consents.\n\nNote that `info.lastConfirmationActivity` is required unless the `state` is `REVOKED` or `NEVER_CONFIRMED`.\n\n>**Note:** For existing marketing consents with `{\"type\": \"EMAIL\"}`, you can't update the `state` to `UNKNOWN_STATE`. Trying to do so maintains the current state. However, you can create a new marketing consent and set the `state` to `UNKNOWN_STATE`. Note that you can't create more than a single consent per email or phone number.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/marketing-consent/v1/bulk/marketing-consent/upsert",
         "links": [],
         "examples": [        {
           "title": "Bulk Upsert Marketing Consent",
-          "body": ["curl -X POST \\\nhttps://www.wixapis.com/v1/bulk/marketing-consent/upsert \\\n-H 'Authorization: <AUTH>'\n-d '{\n  \"info\" : [\n    {\n      \"details\": {\n        \"type\": \"EMAIL\",\n        \"email\": \"test1@test.com\"\n      },\n      \"state\": \"PENDING\",\n      \"lastConfirmationActivity\": {\n        \"source\": \"IN_PERSON\",\n        \"description\": \"Person filed a printed document.\",\n        \"updatedDate\": \"2023-01-01T00:00:00Z\",\n        \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n      }\n    },\n    {\n      \"details\": {\n        \"type\": \"EMAIL\",\n        \"email\": \"test2@test.com\"\n      },\n      \"state\": \"CONFIRMED\",\n      \"lastConfirmationActivity\": {\n        \"source\": \"LINK_CONFIRMATION\",\n        \"description\": \"Person clicked a link.\",\n        \"updatedDate\": \"2023-01-03T00:00:00Z\",\n        \"optInLevel\": \"SINGLE_CONFIRMATION\"\n      }\n    }\n  ]\n}'"],
-          "response": ["{\n  \"results\":   [\n        {\n      \"originalIndex\": 0,\n      \"marketingConsent\":       {\n        \"id\": \"f5d258dd-64e9-49f6-b8af-2b5b616ddb22\",\n        \"details\":         {\n          \"type\": \"EMAIL\",\n          \"email\": \"test1@test.com\"\n        },\n        \"state\": \"PENDING\",\n        \"lastConfirmationActivity\":         {\n          \"source\": \"IN_PERSON\",\n          \"description\": \"Person filed a printed document.\",\n          \"updatedDate\": \"2023-01-01T00:00:00Z\",\n          \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n        },\n        \"extendedFields\": {},\n        \"created_date\": \"2022-11-16T14:07:50.150Z\",\n        \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n      },\n      \"link\":       {\n        \"type\": \"CONFIRMATION\",\n        \"url\": \"https://rebeccask.wixsite.com/testing-test-sites/_manage-subscriptions/subscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.UmKgcTrpm13hqOqrrbKBC6sLTK7ZF694DN9ozHFFXhB9l_0TZBIOfw.7Qhmn9yQl99V0z8wzlMHGQ.dpcSFTlxBJeh52asYrarRcYL1KVkDRs8zUTT4jrC7gFhFIHn-S678kDO4FSSwM92Ncg7nrq-A9d5hWkdeg5EQTq4A3Ludxxt3YjQnfVOUWggYXvdsoWcSh6UNqt3FKoXtVDHBJQDRJun2LVJ_IDbBPo8O89Y0bJ72d5S2hlOCrul8bj72nYDY1Mcrc4gSabbM5cRVmJuVSJJwU2ProAwUlC4RCi9bvKM7ZnonbFSsqzO4pfoKOs6Rl0JDTIe-Z0r7vwkq1uhdN5DlQkDN9PD0g.VJAjLxKf0xcIpocwcjZXOA\"\n      }\n    },\n        {\n      \"originalIndex\": 1,\n      \"marketingConsent\":       {\n        \"id\": \"a4f96b5b-1ab6-48e9-91d7-8317466fe801\",\n        \"details\":         {\n          \"type\": \"EMAIL\",\n          \"email\": \"test2@test.com\"\n        },\n        \"state\": \"CONFIRMED\",\n        \"lastConfirmationActivity\":         {\n          \"source\": \"LINK_CONFIRMATION\",\n          \"description\": \"Person clicked a link\",\n          \"updatedDate\": \"2023-01-03T00:00:00Z\",\n          \"optInLevel\": \"SINGLE_CONFIRMATION\"\n        },\n        \"extendedFields\": {}\n      },\n      \"link\":       {\n        \"type\": \"REVOKE_CONFIRMATION\",\n        \"url\": \"https://rebeccask.wixsite.com/testing-test-sites/_manage-subscriptions/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.2Rrc2yCSu8hAtQ2R-QVqOowE6VaJ4Tz2CrF9yYahoGylKQhiaxkB9g.t31uuAdT2d__GZ5RhltuwQ._MkLlPHPy05IwOgNFYgH5et8D_ujdheZUa9SLFnTxDfCFGSBXWaE4SxxKKx8hJAFf5qo8s5HnLUHUHCC_T0ve6k8xyzB86dUZTLTt_Y_20xY3Bolxh6e8DC1-0mYS6Ufs9FInvTt4nSP3FtMvItk9DPkOFOaFyHXObGqwW9lXpijCcvVXJemWzsiEwIknc291W8hUSwWnqlvPZG6i05Umq03Mwf8-7Wk0KdYRC5xcY7nzTZ0ax1SQ_zh2LcKTDC2RIKGAkx-m9fTBDAQwBfwfg.jXxMG8F5v3IgtokmQPKD_Q\"\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"totalSuccess\": 2,\n    \"totalFailure\": 0\n  }\n} "],
+          "body": ["curl -X POST \\\nhttps://www.wixapis.com/marketing-consent/v1/bulk/marketing-consent/upsert \\\n-H 'Authorization: <AUTH>'\n-d '{\n  \"info\" : [\n    {\n      \"details\": {\n        \"type\": \"EMAIL\",\n        \"email\": \"test1@test.com\"\n      },\n      \"state\": \"PENDING\",\n      \"lastConfirmationActivity\": {\n        \"source\": \"IN_PERSON\",\n        \"description\": \"Person filed a printed document.\",\n        \"updatedDate\": \"2023-01-01T00:00:00Z\",\n        \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n      }\n    },\n    {\n      \"details\": {\n        \"type\": \"EMAIL\",\n        \"email\": \"test2@test.com\"\n      },\n      \"state\": \"CONFIRMED\",\n      \"lastConfirmationActivity\": {\n        \"source\": \"LINK_CONFIRMATION\",\n        \"description\": \"Person clicked a link.\",\n        \"updatedDate\": \"2023-01-03T00:00:00Z\",\n        \"optInLevel\": \"SINGLE_CONFIRMATION\"\n      }\n    }\n  ]\n}'"],
+          "response": ["{\n  \"results\":   [\n        {\n      \"originalIndex\": 0,\n      \"marketingConsent\":       {\n        \"id\": \"f5d258dd-64e9-49f6-b8af-2b5b616ddb22\",\n        \"details\":         {\n          \"type\": \"EMAIL\",\n          \"email\": \"test1@test.com\"\n        },\n        \"state\": \"PENDING\",\n        \"lastConfirmationActivity\":         {\n          \"source\": \"IN_PERSON\",\n          \"description\": \"Person filed a printed document.\",\n          \"updatedDate\": \"2023-01-01T00:00:00Z\",\n          \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n        },\n        \"extendedFields\": {},\n        \"created_date\": \"2022-11-16T14:07:50.150Z\",\n        \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n      },\n      \"link\":       {\n        \"type\": \"CONFIRMATION\",\n        \"url\": \"https://rebeccask.wixsite.com/testing-test-sites/_manage-consent/subscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.UmKgcTrpm13hqOqrrbKBC6sLTK7ZF694DN9ozHFFXhB9l_0TZBIOfw.7Qhmn9yQl99V0z8wzlMHGQ.dpcSFTlxBJeh52asYrarRcYL1KVkDRs8zUTT4jrC7gFhFIHn-S678kDO4FSSwM92Ncg7nrq-A9d5hWkdeg5EQTq4A3Ludxxt3YjQnfVOUWggYXvdsoWcSh6UNqt3FKoXtVDHBJQDRJun2LVJ_IDbBPo8O89Y0bJ72d5S2hlOCrul8bj72nYDY1Mcrc4gSabbM5cRVmJuVSJJwU2ProAwUlC4RCi9bvKM7ZnonbFSsqzO4pfoKOs6Rl0JDTIe-Z0r7vwkq1uhdN5DlQkDN9PD0g.VJAjLxKf0xcIpocwcjZXOA\"\n      }\n    },\n        {\n      \"originalIndex\": 1,\n      \"marketingConsent\":       {\n        \"id\": \"a4f96b5b-1ab6-48e9-91d7-8317466fe801\",\n        \"details\":         {\n          \"type\": \"EMAIL\",\n          \"email\": \"test2@test.com\"\n        },\n        \"state\": \"CONFIRMED\",\n        \"lastConfirmationActivity\":         {\n          \"source\": \"LINK_CONFIRMATION\",\n          \"description\": \"Person clicked a link\",\n          \"updatedDate\": \"2023-01-03T00:00:00Z\",\n          \"optInLevel\": \"SINGLE_CONFIRMATION\"\n        },\n        \"extendedFields\": {}\n      },\n      \"link\":       {\n        \"type\": \"REVOKE_CONFIRMATION\",\n        \"url\": \"https://rebeccask.wixsite.com/testing-test-sites/_manage-consent/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.2Rrc2yCSu8hAtQ2R-QVqOowE6VaJ4Tz2CrF9yYahoGylKQhiaxkB9g.t31uuAdT2d__GZ5RhltuwQ._MkLlPHPy05IwOgNFYgH5et8D_ujdheZUa9SLFnTxDfCFGSBXWaE4SxxKKx8hJAFf5qo8s5HnLUHUHCC_T0ve6k8xyzB86dUZTLTt_Y_20xY3Bolxh6e8DC1-0mYS6Ufs9FInvTt4nSP3FtMvItk9DPkOFOaFyHXObGqwW9lXpijCcvVXJemWzsiEwIknc291W8hUSwWnqlvPZG6i05Umq03Mwf8-7Wk0KdYRC5xcY7nzTZ0ax1SQ_zh2LcKTDC2RIKGAkx-m9fTBDAQwBfwfg.jXxMG8F5v3IgtokmQPKD_Q\"\n      }\n    }\n  ],\n  \"metadata\":   {\n    \"totalSuccess\": 2,\n    \"totalFailure\": 0\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -120,15 +117,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a marketing consent.\n \n",
+        "summary": "\nCreates a confirmed marketing consent.\n\nCreates a marketing consent with a `state` of `CONFIRMED`, regardless of what state you set it to. To create a marketing consent with a different state, use [Upsert Marketing Consent](https://dev.wix.com/docs/rest/api-reference/marketing/marketing-consent/upsert-marketing-consent), or [Bulk Upsert Marketing Consent](https://dev.wix.com/docs/rest/api-reference/marketing/marketing-consent/bulk-upsert-marketing-consent). \n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent",
         "links": [],
         "examples": [        {
           "title": "Create Marketing Consent",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/marketing-consent/v1' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary '{\n    \"marketingConsent\": {\n      \"details\": {\n        \"type\": \"EMAIL\",\n        \"email\": \"test@test.com\"\n      },\n      \"lastConfirmationActivity\": {\n        \"source\": \"LINK_CONFIRMATION\",\n        \"description\": \"Law requires double confirmation.\",\n        \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n      }\n    }\n  }'"],
-          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n    \"revision\": \"1\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"CONFIRMED\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"LINK_CONFIRMATION\",\n      \"description\": \"Law requires double confirmation\",\n      \"updatedDate\": \"2023-05-13T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"link\":   {\n    \"type\": \"REVOKE_CONFIRMATION\",\n    \"url\": \"https://some-domain/_manage-subscriptions/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.RakF3_XlktSPIDsOmq3lt2RsP4PxxXe3UAxQNirF1IWGmrrfgc7jnw.tuqC5Sep852Xuu_P_b8g-w.Ogg8m7mo5Lyg2Ee36xFdoszktS2RrIWq0z1ziW4M_zfx0yDyMcCCiUWScd1tm_BP0xxHtfPw2dInZCFNR2GhhelA5c2Qvlpu8fUZgHg-gnWKvMf_OZDu2GeaRaTJuGOp6T27cF6t9EThyyy1gxsyBiQk_r4tH6WoFcKAJhH1dec7L0L7i3Cu3fQ7frFgbadKX4PYx1-llqaeKVw9gwfQdvI5Aj1n95AMIHfnwZpi1MqU-zPq8xPDU9HSP5ZH1RELmeQJqWbl-n_0Q7NdhO9NQw.h7Wn-AACmFkHIPMDJlJTRQ\"\n  }\n} "],
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/marketing-consent/v1/marketing-consent' \\\n  -H 'Authorization: <AUTH>'\n  --data-binary '{\n    \"marketingConsent\": {\n      \"details\": {\n        \"type\": \"PHONE\",\n        \"phone\": \"+19172222222\"\n      },\n      \"lastConfirmationActivity\": {\n        \"source\": \"LINK_CONFIRMATION\",\n        \"description\": \"Law requires double confirmation.\",\n        \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n      }\n    }\n  }'"],
+          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n    \"revision\": \"1\",\n    \"details\":     {\n      \"type\": \"PHONE\",\n      \"phone\": \"+19172222222\"\n    },\n    \"state\": \"CONFIRMED\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"LINK_CONFIRMATION\",\n      \"description\": \"Law requires double confirmation\",\n      \"updatedDate\": \"2023-05-13T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"link\":   {\n    \"type\": \"REVOKE_CONFIRMATION\",\n    \"url\": \"https://some-domain/_manage-consent/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.RakF3_XlktSPIDsOmq3lt2RsP4PxxXe3UAxQNirF1IWGmrrfgc7jnw.tuqC5Sep852Xuu_P_b8g-w.Ogg8m7mo5Lyg2Ee36xFdoszktS2RrIWq0z1ziW4M_zfx0yDyMcCCiUWScd1tm_BP0xxHtfPw2dInZCFNR2GhhelA5c2Qvlpu8fUZgHg-gnWKvMf_OZDu2GeaRaTJuGOp6T27cF6t9EThyyy1gxsyBiQk_r4tH6WoFcKAJhH1dec7L0L7i3Cu3fQ7frFgbadKX4PYx1-llqaeKVw9gwfQdvI5Aj1n95AMIHfnwZpi1MqU-zPq8xPDU9HSP5ZH1RELmeQJqWbl-n_0Q7NdhO9NQw.h7Wn-AACmFkHIPMDJlJTRQ\"\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -229,7 +226,7 @@
         "links": [],
         "examples": [        {
           "title": "Get Marketing Consent",
-          "body": ["curl -X GET \\\n  'https://www.wixapis.com/marketing-consent/v1/22916e0c72-afe4-41a2-9b88-75888559a904' \\\n  -H 'Authorization: <AUTH>'"],
+          "body": ["curl -X GET \\\n  'https://www.wixapis.com/marketing-consent/v1/marketing-consent/22916e0c72-afe4-41a2-9b88-75888559a904' \\\n  -H 'Authorization: <AUTH>'"],
           "response": ["{\"marketingConsent\": {\n  \"id\": \"22916e0c72-afe4-41a2-9b88-75888559a904\",\n  \"revision\": \"1\",\n  \"details\":   {\n    \"type\": \"EMAIL\",\n    \"email\": \"mytest@test.com\"\n  },\n  \"state\": \"CONFIRMED\",\n  \"lastConfirmationActivity\":   {\n    \"source\": \"IN_PERSON\",\n    \"description\": \"Confirmed by Samantha.\",\n    \"updatedDate\": \"2022-10-03T00:00:00Z\",\n    \"optInLevel\": \"UNKNOWN_OPT_IN_LEVEL\"\n  },\n  \"extendedFields\": {},\n  \"created_date\": \"2022-11-16T14:07:50.150Z\",\n  \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n}} "],
           "type": "curl",
           "extra": {}
@@ -285,15 +282,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a marketing consent by its details.\n \n",
+        "summary": "\nRetrieves a marketing consent by its details.\n\n>**Note:** Due to the ongoing development of our new documentation portal, the query parameter is not displaying as expected. Use the `details` object located in the [marketing consent object](https://dev.wix.com/docs/rest/api-reference/marketing/marketing-consent/marketing-consent-object) in the request. You can also see the code example for reference. \n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent/get-by",
         "links": [],
         "examples": [        {
           "title": "Get a marketing consent by its communication details",
-          "body": ["curl -X GET \\\nhttps://www.wixapis.com/marketing-consent/v1/get-by  \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"details\": {\n    \"type\": \"EMAIL\",\n    \"email\": \"yourtest@test.com\"\n  }\n}'"],
-          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"830c41d3-5bd6-4bd2-a8db-762de4c00c2c\",\n    \"revision\": \"1\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"phone\": \"yourtest@test.com\"\n    },\n    \"state\": \"CONFIRMED\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Confirmed by Jack.\",\n      \"updated_date\": \"2021-07-22T00:00:00Z\",\n      \"optInLevel\": \"SINGLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"communicationEligibility\":   {\n    \"grated\": true,\n    \"revokeConfirmationLink\": \"https://some.domain/_manage-subscriptions/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.3s9htG9Q_DJGbZ6s2qKIo350XNMxzxujkRE2Vi6DMU3IEyHqTHjVyQ.LQXW1jqTYB1lb6Y3aBOong.8O6yjksDWq0GMQGbDj7LARMRYQdTEgLty8kupvByr8SVgS5ClRN5ID5sXE1gH7wgORJUEKOwUossD06C5PujK87In6OF3dXWR4dpED0cLEWWS8v9FHzMC-1CTaOvsh6n8m4oNGqKkw9Lfg0LY4ZLjjlM72q_A07UQ9igGZXyX7Y3VFZqVsbUjp8mnbVWTOhVbnAthVLp9Yd5y2RZUVNwwuUaLuVHW-EE9hHyka69lOeSAntBP0Ntxx8zv9-if96p0ynifLMXuFQjeCD711gg2w.qL-xWjmUZS1HPHIeN8MaPA\",\n    \"reason\": \"\"\n  }\n} "],
+          "body": ["curl -X GET \\\nhttps://www.wixapis.com/marketing-consent/v1/marketing-consent/get-by  \\\n-H 'Authorization: <AUTH>' \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"details\": {\n    \"type\": \"EMAIL\",\n    \"email\": \"yourtest@test.com\"\n  }\n}'"],
+          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"830c41d3-5bd6-4bd2-a8db-762de4c00c2c\",\n    \"revision\": \"1\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"phone\": \"yourtest@test.com\"\n    },\n    \"state\": \"CONFIRMED\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Confirmed by Jack.\",\n      \"updated_date\": \"2021-07-22T00:00:00Z\",\n      \"optInLevel\": \"SINGLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"communicationEligibility\":   {\n    \"grated\": true,\n    \"revokeConfirmationLink\": \"https://some.domain/_manage-consent/unsubscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.3s9htG9Q_DJGbZ6s2qKIo350XNMxzxujkRE2Vi6DMU3IEyHqTHjVyQ.LQXW1jqTYB1lb6Y3aBOong.8O6yjksDWq0GMQGbDj7LARMRYQdTEgLty8kupvByr8SVgS5ClRN5ID5sXE1gH7wgORJUEKOwUossD06C5PujK87In6OF3dXWR4dpED0cLEWWS8v9FHzMC-1CTaOvsh6n8m4oNGqKkw9Lfg0LY4ZLjjlM72q_A07UQ9igGZXyX7Y3VFZqVsbUjp8mnbVWTOhVbnAthVLp9Yd5y2RZUVNwwuUaLuVHW-EE9hHyka69lOeSAntBP0Ntxx8zv9-if96p0ynifLMXuFQjeCD711gg2w.qL-xWjmUZS1HPHIeN8MaPA\",\n    \"reason\": \"\"\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -336,14 +333,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a list of marketing consents, given the provided paging, filtering, and sorting. Up to 100 marketing consents can be returned per request.\n\nThe default `sort` is `id` in `ASC` order. For a detailed list of supported operations, see [filtering and sorting for marketing consent properties](https://dev.wix.com/api/rest/marketing/marketing-consent/sort-and-filter). To learn how to query marketing consents, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
+        "summary": "\nRetrieves a list of marketing consents, given the provided paging, filtering, and sorting. Up to 100 marketing consents can be returned per request.\n\nThe default `sort` is `id` in `ASC` order. For a detailed list of supported operations, see [filtering and sorting for marketing consent properties](https://dev.wix.com/docs/rest/api-reference/marketing/marketing-consent/sort-and-filter). To learn how to query marketing consents, see [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent/query",
         "links": [],
         "examples": [        {
           "title": "Query Marketing Consent",
-          "body": ["curl -X PATCH \\\nhttps://www.wixapis.com/marketing-consent/v1/query \\\n-H 'Authorization: <AUTH>'\n-d '{\n    \"query\": {\n      \"sort\": [],\n      \"filter\": {\n        \"details.email\": \"test@test.com\"\n      },\n      \"cursor_paging\": {\n        \"limit\": 1\n      }\n    }\n}'"],
+          "body": ["curl -X PATCH \\\nhttps://www.wixapis.com/marketing-consent/v1/marketing-consent/query \\\n-H 'Authorization: <AUTH>'\n-d '{\n    \"query\": {\n      \"sort\": [],\n      \"filter\": {\n        \"details.email\": \"test@test.com\"\n      },\n      \"cursor_paging\": {\n        \"limit\": 1\n      }\n    }\n}'"],
           "response": ["{\n  \"marketingConsent\": [  {\n    \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n    \"revision\": \"6\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"REVOKED\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"person filled a printed document\",\n      \"updatedDate\": \"2023-01-01T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  }],\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\":     {\n      \"next\": null,\n      \"prev\": null\n    },\n    \"hasNext\": false\n  }\n} "],
           "type": "curl",
           "extra": {}
@@ -391,15 +388,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRemoves a marketing consent by its communication details.\n\nRemoving a marketing consent cancels the consent, and updates the `state` to `REVOKED`. The marketing consent still exists, but the subject of the marketing consent is no longer eligible to receive commmunication. To delete a marketing consent entirely, use [Delete Marketing Consent](https://dev.wix.com/api/rest/marketing/marketing-consent/delete-marketing-consent). \n \n",
+        "summary": "\nRemoves a marketing consent by its communication details.\n\nRemoving a marketing consent cancels the consent, and updates the `state` to `REVOKED`. The marketing consent still exists, but the recipient of the marketing consent is no longer eligible to receive commmunication. To delete a marketing consent entirely, use [Delete Marketing Consent](https://dev.wix.com/api/rest/marketing/marketing-consent/delete-marketing-consent). \n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent/remove",
         "links": [],
         "examples": [        {
           "title": "Remove Marketing Consent",
-          "body": ["curl -X POST \\\n  'https://www.wixapis.com/marketing-consent/v1/remove-marketing-consent' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"details\": {\n      \"type\": \"EMAIL\",\n      \"email\": \"ourtest@test.com\"\n    }\n  }'"],
-          "response": ["{\"marketingConsent\": {\n  \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n  \"revision\": \"2\",\n  \"details\":   {\n    \"type\": \"EMAIL\",\n    \"email\": \"ourtest@test.com\"\n  },\n  \"state\": \"REVOKED\",\n  \"lastConfirmationActivity\":   {\n    \"source\": \"IN_PERSON\",\n    \"description\": \"Canceling the confirmation\",\n    \"updatedDate\": \"2023-01-03T00:00:00Z\",\n    \"optInLevel\": \"SINGLE_CONFIRMATION\"\n  },\n  \"extendedFields\": {},\n  \"created_date\": \"2022-11-16T14:07:50.150Z\",\n  \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n}} "],
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/marketing-consent/v1/marketing-consent/remove' \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n    \"details\": {\n      \"type\": \"PHONE\",\n      \"phone\": \"+445168993333\"\n    }\n  }'"],
+          "response": ["{\"marketingConsent\": {\n  \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n  \"revision\": \"2\",\n  \"details\":   {\n    \"type\": \"PHONE\",\n    \"phone\": \"+445168993333\"\n  },\n  \"state\": \"REVOKED\",\n  \"lastConfirmationActivity\":   {\n    \"source\": \"IN_PERSON\",\n    \"description\": \"Canceling the confirmation\",\n    \"updatedDate\": \"2023-01-03T00:00:00Z\",\n    \"optInLevel\": \"SINGLE_CONFIRMATION\"\n  },\n  \"extendedFields\": {},\n  \"created_date\": \"2022-11-16T14:07:50.150Z\",\n  \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -461,14 +458,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpdates a marketing consent's properties. \n\nOnly fields provided in `mask.paths` are updated. You can update the following fields:\n\n+ `state`\n+ `lastConfirmationActivity` \n+ `extendedFields`\n\nEach time the marketing consent is updated, `revision` increments by 1.\n\n \n",
+        "summary": "\nUpdates a marketing consent's properties. \n\nOnly fields provided in `mask.paths` are updated. You can update the following fields:\n\n+ `state`\n+ `lastConfirmationActivity` \n+ `extendedFields`\n\nEach time the marketing consent is updated, `revision` increments by 1.\n\n>**Note:** For existing marketing consents with `{\"type\": \"EMAIL\"}`, you can't update the `state` to `UNKNOWN_STATE`. Trying to do so maintains the current state. However, you can create a new marketing consent and set the `state` to `UNKNOWN_STATE`. Note that you can't create more than a single consent per email or phone number.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent/{marketingConsent.id}",
         "links": [],
         "examples": [        {
           "title": "Update Marketing Consent",
-          "body": ["curl -X PATCH \\\nhttps://www.wixapis.com/marketing-consent/v1 \\\n-H 'Authorization: <AUTH>'\n-d '{\n  \"marketingConsent\": {\n    \"details\": {\n      \"type\": \"EMAIL\",\n      \"email\": \"mytest@test.com\"\n    },\n    \"state\": \"REVOKED\",\n    \"revision\": 3,\n    \"lastConfirmationActivity\": {\n      \"source\": \"IN_PERSON\"\n    }\n  },\n  \"mask\": {\n    \"paths\": [\n      \"state\",\n      \"lastConfirmationActivity.source\"\n    ]\n  }\n}'"],
+          "body": ["curl -X PATCH \\\nhttps://www.wixapis.com/marketing-consent/v1/marketing-consent/aa8a62f5-9a79-4b21-b1a4-5c835c08d937 \\\n-H 'Authorization: <AUTH>'\n-d '{\n  \"marketingConsent\": {\n    \"details\": {\n      \"type\": \"EMAIL\",\n      \"email\": \"mytest@test.com\"\n    },\n    \"state\": \"REVOKED\",\n    \"revision\": 3,\n    \"lastConfirmationActivity\": {\n      \"source\": \"IN_PERSON\"\n    }\n  },\n  \"mask\": {\n    \"paths\": [\n      \"state\",\n      \"lastConfirmationActivity.source\"\n    ]\n  }\n}'"],
           "response": ["{\"marketingConsent\": {\n  \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n  \"revision\": \"3\",\n  \"details\":   {\n    \"type\": \"EMAIL\",\n    \"email\": \"mytest@test.com\"\n  },\n  \"state\": \"REVOKED\",\n  \"lastConfirmationActivity\":   {\n    \"source\": \"IN_PERSON\",\n    \"description\": \"person filled a printed document\",\n    \"updatedDate\": \"2023-01-01T00:00:00Z\",\n    \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n  },\n  \"extendedFields\": {},\n  \"created_date\": \"2022-11-16T14:07:50.150Z\",\n  \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n}} "],
           "type": "curl",
           "extra": {}
@@ -497,8 +494,7 @@
       "requiredFields":       [
         "marketingConsent.details",
         "marketingConsent.details.type",
-        "marketingConsent.details.identifier",
-        "marketingConsent.state"
+        "marketingConsent.details.identifier"
       ],
       "params": [      {
         "in": "BODY",
@@ -517,15 +513,15 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates or updates a marketing consent.\n\nNote that `marketingConsent.lastConfirmationActivity` is required unless the `state` is `REVOKED` or `NEVER_CONFIRMED`.\n \n",
+        "summary": "\nCreates or updates a marketing consent.\n\nNote that `marketingConsent.lastConfirmationActivity` is required unless the `state` is `REVOKED` or `NEVER_CONFIRMED`.\n\n>**Note:** For existing marketing consents with `{\"type\": \"EMAIL\"}`, you can't update the `state` to `UNKNOWN_STATE`. Trying to do so maintains the current state. However, you can create a new marketing consent and set the `state` to `UNKNOWN_STATE`. Note that you can't create more than a single consent per email or phone number.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/marketing-consent/v1/marketing-consent/upsert",
         "links": [],
         "examples": [        {
           "title": "Upsert Marketing Consent",
-          "body": ["curl -X POST \\\nhttps://www.wixapis.com/marketing-consent/v1/upsert \\\n-H 'Authorization: <AUTH>'\n-d '{\n    \"details\": {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"PENDING\",\n    \"lastConfirmationActivity\": {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Person filled a printed document.\",\n      \"updated_date\": \"2023-05-01T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    }\n}'"],
-          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n    \"revision\": \"3\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"PENDING\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Person filled a printed document.\",\n      \"updated_date\": \"2023-05-01T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"link\":   {\n    \"type\": \"CONFIRMATION\",\n    \"url\": \"https://some-domain/_manage-subscriptions/subscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.l0rBPnrV81dCCO2SWFce15SwFhMWpa-ts2z9aeC4BB9Dh1Pveo2x9Q.q2FnvSlGJ6pEfDDsvo1U0A.BTTYsIwIn59_vW6N7oicfB2LoQHkP8Hqrzs2pM4DYYIp3c7cIUrFEv1e3kxBvab3a17nhypf9xVEDTwT-ZfWzLhdlvodtHGN4LW73azS98hhME5klJR6GgQEQrkJo9dumQNTN2WOswttB05IjoYIjHPQsrNSzY1-iWf36Qbxc1iCxhjlsG0NMjO76CgaLlr1DnMV4PF4J1CPupDr_1-n2oX4trQY0G0S7C7Jx8grZqIgKFM0p9oE0RLju2kCp-Ck0YTKB9KEqYt3CZkvygVqvA.TN0Ec9bGgivYSGJOVrLbeA\"\n  }\n} "],
+          "body": ["curl -X POST \\\nhttps://www.wixapis.com/marketing-consent/v1/marketing-consent/upsert \\\n-H 'Authorization: <AUTH>'\n-d '{\n    \"details\": {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"PENDING\",\n    \"lastConfirmationActivity\": {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Person filled a printed document.\",\n      \"updated_date\": \"2023-05-01T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    }\n}'"],
+          "response": ["{\n  \"marketingConsent\":   {\n    \"id\": \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n    \"revision\": \"3\",\n    \"details\":     {\n      \"type\": \"EMAIL\",\n      \"email\": \"test@test.com\"\n    },\n    \"state\": \"PENDING\",\n    \"lastConfirmationActivity\":     {\n      \"source\": \"IN_PERSON\",\n      \"description\": \"Person filled a printed document.\",\n      \"updated_date\": \"2023-05-01T00:00:00Z\",\n      \"optInLevel\": \"DOUBLE_CONFIRMATION\"\n    },\n    \"extendedFields\": {},\n    \"created_date\": \"2022-11-16T14:07:50.150Z\",\n    \"updated_date\": \"2022-11-16T14:07:50.150Z\"\n  },\n  \"link\":   {\n    \"type\": \"CONFIRMATION\",\n    \"url\": \"https://some-domain/_manage-consent/subscribe?token=JWE.eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiZkhJbFA4M1cifQ.l0rBPnrV81dCCO2SWFce15SwFhMWpa-ts2z9aeC4BB9Dh1Pveo2x9Q.q2FnvSlGJ6pEfDDsvo1U0A.BTTYsIwIn59_vW6N7oicfB2LoQHkP8Hqrzs2pM4DYYIp3c7cIUrFEv1e3kxBvab3a17nhypf9xVEDTwT-ZfWzLhdlvodtHGN4LW73azS98hhME5klJR6GgQEQrkJo9dumQNTN2WOswttB05IjoYIjHPQsrNSzY1-iWf36Qbxc1iCxhjlsG0NMjO76CgaLlr1DnMV4PF4J1CPupDr_1-n2oX4trQY0G0S7C7Jx8grZqIgKFM0p9oE0RLju2kCp-Ck0YTKB9KEqYt3CZkvygVqvA.TN0Ec9bGgivYSGJOVrLbeA\"\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -595,84 +591,6 @@
   "callbacks": [],
   "messages":   [
         {
-      "name": "_wix_marketing_v1_MarketingConsentUpdatedDomainEvent",
-      "displayName": "Marketing Consent Updated Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"id\" : \"e318e485-92f3-4ea1-ac7f-9b3d0ec572bb\",\n  \"entityFqdn\" : \"wix.marketing.marketing_consent.v1.marketing_consent\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"0f32c763-e797-42cc-ba93-b9032bc99464\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"id\\\":\\\"0f32c763-e797-42cc-ba93-b9032bc99464\\\",\\\"revision\\\":\\\"2\\\",\\\"details\\\":{\\\"type\\\":\\\"EMAIL\\\",\\\"email\\\":\\\"testt@testt.com\\\"},\\\"state\\\":\\\"PENDING\\\",\\\"lastConfirmationActivity\\\":{\\\"source\\\":\\\"IN_PERSON\\\",\\\"optInLevel\\\":\\\"DOUBLE_CONFIRMATION\\\"}}\"\n  },\n  \"eventTime\" : \"2023-05-18T19:21:45.238639Z\",\n  \"triggeredByAnonymizeRequest\" : false,\n  \"entityEventSequence\" : \"2\"\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.marketing.marketing_consent.v1.marketing_consent`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `updated`.\nEvent name."
-        },
-                {
-          "name": "updatedEvent",
-          "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentEntityUpdatedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "MarketingConsent ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_marketing_v1_MarketingConsentEntityUpdatedEvent",
-      "displayName": "Marketing Consent Entity Updated Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "currentEntity",
-        "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsent",
-        "doc": "Event body"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_marketing_v1_MarketingConsentCreatedDomainEvent",
       "displayName": "Marketing Consent Created Domain Event Object",
       "locations": [],
@@ -681,7 +599,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"816e0c72-afe4-41a2-9b88-75888559a904\",\n  \"entityFqdn\" : \"wix.marketing.marketing_consent.v1.marketing_consent\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"0f32c763-e797-42cc-ba93-b9032bc99464\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"id\\\":\\\"0f32c763-e797-42cc-ba93-b9032bc99464\\\",\\\"revision\\\":\\\"1\\\",\\\"details\\\":{\\\"type\\\":\\\"EMAIL\\\",\\\"email\\\":\\\"testt@testt.com\\\"},\\\"state\\\":\\\"CONFIRMED\\\",\\\"lastConfirmationActivity\\\":{\\\"source\\\":\\\"IN_PERSON\\\",\\\"description\\\":\\\"this is new consent for getting emails\\\",\\\"updatedDate\\\":\\\"2023-01-01T00:00:00Z\\\",\\\"optInLevel\\\":\\\"SINGLE_CONFIRMATION\\\"}}\"\n  },\n  \"eventTime\" : \"2023-05-18T19:18:39.199886Z\",\n  \"triggeredByAnonymizeRequest\" : false,\n  \"entityEventSequence\" : \"1\"\n} "],
+          "body": ["{\n  \"id\" : \"816e0c72-afe4-41a2-9b88-75888559a904\",\n  \"entityFqdn\" : \"wix.marketing.marketing_consent.v1.marketing_consent\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"0f32c763-e797-42cc-ba93-b9032bc99464\",\n  \"createdEvent\" : {\n    \"entity\" : {\n      \"id\" : \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n      \"revision\" : \"1\",\n      \"details\" : {\n        \"type\" : \"EMAIL\",\n        \"email\" : \"test@test.com\"\n      },\n      \"state\" : \"CONFIRMED\",\n      \"lastConfirmationActivity\" : {\n        \"source\" : \"IN_PERSON\",\n        \"description\" : \"Person filed a printed document\",\n        \"updatedDate\" : \"2022-10-02T08:43:25.765Z\",\n        \"optInLevel\" : \"UNKNOWN_OPT_IN_LEVEL\"\n      },\n      \"extendedFields\" : { },\n      \"created_date\" : \"2022-11-16T14:07:50.150Z\",\n      \"updated_date\" : \"2022-11-16T14:07:50.150Z\"\n    }\n  },\n  \"eventTime\" : \"2023-05-18T19:18:39.199886Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -743,6 +661,84 @@
       },
       "members": [      {
         "name": "entity",
+        "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsent",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_MarketingConsentUpdatedDomainEvent",
+      "displayName": "Marketing Consent Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"e318e485-92f3-4ea1-ac7f-9b3d0ec572bb\",\n  \"entityFqdn\" : \"wix.marketing.marketing_consent.v1.marketing_consent\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"0f32c763-e797-42cc-ba93-b9032bc99464\",\n  \"updatedEvent\" : {\n    \"currentEntity\" : {\n      \"id\" : \"aa8a62f5-9a79-4b21-b1a4-5c835c08d937\",\n      \"revision\" : \"1\",\n      \"details\" : {\n        \"type\" : \"EMAIL\",\n        \"email\" : \"test@test.com\"\n      },\n      \"state\" : \"CONFIRMED\",\n      \"lastConfirmationActivity\" : {\n        \"source\" : \"IN_PERSON\",\n        \"description\" : \"Person filed a printed document\",\n        \"updatedDate\" : \"2022-10-02T08:43:25.765Z\",\n        \"optInLevel\" : \"UNKNOWN_OPT_IN_LEVEL\"\n      },\n      \"extendedFields\" : { },\n      \"created_date\" : \"2022-11-16T14:07:50.150Z\",\n      \"updated_date\" : \"2022-11-16T14:07:50.150Z\"\n    }\n  },\n  \"eventTime\" : \"2023-05-18T19:21:45.238639Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.marketing.marketing_consent.v1.marketing_consent`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MarketingConsent ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_MarketingConsentEntityUpdatedEvent",
+      "displayName": "Marketing Consent Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
         "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsent",
         "doc": "Event body"
       }],
@@ -932,7 +928,7 @@
       "displayName": "namespaces Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs.  \nExtended field data as key:object pairs. Each key corresponds to the namespace of the app that created the extended fields. \nThe value of each key is structured according to the schema defined when the extended fields were created.\n\nYou can only access fields for which you have the appropriate permissions.\n",
+        "summary": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n",
         "links": [],
         "examples": []
       },
@@ -957,7 +953,7 @@
       "members": [      {
         "name": "namespaces",
         "type": "All APIs.Marketing Consent.namespacesMapEntry",
-        "doc": "Set of key-value pairs.  \nExtended field data as key:object pairs. Each key corresponds to the namespace of the app that created the extended fields. \nThe value of each key is structured according to the schema defined when the extended fields were created.\n\nYou can only access fields for which you have the appropriate permissions.\n"
+        "doc": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n"
       }],
       "enum": null,
       "extra": {},
@@ -998,7 +994,7 @@
                 {
           "name": "state",
           "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentState",
-          "doc": " Marketing consent state.\nDefault: `CONFIRMED`.\n"
+          "doc": " Marketing consent state. \n\n+ `UNKNOWN_STATE`: State of the marketing consent is unknown.\n+ `NEVER_CONFIRMED`: The visitor never confirmed to receive marketing consents.\n+ `REVOKED`: The marketing consent has been removed, for example, when a visitor unsubscribes from a newsletter. \n+ `PENDING`: The marketing consent is pending confirmation. Relevant only for `{\"optInLevel\": \"DOUBLE_CONFIRMATION\"}`.\n+ `CONFIRMED`: The site visitor has confirmed their marketing consent.\n\nDefault: `UNKNOWN_STATE`.\n"
         },
                 {
           "name": "createdDate",
@@ -1045,7 +1041,7 @@
                 {
           "name": "identifier",
           "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentDetails_identifier",
-          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number used for the marketing consent.\n"
+          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
         }
       ],
       "enum": null,
@@ -1070,7 +1066,7 @@
                 {
           "name": "phone",
           "type": "string",
-          "doc": " Phone number used for the marketing consent.\n"
+          "doc": " Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
         }
       ],
       "enum": null,
@@ -1147,12 +1143,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " Number of items to load.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -1177,12 +1173,12 @@
                 {
           "name": "cursors",
           "type": "All APIs.Marketing Consent._wix_common_Cursors",
-          "doc": " Offset that was requested.\n"
+          "doc": " Cursor strings that point to the next page, previous page, or both.\n"
         },
                 {
           "name": "hasNext",
           "type": "boolean",
-          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+          "doc": "\nWhether there are more pages to retrieve following the current page.\n\n+ `true`: Another page of results can be retrieved.\n+ `false`: This is the last page.\n"
         }
       ],
       "enum": null,
@@ -1202,12 +1198,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -1301,6 +1297,85 @@
         "examples": []
       },
       "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_GenerateLinkRequest",
+      "displayName": "Generate Link Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentDetailsIdentifierType",
+          "doc": " The communication channel of the marketing consent.\n"
+        },
+                {
+          "name": "identifier",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_GenerateLinkRequest_identifier",
+          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
+        },
+                {
+          "name": "linkType",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_LinkType",
+          "doc": ""
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": "Language of the page\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_GenerateLinkRequest_identifier",
+      "displayName": "identifier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address used for the marketing consent.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_marketing_v1_GenerateLinkResponse",
+      "displayName": "Generate Link Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "link",
+        "type": "All APIs.Marketing Consent._wix_marketing_v1_Link",
+        "doc": " confirmation or revoke link\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1481,7 +1556,7 @@
                 {
           "name": "identifier",
           "type": "All APIs.Marketing Consent._wix_marketing_v1_GetMarketingConsentByIdentifierRequest_identifier",
-          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number used for the marketing consent.\n"
+          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
         }
       ],
       "enum": null,
@@ -1506,7 +1581,7 @@
                 {
           "name": "phone",
           "type": "string",
-          "doc": " Phone number used for the marketing consent.\n"
+          "doc": " Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
         }
       ],
       "enum": null,
@@ -1532,7 +1607,83 @@
                 {
           "name": "communicationEligibility",
           "type": "All APIs.Marketing Consent._wix_marketing_v1_CommunicationEligibility",
-          "doc": " Details about whether the subject of the marketing consent is eligible to receive communication.\n"
+          "doc": " Details about whether the subject of the marketing consent is eligible to receive marketing messages. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_GetConsistentMarketingConsentByIdentifierRequest",
+      "displayName": "Get Consistent Marketing Consent By Identifier Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsentDetailsIdentifierType",
+          "doc": " The communication channel of the marketing consent.\n"
+        },
+                {
+          "name": "identifier",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_GetConsistentMarketingConsentByIdentifierRequest_identifier",
+          "doc": "\nSupported values:\n+ `email`: Email address used for the marketing consent.\n+ `phone`: Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_marketing_v1_GetConsistentMarketingConsentByIdentifierRequest_identifier",
+      "displayName": "identifier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address used for the marketing consent.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format used for the SMS marketing consent.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_marketing_v1_GetConsistentMarketingConsentByIdentifierResponse",
+      "displayName": "Get Consistent Marketing Consent By Identifier Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "marketingConsent",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_MarketingConsent",
+          "doc": " The requested marketing consent.\n"
+        },
+                {
+          "name": "communicationEligibility",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_CommunicationEligibility",
+          "doc": " Details about whether the recipient of the marketing consent is eligible to receive marketing messages. \n"
         }
       ],
       "enum": null,
@@ -1861,7 +2012,7 @@
                 {
           "name": "granted",
           "type": "boolean",
-          "doc": " Whether the subject of the marketing consent is eligible to receive communication. \n"
+          "doc": " Whether the recipient of the marketing consent is eligible to receive marketing messages. For example, if a visitor cancels their marketing consent, `CommunicationEligibility.granted` is `false`. Note that this only serves as a signal for your app to decide whether or not it should send marketing messages to the recipient's email address or phone number.\n"
         },
                 {
           "name": "revokeConfirmationLink",
@@ -1871,7 +2022,7 @@
                 {
           "name": "reason",
           "type": "string",
-          "doc": " The reason the subject of the marketing consent isn't eligible to receive communication. \n"
+          "doc": " The reason the recipient of the marketing consent isn't eligible to receive marketing messages, for example, if the visitor unsubscribed from a newsletter.\n"
         }
       ],
       "enum": null,
@@ -1890,7 +2041,7 @@
       "members":       [
                 {
           "name": "type",
-          "type": "All APIs.Marketing Consent._wix_marketing_v1_Link_LinkType",
+          "type": "All APIs.Marketing Consent._wix_marketing_v1_LinkType",
           "doc": " Link type.\n"
         },
                 {
@@ -1978,7 +2129,7 @@
       "displayName": "Source Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN_SOURCE <\/code><\/li><li><code> IN_PERSON <\/code><\/li><li><code> FORM <\/code><\/li><li><code> LINK_CONFIRMATION <\/code><\/li><li><code> EMAIL_SERVICE <\/code><\/li><li><code> OTHER <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SOURCE <\/code><\/li><li><code> IN_PERSON <\/code><\/li><li><code> FORM <\/code><\/li><li><code> LINK_CONFIRMATION <\/code><\/li><li><code> EMAIL_SERVICE <\/code><\/li><li><code> OTHER <\/code><\/li><li><code> WIX_USERS <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -1989,7 +2140,8 @@
         "FORM",
         "LINK_CONFIRMATION",
         "EMAIL_SERVICE",
-        "OTHER"
+        "OTHER",
+        "WIX_USERS"
       ],
       "extra": {},
       "labels": []
@@ -2012,7 +2164,7 @@
       "labels": []
     },
         {
-      "name": "_wix_marketing_v1_Link_LinkType",
+      "name": "_wix_marketing_v1_LinkType",
       "displayName": "Link Type Object",
       "locations": [],
       "docs":       {
