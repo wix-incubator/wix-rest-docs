@@ -1,0 +1,742 @@
+{
+  "name": "Custom Charges SPI",
+  "client_id": "https://github.com/wix-private/premium/tree/master/premium-server/premium-custom-charges/proto-spi#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage your app's custom charges.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Custom Charges SPI",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/custom-charges-spi/docs/Flows.md",
+      "name": "Sample Flows"
+    },
+        {
+      "path": "../guides/custom-charges-spi/docs/Intro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Charge Limit Updated Event",
+      "methodName": "ChargeLimitUpdatedEvent",
+      "serviceName": "CustomChargesProvider",
+      "tag": "Custom Charges SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which the charge limit has been updated.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "chargeLimit",
+          "type": "string",
+          "doc": "\nUpdated charge limit.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ChargeLimitUpdatedEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ChargeLimitUpdatedResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nTriggered in case the charge limit for an instance of your app is updated.\n\n\nYou can't update the charge limit after you've set an initial\nvalue. Site owners can increase the limit in their site's dashboard,\ncurrently they aren't allowed to decrease it.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/v1/limit-updated",
+        "links": [],
+        "examples": [        {
+          "title": "Get notified when a customer updates the charge limit.",
+          "body": ["curl -X POST \\\n'https://provider.example.com/v1/limit-updated' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"data\": {\n    \"request\": {\n      \"subscriptionId\": \"efa6b37d-74c6-44bb-b639-28c4af3957dd\",\n      \"currency\": \"USD\",\n      \"chargeLimit\": \"1000.00\"\n    },\n    \"metadata\": {\n      \"requestId\": \"1680014776.67327419774788218037\",\n      \"identity\": {\n        \"identityType\": \"APP\",\n        \"appId\": \"365288ae-38f4-4932-92d5-d45c596c7260\"\n      },\n      \"instanceId\": \"3aa496c3-aa49-4369-84e6-3fa1876f191d\"\n    }\n  },\n  \"aud\": \"6675724b-bf3e-482a-9a00-65616953b570\",\n  \"iss\": \"wix.com\",\n  \"iat\": 1680014777,\n  \"exp\": 1683614777\n}'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {"description": "The data payload includes the following object as an encoded JWT. Here, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ChargeLimitUpdatedRequest",
+        "rpcResponseName": "ChargeLimitUpdatedResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Charges Rejected Event",
+      "methodName": "ChargesRejectedEvent",
+      "serviceName": "CustomChargesProvider",
+      "tag": "Custom Charges SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix hasn't accepted your custom charges.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "chargeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nIDs of the rejected charges.\n\nMax: 5 charges\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "chargeLimit",
+          "type": "string",
+          "doc": "\nMaximum amount that your app may charge the customer per billing cycle.\n\nMin: `0.50`\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "reasons",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ChargesRejectedRequest_ChargesRejectedReason"]
+          },
+          "doc": "\nInformation about why Wix has rejected your app's charges.\n\n+ `\"UNKNOWN_REASON\"`: There is no information about why Wix has rejected the charges. \n+ `\"CHARGE_LIMIT_EXCEEDED\"`: The sum of the charges is higher than the limit that you may charge the customer per billing cycle.\n+ `\"TOO_MANY_CHARGES\"`: You can't provide more than 5 charges per invoice.\n+ `\"INVALID_FORMAT\"`: You must submit charges as whole numbers or use a dot to separate major and minor units. For example, `10` or `1.50`. Currently, Wix doesn't validate whether the submitted number of decimals for the minor unit is supported for the given currency.\n\nMax: 20 reasons\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ChargesRejectedEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ChargesRejectedResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nTriggered in case Wix doesn't accept the charges you've returned in the \n[List Charges](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/custom-charges-provider-v1/list-charges)\nendpoint.\n\n\nYou aren't allowed to charge a site owner more than the charge limit. Wix\ncall List Charges in regular intervals until the sum of all charges is lower than the\ncharge limit. Wix doesn't create an invoice in case the charges aren't accepted.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/v1/charges-rejected",
+        "links": [],
+        "examples": [        {
+          "title": "Get notified when Wix doesn't accept your custom charges.",
+          "body": ["curl -X POST \\\n'https://provider.example.com/v1/charges-rejected' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"data\": {\n    \"request\": {\n      \"subscriptionId\": \"efa6b37d-74c6-44bb-b639-28c4af3957dd\",\n      \"currency\": \"USD\",\n      \"chargeIds\": [\n        \"Some Charge Id 1\",\n        \"Some Charge Id 2\"\n      ],\n      \"chargeLimit\": \"1000.00\",\n      \"reasons\": [\n        \"CHARGE_LIMIT_EXCEEDED\"\n      ]\n    },\n    \"metadata\": {\n      \"requestId\": \"1680014776.67327419774788218037\",\n      \"identity\": {\n        \"identityType\": \"APP\",\n        \"appId\": \"365288ae-38f4-4932-92d5-d45c596c7260\"\n      },\n      \"instanceId\": \"3aa496c3-aa49-4369-84e6-3fa1876f191d\"\n    }\n  },\n  \"aud\": \"6675724b-bf3e-482a-9a00-65616953b570\",\n  \"iss\": \"wix.com\",\n  \"iat\": 1680014777,\n  \"exp\": 1683614777\n}'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {"description": "The data payload includes the following object as an encoded JWT. Here, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ChargesRejectedRequest",
+        "rpcResponseName": "ChargesRejectedResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Charge Limit",
+      "methodName": "GetChargeLimit",
+      "serviceName": "CustomChargesProvider",
+      "tag": "Custom Charges SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix retrieves the charge limit. Equals\n`null` in case Wix hasn't created the subscription when retrieving an\ninitial charge limit. To track usage and billing for apps, we recommend to\nuse `instanceId` instead of the `subscriptionId`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charge limit. Wix may add supported currencies in the future.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetChargeLimit",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_GetChargeLimitResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nWix calls this endpoint to retrieve the initial charge limit for a paid instance\nof your app. This happens every time a customer is upgrading to a paid version of\nyour app. \n\nYou can't update the charge limit after you've set an initial\nvalue. Customers can increase the limit in their site's dashboard, currently they\naren't allowed to decrease it.\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/v1/charge-limit",
+        "links": [],
+        "examples": [        {
+          "title": "Return an app instance's initial charge limit.",
+          "body": ["curl -X POST \\\n'https://provider.example.com/v1/charge-limit' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"data\": {\n    \"request\": {\n      \"subscriptionId\": \"efa6b37d-74c6-44bb-b639-28c4af3957dd\",\n      \"currency\": \"USD\"\n    },\n    \"metadata\": {\n      \"requestId\": \"1680014776.67327419774788218037\",\n      \"identity\": {\n        \"identityType\": \"APP\",\n        \"appId\": \"365288ae-38f4-4932-92d5-d45c596c7260\"\n      },\n      \"instanceId\": \"3aa496c3-aa49-4369-84e6-3fa1876f191d\"\n    }\n  },\n  \"aud\": \"6675724b-bf3e-482a-9a00-65616953b570\",\n  \"iss\": \"wix.com\",\n  \"iat\": 1680014777,\n  \"exp\": 1683614777\n}'"],
+          "response": ["{\"chargeLimit\": \"1000.00\"} "],
+          "type": "curl",
+          "extra": {"description": "The data payload includes the following object as an encoded JWT. Here, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetChargeLimitRequest",
+        "rpcResponseName": "GetChargeLimitResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Invoice Created Event",
+      "methodName": "InvoiceCreatedEvent",
+      "serviceName": "CustomChargesProvider",
+      "tag": "Custom Charges SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix has created an invoice that includes\nyour custom charges. To track usage and billing for apps, we recommend to use\n`instanceId` instead of the `subscriptionId`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "invoiceId",
+          "type": "string",
+          "doc": "\nID of the created invoice.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_InvoiceLineItem"]
+          },
+          "doc": "\nLine items included in the invoice.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "InvoiceCreatedEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_InvoiceCreatedResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nTriggered in case Wix creates an invoice that includes charges for an instance\nof your app.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/v1/invoice-created",
+        "links": [],
+        "examples": [        {
+          "title": "Get notified when Wix creates an invoice with your custom charges.",
+          "body": ["curl -X POST \\\n'https://provider.example.com/v1/invoice-created' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"data\": {\n    \"request\": {\n      \"subscriptionId\": \"efa6b37d-74c6-44bb-b639-28c4af3957dd\",\n      \"currency\": \"USD\",\n      \"invoiceId\": 43434213,\n      \"lineItems\": [\n        {\n          \"chargeId\": \"Some Charge Id 1\",\n          \"amount\": \"200.00\",\n          \"id\": \"f322c4bf-7edb-42f8-b0c2-162b51d4ad75\"\n        },\n        {\n          \"chargeId\": \"Some Charge Id 2\",\n          \"amount\": \"300.00\",\n          \"id\": \"4faa44b4-654c-411d-803d-be816e03726e\"\n        }\n      ]\n    },\n    \"metadata\": {\n      \"requestId\": \"1680014776.67327419774788218037\",\n      \"identity\": {\n        \"identityType\": \"APP\",\n        \"appId\": \"365288ae-38f4-4932-92d5-d45c596c7260\"\n      },\n      \"instanceId\": \"3aa496c3-aa49-4369-84e6-3fa1876f191d\"\n    }\n  },\n  \"aud\": \"6675724b-bf3e-482a-9a00-65616953b570\",\n  \"iss\": \"wix.com\",\n  \"iat\": 1680014777,\n  \"exp\": 1683614777\n}'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {"description": "The data payload includes the following object as an encoded JWT. Here, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "InvoiceCreatedRequest",
+        "rpcResponseName": "InvoiceCreatedResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Charges",
+      "methodName": "ListCharges",
+      "serviceName": "CustomChargesProvider",
+      "tag": "Custom Charges SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix retrieves your custom charges.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of your charges to return. Wix may add supported currencies in the future.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "periodStart",
+          "type": "string",
+          "doc": "\nBegin of the period Wix retrieves the app instance's charges for in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "periodEnd",
+          "type": "string",
+          "doc": "\nEnd of the period Wix retrieves the app instance's charges for in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "intent",
+          "type": "All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ListChargesRequest_Intent",
+          "doc": "\nInformation about what Wix intends to do with the retrieved charges.\n\n+ `\"DISPLAY_ONLY\"`: Inform the customer about how much your app would charge them at the moment. Wix doesn't create an invoice.\n+ `\"CREATE_INVOICE\"`: Create an invoice for the customer.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListCharges",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ListChargesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nWix calls this endpoint to retrieve a list of charges for a paid instance\nof your app. This happens when Wix creates an invoice or in case the customer\nwants to preview how much your app would charge them at the moment. \n\nYou must return the charges in the currency that's specified in the request,\nyou aren't allowed to return more than 5 charges, and their sum must be lower\nthan the charge limit.\n\nYou may not bill customers for any usage that didn’t occur during the period\nWix specifies when retrieving the charges. If Wix discovers that your app has\ncharged customers for usage outside of an invoice's specified period, we may\ntake action such as blocking your app from charging the customer, removing\nyour app from the Wix App Market, revoking your access to the Wix developer\nprogram, or pursuing legal action to recover damages caused by overcharging.\nWe understand that mistakes can happen and encourage you to contact\n[the Wix App Market team](https://devforum.wix.com/kb/en/contact) immediately if you\nbecome aware of any overcharging issues so that we can work together to\nresolve the situation.  \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://<IMPLEMENTER-URL>/v1/charges",
+        "links": [],
+        "examples": [        {
+          "title": "Return your app's custom charges.",
+          "body": ["curl -X POST \\\n'https://provider.example.com/v1/charges' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"data\": {\n    \"request\": {\n      \"subscriptionId\": \"efa6b37d-74c6-44bb-b639-28c4af3957dd\",\n      \"currency\": \"USD\",\n      \"periodStart\": 1677674012000,\n      \"periodEnd\": 1680179612000,\n      \"intent\": \"CREATE_INVOICE\"\n    },\n    \"metadata\": {\n      \"requestId\": \"1680014776.67327419774788218037\",\n      \"identity\": {\n        \"identityType\": \"APP\",\n        \"appId\": \"365288ae-38f4-4932-92d5-d45c596c7260\"\n      },\n      \"instanceId\": \"3aa496c3-aa49-4369-84e6-3fa1876f191d\"\n    }\n  },\n  \"aud\": \"6675724b-bf3e-482a-9a00-65616953b570\",\n  \"iss\": \"wix.com\",\n  \"iat\": 1680014777,\n  \"exp\": 1683614777\n}'"],
+          "response": ["{\"charges\": [\n    {\n    \"id\": \"Some Charge Id 1\",\n    \"description\": \"Setup fee\",\n    \"amount\": \"200.00\"\n  },\n    {\n    \"id\": \"Some Charge Id 2\",\n    \"description\": \"Usage charges\",\n    \"amount\": \"300.00\"\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "The data payload includes the following object as an encoded JWT. Here, we show the request and response objects decoded."}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListChargesRequest",
+        "rpcResponseName": "ListChargesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_wix_premium_customcharges_spi_v1_GetChargeLimitRequest",
+      "displayName": "Get Charge Limit Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix retrieves the charge limit. Equals\n`null` in case Wix hasn't created the subscription when retrieving an\ninitial charge limit. To track usage and billing for apps, we recommend to\nuse `instanceId` instead of the `subscriptionId`.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charge limit. Wix may add supported currencies in the future.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_GetChargeLimitResponse",
+      "displayName": "Get Charge Limit Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "chargeLimit",
+        "type": "string",
+        "doc": "\nRetrieved charge limit for the app instance. You can't update the\ncharge limit after you've set an initial value. Site owners can increase the\nlimit in their site's dashboard, currently they aren't allowed to decrease it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ListChargesRequest",
+      "displayName": "List Charges Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix retrieves your custom charges.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of your charges to return. Wix may add supported currencies in the future.\n"
+        },
+                {
+          "name": "periodStart",
+          "type": "string",
+          "doc": "\nBegin of the period Wix retrieves the app instance's charges for in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
+        },
+                {
+          "name": "periodEnd",
+          "type": "string",
+          "doc": "\nEnd of the period Wix retrieves the app instance's charges for in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n"
+        },
+                {
+          "name": "intent",
+          "type": "All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ListChargesRequest_Intent",
+          "doc": "\nInformation about what Wix intends to do with the retrieved charges.\n\n+ `\"DISPLAY_ONLY\"`: Inform the customer about how much your app would charge them at the moment. Wix doesn't create an invoice.\n+ `\"CREATE_INVOICE\"`: Create an invoice for the customer.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ListChargesResponse",
+      "displayName": "List Charges Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "charges",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ChargeLineItem"]
+        },
+        "doc": "\nRetrieved charges.\n\nMax: 5 charges\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargeLineItem",
+      "displayName": "Charge Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " \nID of the charge. Make sure to save the charge ID on your servers for future\nreference. Identical to `lineItem.chargeId` in the\n[Invoice Created Event](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/custom-charges-provider-v1/invoice-created-event).\n\nMax: 64 characters\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": "\nCharge description.\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": "\nCharge amount in the currency that's specified in the request. Use a whole number\nor separate major and minor units with a dot. For example, `10` or `1.99`. Currently,\nWix doesn't validate whether the submitted number of decimals for the minor unit is\nsupported for the given currency.\n\nMin: `0.50`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargesRejectedRequest",
+      "displayName": "Charges Rejected Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix hasn't accepted your custom charges.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n"
+        },
+                {
+          "name": "chargeIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nIDs of the rejected charges.\n\nMax: 5 charges\n"
+        },
+                {
+          "name": "chargeLimit",
+          "type": "string",
+          "doc": "\nMaximum amount that your app may charge the customer per billing cycle.\n\nMin: `0.50`\n"
+        },
+                {
+          "name": "reasons",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_ChargesRejectedRequest_ChargesRejectedReason"]
+          },
+          "doc": "\nInformation about why Wix has rejected your app's charges.\n\n+ `\"UNKNOWN_REASON\"`: There is no information about why Wix has rejected the charges. \n+ `\"CHARGE_LIMIT_EXCEEDED\"`: The sum of the charges is higher than the limit that you may charge the customer per billing cycle.\n+ `\"TOO_MANY_CHARGES\"`: You can't provide more than 5 charges per invoice.\n+ `\"INVALID_FORMAT\"`: You must submit charges as whole numbers or use a dot to separate major and minor units. For example, `10` or `1.50`. Currently, Wix doesn't validate whether the submitted number of decimals for the minor unit is supported for the given currency.\n\nMax: 20 reasons\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargesRejectedResponse",
+      "displayName": "Charges Rejected Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_InvoiceCreatedRequest",
+      "displayName": "Invoice Created Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which Wix has created an invoice that includes\nyour custom charges. To track usage and billing for apps, we recommend to use\n`instanceId` instead of the `subscriptionId`.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n"
+        },
+                {
+          "name": "invoiceId",
+          "type": "string",
+          "doc": "\nID of the created invoice.\n"
+        },
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Custom Charges SPI._wix_premium_customcharges_spi_v1_InvoiceLineItem"]
+          },
+          "doc": "\nLine items included in the invoice.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_InvoiceLineItem",
+      "displayName": "Invoice Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "chargeId",
+          "type": "string",
+          "doc": " \nID of the charge as returned in\n[List Charges](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/custom-charges-provider-v1/list-charges).\n\nMax: 64 characters\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": "\nCharge amount.\n"
+        },
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " \nID of the line item in the invoice that Wix sends to the customer.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_InvoiceCreatedResponse",
+      "displayName": "Invoice Created Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargeLimitUpdatedRequest",
+      "displayName": "Charge Limit Updated Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionId",
+          "type": "string",
+          "doc": "\nID of the subscription for which the charge limit has been updated.\nTo track usage and billing for apps, we recommend to use `instanceId` instead\nof the `subscriptionId`.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": "\nSupported values: `AUD`, `BRL`, `CAD`, `EUR`, `GBP`, `ILS`, `INR`, `JPY`, `MXN`, `PLN`, `RUB`, `TRY`, `USD`.\n\n3-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes)\nformat of the charges. Wix may add supported currencies in the future.\n"
+        },
+                {
+          "name": "chargeLimit",
+          "type": "string",
+          "doc": "\nUpdated charge limit.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargeLimitUpdatedResponse",
+      "displayName": "Charge Limit Updated Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ListChargesRequest_Intent",
+      "displayName": "Intent Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> DISPLAY_ONLY -  retrieving the current charges for display purposes only\n <\/code><\/li><li><code> CREATE_INVOICE -  retrieving the current charges with the intention of creating an invoice and billing the user\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "DISPLAY_ONLY",
+        "CREATE_INVOICE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_premium_customcharges_spi_v1_ChargesRejectedRequest_ChargesRejectedReason",
+      "displayName": "Charges Rejected Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> CHARGE_LIMIT_EXCEEDED <\/code><\/li><li><code> TOO_MANY_CHARGES <\/code><\/li><li><code> INVALID_FORMAT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "CHARGE_LIMIT_EXCEEDED",
+        "TOO_MANY_CHARGES",
+        "INVALID_FORMAT"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.customcharges.spi.custom-charges"}
+}
