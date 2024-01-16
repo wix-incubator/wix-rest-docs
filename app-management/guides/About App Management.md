@@ -14,9 +14,9 @@ With the App Management APIs, you can:
 
 Learn more about:
 
++ [Identifying users with App Instance ID](https://dev.wix.com/docs/build-apps/build-your-app/app-instance/identify-users-app-instance)
 + [Pricing options for your app](https://dev.wix.com/docs/build-apps/build-your-app/pricing-plans/set-up-your-app-pricing)
 + [Setting up embedded scripts](https://dev.wix.com/docs/build-apps/developer-tools/extensions/embedded-scripts)
-+ [Identifying users with App Instance ID](https://dev.wix.com/docs/build-apps/build-your-app/app-instance/identify-users-app-instance)
 
 ## Before you begin
 
