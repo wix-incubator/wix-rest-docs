@@ -58,16 +58,10 @@ To Identify a site's installed Wix apps:
    [Get App Instance](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/get-app-instance)
    to retrieve installed Wix apps. You can find them as human-readable names in
    the `site.installedWixApps` array. In case your app supports multiple use cases,
-   see if you can identify the user's intent from the list of returned apps alone.
-1. Optional: If they have installed multiple Wix apps for which you support
-   different flows, reach out to the site owner to check their preference. Make
-   sure to confirm that the user has opted in to receive communication by
-   checking that `ownerInfo.emailStatus` is either `"VERIFIED_OPT_IN"` or
-   `"NOT_VERIFIED_OPT_IN"`. Note that you must have added the
-   __Read Site Owner Email__ permission scope to your app during the setup
-   process in the [Wix Developers Center](https://dev.wix.com/docs/build-apps/developer-tools/developers-center/example-app-walkthrough/build-an-app#4-add-permissions).
-   In case you, haven't requested this permission, the `ownerInfo` object is
-   always returned empty.
+   check if you can identify the user's intent from the list of returned apps alone.
+1. If you can't identify the desired use case because the site owners have installed
+   multiple Wix apps for which you support different flows, present a modal to
+   them that lets them choose their preference.
 
 ## Automatically log users in to your app
 
