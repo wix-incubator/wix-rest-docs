@@ -3,12 +3,13 @@
 The App Management APIs allow you to manage user specific data for all individual
 installations of your app. This includes receiving notifications whenever a new
 user installs your app on their site or purchases a Premium version. Additionally,
-you can use the APIs to add custom charges to your users' invoices.
+you can use the APIs to implement an external pricing page and manage usage-based
+pricing.
 
 With the App Management APIs, you can:
 
 + [Track user specific data with app instance IDs](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/introduction)
-+ [Manage usage-based pricing](https://dev.wix.com/docs/rest/api-reference/app-management/)
++ [Manage usage-based pricing](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/custom-charges-provider-v1/introduction)
 + [Add embedded scripts to Wix sites](https://dev.wix.com/docs/rest/api-reference/app-management/apps/embedded-scripts/introduction)
 + [Notify Wix about your app's business events](https://dev.wix.com/docs/rest/api-reference/app-management/apps/bi-event/introduction)
 
