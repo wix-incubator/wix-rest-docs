@@ -17,17 +17,6 @@ Learn more about:
 + [Identifying users with App Instance ID](https://dev.wix.com/docs/build-apps/build-your-app/app-instance/identify-users-app-instance)
 + [Pricing options for your app](https://dev.wix.com/docs/build-apps/build-your-app/pricing-plans/set-up-your-app-pricing)
 + [Setting up embedded scripts](https://dev.wix.com/docs/build-apps/developer-tools/extensions/embedded-scripts)
-
-## Before you begin
-
-It’s important to note the following points before starting to code:
-
-+ Currently, Wix doesn't notify you about changes to the payment status of an
-  invoice.
-+ The Wix pricing page for your app supports only 4 plans for users to choose
-  from. This includes your app's free plan if you offer one. In case you want
-  to offer more than 4 plans, your app needs to build an external pricing
-  page and [redirect users back to the Wix checkout](https://dev.wix.com/docs/rest/api-reference/app-management/apps/billing/get-url).
   
 ## Use cases
 
