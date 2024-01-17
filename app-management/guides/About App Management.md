@@ -22,15 +22,13 @@ Learn more about:
 
 It’s important to note the following points before starting to code:
 
++ Currently, Wix doesn't notify you about changes to the payment status of an
+  invoice.
 + The Wix pricing page for your app supports only 4 plans for users to choose
   from. This includes your app's free plan if you offer one. In case you want
   to offer more than 4 plans, your app needs to build an external pricing
   page and [redirect users back to the Wix checkout](https://dev.wix.com/docs/rest/api-reference/app-management/apps/billing/get-url).
-+ You can't delete an app's pricing plan after you have set it up, but you can
-  add more plans.
-+ Currently, Wix doesn't notify you about changes to the payment status of an
-  invoice.
-
+  
 ## Use cases
 
 + [Reach out to new users](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#reach-out-to-new-users)
