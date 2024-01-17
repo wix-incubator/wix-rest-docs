@@ -34,7 +34,7 @@ It’s important to note the following points before starting to code:
 + [Reach out to new users](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#reach-out-to-new-users)
 + [Manage usage-based invoices](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/sample-flows#bill-a-customer)
 + [Identify a site's installed Wix business solutions](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#identify-a-sites-installed-wix-business-solutions)
-+ [Automatically create user logins](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#automatically-create-user-logins)
++ [Automatically log users in to your app](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/sample-flows#automatically-log-users-in-to-your-app)
 
 ## Terminology
 

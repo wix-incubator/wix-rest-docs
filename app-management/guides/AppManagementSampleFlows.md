@@ -69,9 +69,12 @@ To Identify a site's installed Wix apps:
    In case you, haven't requested this permission, the `ownerInfo` object is
    always returned empty.
 
-## Automatically create user logins
+## Automatically log users in to your app
 
-You could automatically create a user login for new customers of your app.
+You could automatically create a user login for new customers of your app. Then,
+site owners don't need to set up an account for your app on their own. They could
+also share their account for your app with multiple contributors without being
+forced to share sensitive login info.
 
 To create user logins:
 
