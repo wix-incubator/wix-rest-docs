@@ -41,15 +41,11 @@ It’s important to note the following points before starting to code:
 + __App Instance__: Unique identifier of an app within a specific website. The
   app instance ID is ideal for identifying your users, the specific plan they’ve
   purchased from you and the features you're supporting for them.
-+ __App Pricing__: You can choose the business model that works best for your app:
-  + __Freemium__: We recommend to choose Freemium pricing. You offer both free
-    and paid versions of your app. Users can upgrade to Premium at any time.
-  + __Free__: You don't charge your users.
-  + __Premium__: Users must pay to use your app.
-  + __Pay as you go__: ??? External pricing for not supported models
++ __App Pricing__: You can choose the business model that works best for your app.
+  Use the [Custom Charges SPI](https://dev.wix.com/docs/rest/api-reference/app-management/apps/custom-charges-spi/custom-charges-provider-v1/introduction)
+  to manage your app's usage-based pricing.
   + __Usage-based pricing__: You charge your users on a recurring, monthly basis.
     You can include a flat base fee and other fees if you want.
-  + __Combination of business models__: ???
     + __Custom Charge__: Adjustable price for using your app. Each billing cycle
       you can add up to 5 charges to an invoice that Wix sends to your customer.
 + __Embedded script__: Script that you can add to a site's `<head>` tag.
