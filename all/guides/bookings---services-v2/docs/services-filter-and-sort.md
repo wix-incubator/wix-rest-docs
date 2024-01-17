@@ -23,15 +23,15 @@ for the `service` object:
 
 | Field                         | Supported Filters                                         | Sortable |
 |-------------------------------|-----------------------------------------------------------|----------|
-| `name`                        | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
-| `type`                        | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`                | Sortable |
-| `description`                 | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `name`                        | `$eq`, `$ne`, `$exists`, `$in`, `$startsWith`             | Sortable |
+| `type`                        | `$eq`, `$ne`, `$exists`, `$in`,                           | Sortable |
+| `description`                 | `$eq`, `$ne`, `$exists`, `$in`, `$startsWith`             | Sortable |
 | `hidden`                      | `$eq`, `$ne`, `$exists`, `$in`                            |          |
-| `tagLine`                     | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `tagLine`                     | `$eq`, `$ne`, `$exists`, `$in`, `$startsWith`             | Sortable |
 | `staffMemberIds`              | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `form.id`                     | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `category.id`                 | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
-| `mainSlug.name`               | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
+| `form.id`                     | `$eq`, `$ne`, `$exists`, `$in`, `$startsWith`             |          |
+| `category.id`                 | `$eq`, `$ne`, `$exists`, `$in`,  `$startsWith`            |          |
+| `mainSlug.name`               | `$eq`, `$ne`, `$exists`, `$in`,  `$startsWith`            | Sortable |
 | `supportedSlugs.name`         | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` | Sortable |
 | `locations.business.id`       | `$eq`, `$ne`, `$exists`, `$in`, `$hasSome`, `$startsWith` |          |
 | `onlineBooking.enabled`       | `$eq`, `$ne`, `$exists`, `$in`                            |          |
@@ -41,14 +41,13 @@ for the `service` object:
 
 ## Sorting
 
-
- The default sort is by `createdDate` in ascending (ASC) order.
+The default sort is by `createdDate` in ascending (ASC) order.
 
 Specify the `sort` object in the following format:
 
 ```json
 {
-  "sort" : [
+  "sort": [
     {
       "fieldName": "sortOrder",
       "order": "ASC"
@@ -67,10 +66,15 @@ Specify the `fields` object in the following format:
 
 ```json
 {
-  "fields": ["name", "type", "description"]
+  "fields": [
+    "name",
+    "type",
+    "description"
+  ]
 }
 ```
 
 __Related content:__
+
 - [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language)
 - [Query services](https://dev.wix.com/api/rest/wix-bookings/services-v2/query-services)
