@@ -1,0 +1,1290 @@
+{
+  "name": "Wix Data Management",
+  "client_id": "https://github.com/wix-private/cloud/tree/master/dstore/api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage operations-related actions for databases.",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Storage Settings",
+      "entity": ""
+    },
+        {
+      "name": "Backups",
+      "entity": "_com_wixpress_dstore_api_backup_v2_Backup",
+      "src": "https://github.com/wix-private/cloud/tree/master/dstore/api/src/main/proto/com/wixpress/dstore/api/backup/v2/common.proto"
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/wix-data-management/com/wixpress/dstore/docs/Intro.md",
+      "name": "Introduction",
+      "tag": "Backups"
+    },
+        {
+      "path": "../guides/wix-data-management/com/wixpress/dstore/docs/SampleFlows.md",
+      "name": "Sample Flows",
+      "tag": "Backups"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Backup",
+      "methodName": "CreateBackup",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "CreateBackup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_CreateBackupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates an on-demand backup of live content in a site's collections.\n\n\n By default, all of the site's collections are included in the backup. For a partial backup, specify which collections to include in the `backup.collections` parameter.\n\n The process of creating a backup takes time.\n You can check whether a backup has completed successfully with [List Backups]().\n\n You can store up to 3 on-demand backups for each site.\n If 3 on-demand backups already exist, the oldest existing on-demand backup for the site is deleted when a new one is created. Automated backups are not affected.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v2/backups",
+        "links": [],
+        "examples": [        {
+          "title": "Create a backup",
+          "body": ["curl -X POST \\\n'https://www.wixapis.com/wix-data/v2/backups' \\\n-H \"Accept: application/json\" \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"backup\": {\n  \"id\": \"8af59df8-4915-45d1-b4d3-a31592d9311c\",\n  \"requestedDate\": \"2022-07-27T13:14:59.903407Z\",\n  \"startedDate\": null,\n  \"finishedDate\": null,\n  \"deletedDate\": null,\n  \"sizeInBytes\": null,\n  \"status\": \"PENDING\",\n  \"type\": \"ON_DEMAND\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateBackupRequest",
+        "rpcResponseName": "CreateBackupResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Backup",
+      "methodName": "DeleteBackup",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["backupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of the backup to be deleted.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteBackup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_DeleteBackupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Deletes a backup.\n\n The process of deleting a backup takes time.\n You can check whether a backup has been deleted successfully with [List Backups]().\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/wix-data/v2/backups/{backupId}",
+        "links": [],
+        "examples": [        {
+          "title": "Delete a backup",
+          "body": ["curl -X DELETE \\\n'https://www.wixapis.com/wix-data/v2/backups/df941cc7-603e-4926-8034-8d8dc5025325' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteBackupRequest",
+        "rpcResponseName": "DeleteBackupResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Backups",
+      "methodName": "ListBackups",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "status",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Status"]
+          },
+          "doc": " Statuses to filter by.\n If provided, only backups with the specified statuses are listed.\n For example, to list only completed backups, use `?status=READY`.\n To list completed and pending backups, use `?status=READY&status=PENDING`.\n\n - **`PENDING`**: A backup that was initiated but isn't yet completed.\n - **`READY`**: A successfully completed backup.\n - **`FAILED`**: A backup that was initiated but didn't successfully complete.\n - **`DELETED`**: A successfully deleted backup.\n - **`CANCELED`**: A backup that was canceled after being initiated.\n\n Default: No filtering\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "type",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Type"]
+          },
+          "doc": " Type to filter by. If provided, only backups of the specified type are listed.\n\n - **`AUTO`**: A backup taken automatically by the system on a regular schedule.\n - **`ON_DEMAND`**: A backup initiated manually.\n\n Default: No filtering\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListBackups",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_ListBackupsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a list of all backups for a site.\n\n Results are sorted by requested date, with the newest first.\n\n You can use this endpoint to check whether a backup initiated with [Create Backup]() has been completed successfully.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/wix-data/v2/backups",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "List all backups for a site",
+            "body": ["curl -X GET \\\n'https://www.wixapis.com/wix-data/v2/backups' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"backups\":   [\n        {\n      \"id\": \"8c683199-dbd9-4591-883f-32b0298ecaf2\",\n      \"requestedDate\": \"2022-05-25T15:12:06.797Z\",\n      \"startedDate\": \"2022-05-25T15:12:07.025Z\",\n      \"finishedDate\": null,\n      \"deletedDate\": null,\n      \"sizeInBytes\": null,\n      \"status\": \"PENDING\",\n      \"type\": \"ON_DEMAND\"\n    },\n        {\n      \"id\": \"11384bcd-2106-416d-8ec6-19fbb7d92c20\",\n      \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n      \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n      \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n      \"deletedDate\": null,\n      \"sizeInBytes\": \"1584\",\n      \"status\": \"READY\",\n      \"type\": \"ON_DEMAND\"\n    }\n  ],\n  \"paging_metadata\":   {\n    \"count\": 2,\n    \"offset\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "List backups with additional parameters",
+            "body": ["curl -X GET \\\n'https://www.wixapis.com/wix-data/v2/backups?status=READY&type=ON_DEMAND&paging.offset=0&paging.limit=50' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"backups\":   [\n        {\n      \"id\": \"df941cc7-603e-4926-8034-8d8dc5025325\",\n      \"requestedDate\": \"2022-05-25T15:12:06.797Z\",\n      \"startedDate\": \"2022-05-25T15:12:07.025Z\",\n      \"finishedDate\": \"2022-05-25T15:12:07.354Z\",\n      \"deletedDate\": null,\n      \"sizeInBytes\": \"1584\",\n      \"status\": \"READY\",\n      \"type\": \"ON_DEMAND\"\n    },\n        {\n      \"id\": \"11384bcd-2106-416d-8ec6-19fbb7d92c20\",\n      \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n      \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n      \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n      \"deletedDate\": null,\n      \"sizeInBytes\": \"1584\",\n      \"status\": \"READY\",\n      \"type\": \"ON_DEMAND\"\n    }\n  ],\n  \"paging_metadata\":   {\n    \"count\": 2,\n    \"offset\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListBackupsRequest",
+        "rpcResponseName": "ListBackupsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Restorations",
+      "methodName": "ListRestorations",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "status",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration_Status"]
+          },
+          "doc": " Statuses to filter by. If provided, only restorations with the specified statuses are listed.\n For example, to list only completed restorations, use `?status=COMPLETED`.\n To list completed and pending restorations, use `?status=COMPLETED&status=PENDING`.\n\n - **`PENDING`**: A restoration that was initiated but isn't yet completed.\n - **`COMPLETED`**: A successfully completed restoration.\n - **`FAILED`**: A restoration that was initiated but didn't successfully complete.\n\n Default: No filtering\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListRestorations",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_ListRestorationsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a list of all data restorations from backups.\n\n Results are sorted by requested date, with the newest first.\n\n You can use this endpoint to check whether a restoration initiated with [Restore Backup]() has been completed successfully.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/wix-data/v2/backups/restorations",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "List all restorations for a site",
+            "body": ["curl -X GET \\\n'https://www.wixapis.com/wix-data/v2/backups/restorations' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"restorations\":   [\n        {\n      \"id\": \"0bd30197-2012-4c35-a4f0-a0d5ef7ecea0\",\n      \"requestedDate\": \"2022-05-27T07:17:02.209Z\",\n      \"startedDate\": \"2022-05-27T07:17:02.394Z\",\n      \"finishedDate\": \"2022-05-27T07:17:03.452Z\",\n      \"backup\":       {\n        \"id\": \"11384bcd-2106-416d-8ec6-19fbb7d92c20\",\n        \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n        \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n        \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n        \"deletedDate\": null,\n        \"sizeInBytes\": \"1584\",\n        \"status\": \"READY\",\n        \"type\": \"ON_DEMAND\"\n      },\n      \"status\": \"PENDING\"\n    },\n        {\n      \"id\": \"d51f5c89-1f7c-4610-a60e-92f81ad2231a\",\n      \"requestedDate\": \"2022-05-26T07:17:02.209Z\",\n      \"startedDate\": \"2022-05-26T07:17:02.394Z\",\n      \"finishedDate\": \"2022-05-26T07:17:03.452Z\",\n      \"backup\":       {\n        \"id\": \"acb5af51-3332-471d-aad4-9b3c52ff5b07\",\n        \"requestedDate\": \"2022-05-24T15:10:56.394Z\",\n        \"startedDate\": \"2022-05-24T15:10:56.603Z\",\n        \"finishedDate\": \"2022-05-24T15:10:56.913Z\",\n        \"deletedDate\": null,\n        \"sizeInBytes\": \"1087\",\n        \"status\": \"READY\",\n        \"type\": \"ON_DEMAND\"\n      },\n      \"status\": \"COMPLETED\"\n    }\n  ],\n  \"paging_metadata\":   {\n    \"count\": 2,\n    \"offset\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "List restorations with additional parameters",
+            "body": ["curl -X GET \\\n'https://www.wixapis.com/wix-data/v2/backups/restorations?status=COMPLETED&paging.offset=0&paging.limit=50' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{\n  \"restorations\": [  {\n    \"id\": \"0bd30197-2012-4c35-a4f0-a0d5ef7ecea0\",\n    \"requestedDate\": \"2022-05-26T07:17:02.209Z\",\n    \"startedDate\": \"2022-05-26T07:17:02.394Z\",\n    \"finishedDate\": \"2022-05-26T07:17:03.452Z\",\n    \"backup\":     {\n      \"id\": \"11384bcd-2106-416d-8ec6-19fbb7d92c20\",\n      \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n      \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n      \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n      \"deletedDate\": null,\n      \"sizeInBytes\": \"1584\",\n      \"status\": \"READY\",\n      \"type\": \"ON_DEMAND\"\n    },\n    \"status\": \"COMPLETED\"\n  }],\n  \"paging_metadata\":   {\n    \"count\": 1,\n    \"offset\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListRestorationsRequest",
+        "rpcResponseName": "ListRestorationsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Restore Backup",
+      "methodName": "RestoreBackup",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["backupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of backup to be restored.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "RestoreBackup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_RestoreBackupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Restores all data from a backup.\n\n The process of restoring data from a backup takes time.\n You can check whether your restoration has completed successfully with [List Restorations]().\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v2/backups/{backupId}/restore",
+        "links": [],
+        "examples": [        {
+          "title": "Restore data from a backup",
+          "body": ["curl -X POST \\\n'https://www.wixapis.com/wix-data/v2/backups/restore/bfab4dac-c835-4cf7-8b47-adbe1ca1ea34' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"restoration\": {\n  \"id\": \"0bd30197-2012-4c35-a4f0-a0d5ef7ecea0\",\n  \"requestedDate\": \"2022-05-26T07:17:02.209Z\",\n  \"startedDate\": null,\n  \"finishedDate\": null,\n  \"backup\":   {\n    \"id\": \"bfab4dac-c835-4cf7-8b47-adbe1ca1ea34\",\n    \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n    \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n    \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n    \"deletedDate\": null,\n    \"sizeInBytes\": \"1584\",\n    \"status\": \"READY\",\n    \"type\": \"ON_DEMAND\"\n  },\n  \"status\": \"PENDING\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RestoreBackupRequest",
+        "rpcResponseName": "RestoreBackupResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Restore Backup (Additional Binding 1)",
+      "methodName": "RestoreBackup",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["backupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of backup to be restored.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "RestoreBackup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_RestoreBackupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Restores all data from a backup.\n\n The process of restoring data from a backup takes time.\n You can check whether your restoration has completed successfully with [List Restorations]().\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v2/backups/restore/{backupId}",
+        "links": [],
+        "examples": [        {
+          "title": "Restore data from a backup",
+          "body": ["curl -X POST \\\n'https://www.wixapis.com/wix-data/v2/backups/restore/bfab4dac-c835-4cf7-8b47-adbe1ca1ea34' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"restoration\": {\n  \"id\": \"0bd30197-2012-4c35-a4f0-a0d5ef7ecea0\",\n  \"requestedDate\": \"2022-05-26T07:17:02.209Z\",\n  \"startedDate\": null,\n  \"finishedDate\": null,\n  \"backup\":   {\n    \"id\": \"bfab4dac-c835-4cf7-8b47-adbe1ca1ea34\",\n    \"requestedDate\": \"2022-05-25T15:10:56.394Z\",\n    \"startedDate\": \"2022-05-25T15:10:56.603Z\",\n    \"finishedDate\": \"2022-05-25T15:10:56.913Z\",\n    \"deletedDate\": null,\n    \"sizeInBytes\": \"1584\",\n    \"status\": \"READY\",\n    \"type\": \"ON_DEMAND\"\n  },\n  \"status\": \"PENDING\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RestoreBackupRequest",
+        "rpcResponseName": "RestoreBackupResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Restore Partial Backup",
+      "methodName": "RestorePartialBackup",
+      "serviceName": "BackupService",
+      "tag": "Backups",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "backupId",
+        "dataCollectionIds"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "backupId",
+          "type": "string",
+          "doc": " ID of backup to be restored.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "dataCollectionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Collections to be restored.\n\n **Note**: If two collections have a multireference relation, the references will be restored only if both collections are restored.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "RestorePartialBackup",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_RestoreBackupResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Restores specific collections from a backup.\n\n The process of restoring data from a backup takes time.\n You can check whether your restoration has completed successfully with [List Restorations]().\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/wix-data/v2/backups/{backupId}/partial-restore",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RestorePartialBackupRequest",
+        "rpcResponseName": "RestoreBackupResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_dstore_api_backup_v2_BackupStateChangedDomainEvent",
+      "name": "Backup State Changed Webhook",
+      "docs":       {
+        "summary": " event triggered when backup state is changed (including creation when it's set to PENDING)\n\n",
+        "src": "https://github.com/wix-private/cloud/tree/master/dstore/api/src/main/proto/com/wixpress/dstore/api/backup/v2/backup-service.proto"
+      },
+      "topic": "domain_events_wix.data.v2.backup",
+      "tag": "Backups",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.data.v2.backup_backup_state_changed",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_dstore_api_backup_v2_RestorationStateChangedDomainEvent",
+      "name": "Restoration State Changed Webhook",
+      "docs":       {
+        "summary": " event triggered when backup restoration state is changed (including new restoration with PENDING status)\n",
+        "src": "https://github.com/wix-private/cloud/tree/master/dstore/api/src/main/proto/com/wixpress/dstore/api/backup/v2/backup-service.proto"
+      },
+      "topic": "domain_events_wix.data.v2.backup",
+      "tag": "Backups",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.data.v2.backup_restoration_state_changed",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_dstore_api_backup_v2_BackupDeletedDomainEvent",
+      "name": "Backup Deleted Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/cloud/tree/master/dstore/api/src/main/proto/com/wixpress/dstore/api/backup/v2/backup-service.proto"
+      },
+      "topic": "domain_events_wix.data.v2.backup",
+      "tag": "Backups",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.data.v2.backup_deleted",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_BackupDeletedDomainEvent",
+      "displayName": "Backup Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.data.v2.backup`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_BackupEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Backup ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_BackupEntityDeletedEvent",
+      "displayName": "Backup Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_BackupStateChangedDomainEvent",
+      "displayName": "Backup State Changed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.data.v2.backup`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `backup_state_changed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_BackupStateChangedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BackupStateChanged ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_BackupStateChangedActionEvent",
+      "displayName": "Backup State Changed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_BackupStateChanged",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestorationStateChangedDomainEvent",
+      "displayName": "Restoration State Changed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.data.v2.backup`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `restoration_state_changed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_RestorationStateChangedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "RestorationStateChanged ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestorationStateChangedActionEvent",
+      "displayName": "Restoration State Changed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_RestorationStateChanged",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Backup",
+      "displayName": "Backup Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Backup ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Status",
+          "doc": " Backup status.\n * `PENDING`: Backup creation is in progress.\n * `READY`: Backup has been created successfully and can be used for data restoration.\n * `FAILED`: Backup creation has failed.\n * `DELETED`: Backup has been deleted.\n * `CANCELED`: Backup has been canceled.\n",
+          "readOnly": true
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Type",
+          "doc": " Type of backup, based on how it was triggered.\n * `ON_DEMAND`: Backup created on demand.\n * `AUTO`: Backup created automatically on a regular schedule.\n",
+          "readOnly": true
+        },
+                {
+          "name": "requestedDate",
+          "type": "string",
+          "doc": " Date and time the backup was requested.\n",
+          "readOnly": true
+        },
+                {
+          "name": "startedDate",
+          "type": "string",
+          "doc": " Date and time the backup commenced. Value is `null` until the backup process begins in the background.\n",
+          "readOnly": true
+        },
+                {
+          "name": "finishedDate",
+          "type": "string",
+          "doc": " Date and time the backup process finished. Value is `null` until the backup process is completed in the background.\n",
+          "readOnly": true
+        },
+                {
+          "name": "deletedDate",
+          "type": "string",
+          "doc": " Date and time the backup was deleted. Value is `null` if that backup hasn't been deleted.\n",
+          "readOnly": true
+        },
+                {
+          "name": "sizeInBytes",
+          "type": "string",
+          "doc": " Backup size in bytes. Value is `null` until the backup process is completed.\n",
+          "readOnly": true
+        },
+                {
+          "name": "collections",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Collection"]
+          },
+          "doc": " IDs and display names of collections the backup contains.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Restoration",
+      "displayName": "Restoration Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Restoration ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "backup",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup",
+          "doc": " Details of the backup used for the restoration.\n",
+          "readOnly": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration_Status",
+          "doc": " Status of restoration.\n * `PENDING`: Restoration from a backup is in progress.\n * `COMPLETED`: Restoration from a backup has been successful.\n * `FAILED`: Restoration from a backup has failed.\n",
+          "readOnly": true
+        },
+                {
+          "name": "requestedDate",
+          "type": "string",
+          "doc": " Date and time the restoration was requested.\n",
+          "readOnly": true
+        },
+                {
+          "name": "startedDate",
+          "type": "string",
+          "doc": " Date and time the restoration commenced. Value is `null` until the restoration process begins in the background.\n",
+          "readOnly": true
+        },
+                {
+          "name": "finishedDate",
+          "type": "string",
+          "doc": " Date and time the restoration finished. Value is `null` until the restoration process is completed in the background.\n",
+          "readOnly": true
+        },
+                {
+          "name": "collections",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Collection"]
+          },
+          "doc": " List of collections restored.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Collection",
+      "displayName": "Collection Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Collection ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Collection display name.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_BackupStateChanged",
+      "displayName": "Backup State Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": " event triggered when backup state is changed (i.e. it was created, started, completed or failed)\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "backup",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup",
+        "doc": " current state of backup\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestorationStateChanged",
+      "displayName": "Restoration State Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": " event triggered when backup restoration state is changed (i.e. it was created, started or completed)\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "restoration",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration",
+        "doc": " current state of restoration\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_upstream_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_upstream_wix_common_PagingMetadataV2",
+      "displayName": "Paging Metadata V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query. Returned if offset paging is used and the `tooManyToCount` flag is not set.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_CreateBackupRequest",
+      "displayName": "Create Backup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_CreateBackupResponse",
+      "displayName": "Create Backup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "backup",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup",
+        "doc": " Details of the requested backup.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestoreBackupRequest",
+      "displayName": "Restore Backup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of backup to be restored.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestorePartialBackupRequest",
+      "displayName": "Restore Partial Backup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "backupId",
+          "type": "string",
+          "doc": " ID of backup to be restored.\n"
+        },
+                {
+          "name": "dataCollectionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Collections to be restored.\n\n **Note**: If two collections have a multireference relation, the references will be restored only if both collections are restored.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_RestoreBackupResponse",
+      "displayName": "Restore Backup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "restoration",
+        "type": "All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration",
+        "doc": " Details of data restoration from backup.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_ListBackupsRequest",
+      "displayName": "List Backups Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Status"]
+          },
+          "doc": " Statuses to filter by.\n If provided, only backups with the specified statuses are listed.\n For example, to list only completed backups, use `?status=READY`.\n To list completed and pending backups, use `?status=READY&status=PENDING`.\n\n - **`PENDING`**: A backup that was initiated but isn't yet completed.\n - **`READY`**: A successfully completed backup.\n - **`FAILED`**: A backup that was initiated but didn't successfully complete.\n - **`DELETED`**: A successfully deleted backup.\n - **`CANCELED`**: A backup that was canceled after being initiated.\n\n Default: No filtering\n"
+        },
+                {
+          "name": "type",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup_Type"]
+          },
+          "doc": " Type to filter by. If provided, only backups of the specified type are listed.\n\n - **`AUTO`**: A backup taken automatically by the system on a regular schedule.\n - **`ON_DEMAND`**: A backup initiated manually.\n\n Default: No filtering\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Wix Data Management._upstream_wix_common_Paging",
+          "doc": " Paging preferences.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_ListBackupsResponse",
+      "displayName": "List Backups Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "backups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Backup"]
+          },
+          "doc": " Retrieved backups.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Wix Data Management._upstream_wix_common_PagingMetadataV2",
+          "doc": " Paging information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_ListRestorationsRequest",
+      "displayName": "List Restorations Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration_Status"]
+          },
+          "doc": " Statuses to filter by. If provided, only restorations with the specified statuses are listed.\n For example, to list only completed restorations, use `?status=COMPLETED`.\n To list completed and pending restorations, use `?status=COMPLETED&status=PENDING`.\n\n - **`PENDING`**: A restoration that was initiated but isn't yet completed.\n - **`COMPLETED`**: A successfully completed restoration.\n - **`FAILED`**: A restoration that was initiated but didn't successfully complete.\n\n Default: No filtering\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Wix Data Management._upstream_wix_common_Paging",
+          "doc": " Offset and limit of items to retrieve.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_ListRestorationsResponse",
+      "displayName": "List Restorations Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "restorations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Data Management._com_wixpress_dstore_api_backup_v2_Restoration"]
+          },
+          "doc": " Retrieved restorations.\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Wix Data Management._upstream_wix_common_PagingMetadataV2",
+          "doc": " Paging information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_DeleteBackupRequest",
+      "displayName": "Delete Backup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of the backup to be deleted.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_DeleteBackupResponse",
+      "displayName": "Delete Backup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_CancelBackupRequest",
+      "displayName": "Cancel Backup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "backupId",
+        "type": "string",
+        "doc": " ID of the backup to be cancelled.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_CancelBackupResponse",
+      "displayName": "Cancel Backup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Backup_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> PENDING -  Backup creation is in progress.\n <\/code><\/li><li><code> READY -  Backup has been created successfully and can be used for data restoration.\n <\/code><\/li><li><code> FAILED -  Backup creation has failed.\n <\/code><\/li><li><code> DELETED -  Backup has been deleted.\n <\/code><\/li><li><code> CANCELED -  Backup has been canceled.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "PENDING",
+        "READY",
+        "FAILED",
+        "DELETED",
+        "CANCELED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Backup_Type",
+      "displayName": "Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ON_DEMAND -  Backup taken on demand.\n <\/code><\/li><li><code> AUTO -  Automatically triggered backup (taken repeatedly on a regular interval).\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ON_DEMAND",
+        "AUTO"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_dstore_api_backup_v2_Restoration_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> PENDING -  Restoration from a backup is in progress.\n <\/code><\/li><li><code> COMPLETED -  Restoration from a backup has been successful.\n <\/code><\/li><li><code> FAILED -  Restoration from a backup has failed.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "PENDING",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.dstore-backups"}
+}
