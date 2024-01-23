@@ -1,0 +1,3416 @@
+{
+  "name": "Localization",
+  "client_id": "https://github.com/wix-private/linguist/tree/master/localization#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage Localized Content",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Content-Schema",
+      "entity": "_com_wixpress_localization_Schema",
+      "src": "https://github.com/wix-private/linguist/tree/master/localization/com/wixpress/localization/localization_schemas.proto"
+    },
+        {
+      "name": "Content",
+      "entity": "_com_wixpress_localization_LocalizedContent",
+      "src": "https://github.com/wix-private/linguist/tree/master/localization/com/wixpress/localization/localization.proto"
+    }
+  ],
+  "relatedGuides": [  {
+    "path": "../guides/localization/docs/ApiIntro.md",
+    "name": "API Intro"
+  }],
+  "operations":   [
+        {
+      "name": "Create Or Update Contents By Key",
+      "methodName": "CreateOrUpdateContentsByKey",
+      "serviceName": "Localization",
+      "tag": "Content",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "languageContents.contentKey",
+        "languageContents.contentKey.schemaKey",
+        "languageContents.languageFields.value"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language ID in IETF BCP 47 tag format.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "languageContents",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LanguageContentByKey"]
+          },
+          "doc": "List of content for creation/update.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "overrideData",
+          "type": "boolean",
+          "doc": "When true - uploaded language contents will replace existing language contents\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateOrUpdateContentsByKey",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_CreateOrUpdateContentsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Adds or updates a localized content key for a given language.\n Localized content is identified by its schemaKey and entityId.\n Partial updates are supported - uploaded fields will be merged with existing language fields.\n Override is also supported - need to mark explicitly in the request\n Language content will be merged with entity's list of languages.\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/multilingual/v1/localized-content/by-key",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X PUT 'https://www.wixapis.com/multilingual/v1/localized-content/by-key' \\\n   --data-binary \\\n   '{\n      \"language_tag\": \"en-US\",\n      \"language_contents\": [\n        {\n          \"content_key\": {\n            \"schema_key\": {\n              \"app_id\": \"1380b703-ce81-ff05-f115-39571d94dfcd\",\n              \"entity_type\": \"product\",\n              \"scope\": \"GLOBAL\"\n            },\n            \"entity_id\": \"234df430-cd3e-4566-9d23-0e30ddd7000c\"\n          }\n          \"language_fields\": [\n            {\n              \"sequence_path\": [],\n              \"id\": \"title\",\n              \"string_value\": \"Blue Shoes\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\"\n            },\n            {\n              \"sequence_path\": [\n                {\n                  \"seq_name\": \"additional_info\",\n                  \"item_id\": \"5633959a-3cf5-4306-824d-ab53444914b3\"\n                },\n                {\n                  \"seq_name\": \"pictures\",\n                  \"item_id\": \"4\"\n                }\n              ],\n              \"id\": \"picture\",\n              \"media_value\": {\n                \"image\": {\n                  \"id\": \"157ad3e2-2fee-4c28-a91c-67cd60614fbc\",\n                  \"url\": \"/myImage\",\n                  \"height\": 788,\n                  \"width\": 350,\n                  \"alt_text\": \"my shoes\"\n                }\n              },\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": false,\n              \"status\": \"Waiting For Review\"\n            }\n          ]\n        }\n      ]\n    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateOrUpdateContentsByKeyRequest",
+        "rpcResponseName": "CreateOrUpdateContentsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Contents",
+      "methodName": "ListContents",
+      "serviceName": "Localization",
+      "tag": "Content",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "filter",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentFilter",
+          "doc": "Filter object\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "order",
+          "type": "All APIs.Localization._com_wixpress_localization_ListContentsRequest_OrderByField",
+          "doc": "Optional field to order results by.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListContents",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_ListContentsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves localized content, including published and unpublished values, given the provided filtering.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/multilingual/v1/localized-content/list",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST 'https://www.wixapis.com/multilingual/v1/localized-content/list' \\\n   --data-binary \\\n   '{\n      \"filter\": {\n        \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n        \"entity_type\": \"taco\",\n      },\n      \"paging\": {\n        \"limit\": 100,\n        \"offset\": 0\n      }\n    }\n   ' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'\n\n{\n  \"localized_contents\": [\n    {\n      \"id\": \"e617a52d-c76c-424e-ba91-b803044845f6\",\n      \"key\": {\n        \"schema_key\": {\n          \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n          \"entity_type\": \"taco\",\n          \"scope\": \"GLOBAL\"\n        },\n        \"entity_id\": \"001\"\n      },\n      \"fields_per_language\": [\n        {\n          \"language_tag\": \"en-US\",\n          \"language_fields\": [\n            {\n              \"id\": \"title\",\n              \"string_value\": \"Beef taco\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            },\n            {\n              \"id\": \"description\",\n              \"string_value\": \"Carne asada beef with mexican spices, rice, corn, sour cream\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"14cf373b-221e-476a-8268-6bffcb9dd945\",\n      \"key\": {\n        \"schema_key\": {\n          \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n          \"entity_type\": \"taco\",\n          \"scope\": \"GLOBAL\"\n        },\n        \"entity_id\": \"002\"\n      },\n      \"fields_per_language\": [\n        {\n          \"language_tag\": \"en-US\",\n          \"language_fields\": [\n            {\n              \"id\": \"title\",\n              \"string_value\": \"Chicken taco\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            },\n            {\n              \"id\": \"description\",\n              \"string_value\": \"Chicken with mexican spices, rice, corn, sour cream\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"6f2187c7-ce59-4bad-a8e4-1813cdd8fa11\",\n      \"key\": {\n        \"schema_key\": {\n          \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n          \"entity_type\": \"taco\",\n          \"scope\": \"GLOBAL\"\n        },\n        \"entity_id\": \"003\"\n      },\n      \"fields_per_language\": [\n        {\n          \"language_tag\": \"en-US\",\n          \"language_fields\": [\n            {\n              \"id\": \"title\",\n              \"string_value\": \"Fish taco\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            },\n            {\n              \"id\": \"description\",\n              \"string_value\": \"Fish, red rice, frijoles, guac\",\n              \"updated_by\": \"USER\",\n              \"updater_id\": \"user@email.com\",\n              \"published\": true,\n              \"status\": \"reviewed\",\n              \"sequence_path\": []\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListContentsRequest",
+        "rpcResponseName": "ListContentsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Schemas",
+      "methodName": "ListContentSchemas",
+      "serviceName": "LocalizationSchemas",
+      "tag": "Content-Schema",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "filter",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaFilter",
+          "doc": "Filter object\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListContentSchemas",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_ListContentSchemasResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves a list of up to 100 content schemas, given the provided paging and filters.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/multilingual/v1/content-schema/list",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST 'https://www.wixapis.com/multilingual/v1/content-schema/list' \\\n   --data-binary \\\n   '{\n      \"filter\": {\n        \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n        \"entity_type\": \"taco\",\n        \"scope\": \"GLOBAL\"\n      },\n      \"paging\": {\n        \"limit\": 20,\n        \"offset\": 0\n      }\n    }\n   ' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'\n\n{\n  \"schemas\": [\n    {\n      \"id\": \"5f008e20-f3d7-444f-a04f-f60e0a5042d6\",\n      \"key\": {\n        \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n        \"entity_type\": \"taco\",\n        \"scope\": \"GLOBAL\"\n      },\n      \"body\": {\n        \"groups\": [\n          {\n            \"display_name\": \"Totally Arbitrary Collection Object\",\n            \"fields\": [\n              {\n                \"id\": \"title\",\n                \"display_name\": \"Title\",\n                \"type\": \"SHORT_TEXT\",\n                \"min_length\": 1,\n                \"max_length\": 256,\n                \"format\": null,\n                \"sequence_path\": [],\n                \"hidden\": false\n              },\n              {\n                \"id\": \"description\",\n                \"display_name\": \"Description\",\n                \"type\": \"RICH_TEXT\",\n                \"min_length\": null,\n                \"max_length\": null,\n                \"format\": null,\n                \"sequence_path\": [],\n                \"hidden\": false\n              }\n            ]\n          },\n          {\n            \"display_name\": \"Pictures of Tacos\",\n            \"fields\": [\n              {\n                \"id\": \"picture\",\n                \"display_name\": \"Product Preview\",\n                \"type\": \"IMAGE\",\n                \"min_length\": null,\n                \"max_length\": null,\n                \"format\": null,\n                \"sequence_path\": [\n                  \"pictures\"\n                ],\n                \"hidden\": false\n              }\n            ]\n          }\n        ],\n        \"preview_fields\": {\n          \"title_field_id\": \"title\",\n          \"image_field_id\": \"picture\"\n        },\n        \"hidden\": false\n      }\n    }\n  ]\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListContentSchemasRequest",
+        "rpcResponseName": "ListContentSchemasResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Remove Contents By Key",
+      "methodName": "RemoveContentsByKey",
+      "serviceName": "Localization",
+      "tag": "Content",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["contentKeys"],
+      "params": [      {
+        "in": "BODY",
+        "name": "contentKeys",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentKey"]
+        },
+        "doc": " Content keys to delete.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "RemoveContentsByKey",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_RemoveContentsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Removes existing localized content by contentKey. Non-existent contentKeys are ignored.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/multilingual/v1/localized-content/by-key",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X DELETE 'https://www.wixapis.com/multilingual/v1/localized-content/by-key' \\\n   --data-binary \\\n   '{\n      \"content_keys\": [\n        {\n          \"schema_key\": {\n            \"app_id\": \"bd3b529d-547c-48d8-bc06-ef5ae19dc4b5\",\n            \"entity_type\": \"taco\",\n            \"scope\": \"GLOBAL\"\n          },\n          \"entity_id\": \"001\"\n        }\n      ]\n    }' \\\n   -H 'Content-Type: application/json' \\\n   -H 'Authorization: <AUTH>'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RemoveContentsByKeyRequest",
+        "rpcResponseName": "RemoveContentsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_localization_LocalizedContentUpdatedDomainEvent",
+      "name": "Localized Content Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/linguist/tree/master/localization/src/main/proto/com/wixpress/localization/localization.proto"
+      },
+      "topic": "domain_events_wix.multilingual.localization.v1.localized_content",
+      "tag": "Content",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.multilingual.localization.v1.localized_content_updated",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_localization_LocalizedContentDeletedDomainEvent",
+      "name": "Localized Content Deleted Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/linguist/tree/master/localization/src/main/proto/com/wixpress/localization/localization.proto"
+      },
+      "topic": "domain_events_wix.multilingual.localization.v1.localized_content",
+      "tag": "Content",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.multilingual.localization.v1.localized_content_deleted",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_localization_LocalizedContentUpdatedDomainEvent",
+      "displayName": "Localized Content Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.multilingual.localization.v1.localized_content`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "LocalizedContent ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentEntityUpdatedEvent",
+      "displayName": "Localized Content Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Localization._com_wixpress_localization_LocalizedContent",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentDeletedDomainEvent",
+      "displayName": "Localized Content Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.multilingual.localization.v1.localized_content`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "LocalizedContent ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentEntityDeletedEvent",
+      "displayName": "Localized Content Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia image ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Image URL.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VideoV2",
+      "displayName": "Video V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia ID.\n"
+        },
+                {
+          "name": "resolutions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._wix_common_VideoResolution"]
+          },
+          "doc": " Available resolutions for the video, starting with the optimal resolution.\n",
+          "readOnly": true
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Video filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VideoResolution",
+      "displayName": "Video Resolution Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Video URL.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Video height.\n"
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Video width.\n"
+        },
+                {
+          "name": "format",
+          "type": "string",
+          "doc": " Video format for example, mp4, hls.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Document",
+      "displayName": "Document Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Document URL.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Document filename.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset",
+      "displayName": "Asset Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "state",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_Asset_State",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext",
+      "displayName": "Delete Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "dateDeleted",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "deleteStatus",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+          "doc": ""
+        },
+                {
+          "name": "deleteOrigin",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "initiatorId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreated",
+      "displayName": "Site Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "originTemplateId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "ownerId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "context",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteCreatedContext",
+          "doc": ""
+        },
+                {
+          "name": "originMetaSiteId",
+          "type": "string",
+          "doc": "\nA meta site id from which this site was created.\n\nIn case of a creation from a template it's a template id.\nIn case of a site duplication (\"Save As\" in dashboard or duplicate in UM) it's an id of a source site.\n"
+        },
+                {
+          "name": "siteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "namespace",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteHardDeleted",
+      "displayName": "Site Hard Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nHard deletion of the meta site.\n\nCould not be restored. Therefore it's desirable to cleanup data.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.Localization._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteDeleted",
+      "displayName": "Site Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Soft deletion of the meta site. Could be restored.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.Localization._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUndeleted",
+      "displayName": "Site Undeleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Restoration of the meta site.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SitePublished",
+      "displayName": "Site Published Object",
+      "locations": [],
+      "docs":       {
+        "summary": " First publish of a meta site. Or subsequent publish after unpublish.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUnpublished",
+      "displayName": "Site Unpublished Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "urls",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteTransferred",
+      "displayName": "Site Transferred Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Site transferred to another user.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldOwnerId",
+          "type": "string",
+          "doc": " A previous owner id (user that transfers meta site).\n"
+        },
+                {
+          "name": "newOwnerId",
+          "type": "string",
+          "doc": " A new owner id (user that accepts meta site).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+      "displayName": "Site Marked As Template Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+      "displayName": "Site Marked As Wix Site Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceProvisioned",
+      "displayName": "Service Provisioned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " Either UUID or EmbeddedServiceType.\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Not only UUID. Something here could be something weird.\n"
+        },
+                {
+          "name": "originInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceRemoved",
+      "displayName": "Service Removed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteRenamed",
+      "displayName": "Site Renamed Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Rename of the site. Meaning, free public url has been changed as well. ",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "newSiteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "oldSiteName",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_NamespaceChanged",
+      "displayName": "Namespace Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldNamespace",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        },
+                {
+          "name": "newNamespace",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioAssigned",
+      "displayName": "Studio Assigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioUnassigned",
+      "displayName": "Studio Unassigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nUnassigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent",
+      "displayName": "Meta Site Special Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "assets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_metasite_event_api_Asset"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "payload",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+      "displayName": "payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "siteCreated",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteCreated",
+          "doc": ""
+        },
+                {
+          "name": "siteTransferred",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteTransferred",
+          "doc": ""
+        },
+                {
+          "name": "siteDeleted",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteDeleted",
+          "doc": ""
+        },
+                {
+          "name": "siteUndeleted",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteUndeleted",
+          "doc": ""
+        },
+                {
+          "name": "sitePublished",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SitePublished",
+          "doc": ""
+        },
+                {
+          "name": "siteUnpublished",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteUnpublished",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsTemplate",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsWixSite",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+          "doc": ""
+        },
+                {
+          "name": "serviceProvisioned",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_ServiceProvisioned",
+          "doc": ""
+        },
+                {
+          "name": "serviceRemoved",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_ServiceRemoved",
+          "doc": ""
+        },
+                {
+          "name": "siteRenamedPayload",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteRenamed",
+          "doc": ""
+        },
+                {
+          "name": "hardDeleted",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_SiteHardDeleted",
+          "doc": ""
+        },
+                {
+          "name": "namespaceChanged",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_NamespaceChanged",
+          "doc": ""
+        },
+                {
+          "name": "studioAssigned",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_StudioAssigned",
+          "doc": ""
+        },
+                {
+          "name": "studioUnassigned",
+          "type": "All APIs.Localization._com_wixpress_metasite_event_api_StudioUnassigned",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localization_CreateOrUpdateContentSchemaByKeyRequest",
+      "displayName": "Create Or Update Content Schema By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schema",
+        "type": "All APIs.Localization._com_wixpress_localization_SchemaByKey",
+        "doc": "Schema to add/update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_UpdateContentSchemaRequest",
+      "displayName": "Update Content Schema Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schema",
+        "type": "All APIs.Localization._com_wixpress_localization_SchemaById",
+        "doc": "Schema to add/update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_CreateOrUpdateContentSchemaResponse",
+      "displayName": "Create Or Update Content Schema Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schema",
+        "type": "All APIs.Localization._com_wixpress_localization_Schema",
+        "doc": " Created/updated schema.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ListContentSchemasRequest",
+      "displayName": "List Content Schemas Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaFilter",
+          "doc": "Filter object\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ListContentSchemasResponse",
+      "displayName": "List Content Schemas Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schemas",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_Schema"]
+        },
+        "doc": " Schemas that meet the request conditions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetSiteContentSchemasRequest",
+      "displayName": "Get Site Content Schemas Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetSiteContentSchemasResponse",
+      "displayName": "Get Site Content Schemas Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schemas",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_Schema"]
+        },
+        "doc": "Schemas that have content.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentSchemaRequest",
+      "displayName": "Remove Content Schema Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schemaId",
+        "type": "string",
+        "doc": "Schema ID to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentSchemaByKeyRequest",
+      "displayName": "Remove Content Schema By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "schemaKey",
+        "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+        "doc": " Schema key to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentSchemaResponse",
+      "displayName": "Remove Content Schema Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_Schema",
+      "displayName": "Schema Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Schema ID.\n"
+        },
+                {
+          "name": "key",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": "Schema key.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaBody",
+          "doc": "Schema Data.\n"
+        },
+                {
+          "name": "referencedSchemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": " Higher level schema, group_by_name will point to an entity of this schema.\n"
+        },
+                {
+          "name": "schemaName",
+          "type": "string",
+          "doc": " The name of the schema\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaKey",
+      "displayName": "Schema Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of app that created the schema.\n"
+        },
+                {
+          "name": "entityType",
+          "type": "string",
+          "doc": "Unique name defined by the creator app, used to distinguish between different entities in the the app domain.\n"
+        },
+                {
+          "name": "scope",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaScope",
+          "doc": "Scope schema is defined in (Global/Site)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaBody",
+      "displayName": "Schema Body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_SchemaFieldsGroup"]
+          },
+          "doc": " Groupings of meaningful content categories. Optional.\n"
+        },
+                {
+          "name": "previewFields",
+          "type": "All APIs.Localization._com_wixpress_localization_PreviewFields",
+          "doc": " Fields that will be displayed in content previews (e.g., product name for products).\n"
+        },
+                {
+          "name": "hidden",
+          "type": "boolean",
+          "doc": " Whether the schema is hidden from the site.\n"
+        },
+                {
+          "name": "translationStrategy",
+          "type": "All APIs.Localization._com_wixpress_localization_TranslationStrategy",
+          "doc": " Translation strategy for the schema\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaFieldsGroup",
+      "displayName": "Schema Fields Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Group descriptive name.\n"
+        },
+                {
+          "name": "fields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_SchemaField"]
+          },
+          "doc": " Group fields that contain the actual meta data\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaField",
+      "displayName": "Schema Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Field ID.\n"
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": "Field descriptive name.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaField_FieldType",
+          "doc": " Field type.\n"
+        },
+                {
+          "name": "minLength",
+          "type": "integer",
+          "doc": " Field minimum length (in case of text field)\n"
+        },
+                {
+          "name": "maxLength",
+          "type": "integer",
+          "doc": " Field maximum length (in case text field)\n"
+        },
+                {
+          "name": "format",
+          "type": "string",
+          "doc": " Field format. If set - must be one of the values of wix.api.format as string (case insensitive)\n"
+        },
+                {
+          "name": "sequencePath",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "In case field is accessible in schema via sequences, this array represents the name of the sequences by their order\n"
+        },
+                {
+          "name": "hidden",
+          "type": "boolean",
+          "doc": " Whether the field is hidden from the site. Hidden field constraints (type, min/max length) are still active!\n"
+        },
+                {
+          "name": "displayOnly",
+          "type": "boolean",
+          "doc": " Whether the field is for display only and should not allowed to be translated\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_PreviewFields",
+      "displayName": "Preview Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "titleFieldId",
+          "type": "string",
+          "doc": "ID of field representing the schema's title.\n"
+        },
+                {
+          "name": "imageFieldId",
+          "type": "string",
+          "doc": "ID of field representing the schema's image.\n"
+        },
+                {
+          "name": "videoFieldId",
+          "type": "string",
+          "doc": "ID of field representing the schema's video.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaByKey",
+      "displayName": "Schema By Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": " Schema key.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaBody",
+          "doc": "Schema data.\n"
+        },
+                {
+          "name": "referencedSchemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": " Higher level schema, group_by_name will point to an entity of this schema.\n"
+        },
+                {
+          "name": "schemaName",
+          "type": "string",
+          "doc": " The name of the schema\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaById",
+      "displayName": "Schema By Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Schema ID.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaBody",
+          "doc": "Schema data.\n"
+        },
+                {
+          "name": "referencedSchemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": " Higher level schema, group_by_name will point to an entity of this schema.\n"
+        },
+                {
+          "name": "schemaName",
+          "type": "string",
+          "doc": " The name of the schema\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaFilter",
+      "displayName": "Schema Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "schemaIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Schema IDs.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID.\n"
+        },
+                {
+          "name": "entityType",
+          "type": "string",
+          "doc": "Entity types\n"
+        },
+                {
+          "name": "scope",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaScope",
+          "doc": "Search for schemas that are applicable to all sites or for this specific site.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Localization._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Localization._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_domainevents_EntityCreatedEvent",
+      "displayName": "Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityUpdatedEvent",
+      "displayName": "Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": " Since platformized APIs only expose PATCH and not PUT we can't assume that the fields sent from the client are the actual diff.\n This means that to generate a list of changed fields (as opposed to sent fields) one needs to traverse both objects.\n We don't want to impose this on all developers and so we leave this traversal to the notification recipients which need it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityDeletedEvent",
+      "displayName": "Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deletedEntityAsJson",
+        "type": "string",
+        "doc": " Entity that was deleted\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ActionEvent",
+      "displayName": "Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent",
+      "displayName": "Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique event ID.\n Allows clients to ignore duplicate webhooks.\n"
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": " Assumes actions are also always typed to an entity_type\n Example: wix.stores.catalog.product, wix.bookings.session, wix.payments.transaction\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " ID of the entity associated with the event.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Localization._wix_common_domainevents_DomainEvent_body",
+          "doc": ""
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": " Event timestamp.\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " Whether the event was triggered as a result of a privacy regulation application\n (for example, GDPR).\n"
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent_body",
+      "displayName": "body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Localization._wix_common_domainevents_EntityCreatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Localization._wix_common_domainevents_EntityUpdatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Localization._wix_common_domainevents_EntityDeletedEvent",
+          "doc": ""
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Localization._wix_common_domainevents_ActionEvent",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localization_CreateOrUpdateContentsByKeyRequest",
+      "displayName": "Create Or Update Contents By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language ID in IETF BCP 47 tag format.\n"
+        },
+                {
+          "name": "languageContents",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LanguageContentByKey"]
+          },
+          "doc": "List of content for creation/update.\n"
+        },
+                {
+          "name": "overrideData",
+          "type": "boolean",
+          "doc": "When true - uploaded language contents will replace existing language contents\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_UpdateContentsRequest",
+      "displayName": "Update Contents Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language ID in IETF BCP 47 tag format.\n"
+        },
+                {
+          "name": "languageContents",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LanguageContentById"]
+          },
+          "doc": "List of content in a given language for update.\n"
+        },
+                {
+          "name": "overrideData",
+          "type": "boolean",
+          "doc": "When true - uploaded language contents will replace existing language contents\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_CreateOrUpdateContentsResponse",
+      "displayName": "Create Or Update Contents Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "localizedContents",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContent"]
+        },
+        "doc": "List of all created/updated content.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ListContentsRequest",
+      "displayName": "List Contents Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentFilter",
+          "doc": "Filter object\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Localization._com_wixpress_localization_ListContentsRequest_OrderByField",
+          "doc": "Optional field to order results by.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveSiteLanguagesRequest",
+      "displayName": "Remove Site Languages Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "languagesToRemove",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": "Optional list of language tags. Will remove only the languages that are listed or empty to remove all languages\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveSiteLanguagesResponse",
+      "displayName": "Remove Site Languages Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentsByEntityTypeRequest",
+      "displayName": "Remove Contents By Entity Type Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " The app id of the entity you want to delete\n"
+        },
+                {
+          "name": "entityType",
+          "type": "string",
+          "doc": " The entity type of the entity you want to delete\n"
+        },
+                {
+          "name": "secret",
+          "type": "string",
+          "doc": " The secret of the entity you want to delete\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RepublishSchemaContentRequest",
+      "displayName": "Republish Schema Content Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "schemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": "Schema key of the content to republish.\n"
+        },
+                {
+          "name": "secret",
+          "type": "string",
+          "doc": "Secret of the content to republish.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RepublishSchemaContentResponse",
+      "displayName": "Republish Schema Content Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ListContentsResponse",
+      "displayName": "List Contents Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "localizedContents",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContent"]
+        },
+        "doc": " Content that meets request conditions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetContentHistoryRequest",
+      "displayName": "Get Content History Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentId",
+          "type": "string",
+          "doc": "Content ID.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetContentHistoryByKeyRequest",
+      "displayName": "Get Content History By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentKey",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentKey",
+          "doc": "Content key.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Localization._wix_common_Paging",
+          "doc": "Paging options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetContentHistoryResponse",
+      "displayName": "Get Content History Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contentHistory",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_RevisionLocalizedContent"]
+        },
+        "doc": "List of contents, representing all content's changes through its lifecycle\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentsRequest",
+      "displayName": "Remove Contents Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contentIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Content IDs to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentsByKeyRequest",
+      "displayName": "Remove Contents By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contentKeys",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentKey"]
+        },
+        "doc": " Content keys to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentsResponse",
+      "displayName": "Remove Contents Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentsByFilterRequest",
+      "displayName": "Remove Contents By Filter Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentFilter",
+        "doc": "Filter object\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentFieldsRequest",
+      "displayName": "Remove Content Fields Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentId",
+          "type": "string",
+          "doc": " Content IDs for fields removal\n"
+        },
+                {
+          "name": "languageTagsMask",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Language ID (in IETF BCP 47 tag format) for fields removal, remove from all languages if empty\n"
+        },
+                {
+          "name": "fieldsIdentifiers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_ContentFieldIdentifier"]
+          },
+          "doc": "Field unique identifier to remove\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentFieldsByKeyRequest",
+      "displayName": "Remove Content Fields By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentKey",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentKey",
+          "doc": "Content key for removal\n"
+        },
+                {
+          "name": "languageTagsMask",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Language ID (in IETF BCP 47 tag format) for fields removal, remove from all languages if empty\n"
+        },
+                {
+          "name": "fieldsIdentifiers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_ContentFieldIdentifier"]
+          },
+          "doc": "Field unique identifier to remove.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RemoveContentFieldsResponse",
+      "displayName": "Remove Content Fields Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "localizedContent",
+        "type": "All APIs.Localization._com_wixpress_localization_LocalizedContent",
+        "doc": "localized contents in its most recent state\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SetContentGroupsByKeyRequest",
+      "displayName": "Set Content Groups By Key Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contentGroup",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_ContentGroupByKey"]
+        },
+        "doc": "Selected content key identifiers for removal\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ContentGroupByKey",
+      "displayName": "Content Group By Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentKey",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentKey",
+          "doc": "Content unique key identifier\n"
+        },
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name. If not set - will delete group name if exists. Case insensitive\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SetContentGroupsRequest",
+      "displayName": "Set Content Groups Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contentGroup",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Localization._com_wixpress_localization_ContentGroupById"]
+        },
+        "doc": "Selected content key identifiers for removal\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ContentGroupById",
+      "displayName": "Content Group By Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentId",
+          "type": "string",
+          "doc": "Content uuid identifier\n"
+        },
+                {
+          "name": "group",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name. If not set - will delete group name if exists. Case insensitive\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SetContentGroupsResponse",
+      "displayName": "Set Content Groups Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetAppGroupNamesRequest",
+      "displayName": "Get App Group Names Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appId",
+        "type": "string",
+        "doc": "App def id of the app this schema belongs to\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_GetAppGroupNamesResponse",
+      "displayName": "Get App Group Names Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groups",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": "All distinct group names defined for this app's contents\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContent",
+      "displayName": "Localized Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "UUID identifier for content\n"
+        },
+                {
+          "name": "key",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentKey",
+          "doc": "Compound key identifier for content\n"
+        },
+                {
+          "name": "fieldsPerLanguage",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LanguageFields"]
+          },
+          "doc": "Localized fields for every language this entity has content\n"
+        },
+                {
+          "name": "groupByName",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RevisionLocalizedContent_Revision",
+      "displayName": "Revision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "version",
+          "type": "integer",
+          "doc": "Identify the localized content point in history. the revision is created during call to Localization.UpdateSiteLocalizedContent\n"
+        },
+                {
+          "name": "date",
+          "type": "string",
+          "doc": "Identify the localized content date in history. two revisions can have the same date.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_RevisionLocalizedContent",
+      "displayName": "Revision Localized Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "content",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContent",
+          "doc": "Content data\n"
+        },
+                {
+          "name": "revision",
+          "type": "All APIs.Localization._com_wixpress_localization_RevisionLocalizedContent_Revision",
+          "doc": "Revision data\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentKey",
+      "displayName": "Localized Content Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "schemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": "Schema unique key identifier\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Unique identifier that represents a specific entity in the app\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LanguageFields",
+      "displayName": "Language Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language identifier in IETF BCP 47 tag format.\n"
+        },
+                {
+          "name": "languageFields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentField"]
+          },
+          "doc": "List of fields localized in the given language\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentField",
+      "displayName": "Localized Content Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Field unique identifier. This id must have a matching schema field id\n"
+        },
+                {
+          "name": "value",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentField_value",
+          "doc": ""
+        },
+                {
+          "name": "updatedBy",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentField_UpdaterIdentity",
+          "doc": "Describes the updater identity (site owner / app / auto translator)\n"
+        },
+                {
+          "name": "updaterId",
+          "type": "string",
+          "doc": "Owner of the last change on this field\n"
+        },
+                {
+          "name": "published",
+          "type": "boolean",
+          "doc": "Is content published to live site or not\n"
+        },
+                {
+          "name": "status",
+          "type": "string",
+          "doc": "Status of the field in the workflow (e.g. pending, reviewed, approved). Value is free text - defined by the client and only stored here.\n"
+        },
+                {
+          "name": "sequencePath",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_FieldSequence"]
+          },
+          "doc": "In case field is reachable via sequence/s, this array represents all the sequences names in the path, and their corresponding item id\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentField_value",
+      "displayName": "value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "textValue",
+          "type": "string",
+          "doc": "Field actual localized content as simple text type\n"
+        },
+                {
+          "name": "wixRichContentEditorValue",
+          "type": "string",
+          "doc": "Field actual localized content as rich content editor type\n"
+        },
+                {
+          "name": "mediaValue",
+          "type": "All APIs.Localization._com_wixpress_localization_MediaItem",
+          "doc": "Field actual localized content as media type (image, video or document)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localization_FieldSequence",
+      "displayName": "Field Sequence Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "seqName",
+          "type": "string",
+          "doc": "Name of sequence\n"
+        },
+                {
+          "name": "itemId",
+          "type": "string",
+          "doc": "Id of relevant item in the sequence\n"
+        },
+                {
+          "name": "priorityIndex",
+          "type": "number",
+          "doc": "Optional field - in case set sequences will be ordered by priority index (best effort)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ContentFieldIdentifier",
+      "displayName": "Content Field Identifier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "This id must have a matching schema field id\n"
+        },
+                {
+          "name": "sequencePath",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_FieldSequence"]
+          },
+          "doc": "In case field is reachable via sequence/s, this array represents all the sequences names in the path, and their corresponding item id\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LanguageContentByKey",
+      "displayName": "Language Content By Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentKey",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentKey",
+          "doc": "Content unique key identifier\n"
+        },
+                {
+          "name": "languageFields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentField"]
+          },
+          "doc": "List of localized fields\n"
+        },
+                {
+          "name": "groupByName",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LanguageContentById",
+      "displayName": "Language Content By Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentId",
+          "type": "string",
+          "doc": "Content uuid identifier\n"
+        },
+                {
+          "name": "languageFields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentField"]
+          },
+          "doc": "List of localized fields\n"
+        },
+                {
+          "name": "groupByName",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentFilter_FilterSchemaScope",
+      "displayName": "Filter Schema Scope Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "scope",
+        "type": "All APIs.Localization._com_wixpress_localization_SchemaScope",
+        "doc": " The scope type of the schema\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentFilter",
+      "displayName": "Localized Content Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contentIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Optional list of content ids\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": "App def id\n"
+        },
+                {
+          "name": "entityType",
+          "type": "string",
+          "doc": "Type of the connected source entity to the localized content. Using this filter without specifying also app id filter might result in slow queries\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Id of the connected source entity to the localized content. Using this filter without specifying also entity type filter might result in slow queries\n"
+        },
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "IETF BCP 47 language tag filter. Show only contents having at least one field localized to this language. Using this filter without specifying also entity id filter might result in slow queries\n"
+        },
+                {
+          "name": "languageMask",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Optional list of language tags. Will return partial contents containing only fields that are localized in languages from given list or empty contents if there are no such fields\n"
+        },
+                {
+          "name": "groupName",
+          "type": "string",
+          "doc": "This field is deprecated. Use group_names instead\n"
+        },
+                {
+          "name": "groupNames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Fetch only contents with given group name\n"
+        },
+                {
+          "name": "scope",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentFilter_FilterSchemaScope",
+          "doc": "Optional filter to fetch only contents that are in a specific scope\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_MediaItem",
+      "displayName": "Media Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "media",
+        "type": "All APIs.Localization._com_wixpress_localization_MediaItem_media",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_MediaItem_media",
+      "displayName": "media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "image",
+          "type": "All APIs.Localization._wix_common_Image",
+          "doc": " Image media item\n"
+        },
+                {
+          "name": "video",
+          "type": "All APIs.Localization._wix_common_VideoV2",
+          "doc": " Video media item\n"
+        },
+                {
+          "name": "document",
+          "type": "All APIs.Localization._wix_common_Document",
+          "doc": " Document media item\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_CreateOrUpdateAction",
+      "displayName": "Create Or Update Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "localizedLanguageContent",
+        "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizedLanguageContent",
+        "doc": "The new Localized published state\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_DeleteAction",
+      "displayName": "Delete Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "localizationRecordId",
+          "type": "string",
+          "doc": "UUID identifier for the original content\n"
+        },
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language identifier in IETF BCP 47 tag format.\n"
+        },
+                {
+          "name": "key",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizedLanguageContentKey",
+          "doc": "Compound key identifier for content\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction",
+      "displayName": "Localization Content Changed Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "action",
+        "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_action",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_action",
+      "displayName": "action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createOrUpdateAction",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_CreateOrUpdateAction",
+          "doc": "Content has changes in its fields\n"
+        },
+                {
+          "name": "deleteAction",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction_DeleteAction",
+          "doc": "Content deleted\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizedLanguageContent",
+      "displayName": "Localized Language Content Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "localizationRecordId",
+          "type": "string",
+          "doc": "UUID identifier for the original content\n"
+        },
+                {
+          "name": "key",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizedLanguageContentKey",
+          "doc": "Compound key identifier for content\n"
+        },
+                {
+          "name": "fields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Localization._com_wixpress_localization_LocalizedContentField"]
+          },
+          "doc": "Localized fields this entity has content\n"
+        },
+                {
+          "name": "groupByName",
+          "type": "string",
+          "doc": "Optional field that will group in the UI contents with the same group name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged_LocalizedLanguageContentKey",
+      "displayName": "Localized Language Content Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "languageTag",
+          "type": "string",
+          "doc": "Language identifier in IETF BCP 47 tag format.\n"
+        },
+                {
+          "name": "schemaKey",
+          "type": "All APIs.Localization._com_wixpress_localization_SchemaKey",
+          "doc": "Schema unique key identifier\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Unique identifier that represents a specific entity in the app\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentChanged",
+      "displayName": "Localized Content Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "action",
+          "type": "All APIs.Localization._com_wixpress_localization_LocalizedContentChanged_LocalizationContentChangedAction",
+          "doc": "The action that changed the content\n"
+        },
+                {
+          "name": "flowToken",
+          "type": "string",
+          "doc": "token to identify the flow this event is part of and the total number of event in this flow.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset_State",
+      "displayName": "State Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ENABLED <\/code><\/li><li><code> DISABLED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> DEMO <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ENABLED",
+        "DISABLED",
+        "PENDING",
+        "DEMO"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+      "displayName": "Delete Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TRASH <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> PENDING_PURGE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "TRASH",
+        "DELETED",
+        "PENDING_PURGE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSite_Namespace",
+      "displayName": "Namespace Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li><li><code> HEADLESS - *\nNamespace for Headless Backoffice with no editor\n <\/code><\/li><li><code> ACCOUNT_MASTER_CMS - *\nNamespace for master site that will exist in parent account that will be referenced by subaccounts\nThe site will be used for account level CSM feature for enterprise\n <\/code><\/li><li><code> RISE - *\nRise.ai Siteless account management for Gift Cards and Store Credit.\n <\/code><\/li><li><code> BRANDED_FIRST - *\nAs part of the branded app new funnel, users now can create a meta site that will be branded app first.\nThere's a blank site behind the scene but it's blank).\nThe Mobile company will be the owner of this namespace.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_NAMESPACE",
+        "WIX",
+        "SHOUT_OUT",
+        "ALBUMS",
+        "WIX_STORES_TEST_DRIVE",
+        "HOTELS",
+        "CLUBS",
+        "ONBOARDING_DRAFT",
+        "DEV_SITE",
+        "LOGOS",
+        "VIDEO_MAKER",
+        "PARTNER_DASHBOARD",
+        "DEV_CENTER_COMPANY",
+        "HTML_DRAFT",
+        "SITELESS_BUSINESS",
+        "CREATOR_ECONOMY",
+        "DASHBOARD_FIRST",
+        "ANYWHERE",
+        "HEADLESS",
+        "ACCOUNT_MASTER_CMS",
+        "RISE",
+        "BRANDED_FIRST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreatedContext",
+      "displayName": "Site Created Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> OTHER -  A valid option, we don't expose all reasons why site might be created.\n <\/code><\/li><li><code> FROM_TEMPLATE -  A meta site was created from template.\n <\/code><\/li><li><code> DUPLICATE_BY_SITE_TRANSFER -  A meta site was created by copying of the transfferred meta site.\n <\/code><\/li><li><code> DUPLICATE -  A copy of existing meta site.\n <\/code><\/li><li><code> OLD_SITE_TRANSFER -  A meta site was created as a transfferred site (copy of the original), old flow, should die soon.\n <\/code><\/li><li><code> FLASH - deprecated A meta site was created for Flash editor.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "OTHER",
+        "FROM_TEMPLATE",
+        "DUPLICATE_BY_SITE_TRANSFER",
+        "DUPLICATE",
+        "OLD_SITE_TRANSFER",
+        "FLASH"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_TranslationStrategy",
+      "displayName": "Translation Strategy Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> STANDARD -  Standard translation strategy\n <\/code><\/li><li><code> COMPOUND -  Compound entity translation strategy\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "STANDARD",
+        "COMPOUND"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaScope",
+      "displayName": "Schema Scope Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> GLOBAL - Global schema, relevant to all sites\n <\/code><\/li><li><code> SITE - Site schema, relevant to specific site only\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "GLOBAL",
+        "SITE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_SchemaField_FieldType",
+      "displayName": "Field Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_TYPE -  Undefined field type\n <\/code><\/li><li><code> SHORT_TEXT -  Short text TEXT\n <\/code><\/li><li><code> LONG_TEXT -  Long Plain Text TEXT\n <\/code><\/li><li><code> RICH_TEXT -  Long text including styles, images, links and more... HTML\n <\/code><\/li><li><code> RICH_CONTENT_EDITOR -  Wix Rich-Content-Editor format RICO\n <\/code><\/li><li><code> SELECTION -  Choose one from many options CSV TEXT\n <\/code><\/li><li><code> MULTI_SELECTION -  Choose multi items from many options\n <\/code><\/li><li><code> DOCUMENT -  Wix document media item\n <\/code><\/li><li><code> IMAGE -  Wix Image media item\n <\/code><\/li><li><code> VIDEO -  Wix Video media item\n <\/code><\/li><li><code> IMAGE_LINK -  Image URL without metadata\n <\/code><\/li><li><code> XML -  contain an XML representation of an entity or part of it\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED_TYPE",
+        "SHORT_TEXT",
+        "LONG_TEXT",
+        "RICH_TEXT",
+        "RICH_CONTENT_EDITOR",
+        "SELECTION",
+        "MULTI_SELECTION",
+        "DOCUMENT",
+        "IMAGE",
+        "VIDEO",
+        "IMAGE_LINK",
+        "XML"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_ListContentsRequest_OrderByField",
+      "displayName": "Order By Field Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_FIELD <\/code><\/li><li><code> ENTITY_ID <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_FIELD",
+        "ENTITY_ID"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_localization_LocalizedContentField_UpdaterIdentity",
+      "displayName": "Updater Identity Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SITE_OWNER - Site Owner identity\n <\/code><\/li><li><code> EXTERNAL - External hired human translator\n <\/code><\/li><li><code> MACHINE - Machine translation like Google Translate\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SITE_OWNER",
+        "EXTERNAL",
+        "MACHINE"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.localization.localization"}
+}
