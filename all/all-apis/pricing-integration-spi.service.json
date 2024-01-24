@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Pricing Provider",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -54,7 +54,7 @@
     },
     "locations": [],
     "docs":     {
-      "summary": "\nThis endpoint retrieves the price of a booking as calculated with the custom logic implemented in your app.\n\n\nWix calls this endpoint during the checkout process after a customer books a service on the \nmerchant's Wix site. The endpoint expects that a `booking` object exists. \n\nYou must return either a `calculatedPrice` object or a `priceDescription` object. \n+ Return a `calculatedPrice` object if you want the price to be used for further calculations, such as local tax rates. \n+ Return a `priceDescription` if you want to display a manual text override.\n\n## Returning a calculated price\n\nWhen returning a `calculatedPrice`, you must format your response \nlike this:\n\n```json\n{\n\"calculatedPrice\": 16.0,\n\"deposit\": 5.0\n}\n```\n\nProviding a `deposit` is optional. In no `deposit` is entered, the `deposit` property is treated as `0` on the Wix site. \n\nIf you return a `deposit` that's greater \nthan the `calculatedPrice`, Wix ignores the deposit's value. Instead, the \ncustomer must pay the total `calculatedPrice` in full and upfront, as if it were a deposit.\n\n\n## Returning a price description\n\nWhen returning a `priceDescription`, you must format your response \nlike this:\n\n```json\n{\n\"priceDescription\": \"50.00 BRL\"\n}\n```\n\n<blockquote class=\"important\">\n\n__Important:__\nYou can't try out this endpoint because it has to be implemented by an app \nand can have an arbitrary URL. Ignore the __Authorization__ and __POST__ \nsections below as well as the __Try It Out__ button.\n\n<\/blockquote>\n \n",
+      "summary": "\nThe Custom Pricing extension lets site owners add custom pricing\nto bookings on the site. The custom pricing is calculated and used as the\nbasis for the price when checking out the booking, overriding the standard\nBookings pricing logic.\n\nParameter: An `Options` object, which contains the booking.\nResponse: An object that contains the `calculatedPrice`:\n```json\n{\n\"calculatedPrice\": 100\n}\n```\n \n",
       "description": [],
       "request": "POST",
       "url": "https://www.wixapis.com/pricing/v1/calculate-price",
@@ -452,7 +452,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+          "doc": " Business location ID. Available only for locations that are business locations,\n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
         },
                 {
           "name": "name",
@@ -467,7 +467,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.Pricing Integration SPI._com_wixpress_bookings_availability_LocationType",
-          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+          "doc": " Location type.\n\n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
         }
       ],
       "enum": null,
@@ -565,7 +565,7 @@
       "displayName": "namespaces Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n",
+        "summary": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n",
         "links": [],
         "examples": []
       },
@@ -590,7 +590,7 @@
       "members": [      {
         "name": "namespaces",
         "type": "All APIs.Pricing Integration SPI.namespacesMapEntry",
-        "doc": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n"
+        "doc": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n"
       }],
       "enum": null,
       "extra": {},
@@ -625,6 +625,32 @@
           "name": "withRefund",
           "type": "boolean",
           "doc": " When true, refunds the booking's payment when the booking is canceled.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo",
+      "displayName": "Multi Service Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Multi service booking ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Pricing Integration SPI._com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+          "doc": " Multi service booking type.\n"
         }
       ],
       "enum": null,
@@ -673,7 +699,7 @@
                 {
           "name": "paymentStatus",
           "type": "All APIs.Pricing Integration SPI._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
-          "doc": " Payment status.\n One of:\n - `\"NOT_PAID\"` The booking is not paid for.\n - `\"PAID\"` The booking is fully paid.\n - `\"PARTIALLY_PAID\"` The booking is partially paid.\n - `\"REFUNDED\"` The booking is refunded.\n",
+          "doc": " Payment status.\n One of:\n - `\"NOT_PAID\"` The booking is not paid for.\n - `\"PAID\"` The booking is fully paid.\n - `\"PARTIALLY_PAID\"` The booking is partially paid.\n - `\"REFUNDED\"` The booking is refunded.\n - `\"EXEMPT\"` The booking is free of charge.\n",
           "readOnly": true
         },
                 {
@@ -724,7 +750,7 @@
                 {
           "name": "extendedFields",
           "type": "All APIs.Pricing Integration SPI._wix_common_data_dataextensions_ExtendedFields",
-          "doc": "Additional custom fields. This includes fields managed by Wix, by 3rd-party apps, and by the site.\n\nEmpty fields are not returned.\n"
+          "doc": "Custom field data for this object. Extended fields must be configured in the Wix Dev Center before they can be accessed with API calls.\n"
         },
                 {
           "name": "doubleBooked",
@@ -807,7 +833,8 @@
                 {
           "name": "title",
           "type": "string",
-          "doc": " Session title at the time of booking.\n"
+          "doc": " Session title at the time of booking.\n If session doesn't exist at the time of the booking, service name is used.\n",
+          "readOnly": true
         },
                 {
           "name": "tags",
@@ -874,6 +901,11 @@
           "doc": " Schedule ID. Required.\n"
         },
                 {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Calendar 3 event ID\n If not empty, on all write flows (create / update) gets priority over session_id.\n so if both session_id and event_id are provided, the session_id that will be set on the booking will be based on the event_id.\n Otherwise, if event_id is empty on write flow,\n"
+        },
+                {
           "name": "startDate",
           "type": "string",
           "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format.\n"
@@ -891,7 +923,7 @@
                 {
           "name": "resource",
           "type": "All APIs.Pricing Integration SPI._com_wixpress_bookings_bookings_v2_BookedResource",
-          "doc": " The resource assigned to the slot.\n"
+          "doc": " The enriched resource assigned to the slot, can be either the requested resource or the resource chosen by the system.\n When populated, the given resource will be booked according to it's availability.\n When empty, If `skip_availability_validation` is `false`, a random available resource will be assigned to the slot upon confirmation,\n otherwise one of the service resources will be assigned to the slot randomly upon confirmation.\n"
         },
                 {
           "name": "location",
@@ -980,6 +1012,11 @@
           "name": "scheduleId",
           "type": "string",
           "doc": " Resource's schedule ID.\n"
+        },
+                {
+          "name": "explicitlyRequested",
+          "type": "boolean",
+          "doc": " Indicates whether the resource was specifically requested or should be auto selected by the Server.\n The value will be true if the resource was explicitly given in the request, otherwise false.\n"
         }
       ],
       "enum": null,
@@ -1243,6 +1280,24 @@
         "ONLINE",
         "MEMBERSHIP",
         "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+      "displayName": "Multi Service Booking Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SEQUENTIAL_BOOKINGS -  Multi service booking will be considered available if its bookings are\n available as returned from ListMultiServiceAvailabilityTimeSlots API.\n See [List Multi Service Availability Time Slots] (url) documentation // todo: complete url\n <\/code><\/li><li><code> SEPARATE_BOOKINGS -  Multi service booking will be considered available if each of its bookings is available separately.\n Not supported yet\n <\/code><\/li><li><code> PARALLEL_BOOKINGS -  Not supported yet\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SEQUENTIAL_BOOKINGS",
+        "SEPARATE_BOOKINGS",
+        "PARALLEL_BOOKINGS"
       ],
       "extra": {},
       "labels": []
