@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Confirmation",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -24,82 +24,204 @@
       "name": "Introduction"
     }
   ],
-  "operations": [  {
-    "name": "Confirm Or Decline Booking",
-    "methodName": "ConfirmOrDeclineBooking",
-    "serviceName": "Confirmator",
-    "tag": "Confirmation",
-    "permissions": [    {
-      "name": "Manage Bookings",
-      "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
-    }],
-    "events": [],
-    "labels": [],
-    "nameParams": [],
-    "requiredFields": ["bookingId"],
-    "params":     [
-            {
-        "in": "PATH",
-        "name": "bookingId",
-        "type": "string",
-        "doc": " ID of the booking to confirm or decline.\n",
-        "required": true
-      },
-            {
-        "in": "BODY",
-        "name": "paymentStatus",
-        "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
-        "doc": " Current payment status of the booking.\n",
-        "required": false
-      }
-    ],
-    "ret":     {
-      "type":       {
-        "name": "ConfirmOrDeclineBooking",
-        "statusCode": "200",
-        "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_ConfirmOrDeclineBookingResponse"]
-      },
-      "doc": ""
-    },
-    "locations": [],
-    "docs":     {
-      "summary": " Use `Confirm Or Decline Booking` to determine if the booking is valid, payment is received, and the booking can be processed.  \nCall `Confirm Or Decline Booking` after checkout or after calling `Create Booking` to verify the booking.\n\n+ If a session is valid and payment is received, the booking is visible on the calendar.    \n+ If a session is double booked, `Confirm Or Decline Booking` can catch this and decline the duplicate booking, the booking is not visible on the calendar.\n\n\n \n",
-      "description": [],
-      "request": "POST",
-      "url": "https://www.wixapis.com/bookings/v2/confirmation/{bookingId}:confirmOrDecline",
-      "links": [],
-      "examples":       [
+  "operations":   [
+        {
+      "name": "Bulk Confirm Or Decline Booking",
+      "methodName": "BulkConfirmOrDeclineBooking",
+      "serviceName": "Confirmator",
+      "tag": "Confirmation",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "details",
+        "details.bookingId"
+      ],
+      "params":       [
                 {
-          "title": "Try to confirm a paid booking",
-          "body": ["curl -X POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"PAID\"\n}'"],
-          "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"9 S. Steep River Palace, Paris, NY 12140 \",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"additionalFields\": [],\n  \"numberOfParticipants\": 1,\n  \"status\": \"CONFIRMED\",\n  \"paymentStatus\": \"PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"11\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:30:41.637Z\",\n  \"totalParticipants\": 1\n}} "],
-          "type": "curl",
-          "extra": {"description": "Booking is confirmed as the value of `status` is confirmed"}
+          "in": "BODY",
+          "name": "details",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingRequest_BookingDetails"]
+          },
+          "doc": " The bookings to confirm or decline.\n",
+          "required": true
         },
                 {
-          "title": "Try to confirm an unpaid, double booking",
-          "body": ["curl -x POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"NOT_PAID\"\n}'"],
-          "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"4 Baker Drive Guaruja, NY 12175\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"numberOfParticipants\": 1,\n  \"status\": \"DECLINED\",\n  \"paymentStatus\": \"NOT_PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"10\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:23:11.794Z\",\n  \"totalParticipants\": 1\n}} "],
-          "type": "curl",
-          "extra": {"description": "Confirming this booking would result in a double booking and there is no payment, so the booking the `status` is declined."}
-        },
-                {
-          "title": "Try to confirm an already-confirmed booking",
-          "body": ["curl -x POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"PAID\"\n}'"],
-          "response": ["{\n  \"message\": \"Booking.status is already set to CONFIRMED\",\n  \"details\": {\"applicationError\":   {\n    \"code\": \"BOOKING_STATUS_ALREADY_SET\",\n    \"description\": \"Booking.status is already set to CONFIRMED\",\n    \"data\": {\"currentBookingStatus\": \"CONFIRMED\"}\n  }}\n} "],
-          "type": "curl",
-          "extra": {}
+          "in": "BODY",
+          "name": "returnEntity",
+          "type": "boolean",
+          "doc": " Whether to return the confirmed or declined bookings entities.\n Not supported yet, currently the entity is not returned.\n",
+          "required": false
         }
       ],
-      "extra": {}
+      "ret":       {
+        "type":         {
+          "name": "BulkConfirmOrDeclineBooking",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nConfirm or decline multiple bookings.\nSee [Confirm Or Decline Booking] (https://dev.wix.com/api/rest/wix-bookings/confirmation/confirm-or-decline-booking) documentation.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bulk/bookings/confirmOrDecline",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkConfirmOrDeclineBookingRequest",
+        "rpcResponseName": "BulkConfirmOrDeclineBookingResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    "extra":     {
-      "hasRest": true,
-      "rpcRequestName": "ConfirmOrDeclineBookingRequest",
-      "rpcResponseName": "ConfirmOrDeclineBookingResponse"
+        {
+      "name": "Bulk Confirm Or Decline Booking (Additional Binding 1)",
+      "methodName": "BulkConfirmOrDeclineBooking",
+      "serviceName": "Confirmator",
+      "tag": "Confirmation",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "details",
+        "details.bookingId"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "details",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingRequest_BookingDetails"]
+          },
+          "doc": " The bookings to confirm or decline.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnEntity",
+          "type": "boolean",
+          "doc": " Whether to return the confirmed or declined bookings entities.\n Not supported yet, currently the entity is not returned.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkConfirmOrDeclineBooking",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nConfirm or decline multiple bookings.\nSee [Confirm Or Decline Booking] (https://dev.wix.com/api/rest/wix-bookings/confirmation/confirm-or-decline-booking) documentation.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bulk/confirmation/confirmOrDecline",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkConfirmOrDeclineBookingRequest",
+        "rpcResponseName": "BulkConfirmOrDeclineBookingResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    "customLabels": [{"id": "maturity-beta"}]
-  }],
+        {
+      "name": "Confirm Or Decline Booking",
+      "methodName": "ConfirmOrDeclineBooking",
+      "serviceName": "Confirmator",
+      "tag": "Confirmation",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["bookingId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "bookingId",
+          "type": "string",
+          "doc": " ID of the booking to confirm or decline.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "paymentStatus",
+          "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": " Current payment status of the booking.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ConfirmOrDeclineBooking",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_ConfirmOrDeclineBookingResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Use `Confirm Or Decline Booking` to determine if the booking is valid, payment is received, and the booking can be processed.\nCall `Confirm Or Decline Booking` after checkout or after calling `Create Booking` to verify the booking.\n\n+ If a session is valid and payment is received, the booking is visible on the calendar.\n+ If a session is double booked, `Confirm Or Decline Booking` can catch this and decline the duplicate booking, the booking is not visible on the calendar.\n\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/confirmation/{bookingId}:confirmOrDecline",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Try to confirm a paid booking",
+            "body": ["curl -X POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"PAID\"\n}'"],
+            "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"9 S. Steep River Palace, Paris, NY 12140 \",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"additionalFields\": [],\n  \"numberOfParticipants\": 1,\n  \"status\": \"CONFIRMED\",\n  \"paymentStatus\": \"PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"11\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:30:41.637Z\",\n  \"totalParticipants\": 1\n}} "],
+            "type": "curl",
+            "extra": {"description": "Booking is confirmed as the value of `status` is confirmed"}
+          },
+                    {
+            "title": "Try to confirm an unpaid, double booking",
+            "body": ["curl -x POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"NOT_PAID\"\n}'"],
+            "response": ["{\"booking\": {\n  \"id\": \"27928b4c-58d1-48e3-b031-1d048583491c\",\n  \"bookedEntity\":   {\n    \"slot\":     {\n      \"sessionId\": \"2mmoW0vwKcSFyxtOfCdKfMlsSg82Qzh3JOZM35Rn6AVnOSYNDpd3bhXFsZvs6t8L9InqfJ9IXYMgrXoMCuklr91zl019eigftfwr\",\n      \"serviceId\": \"adecb61d-a25b-4274-86b5-427999176b23\",\n      \"scheduleId\": \"4523c4c1-7c0a-412b-9aae-aeea56104516\",\n      \"startDate\": \"2023-02-14T11:10:00.000Z\",\n      \"endDate\": \"2023-02-14T11:45:00.000Z\",\n      \"timezone\": \"Europe/Dublin\",\n      \"resource\":       {\n        \"id\": \"442abbe0-8421-46d0-981b-2c5e4ff5ab89\",\n        \"name\": \"Jane Doh\",\n        \"email\": \"staff@example.com\",\n        \"scheduleId\": \"c7b6a95d-7ce5-449c-9d3d-38ff61864392\"\n      },\n      \"location\":       {\n        \"id\": \"156a0a97-4193-4267-a2fd-43796cbe368a\",\n        \"name\": \"Main Office\",\n        \"formattedAddress\": \"4 Baker Drive Guaruja, NY 12175\",\n        \"locationType\": \"OWNER_BUSINESS\"\n      }\n    },\n    \"title\": \"Brow Thread\",\n    \"tags\": [\"INDIVIDUAL\"]\n  },\n  \"contactDetails\":   {\n    \"firstName\": \"John\",\n    \"email\": \"John@example.com\"\n  },\n  \"numberOfParticipants\": 1,\n  \"status\": \"DECLINED\",\n  \"paymentStatus\": \"NOT_PAID\",\n  \"selectedPaymentOption\": \"OFFLINE\",\n  \"createdDate\": \"2023-02-14T06:55:00.110Z\",\n  \"participantNotification\": {\"notifyParticipants\": true},\n  \"revision\": \"10\",\n  \"createdBy\": {\"anonymousVisitorId\": \"3f4a97c5-a499-42c7-bd15-b2d561fe4616\"},\n  \"startDate\": \"2023-02-14T11:10:00Z\",\n  \"endDate\": \"2023-02-14T11:45:00Z\",\n  \"flowControlSettings\":   {\n    \"skipAvailabilityValidation\": false,\n    \"skipBusinessConfirmation\": false\n  },\n  \"updatedDate\": \"2023-02-15T07:23:11.794Z\",\n  \"totalParticipants\": 1\n}} "],
+            "type": "curl",
+            "extra": {"description": "Confirming this booking would result in a double booking and there is no payment, so the booking the `status` is declined."}
+          },
+                    {
+            "title": "Try to confirm an already-confirmed booking",
+            "body": ["curl -x POST \\\n'www.wixapis.com/bookings/v2/confirmation/27928b4c-58d1-48e3-b031-1d048583491c:confirmOrDecline' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n    \"paymentStatus\": \"PAID\"\n}'"],
+            "response": ["{\n  \"message\": \"Booking.status is already set to CONFIRMED\",\n  \"details\": {\"applicationError\":   {\n    \"code\": \"BOOKING_STATUS_ALREADY_SET\",\n    \"description\": \"Booking.status is already set to CONFIRMED\",\n    \"data\": {\"currentBookingStatus\": \"CONFIRMED\"}\n  }}\n} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ConfirmOrDeclineBookingRequest",
+        "rpcResponseName": "ConfirmOrDeclineBookingResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
   "events": [],
   "callbacks": [],
   "messages":   [
@@ -468,7 +590,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+          "doc": " Business location ID. Available only for locations that are business locations,\n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
         },
                 {
           "name": "name",
@@ -483,7 +605,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.Confirmation._com_wixpress_bookings_availability_LocationType",
-          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+          "doc": " Location type.\n\n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
         }
       ],
       "enum": null,
@@ -581,7 +703,7 @@
       "displayName": "namespaces Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n",
+        "summary": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n",
         "links": [],
         "examples": []
       },
@@ -606,7 +728,7 @@
       "members": [      {
         "name": "namespaces",
         "type": "All APIs.Confirmation.namespacesMapEntry",
-        "doc": "Set of key-value pairs.  Data Extensions extended fields\nKey: Namespace\nValue: extended fields data in Struct format\n"
+        "doc": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n"
       }],
       "enum": null,
       "extra": {},
@@ -641,6 +763,32 @@
           "name": "withRefund",
           "type": "boolean",
           "doc": " When true, refunds the booking's payment when the booking is canceled.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo",
+      "displayName": "Multi Service Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Multi service booking ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+          "doc": " Multi service booking type.\n"
         }
       ],
       "enum": null,
@@ -689,7 +837,7 @@
                 {
           "name": "paymentStatus",
           "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
-          "doc": " Payment status.\n One of:\n - `\"NOT_PAID\"` The booking is not paid for.\n - `\"PAID\"` The booking is fully paid.\n - `\"PARTIALLY_PAID\"` The booking is partially paid.\n - `\"REFUNDED\"` The booking is refunded.\n",
+          "doc": " Payment status.\n One of:\n - `\"NOT_PAID\"` The booking is not paid for.\n - `\"PAID\"` The booking is fully paid.\n - `\"PARTIALLY_PAID\"` The booking is partially paid.\n - `\"REFUNDED\"` The booking is refunded.\n - `\"EXEMPT\"` The booking is free of charge.\n",
           "readOnly": true
         },
                 {
@@ -740,7 +888,7 @@
                 {
           "name": "extendedFields",
           "type": "All APIs.Confirmation._wix_common_data_dataextensions_ExtendedFields",
-          "doc": "Additional custom fields. This includes fields managed by Wix, by 3rd-party apps, and by the site.\n\nEmpty fields are not returned.\n"
+          "doc": "Custom field data for this object. Extended fields must be configured in the Wix Dev Center before they can be accessed with API calls.\n"
         },
                 {
           "name": "doubleBooked",
@@ -823,7 +971,8 @@
                 {
           "name": "title",
           "type": "string",
-          "doc": " Session title at the time of booking.\n"
+          "doc": " Session title at the time of booking.\n If session doesn't exist at the time of the booking, service name is used.\n",
+          "readOnly": true
         },
                 {
           "name": "tags",
@@ -890,14 +1039,19 @@
           "doc": " Schedule ID. Required.\n"
         },
                 {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Calendar 3 event ID\n If not empty, on all write flows (create / update) gets priority over session_id.\n so if both session_id and event_id are provided, the session_id that will be set on the booking will be based on the event_id.\n Otherwise, if event_id is empty on write flow,\n"
+        },
+                {
           "name": "startDate",
           "type": "string",
-          "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n"
+          "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format.\n"
         },
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " The end time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format. Required.\n"
+          "doc": " The end time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format.\n"
         },
                 {
           "name": "timezone",
@@ -907,7 +1061,7 @@
                 {
           "name": "resource",
           "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_BookedResource",
-          "doc": " The resource assigned to the slot.\n"
+          "doc": " The enriched resource assigned to the slot, can be either the requested resource or the resource chosen by the system.\n When populated, the given resource will be booked according to it's availability.\n When empty, If `skip_availability_validation` is `false`, a random available resource will be assigned to the slot upon confirmation,\n otherwise one of the service resources will be assigned to the slot randomly upon confirmation.\n"
         },
                 {
           "name": "location",
@@ -996,6 +1150,11 @@
           "name": "scheduleId",
           "type": "string",
           "doc": " Resource's schedule ID.\n"
+        },
+                {
+          "name": "explicitlyRequested",
+          "type": "boolean",
+          "doc": " Indicates whether the resource was specifically requested or should be auto selected by the Server.\n The value will be true if the resource was explicitly given in the request, otherwise false.\n"
         }
       ],
       "enum": null,
@@ -1024,6 +1183,126 @@
             "typeParams": ["All APIs.Confirmation._com_wix_bookings_upstream_wix_bookings_catalog_v1_ServiceChoice"]
           },
           "doc": "\nService choices for these participants.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Confirmation._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BulkBookingResult",
+      "displayName": "Bulk Booking Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Confirmation._wix_common_ItemMetadata",
+          "doc": ""
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -1069,6 +1348,87 @@
         "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking",
         "doc": ""
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingRequest_BookingDetails",
+      "displayName": "Booking Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " ID of the booking to confirm or decline.\n"
+        },
+                {
+          "name": "paymentStatus",
+          "type": "All APIs.Confirmation._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": " Current payment status of the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingRequest",
+      "displayName": "Bulk Confirm Or Decline Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "details",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingRequest_BookingDetails"]
+          },
+          "doc": " The bookings to confirm or decline.\n"
+        },
+                {
+          "name": "returnEntity",
+          "type": "boolean",
+          "doc": " Whether to return the confirmed or declined bookings entities.\n Not supported yet, currently the entity is not returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_confirmator_v2_BulkConfirmOrDeclineBookingResponse",
+      "displayName": "Bulk Confirm Or Decline Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Confirmation._com_wixpress_bookings_bookings_v2_BulkBookingResult"]
+          },
+          "doc": " The bulk confirm or decline results.\n For each booking, the results contain the metadata of the confirm or decline action.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Confirmation._wix_common_BulkActionMetadata",
+          "doc": " Total successes and failures of the bulk confirm or decline action.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1182,6 +1542,24 @@
         "ONLINE",
         "MEMBERSHIP",
         "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+      "displayName": "Multi Service Booking Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SEQUENTIAL_BOOKINGS -  Multi service booking will be considered available if its bookings are\n available as returned from ListMultiServiceAvailabilityTimeSlots API.\n See [List Multi Service Availability Time Slots] (url) documentation // todo: complete url\n <\/code><\/li><li><code> SEPARATE_BOOKINGS -  Multi service booking will be considered available if each of its bookings is available separately.\n Not supported yet\n <\/code><\/li><li><code> PARALLEL_BOOKINGS -  Not supported yet\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SEQUENTIAL_BOOKINGS",
+        "SEPARATE_BOOKINGS",
+        "PARALLEL_BOOKINGS"
       ],
       "extra": {},
       "labels": []
