@@ -19,7 +19,7 @@ The price of the booking can be fixed, free, or varied. With [varied pricing](ht
 For a comprehensive glossary of Wix Bookings terms, see [Terminology](https://dev.wix.com/api/rest/wix-bookings/terminology).
 
 
-## Before You Begin
+## Before you begin
 
 
 + You can only preview the price for line items belonging to the same 
