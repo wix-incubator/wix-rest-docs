@@ -10,11 +10,29 @@
     "description": []
   },
   "properties": [],
-  "tags": [  {
-    "name": "Bookings V2",
-    "entity": "_com_wixpress_bookings_bookings_v2_Booking"
-  }],
+  "tags":   [
+        {
+      "name": "Bookings V2",
+      "entity": "_com_wixpress_bookings_bookings_v2_Booking"
+    },
+        {
+      "name": "Multi Service Bookings",
+      "entity": "_com_wixpress_bookings_bookings_v2_MultiServiceBooking"
+    }
+  ],
   "relatedGuides":   [
+        {
+      "path": "../guides/bookingsv2/docs/SampleFlows.md",
+      "name": "Sample Booking flows"
+    },
+        {
+      "path": "../guides/bookingsv2/docs/flow.md",
+      "name": "How bookings are confirmed or declined"
+    },
+        {
+      "path": "../guides/bookingsv2/docs/CONFIRMATION-README.md",
+      "name": "Confirmation Introduction"
+    },
         {
       "path": "../guides/bookingsv2/docs/Intro.md",
       "name": "Introduction"
@@ -251,6 +269,13 @@
           "name": "doubleBooked",
           "type": "boolean",
           "doc": "\nWhether this booking overlaps with another existing confirmed booking.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_ConfirmBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before confirming the booking.  ",
           "required": false
         }
       ],
@@ -566,6 +591,77 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "Update Extended Fields",
+      "methodName": "UpdateExtendedFields",
+      "serviceName": "Bookings",
+      "tag": "Bookings V2",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "id",
+        "namespace",
+        "namespaceData"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " ID of the entity to update.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "namespace",
+          "type": "string",
+          "doc": " Identifier for the app whose extended fields are being updated.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "namespaceData",
+          "type": "struct",
+          "doc": "  Data to update. Structured according to the [schema](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields#json-schema-for-extended-fields) defined when the extended fields were configured.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdateExtendedFields",
+          "statusCode": "200",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_UpdateExtendedFieldsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdates the extended fields for a booking.\n\n\nExtended fields must first be configured in the Wix Developers Center.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bookings/{id}/update_extended_fields",
+        "links": [],
+        "examples": [        {
+          "title": "Updates the extended fields of a booking",
+          "body": ["curl -X POST \\\n'https://www.wixapis.com/bookings/v2/bookings/9caabb6a-2ad0-4947-b38f-77a10433baf4/update_extended_fields' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n      \"namespace\": \"@accountName/appName\",\n      \"namespaceData\":{\n        \"boatType\": \"kayak\"\n      }\n    }'"],
+          "response": ["{\n  \"namespace\": \"@accountName/appName\",\n  \"namespaceData\": {\"boatType\": \"kayak\"}\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateExtendedFieldsRequest",
+        "rpcResponseName": "UpdateExtendedFieldsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
       "name": "Update Number Of Participants",
       "methodName": "UpdateNumberOfParticipants",
       "serviceName": "Bookings",
@@ -642,7 +738,7 @@
       "name": "Booking Rescheduled Webhook",
       "docs": {"summary": " Triggered when a booking is rescheduled.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions":       [
                 {
           "name": "Read Bookings - Including Participants",
@@ -662,7 +758,7 @@
       "name": "Booking Confirmed Webhook",
       "docs": {"summary": " Triggered when a booking is confirmed.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions":       [
                 {
           "name": "Read Bookings - Including Participants",
@@ -682,7 +778,7 @@
       "name": "Booking Canceled Webhook",
       "docs": {"summary": " Triggered when a booking is canceled.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions":       [
                 {
           "name": "Read Bookings - Including Participants",
@@ -702,7 +798,7 @@
       "name": "Booking Created Webhook",
       "docs": {"summary": " Triggered when a booking is created.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions": [      {
         "name": "Read Bookings - Including Participants",
         "description": "Request permission to read the business's bookings info, and its bookings with staff member and participant data."
@@ -716,7 +812,7 @@
       "name": "Booking Updated Webhook",
       "docs": {"summary": " Triggered when a booking is updated.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions": [      {
         "name": "Read Bookings - Including Participants",
         "description": "Request permission to read the business's bookings info, and its bookings with staff member and participant data."
@@ -750,7 +846,7 @@
       "name": "Booking Declined Webhook",
       "docs": {"summary": " Triggered when a booking is declined.\n"},
       "topic": "domain_events_wix.bookings.v2.booking",
-      "tag": "Bookings V2",
+      "tag": "Multi Service Bookings",
       "permissions":       [
                 {
           "name": "Read Bookings - Including Participants",
@@ -997,6 +1093,79 @@
         "name": "currentEntity",
         "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
         "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingMarkedAsPendingDomainEvent",
+      "displayName": "Booking Marked As Pending Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.bookings.v2.booking`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `markedAsPending`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingMarkedAsPendingActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BookingMarkedAsPending ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingMarkedAsPendingActionEvent",
+      "displayName": "Booking Marked As Pending Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingMarkedAsPending",
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -1383,6 +1552,151 @@
       "labels": []
     },
         {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.bookingsv2._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_AllowedActions",
+      "displayName": "Allowed Actions Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Possible allowed actions for a Booking\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "cancel",
+          "type": "boolean",
+          "doc": " Is cancel booking allowed\n"
+        },
+                {
+          "name": "reschedule",
+          "type": "boolean",
+          "doc": " Is reschedule booking allowed\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BulkCalculateAllowedActionsResult",
+      "displayName": "Bulk Calculate Allowed Actions Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.bookingsv2._wix_common_ItemMetadata",
+          "doc": " (id, indexInGivenSeq, isSuccessful, error)\n"
+        },
+                {
+          "name": "item",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_AllowedActions",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_bookings_upstream_wix_common_Address",
       "displayName": "Address Object",
       "locations": [],
@@ -1747,12 +2061,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " Number of items to load.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -1812,12 +2126,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -1862,7 +2176,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+          "doc": " Business location ID. Available only for locations that are business locations,\n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
         },
                 {
           "name": "name",
@@ -1877,7 +2191,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_availability_LocationType",
-          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+          "doc": " Location type.\n\n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
         }
       ],
       "enum": null,
@@ -1975,7 +2289,7 @@
       "displayName": "namespaces Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs.  \nExtended field data as key:object pairs. Each key corresponds to the namespace of the app that created the extended fields. \nThe value of each key is structured according to the schema defined when the extended fields were created.\n\nYou can only access fields for which you have the appropriate permissions.\n",
+        "summary": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n",
         "links": [],
         "examples": []
       },
@@ -2000,7 +2314,7 @@
       "members": [      {
         "name": "namespaces",
         "type": "All APIs.bookingsv2.namespacesMapEntry",
-        "doc": "Set of key-value pairs.  \nExtended field data as key:object pairs. Each key corresponds to the namespace of the app that created the extended fields. \nThe value of each key is structured according to the schema defined when the extended fields were created.\n\nYou can only access fields for which you have the appropriate permissions.\n"
+        "doc": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n"
       }],
       "enum": null,
       "extra": {},
@@ -2035,6 +2349,32 @@
           "name": "withRefund",
           "type": "boolean",
           "doc": " When true, refunds the booking's payment when the booking is canceled.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo",
+      "displayName": "Multi Service Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Multi service booking ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "type",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+          "doc": " Multi service booking type.\n"
         }
       ],
       "enum": null,
@@ -2217,7 +2557,8 @@
                 {
           "name": "title",
           "type": "string",
-          "doc": " Session title at the time of booking.\n"
+          "doc": " Session title at the time of booking.\n If session doesn't exist at the time of the booking, service name is used.\n",
+          "readOnly": true
         },
                 {
           "name": "tags",
@@ -2284,6 +2625,11 @@
           "doc": " Schedule ID. Required.\n"
         },
                 {
+          "name": "eventId",
+          "type": "string",
+          "doc": " Calendar 3 event ID\n If not empty, on all write flows (create / update) gets priority over session_id.\n so if both session_id and event_id are provided, the session_id that will be set on the booking will be based on the event_id.\n Otherwise, if event_id is empty on write flow,\n"
+        },
+                {
           "name": "startDate",
           "type": "string",
           "doc": " The start time of this slot in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)\n format.\n"
@@ -2301,7 +2647,7 @@
                 {
           "name": "resource",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookedResource",
-          "doc": " The resource assigned to the slot.\n"
+          "doc": " The enriched resource assigned to the slot, can be either the requested resource or the resource chosen by the system.\n When populated, the given resource will be booked according to it's availability.\n When empty, If `skip_availability_validation` is `false`, a random available resource will be assigned to the slot upon confirmation,\n otherwise one of the service resources will be assigned to the slot randomly upon confirmation.\n"
         },
                 {
           "name": "location",
@@ -2390,6 +2736,11 @@
           "name": "scheduleId",
           "type": "string",
           "doc": " Resource's schedule ID.\n"
+        },
+                {
+          "name": "explicitlyRequested",
+          "type": "boolean",
+          "doc": " Indicates whether the resource was specifically requested or should be auto selected by the Server.\n The value will be true if the resource was explicitly given in the request, otherwise false.\n"
         }
       ],
       "enum": null,
@@ -2571,101 +2922,6 @@
       "oneOf": true
     },
         {
-      "name": "_wix_api_ApplicationError",
-      "displayName": "Application Error Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "code",
-          "type": "string",
-          "doc": " Error code.\n"
-        },
-                {
-          "name": "description",
-          "type": "string",
-          "doc": " Description of the error.\n"
-        },
-                {
-          "name": "data",
-          "type": "struct",
-          "doc": " Data related to the error.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_BulkActionMetadata",
-      "displayName": "Bulk Action Metadata Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "totalSuccesses",
-          "type": "integer",
-          "doc": " Number of items that were successfully processed.\n"
-        },
-                {
-          "name": "totalFailures",
-          "type": "integer",
-          "doc": " Number of items that couldn't be processed.\n"
-        },
-                {
-          "name": "undetailedFailures",
-          "type": "integer",
-          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_ItemMetadata",
-      "displayName": "Item Metadata Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
-        },
-                {
-          "name": "originalIndex",
-          "type": "integer",
-          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
-        },
-                {
-          "name": "success",
-          "type": "boolean",
-          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
-        },
-                {
-          "name": "error",
-          "type": "All APIs.bookingsv2._wix_api_ApplicationError",
-          "doc": " Details about the error in case of failure.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_data_dataextensions_UpdateExtendedFieldsRequest",
       "displayName": "Update Extended Fields Request Object",
       "locations": [],
@@ -2678,42 +2934,17 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " entity_id\n"
+          "doc": " ID of the entity to update.\n"
         },
                 {
           "name": "namespace",
           "type": "string",
-          "doc": ""
+          "doc": " Identifier for the app whose extended fields are being updated.\n"
         },
                 {
           "name": "namespaceData",
           "type": "struct",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_data_dataextensions_UpdateExtendedFieldsResponse",
-      "displayName": "Update Extended Fields Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "namespace",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "namespaceData",
-          "type": "struct",
-          "doc": " only data from UpdateExtendedFieldsRequest namespace_data\n"
+          "doc": "  Data to update. Structured according to the [schema](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields#json-schema-for-extended-fields) defined when the extended fields were configured.\n"
         }
       ],
       "enum": null,
@@ -2824,7 +3055,7 @@
                 {
           "name": "resource",
           "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Slot_SlotResource",
-          "doc": " The resource required for this slot. Currently, in Bookings, this is the relevant staff. Required.\n"
+          "doc": " The resource required for this slot.\n When populated, the given resource will be assigned to the slot upon confirmation according to it's availability.\n When empty, If `skip_availability_validation` is `false`, a random available resource will be assigned to the slot upon confirmation,\n otherwise one of the service resources will be assigned to the slot randomly upon confirmation.\n"
         },
                 {
           "name": "location",
@@ -3075,6 +3306,224 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_bookings_bookings_v2_ConfirmBookingFlowControlSettings",
+      "displayName": "Confirm Booking Flow Control Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "checkAvailabilityValidation",
+        "type": "boolean",
+        "doc": "\n// todo: docs any-resource flow behavior\nWhether the availability is checked before confirming the booking.\nWhen passing `false` a booking is only being updated with status CONFIRMED\nDefault: `false`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkBookingAsPendingFlowControlSettings",
+      "displayName": "Mark Booking As Pending Flow Control Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "checkAvailabilityValidation",
+          "type": "boolean",
+          "doc": "\nWhether should check for double bookings before updating the booking as pending.\nWhen passing `false` a booking is only being updated with status PENDING\nDefault: `false`.\n"
+        },
+                {
+          "name": "skipPendingApprovalServiceValidation",
+          "type": "boolean",
+          "doc": "\nWhether should validate that the given booking to be marked as pending, has a booking.slot.serviceId\nof a pending approval service.\nDefault: `false`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeRequest_MsidAndBookingId",
+      "displayName": "Msid And Booking Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "msid",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeRequest",
+      "displayName": "Migration Check If Clashes With Blocked Time Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "msidAndBookingIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeRequest_MsidAndBookingId"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeResponse_Clash",
+      "displayName": "Clash Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "msid",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "sessionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "resourceName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "contactName",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeResponse",
+      "displayName": "Migration Check If Clashes With Blocked Time Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "clashes",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MigrationCheckIfClashesWithBlockedTimeResponse_Clash"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkBookingAsPendingRequest",
+      "displayName": "Mark Booking As Pending Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": "ID of the booking to mark as PENDING.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the booking is updated.\nTo prevent conflicting changes, the current revision must be passed when\nmanaging the booking.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": "\nInformation about whether to notify the customer and\nthe message to send.\n"
+        },
+                {
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": "\nWhether to send an SMS reminder to the customer 24 hours before the\nsession starts. The phone number is taken from `contactDetails.phone`.\n"
+        },
+                {
+          "name": "paymentStatus",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": "\nPayment status to set for the booking.\nOne of:\n- `\"NOT_PAID\"` The booking is not paid for.\n- `\"PAID\"` The booking is fully paid.\n- `\"PARTIALLY_PAID\"` The booking is partially paid.\n- `\"REFUNDED\"` The booking is refunded.\n- `\"EXEMPT\"` The booking is free of charge.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": "\nWhether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MarkBookingAsPendingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before updating the booking's status.  "
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkBookingAsPendingResponse",
+      "displayName": "Mark Booking As Pending Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "booking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
+        "doc": " The updated booking\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_bookings_bookings_v2_LegacyCreateBookingRequest",
       "displayName": "Legacy Create Booking Request Object",
       "locations": [],
@@ -3256,31 +3705,6 @@
         },
         "doc": " The booking id's that we want to calculate the allowedActions for\n"
       }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_bookings_bookings_v2_BulkCalculateAllowedActionsResult",
-      "displayName": "Bulk Calculate Allowed Actions Result Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "itemMetadata",
-          "type": "All APIs.bookingsv2._wix_common_ItemMetadata",
-          "doc": " (id, indexInGivenSeq, isSuccessful, error)\n"
-        },
-                {
-          "name": "item",
-          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_AllowedActions",
-          "doc": ""
-        }
-      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3594,11 +4018,18 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "booking",
-        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
-        "doc": ""
-      }],
+      "members":       [
+                {
+          "name": "booking",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
+          "doc": ""
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": "\nWhether this booking overlaps with another existing confirmed booking.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3642,6 +4073,11 @@
           "name": "doubleBooked",
           "type": "boolean",
           "doc": "\nWhether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_ConfirmBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before confirming the booking.  "
         }
       ],
       "enum": null,
@@ -4372,24 +4808,24 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_bookings_bookings_v2_AllowedActions",
-      "displayName": "Allowed Actions Object",
+      "name": "_com_wixpress_bookings_bookings_v2_UpdateExtendedFieldsResponse",
+      "displayName": "Update Extended Fields Response Object",
       "locations": [],
       "docs":       {
-        "summary": "Possible allowed actions for a Booking\n",
+        "summary": "",
         "links": [],
         "examples": []
       },
       "members":       [
                 {
-          "name": "cancel",
-          "type": "boolean",
-          "doc": " Is cancel booking allowed\n"
+          "name": "namespace",
+          "type": "string",
+          "doc": "Identifier for the app whose extended field data was updated.\n"
         },
                 {
-          "name": "reschedule",
-          "type": "boolean",
-          "doc": " Is reschedule booking allowed\n"
+          "name": "namespaceData",
+          "type": "struct",
+          "doc": " Updated data.\n"
         }
       ],
       "enum": null,
@@ -4736,6 +5172,956 @@
       "oneOf": true
     },
         {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingMarkedAsPending",
+      "displayName": "Booking Marked As Pending Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "booking",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
+          "doc": " The booking object that was marked as pending.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about whether to notify the customer upon manual confirmation of the pending booking and the message to send.\n"
+        },
+                {
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": "\nWhether to send an SMS reminder to the customer 24 hours before the\nsession starts. The phone number is taken from `contactDetails.phone`.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": "\nWhether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "initiatedBy",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_upstream_wix_common_IdentificationData",
+          "doc": " ID of the mark as pending initiator.\n"
+        },
+                {
+          "name": "previousStatus",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_BookingStatus",
+          "doc": " The previous status of the booking.\n"
+        },
+                {
+          "name": "previousPaymentStatus",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": " The previous payment status of the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+      "displayName": "Multi Service Booking Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Multi service booking ID.\n"
+        },
+                {
+          "name": "bookings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingResult"]
+          },
+          "doc": " The created bookings which are part of the multi service booking\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingResult",
+      "displayName": "Booking Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " Booking ID.\n"
+        },
+                {
+          "name": "booking",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking",
+          "doc": " Booking entity.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_CreateMultiServiceBookingRequest",
+      "displayName": "Create Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking"]
+          },
+          "doc": " The bookings to create as multi service booking.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about a message to send to the customer.\n"
+        },
+                {
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": "\nWhether to send an SMS reminder to the customer 24 hours before the\nsession starts. The phone number is taken from `contactDetails.phone`.\nDefault: `true`.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_CreateBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before creating the booking or if additional payment options are\naccepted.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the created bookings entities.\n"
+        },
+                {
+          "name": "multiServiceBookingType",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+          "doc": " Multi service booking type.\n One of:\n - `\"SEQUENTIAL_BOOKINGS\"` Multi service booking will be considered available if its bookings are available as returned from ListMultiServiceAvailabilityTimeSlots API.\n - `\"SEPARATE_BOOKINGS\"` Not supported yet.\n - `\"PARALLEL_BOOKINGS\"` Not supported yet.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_CreateMultiServiceBookingResponse",
+      "displayName": "Create Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Created multi service booking.\n Contains the booking results on the same order as passed on the request.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingAvailabilityRequest",
+      "displayName": "Get Multi Service Booking Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBookingId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingAvailabilityResponse_BookingInfo",
+      "displayName": "Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bookingId",
+        "type": "string",
+        "doc": " Booking id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingAvailabilityResponse",
+      "displayName": "Get Multi Service Booking Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " Whether these bookings are bookable.\n"
+        },
+                {
+          "name": "totalCapacity",
+          "type": "integer",
+          "doc": " Total number of spots for this availability.\n"
+        },
+                {
+          "name": "remainingCapacity",
+          "type": "integer",
+          "doc": " Number of open spots for this availability.\n"
+        },
+                {
+          "name": "policyViolations",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingPolicyViolations",
+          "doc": " Indicators for policy violations of the multi service booking.\n"
+        },
+                {
+          "name": "policySettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingPolicySettings",
+          "doc": " Multi service booking policy settings\n"
+        },
+                {
+          "name": "multiServiceBookingInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_GetMultiServiceBookingAvailabilityResponse_BookingInfo"]
+          },
+          "doc": " Info of the bookings this availability was calculated for.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_CancelMultiServiceBookingRequest",
+      "displayName": "Cancel Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": "ID of the multi service booking to cancel it's related bookings.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about whether to notify the customer about the cancelation and the message to send.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_CancelBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncancelation flow are changed. For example, whether the you can cancel\na booking even though the cancelation policy doesn't allow it or whether\nto issue a refund.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the canceled bookings entities.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_CancelMultiServiceBookingResponse",
+      "displayName": "Cancel Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Canceled multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingRequest_RescheduleBookingInfo",
+      "displayName": "Reschedule Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " ID of the booking to reschedule.\n"
+        },
+                {
+          "name": "slot",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Slot",
+          "doc": " Information about the new slot.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the booking is updated.\nTo prevent conflicting changes, the current revision must be passed when\nmanaging the booking.\n"
+        },
+                {
+          "name": "participantsInfo",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingRequest_RescheduleBookingInfo_ParticipantsInfo",
+          "doc": " Info of participants - either the total number of participants for fixed/custom pricing or the service choices and their respective number of participants\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingRequest_RescheduleBookingInfo_ParticipantsInfo",
+      "displayName": "Participants Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalParticipants",
+          "type": "integer",
+          "doc": "\nTotal number of participants. Available only for services with\nvariants.\nPass when all participants book the same variant.\n"
+        },
+                {
+          "name": "participantsChoices",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_ParticipantChoices",
+          "doc": "\nInformation about the service choices to book. Available only for services with\nvariants.\nPass when not all participants book the same variant.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingRequest",
+      "displayName": "Reschedule Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking to reschedule it's related bookings.\n"
+        },
+                {
+          "name": "rescheduleBookingsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingRequest_RescheduleBookingInfo"]
+          },
+          "doc": " Bookings to reschedule.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": "  Information about whether to notify the customer about the rescheduling and the message to send.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_RescheduleBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\nrescheduling flow are changed. For example, whether the availability of\nthe new slot is checked before rescheduling the booking or if you can\nreschedule the booking even though the rescheduling policy doesn't allow it.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the rescheduled bookings entities.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RescheduleMultiServiceBookingResponse",
+      "displayName": "Reschedule Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Rescheduled multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_ConfirmMultiServiceBookingRequest",
+      "displayName": "Confirm Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking to confirm it's related bookings.\n"
+        },
+                {
+          "name": "confirmBookingsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingInfo"]
+          },
+          "doc": " Bookings to confirm.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about whether to notify the customer about the confirmation and the message to send.\n"
+        },
+                {
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": " Whether to send an SMS reminder to the customer 24 hours before the\n session starts. The phone number is taken from `contactDetails.phone`.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": " Whether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the confirmed bookings entities.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_ConfirmBookingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\nconfirmation flow are changed. For example, whether the availability is\nchecked before confirming the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingInfo",
+      "displayName": "Booking Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " ID of the booking.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the booking is updated.\nTo prevent conflicting changes, the current revision must be passed when\nmanaging the booking.\n"
+        },
+                {
+          "name": "paymentStatus",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_PaymentStatus",
+          "doc": "\nPayment status to set for the booking.\nOne of:\n- `\"NOT_PAID\"` The booking is not paid for.\n- `\"PAID\"` The booking is fully paid.\n- `\"PARTIALLY_PAID\"` The booking is partially paid.\n- `\"REFUNDED\"` The booking is refunded.\n- `\"EXEMPT\"` The booking is free of charge.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_ConfirmMultiServiceBookingResponse",
+      "displayName": "Confirm Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Confirmed multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_DeclineMultiServiceBookingRequest",
+      "displayName": "Decline Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking to decline it's related bookings.\n"
+        },
+                {
+          "name": "declineBookingsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingInfo"]
+          },
+          "doc": " Bookings to decline.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about whether to notify the customer about the decline and the message to send.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": " Whether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the declined bookings entities.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_DeclineMultiServiceBookingResponse",
+      "displayName": "Decline Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Declined multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BulkGetMultiServiceBookingAllowedActionsRequest",
+      "displayName": "Bulk Get Multi Service Booking Allowed Actions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBookingIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The multi service booking ids to get the allowedActions for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BulkGetMultiServiceBookingAllowedActionsResponse",
+      "displayName": "Bulk Get Multi Service Booking Allowed Actions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BulkCalculateAllowedActionsResult"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.bookingsv2._wix_common_BulkActionMetadata",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_BookingIdAndRevision",
+      "displayName": "Booking Id And Revision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingId",
+          "type": "string",
+          "doc": " ID of the booking.\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the booking is updated.\nTo prevent conflicting changes, the current revision must be passed when\nmanaging the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_AddBookingsToMultiServiceBookingRequest",
+      "displayName": "Add Bookings To Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking.\n"
+        },
+                {
+          "name": "bookings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingIdAndRevision"]
+          },
+          "doc": " List of bookings ids and their revisions to add to the multi service booking.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the bookings entities.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_AddBookingsToMultiServiceBookingResponse",
+      "displayName": "Add Bookings To Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bookings",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingResult"]
+        },
+        "doc": " The bookings that were added to the multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RemoveBookingsFromMultiServiceBookingRequest",
+      "displayName": "Remove Bookings From Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking.\n"
+        },
+                {
+          "name": "bookings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingIdAndRevision"]
+          },
+          "doc": " List of bookings ids and their revisions to remove from the multi service booking.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the bookings entities.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_RemoveBookingsFromMultiServiceBookingResponse",
+      "displayName": "Remove Bookings From Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bookings",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingResult"]
+        },
+        "doc": " The bookings that were removed from the multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkMultiServiceBookingAsPendingRequest",
+      "displayName": "Mark Multi Service Booking As Pending Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBookingId",
+          "type": "string",
+          "doc": " ID of the multi service booking to mark as pending it's related bookings.\n"
+        },
+                {
+          "name": "markAsPendingBookingsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_BookingInfo"]
+          },
+          "doc": " Bookings to mark as pending.\n"
+        },
+                {
+          "name": "participantNotification",
+          "type": "All APIs.bookingsv2._com_wix_bookings_schedules_api_v1_ParticipantNotification",
+          "doc": " Information about whether to notify the customer upon manual confirmation and the message to send.\n"
+        },
+                {
+          "name": "sendSmsReminder",
+          "type": "boolean",
+          "doc": " Whether to send an SMS reminder to the customer 24 hours before the\n session starts. The phone number is taken from `contactDetails.phone`.\n"
+        },
+                {
+          "name": "doubleBooked",
+          "type": "boolean",
+          "doc": " Whether this booking overlaps with another existing confirmed booking.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the pending bookings entities.\n"
+        },
+                {
+          "name": "flowControlSettings",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MarkBookingAsPendingFlowControlSettings",
+          "doc": "\nInformation about whether specific procedures of the standard Wix Bookings\ncreation flow are changed. For example, whether the availability is\nchecked before updating the booking.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkMultiServiceBookingAsPendingResponse",
+      "displayName": "Mark Multi Service Booking As Pending Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBooking",
+        "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+        "doc": " Pending multi service booking.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingRequest",
+      "displayName": "Get Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBookingId",
+        "type": "string",
+        "doc": " Multi service booking ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingResponse_MultiServiceBookingMetadata",
+      "displayName": "Multi Service Booking Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "totalNumberOfScheduledBookings",
+        "type": "integer",
+        "doc": " Total number of the scheduled bookings within the multi service booking, including bookings which were not retrieved due to lack of read permissions.\n Scheduled bookings are bookings with status CONFIRMED or PENDING.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_GetMultiServiceBookingResponse",
+      "displayName": "Get Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multiServiceBooking",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_MultiServiceBooking",
+          "doc": " Multi service booking.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_GetMultiServiceBookingResponse_MultiServiceBookingMetadata",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkAsMultiServiceBookingRequest",
+      "displayName": "Mark As Multi Service Booking Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bookingIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of the bookings to mark as multi service booking.\n"
+        },
+                {
+          "name": "multiServiceBookingType",
+          "type": "All APIs.bookingsv2._com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+          "doc": " Multi service booking type.\n One of:\n - `\"SEQUENTIAL_BOOKINGS\"` Multi service booking will be considered available if its bookings are available as returned from ListMultiServiceAvailabilityTimeSlots API.\n - `\"SEPARATE_BOOKINGS\"` Not supported yet.\n - `\"PARALLEL_BOOKINGS\"` Not supported yet.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_MarkAsMultiServiceBookingResponse",
+      "displayName": "Mark As Multi Service Booking Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "multiServiceBookingId",
+        "type": "string",
+        "doc": " Multi service booking ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_bookings_services_api_v1_ValueTypeConsts_ValueType",
       "displayName": "Value Type Object",
       "locations": [],
@@ -4861,6 +6247,24 @@
         "ONLINE",
         "MEMBERSHIP",
         "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_bookings_v2_Booking_MultiServiceBookingInfo_MultiServiceBookingType",
+      "displayName": "Multi Service Booking Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SEQUENTIAL_BOOKINGS -  Multi service booking will be considered available if its bookings are\n available as returned from ListMultiServiceAvailabilityTimeSlots API.\n See [List Multi Service Availability Time Slots] (url) documentation // todo: complete url\n <\/code><\/li><li><code> SEPARATE_BOOKINGS -  Multi service booking will be considered available if each of its bookings is available separately.\n Not supported yet\n <\/code><\/li><li><code> PARALLEL_BOOKINGS -  Not supported yet\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SEQUENTIAL_BOOKINGS",
+        "SEPARATE_BOOKINGS",
+        "PARALLEL_BOOKINGS"
       ],
       "extra": {},
       "labels": []
