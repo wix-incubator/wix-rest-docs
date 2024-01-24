@@ -51,7 +51,7 @@ It's important to note the following points before starting to code your integra
 
 1. Create an [app](https://dev.wix.com/dc3/my-apps/) and retrieve its app ID either from the URL or as displayed in the My Apps dashboard in the [Wix Developer Center](https://dev.wix.com/). 
     
-    ![Sample App ID](https://s3.amazonaws.com/wixplorer-readme-images/pricing-integration-spi%2Fappid.png "Sample App ID")
+    ![Sample App ID](https://s3.amazonaws.com/wixplorer-readme-images/pricing-integration-spi%2Fappid.png)
     
 
 ## Signing up to the integration
