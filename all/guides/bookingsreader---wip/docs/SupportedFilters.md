@@ -41,7 +41,7 @@ The following table shows field support for filters for the booking object:
 | endDate                                                                     | `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin` |
 | updatedDate                                                                 | `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin` |
 | doubleBooked                                                                | `eq`, `ne` |
-| participantsInfo.type.totalParticipants.value                               | `hasSome`, `hasAll` |
+| participantsInfo.type.totalParticipants.value                               | `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin` |
 | participantsInfo.type.participantsChoices.serviceChoices.choices.optionId       |  `hasSome`, `hasAll` |
 | participantsInfo.type.participantsChoices.serviceChoices.choices.choice.custom.value |  `hasSome`, `hasAll` |
 
