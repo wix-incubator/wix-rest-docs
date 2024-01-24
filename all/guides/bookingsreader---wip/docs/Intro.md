@@ -25,4 +25,4 @@ to handle the checkout and payment flow.
   body, and can't use the filter that's part of the `query` object.
 + The `participantNotification` field holds only information about the last 
   message sent to the customer. It also doesn't include details which type of 
-  message has been sent.
+  message has been sent. 
