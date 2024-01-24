@@ -110,3 +110,5 @@ You can read more about:
 + The `participantNotification` field holds only information about the last 
   message sent to the customer. It also doesn't include details which type of 
   message has been sent.
++ You must use the [Waitlist APIs](https://dev.wix.com/api/rest/wix-bookings/waitlist/introduction) 
+  to create bookings in status `WAITING_LIST`. You can't change a booking's status from `CREATED` to `WAITING_LIST` with the Bookings V2 APIs.
