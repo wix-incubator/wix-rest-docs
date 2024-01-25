@@ -12,18 +12,18 @@ Then, you could purchase the domain for them and assign it to their site.
 
 To discover and register a domain:
 
-1. Call [Suggest Domains](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/suggestion-v-2/suggestion-object)
+1. Call [Suggest Domains](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/suggestion-v2/suggestion-object)
     to retrieve a list of relevant available domains.
 1. Display the suggestions to the site owners and let them select their preferred choice.
 1. Optional: In case the relevant site is a free Wix site, use the
-   [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
+   [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/packages-and-product-instances/create-package-v2)
    to assign a Premium plan to it. Make sure to save the `productInstanceId`.
-1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
+1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/packages-and-product-instances/create-package-v2)
    to create a product instance for the relevant domain TLD and privacy.
 1. Register the domain through Wix by calling
-    [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/create-registered-domain).
+    [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/registered-domain-v1/create-registered-domain).
     Make sure to pass a site ID to assign it to the relevant Wix site.
-1. Call [Get Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/get-registered-domain)
+1. Call [Get Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/registered-domain-v1/get-registered-domain)
     in regular intervals to confirm that the registered domain's `status` has changed to `"ACTIVE"`.
 
 ## Check a domain's availability and register it
@@ -35,17 +35,17 @@ site.
 To check a domain's availability and register it:
 
 1. Ask the site owners what their favorite domain is.
-1. Call [Check Domain Availability](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/availability-v-2/check-domain-availability)
+1. Call [Check Domain Availability](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/availability-v2/check-domain-availability)
     to verify that the domain is still available. If its isn't available, start
     over or follow the
-    [flow above](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/sample-flows#discover-and-register-a-domain).
+    [flow above](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/sample-flows#discover-and-register-a-domain).
 1. Optional: In case the relevant site is a free Wix site, use the
-   [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
+   [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/packages-and-product-instances/create-package-v2)
    to assign a Premium plan to it. Make sure to save the `productInstanceId`.
-1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/packages-and-product-instances/create-package-v-2)
+1. Use the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/packages-and-product-instances/create-package-v2)
    to create a product instance for the relevant domain TLD and privacy.
 1. Register the domain through Wix by calling
-    [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/create-registered-domain).
+    [Create Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/registered-domain-v1/create-registered-domain).
     Make sure to pass a site ID to assign it to the relevant Wix site.
-1. Call [Get Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/registered-domain-v-1/get-registered-domain)
+1. Call [Get Registered Domain](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/registered-domain-v1/get-registered-domain)
     in regular intervals to confirm that the registered domain's `status` has changed to `"ACTIVE"`.
