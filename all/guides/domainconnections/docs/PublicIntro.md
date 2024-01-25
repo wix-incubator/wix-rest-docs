@@ -6,7 +6,7 @@ SortOrder: 1
 __Deprecation Notice:__
 
 Domain Connections has been replaced with
-[Connected Domains](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/connected-domains/introduction)
+[Connected Domains](https://dev.wix.com/docs/rest/api-reference/account-level-apis/connected-domains/introduction)
 and will be removed on December 31, 2023.
 
 </blockquote>
