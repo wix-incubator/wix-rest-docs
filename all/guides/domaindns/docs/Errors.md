@@ -6,7 +6,7 @@ endpoints of the Domain DNS API.
 
 ## Create DNS Zone Errors
 
-[Create DNS Zone](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-dns/create-dns-zone) might issue the following error messages:
+[Create DNS Zone](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-dns/create-dns-zone) might issue the following error messages:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting <div> |
 |---|---|---|---|
@@ -22,7 +22,7 @@ endpoints of the Domain DNS API.
 
 ## Update DNS Zone Errors
 
-[Update DNS Zone](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-dns/update-dns-zone) might issue the following error messages:
+[Update DNS Zone](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-dns/update-dns-zone) might issue the following error messages:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting <div> |
 |---|---|---|---|
