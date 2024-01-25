@@ -5,7 +5,7 @@ This article outlines error messages that might be issued when calling endpoints
 
 ## Check Domain Availability Errors
 
-The [Check Domain Availability](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/availability-v-2/check-domain-availability)
+The [Check Domain Availability](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/availability-v2/check-domain-availability)
 endpoint might issue the following error message:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting </div> |
@@ -14,7 +14,7 @@ endpoint might issue the following error message:
 
 ## Suggest Domains Errors
 
-The [Suggest Domains](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/suggestion-v-2/suggest-domains)
+The [Suggest Domains](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/suggestion-v2/suggest-domains)
 endpoint might issue the following error messages:
 
 | <div style="width:200px">HTTP status</div> | <div style="width:250px">Error code</div> | <div style="width:280px">Error message </div> | <div style="width:300px">Troubleshooting </div> |
