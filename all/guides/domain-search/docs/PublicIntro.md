@@ -11,12 +11,12 @@ With the Domain Search API you can:
 - Generate suggestions for available domains.
 
 You can use the
-[Registered Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/introduction)
+[Registered Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/introduction)
 to purchase domains through Wix. Learn more about managing DNS zones with the
-[Domain DNS API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-dns/introduction).
+[Domain DNS API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-dns/introduction).
 If you've bought a domain externally, you can connect it to the relevant Wix
 site with the
-[Connected Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/connected-domains/introduction).
+[Connected Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/connected-domains/introduction).
 
 ## Before you begin
 
@@ -25,12 +25,12 @@ site with the
 + If you want to register a domain to a Wix site, the site must have an active
   [Premium plan](https://support.wix.com/en/article/upgrading-your-site-to-premium-3066683).
   Learn more about
-  [registering domains through Wix](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/registered-domains/introduction).
+  [registering domains through Wix](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/introduction).
 
 ## Use cases
 
-+ [Discover and register a domain](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/sample-flows#discover-and-register-a-domain)
-+ [Check a domain's availability and register it](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-search/sample-flows#check-a-domains-availability-and-register-it)
++ [Discover and register a domain](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/sample-flows#discover-and-register-a-domain)
++ [Check a domain's availability and register it](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-search/sample-flows#check-a-domains-availability-and-register-it)
 
 ## Terminology
 
