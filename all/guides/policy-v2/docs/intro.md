@@ -14,6 +14,10 @@ It’s important to note the following points before starting to code:
 - Install the **Wix Events & Tickets** app from [Wix App Market](https://www.wix.com/app-market/wix-events?referral=category&appIndex=5&referralTag=booking--events).
 - You can create up to 3 policies per event.
 
+## Use cases
+
+- [Sync event policies with external ticketing system](https://dev.wix.com/api/rest/wix-events/policies-v2/sample-use-cases-&-flows#wix-events_policies-v2_sample-use-cases-&-flows_sync-event-policies-with-external-ticketing-system)
+
 ## Terminology
 
 - **Policy**: text that defines terms & conditions, as relevant.
