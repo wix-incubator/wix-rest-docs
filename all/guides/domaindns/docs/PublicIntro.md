@@ -16,7 +16,7 @@ Learn more about:
 
 + Registering domains through Wix with the [Registered Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/introduction)
 + Connecting external domains to Wix sites with the [Connected Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/connected-domains/introduction)
-+ Managing Wix Premium subscriptions with the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/resellers/introduction)
++ Managing Wix Premium subscriptions with the [Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/introduction)
 
 ## Before you begin
 
@@ -30,7 +30,7 @@ It’s important to note the following points before starting to code:
 + Wix limits DNS records to 50 values per type. External providers may support
   a different maximum number of DNS records for a specific type, Wix doesn't
   validate that you don't exceed these external limits.
-+ You can only [update DNS zones](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-dns/update-dns-zone)
++ You can only [update DNS zones](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-dns/update-dns-zone)
   for external domains that are connected by nameservers to a Wix site. You
   can't use the Domain DNS API for external domains that are connected by
   pointing to a Wix site because the DNS isn't saved in Wix for this connection
@@ -53,7 +53,7 @@ It’s important to note the following points before starting to code:
   used to map a human-readable URL to an IP address.
 + __DNS zone__: A [DNS zone](https://en.wikipedia.org/wiki/DNS_zone)
   is an administrative subdivision of the DNS namespace. When you
-  [Create a DNS zone](https://dev.wix.com/docs/rest/api-reference/account-level-ap-is/domain-dns/create-dns-zone)
+  [Create a DNS zone](https://dev.wix.com/docs/rest/api-reference/account-level-apis/domain-dns/create-dns-zone)
   the values are uploaded to
   [Google's Cloud DNS](https://cloud.google.com/dns).
 + __Account__: Wix account that includes access to associated sites.
