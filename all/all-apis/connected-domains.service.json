@@ -1,0 +1,1254 @@
+{
+  "name": "Connected Domains",
+  "client_id": "https://github.com/wix-private/premium/tree/master/domains/domain-connected#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Connect external domains to Wix sites.",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Connected Domains",
+      "entity": "_com_wixpress_premium_domain_connected_ConnectedDomain",
+      "src": "https://github.com/wix-private/premium/tree/master/domains/domain-connected/proto/com/wixpress/premium/domain/connected/entities/com/wixpress/premium/domain/connected/connected_domain.proto"
+    },
+        {
+      "name": "Setup Info",
+      "entity": "_com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo",
+      "src": "https://github.com/wix-private/premium/tree/master/domains/domain-connected/proto/com/wixpress/premium/domain/connected/entities/com/wixpress/premium/domain/connected/connected_domain_setup_info.proto"
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/connected-domains/docs/Errors.md",
+      "name": "Error Messages"
+    },
+        {
+      "path": "../guides/connected-domains/docs/UseCases.md",
+      "name": "Sample Flows"
+    },
+        {
+      "path": "../guides/connected-domains/docs/PublicIntro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Connected Domain",
+      "methodName": "CreateConnectedDomain",
+      "serviceName": "ConnectedDomainService",
+      "tag": "Connected Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "connectedDomain",
+        "connectedDomain.domain"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "connectedDomain",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "\nDomain to connect.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateConnectedDomain",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_CreateConnectedDomainResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a `connectedDomain` object and starts the domain connection process.\nIt may take up to 48 hours for the DNS changes to take effect.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \nYou may also pass a Wix site ID in the header.\n\nYou can only connect external domains using this endpoint. Domains purchased \nand billed through Wix can't be connected via this endpoint to a Wix site. For those\ndomains use the [Registered Domains API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/registered-domains/introduction)\ninstead.\n\nYou can connect both root domains and subdomains to Wix sites.\n\nThe domain can be assigned as a primary domain or a redirect. \nYou can read more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\nIf you connect a domain as `\"PRIMARY\"` to a Wix site, the existing primary\ndomain automatically becomes unassigned.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/domains/v1/connected-domains",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Connect a domain using nameservers",
+            "body": ["curl -X POST 'https://www.wixapis.com/domains/v1/connected-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n     \"connectedDomain\": {\n       \"domain\": \"mysite.com\",\n       \"connectionType\": \"NAMESERVERS\",\n       \"siteInfo\": {\n           \"assignmentType\": \"PRIMARY\"\n       }\n     }\n   }'"],
+            "response": ["{\"connectedDomain\": {\n  \"id\": \"mysite.com\",\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"siteInfo\":   {\n    \"id\": \"<SITE_ID>\",\n    \"assignmentType\": \"PRIMARY\"\n  },\n  \"suppressNotifications\": false,\n  \"dnsPropagationStatus\": \"UNKNOWN_DNS_PROPAGATION_STATUS\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Connect a domain by pointing",
+            "body": ["curl -X POST 'https://www.wixapis.com/domains/v1/connected-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n     \"connectedDomain\": {\n       \"domain\": \"mysite.com\",\n       \"connectionType\": \"POINTING\",\n       \"siteInfo\": {\n           \"assignmentType\": \"PRIMARY\"\n       }\n     }\n   }'"],
+            "response": ["{\"connectedDomain\": {\n  \"id\": \"mysite.com\",\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"POINTING\",\n  \"siteInfo\":   {\n    \"id\": \"<SITE_ID>\",\n    \"assignmentType\": \"PRIMARY\"\n  },\n  \"suppressNotifications\": false,\n  \"dnsPropagationStatus\": \"UNKNOWN_DNS_PROPAGATION_STATUS\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Connect a subdomain",
+            "body": ["curl -X POST 'https://www.wixapis.com/domains/v1/connected-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n     \"connectedDomain\": {\n       \"domain\": \"sub.mysite.com\",\n      \"suppressNotifications\": true\n     }\n   }'"],
+            "response": ["{\"connectedDomain\": {\n  \"id\": \"sub.mysite.com\",\n  \"domain\": \"sub.mysite.com\",\n  \"connectionType\": \"UNKNOWN_CONNECTION_TYPE\",\n  \"siteInfo\":   {\n    \"id\": \"<SITE_ID>\",\n    \"assignmentType\": \"PRIMARY\"\n  },\n  \"suppressNotifications\": true,\n  \"dnsPropagationStatus\": \"UNKNOWN_DNS_PROPAGATION_STATUS\"\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateConnectedDomainRequest",
+        "rpcResponseName": "CreateConnectedDomainResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Connected Domain",
+      "methodName": "GetConnectedDomain",
+      "serviceName": "ConnectedDomainService",
+      "tag": "Connected Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["connectedDomainId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "connectedDomainId",
+        "type": "string",
+        "doc": "\nID of the connected domain. Identical to the domain name including TLD.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetConnectedDomain",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_GetConnectedDomainResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a connected domain.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/connected-domains/{connectedDomainId}",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a connected domain.",
+          "body": ["curl -X GET 'https://www.wixapis.com/domains/v1/connected-domains/mysite.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"connectedDomain\": {\n  \"id\": \"mysite.com\",\n  \"domain\": \"mysite.com\",\n  \"connectionType\": \"NAMESERVERS\",\n  \"siteInfo\":   {\n    \"id\": \"<SITE_ID>\",\n    \"assignmentType\": \"PRIMARY\"\n  },\n  \"suppressNotifications\": false,\n  \"dnsPropagationStatus\": \"UNKNOWN_DNS_PROPAGATION_STATUS\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetConnectedDomainRequest",
+        "rpcResponseName": "GetConnectedDomainResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Connected Domain Setup Info",
+      "methodName": "GetConnectedDomainSetupInfo",
+      "serviceName": "ConnectedDomainSetupInfoService",
+      "tag": "Setup Info",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["connectedDomainId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "connectedDomainId",
+        "type": "string",
+        "doc": "\nID of the connected domain to retrieve setup information for.\nIdentical to the domain name including TLD.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetConnectedDomainSetupInfo",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_GetConnectedDomainSetupInfoResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves information for the initial setup of a connected domain.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/connected-domain-setup-info/{connectedDomainId}",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a connected domain setup information.",
+          "body": ["curl -X GET 'https://www.wixapis.com/domains/v1/connected-domain-setup-info/mysite.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"connectedDomainSetupInfo\": {\n  \"connectedDomainId\": \"mysite.com\",\n  \"registrarName\": \"GO_DADDY\",\n  \"nameserverRecord\": {\"nsRecord\":   {\n    \"hostName\": \"mysite.com\",\n    \"ttl\": 86400,\n    \"values\":     [\n      \"ns13.wixdns.net\",\n      \"ns12.wixdns.net\"\n    ]\n  }}\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetConnectedDomainSetupInfoRequest",
+        "rpcResponseName": "GetConnectedDomainSetupInfoResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Domain Setup Info",
+      "methodName": "GetDomainSetupInfo",
+      "serviceName": "ConnectedDomainSetupInfoService",
+      "tag": "Setup Info",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domain"],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "domain",
+          "type": "string",
+          "doc": "\nDomain name including TLD\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "connectionType",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectionTypeInfo_ConnectionType",
+          "doc": "\nHow the domain should be to connected the Wix site.\n\n+ `\"UNKNOWN_CONNECTION_TYPE\"`: supported only for subdomain.\n+ `\"POINTING\"`: Get domain or subdomain setup by pointing\n+ `\"NAMESERVERS\"`: Get domain setup by nameservers\n+ `\"HIDDEN\"`: supported only for subdomain.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetDomainSetupInfo",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_GetDomainSetupInfoResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/domain-setup-info",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetDomainSetupInfoRequest",
+        "rpcResponseName": "GetDomainSetupInfoResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Connected Domains",
+      "methodName": "ListConnectedDomains",
+      "serviceName": "ConnectedDomainService",
+      "tag": "Connected Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": "\nNumber of domains to load.\n\nMin: `0`\nMax: `100` \n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListConnectedDomains",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_ListConnectedDomainsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of up to 100 connected domains.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \n\nThe retrieved domains are sorted by `createdDate` in descending order.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/connected-domains",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a list of connected domains.",
+          "body": ["curl -X GET 'https://www.wixapis.com/domains/v1/connected-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\":     {\n      \"next\": null,\n      \"prev\": null\n    },\n    \"hasNext\": false\n  },\n  \"connectedDomains\": [  {\n    \"id\": \"mysite.com\",\n    \"domain\": \"mysite.com\",\n    \"connectionType\": \"NAMESERVERS\",\n    \"siteInfo\":     {\n      \"id\": \"<SITE_ID>\",\n      \"assignmentType\": \"PRIMARY\"\n    },\n    \"suppressNotifications\": false,\n    \"dnsPropagationStatus\": \"UNKNOWN_DNS_PROPAGATION_STATUS\"\n  }]\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListConnectedDomainsRequest",
+        "rpcResponseName": "ListConnectedDomainsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [  {
+    "type": "_com_wixpress_premium_domain_connected_ConnectedDomainDomainEvent",
+    "name": "Connected Domain Webhook",
+    "docs":     {
+      "summary": " Triggered when a connected domain is deleted.\n",
+      "src": "https://github.com/wix-private/premium/tree/master/domains/domain-connected/proto/com/wixpress/premium/domain/connected/connected_domain_service.proto"
+    },
+    "topic": "domain_events_wix.premium.domains.v1.connected_domain",
+    "tag": "Connected Domains",
+    "permissions": [],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.premium.domains.v1.connected_domain_connected_domain",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainCreatedDomainEvent",
+      "displayName": "Connected Domain Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.connected_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ConnectedDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainEntityCreatedEvent",
+      "displayName": "Connected Domain Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainDeletedDomainEvent",
+      "displayName": "Connected Domain Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.connected_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ConnectedDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainEntityDeletedEvent",
+      "displayName": "Connected Domain Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainDomainEvent",
+      "displayName": "Connected Domain Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.connected_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `connected_domain`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ConnectedDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainActionEvent",
+      "displayName": "Connected Domain Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomain",
+      "displayName": "Connected Domain Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nA `connectedDomain` object holds information about an external domain and its connection to a Wix site.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "\nID of the connected domain. Identical to the domain name including TLD.\n",
+          "readOnly": true
+        },
+                {
+          "name": "domain",
+          "type": "string",
+          "doc": "\nDomain name including TLD.\nBoth root domains and subdomains are supported.\n"
+        },
+                {
+          "name": "connectionType",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectionTypeInfo_ConnectionType",
+          "doc": "\nHow the domain is connected to the Wix site. \n\n+ `\"UNKNOWN_CONNECTION_TYPE\"`: There is no information about the connection type.\n+ `\"POINTING\"`: The domain is connected by pointing. Wix doesn't manage DNS information. \n+ `\"NAMESERVERS\"`: The domain is connected by nameservers. Wix manages DNS information. \n+ `\"HIDDEN\"`: The domain isn't visible to site visitors.\n"
+        },
+                {
+          "name": "siteInfo",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_SiteInfo",
+          "doc": "\nInformation about the site to which the domain is assigned to and whether\nit's the primary domain or a redirect.\n"
+        },
+                {
+          "name": "suppressNotifications",
+          "type": "boolean",
+          "doc": "\nWhether the site owner receives standard email notifications from Wix about \nthe connected domain.\n\nDefault: `false`\n"
+        },
+                {
+          "name": "dnsPropagationStatus",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_DnsPropagationStatusEnum_DnsPropagationStatus",
+          "doc": "\nDNS propagation status.\n\n+ `\"UNKNOWN_DNS_PROPAGATION_STATUS\"`: There's no information about the domain's DNS propagation status.\n+ `\"IN_PROGRESS\"`: The domain's DNS propagation process has started but hasn't successfully completed yet.\n+ `\"COMPLETED\"`: The domain's DNS propagation process has successfully finished.\n+ `\"FAILED\"`: The domain's DNS propagation process has failed.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_SiteInfo",
+      "displayName": "Site Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "\nID of the site the domain is assigned to.\n",
+          "readOnly": true
+        },
+                {
+          "name": "assignmentType",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_AssignmentTypeEnum_AssignmentType",
+          "doc": "\nWhether the domain is assigned as primary domain or redirect.\nRead more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\n\n+ `\"UNKNOWN_ASSIGNMENT_TYPE\"`: There's no information about the assignment type.\n+ `\"PRIMARY\"`: The domain is assigned as the primary domain to the Wix site.\n+ `\"REDIRECT\"`: The domain is assigned as a redirect to the Wix site.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": "\nNumber of domains to load.\n\nMin: `0`\nMax: `100` \n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of domains returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Connected Domains._com_wixpress_domains_common_proto_Cursors",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_CreateConnectedDomainRequest",
+      "displayName": "Create Connected Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomain",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "\nDomain to connect.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_CreateConnectedDomainResponse",
+      "displayName": "Create Connected Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomain",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "\nConnected domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetConnectedDomainRequest",
+      "displayName": "Get Connected Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomainId",
+        "type": "string",
+        "doc": "\nID of the connected domain. Identical to the domain name including TLD.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetConnectedDomainResponse",
+      "displayName": "Get Connected Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomain",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain",
+        "doc": "\nRetrieved connected domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_DeleteConnectedDomainRequest",
+      "displayName": "Delete Connected Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomainId",
+        "type": "string",
+        "doc": "\nID of the connected domain to delete. Identical to the domain name including TLD.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_DeleteConnectedDomainResponse",
+      "displayName": "Delete Connected Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ListConnectedDomainsRequest",
+      "displayName": "List Connected Domains Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.Connected Domains._com_wixpress_domains_common_proto_CursorPaging",
+        "doc": " Cursor paging options.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ListConnectedDomainsResponse",
+      "displayName": "List Connected Domains Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Connected Domains._com_wixpress_domains_common_proto_CursorPagingMetadata",
+          "doc": "\nMetadata about the returned list of connected domains.\n"
+        },
+                {
+          "name": "connectedDomains",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomain"]
+          },
+          "doc": " Retrieved connected domains.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo",
+      "displayName": "Connected Domain Setup Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "connectedDomainId",
+          "type": "string",
+          "doc": "\nID of the connected domain. Identical to the domain name including TLD.\n"
+        },
+                {
+          "name": "registrar",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_Registrar",
+          "doc": "\nInformation about the external domain registrar including current name\nservers.\n"
+        },
+                {
+          "name": "dnsRecords",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo_DnsRecords",
+          "doc": " dns records according to the connection type\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo_DnsRecords",
+      "displayName": "Dns Records Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nameserverRecord",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_NameserverRecord",
+          "doc": "\nInformation about domains connected using nameservers. Available only for\n`{\"connectionType\": \"NAMESERVERS\"}`.\n"
+        },
+                {
+          "name": "pointingRecords",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_PointingRecords",
+          "doc": "\nInformation about domains connected by pointing.  Available only for\n`{\"connectionType\": \"POINTING\"}`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "subdomainRecords",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_SubdomainRecords",
+          "doc": "\nInformation about subdomains.  Available only for subdomains.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_Registrar",
+      "displayName": "Registrar Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": "\nName of the external domain registrar. For subdomains it's the registrar of the root domain.\n",
+          "readOnly": true
+        },
+                {
+          "name": "nameServers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nValues of the current name server records. In case you connect an external\ndomain using name servers, site owners must replace these current name servers\nwith the new name servers found in `connectedDomainSetupInfo.nameserverRecord.nsRecord.values`\nduring the initial domain setup.\nThe replacement can't be performed through Wix APIs, you must use the\ninfrastructure of the external domain registrar. Read more about\n[connecting domains using nameservers](https://dev.wix.com/api/rest/account-level-apis/connected-domains/sample-flows#account-level-apis_connected-domains_sample-flows_connect-an-external-domain-using-nameservers).\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ARecord",
+      "displayName": "A Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": " Domain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " DNS record values.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_CnameRecord",
+      "displayName": "Cname Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": "\nDomain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": " DNS record value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_NsRecord",
+      "displayName": "Ns Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "hostName",
+          "type": "string",
+          "doc": " Domain host name. For example `domain.com` or `mail.domain.com`. Can be a subdomain.\n"
+        },
+                {
+          "name": "ttl",
+          "type": "integer",
+          "doc": " [Time to live](https://en.wikipedia.org/wiki/Time_to_live) in seconds.\n"
+        },
+                {
+          "name": "values",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " DNS record values.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_NameserverRecord",
+      "displayName": "Nameserver Record Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about domains connected by nameservers.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "nsRecord",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_NsRecord",
+        "doc": " Default [nameserver record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#NS).\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_PointingRecords",
+      "displayName": "Pointing Records Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about domains connected by pointing.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "aRecord",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ARecord",
+          "doc": " [Address record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#A).\n",
+          "readOnly": true
+        },
+                {
+          "name": "cnameRecord",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_CnameRecord",
+          "doc": " [Canonical Name record](https://en.wikipedia.org/wiki/CNAME_record).\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_SubdomainRecords",
+      "displayName": "Subdomain Records Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Information about subdomains.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "cnameRecords",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Connected Domains._com_wixpress_premium_domain_connected_CnameRecord"]
+        },
+        "doc": " [Canonical Name records](https://en.wikipedia.org/wiki/CNAME_record).\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetConnectedDomainSetupInfoRequest",
+      "displayName": "Get Connected Domain Setup Info Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomainId",
+        "type": "string",
+        "doc": "\nID of the connected domain to retrieve setup information for.\nIdentical to the domain name including TLD.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetConnectedDomainSetupInfoResponse",
+      "displayName": "Get Connected Domain Setup Info Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "connectedDomainSetupInfo",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo",
+        "doc": "\nRetrieved setup information.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetDomainSetupInfoRequest",
+      "displayName": "Get Domain Setup Info Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "domain",
+          "type": "string",
+          "doc": "\nDomain name including TLD\n"
+        },
+                {
+          "name": "connectionType",
+          "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectionTypeInfo_ConnectionType",
+          "doc": "\nHow the domain should be to connected the Wix site.\n\n+ `\"UNKNOWN_CONNECTION_TYPE\"`: supported only for subdomain.\n+ `\"POINTING\"`: Get domain or subdomain setup by pointing\n+ `\"NAMESERVERS\"`: Get domain setup by nameservers\n+ `\"HIDDEN\"`: supported only for subdomain.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_GetDomainSetupInfoResponse",
+      "displayName": "Get Domain Setup Info Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domainSetupInfo",
+        "type": "All APIs.Connected Domains._com_wixpress_premium_domain_connected_ConnectedDomainSetupInfo",
+        "doc": "\nRetrieved setup information.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_ConnectionTypeInfo_ConnectionType",
+      "displayName": "Connection Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CONNECTION_TYPE - *\nUsed by sub domain\n <\/code><\/li><li><code> POINTING <\/code><\/li><li><code> NAMESERVERS <\/code><\/li><li><code> HIDDEN - *\ninternal used by photography company.\nwhen a customer creates a photo album, each album has its sub domain and this sub domain\nis not visible in my domains page.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CONNECTION_TYPE",
+        "POINTING",
+        "NAMESERVERS",
+        "HIDDEN"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_AssignmentTypeEnum_AssignmentType",
+      "displayName": "Assignment Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ASSIGNMENT_TYPE <\/code><\/li><li><code> PRIMARY <\/code><\/li><li><code> REDIRECT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ASSIGNMENT_TYPE",
+        "PRIMARY",
+        "REDIRECT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_connected_DnsPropagationStatusEnum_DnsPropagationStatus",
+      "displayName": "Dns Propagation Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_DNS_PROPAGATION_STATUS <\/code><\/li><li><code> COMPLETED <\/code><\/li><li><code> FAILED <\/code><\/li><li><code> IN_PROGRESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_DNS_PROPAGATION_STATUS",
+        "COMPLETED",
+        "FAILED",
+        "IN_PROGRESS"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.domain.connected.domain-connected"}
+}
