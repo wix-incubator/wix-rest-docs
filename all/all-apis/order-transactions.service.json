@@ -1,0 +1,2441 @@
+{
+  "name": "Order Transactions",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-payments-api/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage eCommerce order payments",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Order Payments",
+    "entity": "_com_wix_ecom_orders_payments_v1_OrderTransactions",
+    "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-payments-api/proto/com/wix/ecom/orders/payments/v1/order_transactions.proto"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/order-transactions/docs/example_flows.md",
+      "name": "Example Flows"
+    },
+        {
+      "path": "../guides/order-transactions/docs/intro.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Add Payments",
+      "methodName": "AddPayments",
+      "serviceName": "Payments",
+      "tag": "Order Payments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "orderId",
+        "payments",
+        "payments.amount",
+        "payments.paymentDetails",
+        "payments.paymentDetails.giftcardPaymentDetails.giftCardPaymentId",
+        "payments.paymentDetails.membershipPaymentDetails.membershipId",
+        "payments.paymentDetails.membershipPaymentDetails.lineItemId",
+        "payments.paymentDetails.membershipPaymentDetails.name",
+        "payments.paymentDetails.membershipPaymentDetails.name.original",
+        "payments.paymentDetails.membershipPaymentDetails.providerAppId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "payments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Payment"]
+          },
+          "doc": " Payments to be added to order.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "AddPayments",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_AddPaymentsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Adds up to 50 payment records to an order.\n\n > **Note:** This does **NOT** perform the actual charging - the order is only updated with records of the payments.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/payments/orders/{orderId}/add-payment",
+        "links": [],
+        "examples": [        {
+          "title": "Add Payments",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/payments/orders/6b51aac3-075c-4b4e-9e92-10c3730130ae/add-payment' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"payments\": [\n      {\n        \"amount\": {\n          \"amount\": \"19.0\"\n        },\n        \"refundDisabled\": false,\n        \"regularPaymentDetails\": {\n          \"paymentOrderId\": \"356e3ba8-6ee9-4f30-9ce4-cf726e4fe6f2\",\n          \"gatewayTransactionId\": \"93eb1f1e-4c1b-4392-979c-a59d1ccf5912\",\n          \"paymentMethod\": \"Stripe\",\n          \"providerTransactionId\": \"pi_3Nma8hD7mauJ7ZJt0bKKZkRT\",\n          \"offlinePayment\": false,\n          \"status\": \"PENDING\"\n        }\n      },\n      {\n        \"amount\": {\n          \"amount\": \"20.0\"\n        },\n        \"refundDisabled\": true,\n        \"giftcardPaymentDetails\": {\n          \"giftCardPaymentId\": \"e38b2b8b-f416-49b2-bbf0-869712fb9a78\",\n          \"appId\": \"d80111c5-a0f4-47a8-b63a-65b54d774a27\"\n        }\n      }\n    ]\n  }'"],
+          "response": ["{\n  \"orderTransactions\":   {\n    \"orderId\": \"6b51aac3-075c-4b4e-9e92-10c3730130ae\",\n    \"payments\":     [\n            {\n        \"id\": \"490fa480-414e-443a-befe-13cbb2772a2f\",\n        \"regularPaymentDetails\":         {\n          \"paymentOrderId\": \"356e3ba8-6ee9-4f30-9ce4-cf726e4fe6f2\",\n          \"gatewayTransactionId\": \"93eb1f1e-4c1b-4392-979c-a59d1ccf5912\",\n          \"paymentMethod\": \"Stripe\",\n          \"providerTransactionId\": \"pi_3Nma8hD7mauJ7ZJt0bKKZkRT\",\n          \"offlinePayment\": false,\n          \"status\": \"PENDING\"\n        },\n        \"createdDate\": \"2023-11-21T09:31:07.806Z\",\n        \"updatedDate\": \"2023-11-21T09:31:07.806Z\",\n        \"amount\":         {\n          \"amount\": \"19.0\",\n          \"formattedAmount\": \"$19.00\"\n        },\n        \"refundDisabled\": false\n      },\n            {\n        \"id\": \"dc67d010-529a-4cea-b78d-8283f3bd3f7b\",\n        \"giftcardPaymentDetails\":         {\n          \"giftCardPaymentId\": \"e38b2b8b-f416-49b2-bbf0-869712fb9a78\",\n          \"giftCardId\": \"\",\n          \"appId\": \"d80111c5-a0f4-47a8-b63a-65b54d774a27\",\n          \"voided\": false\n        },\n        \"createdDate\": \"2023-11-21T09:31:07.806Z\",\n        \"updatedDate\": \"2023-11-21T09:31:07.806Z\",\n        \"amount\":         {\n          \"amount\": \"20.0\",\n          \"formattedAmount\": \"$20.00\"\n        },\n        \"refundDisabled\": true\n      }\n    ],\n    \"refunds\": []\n  },\n  \"paymentsIds\":   [\n    \"490fa480-414e-443a-befe-13cbb2772a2f\",\n    \"dc67d010-529a-4cea-b78d-8283f3bd3f7b\"\n  ]\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "AddPaymentsRequest",
+        "rpcResponseName": "AddPaymentsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Bulk Update Payment Statuses",
+      "methodName": "BulkUpdatePaymentStatuses",
+      "serviceName": "Payments",
+      "tag": "Order Payments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["paymentAndOrderIds"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "paymentAndOrderIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_PaymentAndOrderId"]
+          },
+          "doc": " Order and payment IDs for which to update payment status.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the full payment entity (`results.item`) in the response.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "status",
+          "type": "All APIs.Order Transactions._wix_payment_api_pay_v3_Transaction_TransactionStatus",
+          "doc": " Payment status.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkUpdatePaymentStatuses",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_BulkUpdatePaymentStatusesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Updates multiple order payments with a specified status.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/bulk/payments/update-payment-transaction-status",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Bulk Update Payment Statuses from multiple orders to CANCELED",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/bulk/payments/update-payment-transaction-status' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"paymentAndOrderIds\": [\n      {\n        \"orderId\": \"69c598e5-987f-4429-9b61-76aaf47efedc\",\n        \"paymentId\": \"770f8669-6ae7-47ed-a3fc-815ada5d86f9\"\n      },\n      {\n        \"orderId\": \"4f0cc39e-bb17-44be-bdbd-8331a5138987\",\n        \"paymentId\": \"21cc0ff7-7ff5-4931-9ef8-1ee3d84a2215\"\n      }\n    ],\n    \"status\": \"CANCELED\",\n    \"returnFullEntity\": false\n  }'"],
+            "response": ["{\n  \"results\":   [\n    {\"itemMetadata\":     {\n      \"id\": \"770f8669-6ae7-47ed-a3fc-815ada5d86f9\",\n      \"originalIndex\": 0,\n      \"success\": true\n    }},\n    {\"itemMetadata\":     {\n      \"id\": \"21cc0ff7-7ff5-4931-9ef8-1ee3d84a2215\",\n      \"originalIndex\": 1,\n      \"success\": true\n    }}\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 2,\n    \"totalFailures\": 0,\n    \"undetailedFailures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Bulk Update Payment Statuses",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/bulk/payments/update-payment-transaction-status' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"paymentAndOrderIds\": [\n      {\n        \"orderId\": \"69c598e5-987f-4429-9b61-76aaf47efedc\",\n        \"paymentId\": \"770f8669-6ae7-47ed-a3fc-815ada5d86f9\"\n      },\n\t\t\t{\n        \"orderId\": \"4f0cc39e-bb17-44be-bdbd-8331a5138987\",\n        \"paymentId\": \"00000000-0000-0000-0000-000000000000\"\n\t\t\t}\n    ],\n    \"status\": \"APPROVED\",\n    \"returnFullEntity\": true\n  }'"],
+            "response": ["{\n  \"results\":   [\n    {\"itemMetadata\":     {\n      \"id\": \"00000000-0000-0000-0000-000000000000\",\n      \"originalIndex\": 1,\n      \"success\": false,\n      \"error\":       {\n        \"code\": \"PAYMENT_NOT_FOUND\",\n        \"description\": \"Payment is not found\"\n      }\n    }},\n        {\n      \"itemMetadata\":       {\n        \"id\": \"770f8669-6ae7-47ed-a3fc-815ada5d86f9\",\n        \"originalIndex\": 0,\n        \"success\": true\n      },\n      \"item\":       {\n        \"id\": \"770f8669-6ae7-47ed-a3fc-815ada5d86f9\",\n        \"regularPaymentDetails\":         {\n          \"gatewayTransactionId\": \"6a82ab27-feb1-44ea-98e3-217f1b9c8e89\",\n          \"paymentMethod\": \"In Person\",\n          \"providerTransactionId\": \"\",\n          \"offlinePayment\": true,\n          \"status\": \"APPROVED\"\n        },\n        \"createdDate\": \"2023-11-14T12:45:56.345Z\",\n        \"updatedDate\": \"2023-11-20T09:46:48.081Z\",\n        \"amount\":         {\n          \"amount\": \"330.0\",\n          \"formattedAmount\": \"$330.00\"\n        },\n        \"refundDisabled\": false\n      }\n    }\n  ],\n  \"bulkActionMetadata\":   {\n    \"totalSuccesses\": 1,\n    \"totalFailures\": 1,\n    \"undetailedFailures\": 0\n  }\n} "],
+            "type": "curl",
+            "extra": {"description": "Update the statuses of multiple orders to APPROVED. Request full entity in response."}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkUpdatePaymentStatusesRequest",
+        "rpcResponseName": "BulkUpdatePaymentStatusesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Transactions For Multiple Orders",
+      "methodName": "ListTransactionsForMultipleOrders",
+      "serviceName": "Payments",
+      "tag": "Order Payments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Read eCommerce - all read permissions",
+          "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["orderIds"],
+      "params": [      {
+        "in": "BODY",
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs for which to retrieve transactions.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListTransactionsForMultipleOrders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_ListTransactionsForMultipleOrdersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves information about payments and refunds associated with all specified orders.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/payments/list-by-ids",
+        "links": [],
+        "examples": [        {
+          "title": "List Transactions For Multiple Orders",
+          "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/payments/list-by-ids' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  --data-binary '{\n    \"orderIds\": [\n      \"4bab5870-7943-4a9e-8d4e-96719b3e4f38\",\n      \"6ae38b2e-455b-4e20-b418-01fca82edaa8\"\n    ]\n  }'"],
+          "response": ["{\"orderTransactions\": [\n    {\n    \"orderId\": \"4bab5870-7943-4a9e-8d4e-96719b3e4f38\",\n    \"payments\": [    {\n      \"id\": \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n      \"regularPaymentDetails\":       {\n        \"gatewayTransactionId\": \"42a6c722-b27d-49fc-9a18-827115c4bd66\",\n        \"paymentMethod\": \"Stripe\",\n        \"providerTransactionId\": \"pi_3NmFQZINImlhPEm01iyAurzL\",\n        \"offlinePayment\": false,\n        \"status\": \"REFUNDED\"\n      },\n      \"createdDate\": \"2023-09-03T12:29:21.284Z\",\n      \"updatedDate\": \"2023-09-03T12:30:12.853Z\",\n      \"amount\":       {\n        \"amount\": \"17.99\",\n        \"formattedAmount\": \"17,99 €\"\n      },\n      \"refundDisabled\": false\n    }],\n    \"refunds\": [    {\n      \"id\": \"3cfa83af-94fe-4e02-a7c7-3a969557f697\",\n      \"transactions\": [      {\n        \"paymentId\": \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n        \"amount\":         {\n          \"amount\": \"17.99\",\n          \"formattedAmount\": \"17,99 €\"\n        },\n        \"refundStatus\": \"SUCCEEDED\",\n        \"gatewayRefundId\": \"9656f197-74de-4d9a-bac2-85155614ef5e\",\n        \"providerRefundId\": \"re_3NmFQZINImlhPEm011HglMxH\",\n        \"externalRefund\": false\n      }],\n      \"details\":       {\n        \"items\": [        {\n          \"lineItemId\": \"00000000-0000-0000-0000-000000000001\",\n          \"quantity\": 1\n        }],\n        \"shippingIncluded\": true\n      },\n      \"createdDate\": \"2023-09-03T12:30:12.853Z\"\n    }]\n  },\n    {\n    \"orderId\": \"6ae38b2e-455b-4e20-b418-01fca82edaa8\",\n    \"payments\": [    {\n      \"id\": \"e2f17179-db73-46ef-8d8a-06de7158e43b\",\n      \"regularPaymentDetails\":       {\n        \"gatewayTransactionId\": \"6bba8866-a3af-4404-9522-61be070e4715\",\n        \"paymentMethod\": \"Stripe\",\n        \"providerTransactionId\": \"pi_3NiMZkLpihTBGDpG0DewjotR\",\n        \"offlinePayment\": false,\n        \"status\": \"APPROVED\"\n      },\n      \"createdDate\": \"2023-08-23T19:18:46.135Z\",\n      \"updatedDate\": \"2023-08-23T19:18:46.135Z\",\n      \"amount\":       {\n        \"amount\": \"0.5\",\n        \"formattedAmount\": \"0,50 €\"\n      },\n      \"refundDisabled\": false\n    }],\n    \"refunds\": []\n  }\n]} "],
+          "type": "curl",
+          "extra": {"description": "Retrieves transactions of the 2 requested order IDs"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListTransactionsForMultipleOrdersRequest",
+        "rpcResponseName": "ListTransactionsForMultipleOrdersResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Transactions For Single Order",
+      "methodName": "ListTransactionsForSingleOrder",
+      "serviceName": "Payments",
+      "tag": "Order Payments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Read eCommerce - all read permissions",
+          "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["orderId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListTransactionsForSingleOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_ListTransactionsForSingleOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves information about payments and refunds associated with a specified order.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/ecom/v1/payments/orders/{orderId}",
+        "links": [],
+        "examples": [        {
+          "title": "List Transactions For Single Orders",
+          "body": [" curl -X GET 'https://www.wixapis.com/ecom/v1/payments/orders/8d009fbe-6600-4c7a-ad23-37e9f0477947' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"orderTransactions\": {\n  \"orderId\": \"8d009fbe-6600-4c7a-ad23-37e9f0477947\",\n  \"payments\":   [\n        {\n      \"id\": \"a335aebd-4688-437e-84c3-ebe947779bc1\",\n      \"giftcardPaymentDetails\":       {\n        \"giftCardPaymentId\": \"ff3c2b57-2dc4-47de-a261-9ae00251a60b\",\n        \"giftCardId\": \"\",\n        \"appId\": \"d80111c5-a0f4-47a8-b63a-65b54d774a27\",\n        \"voided\": false\n      },\n      \"createdDate\": \"2023-09-01T20:20:26.451Z\",\n      \"updatedDate\": \"2023-09-01T20:20:26.451Z\",\n      \"amount\":       {\n        \"amount\": \"25.0\",\n        \"formattedAmount\": \"C$25.00\"\n      },\n      \"refundDisabled\": false\n    },\n        {\n      \"id\": \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n      \"regularPaymentDetails\":       {\n        \"gatewayTransactionId\": \"42a6c722-b27d-49fc-9a18-827115c4bd66\",\n        \"paymentMethod\": \"Stripe\",\n        \"providerTransactionId\": \"pi_3NmFQZINImlhPEm01iyAurzL\",\n        \"offlinePayment\": false,\n        \"status\": \"REFUNDED\"\n      },\n      \"createdDate\": \"2023-09-01T20:21:26.451Z\",\n      \"updatedDate\": \"2023-09-03T12:30:12.853Z\",\n      \"amount\":       {\n        \"amount\": \"17.99\",\n        \"formattedAmount\": \"C$17,99\"\n      },\n      \"refundDisabled\": false\n    }\n  ],\n  \"refunds\": [  {\n    \"id\": \"3cfa83af-94fe-4e02-a7c7-3a969557f697\",\n    \"transactions\": [    {\n      \"paymentId\": \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n      \"amount\":       {\n        \"amount\": \"17.99\",\n        \"formattedAmount\": \"C$17,99\"\n      },\n      \"refundStatus\": \"SUCCEEDED\",\n      \"gatewayRefundId\": \"9656f197-74de-4d9a-bac2-85155614ef5e\",\n      \"providerRefundId\": \"re_3NmFQZINImlhPEm011HglMxH\",\n      \"externalRefund\": false\n    }],\n    \"details\":     {\n      \"items\": [      {\n        \"lineItemId\": \"00000000-0000-0000-0000-000000000001\",\n        \"quantity\": 1\n      }],\n      \"shippingIncluded\": true\n    },\n    \"createdDate\": \"2023-09-03T12:30:12.853Z\"\n  }]\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListTransactionsForSingleOrderRequest",
+        "rpcResponseName": "ListTransactionsForSingleOrderResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Update Payment Status",
+      "methodName": "UpdatePaymentStatus",
+      "serviceName": "Payments",
+      "tag": "Order Payments",
+      "permissions":       [
+                {
+          "name": "Manage eCommerce - all permissions",
+          "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+        },
+                {
+          "name": "Manage Orders",
+          "description": "Request permission to read, create and modify the site's Wix Stores orders."
+        }
+      ],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "orderId",
+        "paymentId"
+      ],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "paymentId",
+          "type": "string",
+          "doc": " Payment ID.\n",
+          "required": true
+        },
+                {
+          "in": "PATH",
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "status",
+          "type": "All APIs.Order Transactions._wix_payment_api_pay_v3_Transaction_TransactionStatus",
+          "doc": " Payment status.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "UpdatePaymentStatus",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_UpdatePaymentStatusResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Updates the status of an order's payment.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/payments/{paymentId}/orders/{orderId}/update-payment-transaction-status",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Update Payment Status to APPROVED",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/payments/6ac204b6-d1df-44c7-ae84-aa08197380d8/orders/c7689f97-304f-425e-bbda-2451a32596c9/update-payment-transaction-status' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n  \t\"status\": \"APPROVED\"\n  }'"],
+            "response": ["{\"orderTransactions\": {\n  \"orderId\": \"c7689f97-304f-425e-bbda-2451a32596c9\",\n  \"payments\": [  {\n    \"id\": \"6ac204b6-d1df-44c7-ae84-aa08197380d8\",\n    \"regularPaymentDetails\":     {\n      \"paymentOrderId\": null,\n      \"gatewayTransactionId\": \"47303d3c-5a0f-4e6f-87f4-891d89cd8203\",\n      \"paymentMethod\": \"WixPayments\",\n      \"providerTransactionId\": \"47303d3c-5a0f-4e6f-87f4-891d89cd8203\",\n      \"offlinePayment\": false,\n      \"status\": \"APPROVED\"\n    },\n    \"createdDate\": \"2023-11-17T15:00:27.293Z\",\n    \"updatedDate\": \"2023-11-17T15:02:10.890Z\",\n    \"amount\":     {\n      \"amount\": \"99.0\",\n      \"formattedAmount\": \"$99.00\"\n    },\n    \"refundDisabled\": false\n  }],\n  \"refunds\": []\n}} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Update Payment Status to VOIDED",
+            "body": ["curl -X POST \\\n  'https://www.wixapis.com/ecom/v1/payments/da08a874-c8d8-4041-ad85-48fbd5284a7a/orders/b4247531-bb4e-44b2-b935-8e4dfabd91a0/update-payment-transaction-status' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n  \t\"status\": \"VOIDED\"\n  }'"],
+            "response": ["{\"orderTransactions\": {\n  \"orderId\": \"b4247531-bb4e-44b2-b935-8e4dfabd91a0\",\n  \"payments\": [  {\n    \"id\": \"da08a874-c8d8-4041-ad85-48fbd5284a7a\",\n    \"regularPaymentDetails\":     {\n      \"gatewayTransactionId\": \"64dfce61-cdad-4f79-be53-5e0c78118fe3\",\n      \"paymentMethod\": \"In Person\",\n      \"providerTransactionId\": \"\",\n      \"offlinePayment\": true,\n      \"status\": \"VOIDED\"\n    },\n    \"createdDate\": \"2023-11-21T09:18:26.627Z\",\n    \"updatedDate\": \"2023-11-21T09:19:00.089Z\",\n    \"amount\":     {\n      \"amount\": \"99.0\",\n      \"formattedAmount\": \"$99.00\"\n    },\n    \"refundDisabled\": false\n  }],\n  \"refunds\": []\n}} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdatePaymentStatusRequest",
+        "rpcResponseName": "UpdatePaymentStatusResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [  {
+    "type": "_com_wix_ecom_orders_payments_v1_PaymentsUpdatedDomainEvent",
+    "name": "Payments Updated Webhook",
+    "docs":     {
+      "summary": "\nTriggered when a payment or refund is added to an order, or when an existing payment is updated.\n\nThe response contains the ID of the updated order and details of its associated transactions,\nas well as IDs of the updated payments and refunds.\n",
+      "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/ecom-platform-orders/api/wix-ecom-orders-payments-api/proto/com/wix/ecom/orders/payments/v1/payments.proto"
+    },
+    "topic": "domain_events_wix.ecom.v1.order_transactions",
+    "tag": "Order Payments",
+    "permissions":     [
+            {
+        "name": "Manage eCommerce - all permissions",
+        "description": "Request permission to read, create and modify the site's Wix eCommerce data, including cart, checkout, and order data. This permission scope contains all of the eCommerce permissions.\n"
+      },
+            {
+        "name": "Read eCommerce - all read permissions",
+        "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+      },
+            {
+        "name": "Manage Orders",
+        "description": "Request permission to read, create and modify the site's Wix Stores orders."
+      }
+    ],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.ecom.v1.order_transactions_updated",
+    "extra": {"isDomainEvent": true}
+  }],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_PaymentsUpdatedDomainEvent",
+      "displayName": "Payments Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.order_transactions`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_PaymentsUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "PaymentsUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_PaymentsUpdatedActionEvent",
+      "displayName": "Payments Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_PaymentsUpdated",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundCreatedDomainEvent",
+      "displayName": "Refund Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.order_transactions`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `refunded`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundCreatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "RefundCreated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundCreatedActionEvent",
+      "displayName": "Refund Created Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundCreated",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_InvoiceInfo",
+      "displayName": "Invoice Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Invoice ID.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the app that set the invoice.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Invoice URL.\n",
+          "deprecated": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Invoice creation date and time.\n",
+          "deprecated": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_memberships_spi_v1_MembershipName",
+      "displayName": "Membership Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " The name of this membership\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Optional - Translated name of this membership. Defaults to `original` when not provided.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_Price",
+      "displayName": "Price Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Amount.\n"
+        },
+                {
+          "name": "formattedAmount",
+          "type": "string",
+          "doc": " Amount formatted with currency symbol.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Payment",
+      "displayName": "Payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Payment ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "paymentDetails",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Payment_PaymentDetails",
+          "doc": ""
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the payment was created in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) format. Defaults to current time when not provided.\n"
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the payment was last updated in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) format.\n",
+          "readOnly": true
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Order Transactions._com_wix_ecommerce_platform_common_api_Price",
+          "doc": " Payment amount.\n"
+        },
+                {
+          "name": "refundDisabled",
+          "type": "boolean",
+          "doc": " Whether refunds for this payment are disabled.\n + `true`: This payment is not refundable.\n + `false`: This payment may be refunded. However, this ultimately depends on the payment provider.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Payment_PaymentDetails",
+      "displayName": "Payment Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "regularPaymentDetails",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RegularPaymentDetails",
+          "doc": " Regular payment details.\n"
+        },
+                {
+          "name": "giftcardPaymentDetails",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_GiftCardPaymentDetails",
+          "doc": " Gift card payment details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RegularPaymentDetails",
+      "displayName": "Regular Payment Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentOrderId",
+          "type": "string",
+          "doc": " Wix Payments order ID.\n"
+        },
+                {
+          "name": "gatewayTransactionId",
+          "type": "string",
+          "doc": " Payment gateway's transaction ID. This ID can be used with the Wix Payments [Transactions API](https://dev.wix.com/docs/rest/api-reference/wix-payments/transactions/introduction).\n This field is only returned when the value of `offline_payment` is `false`.\n"
+        },
+                {
+          "name": "paymentMethod",
+          "type": "string",
+          "doc": " Payment method. Non-exhaustive list of supported values:\n + `CreditCard`, `Alipay`, `AstropayCash`, `AstropayDBT`, `AstropayMBT`, `Bitcoin`, `BitPay`, `Cash`, `ConvenienceStore`, `EPay`, `Fake`, `Giropay`, `IDeal`, `InPerson`, `Klarna`, `MercadoPago`, `Netpay`, `NordeaSolo`, `Offline`, `PagSeguro`, `PayEasy`, `PayPal`, `Paysafecard`, `Paysafecash`, `PointOfSale`, `Poli`, `Privat24`, `Przelewy24`, `RapidTransfer`, `Sepa`, `Skrill`, `Sofort`, `Trustly`, `Neteller`, `Unionpay`, `UniPay`, `Yandex`\n"
+        },
+                {
+          "name": "providerTransactionId",
+          "type": "string",
+          "doc": " Transaction ID in the payment provider's system. For example, at PayPal, Square, Stripe, etc. Not returned for offline payments.\n"
+        },
+                {
+          "name": "offlinePayment",
+          "type": "boolean",
+          "doc": " Whether the payment was made offline. For example, when using cash or when marked as paid in the Business Manager.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Order Transactions._wix_payment_api_pay_v3_Transaction_TransactionStatus",
+          "doc": " Payment status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_GiftCardPaymentDetails",
+      "displayName": "Gift Card Payment Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "giftCardPaymentId",
+          "type": "string",
+          "doc": " Gift card payment ID.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the app that created the gift card.\n"
+        },
+                {
+          "name": "voided",
+          "type": "boolean",
+          "doc": " Whether the gift card is voided.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_MembershipPaymentDetails",
+      "displayName": "Membership Payment Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "membershipId",
+          "type": "string",
+          "doc": " Membership ID.\n"
+        },
+                {
+          "name": "lineItemId",
+          "type": "string",
+          "doc": " ID of the line item this membership applies to.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_MembershipPaymentStatus",
+          "doc": " Payment status.\n"
+        },
+                {
+          "name": "name",
+          "type": "All APIs.Order Transactions._com_wix_ecom_memberships_spi_v1_MembershipName",
+          "doc": " Membership name.\n"
+        },
+                {
+          "name": "externalTransactionId",
+          "type": "string",
+          "doc": " The transaction ID in the membership system. Can be used to void the transaction.\n"
+        },
+                {
+          "name": "voided",
+          "type": "boolean",
+          "doc": " Whether the membership is voided.\n",
+          "readOnly": true
+        },
+                {
+          "name": "providerAppId",
+          "type": "string",
+          "doc": " ID of the application providing this payment option.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refund",
+      "displayName": "Refund Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Refund ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "transactions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundTransaction"]
+          },
+          "doc": " List of transactions.\n"
+        },
+                {
+          "name": "details",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundDetails",
+          "doc": " Refund business details.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the refund was created in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) format. Defaults to current time when not provided.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundTransaction",
+      "displayName": "Refund Transaction Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentId",
+          "type": "string",
+          "doc": " ID of the payment associated with this refund.\n"
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Order Transactions._com_wix_ecommerce_platform_common_api_Price",
+          "doc": " Refund amount.\n"
+        },
+                {
+          "name": "refundStatus",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundStatus",
+          "doc": " Refund status.\n"
+        },
+                {
+          "name": "gatewayRefundId",
+          "type": "string",
+          "doc": " Payment gateway's refund ID. This ID can be used with the Wix Payments [Transactions API](https://dev.wix.com/docs/rest/api-reference/wix-payments/transactions/introduction).\n This field is only returned when the value of `external_refund` is `false`.\n"
+        },
+                {
+          "name": "providerRefundId",
+          "type": "string",
+          "doc": " ID of the refund in the payment provider's system. For example, at PayPal, Square, Stripe, etc. Not returned for external refunds.\n"
+        },
+                {
+          "name": "externalRefund",
+          "type": "boolean",
+          "doc": " Whether refund was made externally and manually on the payment provider's side.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundDetails",
+      "displayName": "Refund Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Business model of a refund request\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundItem"]
+          },
+          "doc": " Order line item IDs and quantities that were refunded.\n"
+        },
+                {
+          "name": "shippingIncluded",
+          "type": "boolean",
+          "doc": " Whether the shipping fee was also refunded.\n"
+        },
+                {
+          "name": "reason",
+          "type": "string",
+          "doc": " Reason for the refund, provided by customer (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundSideEffects",
+      "displayName": "Refund Side Effects Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "restockInfo",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RestockInfo",
+          "doc": " Inventory restock details as part of this refund.\n"
+        },
+                {
+          "name": "sendOrderRefundedEmail",
+          "type": "boolean",
+          "doc": " Whether to send a refund confirmation email to the customer.\n"
+        },
+                {
+          "name": "customMessage",
+          "type": "string",
+          "doc": " Custom message added to the refund confirmation email.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundItem",
+      "displayName": "Refund Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItemId",
+          "type": "string",
+          "doc": " Line item ID the refunded line item.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Line item quantity refunded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RestockInfo",
+      "displayName": "Restock Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RestockInfo_RestockType",
+          "doc": " Restock type.\n"
+        },
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RestockItem"]
+          },
+          "doc": " Restocked line items and quantities. Only relevant for `{\"type\": \"SOME_ITEMS\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RestockItem",
+      "displayName": "Restock Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItemId",
+          "type": "string",
+          "doc": " ID of the line item being restocked.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Line item quantity being restocked.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_OrderTransactions",
+      "displayName": "Order Transactions Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"orderTransactions\" : {\n    \"orderId\" : \"8d009fbe-6600-4c7a-ad23-37e9f0477947\",\n    \"payments\" : [ {\n      \"id\" : \"a335aebd-4688-437e-84c3-ebe947779bc1\",\n      \"giftcardPaymentDetails\" : {\n        \"giftCardPaymentId\" : \"ff3c2b57-2dc4-47de-a261-9ae00251a60b\",\n        \"giftCardId\" : \"\",\n        \"appId\" : \"d80111c5-a0f4-47a8-b63a-65b54d774a27\",\n        \"voided\" : false\n      },\n      \"createdDate\" : \"2023-09-01T20:20:26.451Z\",\n      \"updatedDate\" : \"2023-09-01T20:20:26.451Z\",\n      \"amount\" : {\n        \"amount\" : \"25.0\",\n        \"formattedAmount\" : \"C$25.00\"\n      },\n      \"refundDisabled\" : false\n    }, {\n      \"id\" : \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n      \"regularPaymentDetails\" : {\n        \"gatewayTransactionId\" : \"42a6c722-b27d-49fc-9a18-827115c4bd66\",\n        \"paymentMethod\" : \"Stripe\",\n        \"providerTransactionId\" : \"pi_3NmFQZINImlhPEm01iyAurzL\",\n        \"offlinePayment\" : false,\n        \"status\" : \"REFUNDED\"\n      },\n      \"createdDate\" : \"2023-09-01T20:21:26.451Z\",\n      \"updatedDate\" : \"2023-09-03T12:30:12.853Z\",\n      \"amount\" : {\n        \"amount\" : \"17.99\",\n        \"formattedAmount\" : \"C$17,99\"\n      },\n      \"refundDisabled\" : false\n    } ],\n    \"refunds\" : [ {\n      \"id\" : \"3cfa83af-94fe-4e02-a7c7-3a969557f697\",\n      \"transactions\" : [ {\n        \"paymentId\" : \"62fdfea7-896d-438d-9b88-4d7c1a4674ac\",\n        \"amount\" : {\n          \"amount\" : \"17.99\",\n          \"formattedAmount\" : \"C$17,99\"\n        },\n        \"refundStatus\" : \"SUCCEEDED\",\n        \"gatewayRefundId\" : \"9656f197-74de-4d9a-bac2-85155614ef5e\",\n        \"providerRefundId\" : \"re_3NmFQZINImlhPEm011HglMxH\",\n        \"externalRefund\" : false\n      } ],\n      \"details\" : {\n        \"items\" : [ {\n          \"lineItemId\" : \"00000000-0000-0000-0000-000000000001\",\n          \"quantity\" : 1\n        } ],\n        \"shippingIncluded\" : true\n      },\n      \"createdDate\" : \"2023-09-03T12:30:12.853Z\"\n    } ]\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "payments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Payment"]
+          },
+          "doc": " Record of payments made to the merchant.\n"
+        },
+                {
+          "name": "refunds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refund"]
+          },
+          "doc": " Record of refunds made to the buyer.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Order Transactions._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refundability",
+      "displayName": "Refundability Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentId",
+          "type": "string",
+          "doc": " Payment ID.\n"
+        },
+                {
+          "name": "refundabilityStatus",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refundability_RefundableStatus",
+          "doc": " Payment refundability status.\n"
+        },
+                {
+          "name": "providerLink",
+          "type": "string",
+          "doc": " Link to payment provider dashboard.\n"
+        },
+                {
+          "name": "additionalRefundabilityInfo",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refundability_additionalRefundabilityInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refundability_additionalRefundabilityInfo",
+      "displayName": "additional Refundability Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nonRefundableReason",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refundability_NonRefundableReason",
+          "doc": " Reason why payment is not refundable.\n"
+        },
+                {
+          "name": "manuallyRefundableReason",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refundability_ManuallyRefundableReason",
+          "doc": " Reason why payment is only refundable manually.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListTransactionsForSingleOrderRequest",
+      "displayName": "List Transactions For Single Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListTransactionsForSingleOrderResponse",
+      "displayName": "List Transactions For Single Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderTransactions",
+        "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+        "doc": " Order ID and its associated transactions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListTransactionsForMultipleOrdersRequest",
+      "displayName": "List Transactions For Multiple Orders Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs for which to retrieve transactions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListTransactionsForMultipleOrdersResponse",
+      "displayName": "List Transactions For Multiple Orders Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderTransactions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions"]
+        },
+        "doc": " List of order IDs and their associated transactions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddPaymentsRequest",
+      "displayName": "Add Payments Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "payments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Payment"]
+          },
+          "doc": " Payments to be added to order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddPaymentsResponse",
+      "displayName": "Add Payments Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderTransactions",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+          "doc": " Order ID and its associated transactions.\n"
+        },
+                {
+          "name": "paymentsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of added order payments.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_UpdatePaymentStatusRequest",
+      "displayName": "Update Payment Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "paymentId",
+          "type": "string",
+          "doc": " Payment ID.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Order Transactions._wix_payment_api_pay_v3_Transaction_TransactionStatus",
+          "doc": " Payment status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_UpdatePaymentStatusResponse",
+      "displayName": "Update Payment Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderTransactions",
+        "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+        "doc": " Order ID and its associated transactions after update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkUpdatePaymentStatusesRequest",
+      "displayName": "Bulk Update Payment Statuses Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentAndOrderIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_PaymentAndOrderId"]
+          },
+          "doc": " Order and payment IDs for which to update payment status.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": " Whether to return the full payment entity (`results.item`) in the response.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Order Transactions._wix_payment_api_pay_v3_Transaction_TransactionStatus",
+          "doc": " Payment status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_PaymentAndOrderId",
+      "displayName": "Payment And Order Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "paymentId",
+          "type": "string",
+          "doc": " Payment ID.\ntodo: remove comment once UI will use BulkMarkOrderAsPaid\n, (.wix.api.format) = GUID];\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkUpdatePaymentStatusesResponse",
+      "displayName": "Bulk Update Payment Statuses Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_BulkPaymentResult"]
+          },
+          "doc": " Bulk operation results.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Order Transactions._wix_common_BulkActionMetadata",
+          "doc": " Bulk operation metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkPaymentResult",
+      "displayName": "Bulk Payment Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Order Transactions._wix_common_ItemMetadata",
+          "doc": " Item metadata.\n"
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Payment",
+          "doc": " Updated payment. Returned if `return_full_entity` set to `true`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddRefundRequest",
+      "displayName": "Add Refund Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID this refunds related to\n"
+        },
+                {
+          "name": "refund",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refund",
+          "doc": " Refund with refund transactions to be added to order.\n"
+        },
+                {
+          "name": "sideEffects",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundSideEffects",
+          "doc": " Side effect details related to refund\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddRefundResponse",
+      "displayName": "Add Refund Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderTransactions",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+          "doc": " Order ID and its associated transactions.\n"
+        },
+                {
+          "name": "refundId",
+          "type": "string",
+          "doc": " Created refund ID\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_TriggerRefundRequest",
+      "displayName": "Trigger Refund Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " The order this refund related to\n"
+        },
+                {
+          "name": "payments",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_PaymentRefund"]
+          },
+          "doc": " Refund operations information\n Currently, only *one* payment refund is supported per request\n"
+        },
+                {
+          "name": "details",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundDetails",
+          "doc": " Business model of a refund\n"
+        },
+                {
+          "name": "restockInfo",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RestockInfo",
+          "doc": " How to restock items as part of this refund\n"
+        },
+                {
+          "name": "sendOrderRefundedEmail",
+          "type": "boolean",
+          "doc": " Should send a confirmation mail to the customer\n"
+        },
+                {
+          "name": "customMessage",
+          "type": "string",
+          "doc": " Personal note added to the email\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_TriggerRefundResponse",
+      "displayName": "Trigger Refund Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderTransactions",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+          "doc": " All order's transactions after the refunds were added\n"
+        },
+                {
+          "name": "refundId",
+          "type": "string",
+          "doc": " Created refund ID\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_PaymentRefund",
+      "displayName": "Payment Refund Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paymentId",
+          "type": "string",
+          "doc": " Specific payment within the order to refund\n"
+        },
+                {
+          "name": "amount",
+          "type": "All APIs.Order Transactions._com_wix_ecommerce_platform_common_api_Price",
+          "doc": " Refund amount. Not relevant for membership refunds.\n"
+        },
+                {
+          "name": "externalRefund",
+          "type": "boolean",
+          "doc": " Whether refund is made externally and manually (on the payment provider's side)\n When false (default), the payment gateway will be called in order to make an actual refund, and then the payment will be marked as refunded.\n When true, the payment will only be *marked* as refunded, and no actual refund will be performed.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_CalculateRefundRequest",
+      "displayName": "Calculate Refund Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID\n"
+        },
+                {
+          "name": "refundItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_CalculateRefundItemRequest"]
+          },
+          "doc": " Refunded line items and quantity\n"
+        },
+                {
+          "name": "refundShipping",
+          "type": "boolean",
+          "doc": " Should include shipping in refund calculation\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_CalculateRefundResponse",
+      "displayName": "Calculate Refund Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "total",
+          "type": "string",
+          "doc": " Total refundable amount\n"
+        },
+                {
+          "name": "tax",
+          "type": "string",
+          "doc": " Tax cost of the order\n"
+        },
+                {
+          "name": "discount",
+          "type": "string",
+          "doc": " Discount given for this order\n"
+        },
+                {
+          "name": "subtotal",
+          "type": "string",
+          "doc": " Total cost of the order (without tax)\n"
+        },
+                {
+          "name": "previouslyRefundedAmount",
+          "type": "string",
+          "doc": " Previous refund given on that order\n"
+        },
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_CalculateRefundItemResponse"]
+          },
+          "doc": " The refundable items of that order\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_CalculateRefundItemRequest",
+      "displayName": "Calculate Refund Item Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItemId",
+          "type": "string",
+          "doc": " ID of the line item being refunded\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " How much of that line item is being refunded\n"
+        },
+                {
+          "name": "restock",
+          "type": "boolean",
+          "doc": " Should this item be restocked (used for validation purposes)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_CalculateRefundItemResponse",
+      "displayName": "Calculate Refund Item Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItemId",
+          "type": "string",
+          "doc": " Line item ID\n"
+        },
+                {
+          "name": "lineItemPrice",
+          "type": "number",
+          "doc": " The line item's price\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_GetRefundabilityStatusRequest",
+      "displayName": "Get Refundability Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_GetRefundabilityStatusResponse",
+      "displayName": "Get Refundability Status Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "refundabilities",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_Refundability"]
+          },
+          "doc": " Refundability details.\n"
+        },
+                {
+          "name": "refundablePerItem",
+          "type": "boolean",
+          "doc": " Whether the order supports refunding per item.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListInvoicesForSingleOrderRequest",
+      "displayName": "List Invoices For Single Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListInvoicesForSingleOrderResponse",
+      "displayName": "List Invoices For Single Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "invoices",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoiceInfo"]
+        },
+        "doc": " List of invoices.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListInvoicesForMultipleOrdersRequest",
+      "displayName": "List Invoices For Multiple Orders Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs for which to retrieve invoices.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_ListInvoicesForMultipleOrdersResponse",
+      "displayName": "List Invoices For Multiple Orders Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "invoicesForOrder",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoicesForOrder"]
+        },
+        "doc": " List of order IDs and their associated invoices.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_InvoicesForOrder",
+      "displayName": "Invoices For Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "invoicesInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoiceInfo"]
+          },
+          "doc": " Invoices info.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddInvoiceToOrderRequest",
+      "displayName": "Add Invoice To Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "invoiceInfo",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoiceInfo",
+          "doc": " Invoice info.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_AddInvoiceToOrderResponse",
+      "displayName": "Add Invoice To Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderInvoices",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoiceInfo"]
+        },
+        "doc": " List of order invoices.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_GenerateInvoiceRequest",
+      "displayName": "Generate Invoice Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " Order ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_GenerateInvoiceResponse",
+      "displayName": "Generate Invoice Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "invoiceId",
+        "type": "string",
+        "doc": " Invoice ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkGenerateInvoicesRequest",
+      "displayName": "Bulk Generate Invoices Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Order IDs.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkGenerateInvoicesResponse",
+      "displayName": "Bulk Generate Invoices Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_BulkInvoiceResult"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Order Transactions._wix_common_BulkActionMetadata",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_BulkInvoiceResult",
+      "displayName": "Bulk Invoice Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Order Transactions._wix_common_ItemMetadata",
+          "doc": ""
+        },
+                {
+          "name": "item",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_InvoiceForOrder",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_InvoiceForOrder",
+      "displayName": "Invoice For Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " Order ID.\n"
+        },
+                {
+          "name": "invoiceId",
+          "type": "string",
+          "doc": " Invoice ID.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_PaymentsUpdated",
+      "displayName": "Payments Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Triggered when a payment is updated.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderTransactions",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+          "doc": " Updated order transactions.\n"
+        },
+                {
+          "name": "paymentIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of IDs of the updated payments.\n"
+        },
+                {
+          "name": "refundIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of IDs of the updated refunds.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundCreated",
+      "displayName": "Refund Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Triggered when a refund is created.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderTransactions",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_OrderTransactions",
+          "doc": " Updated order transactions.\n"
+        },
+                {
+          "name": "refundId",
+          "type": "string",
+          "doc": " ID of the created refund.\n"
+        },
+                {
+          "name": "restockInfo",
+          "type": "All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RestockInfo",
+          "doc": " Inventory restock details as part of this refund..\n"
+        },
+                {
+          "name": "sendOrderRefundedEmail",
+          "type": "boolean",
+          "doc": " Whether to send a refund confirmation email to the customer.\n"
+        },
+                {
+          "name": "customMessage",
+          "type": "string",
+          "doc": " Custom message added to the refund confirmation email.\n"
+        },
+                {
+          "name": "refundItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Order Transactions._com_wix_ecom_orders_payments_v1_RefundItem"]
+          },
+          "doc": " Refunded line items and quantities that are part of the created refund.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v3_Transaction_TransactionStatus",
+      "displayName": "Transaction Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> PENDING_MERCHANT <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> PARTIALLY_REFUNDED <\/code><\/li><li><code> AUTHORIZED <\/code><\/li><li><code> VOIDED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "APPROVED",
+        "PENDING",
+        "PENDING_MERCHANT",
+        "CANCELED",
+        "DECLINED",
+        "REFUNDED",
+        "PARTIALLY_REFUNDED",
+        "AUTHORIZED",
+        "VOIDED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_MembershipPaymentStatus",
+      "displayName": "Membership Payment Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> CHARGED -  CHARGED - Payment was charged\n <\/code><\/li><li><code> CHARGE_FAILED -  CHARGE_FAILED - The attempt to charge that payment have failed, for example due to lack of credits\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "CHARGED",
+        "CHARGE_FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RefundStatus",
+      "displayName": "Refund Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> PENDING <\/code><\/li><li><code> SUCCEEDED <\/code><\/li><li><code> FAILED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_RestockInfo_RestockType",
+      "displayName": "Restock Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NO_ITEMS <\/code><\/li><li><code> ALL_ITEMS <\/code><\/li><li><code> SOME_ITEMS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NO_ITEMS",
+        "ALL_ITEMS",
+        "SOME_ITEMS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refundability_RefundableStatus",
+      "displayName": "Refundable Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NOT_REFUNDABLE <\/code><\/li><li><code> MANUAL <\/code><\/li><li><code> REFUNDABLE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NOT_REFUNDABLE",
+        "MANUAL",
+        "REFUNDABLE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refundability_ManuallyRefundableReason",
+      "displayName": "Manually Refundable Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> EXPIRED <\/code><\/li><li><code> NOT_SUPPORTED <\/code><\/li><li><code> NOT_FOUND <\/code><\/li><li><code> OFFLINE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "EXPIRED",
+        "NOT_SUPPORTED",
+        "NOT_FOUND",
+        "OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_orders_payments_v1_Refundability_NonRefundableReason",
+      "displayName": "Non Refundable Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> ALREADY_REFUNDED <\/code><\/li><li><code> PROVIDER_IS_DOWN <\/code><\/li><li><code> INTERNAL_ERROR <\/code><\/li><li><code> NOT_PAID <\/code><\/li><li><code> ACCESS_DENIED <\/code><\/li><li><code> ZERO_PRICE <\/code><\/li><li><code> DISABLED_BY_PROVIDER <\/code><\/li><li><code> PARTIALLY_PAID <\/code><\/li><li><code> DEPOSIT_ONLINE_ITEM <\/code><\/li><li><code> PENDING_REFUND <\/code><\/li><li><code> FORBIDDEN <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "ALREADY_REFUNDED",
+        "PROVIDER_IS_DOWN",
+        "INTERNAL_ERROR",
+        "NOT_PAID",
+        "ACCESS_DENIED",
+        "ZERO_PRICE",
+        "DISABLED_BY_PROVIDER",
+        "PARTIALLY_PAID",
+        "DEPOSIT_ONLINE_ITEM",
+        "PENDING_REFUND",
+        "FORBIDDEN"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ecom.ep-payments-proxy"}
+}
