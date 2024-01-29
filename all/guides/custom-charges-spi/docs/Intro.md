@@ -13,7 +13,7 @@ With the Custom Charges SPI, you can:
 + Keep your customers informed about how much your app would charge them if Wix
   were to send an invoice at this moment.
 
-See the [App Instance API](https://bo.wix.com/wix-docs/rest/app-management/apps/app-instance/introduction)
+See the [App Instance API](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/introduction)
 for more details about the notifications you receive when a customer installs
 an instance of your app on their site.
 
@@ -57,7 +57,7 @@ It’s important to note the following points before starting to code:
   more currencies in the future.
 + We recommend to use the `instanceId` instead of the `subscriptionId` to track
   usage and billing for apps, because this field is also used in the
-  [App Management API](https://dev.wix.com/docs/rest/utilities/app-management/about-app-management).
+  [App Management API](https://dev.wix.com/docs/rest/api-reference/app-management/about-app-management).
 + If we discover that your app has charged customers for usage outside of an
   invoice's specified period, we may take action such as blocking your app from
   charging the customer, removing your app from the Wix App Market, revoking
@@ -94,4 +94,4 @@ It’s important to note the following points before starting to code:
   subscriptions. In case the product is an app, we recommend to use the app
   instance ID instead of the subscription ID to track usage and billing, because
   this field is also used in the
-  [App Management API](https://dev.wix.com/docs/rest/utilities/app-management/about-app-management).
+  [App Management API](https://dev.wix.com/docs/rest/api-reference/app-management/about-app-management).
