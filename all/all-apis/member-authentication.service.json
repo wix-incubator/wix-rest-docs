@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Authentication",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -24,74 +24,305 @@
       "name": "Introduction"
     }
   ],
-  "operations": [  {
-    "name": "Send Set Password Email",
-    "methodName": "SendSetPasswordEmail",
-    "serviceName": "AuthService",
-    "tag": "Authentication",
-    "permissions": [    {
-      "name": "Manage Members",
-      "description": "Request permission to read, create and change member data."
-    }],
-    "events": [],
-    "labels": [],
-    "nameParams": [],
-    "requiredFields": ["email"],
-    "params":     [
-            {
+  "operations":   [
+        {
+      "name": "Generate Session Token",
+      "methodName": "GenerateSessionToken",
+      "serviceName": "SessionService",
+      "tag": "Authentication",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [      {
         "in": "BODY",
         "name": "email",
         "type": "string",
-        "doc": " Login email of the member whose password will be set.\n",
-        "required": true
-      },
-            {
-        "in": "BODY",
-        "name": "requestedByMember",
-        "type": "boolean",
-        "doc": "\n> **Deprecated:**\n> This field has been replaced with\n> `hideIgnoreMessage`\n> and will be removed on June 30, 2022.\n> If your app uses this field,\n> we recommend updating your code as soon as possible.\n\nWhether the email is being sent by member request.\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefaults to `false`.\n",
-        "required": false,
-        "deprecated": true
-      },
-            {
-        "in": "BODY",
-        "name": "hideIgnoreMessage",
-        "type": "boolean",
-        "doc": "\nWhether to hide the ignore this email message .\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefaults to `false`.\n",
+        "doc": " Login email address of the member to approve.\n",
         "required": false
-      }
-    ],
-    "ret":     {
-      "type":       {
-        "name": "SendSetPasswordEmail",
-        "statusCode": "200",
-        "typeParams": ["All APIs.Member Authentication._wix_members_api_v1_SendSetPasswordEmailResponse"]
-      },
-      "doc": ""
-    },
-    "locations": [],
-    "docs":     {
-      "summary": "\nSends a site member an email with a link to set their password.\n\n<!--ONLY:VELO\nThe `sendSetPasswordEmail()` function returns a Promise that resolves\nwhen the set password link is emailed to the member.\n<!--END:ONLY:VELO-->\n\nThe set password link is valid for 3 hours,\nand it can be used only once.\nIf the link expires, the original password remains.\n \n",
-      "description": [],
-      "request": "POST",
-      "url": "https://www.wixapis.com/members/v1/auth/members/send-set-password-email",
-      "links": [],
-      "examples": [      {
-        "title": "Send set password email to member",
-        "body": ["curl -L -X POST 'https://www.wixapis.com/members/v1/auth/members/send-set-password-email' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  -d '{\n      \"email\": \"member@email.com\",\n      \"hideIgnoreMessage\": false\n    }'"],
-        "response": ["{\"accepted\": true} "],
-        "type": "curl",
-        "extra": {}
       }],
-      "extra": {}
+      "ret":       {
+        "type":         {
+          "name": "GenerateSessionToken",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Authentication._wix_members_api_v1_GenerateSessionTokenResponse"]
+        },
+        "doc": " Session token for logging in the approved user in client-side code.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nGenerates a session token used to log a member in to your site.\n\nUse `generateSessionToken()` to bypass Wix member authentication\nwhen using a third-party service to authenticate your members.\nMeaning, you can provide Single Sign-On (SSO) for members\nwhere they are authenticated by a non-Wix entity to log in to your Wix site.\n\nIf the specified email address corresponds to an existing member,\na session token for logging in that member is generated.\n\nIf there is no existing member with the specified email address,\na new member is created and a session token for logging in that member is generated.\nThe member is created with a random password.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/api/v1/session/generate_session_token",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GenerateSessionTokenRequest",
+        "rpcResponseName": "GenerateSessionTokenResponse",
+        "artifactId": "com.wixpress.iam.proxy.session-service-proxy"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    "extra":     {
-      "hasRest": true,
-      "rpcRequestName": "SendSetPasswordEmailRequest",
-      "rpcResponseName": "SendSetPasswordEmailResponse"
+        {
+      "name": "Login",
+      "methodName": "Login",
+      "serviceName": "AuthService",
+      "tag": "Authentication",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "email",
+          "type": "string",
+          "doc": " Login email address.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "password",
+          "type": "string",
+          "doc": " Member password.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "recaptchaToken",
+          "type": "string",
+          "doc": " Recaptcha token.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "invisibleRecaptchaToken",
+          "type": "string",
+          "doc": " Invisible recaptcha token.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "emailVerification",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_EmailVerification",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "isMobile",
+          "type": "boolean",
+          "doc": " an indication that the request needs to follow mobile login flow\n difference from the regular flow is the OTP email\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Login",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Authentication._wix_members_api_v1_LoginResponse"]
+        },
+        "doc": " Session token for logging the member in.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nLogs a member in with an email and password.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/api/v1/auth/login",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "LoginRequest",
+        "rpcResponseName": "LoginResponse",
+        "artifactId": "com.wixpress.wix-sm-webapp"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     },
-    "customLabels": [{"id": "maturity-beta"}]
-  }],
+        {
+      "name": "Register",
+      "methodName": "Register",
+      "serviceName": "AuthService",
+      "tag": "Authentication",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "email",
+          "type": "string",
+          "doc": " Login email address for the new site member.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "password",
+          "type": "string",
+          "doc": "\nPassword the new site member will use to log in.\n\nMust be 4 to 15 ASCII-printable characters.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "contactInfo",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_MemberContactInfo",
+          "doc": " Contact information for the registered member.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "dialogData",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_RegisterRequest_DialogData",
+          "doc": " identification of the app that initiated the register request\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "profilePrivacyStatus",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_SiteMemberPrivacyStatus",
+          "doc": "\nSets the privacy status of a new member upon registration.\n\n- `PUBLIC`: Member is visible to everyone.\n- `PRIVATE`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `UNKNOWN`: Insufficient permissions to get the status.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "isOfflineRegistration",
+          "type": "boolean",
+          "doc": " is registration offline\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "recaptchaToken",
+          "type": "string",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "invisibleRecaptchaToken",
+          "type": "string",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "emailVerification",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_EmailVerification",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "isMobile",
+          "type": "boolean",
+          "doc": " an indication that the request needs to follow mobile signup flow\n difference from the regular flow is the OTP email\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Register",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Authentication._wix_members_api_v1_RegisterResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRegisters new site member.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/api/v1/auth/register",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RegisterRequest",
+        "rpcResponseName": "RegisterResponse",
+        "artifactId": "com.wixpress.wix-sm-webapp"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Send Set Password Email",
+      "methodName": "SendSetPasswordEmail",
+      "serviceName": "AuthService",
+      "tag": "Authentication",
+      "permissions": [      {
+        "name": "Manage Members",
+        "description": "Request permission to read, create and change member data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["email"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "email",
+          "type": "string",
+          "doc": " Login email of the member whose password will be set.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "requestedByMember",
+          "type": "boolean",
+          "doc": "\n> **Deprecated:**\n> This field has been replaced with\n> `hideIgnoreMessage`\n> and will be removed on June 30, 2022.\n> If your app uses this field,\n> we recommend updating your code as soon as possible.\n\nWhether the email is being sent by member request.\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefaults to `false`.\n",
+          "required": false,
+          "deprecated": true
+        },
+                {
+          "in": "BODY",
+          "name": "hideIgnoreMessage",
+          "type": "boolean",
+          "doc": "\nWhether to hide the ignore this email message .\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefault: `false`.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "SendSetPasswordEmail",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Member Authentication._wix_members_api_v1_SendSetPasswordEmailResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSends a site member an email with a link to set their password.\n\nThe set password link is valid for 3 hours,\nand it can be used only once.\nIf the link expires, the original password remains.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v1/auth/members/send-set-password-email",
+        "links": [],
+        "examples": [        {
+          "title": "Send set password email to member",
+          "body": ["curl -L -X POST 'https://www.wixapis.com/members/v1/auth/members/send-set-password-email' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  -d '{\n      \"email\": \"member@email.com\",\n      \"hideIgnoreMessage\": false\n    }'"],
+          "response": ["{\"accepted\": true} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SendSetPasswordEmailRequest",
+        "rpcResponseName": "SendSetPasswordEmailResponse",
+        "artifactId": "com.wixpress.wix-sm-webapp"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
   "events": [],
   "callbacks": [],
   "messages":   [
@@ -271,12 +502,13 @@
                 {
           "name": "altText",
           "type": "string",
-          "doc": " Image alt text. Optional.\n"
+          "doc": " Image alt text.\n"
         },
                 {
           "name": "filename",
           "type": "string",
-          "doc": " Image filename. Optional.\n"
+          "doc": " Image filename.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -581,7 +813,7 @@
                 {
           "name": "profilePrivacyStatus",
           "type": "All APIs.Member Authentication._wix_members_api_v1_SiteMemberPrivacyStatus",
-          "doc": "\nSets the privacy status of a new member upon registration.\n\n<!--ONLY:REST-->\n- `PUBLIC`: Member is visible to everyone.\n- `PRIVATE`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `UNKNOWN`: Insufficient permissions to get the status.\n<!--END:ONLY:REST-->\n\n<!--ONLY:VELO\nOne of:\n\n- `\"PUBLIC\"`: Member is visible to everyone.\n- `\"PRIVATE\"`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `\"UNKNOWN\"`: Insufficient permissions to get the status.\n<!--END:ONLY:VELO-->\n"
+          "doc": "\nSets the privacy status of a new member upon registration.\n\n- `PUBLIC`: Member is visible to everyone.\n- `PRIVATE`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `UNKNOWN`: Insufficient permissions to get the status.\n"
         },
                 {
           "name": "isOfflineRegistration",
@@ -592,6 +824,46 @@
           "name": "recaptchaToken",
           "type": "string",
           "doc": ""
+        },
+                {
+          "name": "invisibleRecaptchaToken",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "emailVerification",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_EmailVerification",
+          "doc": ""
+        },
+                {
+          "name": "isMobile",
+          "type": "boolean",
+          "doc": " an indication that the request needs to follow mobile signup flow\n difference from the regular flow is the OTP email\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_members_api_v1_EmailVerification",
+      "displayName": "Email Verification Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "verificationId",
+          "type": "string",
+          "doc": " Id of the verification process\n"
+        },
+                {
+          "name": "otp",
+          "type": "string",
+          "doc": " 6-digit code to verify (between 100000 and 999999)\n"
         }
       ],
       "enum": null,
@@ -641,17 +913,32 @@
                 {
           "name": "email",
           "type": "string",
-          "doc": " Email address to use when logging the member in.\n"
+          "doc": " Login email address.\n"
         },
                 {
           "name": "password",
           "type": "string",
-          "doc": " Password to use when logging the member in.\n"
+          "doc": " Member password.\n"
         },
                 {
           "name": "recaptchaToken",
           "type": "string",
-          "doc": "recaptcha token\n"
+          "doc": " Recaptcha token.\n"
+        },
+                {
+          "name": "invisibleRecaptchaToken",
+          "type": "string",
+          "doc": " Invisible recaptcha token.\n"
+        },
+                {
+          "name": "emailVerification",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_EmailVerification",
+          "doc": ""
+        },
+                {
+          "name": "isMobile",
+          "type": "boolean",
+          "doc": " an indication that the request needs to follow mobile login flow\n difference from the regular flow is the OTP email\n"
         }
       ],
       "enum": null,
@@ -743,7 +1030,7 @@
                 {
           "name": "hideIgnoreMessage",
           "type": "boolean",
-          "doc": "\nWhether to hide the ignore this email message .\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefaults to `false`.\n"
+          "doc": "\nWhether to hide the ignore this email message .\n\nIf `true`, the email tells the member\nthey can safely ignore\nif they did not request the password change.\n\nDefault: `false`.\n"
         }
       ],
       "enum": null,
@@ -838,11 +1125,23 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "appleLogin",
-        "type": "All APIs.Member Authentication._wix_members_api_v1_AppleLogin",
-        "doc": ""
-      }],
+      "members":       [
+                {
+          "name": "appleLogin",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_AppleLogin",
+          "doc": ""
+        },
+                {
+          "name": "googleLogin",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_GoogleLogin",
+          "doc": ""
+        },
+                {
+          "name": "facebookLogin",
+          "type": "All APIs.Member Authentication._wix_members_api_v1_FacebookLogin",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": [],
@@ -861,6 +1160,42 @@
         "name": "token",
         "type": "string",
         "doc": " JWT signed by apple, contains target (aud), email etc\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_members_api_v1_GoogleLogin",
+      "displayName": "Google Login Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "token",
+        "type": "string",
+        "doc": " JWT signed by Google, contains target (aud), email etc\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_members_api_v1_FacebookLogin",
+      "displayName": "Facebook Login Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "token",
+        "type": "string",
+        "doc": " AccessToken created by Facebook, used to later fetch details over API\n"
       }],
       "enum": null,
       "extra": {},
@@ -962,5 +1297,5 @@
       "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.wix-sm-webapp"}
+  "extra": {}
 }
