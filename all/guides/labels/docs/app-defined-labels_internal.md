@@ -1,5 +1,8 @@
 SortOrder: 3
-# App Defined Labels Integration
+# App Defined Labels Integration (deprecated)
+
+>[!NOTE]
+>As of January 2024, the App Defined Labels are deprecated. We are starting to work on the next version of Contacts API that will support data extensions that is a better way to define any kind of fields that are app specific. More details to come.
 
 You can create app defined labels which are dedicated to your app (will be visible only on sites that have this app installed)
 It can easily be done via [dev-center][dev-center].
