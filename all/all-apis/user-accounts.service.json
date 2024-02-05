@@ -1,0 +1,1761 @@
+{
+  "name": "User Accounts",
+  "client_id": "https://github.com/wix-private/users/tree/master/account/account-api/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Responsible for managing all account and team data",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Accounts",
+      "entity": "_com_wixpress_account_api_Account",
+      "src": "https://github.com/wix-private/users/tree/master/account/account-api/Account.proto"
+    },
+        {
+      "name": "Accounts Back Office",
+      "entity": ""
+    },
+        {
+      "name": "Teams",
+      "entity": "_com_wixpress_account_api_User",
+      "src": "https://github.com/wix-private/users/tree/master/account/account-api/Account.proto"
+    }
+  ],
+  "relatedGuides": [  {
+    "path": "../guides/user-accounts/docs/intro.md",
+    "name": "About User Accounts"
+  }],
+  "operations":   [
+        {
+      "name": "create Account",
+      "methodName": "createAccount",
+      "serviceName": "AccountService",
+      "tag": "Accounts",
+      "permissions": [      {
+        "name": "Create Accounts",
+        "description": "Allows certified partners to create Wix accounts."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["user"],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "user",
+          "type": "All APIs.User Accounts._com_wixpress_users_User",
+          "doc": " A user to be created under the new account.\n Currently the user will be set as the account owner by default.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "roles",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " roles to be assigned to the user in the new account, if any (default is OWNER)\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "createAccount",
+          "statusCode": "200",
+          "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_CreateAccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Creates a new Wix account, and a new Wix user under this account, as the account owner.\n If the context contains a targetAccountId, the account will be created as a sub account of the target account (which will be its parent).\n Otherwise, the account will be created without a parent account.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/accounts/v1/accounts/create",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateAccountRequest",
+        "rpcResponseName": "CreateAccountResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "create Account For My User",
+      "methodName": "createAccountForMyUser",
+      "serviceName": "AccountService",
+      "tag": "Accounts",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "accountName",
+          "type": "string",
+          "doc": " the account name\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "accountImg",
+          "type": "string",
+          "doc": " account image url\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "studio",
+          "type": "boolean",
+          "doc": " whether to mark the account as `studio`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "createAccountForMyUser",
+          "statusCode": "200",
+          "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_AccountResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " creates account for the logged in user\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/accounts/v1/accounts",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateAccountForMyUserRequest",
+        "rpcResponseName": "AccountResponse"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_account_api_User",
+      "displayName": "User Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"user_id\" : \"06b82e0d-445a-4687-aaa9-b7e289842d16\",\n  \"first_name\" : \"\",\n  \"last_name\" : \"\",\n  \"email\" : \"aaa1234456@mailinator.com\",\n  \"img\" : \"https://gravatar.com/avatar/d73267e36034ce06ef33b37ad929aed7?d=blank\",\n  \"is_account_owner\" : false,\n  \"roles\" : [ \"basicTeamMembers\", \"accountAdmin\" ],\n  \"joined_at\" : \"2020-06-09T10:41:41Z\",\n  \"policies\" : [ {\n    \"policy_id\" : \"6601492687598868485\",\n    \"policy_name\" : \"basicTeamMembers\"\n  }, {\n    \"policy_id\" : \"6643122506063252487\",\n    \"policy_name\" : \"accountAdmin\"\n  } ]\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": "the user id\n"
+        },
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": "user's first name (if exists)\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": "user's last name (if exists)\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": "user's email\n"
+        },
+                {
+          "name": "img",
+          "type": "string",
+          "doc": "user's image (if exists)\n"
+        },
+                {
+          "name": "isAccountOwner",
+          "type": "boolean",
+          "doc": "is the user the account owner\n"
+        },
+                {
+          "name": "roles",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "DEPRECATED field of roles\n",
+          "deprecated": true
+        },
+                {
+          "name": "joinedAt",
+          "type": "string",
+          "doc": "the date the user joined the account\n"
+        },
+                {
+          "name": "policies",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_Policy"]
+          },
+          "doc": "user's assigned policies\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_Policy",
+      "displayName": "Policy Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "policyId",
+          "type": "string",
+          "doc": "policy id\n"
+        },
+                {
+          "name": "policyName",
+          "type": "string",
+          "doc": "policy name - representing role name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountProperties",
+      "displayName": "Account Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "All relevant account properties\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "isTeam",
+          "type": "boolean",
+          "doc": "indicates if this is a team account\n"
+        },
+                {
+          "name": "accountImg",
+          "type": "string",
+          "doc": "the account image (display)\nrelevant mainly for CoBranded accounts\n"
+        },
+                {
+          "name": "accountBanner",
+          "type": "string",
+          "doc": "the account banner (display)\nrelevant mainly for CoBranded accounts\n"
+        },
+                {
+          "name": "accountLogo",
+          "type": "string",
+          "doc": "the account logo (display)\nwll be shown as the account logo in the UI (top right corner, contributor list etc..)\n"
+        },
+                {
+          "name": "coBranding",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_CoBranding",
+          "doc": "account co branding flag (if exists)\nan enum for CoBranding flag contains 4 possible options:\nNone - the account is not CoBranded\nCoBranded - the account has a CoBranding flag\nCoBranded_Customer_New - the account is a contributor of a CoBranded account. This account was created because of the contributor invite\nCoBranded_Customer_Existing - the account is a contributor of a CoBranded account. This account was created before the invite of the contributor invite\n"
+        },
+                {
+          "name": "websiteUrl",
+          "type": "string",
+          "doc": "account's website URL (shown on co branding customers sites)\n"
+        },
+                {
+          "name": "parentAccountId",
+          "type": "string",
+          "doc": "the id of the parent account of this account, if it has a parent\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_Account",
+      "displayName": "Account Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"account_id\" : \"fed9597b-3d9f-4cc2-b913-aff2ec249e7a\",\n  \"slug\" : \"galn82\",\n  \"account_name\" : \"Gal Account\",\n  \"account_img\" : \"https://lh3.googleusercontent.com/a-/AAuE7mAYNeaG10oZC9O34DxKNYWkbdrSVkofR-BBI9Yxsg%3Ds96-c\",\n  \"status\" : \"ACTIVE\",\n  \"account_owner\" : \"fed9597b-3d9f-4cc2-b913-aff2ec249e7a\",\n  \"account_properties\" : {\n    \"is_team\" : true,\n    \"account_img\" : \"https://lh3.googleusercontent.com/a-/AAuE7mAYNeaG10oZC9O34DxKNYWkbdrSVkofR-BBI9Yxsg%3Ds96-c\",\n    \"account_banner\" : null,\n    \"account_logo\" : null,\n    \"co_branding\" : \"CoBranded\",\n    \"website_url\" : null\n  },\n  \"date_created\" : \"2017-01-23T10:13:42Z\",\n  \"date_updated\" : \"2020-06-04T10:41:34Z\"\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "account id\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "account slug - used for the free URL prefix\n"
+        },
+                {
+          "name": "accountName",
+          "type": "string",
+          "doc": "account name (display)\n"
+        },
+                {
+          "name": "accountImg",
+          "type": "string",
+          "doc": "DEPRECATED field of account image\n",
+          "deprecated": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_AccountStatus",
+          "doc": "account status\n"
+        },
+                {
+          "name": "accountOwner",
+          "type": "string",
+          "doc": "account owner user id\n"
+        },
+                {
+          "name": "accountProperties",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_AccountProperties",
+          "doc": "account extra properties\n"
+        },
+                {
+          "name": "dateCreated",
+          "type": "string",
+          "doc": "the account creation date\n"
+        },
+                {
+          "name": "dateUpdated",
+          "type": "string",
+          "doc": "last time account was updated\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountV2",
+      "displayName": "Account V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": " The account id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_EmptyResponse",
+      "displayName": "Empty Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountResponse",
+      "displayName": "Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "account",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_Account",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountsResponse",
+      "displayName": "Accounts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accounts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_Account"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetUserAccountRequest",
+      "displayName": "Get User Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "userId",
+        "type": "string",
+        "doc": "the user id that his account we query\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetUserAccountsRequest",
+      "displayName": "Get User Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": "the user id that his accounts we query\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.User Accounts._wix_common_Paging",
+          "doc": " Limited to max 20 at a single request\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetMyUserAccountsRequest",
+      "displayName": "Get My User Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.User Accounts._wix_common_Paging",
+        "doc": " Limited to max 20 at a single request\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetAccountRequest",
+      "displayName": "Get Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": "the account id that it's data should be retrieved\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetMyAccountRequest",
+      "displayName": "Get My Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ListTeamMembersResponse",
+      "displayName": "List Team Members Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "users",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_User"]
+          },
+          "doc": "account users\n"
+        },
+                {
+          "name": "totalUsersInAccount",
+          "type": "string",
+          "doc": "total number of user in the account\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ChangeAccountStatusRequest",
+      "displayName": "Change Account Status Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id that it's status should change\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_AccountStatus",
+          "doc": "new account status\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_BulkGetParentAccountIdsRequest",
+      "displayName": "Bulk Get Parent Account Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The account ids to check\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_BlockUserAccountsRequest",
+      "displayName": "Block User Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "userId",
+        "type": "string",
+        "doc": " User Id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_BlockUserAccountsResponse",
+      "displayName": "Block User Accounts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_RestoreUserAccountsRequest",
+      "displayName": "Restore User Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "userId",
+        "type": "string",
+        "doc": " User Id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_RestoreUserAccountsResponse",
+      "displayName": "Restore User Accounts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_BulkGetParentAccountIdsResponse",
+      "displayName": "Bulk Get Parent Account Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "parentsData",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_ParentAccountData"]
+        },
+        "doc": " The account ids and there's parents data\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ParentAccountData",
+      "displayName": "Parent Account Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Queried account id\n"
+        },
+                {
+          "name": "parentAccountId",
+          "type": "string",
+          "doc": " The queried account parent's id\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetParentAccountIdRequest",
+      "displayName": "Get Parent Account Id Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": " the queried account\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetParentAccountIdResponse",
+      "displayName": "Get Parent Account Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "parentAccountId",
+        "type": "string",
+        "doc": " the queried account's parent account id\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_BackOfficeListTeamMembersRequest",
+      "displayName": "Back Office List Team Members Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id that his members should be listed\n"
+        },
+                {
+          "name": "includeDeletedUsers",
+          "type": "boolean",
+          "doc": "should include deleted users in the response\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.User Accounts._wix_common_Paging",
+          "doc": "pagination parameter\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_OverrideAccountFields",
+      "displayName": "Override Account Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountName",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_StringValueOverride",
+          "doc": ""
+        },
+                {
+          "name": "isTeam",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_BooleanValueOverride",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_StringValueOverride",
+      "displayName": "String Value Override Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "newValue",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_StringValueOverride_NewValue",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_StringValueOverride_NewValue",
+      "displayName": "New Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "deleteField",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "value",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_account_api_BooleanValueOverride",
+      "displayName": "Boolean Value Override Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "newValue",
+        "type": "boolean",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_users_User",
+      "displayName": "User Object",
+      "locations": [],
+      "docs":       {
+        "summary": " A User to be created under an implicitly provided accountId: must have a unique email.\n",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"user_id\" : \"06b82e0d-445a-4687-aaa9-b7e289842d16\",\n  \"first_name\" : \"\",\n  \"last_name\" : \"\",\n  \"email\" : \"aaa1234456@mailinator.com\",\n  \"img\" : \"https://gravatar.com/avatar/d73267e36034ce06ef33b37ad929aed7?d=blank\",\n  \"is_account_owner\" : false,\n  \"roles\" : [ \"basicTeamMembers\", \"accountAdmin\" ],\n  \"joined_at\" : \"2020-06-09T10:41:41Z\",\n  \"policies\" : [ {\n    \"policy_id\" : \"6601492687598868485\",\n    \"policy_name\" : \"basicTeamMembers\"\n  }, {\n    \"policy_id\" : \"6643122506063252487\",\n    \"policy_name\" : \"accountAdmin\"\n  } ]\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "All APIs.User Accounts._com_wixpress_users_Email",
+          "doc": " a unique user's email address; must be provided\n"
+        },
+                {
+          "name": "ssoIdentities",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.User Accounts._com_wixpress_users_SsoIdentity"]
+          },
+          "doc": " list of user's identities (as addition to email, which is a must at the moment);\n can be empty\n"
+        },
+                {
+          "name": "userDetails",
+          "type": "All APIs.User Accounts._com_wixpress_users_UserDetails",
+          "doc": "optional additional user details\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_users_Email",
+      "displayName": "Email Object",
+      "locations": [],
+      "docs":       {
+        "summary": " user's email\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "emailAddress",
+          "type": "string",
+          "doc": " user's email\n"
+        },
+                {
+          "name": "isVerified",
+          "type": "boolean",
+          "doc": " 'is_verified'=true in UserCreateRequest means the API caller knows the User's email address is verified,\n and it will be stored in our system as such, without us trying to verify it ourselves\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_users_SsoIdentity",
+      "displayName": "Sso Identity Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Single Sign On (aka. SSO) identity; user is identified via SSO authentication response token params, as specified by OpenID Connect (aka. OIDC) protocol\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "ssoId",
+          "type": "string",
+          "doc": " ssoId represents an SSO setting (URLs, clientId, secret, etc. as required by OIDC protocol) for a specific Identity-Provider (aka. IdP) for a specific Wix account\n"
+        },
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " userId, as stored in IdP - in general should be \"sub\" claim of OIDC protocol,\n or any other alternative, specified by IdP (Identity Provider)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_users_UserDetails",
+      "displayName": "User Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "additional user details\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "profilePictureUrl",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " language in 2 letters lowercase format - i.e \"en\", \"es\"\n"
+        },
+                {
+          "name": "clientIp",
+          "type": "string",
+          "doc": " client_id represents the original Client IP from which a request was made.\n This is useful in case where a createUser API is called by some server call, which, in turn, has been called by some client from another IP - like is in Vista flow.\n We check this IP against OFAC countries list - a Legal request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountRequest",
+      "displayName": "Create Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "user",
+          "type": "All APIs.User Accounts._com_wixpress_users_User",
+          "doc": " A user to be created under the new account.\n Currently the user will be set as the account owner by default.\n"
+        },
+                {
+          "name": "roles",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " roles to be assigned to the user in the new account, if any (default is OWNER)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountResponse",
+      "displayName": "Create Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "account",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_AccountV2",
+        "doc": " The newly created account\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountForMyUserRequest",
+      "displayName": "Create Account For My User Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountName",
+          "type": "string",
+          "doc": " the account name\n"
+        },
+                {
+          "name": "accountImg",
+          "type": "string",
+          "doc": " account image url\n"
+        },
+                {
+          "name": "studio",
+          "type": "boolean",
+          "doc": " whether to mark the account as `studio`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountAndAssignUserRequest",
+      "displayName": "Create Account And Assign User Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " the user id for which we are creating the account\n"
+        },
+                {
+          "name": "userName",
+          "type": "string",
+          "doc": " the user name of the user for which the account is created\n"
+        },
+                {
+          "name": "parentAccountId",
+          "type": "string",
+          "doc": " the parent account of the created account\n"
+        },
+                {
+          "name": "studio",
+          "type": "boolean",
+          "doc": " whether to mark the account as `studio`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetAccountsRequest",
+      "displayName": "Get Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " the account id to retrieve\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_UpdateAccountRequest",
+      "displayName": "Update Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id to update\n"
+        },
+                {
+          "name": "accountImg",
+          "type": "string",
+          "doc": "DEPRECATED field of image\n",
+          "deprecated": true
+        },
+                {
+          "name": "accountName",
+          "type": "string",
+          "doc": "optional - new account name\n"
+        },
+                {
+          "name": "accountProperties",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_AccountProperties",
+          "doc": "the new properties for the account.\ncan be passed partially - and only relevant fields will be updated\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_UpdateSlugRequest",
+      "displayName": "Update Slug Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "account id\n"
+        },
+                {
+          "name": "newSlugName",
+          "type": "string",
+          "doc": "new slug\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_DeleteAccountRequest",
+      "displayName": "Delete Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id to delete\n"
+        },
+                {
+          "name": "shouldNotDeleteLastAccount",
+          "type": "boolean",
+          "doc": " will throw exception if trying to delete the account of the last user when the value is true\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_IsTeamRequest",
+      "displayName": "Is Team Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": "the account id to check if it's a team account\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_MarkAccountFlagRequest",
+      "displayName": "Mark Account Flag Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id to mark\n"
+        },
+                {
+          "name": "flag",
+          "type": "All APIs.User Accounts._com_wixpress_account_api_MarkAccountFlagRequest_flag",
+          "doc": "the flag that we want to add\n"
+        },
+                {
+          "name": "invitedByAccountId",
+          "type": "string",
+          "doc": "the inviting account id in case the flag is given by an invite\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_MarkAccountFlagRequest_flag",
+      "displayName": "flag Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "coBranding",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_CoBranding",
+        "doc": "account co branding flag (if exists)\nan enum for CoBranding flag contains 4 possible options:\nNone - the account is not CoBranded\nCoBranded - the account has a CoBranding flag\nCoBranded_Customer_New - the account is a contributor of a CoBranded account. This account was created because of the contributor invite\nCoBranded_Customer_Existing - the account is a contributor of a CoBranded account. This account was created before the invite of the contributor invite\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_account_api_IsTeamResponse",
+      "displayName": "Is Team Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "isTeamAccount",
+        "type": "boolean",
+        "doc": "true if the account is marked as a team account, false if not\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountInfo",
+      "displayName": "Account Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " The name of the account\n"
+        },
+                {
+          "name": "image",
+          "type": "string",
+          "doc": " The url of the image of the account\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetParentAccountInfoRequest",
+      "displayName": "Get Parent Account Info Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetParentAccountInfoResponse",
+      "displayName": "Get Parent Account Info Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "parentAccountInfo",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_AccountInfo",
+        "doc": " The info of the parent account, if the account has a parent\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetSubAccountsRequest",
+      "displayName": "Get Sub Accounts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.User Accounts._wix_common_Paging",
+        "doc": " Offset-based pagination for the response. Default page size is 20, max page size is 50\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetSubAccountsResponse",
+      "displayName": "Get Sub Accounts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subAccounts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.User Accounts._com_wixpress_account_api_SubAccountInfo"]
+          },
+          "doc": " The sub accounts of the target account\n"
+        },
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.User Accounts._wix_common_PagingMetadata",
+          "doc": " Metadata of the response pagination\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_SubAccountInfo",
+      "displayName": "Sub Account Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": " The id of the sub account\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_UpdateParentAccountRequest",
+      "displayName": "Update Parent Account Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "update",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_UpdateParentAccountRequest_update",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_UpdateParentAccountRequest_update",
+      "displayName": "update Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "remove",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_RemoveParent",
+        "doc": " Removes the parent account\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_account_api_RemoveParent",
+      "displayName": "Remove Parent Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_UpdateParentAccountResponse",
+      "displayName": "Update Parent Account Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "newParentAccountId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountTenantRequest",
+      "displayName": "Create Account Tenant Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "slug",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CreateAccountTenantResponse",
+      "displayName": "Create Account Tenant Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "account",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_AccountV2",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ListTeamMembersRequest",
+      "displayName": "List Team Members Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.User Accounts._wix_common_Paging",
+        "doc": "pagination parameter\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ListTeamMembersIdsRequest",
+      "displayName": "List Team Members Ids Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "accountId",
+        "type": "string",
+        "doc": "the account id that his members should be listed\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_ListTeamMembersIdsResponse",
+      "displayName": "List Team Members Ids Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "usersIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "the ids of the account users (team members and owner)\n"
+        },
+                {
+          "name": "accountOwner",
+          "type": "string",
+          "doc": "the account id of the account owner\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_RemoveTeamMemberRequest",
+      "displayName": "Remove Team Member Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "userId",
+        "type": "string",
+        "doc": "the user id we want to remove from the account (can be a team member ONLY)\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AssignUserToTeamRequest",
+      "displayName": "Assign User To Team Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": "the user id to assign to an account\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": "the account id to assign to\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetTeamMemberRequest",
+      "displayName": "Get Team Member Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_GetTeamMemberResponse",
+      "displayName": "Get Team Member Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "user",
+        "type": "All APIs.User Accounts._com_wixpress_account_api_User",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_AccountStatus",
+      "displayName": "Account Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "enum with all available statuses of account\n \n Possible values are: <li><code> ACTIVE <\/code><\/li><li><code> BLOCKED <\/code><\/li><li><code> DELETED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ACTIVE",
+        "BLOCKED",
+        "DELETED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_account_api_CoBranding",
+      "displayName": "Co Branding Object",
+      "locations": [],
+      "docs":       {
+        "summary": "co branding flag options for account\n \n Possible values are: <li><code> None <\/code><\/li><li><code> CoBranded <\/code><\/li><li><code> CoBranded_Customer_New <\/code><\/li><li><code> CoBranded_Customer_Existing <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "None",
+        "CoBranded",
+        "CoBranded_Customer_New",
+        "CoBranded_Customer_Existing"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.account-server"}
+}
