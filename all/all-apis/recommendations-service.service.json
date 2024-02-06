@@ -1,0 +1,420 @@
+{
+  "name": "Recommendations Service",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-recommendations/recommendations-service#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Short description of RecommendationsService",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Recommendations Service",
+    "entity": "_com_wix_ecom_recommendations_v1_Recommendation"
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/recommendations-service/docs/sample-flow.md",
+      "name": "Sample Flow"
+    },
+        {
+      "path": "../guides/recommendations-service/docs/README.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Recommendation",
+      "methodName": "GetRecommendation",
+      "serviceName": "RecommendationsService",
+      "tag": "Recommendations Service",
+      "permissions": [      {
+        "name": "Read eCommerce - all read permissions",
+        "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "algorithms",
+        "algorithms.id",
+        "algorithms.appId",
+        "items.appId",
+        "items.catalogItemId"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Recommendations Service._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference"]
+          },
+          "doc": " The set of items for which to get recommendations. Required if the `algorithmType` is `RELATED_ITEMS`. \n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "algorithms",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_Algorithm"]
+          },
+          "doc": " A list of algorithms checked in a specific order determined by their `appID` and their position in the `algorithms` array. \n See the method description for more information.\n\n If no algorithm is able to return at least `minimumRecommendedItems` items, an empty array is returned.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "minimumRecommendedItems",
+          "type": "integer",
+          "doc": " The minimum number of items that must be recommended by the algorithm for those items to be returned in the response.\n \n Max: `100`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetRecommendation",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_GetRecommendationResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns a recommendation object containing a list of items to recommend to the customer. \n\n Get Recommendation determines which items to recommend based on the given recommendation algorithms. \n\n Get Recommendation doesn’t run the algorithms. It calls the installed apps that provide them. \n\n Apps may provide algorithms for use with their own catalogs, or for use with catalogs from other apps.\n For example, Wix Stores provides algorithms that can only be used on its own catalogs.\n To run an algorithm, the app providing it must be installed, and an app providing a supported catalog must be installed.\n For more information and to see which algorithms are available on your site or project, call [List Available Algorithms](https://dev.wix.com/docs/rest/api-reference/wix-e-commerce/recommendations/list-available-algorithms).\n\n Get Recommendation operates as follows:\n 1. Get Recommendation receives as input a list of algorithms as an array. These algorithms can be provided by different apps and can apply to different catalogs.\n 2. Get Recommendation calls the app that corresponds to the `appId` of the first algorithm in the list of algorithms. It passes that algorithm’s ID and the IDs of any subsequent algorithms in the array for the same app.\n 3. The app runs the algorithms.\n 4. Get Recommendation returns items recommendations from the first algorithm (according to its position in the `algorithms` array) that meets the minimum number of recommendations. At that point Get Recommendation stops calling other apps.\n 5. If none of the algorithms run by the first app meet the minimum recommended items, Get Recommendation finds the next algorithm in the array with a new `appId` (an ID of an app that has not yet been called), and repeats the process.\n 6. If no algorithms in the `algorithms` array recommend at least the minimum recommended items, Get Recommendations returns an empty array.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/ecom/v1/recommendations/get",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl POST 'www.wixapis.com/ecom/v1/recommendations/get' \\\n-H 'Content-Type: application/json;charset=UTF-8' \\\n-H 'Authorization: <AUTH>' \\\n--data-binary '{\n     \"items\": [\n         {\n             \"catalogItemId\": \"ec7914e8-208b-0069-5850-1a965643508d\",\n             \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n         }\n     ],\n     \"algorithms\": [\n         {\n             \"id\": \"e33f5e32-d1a2-4944-b38f-d29b7d5ef4ef\",\n             \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\"\n         },\n         {\n             \"id\": \"09dc98e8-8696-49f7-833a-bab57f516f88\",\n             \"appId\": \"b0933968-e643-4835-a403-de8e1eb4d33c\"\n         }\n     ],\n     \"minimumRelatedItems\": 1\n}'"],
+          "response": ["{\"recommendation\": {\n  \"items\":   [\n        {\n      \"catalogItemId\": \"1ce6198f-5fad-5ac9-5b36-ecb2175929ef\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"efd0b233-8f8e-b6b8-b5f3-66903caa8558\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"58a7ab15-5c65-d836-7934-86f78b17996b\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"040528a7-7256-7875-c8e4-8976d949f66b\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"11e2ffb7-2520-3c21-051e-1f05486b9061\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"e8f9c6d5-4ddd-36dd-f595-fe7bfd7891e2\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"16694dd9-ab43-7c5b-974e-e15a4297f235\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"593c5cd0-4996-2a8a-ad34-7669f266c42e\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    },\n        {\n      \"catalogItemId\": \"51c819a7-9380-1748-d761-b0bb25d175c2\",\n      \"appId\": \"f29c9b39-1090-4d9b-8e3a-a3a681a57970\"\n    }\n  ],\n  \"algorithm\":   {\n    \"id\": \"e33f5e32-d1a2-4944-b38f-d29b7d5ef4ef\",\n    \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\"\n  }\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetRecommendationRequest",
+        "rpcResponseName": "GetRecommendationResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Available Algorithms",
+      "methodName": "ListAvailableAlgorithms",
+      "serviceName": "RecommendationsService",
+      "tag": "Recommendations Service",
+      "permissions": [      {
+        "name": "Read eCommerce - all read permissions",
+        "description": "Request permission to read the site's Wix eCommerce (ecom) data, including cart, checkout, and order data. This permission scope contains all of the read eCommerce permissions."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "ListAvailableAlgorithms",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_ListAvailableAlgorithmsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns a list of recommendation algorithms that can be used on your Wix site or project. These algorithms can be used with [Get Recommendation](https://dev.wix.com/docs/rest/api-reference/wix-e-commerce/recommendations/get-recommendation) to provide item recommendations to the customer.\n\n Algorithms are run by the apps that provide them, and can only be used on catalogs they support. \n Apps may provide algorithms for use with their own catalogs and/or catalogs from other apps. \n\n The app which provides an algorithm is referenced by that algorithm’s `appId`. \n The apps whose catalogs are supported by an algorithm are referenced by the IDs in that algorithm’s `catalogAppIds` array.\n\n For an algorithm to be considered “Available” and returned in this method’s response, the algorithm must meet the following conditions:\n 1. The algorithm’s `appId` must match the ID of an installed Wix app.\n 2. At least 1 of the IDs in `catalogAppIds` must match the ID of an installed Wix app.\n\n Wix app IDs are <a href=\"https://dev.wix.com/api/rest/getting-started/wix-business-solutions#getting-started_wix-business-solutions_about-wix-business-solutions\" target=\"_blank\">listed here<\/a>.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/ecom/v1/recommendations/algorithms",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl GET 'www.wixapis.com/ecom/v1/recommendations/algorithms' \\\n -H 'Content-Type: application/json;charset=UTF-8' \\\n -H 'Authorization: <AUTH>'"],
+          "response": ["{\"availableAlgorithms\": [\n    {\n    \"config\":     {\n      \"id\": \"e33f5e32-d1a2-4944-b38f-d29b7d5ef4ef\",\n      \"name\": \"Frequently bought together\",\n      \"description\": \"This gallery works best when added to the product page, cart and thank you page. \\n\\nIf there’s not enough data about products frequently bought together, we’ll display other related products instead.\",\n      \"algorithmType\": \"RELATED_ITEMS\"\n    },\n    \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\",\n    \"catalogAppIds\":     [\n      \"d4bc3347-5a0a-4303-81d9-27293be54aa3\",\n      \"8fb80dea-fcd5-410b-a0f3-af553d0bd85e\"\n    ]\n  },\n    {\n    \"config\":     {\n      \"id\": \"6768b44a-6130-46b8-89af-4222e15ba765\",\n      \"name\": \"Frequently viewed together\",\n      \"description\": \"This gallery works best when added to the product page, cart and thank you page.\\n\\nIf there’s not enough data about products frequently viewed together, we’ll display other related products instead.\",\n      \"algorithmType\": \"RELATED_ITEMS\"\n    },\n    \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\",\n    \"catalogAppIds\":     [\n      \"d4bc3347-5a0a-4303-81d9-27293be54aa3\",\n      \"8fb80dea-fcd5-410b-a0f3-af553d0bd85e\"\n    ]\n  },\n    {\n    \"config\":     {\n      \"id\": \"115518d6-3dbb-41cd-86fd-7b6841433da2\",\n      \"name\": \"Best sellers\",\n      \"description\": \"We’ll automatically display your store’s best selling products.\\n\\nIf there’s not enough data about your best selling products, we’ll show related products or your All Products collection.\",\n      \"algorithmType\": \"GLOBAL\"\n    },\n    \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\",\n    \"catalogAppIds\":     [\n      \"d4bc3347-5a0a-4303-81d9-27293be54aa3\",\n      \"8fb80dea-fcd5-410b-a0f3-af553d0bd85e\"\n    ]\n  },\n    {\n    \"config\":     {\n      \"id\": \"17635deb-6a7d-412f-aeb6-3f8c8507800a\",\n      \"name\": \"From the same collections\",\n      \"description\": \"This gallery works best when added to the product page, cart and thank you page.\\n\\nIf there’s not enough data about products that share the same collections, we’ll display your All Products collection instead.\",\n      \"additionalInfo\": \"We’ll display products that share the most collections with the existing products on the page.\",\n      \"algorithmType\": \"RELATED_ITEMS\"\n    },\n    \"appId\": \"72454cb3-90b5-4cef-bbff-cc61aea02584\",\n    \"catalogAppIds\":     [\n      \"d4bc3347-5a0a-4303-81d9-27293be54aa3\",\n      \"8fb80dea-fcd5-410b-a0f3-af553d0bd85e\"\n    ]\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAvailableAlgorithmsRequest",
+        "rpcResponseName": "ListAvailableAlgorithmsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within the catalog it belongs to.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_spi_AlgorithmConfig",
+      "displayName": "Algorithm Config Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Algorithm ID. This must be unique for a specific app but does not have to be unique across all apps on the site or in the project.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Algorithm name. This value is not translatable.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Algorithm description. This describes how the algorithm works and if it has any limitations regarding site content, number of items in the catalog, site traffic, and so on. This value is not translatable. \n"
+        },
+                {
+          "name": "additionalInfo",
+          "type": "string",
+          "doc": " A supplemental `description`. It can be used to help break up and organize information. You can, for example, display this information as a tooltip or as an additional section that is collapsed by default.\n"
+        },
+                {
+          "name": "algorithmType",
+          "type": "All APIs.Recommendations Service._com_wix_ecom_recommendations_spi_AlgorithmType",
+          "doc": " Algorithms may have the following types:\n * `RELATED_ITEMS` - This type of algorithm provides recommendations based on 1 or more other provided items. For example, when an item is added to a cart, the algorithm can suggest other items frequently bought together with that item.\n * `GLOBAL` - This type of algorithm provides general recommendations based on site or project statistics. For example, bestsellers or new arrivals.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_Algorithm",
+      "displayName": "Algorithm Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Algorithm ID defined by the app providing the algorithm.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID of the Wix or 3rd-party app providing the algorithm. \n\n Wix app IDs are <a href=\"https://dev.wix.com/api/rest/getting-started/wix-business-solutions#getting-started_wix-business-solutions_about-wix-business-solutions\" target=\"_blank\">listed here<\/a>.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_Recommendation",
+      "displayName": "Recommendation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Recommendations Service._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference"]
+          },
+          "doc": " Recommended items.\n"
+        },
+                {
+          "name": "algorithm",
+          "type": "All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_Algorithm",
+          "doc": " The algorithm used to provide the recommendation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_GetRecommendationRequest",
+      "displayName": "Get Recommendation Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Recommendations Service._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference"]
+          },
+          "doc": " The set of items for which to get recommendations. Required if the `algorithmType` is `RELATED_ITEMS`. \n"
+        },
+                {
+          "name": "algorithms",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_Algorithm"]
+          },
+          "doc": " A list of algorithms checked in a specific order determined by their `appID` and their position in the `algorithms` array. \n See the method description for more information.\n\n If no algorithm is able to return at least `minimumRecommendedItems` items, an empty array is returned.\n"
+        },
+                {
+          "name": "minimumRecommendedItems",
+          "type": "integer",
+          "doc": " The minimum number of items that must be recommended by the algorithm for those items to be returned in the response.\n \n Max: `100`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_GetRecommendationResponse",
+      "displayName": "Get Recommendation Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "recommendation",
+        "type": "All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_Recommendation",
+        "doc": "An object containing a list of items recommended by 1 of the specified algorithms. The recommendation is empty if none of the specified algorithms recommended enough items.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_ListAvailableAlgorithmsRequest",
+      "displayName": "List Available Algorithms Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_ListAvailableAlgorithmsResponse",
+      "displayName": "List Available Algorithms Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "availableAlgorithms",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Recommendations Service._com_wix_ecom_recommendations_v1_AlgorithmInfo"]
+        },
+        "doc": " Algorithms available for use on your Wix site or project. See the method description for more information.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_v1_AlgorithmInfo",
+      "displayName": "Algorithm Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "config",
+          "type": "All APIs.Recommendations Service._com_wix_ecom_recommendations_spi_AlgorithmConfig",
+          "doc": " How the algorithm is configured.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " The app ID of the application providing the algorithm. \n\n Wix app IDs are <a href=\"https://dev.wix.com/api/rest/getting-started/wix-business-solutions#getting-started_wix-business-solutions_about-wix-business-solutions\" target=\"_blank\">listed here<\/a>.\n"
+        },
+                {
+          "name": "catalogAppIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " App IDs of catalogs to which the algorithm can be applied.\n\n Wix app IDs are <a href=\"https://dev.wix.com/api/rest/getting-started/wix-business-solutions#getting-started_wix-business-solutions_about-wix-business-solutions\" target=\"_blank\">listed here<\/a>. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecom_recommendations_spi_AlgorithmType",
+      "displayName": "Algorithm Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> RELATED_ITEMS <\/code><\/li><li><code> GLOBAL <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "RELATED_ITEMS",
+        "GLOBAL"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ecom.recommendations.recommendations-service"}
+}
