@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Additional Fees SPI",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -60,6 +60,16 @@
       },
             {
         "in": "BODY",
+        "name": "appliedDiscounts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount"]
+        },
+        "doc": " Applied discounts.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
         "name": "shippingInfo",
         "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_ShippingInformation",
         "doc": " Shipping information.\n",
@@ -69,7 +79,15 @@
         "in": "BODY",
         "name": "ecomId",
         "type": "string",
-        "doc": " \nWix eCommerce ID.  \n\n`eComId` stays consistent with an eCommerce element as it flows through cart, checkout, and order.\n",
+        "doc": " __Deprecated.__ Use `purchaseFlowId` instead.\n",
+        "required": false,
+        "deprecated": true
+      },
+            {
+        "in": "BODY",
+        "name": "purchaseFlowId",
+        "type": "string",
+        "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n",
         "required": false
       }
     ],
@@ -136,6 +154,14 @@
           "name": "taxDetails",
           "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_TaxDetails",
           "doc": "\nTax details.  \n\n> **Note:** Tax is not calculated in the returned `price` even when `taxDetails.taxable` is `true`.\n"
+        },
+                {
+          "name": "lineItemIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Optional - Line items associated with this additional fee.\n If no `lineItemIds` are provided, the fee will be associated with the whole cart/checkout/order.\n"
         }
       ],
       "enum": null,
@@ -155,7 +181,7 @@
                 {
           "name": "taxable",
           "type": "boolean",
-          "doc": " Whether additional fees are taxable.\n"
+          "doc": " Whether additional fee is taxable.\n"
         },
                 {
           "name": "taxGroupId",
@@ -172,7 +198,7 @@
       "displayName": "Catalog Reference Object",
       "locations": [],
       "docs":       {
-        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
         "links": [],
         "examples": []
       },
@@ -180,17 +206,17 @@
                 {
           "name": "catalogItemId",
           "type": "string",
-          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `eventId` for Wix Events.\n"
+          "doc": " ID of the item within the catalog it belongs to.\n"
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the catalog app. For example, the Wix Stores `appId`, or the 3rd-party `appId`.\n"
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
         },
                 {
           "name": "options",
           "type": "struct",
-          "doc": " Additional info in key:value form. For example, `{\"options\":{\"Size\": \"M\", \"Color\": \"Red\"}}` or `{\"variantId\": \"<VARIANT_ID>\"}`.\n"
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
         }
       ],
       "enum": null,
@@ -210,7 +236,7 @@
                 {
           "name": "weight",
           "type": "number",
-          "doc": " Line item weight. Measurement unit (KG or LB) is taken from `order.weightUnit`.\n"
+          "doc": " Line item weight. Measurement unit matches the weight unit specified in `weightUnit` in the request.\n"
         },
                 {
           "name": "sku",
@@ -373,6 +399,31 @@
       "labels": []
     },
         {
+      "name": "_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_BuyerDetails",
       "displayName": "Buyer Details Object",
       "locations": [],
@@ -385,6 +436,178 @@
         "name": "contactDetails",
         "type": "All APIs.Additional Fees Integration SPI._wix_common_FullAddressContactDetails",
         "doc": " Contact details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_Coupon",
+      "displayName": "Coupon Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Coupon\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Coupon ID.\n"
+        },
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Coupon code.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Coupon name.\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_DiscountRule",
+      "displayName": "Discount Rule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Discount rule ID\n"
+        },
+                {
+          "name": "name",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_DiscountRuleName",
+          "doc": " Discount rule name\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_DiscountRuleName",
+      "displayName": "Discount Rule Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Original discount rule name (in site's default language).\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Translated discount rule name according to buyer language. Defaults to `original` when not provided.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount",
+      "displayName": "Applied Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "discountType",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount_DiscountType",
+          "doc": " Discount type.\n"
+        },
+                {
+          "name": "lineItemIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " IDs of line items the discount applies to.\n"
+        },
+                {
+          "name": "DiscountSource",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount_DiscountSource",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount_DiscountSource",
+      "displayName": "Discount Source Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "coupon",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_Coupon",
+          "doc": " Coupon details.\n"
+        },
+                {
+          "name": "merchantDiscount",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_MerchantDiscount",
+          "doc": " Merchant discount.\n"
+        },
+                {
+          "name": "discountRule",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_DiscountRule",
+          "doc": " Discount rule\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_MerchantDiscount",
+      "displayName": "Merchant Discount Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "amount",
+        "type": "string",
+        "doc": ""
       }],
       "enum": null,
       "extra": {},
@@ -661,6 +884,14 @@
           "doc": " Information about the buyer, such as contact details.\n"
         },
                 {
+          "name": "appliedDiscounts",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount"]
+          },
+          "doc": " Applied discounts.\n"
+        },
+                {
           "name": "shippingInfo",
           "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_ShippingInformation",
           "doc": " Shipping information.\n"
@@ -668,7 +899,13 @@
                 {
           "name": "ecomId",
           "type": "string",
-          "doc": " \nWix eCommerce ID.  \n\n`eComId` stays consistent with an eCommerce element as it flows through cart, checkout, and order.\n"
+          "doc": " __Deprecated.__ Use `purchaseFlowId` instead.\n",
+          "deprecated": true
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
         }
       ],
       "enum": null,
@@ -717,6 +954,24 @@
         "UNSPECIFIED",
         "CPF",
         "CNPJ"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_AppliedDiscount_DiscountType",
+      "displayName": "Discount Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> GLOBAL <\/code><\/li><li><code> SPECIFIC_ITEMS <\/code><\/li><li><code> SHIPPING <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "GLOBAL",
+        "SPECIFIC_ITEMS",
+        "SHIPPING"
       ],
       "extra": {},
       "labels": []
