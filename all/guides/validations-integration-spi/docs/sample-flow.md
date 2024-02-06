@@ -39,11 +39,11 @@ In this flow, due to limited quantity of white wine, a site visitor can't add mo
 When configuring your app in the Wix Developers Center,
 use these sample settings:
 
-When configuring your app in the Wix Developers Center, set the `validateInCart` property to `true` in the integration component’s configuration file. This validates a site visitor's cart in addition to a site visitor's checkout. 
+When configuring your app in the Wix Developers Center, set the `validateInCart` property to `true` in the extension’s configuration file. This validates a site visitor's cart in addition to a site visitor's checkout. 
 
 ### The flow
 
-1. A site visitor adds 6 cases of white wine to their cart, which is over the amount that is permitted.
+1. A site visitor adds 6 cases of white wine to their cart, which exceeds the quantity that is permitted for this line item.
 
 2. Wix sends a [Get Validation Violations](https://dev.wix.com/api/rest/wix-ecommerce/validations-integration-spi/get-validation-violations) SPI request to your app. 
 
@@ -56,8 +56,9 @@ When configuring your app in the Wix Developers Center, set the `validateInCart`
       "violations": {
         "severity": "ERROR",
         "target": {
-          "other": {
-            "name": "LINE_ITEM_DEFAULT"
+          "line_item": {
+            "name": "LINE_ITEM_DEFAULT",
+            "id": "00000000-0000-0000-0000-000000000001"
           }
         },
         "description": "Can't proceed with checkout. Remove 1 case of white wine from your cart.",
