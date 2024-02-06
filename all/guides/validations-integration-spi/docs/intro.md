@@ -11,7 +11,7 @@ Learn more about [implementing an SPI with Wix](https://dev.wix.com/api/rest/get
 
 ## Before you begin
 
-By default, the Validations SPI only validates a site visitor's checkout. If you want to also validate a site visitor's cart, set the `validateInCart` parameter to `true` in the integration component’s configuration file in the Wix Developers Center.
+By default, the Validations SPI only validates a site visitor's checkout. If you want to also validate a site visitor's cart, set the `validateInCart` parameter to `true` in the extension’s configuration file in the Wix Developers Center.
 
 ## Use Cases
 
@@ -26,10 +26,11 @@ Using the SPI, you can design your app to validate a cart and checkout for your 
 
 ## Configuration
 
-To enable Wix to communicate with your app,
-[create an integration component](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_configure-an-integration-component-in-the-development-center)
-in the Wix Developers Center.
-Select the **Ecom Validations** component and provide the following configuration:
+To enable Wix to communicate with your app:
+1. Go to the [Extensions](https://dev.wix.com/docs/build-apps/developer-tools/extensions/about-extensions) tab in the Wix Developers Center.
+1. Click **Create Extension** in the top right.
+1. Filter by **eCommerce** in the left menu, then find **Ecom Validations** and click **Create**.
+1. Provide the following configuration:
 
 | Name | Type | Description |
 | --- | --- | --- |
