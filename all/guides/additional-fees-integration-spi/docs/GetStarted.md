@@ -36,13 +36,14 @@ Follow these steps to customize Wix system's integration and enable merchants an
 
     ![Sample App ID](https://s3.amazonaws.com/wixplorer-readme-images/additional-fees-integration-spi%2FAddFeesAppId.png "Sample App ID")
 
-1. Go to the [Components](https://devforum.wix.com/kb/en/article/about-app-components) tab in the Wix Developers Center.
-1. Click **Add Component**, select **Integration Component** from the dropdown menu, select **Ecom Additional Fees** and click **Add Component**.
-1. Use the JSON editor to create the integration component’s configuration file. Take care to include the required fields noted in the table below. Click **Save**.
+1. Go to the [Extensions](https://dev.wix.com/docs/build-apps/developer-tools/extensions/about-extensions) tab in the Wix Developers Center.
+1. Click **Create Extension** in the top right.
+1. Filter by **eCommerce** in the left menu, then find **Ecom Additional Fees** and click **Create**.
+1. Use the JSON editor to create the extension's configuration file. Take care to include the required fields noted in the table below. Click **Save**.
 
     | Name | Type | Description |
     | --- | --- | --- |
-    | `deploymentUri`|string|Required. Base URI which Wix eCommerce will call to retrieve the calculated additional fees.<br/> For example, `https://my-additional-fees.com/v1/calculate-additional-fees`. |
+    | `deploymentUri`|string|Required. Base URI where the endpoints are called. Wix eCommerce appends the endpoint path to the base URI. For example, to call the Calculate Additional Fees endpoint at `https://my-additional-fees.com/v1/calculateAdditionalFees`, the base URI you provide here is `https://my-additional-fees.com/`. |
     | `componentName`|string|A unique name for this component. This is an internal name that will only appear in the Dev Center. |
 
 1. Click [**Test Your App**](https://devforum.wix.com/kb/en/article/how-to-test-your-app-on-a-free-premium-development-site).
