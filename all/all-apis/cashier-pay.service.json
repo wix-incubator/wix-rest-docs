@@ -53,7 +53,8 @@
     },
         {
       "name": "Payment Event",
-      "entity": null
+      "entity": "_wix_payment_api_pay_v3_PaymentEvent",
+      "src": "https://github.com/wix-private/cashier/blob/master/payment-services/public-api-modules/pay-api/wix/payment/api/pay/v3/resources/payment-event.proto"
     }
   ],
   "relatedGuides":   [
@@ -766,6 +767,101 @@
             "typeParams": ["string"]
           },
           "doc": " List of allowed payment providers the order can be paid with\n"
+        },
+                {
+          "name": "captureMethod",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_OrderDescription_CaptureMethod",
+          "doc": " Capture method\n"
+        },
+                {
+          "name": "delayedCaptureOptions",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_DelayedCaptureOptions",
+          "doc": ""
+        },
+                {
+          "name": "merchantUseSaveEnabled",
+          "type": "boolean",
+          "doc": " indicate that saving payment method for merchant use is enabled\n"
+        },
+                {
+          "name": "scaRequested",
+          "type": "boolean",
+          "doc": " Request transaction to be made using strong customer authentication e.g. 3-D Secure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_DelayedCaptureOptions",
+      "displayName": "Delayed Capture Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "allowImmediate",
+          "type": "boolean",
+          "doc": " If auth & capture is not supported by the provider, capture immediately.\n"
+        },
+                {
+          "name": "scheduledAction",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ScheduledAction",
+          "doc": " Specifies the automatic action (void/capture) for authorized transaction after the specified duration\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ScheduledAction_Duration",
+      "displayName": "Duration Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "unit",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ScheduledAction_Duration_DurationUnitEnum_DurationUnit",
+          "doc": " Duration unit: MINUTE, HOUR and DAY\n"
+        },
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Amount of units. For example,  30 MINUTE, 1 HOUR, 7 DAY, etc. Optional.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ScheduledAction",
+      "displayName": "Scheduled Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "action",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ScheduledAction_Action",
+          "doc": ""
+        },
+                {
+          "name": "delay",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ScheduledAction_Duration",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -1180,7 +1276,8 @@
       "members": [      {
         "name": "referenceOrderId",
         "type": "string",
-        "doc": " a reference to the initial order\n"
+        "doc": " deprecated, please use payment agreements instead\n",
+        "deprecated": true
       }],
       "enum": null,
       "extra": {},
@@ -1198,7 +1295,8 @@
       "members": [      {
         "name": "referenceOrderId",
         "type": "string",
-        "doc": " a reference to the initial order\n"
+        "doc": " deprecated, please use payment agreements instead\n",
+        "deprecated": true
       }],
       "enum": null,
       "extra": {},
@@ -1216,7 +1314,8 @@
       "members": [      {
         "name": "referenceOrderId",
         "type": "string",
-        "doc": " a reference to the initial order\n"
+        "doc": " deprecated, please use payment agreements instead\n",
+        "deprecated": true
       }],
       "enum": null,
       "extra": {},
@@ -1256,6 +1355,11 @@
           "name": "idempotencyKey",
           "type": "string",
           "doc": " Idempotency key\n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": " Updated order expiration date\n"
         }
       ],
       "enum": null,
@@ -1268,6 +1372,117 @@
       "locations": [],
       "docs":       {
         "summary": " Describing `Create` order response.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "order",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Order",
+        "doc": " newly created order\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_UpdateOrderRequest",
+      "displayName": "Update Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " unique identifier of order\n"
+        },
+                {
+          "name": "accountId",
+          "type": "string",
+          "doc": " Unique identifier on an account for which the order is created (required).\n\n Logical owner of an order. For Wix TPAs `account_id` is a pair of `appId:instanceId`\n"
+        },
+                {
+          "name": "description",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_OrderDescription",
+          "doc": " Description of new order (required).\n"
+        },
+                {
+          "name": "urls",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_OrderUrls",
+          "doc": " Third party system urls which should be used when as callback/event_hook (required).\n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": " Updated order expiration date\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_UpdateOrderResponse",
+      "displayName": "Update Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "order",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Order",
+        "doc": " updated order\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SetupRequest",
+      "displayName": "Setup Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency of the order (required). Supported values are: AFN, USD, EUR, BMD, BGN, BIF, CVE, KMF, CDF, DJF, ERN, FKP, GHS, GNF, LAK, LSL, LYD, MWK, MRO, MZN, PAB, RON, RUB, SHP, RSD, SLL, SBD, SOS, SZL, TJS, TOP, TMT, YER, ZMW, GIP, ZAR, XPF, XOF, XCD, XAF, WST, VUV, VND, VEF, UZS, UYU, UGX, UAH, TZS, TWD, TTD, TRY, TND, THB, STD, SGD, SEK, SCR, SAR, RWF, QAR, PYG, PLN, PKR, PHP, PGK, PEN, OMR, NZD, NPR, NOK, NIO, NGN, MYR, MXN, MVR, MUR, MOP, MNT, MMK, MKD, MDL, MAD, LRD, LKR, LBP, KZT, KYD, KWD, KRW, KHR, KGS, KES, JPY, JOD, JMD, ISK, INR, ILS, IDR, HUF, HTG, HRK, HNL, HKD, GYD, GTQ, GMD, GEL, GBP, FJD, ETB, EGP, DZD, DOP, DKK, CZK, CRC, COP, CNY, CLP, CHF, CAD, BZD, BYN, BWP, BTN, BSD, BRL, BOB, BND, BHD, BDT, BBD, BAM, AZN, AWG, AUD, ARS, AOA, ANG, AMD, ALL, AED, MGA, MZN, NAD, RON, GHS, SRD, TMT, ZMW, IQD\n"
+        },
+                {
+          "name": "buyerInfo",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_OrderBuyerInfo",
+          "doc": " Buyer information which can use to provide better service (optional)\n"
+        },
+                {
+          "name": "merchantInitiated",
+          "type": "boolean",
+          "doc": " Is this order creation initiated by merchant\n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": " Order expiration date\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SetupResponse",
+      "displayName": "Setup Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
         "links": [],
         "examples": []
       },
@@ -1596,6 +1811,70 @@
       "labels": []
     },
         {
+      "name": "_wix_payment_api_pay_v2_DisableSubscriptionRequest",
+      "displayName": "Disable Subscription Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Describing `DisableSubscription` request.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " unique identifier of an order which subscription should be disabled\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_DisableSubscriptionResponse",
+      "displayName": "Disable Subscription Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Describing `DisableSubscription` response.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_EnableSubscriptionRequest",
+      "displayName": "Enable Subscription Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Describing `EnableSubscription` request.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": " unique identifier of an order which subscription should be enabled\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_EnableSubscriptionResponse",
+      "displayName": "Enable Subscription Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Describing `EnableSubscription` response.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_payment_api_pay_v2_UpdateIncludedCharges",
       "displayName": "Update Included Charges Object",
       "locations": [],
@@ -1722,6 +2001,88 @@
         "examples": []
       },
       "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_FindAgreementIdByOrderIdRequest",
+      "displayName": "Find Agreement Id By Order Id Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_FindAgreementIdByOrderIdResponse",
+      "displayName": "Find Agreement Id By Order Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paymentAgreementId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ExpireOrderRequest",
+      "displayName": "Expire Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "orderId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ExpireOrderResponse",
+      "displayName": "Expire Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orderStatus",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_OrderStatus_Status",
+          "doc": ""
+        },
+                {
+          "name": "pendingTransactionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1863,6 +2224,21 @@
           "doc": "Used for saved credit card\n"
         },
                 {
+          "name": "paymentAgreementId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "orderId",
+          "type": "string",
+          "doc": " you may specify id of order these PaymentDetails are used with.\n if that order has 1 not failed transaction further use of these details won't be possible.\n"
+        },
+                {
+          "name": "merchantUseAllowed",
+          "type": "boolean",
+          "doc": " allows merchant to use save payment method for unscheduled payments\n"
+        },
+                {
           "name": "paymentMethodDetails",
           "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_PaymentDetails_PaymentMethodDetails",
           "doc": ""
@@ -1908,14 +2284,14 @@
           "doc": ""
         },
                 {
-          "name": "persistedMethod",
-          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_PersistedMethodPayment",
-          "doc": " method was persisted on payment before\n"
+          "name": "googlePay",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_GooglePayPayment",
+          "doc": " Google Pay\n"
         },
                 {
-          "name": "tokenized",
-          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_TokenizedPayment",
-          "doc": " payment method tokenized by caller and it's token is passed instead\n"
+          "name": "savedCardPayment",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_SavedCardPayment",
+          "doc": " payment with a card using saved card\n"
         }
       ],
       "enum": null,
@@ -1960,6 +2336,11 @@
           "name": "riskProviderData",
           "type": "All APIs.Cashier Pay.riskProviderDataMapEntry",
           "doc": "Set of key-value pairs. Provider-specific risk data\n"
+        },
+                {
+          "name": "captchaToken",
+          "type": "string",
+          "doc": " Captcha token generated by client after showing Captcha challenge to request initiator\n Required if Captcha is enabled for the site\n Exclusions: OneApp\n"
         }
       ],
       "enum": null,
@@ -2025,24 +2406,6 @@
       "labels": []
     },
         {
-      "name": "_wix_payment_api_pay_v2_TokenizedPayment",
-      "displayName": "Tokenized Payment Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "tokens",
-        "type": "struct",
-        "doc": " provider-specific tokens:\n * Stripe - `paymentMethodId`\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_payment_api_pay_v2_IDealPayment",
       "displayName": "I Deal Payment Object",
       "locations": [],
@@ -2056,6 +2419,41 @@
         "type": "string",
         "doc": " the code of the issuing bank\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_GooglePayPayment",
+      "displayName": "Google Pay Payment Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "token",
+          "type": "string",
+          "doc": " the payment token\n"
+        },
+                {
+          "name": "displayName",
+          "type": "string",
+          "doc": " Display name of the card\n"
+        },
+                {
+          "name": "network",
+          "type": "string",
+          "doc": " Network of the card\n"
+        },
+                {
+          "name": "type",
+          "type": "string",
+          "doc": " Type of the card\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2123,7 +2521,8 @@
                 {
           "name": "createIntentOnly",
           "type": "boolean",
-          "doc": " whether create intent only or complete transaction (use this flag only if you know what it means)\n"
+          "doc": " whether create intent only or complete transaction (use this flag only if you know what it means)\n",
+          "deprecated": true
         }
       ],
       "enum": null,
@@ -2149,19 +2548,26 @@
       "labels": []
     },
         {
-      "name": "_wix_payment_api_pay_v2_PersistedMethodPayment",
-      "displayName": "Persisted Method Payment Object",
+      "name": "_wix_payment_api_pay_v2_SavedCardPayment",
+      "displayName": "Saved Card Payment Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "paymentMethodId",
-        "type": "string",
-        "doc": " id of previously saved Payment Method\n"
-      }],
+      "members":       [
+                {
+          "name": "paymentMethodId",
+          "type": "string",
+          "doc": " id of previously saved Payment Method\n"
+        },
+                {
+          "name": "securityCodeToken",
+          "type": "string",
+          "doc": " the CVV/CVC/CID token\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2718,7 +3124,7 @@
       "displayName": "Payment Method Object",
       "locations": [],
       "docs":       {
-        "summary": " Describing payment method: it's id, provider name, mandatory fields, charget intents and any other additional info.\n",
+        "summary": "",
         "links": [],
         "examples": []
       },
@@ -2813,11 +3219,168 @@
           "name": "providerTokenization",
           "type": "boolean",
           "doc": ""
+        },
+                {
+          "name": "savedPaymentMethodId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "paymentAgreementId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "primary",
+          "type": "boolean",
+          "doc": " is saved method primary for this UoU\n"
+        },
+                {
+          "name": "savedPaymentMethodDetails",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_PaymentMethod_SavedPaymentMethodDetails",
+          "doc": ""
+        },
+                {
+          "name": "savePaymentMethodDisplayOption",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_PaymentMethod_SavePaymentMethodDisplayOption",
+          "doc": "Save Payment Method legal conditions\n"
+        },
+                {
+          "name": "allowMerchantUseDisplayOption",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_AllowMerchantUseDisplayOptionEnum_AllowMerchantUseDisplayOption",
+          "doc": " Allow manual MIT legal conditions\n"
+        },
+                {
+          "name": "unscheduledMitSupport",
+          "type": "boolean",
+          "doc": " Credentials, stored by a cardholder when using this payment method type, can be used subsequently by a merchant to perform unscheduled credential-on-file merchant initiated transactions.\n"
+        },
+                {
+          "name": "captchaRequired",
+          "type": "boolean",
+          "doc": " Indicates that Client have to show Captcha challenge to request initiator to proceed with this Payment Method\n Captcha validation is expected on further payment with this method\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_PaymentMethod_SavedPaymentMethodDetails",
+      "displayName": "Saved Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "savedCreditCardDetails",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_SavedCreditCardDetails",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SavedCreditCardDetails",
+      "displayName": "Saved Credit Card Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "network",
+          "type": "string",
+          "doc": " credit card network (visa, mastercard, amex, jcb)\n"
+        },
+                {
+          "name": "lastFourDigits",
+          "type": "string",
+          "doc": " last 4 digits of credit card number\n"
+        },
+                {
+          "name": "expiryMonth",
+          "type": "integer",
+          "doc": " the month of the card expiration date\n"
+        },
+                {
+          "name": "expiryYear",
+          "type": "integer",
+          "doc": " the full year of the card expiration date\n"
+        },
+                {
+          "name": "holderName",
+          "type": "string",
+          "doc": " credit card holder's name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_PayPalDetails",
+      "displayName": "Pay Pal Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SavedPaymentMethodDetails",
+      "displayName": "Saved Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "details",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_SavedPaymentMethodDetails_details",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SavedPaymentMethodDetails_details",
+      "displayName": "details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "savedCreditCardDetails",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_SavedCreditCardDetails",
+          "doc": ""
+        },
+                {
+          "name": "payPalDetails",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_PayPalDetails",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
     },
         {
       "name": "_wix_payment_api_pay_v2_Installments",
@@ -2906,6 +3469,11 @@
           "name": "bnplModalPage",
           "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ModalPage",
           "doc": " payment method modal page with more BNPL info:\n terms & conditions, detailed plans, etc\n"
+        },
+                {
+          "name": "providerImpressionUrl",
+          "type": "string",
+          "doc": " payment provider impression URL to notify when provider BNPL is shown to UoU\n"
         }
       ],
       "enum": null,
@@ -3064,6 +3632,42 @@
       "labels": []
     },
         {
+      "name": "_wix_payment_api_pay_v2_ExpressPaymentMethod_GooglePayExpressPaymentMethodDetails",
+      "displayName": "Google Pay Express Payment Method Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "merchantCountry",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "supportedNetworks",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Pay._wix_payment_api_pay_v2_ExpressPaymentMethod_CreditCardNetwork"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "panTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Cashier Pay._wix_payment_api_pay_v2_ExpressPaymentMethod_PanType"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_payment_api_pay_v2_ExpressPaymentMethod_PayPalExpressPaymentMethodDetails",
       "displayName": "Pay Pal Express Payment Method Details Object",
       "locations": [],
@@ -3135,6 +3739,11 @@
           "name": "payPal",
           "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ExpressPaymentMethod_PayPalExpressPaymentMethodDetails",
           "doc": ""
+        },
+                {
+          "name": "googlePay",
+          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_ExpressPaymentMethod_GooglePayExpressPaymentMethodDetails",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -3191,6 +3800,31 @@
           "name": "merchantInitiated",
           "type": "boolean",
           "doc": " filter methods which support merchant initiated transactions (optional)\n"
+        },
+                {
+          "name": "returnSavedMethods",
+          "type": "boolean",
+          "doc": " return saved methods\n"
+        },
+                {
+          "name": "returnPaymentAgreement",
+          "type": "boolean",
+          "doc": " return Payment Agreement (if exists) for Saved Method\n"
+        },
+                {
+          "name": "enforceDelayedCapture",
+          "type": "boolean",
+          "doc": " filter methods that only supporting delayed capture (optional)\n"
+        },
+                {
+          "name": "merchantUseSaveEnabled",
+          "type": "boolean",
+          "doc": " indicate that saving payment method for merchant use is enabled\n"
+        },
+                {
+          "name": "buyerContactId",
+          "type": "string",
+          "doc": " buyer's contactId\n it's required to display saved payment methods that are allowed for MIT in case contact is a site member\n"
         }
       ],
       "enum": null,
@@ -3262,6 +3896,11 @@
           "name": "chargeIntent",
           "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Charge_ChargeIntent",
           "doc": ""
+        },
+                {
+          "name": "merchantUseSaveEnabled",
+          "type": "boolean",
+          "doc": " indicate that saving payment method for merchant use is enabled\n"
         }
       ],
       "enum": null,
@@ -3440,22 +4079,8 @@
       "labels": []
     },
         {
-      "name": "_wix_payment_api_pay_v2_GetExternalRecurringAvailabilityRequest",
-      "displayName": "Get External Recurring Availability Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_payment_api_pay_v2_GetExternalRecurringAvailabilityResponse",
-      "displayName": "Get External Recurring Availability Response Object",
+      "name": "_wix_payment_api_pay_v2_GetSavedPaymentMethodDetailsByAgreementIdRequest",
+      "displayName": "Get Saved Payment Method Details By Agreement Id Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3463,8 +4088,26 @@
         "examples": []
       },
       "members": [      {
-        "name": "available",
-        "type": "boolean",
+        "name": "paymentAgreementId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_GetSavedPaymentMethodDetailsByAgreementIdResponse",
+      "displayName": "Get Saved Payment Method Details By Agreement Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "savedPaymentMethodDetails",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_SavedPaymentMethodDetails",
         "doc": ""
       }],
       "enum": null,
@@ -3541,14 +4184,14 @@
           "doc": " third party system urls which should be used and callback/event_hook (required)\n"
         },
                 {
-          "name": "intent",
-          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Charge_ChargeIntent",
-          "doc": " charge intent (optional, default: SALE)\n SALE - funds should be captured automatically\n AUTHORIZATION - funds should be hold and available for later explicit capture\n"
-        },
-                {
           "name": "idempotencyKey",
           "type": "string",
           "doc": " for an idempotency key only one charge will be performed or error returned if approved/pending transactions already exist\n"
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": " Order expiration date\n"
         }
       ],
       "enum": null,
@@ -3574,11 +4217,6 @@
           "name": "payment",
           "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Payment",
           "doc": " payment description (required)\n"
-        },
-                {
-          "name": "intent",
-          "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Charge_ChargeIntent",
-          "doc": " charge intent (optional, default: SALE)\n SALE - funds should be captured automatically\n AUTHORIZATION - funds should be hold and available for later explicit capture\n"
         },
                 {
           "name": "billingAddress",
@@ -3611,6 +4249,78 @@
           "doc": " ChargeResponse token, required by Payments client widget\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_CaptureRequest",
+      "displayName": "Capture Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "chargeId",
+        "type": "string",
+        "doc": " Charge ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_CaptureResponse",
+      "displayName": "Capture Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "charge",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Charge",
+        "doc": " Captured transaction.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_VoidRequest",
+      "displayName": "Void Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "chargeId",
+        "type": "string",
+        "doc": " Charge ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_VoidResponse",
+      "displayName": "Void Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "charge",
+        "type": "All APIs.Cashier Pay._wix_payment_api_pay_v2_Charge",
+        "doc": " Void transaction.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -4055,32 +4765,32 @@
                 {
           "name": "firstName",
           "type": "string",
-          "doc": " Contact first name\n"
+          "doc": " Contact's first name.\n"
         },
                 {
           "name": "lastName",
           "type": "string",
-          "doc": " Contact last name\n"
+          "doc": " Contact's last name.\n"
         },
                 {
           "name": "phone",
           "type": "string",
-          "doc": " Contact phone number\n"
+          "doc": " Contact's phone number.\n"
         },
                 {
           "name": "company",
           "type": "string",
-          "doc": " Contact's company\n"
+          "doc": " Contact's company name.\n"
         },
                 {
           "name": "email",
           "type": "string",
-          "doc": " Email associated with the address\n"
+          "doc": " Email associated with the address.\n"
         },
                 {
           "name": "vatId",
           "type": "All APIs.Cashier Pay._wix_common_VatId",
-          "doc": " tax info (Currently usable only in Brazil)\n"
+          "doc": " Tax info. Currently usable only in Brazil.\n"
         }
       ],
       "enum": null,
@@ -4100,12 +4810,12 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Customer's tax ID\n"
+          "doc": " Customer's tax ID.\n"
         },
                 {
           "name": "type",
           "type": "All APIs.Cashier Pay._wix_common_VatType",
-          "doc": " tax type\n"
+          "doc": "\nTax type.\n\nSupported values:\n+ `CPF`: for individual tax payers\n+ `CNPJ`: for corporations\n"
         }
       ],
       "enum": null,
@@ -4597,7 +5307,7 @@
                 {
           "name": "wixAppId",
           "type": "string",
-          "doc": " ID of the [Wix app](https://dev.wix.com/api/rest/wix-payments/about-wix-payments) that triggered this event.\n"
+          "doc": " ID of the [Wix app](https://dev.wix.com/docs/rest/articles/getting-started/wix-business-solutions) that triggered this event.\n"
         },
                 {
           "name": "wixAppInstanceId",
@@ -4897,11 +5607,69 @@
       "labels": []
     },
         {
+      "name": "_wix_payment_api_pay_v2_OrderDescription_CaptureMethod",
+      "displayName": "Capture Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CAPTURE_METHOD <\/code><\/li><li><code> IMMEDIATE <\/code><\/li><li><code> DELAYED <\/code><\/li><li><code> FORCE_MANUAL -  Will deprecate after migrate sbs\n <\/code><\/li><li><code> AUTOMATIC -  Will be removed\n <\/code><\/li><li><code> PREFER_MANUAL -  Will be removed\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CAPTURE_METHOD",
+        "IMMEDIATE",
+        "DELAYED",
+        "FORCE_MANUAL",
+        "AUTOMATIC",
+        "PREFER_MANUAL"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ScheduledAction_Duration_DurationUnitEnum_DurationUnit",
+      "displayName": "Duration Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_DURATION_UNIT <\/code><\/li><li><code> MINUTE <\/code><\/li><li><code> HOUR <\/code><\/li><li><code> DAY <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_DURATION_UNIT",
+        "MINUTE",
+        "HOUR",
+        "DAY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_ScheduledAction_Action",
+      "displayName": "Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ACTION <\/code><\/li><li><code> VOID <\/code><\/li><li><code> CAPTURE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ACTION",
+        "VOID",
+        "CAPTURE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_payment_api_pay_v2_OrderStatus_Status",
       "displayName": "Status Object",
       "locations": [],
       "docs":       {
-        "summary": " status of the order (more info [here][1])\n\n  [1]: /cashier-pay/guides/Order%20overview\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> INITIALIZED -  meaning the order was created\n <\/code><\/li><li><code> IN_PROCESS -  meaning payment process for this order has started OR has been successfully completed\n <\/code><\/li><li><code> EXPIRED -  meaning payment process for this order didn't finish in time\n <\/code><\/li><li><code> NOT_APPROVED -  meaning payment process has failed (due to any of the reasons)\n <\/code><\/li><li><code> APPROVED -  meaning that order has been approved (has approved transaction)\n <\/code><\/li><li><code> SUBSCRIPTION_ACTIVE -  meaning recurring payment is active\n <\/code><\/li><li><code> SUBSCRIPTION_CANCELLED -  meaning recurring payment was cancelled by user\n <\/code><\/li><li><code> SUBSCRIPTION_FINISHED -  meaning the total billing cycles for the optional trial and the regular payment periods was completed (not yet supported)\n <\/code><\/li><li><code> SUBSCRIPTION_PENDING -  meaning recurring payment is not active yet, waiting for the first payment\n <\/code><\/li><li><code> SUBSCRIPTION_SUSPENDED -  meaning recurring payment was suspended by user\n <\/code><\/li>",
+        "summary": " status of the order (more info [here][1])\n\n  [1]: /cashier-pay/guides/Order%20overview\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> INITIALIZED -  meaning the order was created\n <\/code><\/li><li><code> IN_PROCESS -  meaning payment process for this order has started OR has been successfully completed\n <\/code><\/li><li><code> EXPIRED -  meaning payment process for this order didn't finish in time\n <\/code><\/li><li><code> NOT_APPROVED -  meaning payment process has failed (due to any of the reasons)\n <\/code><\/li><li><code> APPROVED -  meaning that order has been approved (has approved transaction)\n <\/code><\/li><li><code> PENDING_EXPIRATION -  meaning order can become EXPIRED or APPROVED based on existing transactions\n prevents from adding new transactions to order\n <\/code><\/li><li><code> SUBSCRIPTION_ACTIVE -  meaning recurring payment is active\n <\/code><\/li><li><code> SUBSCRIPTION_CANCELLED -  meaning recurring payment was cancelled by user\n <\/code><\/li><li><code> SUBSCRIPTION_FINISHED -  meaning the total billing cycles for the optional trial and the regular payment periods was completed (not yet supported)\n <\/code><\/li><li><code> SUBSCRIPTION_PENDING -  meaning recurring payment is not active yet, waiting for the first payment\n <\/code><\/li><li><code> SUBSCRIPTION_SUSPENDED -  meaning recurring payment was suspended by user\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -4913,6 +5681,7 @@
         "EXPIRED",
         "NOT_APPROVED",
         "APPROVED",
+        "PENDING_EXPIRATION",
         "SUBSCRIPTION_ACTIVE",
         "SUBSCRIPTION_CANCELLED",
         "SUBSCRIPTION_FINISHED",
@@ -5002,7 +5771,7 @@
       "displayName": "Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> INITIALIZATION <\/code><\/li><li><code> INITIALIZED <\/code><\/li><li><code> IN_PROCESS <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING_MERCHANT -  transaction is pending, merchant action is required\n <\/code><\/li><li><code> PENDING_BUYER -  means just pending, for example transaction is pending because of fraud check\n <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> FAILED <\/code><\/li><li><code> BUYER_CANCELED <\/code><\/li><li><code> TIMEOUT <\/code><\/li><li><code> REFUND <\/code><\/li><li><code> CHARGE_BACK <\/code><\/li><li><code> OFFLINE <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> INITIALIZATION <\/code><\/li><li><code> INITIALIZED <\/code><\/li><li><code> IN_PROCESS <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING_MERCHANT -  transaction is pending, merchant action is required\n <\/code><\/li><li><code> PENDING_BUYER -  means just pending, for example transaction is pending because of fraud check\n <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> FAILED <\/code><\/li><li><code> BUYER_CANCELED <\/code><\/li><li><code> TIMEOUT <\/code><\/li><li><code> REFUND <\/code><\/li><li><code> CHARGE_BACK <\/code><\/li><li><code> VOIDED <\/code><\/li><li><code> AUTHORIZED <\/code><\/li><li><code> OFFLINE <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5021,6 +5790,8 @@
         "TIMEOUT",
         "REFUND",
         "CHARGE_BACK",
+        "VOIDED",
+        "AUTHORIZED",
         "OFFLINE"
       ],
       "extra": {},
@@ -5031,7 +5802,7 @@
       "displayName": "Charge Intent Object",
       "locations": [],
       "docs":       {
-        "summary": " What kind of payment the buyer wants to perform: A one-time payment, a recurring payment, or an authorize\n payment - authorize is when the provider reserves the funds from the user’s credit card, but doesn’t actually\n charge them. This is usually done for ‘booking’ style flows, where the hotel reserves the booking amount but only\n charges it when the guest arrives. Authorize flow is not fully supported by Cashier yet, work in progress.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> SALE <\/code><\/li><li><code> AUTHORIZATION <\/code><\/li><li><code> RECURRING <\/code><\/li>",
+        "summary": " What kind of payment the buyer wants to perform: A one-time payment, a recurring payment, or an authorize\n payment - authorize is when the provider reserves the funds from the user’s credit card, but doesn’t actually\n charge them. This is usually done for ‘booking’ style flows, where the hotel reserves the booking amount but only\n charges it when the guest arrives. Authorize flow is not fully supported by Cashier yet, work in progress.\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> SALE <\/code><\/li><li><code> RECURRING <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5039,7 +5810,6 @@
       "enum":       [
         "UNDEFINED",
         "SALE",
-        "AUTHORIZATION",
         "RECURRING"
       ],
       "extra": {},
@@ -5064,11 +5834,48 @@
       "labels": []
     },
         {
+      "name": "_wix_payment_api_pay_v2_PaymentMethod_SavePaymentMethodDisplayOption",
+      "displayName": "Save Payment Method Display Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SHOW_NOTHING <\/code><\/li><li><code> SHOW_SAVE_PAYMENT_METHOD_CHECKBOX <\/code><\/li><li><code> SHOW_DISCLAIMER <\/code><\/li><li><code> SHOW_MERCHANT_SAVE_PAYMENT_METHOD_CHECKBOX <\/code><\/li><li><code> SHOW_MERCHANT_DISCLAIMER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SHOW_NOTHING",
+        "SHOW_SAVE_PAYMENT_METHOD_CHECKBOX",
+        "SHOW_DISCLAIMER",
+        "SHOW_MERCHANT_SAVE_PAYMENT_METHOD_CHECKBOX",
+        "SHOW_MERCHANT_DISCLAIMER"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_AllowMerchantUseDisplayOptionEnum_AllowMerchantUseDisplayOption",
+      "displayName": "Allow Merchant Use Display Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> SHOW_NOTHING <\/code><\/li><li><code> SHOW_ALLOW_MERCHANT_USE_CHECKBOX <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "SHOW_NOTHING",
+        "SHOW_ALLOW_MERCHANT_USE_CHECKBOX"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_payment_api_pay_v2_ExpressPaymentMethod_CreditCardNetwork",
       "displayName": "Credit Card Network Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED_NETWORK <\/code><\/li><li><code> AMEX <\/code><\/li><li><code> CARTES_BANCAIRES <\/code><\/li><li><code> CHINA_UNION_PAY <\/code><\/li><li><code> DISCOVER <\/code><\/li><li><code> EFTPOS <\/code><\/li><li><code> ELECTRON <\/code><\/li><li><code> ELO <\/code><\/li><li><code> INTERAC <\/code><\/li><li><code> JCB <\/code><\/li><li><code> MADA <\/code><\/li><li><code> MAESTRO <\/code><\/li><li><code> MASTER_CARD <\/code><\/li><li><code> PRIVATE_LABEL <\/code><\/li><li><code> VISA <\/code><\/li><li><code> VPAY <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED_NETWORK <\/code><\/li><li><code> AMEX <\/code><\/li><li><code> CARTES_BANCAIRES <\/code><\/li><li><code> CHINA_UNION_PAY <\/code><\/li><li><code> DISCOVER <\/code><\/li><li><code> EFTPOS <\/code><\/li><li><code> ELECTRON <\/code><\/li><li><code> ELO <\/code><\/li><li><code> INTERAC <\/code><\/li><li><code> JCB <\/code><\/li><li><code> MADA <\/code><\/li><li><code> MAESTRO <\/code><\/li><li><code> MASTER_CARD <\/code><\/li><li><code> PRIVATE_LABEL <\/code><\/li><li><code> VISA <\/code><\/li><li><code> VPAY <\/code><\/li><li><code> BANCONTACT_CARD <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5089,7 +5896,8 @@
         "MASTER_CARD",
         "PRIVATE_LABEL",
         "VISA",
-        "VPAY"
+        "VPAY",
+        "BANCONTACT_CARD"
       ],
       "extra": {},
       "labels": []
@@ -5115,11 +5923,29 @@
       "labels": []
     },
         {
+      "name": "_wix_payment_api_pay_v2_ExpressPaymentMethod_PanType",
+      "displayName": "Pan Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED_TYPE <\/code><\/li><li><code> FPAN -  PAN_ONLY\n <\/code><\/li><li><code> DPAN -  CRYPTOGRAM_3DS\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED_TYPE",
+        "FPAN",
+        "DPAN"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_common_VatType",
       "displayName": "Vat Type Object",
       "locations": [],
       "docs":       {
-        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
+        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers.\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5159,7 +5985,7 @@
       "displayName": "Transaction Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> PENDING_MERCHANT <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> PARTIALLY_REFUNDED <\/code><\/li><li><code> AUTHORIZED <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> APPROVED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> PENDING_MERCHANT <\/code><\/li><li><code> CANCELED <\/code><\/li><li><code> DECLINED <\/code><\/li><li><code> REFUNDED <\/code><\/li><li><code> PARTIALLY_REFUNDED <\/code><\/li><li><code> AUTHORIZED <\/code><\/li><li><code> VOIDED <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5173,7 +5999,8 @@
         "DECLINED",
         "REFUNDED",
         "PARTIALLY_REFUNDED",
-        "AUTHORIZED"
+        "AUTHORIZED",
+        "VOIDED"
       ],
       "extra": {},
       "labels": []
