@@ -53,14 +53,14 @@
         "in": "BODY",
         "name": "timezone",
         "type": "string",
-        "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n",
+        "doc": " The timezone for which session availability is to be calculated. If specified,\n dates are based on the local date/time, meaning that the timezone offset\n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones)\n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n",
         "required": false
       },
             {
         "in": "BODY",
         "name": "slotsPerDay",
         "type": "integer",
-        "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`. \n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all \n bookable slots are already included.\n",
+        "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`.\n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all\n bookable slots are already included.\n",
         "required": false
       }
     ],
@@ -74,7 +74,7 @@
     },
     "locations": [],
     "docs":     {
-      "summary": " Retrieves the availability for sessions \n that match the provided query criteria (filtering and sorting).\n\n\n The Calendar Availability APIs calculate the availability of sessions for \n appointments and classes, but not \n for courses.  \n \n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers. \n Using the `bookable` property, you can limit the display to available\n slots only.\n \n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance. \n \n #### Calculating availability\n\n The availability is determined \n by checking: \n - **The sessions' open slots**. A slot is considered open if the session's capacity is greater than number of participants.\n - **Booking policies**. Policies that affect whether a slot is considered available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can \n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a \n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n session remains locked because there is still a wait-list, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking \n prevents customers who are not yet on the wait-list from grabbing the slot.\n\n #### Handling Daylight Savings Time (DST) for local time zones\n\n Because of DST, there are cases where certain times either do not exist \n or exist twice for a local time zone. \n For example, the time `00:05` on September 5th 2021 might not exist in Santiago, Chile,\n because at `00:00` the clock moved\n 1 hour forward to `01:00`.\n\n In this case, the Availability APIs take this \n into account and mediate the time gaps automatically. The non-existent local time is\n automatically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000` \n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query \n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
+      "summary": " Retrieves the availability for sessions\n that match the provided query criteria (filtering and sorting).\n\n\n The Calendar Availability APIs calculate the availability of sessions for\n appointments and classes, but not\n for courses.\n\n The entire list of slots is returned in case you want to display both\n available and non-available slots in the calendar for your customers.\n Using the `bookable` property, you can limit the display to available\n slots only.\n\n When querying, you must enter a start date and an end date. This avoids very large\n results that can impact performance.\n\n #### Calculating availability\n\n The availability is determined\n by checking:\n - **The sessions' open slots**. A slot is considered open if the session's capacity is greater than number of participants.\n - **Booking policies**. Policies that affect whether a slot is considered available include `tooEarlyToBook`, `tooLateToBook`, and `bookOnlineDisabled`.\n\n Locked sessions do not impact session availability and `bookable` can\n be `true` even if `locked` is `true`. For example, if a session has a waitlist and a\n place frees up, the slot is offered to the customers on the waitlist, one by one. The\n session remains locked because there is still a wait-list, but for a period of time\n there is availability, until a customer on the waitlist takes the slot. Locking\n prevents customers who are not yet on the wait-list from grabbing the slot.\n\n #### Handling Daylight Savings Time (DST) for local time zones\n\n Because of DST, there are cases where certain times either do not exist\n or exist twice for a local time zone.\n For example, the time `00:05` on September 5th 2021 might not exist in Santiago, Chile,\n because at `00:00` the clock moved\n 1 hour forward to `01:00`.\n\n In this case, the Availability APIs take this\n into account and mediate the time gaps automatically. The non-existent local time is\n automatically moved forward 1 hour to match local DST. Local times that exist do not change.\n So if the `Query Availability` endpoint is called with a `startDate` of `2021-09-05T00:00:01.000`\n and an `endDate` of `2021-09-06T00:00:02.000`, `2021-09-05T01:00:01.000` is used in the query\n instead. The start time shifts one hour forward and the end time remains the same.\n \n",
       "description": [],
       "request": "POST",
       "url": "https://www.wixapis.com/bookings/v1/availability/query",
@@ -141,12 +141,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " Number of items to load.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -194,6 +194,36 @@
       "labels": []
     },
         {
+      "name": "_wix_common_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_Cursors",
+          "doc": " Cursor strings that point to the next page, previous page, or both.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": "\nWhether there are more pages to retrieve following the current page.\n\n+ `true`: Another page of results can be retrieved.\n+ `false`: This is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_common_Cursors",
       "displayName": "Cursors Object",
       "locations": [],
@@ -206,12 +236,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -292,6 +322,24 @@
       "oneOf": true
     },
         {
+      "name": "_com_wixpress_bookings_availability_spi_v2_CustomerChoices",
+      "displayName": "Customer Choices Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Selected customer choices.\n These choices are selected by the customer during the booking flow and can be utilized to calculate the corresponding service's configuration properties.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "durationInMinutes",
+        "type": "integer",
+        "doc": " The selected customer duration in minutes.\n Min: `1 minute`\n Max: `44639 minutes` (30 days, 23 hours, and 59 minutes)\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_bookings_availability_QueryAvailabilityRequest",
       "displayName": "Query Availability Request Object",
       "locations": [],
@@ -309,12 +357,12 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which session availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n"
+          "doc": " The timezone for which session availability is to be calculated. If specified,\n dates are based on the local date/time, meaning that the timezone offset\n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones)\n when calculating availability.\n If no timezone is provided, the default value is `UTC`.\n"
         },
                 {
           "name": "slotsPerDay",
           "type": "integer",
-          "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`. \n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all \n bookable slots are already included.\n"
+          "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`.\n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all\n bookable slots are already included.\n"
         }
       ],
       "enum": null,
@@ -336,7 +384,7 @@
           "name": "array",
           "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability"]
         },
-        "doc": " List of slots that potentially can be booked. \n"
+        "doc": " List of slots that potentially can be booked.\n"
       }],
       "enum": null,
       "extra": {},
@@ -360,7 +408,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which slot availability is to be calculated. If specified, \n dates are based on the local date/time, meaning that the timezone offset \n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
+          "doc": " The timezone for which slot availability is to be calculated. If specified,\n dates are based on the local date/time, meaning that the timezone offset\n in the date's format is ignored.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones)\n when calculating availability.\n"
         }
       ],
       "enum": null,
@@ -448,17 +496,17 @@
                 {
           "name": "slot",
           "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_Slot",
-          "doc": " The slot for the corresponding session, when the session is either a single session \n or a specific session generated from a recurring session. \n"
+          "doc": " The slot for the corresponding session, when the session is either a single session\n or a specific session generated from a recurring session.\n"
         },
                 {
           "name": "bookable",
           "type": "boolean",
-          "doc": " Whether the slot is bookable. Bookability is determined by checking a \n session's open slots and booking policies. Locks are not taken into\n account.\n"
+          "doc": " Whether the slot is bookable. Bookability is determined by checking a\n session's open slots and booking policies. Locks are not taken into\n account.\n"
         },
                 {
           "name": "totalSpots",
           "type": "integer",
-          "doc": " Total number of spots for this slot.\n For example, if a session has a total of 10 spots and 3 spots are booked, \n `spotsTotal` is 10 and `openSpots` is 7.\n"
+          "doc": " Total number of spots for this slot.\n For example, if a session has a total of 10 spots and 3 spots are booked,\n `spotsTotal` is 10 and `openSpots` is 7.\n"
         },
                 {
           "name": "openSpots",
@@ -478,12 +526,52 @@
                 {
           "name": "locked",
           "type": "boolean",
-          "doc": " Indicates whether the slot is locked because a waitlist exists. \nWhen a slot frees up, the slot is offered to the next customer on the waitlist. Read-only.\n"
+          "doc": " Indicates whether the slot is locked because a waitlist exists.\nWhen a slot frees up, the slot is offered to the next customer on the waitlist. Read-only.\n"
         },
                 {
           "name": "isFromV2",
           "type": "boolean",
           "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_NestedTimeSlot",
+      "displayName": "Nested Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "start",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "end",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "resource",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotResource",
+          "doc": ""
+        },
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Schedule ID.\n"
         }
       ],
       "enum": null,
@@ -503,7 +591,7 @@
                 {
           "name": "sessionId",
           "type": "string",
-          "doc": " ID for the slot's corresponding session, when the session is either a single session \n or a specific session generated from a recurring session.\n"
+          "doc": " ID for the slot's corresponding session, when the session is either a single session\n or a specific session generated from a recurring session.\n"
         },
                 {
           "name": "serviceId",
@@ -528,7 +616,7 @@
                 {
           "name": "timezone",
           "type": "string",
-          "doc": " The timezone for which slot availability is to be calculated.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones) \n when calculating availability. \n"
+          "doc": " The timezone for which slot availability is to be calculated.\n\n Learn more about [handling Daylight Savings Time (DST) for local time zones](https://dev.wix.com/api/rest/wix-bookings/availability-calendar/query-availability#wix-bookings_availability-calendar_query-availability_handling-daylight-savings-time-dst-for-local-time-zones)\n when calculating availability.\n"
         },
                 {
           "name": "resource",
@@ -564,7 +652,7 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Resource name. Read only. \n"
+          "doc": " Resource name. Read only.\n"
         }
       ],
       "enum": null,
@@ -584,7 +672,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Business location ID. Available only for locations that are business locations, \n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
+          "doc": " Business location ID. Available only for locations that are business locations,\n meaning the `location_type` is `\"OWNER_BUSINESS\"`.\n"
         },
                 {
           "name": "name",
@@ -599,7 +687,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_LocationType",
-          "doc": " Location type.\n \n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
+          "doc": " Location type.\n\n - `\"OWNER_BUSINESS\"`: The business address, as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"`: The address as set when creating the service.\n - `\"CUSTOM\"`: The address as set for the individual session.\n"
         }
       ],
       "enum": null,
@@ -619,7 +707,7 @@
                 {
           "name": "totalSpots",
           "type": "integer",
-          "doc": " Total number of spots and open spots for this waitlist.\n For example, a Yoga class with 10 waitlist spots and 3 registered \n on the waitlist has 10 `total_spots` and 7 `open_spots`.\n"
+          "doc": " Total number of spots and open spots for this waitlist.\n For example, a Yoga class with 10 waitlist spots and 3 registered\n on the waitlist has 10 `total_spots` and 7 `open_spots`.\n"
         },
                 {
           "name": "openSpots",
@@ -674,7 +762,7 @@
                 {
           "name": "totalSpots",
           "type": "integer",
-          "doc": " The total number of spots defined for the schedule, including \n both open and non-available spots.\n"
+          "doc": " The total number of spots defined for the schedule, including\n both open and non-available spots.\n"
         },
                 {
           "name": "openSpots",
@@ -703,8 +791,145 @@
       "members": [      {
         "name": "maxParticipantsPerBooking",
         "type": "integer",
-        "doc": " The policy defining the maximum number of participants that can \n be booked for a slot or a schedule.\n"
+        "doc": " The policy defining the maximum number of participants that can\n be booked for a slot or a schedule.\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_RuleBasedConstraints",
+      "displayName": "Rule Based Constraints Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "serviceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "resourcesFilter",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_ResourcesFilter",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_ResourcesFilter",
+      "displayName": "Resources Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "resourceIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_CalculateMultiSlotAvailabilityRequest",
+      "displayName": "Calculate Multi Slot Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "from",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "to",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "timeZone",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "bookable",
+          "type": "boolean",
+          "doc": " TODO good definition of what bookable means https://github.com/wix-private/scheduler/pull/18267/files?file-filters%5B%5D=.proto&show-viewed-files=true#r1199809006\n"
+        },
+                {
+          "name": "bookingPolicyViolations",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_BookingPolicyViolations",
+          "doc": " each nested field is checked on its own. i.e. if `too_early_to_book` is defined and `too_late_to_book` is not defined\n we will return slots for which `too_early_to_book` is same as on the request, regardless of `too_late_to_book`.\n"
+        },
+                {
+          "name": "location",
+          "type": "All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_Location",
+          "doc": " support filtering by location type, or by locationId. Other fields like `name` are ignored\n must be set, and must have locationType. If locationType is `OWNER_BUSINESS`, must have location_id\n"
+        },
+                {
+          "name": "slots",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_RuleBasedConstraints"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "slotsPerDay",
+          "type": "integer",
+          "doc": " Maximum number of slots to load for each date. For example, if `slots_per_day` is set to `3`,\n at most 3 available slots are returned for each day in the date range specified in the query's\n `filter`.\n\n When a day has both bookable and non-bookable slots, bookable slots are returned first.\n Non-bookable slots are returned according to the specified filters, after all\n bookable slots are already included.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_CursorPaging",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_availability_CalculateMultiSlotAvailabilityResponse",
+      "displayName": "Calculate Multi Slot Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "slots",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.BookingsAvailabilityCalendar._com_wixpress_bookings_availability_SlotAvailability"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "cursorPagingMetadata",
+          "type": "All APIs.BookingsAvailabilityCalendar._wix_common_CursorPagingMetadata",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
