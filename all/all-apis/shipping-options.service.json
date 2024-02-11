@@ -1,0 +1,2558 @@
+{
+  "name": "Shipping Options",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-shipments/wix-ecommerce-shipping-services#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Shipping Options & Rates for Wix Stores",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Shipping Options API",
+      "entity": ""
+    },
+        {
+      "name": "Carrier Service SPI",
+      "entity": ""
+    }
+  ],
+  "relatedGuides": [  {
+    "path": "../guides/shipping-options/docs/intro.md",
+    "name": "Introduction"
+  }],
+  "operations": [  {
+    "name": "Get Shipping Rates",
+    "methodName": "GetShippingRates",
+    "serviceName": "CarrierService",
+    "tag": "Carrier Service SPI",
+    "permissions": [],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "items",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ProductItem"]
+        },
+        "doc": " All items included to be sent\nTODO change to 300 once cart limit will be 300\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "shippingDestination",
+        "type": "All APIs.Shipping Options._wix_common_Address",
+        "doc": " Destination of the items\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "shippingOrigin",
+        "type": "All APIs.Shipping Options._wix_common_Address",
+        "doc": " Where the items are sent from - this may be needed for some carriers.\n For now it will simply be the business location of the store.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "weightUnit",
+        "type": "All APIs.Shipping Options._com_wix_ecommerce_platform_common_api_WeightUnit",
+        "doc": " Measure unit\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "currency",
+        "type": "string",
+        "doc": " Currency requested for the shipping rates\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "instanceId",
+        "type": "string",
+        "doc": " Instance id of the app that is called for the shipping rates\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "shippingRateDecimalPlaces",
+        "type": "integer",
+        "doc": " Expected decimal places for the shipping rate. For example, if this field is 2 then the shipping rate could be: 10$, 10.1$, 10.12$ (up until 2 decimal places).\n However it can **not** be: 10.123$ (or further), and in this case the shipping option will be ignored and not provided to the user.\n When not provided, the fraction size can be anything.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "purchaseFlowId",
+        "type": "string",
+        "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "deliveryPreferences",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+        "doc": " list of delivery preferences, for example preferred delivery code (shippingOptionId)\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "GetShippingRates",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_GetShippingRatesResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": "\nThis endpoint will be called by Wix Stores to the relevant registered Carrier Services,\nbased on the requested destination of the items being sent.\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.wixapis.com/stores/getRates",
+      "links": [],
+      "examples": [],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "GetShippingRatesRequest",
+      "rpcResponseName": "GetShippingRatesResponse"
+    },
+    "customLabels": [{"id": "maturity-alpha"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_RuleUpdatedDomainEvent",
+      "displayName": "Rule Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.rule`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_RuleEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Rule ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_RuleEntityUpdatedEvent",
+      "displayName": "Rule Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within the catalog it belongs to.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+      "displayName": "Physical Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "weight",
+          "type": "number",
+          "doc": " Line item weight. Measurement unit matches the weight unit specified in `weightUnit` in the request.\n"
+        },
+                {
+          "name": "sku",
+          "type": "string",
+          "doc": " Stock-keeping unit. Learn more about [SKUs](https://www.wix.com/encyclopedia/definition/stock-keeping-unit-sku).\n"
+        },
+                {
+          "name": "shippable",
+          "type": "boolean",
+          "doc": " Whether this line item is shippable.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Country code.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Subdivision. Usually a state, region, prefecture, or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Zip/postal code.\n"
+        },
+                {
+          "name": "street",
+          "type": "All APIs.Shipping Options._wix_common_Address_street",
+          "doc": ""
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains Apt, Suite, and Floor.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Address_street",
+      "displayName": "street Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Shipping Options._wix_common_StreetAddress",
+          "doc": " Street name and number.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line, usually street and number as free text.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_common_Subdivision",
+      "displayName": "Subdivision Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Short subdivision code.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Subdivision full name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_FullAddressContactDetails",
+      "displayName": "Full Address Contact Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Full contact details for an address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Contact's first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Contact's last name.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Contact's phone number.\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": " Contact's company name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email associated with the address.\n"
+        },
+                {
+          "name": "vatId",
+          "type": "All APIs.Shipping Options._wix_common_VatId",
+          "doc": " Tax info. Currently usable only in Brazil.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatId",
+      "displayName": "Vat Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Customer's tax ID.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Shipping Options._wix_common_VatType",
+          "doc": "\nTax type.\n\nSupported values:\n+ `CPF`: for individual tax payers\n+ `CNPJ`: for corporations\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_AddressLocation",
+      "displayName": "Address Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "latitude",
+          "type": "number",
+          "doc": " Address latitude.\n"
+        },
+                {
+          "name": "longitude",
+          "type": "number",
+          "doc": " Address longitude.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "tracingMapEntry",
+      "displayName": "tracing Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. deprecated in API's - to enable migration from rendering arbitrary tracing to rest response\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "deprecated": true
+    },
+        {
+      "name": "_wix_api_Details",
+      "displayName": "Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "kind",
+          "type": "All APIs.Shipping Options._wix_api_Details_kind",
+          "doc": ""
+        },
+                {
+          "name": "tracing",
+          "type": "All APIs.Shipping Options.tracingMapEntry",
+          "doc": "Set of key-value pairs. deprecated in API's - to enable migration from rendering arbitrary tracing to rest response\n",
+          "deprecated": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_Details_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "applicationError",
+          "type": "All APIs.Shipping Options._wix_api_ApplicationError",
+          "doc": ""
+        },
+                {
+          "name": "validationError",
+          "type": "All APIs.Shipping Options._wix_api_ValidationError",
+          "doc": ""
+        },
+                {
+          "name": "systemError",
+          "type": "All APIs.Shipping Options._wix_api_SystemError",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_SystemError",
+      "displayName": "System Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "errorCode",
+        "type": "string",
+        "doc": " Error code.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ValidationError_FieldViolation",
+      "displayName": "Field Violation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "field",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "violatedRule",
+          "type": "All APIs.Shipping Options._wix_api_ValidationError_RuleType",
+          "doc": ""
+        },
+                {
+          "name": "ruleName",
+          "type": "string",
+          "doc": " applicable when violated_rule=OTHER\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ValidationError",
+      "displayName": "Validation Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "*\nexample result:\n{\n\"fieldViolations\": [\n{\n\"field\": \"fieldA\",\n\"description\": \"invalid music note. supported notes: [do,re,mi,fa,sol,la,ti]\",\n\"violatedRule\": \"OTHER\",\n\"ruleName\": \"INVALID_NOTE\",\n\"data\": {\n\"value\": \"FI\"\n}\n},\n{\n\"field\": \"fieldB\",\n\"description\": \"field value out of range. supported range: [0-20]\",\n\"violatedRule\": \"MAX\",\n\"data\": {\n\"threshold\": 20\n}\n},\n{\n\"field\": \"fieldC\",\n\"description\": \"invalid phone number. provide a valid phone number of size: [7-12], supported characters: [0-9, +, -, (, )]\",\n\"violatedRule\": \"FORMAT\",\n\"data\": {\n\"type\": \"PHONE\"\n}\n}\n]\n}\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "fieldViolations",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._wix_api_ValidationError_FieldViolation"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ShippingPrice",
+      "displayName": "Shipping Price Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " The shipping rate's price. Must align with the [currency's decimal separator](https://en.wikipedia.org/wiki/ISO_4217#Active_codes).\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency of the shipping rate price as a 3-letter [ISO-4217 currency code](https://en.wikipedia.org/wiki/ISO_4217). Must align with the `currency` passed to the function under the `metadata` field.\n"
+        },
+                {
+          "name": "additionalCharges",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_AdditionalCharge"]
+          },
+          "doc": " Additional costs. For example, a handling fee for packaging fragile items.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_AdditionalCharge",
+      "displayName": "Additional Charge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_AdditionalCharge_ChargeType",
+          "doc": " Additional charge type.\n"
+        },
+                {
+          "name": "details",
+          "type": "string",
+          "doc": " Details of the additional charge. For example, `\"Handling fee of $5 applied for gift wrapping\"`.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Cost of additional charge. For example, `12.5`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ShippingOption",
+      "displayName": "Shipping Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Unique code that acts as an ID for a shipping rate. For example, `\"usps_std_overnight\"`.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Shipping rate title. For example, `\"USPS Standard Overnight Delivery\"`, `\"Standard\"`, or `\"First-Class Package International\"`.\n"
+        },
+                {
+          "name": "logistics",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_DeliveryLogistics",
+          "doc": " Shipping logistics.\n"
+        },
+                {
+          "name": "cost",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ShippingPrice",
+          "doc": " Shipping cost.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_PickupDetails",
+      "displayName": "Pickup Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "address",
+          "type": "All APIs.Shipping Options._wix_common_Address",
+          "doc": " Pickup address.\n"
+        },
+                {
+          "name": "pickupMethod",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_PickupDetails_PickupMethod",
+          "doc": "\nPickup method.\n\nSupported values:\n+ `\"STORE_PICKUP\"`: When pickup is from the merchant's brick and mortar store.\n+ `\"PICKUP_POINT\"`: When item is shipped to a specified pickup point.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DeliveryLogistics",
+      "displayName": "Delivery Logistics Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "deliveryTime",
+          "type": "string",
+          "doc": " When the item is expected to be delivered in free text. For example, `\"3-5 business days\"`.\n"
+        },
+                {
+          "name": "instructions",
+          "type": "string",
+          "doc": " Instructions for delivery. For example, for pickup: `\"Ensure to come during business hours, and please don't park in the disabled spot\"`.\n"
+        },
+                {
+          "name": "pickupDetails",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_PickupDetails",
+          "doc": " Pickup details. Should be returned only if order is for pickup.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DeliveryTimeSlot",
+      "displayName": "Delivery Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "from",
+          "type": "string",
+          "doc": " starting time of the delivery time slot\n"
+        },
+                {
+          "name": "to",
+          "type": "string",
+          "doc": " ending time of the delivery time slot\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ProductItem",
+      "displayName": "Product Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Item name.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " The number of items ordered.\n"
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Shipping Options._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Reference to the item's origin catalog.\n"
+        },
+                {
+          "name": "physicalProperties",
+          "type": "All APIs.Shipping Options._com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+          "doc": " Physical properties of the item.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Price of a single item after discounts.\n"
+        },
+                {
+          "name": "totalPriceBeforeDiscount",
+          "type": "string",
+          "doc": " Total line item price before discounts.\n"
+        },
+                {
+          "name": "priceBeforeDiscount",
+          "type": "string",
+          "doc": " Price of a single item before discounts.\n"
+        },
+                {
+          "name": "totalPrice",
+          "type": "string",
+          "doc": " Total line item price after discounts. This is equal to `price` multiplied by `quantity`.\n"
+        },
+                {
+          "name": "deliveryDestinationIndex",
+          "type": "integer",
+          "doc": " item delivery destination index in the shipping addresses list\n"
+        },
+                {
+          "name": "deliveryOriginIndex",
+          "type": "integer",
+          "doc": " where the item is delivered from index in the from addresses list\n"
+        },
+                {
+          "name": "taxIncludedInPrice",
+          "type": "boolean",
+          "doc": " whether tax is included in line item price\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+      "displayName": "Delivery Preferences Object",
+      "locations": [],
+      "docs":       {
+        "summary": " delivery preferences, for example preferred delivery \"code\" (shippingOptionId).\n enrich the delivery providers with more data about the delivery\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "preferredCode",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_CarrierError",
+      "displayName": "Carrier Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "error",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_CarrierError_error",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_CarrierError_error",
+      "displayName": "error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "validationError",
+          "type": "All APIs.Shipping Options._wix_api_ValidationError",
+          "doc": " If the carrier could not calculate rates due to missing/invalid arguments, they will be detailed here.\n"
+        },
+                {
+          "name": "applicationError",
+          "type": "All APIs.Shipping Options._wix_api_ApplicationError",
+          "doc": " If the carrier could not calculate rates due to a business error, for example the merchant had not yet define rules for that carrier.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_GetShippingRatesRequest",
+      "displayName": "Get Shipping Rates Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ProductItem"]
+          },
+          "doc": " All items included to be sent\nTODO change to 300 once cart limit will be 300\n"
+        },
+                {
+          "name": "shippingDestination",
+          "type": "All APIs.Shipping Options._wix_common_Address",
+          "doc": " Destination of the items\n"
+        },
+                {
+          "name": "shippingOrigin",
+          "type": "All APIs.Shipping Options._wix_common_Address",
+          "doc": " Where the items are sent from - this may be needed for some carriers.\n For now it will simply be the business location of the store.\n"
+        },
+                {
+          "name": "weightUnit",
+          "type": "All APIs.Shipping Options._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Measure unit\n"
+        },
+                {
+          "name": "taxIncludedInPrices",
+          "type": "boolean",
+          "doc": "",
+          "readOnly": true
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency requested for the shipping rates\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Instance id of the app that is called for the shipping rates\n"
+        },
+                {
+          "name": "shippingRateDecimalPlaces",
+          "type": "integer",
+          "doc": " Expected decimal places for the shipping rate. For example, if this field is 2 then the shipping rate could be: 10$, 10.1$, 10.12$ (up until 2 decimal places).\n However it can **not** be: 10.123$ (or further), and in this case the shipping option will be ignored and not provided to the user.\n When not provided, the fraction size can be anything.\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
+        },
+                {
+          "name": "deliveryPreferences",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+          "doc": " list of delivery preferences, for example preferred delivery code (shippingOptionId)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_GetShippingRatesResponse",
+      "displayName": "Get Shipping Rates Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "shippingRates",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ShippingOption"]
+        },
+        "doc": " Shipping rates this carrier gives\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_Price",
+      "displayName": "Price Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Amount.\n"
+        },
+                {
+          "name": "formattedAmount",
+          "type": "string",
+          "doc": " Amount formatted with currency symbol.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_CarrierSettings",
+      "displayName": "Carrier Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "carrierId",
+          "type": "string",
+          "doc": "update carrier settings by carrier id\n"
+        },
+                {
+          "name": "titlePrefix",
+          "type": "string",
+          "doc": "this prefix will be added to all shipping options titles. For example, \"a prefix\", and shipping option title like \"some place to ship the package to.\" will return \"a prefix - some place to ship the package to.\"\n"
+        },
+                {
+          "name": "defaultRate",
+          "type": "All APIs.Shipping Options._com_wix_ecommerce_platform_common_api_Price",
+          "doc": "the default rate for carrier in each region, return when the third party service do not provide rate\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_Carrier",
+      "displayName": "Carrier Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Carrier ID\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " The carrier service's name as given upon registration, for example: \"native_calculators\", \"local_delivery\"\n"
+        },
+                {
+          "name": "hasDefaultRate",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Carrier description\n"
+        },
+                {
+          "name": "learnMoreUrl",
+          "type": "string",
+          "doc": " Carrier learn more url\n"
+        },
+                {
+          "name": "dashboardUrl",
+          "type": "string",
+          "doc": " Dashboard URL for Carrier\n"
+        },
+                {
+          "name": "fallbackDefinitionMandatory",
+          "type": "boolean",
+          "doc": " If the provider fallback definition is mandatory\n"
+        },
+                {
+          "name": "isHardcoded",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "thumbnailUrl",
+          "type": "string",
+          "doc": " Thumbnail image for Carrier\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_Rule",
+      "displayName": "Rule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Rule ID\n"
+        },
+                {
+          "name": "carrierIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Carriers associated with this rule\n",
+          "deprecated": true
+        },
+                {
+          "name": "carrierSettings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_CarrierSettings"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset",
+      "displayName": "Asset Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "state",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_Asset_State",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext",
+      "displayName": "Delete Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "dateDeleted",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "deleteStatus",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+          "doc": ""
+        },
+                {
+          "name": "deleteOrigin",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "initiatorId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreated",
+      "displayName": "Site Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "originTemplateId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "ownerId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "context",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteCreatedContext",
+          "doc": ""
+        },
+                {
+          "name": "originMetaSiteId",
+          "type": "string",
+          "doc": "\nA meta site id from which this site was created.\n\nIn case of a creation from a template it's a template id.\nIn case of a site duplication (\"Save As\" in dashboard or duplicate in UM) it's an id of a source site.\n"
+        },
+                {
+          "name": "siteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "namespace",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteHardDeleted",
+      "displayName": "Site Hard Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nHard deletion of the meta site.\n\nCould not be restored. Therefore it's desirable to cleanup data.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteDeleted",
+      "displayName": "Site Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Soft deletion of the meta site. Could be restored.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUndeleted",
+      "displayName": "Site Undeleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Restoration of the meta site.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SitePublished",
+      "displayName": "Site Published Object",
+      "locations": [],
+      "docs":       {
+        "summary": " First publish of a meta site. Or subsequent publish after unpublish.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUnpublished",
+      "displayName": "Site Unpublished Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "urls",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteTransferred",
+      "displayName": "Site Transferred Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Site transferred to another user.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldOwnerId",
+          "type": "string",
+          "doc": " A previous owner id (user that transfers meta site).\n"
+        },
+                {
+          "name": "newOwnerId",
+          "type": "string",
+          "doc": " A new owner id (user that accepts meta site).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+      "displayName": "Site Marked As Template Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+      "displayName": "Site Marked As Wix Site Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceProvisioned",
+      "displayName": "Service Provisioned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " Either UUID or EmbeddedServiceType.\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Not only UUID. Something here could be something weird.\n"
+        },
+                {
+          "name": "originInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceRemoved",
+      "displayName": "Service Removed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteRenamed",
+      "displayName": "Site Renamed Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Rename of the site. Meaning, free public url has been changed as well. ",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "newSiteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "oldSiteName",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_NamespaceChanged",
+      "displayName": "Namespace Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldNamespace",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        },
+                {
+          "name": "newNamespace",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioAssigned",
+      "displayName": "Studio Assigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioUnassigned",
+      "displayName": "Studio Unassigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nUnassigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent",
+      "displayName": "Meta Site Special Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "assets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_metasite_event_api_Asset"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "payload",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+      "displayName": "payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "siteCreated",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteCreated",
+          "doc": ""
+        },
+                {
+          "name": "siteTransferred",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteTransferred",
+          "doc": ""
+        },
+                {
+          "name": "siteDeleted",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteDeleted",
+          "doc": ""
+        },
+                {
+          "name": "siteUndeleted",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteUndeleted",
+          "doc": ""
+        },
+                {
+          "name": "sitePublished",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SitePublished",
+          "doc": ""
+        },
+                {
+          "name": "siteUnpublished",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteUnpublished",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsTemplate",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsWixSite",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+          "doc": ""
+        },
+                {
+          "name": "serviceProvisioned",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_ServiceProvisioned",
+          "doc": ""
+        },
+                {
+          "name": "serviceRemoved",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_ServiceRemoved",
+          "doc": ""
+        },
+                {
+          "name": "siteRenamedPayload",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteRenamed",
+          "doc": ""
+        },
+                {
+          "name": "hardDeleted",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_SiteHardDeleted",
+          "doc": ""
+        },
+                {
+          "name": "namespaceChanged",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_NamespaceChanged",
+          "doc": ""
+        },
+                {
+          "name": "studioAssigned",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_StudioAssigned",
+          "doc": ""
+        },
+                {
+          "name": "studioUnassigned",
+          "type": "All APIs.Shipping Options._com_wixpress_metasite_event_api_StudioUnassigned",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_GetAvailableShippingOptionsRequest",
+      "displayName": "Get Available Shipping Options Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Locale will be taken from the header\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "items",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ProductItem"]
+          },
+          "doc": " All items included to be sent\nTODO change to 300 once cart limit will be 300\n"
+        },
+                {
+          "name": "shippingDestination",
+          "type": "All APIs.Shipping Options._wix_common_Address",
+          "doc": " Destination of the items\n"
+        },
+                {
+          "name": "shippingOrigin",
+          "type": "All APIs.Shipping Options._wix_common_Address",
+          "doc": " Where the items are sent from - this may be needed for some carriers.\n For now it will simply be the business location of the store.\n"
+        },
+                {
+          "name": "buyerDetails",
+          "type": "All APIs.Shipping Options._wix_common_FullAddressContactDetails",
+          "doc": " Contact details\n"
+        },
+                {
+          "name": "weightUnit",
+          "type": "All APIs.Shipping Options._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Measure unit - defaults to site's weight unit\n"
+        },
+                {
+          "name": "taxIncludedInPrices",
+          "type": "boolean",
+          "doc": "",
+          "readOnly": true
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency - Defaults to site's currency\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
+        },
+                {
+          "name": "deliveryPreferences",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+          "doc": " list of delivery preferences, for example preferred delivery code (shippingOptionId)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_GetAvailableShippingOptionsResponse",
+      "displayName": "Get Available Shipping Options Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "shippingRuleInfo",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ShippingRuleInfo",
+          "doc": " Matched shipping rule\n"
+        },
+                {
+          "name": "carrierServiceOptions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_CarrierServiceOptions"]
+          },
+          "doc": " Shipping options per carrier\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ShippingRuleInfo",
+      "displayName": "Shipping Rule Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Rule Id\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Rule name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_CarrierServiceOptions",
+      "displayName": "Carrier Service Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "carrierId",
+          "type": "string",
+          "doc": " This carrier's unique ID\n"
+        },
+                {
+          "name": "shippingOptions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_ShippingOption"]
+          },
+          "doc": " Shipping service options offered by this carrier for this request\n"
+        },
+                {
+          "name": "carrierError",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_CarrierError",
+          "doc": " If that carrier could not calculate shipping rates, the error will be detailed here\n Deprecated (use errorDetails instead)\n",
+          "deprecated": true
+        },
+                {
+          "name": "errorDetails",
+          "type": "All APIs.Shipping Options._wix_api_Details",
+          "doc": " If that carrier could not calculate shipping rates, the error will be detailed here\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_AssociateCarrierWithShippingRuleRequest",
+      "displayName": "Associate Carrier With Shipping Rule Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "shippingRuleId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "carrierId",
+          "type": "string",
+          "doc": "",
+          "deprecated": true
+        },
+                {
+          "name": "carrierIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_AssociateCarrierWithShippingRuleResponse",
+      "displayName": "Associate Carrier With Shipping Rule Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "shippingRule",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DissociateCarrierFromShippingRuleRequest",
+      "displayName": "Dissociate Carrier From Shipping Rule Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "shippingRuleId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "carrierId",
+          "type": "string",
+          "doc": "",
+          "deprecated": true
+        },
+                {
+          "name": "carrierIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DissociateCarrierFromShippingRuleResponse",
+      "displayName": "Dissociate Carrier From Shipping Rule Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "shippingRule",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_UpdateRuleRequest",
+      "displayName": "Update Rule Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "shippingRule",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_UpdateRuleResponse",
+      "displayName": "Update Rule Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "shippingRule",
+        "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListCarriersRequest",
+      "displayName": "List Carriers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListCarriersResponse",
+      "displayName": "List Carriers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "carriers",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Carrier"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListRulesRequest",
+      "displayName": "List Rules Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListRulesResponse",
+      "displayName": "List Rules Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rules",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_Rule"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListLegacyRulesRequest",
+      "displayName": "List Legacy Rules Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "storeId",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_ListLegacyRulesResponse",
+      "displayName": "List Legacy Rules Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rules",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_LegacyRule"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_LegacyRule",
+      "displayName": "Legacy Rule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "shippingRuleId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "locations",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOptionLocation"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "pickupOption",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOption",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOptionLocation",
+      "displayName": "Legacy Pickup Option Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "subdivisions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOption",
+      "displayName": "Legacy Pickup Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "shippingRuleOptionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "deliveryTime",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "pickupAddress",
+          "type": "All APIs.Shipping Options._com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOptionAddress",
+          "doc": ""
+        },
+                {
+          "name": "instructions",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_LegacyPickupOptionAddress",
+      "displayName": "Legacy Pickup Option Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "zipCode",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_IsPickupLocationEnabledForSiteRequest",
+      "displayName": "Is Pickup Location Enabled For Site Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_IsPickupLocationEnabledForSiteResponse",
+      "displayName": "Is Pickup Location Enabled For Site Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "isSiteInThePopulation",
+        "type": "boolean",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatType",
+      "displayName": "Vat Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers.\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "CPF",
+        "CNPJ"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Subdivision_SubdivisionType",
+      "displayName": "Subdivision Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SUBDIVISION_TYPE <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_1 -  State\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_2 -  County\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_3 -  City/town\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_4 -  Neighborhood/quarter\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_5 -  Street/block\n <\/code><\/li><li><code> COUNTRY -  ADMINISTRATIVE_AREA_LEVEL_0. Indicates the national political entity, and is typically the highest order type returned by the Geocoder.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_SUBDIVISION_TYPE",
+        "ADMINISTRATIVE_AREA_LEVEL_1",
+        "ADMINISTRATIVE_AREA_LEVEL_2",
+        "ADMINISTRATIVE_AREA_LEVEL_3",
+        "ADMINISTRATIVE_AREA_LEVEL_4",
+        "ADMINISTRATIVE_AREA_LEVEL_5",
+        "COUNTRY"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ValidationError_RuleType",
+      "displayName": "Rule Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> VALIDATION <\/code><\/li><li><code> OTHER <\/code><\/li><li><code> MAX <\/code><\/li><li><code> MIN <\/code><\/li><li><code> MAX_LENGTH <\/code><\/li><li><code> MIN_LENGTH <\/code><\/li><li><code> MAX_SIZE <\/code><\/li><li><code> MIN_SIZE <\/code><\/li><li><code> FORMAT <\/code><\/li><li><code> DECIMAL_LTE <\/code><\/li><li><code> DECIMAL_GTE <\/code><\/li><li><code> DECIMAL_LT <\/code><\/li><li><code> DECIMAL_GT <\/code><\/li><li><code> DECIMAL_MAX_SCALE <\/code><\/li><li><code> INVALID_ENUM_VALUE <\/code><\/li><li><code> REQUIRED_FIELD <\/code><\/li><li><code> FIELD_NOT_ALLOWED <\/code><\/li><li><code> ONE_OF_ALIGNMENT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "VALIDATION",
+        "OTHER",
+        "MAX",
+        "MIN",
+        "MAX_LENGTH",
+        "MIN_LENGTH",
+        "MAX_SIZE",
+        "MIN_SIZE",
+        "FORMAT",
+        "DECIMAL_LTE",
+        "DECIMAL_GTE",
+        "DECIMAL_LT",
+        "DECIMAL_GT",
+        "DECIMAL_MAX_SCALE",
+        "INVALID_ENUM_VALUE",
+        "REQUIRED_FIELD",
+        "FIELD_NOT_ALLOWED",
+        "ONE_OF_ALIGNMENT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_AdditionalCharge_ChargeType",
+      "displayName": "Charge Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> HANDLING_FEE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["HANDLING_FEE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_PickupDetails_PickupMethod",
+      "displayName": "Pickup Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_METHOD <\/code><\/li><li><code> STORE_PICKUP <\/code><\/li><li><code> PICKUP_POINT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_METHOD",
+        "STORE_PICKUP",
+        "PICKUP_POINT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_WeightUnit",
+      "displayName": "Weight Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_WEIGHT_UNIT -  Weight unit can't be classified, due to an error\n <\/code><\/li><li><code> KG -  Kilograms\n <\/code><\/li><li><code> LB -  Pounds\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_WEIGHT_UNIT",
+        "KG",
+        "LB"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset_State",
+      "displayName": "State Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ENABLED <\/code><\/li><li><code> DISABLED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> DEMO <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ENABLED",
+        "DISABLED",
+        "PENDING",
+        "DEMO"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+      "displayName": "Delete Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TRASH <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> PENDING_PURGE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "TRASH",
+        "DELETED",
+        "PENDING_PURGE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSite_Namespace",
+      "displayName": "Namespace Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li><li><code> HEADLESS - *\nNamespace for Headless Backoffice with no editor\n <\/code><\/li><li><code> ACCOUNT_MASTER_CMS - *\nNamespace for master site that will exist in parent account that will be referenced by subaccounts\nThe site will be used for account level CSM feature for enterprise\n <\/code><\/li><li><code> RISE - *\nRise.ai Siteless account management for Gift Cards and Store Credit.\n <\/code><\/li><li><code> BRANDED_FIRST - *\nAs part of the branded app new funnel, users now can create a meta site that will be branded app first.\nThere's a blank site behind the scene but it's blank).\nThe Mobile company will be the owner of this namespace.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_NAMESPACE",
+        "WIX",
+        "SHOUT_OUT",
+        "ALBUMS",
+        "WIX_STORES_TEST_DRIVE",
+        "HOTELS",
+        "CLUBS",
+        "ONBOARDING_DRAFT",
+        "DEV_SITE",
+        "LOGOS",
+        "VIDEO_MAKER",
+        "PARTNER_DASHBOARD",
+        "DEV_CENTER_COMPANY",
+        "HTML_DRAFT",
+        "SITELESS_BUSINESS",
+        "CREATOR_ECONOMY",
+        "DASHBOARD_FIRST",
+        "ANYWHERE",
+        "HEADLESS",
+        "ACCOUNT_MASTER_CMS",
+        "RISE",
+        "BRANDED_FIRST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreatedContext",
+      "displayName": "Site Created Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> OTHER -  A valid option, we don't expose all reasons why site might be created.\n <\/code><\/li><li><code> FROM_TEMPLATE -  A meta site was created from template.\n <\/code><\/li><li><code> DUPLICATE_BY_SITE_TRANSFER -  A meta site was created by copying of the transfferred meta site.\n <\/code><\/li><li><code> DUPLICATE -  A copy of existing meta site.\n <\/code><\/li><li><code> OLD_SITE_TRANSFER -  A meta site was created as a transfferred site (copy of the original), old flow, should die soon.\n <\/code><\/li><li><code> FLASH - deprecated A meta site was created for Flash editor.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "OTHER",
+        "FROM_TEMPLATE",
+        "DUPLICATE_BY_SITE_TRANSFER",
+        "DUPLICATE",
+        "OLD_SITE_TRANSFER",
+        "FLASH"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ecom.wix-ecommerce-shipments-local-delivery-web"}
+}
