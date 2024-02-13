@@ -23,10 +23,11 @@ With the Discount Rules API, you can:
 
 
 - **Scope:** A group of catalog items that qualify for a discount.
-  - Every catalog has 2 scopes "out of the box". For example, Wix Stores has `Specific Products` and `All Products` scopes.
+  - Every catalog has up to 2 scopes "out of the box". For example, Wix Stores has `Specific Products` and `All Products` scopes.
   - Scopes are required in default triggers and discount objects.
   - Triggers and discounts can have multiple scopes.
 
 
 - **Trigger**: A set of conditions that must be met for a discount to become applicable. Triggers can be chained so that more than 1 condition must be met.
   - **Default triggers:** These built-in triggers fire when a specified minimum/maximum item quantity (for example, "at least 5 items") or cart subtotal ("no more than $100") is reached. For this trigger to fire, the items must also be part of a defined scope.
+  - **Custom triggers:** Using the [Custom Trigger Integration SPI](https://dev.wix.com/api/rest/wix-ecommerce/custom-discount-triggers-integration-spi) you can provide any set of conditions you want. For example, a trigger that only fires for grey items, or only between 8pm-10pm on Mondays and Thursdays.
