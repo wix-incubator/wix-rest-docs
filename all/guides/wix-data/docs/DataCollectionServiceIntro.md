@@ -6,7 +6,7 @@ The Data Collections API enables your app to create, delete, and modify the stru
 ## Data collections and their structure
 Wix sites store data in collections.
 A collection determines the structure of the data to be stored, defining the fields each item should contain and the data type of each field.
-Site owners can [create and modify collections](https://support.wix.com/en/article/content-manager-creating-a-collection) for their site using the Content Manager.
+Site owners can [create and modify collections](https://support.wix.com/en/article/content-manager-creating-a-collection) for their site using the Content Management System(CMS).
 With the Data Collections API, you can use code to create, modify, and delete collections in a Wix site.
 You can then store and retrieve data in these collections using the [Data Items API](https://dev.wix.com/api/rest/wix-data/wix-data/data-items).
 
