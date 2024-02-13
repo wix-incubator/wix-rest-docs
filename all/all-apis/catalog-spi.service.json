@@ -1,0 +1,1272 @@
+{
+  "name": "Catalog SPI",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-catalog-spi/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Describes the catalog integration to be called by Wix and received by the relevant catalog provider. This integration is used to interface between the Wix eCommerce platform and externally managed repositories of sellable items.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Catalog SPI",
+    "entity": ""
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/catalog-spi/Sample-Flows.md",
+      "name": "Sample Flows"
+    },
+        {
+      "path": "../guides/catalog-spi/docs/Catalog-Reference.md",
+      "name": "Handle Item Variants"
+    },
+        {
+      "path": "../guides/catalog-spi/docs/Introduction.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Catalog Items",
+      "methodName": "GetCatalogItems",
+      "serviceName": "PlatformCatalogSPI",
+      "tag": "Catalog SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "catalogReferences",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReferenceAndQuantity"]
+          },
+          "doc": " Catalog reference details for the items to retrieve, including quantity of each item.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "weightUnit",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Weight measurement unit. \n\n By default, Wix sends the weight unit specified in the site's settings.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency to return item prices in, in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. For example, `USD` or `EUR`.\n\n By default, Wix sends the currency specified in the site's settings.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetCatalogItems",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_GetCatalogItemsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves data for specified items in a specified catalog.\n\n Wix calls this endpoint whenever a cart or checkout is updated, and when an item is added to an order.\n \n The endpoint receives a `catalogReferences` array. Each catalog reference in the array contains: \n + The ID of the item whose latest information Wix needs to retrieve.\n + The ID of the app providing the catalog containing the item.\n + Optional details about preferences or customization of the item.\n\n The endpoint also receives preferences for the currency and weight unit to be used in the response.\n\n Your external catalog can store and organize item details in any way you prefer.\n When implementing the Catalog SPI, learn how to [handle item variants](../../../../docs/Catalog-Reference.md) in a way that meets your needs.\n\n The endpoint's response must contain a `catalogItems` array. Each item in the array must contain:\n + A `catalogReference` object. This must be identical to the `catalogReference` object received in the request.\n + A `data` object with full details about the item.\n\n > **Notes:**\n > + If an item doesn't exist in the catalog, the response must exclude it from the `catalogItems` array in the response. \n > + When none of the items requested exist in the catalog, `catalogItems` must contain an empty array.\n > + Wix calls the endpoint every time a cart or checkout is updated. If the response doesn't include an item that was already in the cart or checkout, Wix removes the item from the cart or checkout.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.<your-deployment-uri>.com/get-catalog-items",
+        "links": [],
+        "examples": [        {
+          "title": "Get Catalog Items",
+          "body": ["curl -X POST https://provider.example.com/v1/get-catalog-items \\\n  -H 'user-agent: Wix' \\\n  -H 'accept-encoding: gzip, deflate' \\\n  -H 'content-type: text/plain; charset=utf-8' \\\n  -d '{\n   \"catalogReferences\": [\n     {\n       \"catalogReference\": {\n         \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n         \"catalogItemId\": \"205c539b-fd89-4b0c-8d7e-55630f66e5f9\"\n       },\n       \"quantity\": 1\n     },\n     {\n       \"catalogReference\": {\n         \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n         \"catalogItemId\": \"f95bd723-ea83-40f2-8cb8-accff2d54866\",\n         \"options\": {\n           \"color\": \"Green\",\n           \"size\": \"M\"\n         }\n       },\n       \"quantity\": 1\n     }\n   ],\n   \"weightUnit\": \"KG\",\n   \"currency\": \"USD\"\n  }'"],
+          "response": ["{\"catalogItems\": [\n    {\n    \"catalogReference\":     {\n      \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n      \"catalogItemId\": \"205c539b-fd89-4b0c-8d7e-55630f66e5f9\"\n    },\n    \"data\":     {\n      \"productName\": {\"original\": \"Simple Black Sun Hat\"},\n      \"url\":       {\n        \"relativePath\": \"/product-page/sun-hat\",\n        \"url\": \"https://www.<MY_STORE>.com/\"\n      },\n      \"itemType\": {\"preset\": \"PHYSICAL\"},\n      \"price\": {\"amount\": \"20.00\"},\n      \"physicalProperties\":       {\n        \"sku\": \"227220141836\",\n        \"shippable\": true\n      },\n      \"media\":       {\n        \"id\": \"e3bc27_6edeb786f2aa44b19d9abcb4d1f6bfd6~mv2.png\",\n        \"height\": 720,\n        \"width\": 720\n      }\n    }\n  },\n    {\n    \"catalogReference\":     {\n      \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n      \"catalogItemId\": \"f95bd723-ea83-40f2-8cb8-accff2d54866\",\n      \"options\":       {\n        \"color\": \"Green\",\n        \"size\": \"M\"\n      }\n    },\n    \"data\":     {\n      \"productName\": {\"original\": \"Cotton T-shirt\"},\n      \"url\":       {\n        \"relativePath\": \"/product-page/t-shirt\",\n        \"url\": \"https://www.<MY_STORE>.com/\"\n      },\n      \"itemType\": {\"preset\": \"PHYSICAL\"},\n      \"price\": {\"amount\": \"80.00\"},\n      \"descriptionLines\":       [\n                {\n          \"name\":           {\n            \"original\": \"Size\",\n            \"translated\": \"Size\"\n          },\n          \"plainText\":           {\n            \"original\": \"Medium\",\n            \"translated\": \"Medium\"\n          }\n        },\n                {\n          \"name\":           {\n            \"original\": \"Color\",\n            \"translated\": \"Color\"\n          },\n          \"plainText\":           {\n            \"original\": \"Green\",\n            \"translated\": \"Green\"\n          }\n        }\n      ],\n      \"physicalProperties\":       {\n        \"sku\": \"889809004958\",\n        \"shippable\": true\n      },\n      \"media\":       {\n        \"id\": \"3258d9_77f175cc4d234714825fbf316803ca9a~mv2.png\",\n        \"height\": 720,\n        \"width\": 720\n      }\n    }\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetCatalogItemsRequest",
+        "rpcResponseName": "GetCatalogItemsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Catalog Items (Additional Binding 1)",
+      "methodName": "GetCatalogItems",
+      "serviceName": "PlatformCatalogSPI",
+      "tag": "Catalog SPI",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "catalogReferences",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReferenceAndQuantity"]
+          },
+          "doc": " Catalog reference details for the items to retrieve, including quantity of each item.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "weightUnit",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Weight measurement unit. \n\n By default, Wix sends the weight unit specified in the site's settings.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency to return item prices in, in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. For example, `USD` or `EUR`.\n\n By default, Wix sends the currency specified in the site's settings.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetCatalogItems",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_GetCatalogItemsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves data for specified items in a specified catalog.\n\n Wix calls this endpoint whenever a cart or checkout is updated, and when an item is added to an order.\n \n The endpoint receives a `catalogReferences` array. Each catalog reference in the array contains: \n + The ID of the item whose latest information Wix needs to retrieve.\n + The ID of the app providing the catalog containing the item.\n + Optional details about preferences or customization of the item.\n\n The endpoint also receives preferences for the currency and weight unit to be used in the response.\n\n Your external catalog can store and organize item details in any way you prefer.\n When implementing the Catalog SPI, learn how to [handle item variants](../../../../docs/Catalog-Reference.md) in a way that meets your needs.\n\n The endpoint's response must contain a `catalogItems` array. Each item in the array must contain:\n + A `catalogReference` object. This must be identical to the `catalogReference` object received in the request.\n + A `data` object with full details about the item.\n\n > **Notes:**\n > + If an item doesn't exist in the catalog, the response must exclude it from the `catalogItems` array in the response. \n > + When none of the items requested exist in the catalog, `catalogItems` must contain an empty array.\n > + Wix calls the endpoint every time a cart or checkout is updated. If the response doesn't include an item that was already in the cart or checkout, Wix removes the item from the cart or checkout.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.<your-deployment-uri>.com/v1/get-catalog-items",
+        "links": [],
+        "examples": [        {
+          "title": "Get Catalog Items",
+          "body": ["curl -X POST https://provider.example.com/v1/get-catalog-items \\\n  -H 'user-agent: Wix' \\\n  -H 'accept-encoding: gzip, deflate' \\\n  -H 'content-type: text/plain; charset=utf-8' \\\n  -d '{\n   \"catalogReferences\": [\n     {\n       \"catalogReference\": {\n         \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n         \"catalogItemId\": \"205c539b-fd89-4b0c-8d7e-55630f66e5f9\"\n       },\n       \"quantity\": 1\n     },\n     {\n       \"catalogReference\": {\n         \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n         \"catalogItemId\": \"f95bd723-ea83-40f2-8cb8-accff2d54866\",\n         \"options\": {\n           \"color\": \"Green\",\n           \"size\": \"M\"\n         }\n       },\n       \"quantity\": 1\n     }\n   ],\n   \"weightUnit\": \"KG\",\n   \"currency\": \"USD\"\n  }'"],
+          "response": ["{\"catalogItems\": [\n    {\n    \"catalogReference\":     {\n      \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n      \"catalogItemId\": \"205c539b-fd89-4b0c-8d7e-55630f66e5f9\"\n    },\n    \"data\":     {\n      \"productName\": {\"original\": \"Simple Black Sun Hat\"},\n      \"url\":       {\n        \"relativePath\": \"/product-page/sun-hat\",\n        \"url\": \"https://www.<MY_STORE>.com/\"\n      },\n      \"itemType\": {\"preset\": \"PHYSICAL\"},\n      \"price\": {\"amount\": \"20.00\"},\n      \"physicalProperties\":       {\n        \"sku\": \"227220141836\",\n        \"shippable\": true\n      },\n      \"media\":       {\n        \"id\": \"e3bc27_6edeb786f2aa44b19d9abcb4d1f6bfd6~mv2.png\",\n        \"height\": 720,\n        \"width\": 720\n      }\n    }\n  },\n    {\n    \"catalogReference\":     {\n      \"appId\": \"3b8658a6-3282-4b5e-ae0e-439113e20aef\",\n      \"catalogItemId\": \"f95bd723-ea83-40f2-8cb8-accff2d54866\",\n      \"options\":       {\n        \"color\": \"Green\",\n        \"size\": \"M\"\n      }\n    },\n    \"data\":     {\n      \"productName\": {\"original\": \"Cotton T-shirt\"},\n      \"url\":       {\n        \"relativePath\": \"/product-page/t-shirt\",\n        \"url\": \"https://www.<MY_STORE>.com/\"\n      },\n      \"itemType\": {\"preset\": \"PHYSICAL\"},\n      \"price\": {\"amount\": \"80.00\"},\n      \"descriptionLines\":       [\n                {\n          \"name\":           {\n            \"original\": \"Size\",\n            \"translated\": \"Size\"\n          },\n          \"plainText\":           {\n            \"original\": \"Medium\",\n            \"translated\": \"Medium\"\n          }\n        },\n                {\n          \"name\":           {\n            \"original\": \"Color\",\n            \"translated\": \"Color\"\n          },\n          \"plainText\":           {\n            \"original\": \"Green\",\n            \"translated\": \"Green\"\n          }\n        }\n      ],\n      \"physicalProperties\":       {\n        \"sku\": \"889809004958\",\n        \"shippable\": true\n      },\n      \"media\":       {\n        \"id\": \"3258d9_77f175cc4d234714825fbf316803ca9a~mv2.png\",\n        \"height\": 720,\n        \"width\": 720\n      }\n    }\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetCatalogItemsRequest",
+        "rpcResponseName": "GetCatalogItemsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within the catalog it belongs to.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine",
+      "displayName": "Description Line Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_DescriptionLineName",
+          "doc": " Description line name.\n"
+        },
+                {
+          "name": "value",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine_value",
+          "doc": ""
+        },
+                {
+          "name": "descriptionLineValue",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine_descriptionLineValue",
+          "doc": " __Deprecated.__ Use `value` instead.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine_value",
+      "displayName": "value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "plainText",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_PlainTextValue",
+          "doc": " Description line plain text value.\n"
+        },
+                {
+          "name": "colorInfo",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Color",
+          "doc": " Description line color value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine_descriptionLineValue",
+      "displayName": "description Line Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_DescriptionLineName",
+      "displayName": "Description Line Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Description line name in the site's default language.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Description line name translated into the buyer's language.\n\n Default: Same as `original`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PlainTextValue",
+      "displayName": "Plain Text Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Description line plain text value in the site's default language.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Description line plain text value translated into the buyer's language.\n\n Default: Same as `original`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Color",
+      "displayName": "Color Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Description line color name in the site's default language.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Description line color name translated into the buyer's language.\n\n Default: Same as `original`.\n"
+        },
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " HEX or RGB color code for display.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PageUrlV2",
+      "displayName": "Page Url V 2 Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "relativePath",
+          "type": "string",
+          "doc": " The relative path for the page within the site. For example, `/product-page/a-product`.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " The page's full URL. For example, `https://mysite.com/product-page/a-product`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SubscriptionOptionInfo",
+      "displayName": "Subscription Option Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subscriptionSettings",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_SubscriptionSettings",
+          "doc": " Subscription option settings.\n"
+        },
+                {
+          "name": "title",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Title",
+          "doc": " Subscription option title.\n"
+        },
+                {
+          "name": "description",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Description",
+          "doc": " Subscription option description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SubscriptionSettings",
+      "displayName": "Subscription Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "frequency",
+          "type": "All APIs.Catalog SPI._wix_payment_api_pay_v2_SubscriptionFrequency",
+          "doc": " Frequency of recurring payment.\n"
+        },
+                {
+          "name": "autoRenewal",
+          "type": "boolean",
+          "doc": " Whether subscription is renewed automatically at the end of each period.\n"
+        },
+                {
+          "name": "billingCycles",
+          "type": "integer",
+          "doc": " Number of billing cycles before subscription ends. Ignored if `autoRenewal` is `true`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Title",
+      "displayName": "Title Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Subscription option name in the site's default language.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Subscription option name translated into the buyer's language.\n \n Default: Same as `original`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Description",
+      "displayName": "Description Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " Subscription option description.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Translated subscription option description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType",
+      "displayName": "Item Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "itemTypeData",
+        "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType_itemTypeData",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType_itemTypeData",
+      "displayName": "item Type Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "preset",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType_ItemType",
+          "doc": " Preset item type.\n"
+        },
+                {
+          "name": "custom",
+          "type": "string",
+          "doc": " Custom item type. When none of the preset types are suitable, specifies the custom type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " __Required.__ WixMedia image ID.\n\n Given a full image URL of `https://static.wixstatic.com/media/5cc69183e7954e2c9760fa2383870992.jpg`, `media.id` is `5cc69183e7954e2c9760fa2383870992.jpg`.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " __Required.__ Image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " __Required.__ Image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+      "displayName": "Physical Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "weight",
+          "type": "number",
+          "doc": " Line item weight. Measurement unit matches the weight unit specified in `weightUnit` in the request.\n"
+        },
+                {
+          "name": "sku",
+          "type": "string",
+          "doc": " Stock-keeping unit. Learn more about [SKUs](https://www.wix.com/encyclopedia/definition/stock-keeping-unit-sku).\n"
+        },
+                {
+          "name": "shippable",
+          "type": "boolean",
+          "doc": " Whether this line item is shippable.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ProductName",
+      "displayName": "Product Name Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " \n__Required.__ Item name in the site's default language.\n\nMin: 1 character.  \nMax: 200 characters.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": "\nItem name translated into the buyer's language.\n\nMin: 1 character.  \nMax: 400 characters.\nDefault: Same as `original`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SecuredMedia",
+      "displayName": "Secured Media Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Media ID in Wix Media Manager.\n"
+        },
+                {
+          "name": "fileName",
+          "type": "string",
+          "doc": " Original filename.\n"
+        },
+                {
+          "name": "fileType",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_SecuredMedia_FileType",
+          "doc": " File type.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ServiceProperties",
+      "displayName": "Service Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduledDate",
+          "type": "string",
+          "doc": " Date and time the service is to be provided, in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) format.\n For example, the start time of a class.\n"
+        },
+                {
+          "name": "numberOfParticipants",
+          "type": "integer",
+          "doc": " The number of people participating in the service. For example, the number of people attending a class or the number of people per hotel room.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PriceDescription",
+      "displayName": "Price Description Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "original",
+          "type": "string",
+          "doc": " __Required.__ Price description in the site's default language.\n"
+        },
+                {
+          "name": "translated",
+          "type": "string",
+          "doc": " Price description translated into the buyer's language.\n\n Default: Same as `original`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_coupons_api_v2_Scope_Group",
+      "displayName": "Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Coupon scope's group (e.g., product or collection in Wix Stores). See [valid scope values](https://dev.wix.com/api/rest/coupons/coupons/valid-scope-values).\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " Item ID (when the coupon scope is limited to just one item).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_coupons_api_v2_Scope",
+      "displayName": "Scope Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": " Scope namespace (Wix Stores, Wix Bookings, Wix Events, Wix Pricing Plans)\n"
+        },
+                {
+          "name": "group",
+          "type": "All APIs.Catalog SPI._wix_coupons_api_v2_Scope_Group",
+          "doc": " Coupon scope's applied group (e.g., event or ticket in Wix Events)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemData",
+      "displayName": "Item Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "productName",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ProductName",
+          "doc": "\n__Required.__ Item name.\n"
+        },
+                {
+          "name": "url",
+          "type": "All APIs.Catalog SPI._wix_common_PageUrlV2",
+          "doc": " URL for the item's page on the site. \n\n This is used to link back to the relevant item page from the cart page. If not provided, the site URL is used.\n"
+        },
+                {
+          "name": "itemType",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemType",
+          "doc": " __Required.__ Item type. Either one of the preset types or a custom type.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " __Required.__ Item price with discounts applied. If a catalog-defined discount applies, the discount is reflected in this price.\n"
+        },
+                {
+          "name": "fullPrice",
+          "type": "string",
+          "doc": " Item price **before** applying any catalog-defined discount.\n\n Default: Value of `price` field, if no catalog-defined discount applies.\n"
+        },
+                {
+          "name": "taxGroupId",
+          "type": "string",
+          "doc": " The tax group ID associated with this item.\n"
+        },
+                {
+          "name": "descriptionLines",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine"]
+          },
+          "doc": " Line item description lines. Used for displaying the item in a cart, checkout or order. For example, if you want `Size: Large` to appear under the item name, create a description line with `\"name\": {\"original\": \"Size\"}` and  `\"plainText\": {\"original\": \"Large\"}`.\n\n Default: No description line.\n"
+        },
+                {
+          "name": "media",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Image",
+          "doc": " Line item image details. Supports images from the [Wix Media Manager](https://support.wix.com/en/article/wix-media-accessing-the-media-manager) only. \n\n To use an image from another source, first upload it to the Media Manager. \n You can retrieve the ID, width and height of an image from the Wix Media Manager.\n"
+        },
+                {
+          "name": "quantityAvailable",
+          "type": "integer",
+          "doc": " Quantity of the item available for purchase. Only return if the catalog manages inventory. \n If not returned, a buyer can increase the quantity of this item to add to the cart or checkout without limit.\n"
+        },
+                {
+          "name": "physicalProperties",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+          "doc": " Physical properties of the item. Only return for physical items. When applicable, contains information such as SKU and item weight.\n"
+        },
+                {
+          "name": "paymentOption",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_PaymentOptionType",
+          "doc": " Payment method selected for the item.\n \n + `FULL_PAYMENT_ONLINE`: The entire payment for this item happens as part of the checkout.\n + `FULL_PAYMENT_OFFLINE`: The entire payment for this item happens after the checkout. For example, when using cash, check, or other offline payment methods. \n + `MEMBERSHIP`: Payment for this item is done by charging a membership. When selected, `price` is `0`.\n + `DEPOSIT_ONLINE`: Partial payment to be paid upfront during the checkout. Initial amount to be paid for each line item is specified in `depositAmount`.\n + `MEMBERSHIP_OFFLINE`: Payment for this item can only be done by charging a membership and must be manually redeemed in the dashboard by the site admin. When selected, `price` is `0`.\n\n Default: `FULL_PAYMENT_ONLINE`.\n"
+        },
+                {
+          "name": "serviceProperties",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ServiceProperties",
+          "doc": " Service properties. When applicable, this contains information such as time and number of participants.\n"
+        },
+                {
+          "name": "rootCatalogItemId",
+          "type": "string",
+          "doc": " Additional ID for the item in the catalog.\n This field provides an additional identifier for the item if your flow requires another ID as well as `catalogReference.catalogItemId`.\n Can be used for membership validation.\n\n Default: Same as `catalogReference.catalogItemId`.\n"
+        },
+                {
+          "name": "priceDescription",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_PriceDescription",
+          "doc": " Additional description for the price. Return when additional information about the price is needed.\n\n For example, when `price` is `\"0\"` but additional details about the actual price are needed, such as `\"Starts at $67\"`.\n"
+        },
+                {
+          "name": "depositAmount",
+          "type": "string",
+          "doc": " Partial payment to be paid upfront during the checkout. Return when `paymentOption` is `DEPOSIT_ONLINE`.\n\n Default: If `paymentOption` is `DEPOSIT_ONLINE` but `depositAmount` is not provided, the item is treated as if `paymentOption` is `FULL_PAYMENT_ONLINE`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_PagingMetadata",
+      "displayName": "Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of items returned in the response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " Total number of items that match the query.\n"
+        },
+                {
+          "name": "tooManyToCount",
+          "type": "boolean",
+          "doc": " Flag that indicates the server failed to calculate the `total` field.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_GetCatalogItemsRequest",
+      "displayName": "Get Catalog Items Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogReferences",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReferenceAndQuantity"]
+          },
+          "doc": " Catalog reference details for the items to retrieve, including quantity of each item.\n"
+        },
+                {
+          "name": "weightUnit",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_platform_common_api_WeightUnit",
+          "doc": " Weight measurement unit. \n\n By default, Wix sends the weight unit specified in the site's settings.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " Currency to return item prices in, in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. For example, `USD` or `EUR`.\n\n By default, Wix sends the currency specified in the site's settings.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_GetCatalogItemsResponse",
+      "displayName": "Get Catalog Items Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "catalogItems",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Item"]
+        },
+        "doc": " Details for each item, including catalog reference details and item data. Any items that don't exist in the catalog are excluded.\n If none of the requested items exist in the catalog, this array must be empty.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReferenceAndQuantity",
+      "displayName": "Catalog Reference And Quantity Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Catalog and item reference info. Holds IDs for the item and the catalog it belongs to, as well as further optional details. This is identical in the request and response.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " Item quantity.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_Item",
+      "displayName": "Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Catalog and item reference info. Holds IDs for the item and the catalog it belongs to, as well as further optional details. This is identical in the request and response.\n"
+        },
+                {
+          "name": "data",
+          "type": "All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_ItemData",
+          "doc": " Item data. Contains full details about the item.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_QueryCatalogItemsRequest",
+      "displayName": "Query Catalog Items Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " A list of itemIDs to filter by. If exists, the result will only include the items with the IDs passed.\n"
+        },
+                {
+          "name": "catalogItemName",
+          "type": "string",
+          "doc": " An item name to filter by. If exists, the result will only include items with name that starts with this string.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Catalog SPI._wix_common_Paging",
+          "doc": " Paging options to limit and skip a number of items.\n"
+        },
+                {
+          "name": "lastNumericId",
+          "type": "string",
+          "doc": " Optional, if exist add filter by numericId gt last_numeric_id\n https://dev.wix.com/api/rest/wix-stores/pagination#wix-stores_pagination_pagination\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_QueryCatalogItemsResponse",
+      "displayName": "Query Catalog Items Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_BasicItem"]
+          },
+          "doc": " Catalog info and item data.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Catalog SPI._wix_common_PagingMetadata",
+          "doc": " Paging metadata.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_BasicItem",
+      "displayName": "Basic Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " The ID of the the item.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " The name of the item.\n"
+        },
+                {
+          "name": "image",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Catalog SPI._com_wix_ecommerce_catalog_spi_api_v1_Image"]
+          },
+          "doc": " Item Media items.\n"
+        },
+                {
+          "name": "inStock",
+          "type": "boolean",
+          "doc": " The current status of the inventory\n"
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": " current version of an item. Each time the item is modified, its `revision` changes\n"
+        },
+                {
+          "name": "numericId",
+          "type": "string",
+          "doc": " Unique numeric ID\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_NumericPropertyRange",
+      "displayName": "Numeric Property Range Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "minValue",
+          "type": "number",
+          "doc": " Minimum value.\n"
+        },
+                {
+          "name": "maxValue",
+          "type": "number",
+          "doc": " Maximum value.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_DescriptionLine_DescriptionLineType",
+      "displayName": "Description Line Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNRECOGNISED <\/code><\/li><li><code> PLAIN_TEXT <\/code><\/li><li><code> COLOR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNRECOGNISED",
+        "PLAIN_TEXT",
+        "COLOR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payment_api_pay_v2_SubscriptionFrequency",
+      "displayName": "Subscription Frequency Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Frequency unit of recurring payment\n \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> DAY <\/code><\/li><li><code> WEEK <\/code><\/li><li><code> MONTH <\/code><\/li><li><code> YEAR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "YEAR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_ItemType_ItemType",
+      "displayName": "Item Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNRECOGNISED <\/code><\/li><li><code> PHYSICAL <\/code><\/li><li><code> DIGITAL <\/code><\/li><li><code> GIFT_CARD <\/code><\/li><li><code> SERVICE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNRECOGNISED",
+        "PHYSICAL",
+        "DIGITAL",
+        "GIFT_CARD",
+        "SERVICE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_SecuredMedia_FileType",
+      "displayName": "File Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> SECURE_PICTURE <\/code><\/li><li><code> SECURE_VIDEO <\/code><\/li><li><code> SECURE_DOCUMENT <\/code><\/li><li><code> SECURE_MUSIC <\/code><\/li><li><code> SECURE_ARCHIVE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "SECURE_PICTURE",
+        "SECURE_VIDEO",
+        "SECURE_DOCUMENT",
+        "SECURE_MUSIC",
+        "SECURE_ARCHIVE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PaymentOptionType",
+      "displayName": "Payment Option Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Type of selected payment option for catalog item\n \n Possible values are: <li><code> FULL_PAYMENT_ONLINE -  The entire payment for this item happens as part of the checkout.\n <\/code><\/li><li><code> FULL_PAYMENT_OFFLINE -  The entire payment for this item happens after the checkout. For example, when using cash, check, or other offline payment methods. \n <\/code><\/li><li><code> MEMBERSHIP -  Payment for this item is done by charging a membership. When selected, `price` is `0`.\n <\/code><\/li><li><code> DEPOSIT_ONLINE -  Partial payment to be paid upfront during the checkout. Initial amount to be paid for each line item is specified in `depositAmount`.\n <\/code><\/li><li><code> MEMBERSHIP_OFFLINE -  Payment for this item can only be done by charging a membership and must be manually redeemed in the dashboard by the site admin. When selected, `price` is `0`.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "FULL_PAYMENT_ONLINE",
+        "FULL_PAYMENT_OFFLINE",
+        "MEMBERSHIP",
+        "DEPOSIT_ONLINE",
+        "MEMBERSHIP_OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_WeightUnit",
+      "displayName": "Weight Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_WEIGHT_UNIT -  Weight unit can't be classified, due to an error\n <\/code><\/li><li><code> KG -  Kilograms\n <\/code><\/li><li><code> LB -  Pounds\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_WEIGHT_UNIT",
+        "KG",
+        "LB"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.poc.catalog.spi.catalog-spi-provider-poc"}
+}
