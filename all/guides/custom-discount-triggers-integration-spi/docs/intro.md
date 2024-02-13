@@ -26,7 +26,7 @@ Complete the following steps to adapt Wix system's integration to make your cust
 
 1. Create an [app](https://dev.wix.com/dc3/my-apps/) and retrieve its app ID either from the URL or as displayed in the My Apps dashboard in the [Wix Developers Center](https://dev.wix.com/).
 
-    ![Sample App ID](https://s3.amazonaws.com/wixplorer-readme-images/custom-discount-triggers-integration-spi%2Fappid.png "Sample App ID")
+    ![Sample App ID](../images/appid.png "Sample App ID")
 
 1. Go to the [Components](https://devforum.wix.com/kb/en/article/about-app-components) tab in the Wix Developers Center.
 1. Click **Add Component**, select **Integration Component** from the dropdown menu, select **Ecom Custom Discount Triggers** and click **Add Component**.
