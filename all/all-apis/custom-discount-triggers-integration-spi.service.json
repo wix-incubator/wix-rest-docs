@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Custom Trigger",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides": [  {
     "path": "../guides/custom-discount-triggers-integration-spi/docs/intro.md",
@@ -47,6 +47,13 @@
             "typeParams": ["All APIs.Custom Discount Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_TriggerToFilterBy"]
           },
           "doc": " List of triggers to be checked for discount eligibility.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n",
           "required": false
         }
       ],
@@ -131,7 +138,7 @@
       "displayName": "Catalog Reference Object",
       "locations": [],
       "docs":       {
-        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
         "links": [],
         "examples": []
       },
@@ -139,17 +146,17 @@
                 {
           "name": "catalogItemId",
           "type": "string",
-          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `bookingId` for Wix Bookings.\n"
+          "doc": " ID of the item within the catalog it belongs to.\n"
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " \nID of the catalog app. For items from Wix apps, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`    \n"
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
         },
                 {
           "name": "options",
           "type": "struct",
-          "doc": "\nAdditional info in key:value form. For example, to specify Wix Stores product options or variants:\n+ `{\"options\": {\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}}}`\n+ `{\"options\": {\"variantId\": \"<VARIANT_ID>\"}}`\n"
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
         }
       ],
       "enum": null,
@@ -294,6 +301,11 @@
             "typeParams": ["All APIs.Custom Discount Triggers Integration SPI._com_wix_ecom_custom_trigger_v1_spi_TriggerToFilterBy"]
           },
           "doc": " List of triggers to be checked for discount eligibility.\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
         }
       ],
       "enum": null,
