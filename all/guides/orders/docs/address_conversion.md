@@ -1,4 +1,4 @@
-SortOrder: 3
+SortOrder: 4
 # Address Object Conversion Table
 
 The eCommerce APIs use a different `address` object. Notably, fields related to contact information have been moved
@@ -6,7 +6,7 @@ to an adjacent `contactDetails` object (for example, in `order.shippingInfo`).
 
 To help with conversion and migration, refer to the table below to check which fields have changed and how.
 
-> Note: in the eCommerce API, the buyer's email is only held in the `buyerInfo` field in the [eCommerce Order object](https://dev.wix.com/api/rest/wix-ecommerce/orders/order-object).
+> Note: in the eCommerce API, the buyer's email is only held in the `buyerInfo` field in the [eCommerce Order object](https://dev.wix.com/docs/rest/api-reference/wix-e-commerce/orders/order-object).
 
 | Previous Address Object                         | eCommerce Address Field Location                                           | Change            |
 | ------------------------------------------------|--------------------------------------------------------------|-------------------|
