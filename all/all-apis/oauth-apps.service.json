@@ -70,7 +70,7 @@
         "examples": [        {
           "title": "Create an OAuth app",
           "body": ["curl -X POST \\\n'https://www.wixapis.com/oauth-app/v1/oauth-apps' \\\n-H 'Authorization: <AUTH> \\\n-H 'Content-Type: application/json' \\\n-d '{\n  \"oAuthApp\": {\n    \"name\": \"Test app\",\n    \"description\": \"Some test app\"\n  }\n}'"],
-          "response": ["{\"oAuthApp\": {\n  \"id\": \"adddb436-aa2c-474a-8f0e-af719f3acd5b\",\n  \"createdDate\": \"2023-03-28T13:43:48.959Z\",\n  \"name\": \"Test app\",\n  \"description\": \"Some test app\",\n  \"secret\": \"8e2e6c5c-2351-4c47-8c29-63d52b24424c\",\n  \"allowedRedirectDomains\": [],\n  \"loginUrl\": \"\",\n  \"allowedRedirectUris\": []\n}} "],
+          "response": ["{\"oAuthApp\": {\n  \"id\": \"adddb436-aa2c-474a-8f0e-af719f3acd5b\",\n  \"createdDate\": \"2023-03-28T13:43:48.959Z\",\n  \"name\": \"Test app\",\n  \"description\": \"Some test app\",\n  \"secret\": \"8e2e6c5c-2351-4c47-8c29-63d52b24424c\",\n  \"allowedRedirectDomains\": [],\n  \"loginUrl\": \"\",\n  \"logoutUrl\": \"\",\n  \"allowedRedirectUris\": []\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -223,7 +223,7 @@
         "examples": [        {
           "title": "Get an OAuth app by ID",
           "body": ["curl -X GET \\\n'https://www.wixapis.com/oauth-app/v1/oauth-apps/adddb436-aa2c-474a-8f0e-af719f3acd5b' \\\n-H 'Authorization: <AUTH> \\\n-H 'Content-Type: application/json' \\"],
-          "response": ["{\"oAuthApp\": {\n  \"id\": \"adddb436-aa2c-474a-8f0e-af719f3acd5b\",\n  \"createdDate\": \"2023-03-28T13:43:48.959Z\",\n  \"name\": \"Test app\",\n  \"description\": \"Some test app\",\n  \"allowedRedirectDomains\": [],\n  \"loginUrl\": \"\",\n  \"allowedRedirectUris\": []\n}} "],
+          "response": ["{\"oAuthApp\": {\n  \"id\": \"adddb436-aa2c-474a-8f0e-af719f3acd5b\",\n  \"createdDate\": \"2023-03-28T13:43:48.959Z\",\n  \"name\": \"Test app\",\n  \"description\": \"Some test app\",\n  \"allowedRedirectDomains\": [],\n  \"loginUrl\": \"\",\n  \"logoutUrl\": \"\",\n  \"allowedRedirectUris\": []\n}} "],
           "type": "curl",
           "extra": {}
         }],
@@ -342,7 +342,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpdates an OAuth app.\n\n\nOnly fields provided in `mask.paths` are updated.\n\nYou can update the following fields:\n+ `name`\n+ `description`\n+ `allowedDomain`\n+ `loginUrl`\n\n \n",
+        "summary": "\nUpdates an OAuth app.\n\n\nOnly fields provided in `mask.paths` are updated.\n\nYou can update the following fields:\n+ `name`\n+ `description`\n+ `allowedDomain`\n+ `loginUrl`\n+ `logoutUrl`\n\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/oauth-app/v1/oauth-apps/{oAuthApp.id}",
@@ -372,7 +372,7 @@
       "topic": "domain_events_wix.headless.v1.o_auth_app",
       "tag": "OAuth Apps",
       "permissions": [],
-      "customLabels": [{"id": "maturity-alpha"}],
+      "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.headless.v1.o_auth_app_deleted",
       "extra": {"isDomainEvent": true}
     },
@@ -680,6 +680,11 @@
           "name": "allowSecretGeneration",
           "type": "boolean",
           "doc": " Whether a secret can be generated for this OAuth app.\n\n Default: `true` until a secret has been generated for the OAuth App.\n"
+        },
+                {
+          "name": "logoutUrl",
+          "type": "string",
+          "doc": " External logout URL to which we invoke when user logout at wix. If no logout URL is specified, the user is logged out only at Wix.\n"
         }
       ],
       "enum": null,
@@ -703,6 +708,20 @@
         },
         "doc": " The set of field mask paths.\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -745,12 +764,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " Number of items to load.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -810,12 +829,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -899,6 +918,531 @@
           "name": "cursorPaging",
           "type": "All APIs.OAuth Apps._wix_common_CursorPaging",
           "doc": "Cursor token pointing to a page of results. Not used in the first request. Following requests use the cursor token and not `filter` or `sort`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset",
+      "displayName": "Asset Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "state",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_Asset_State",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext",
+      "displayName": "Delete Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "dateDeleted",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "deleteStatus",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+          "doc": ""
+        },
+                {
+          "name": "deleteOrigin",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "initiatorId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreated",
+      "displayName": "Site Created Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "originTemplateId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "ownerId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "context",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteCreatedContext",
+          "doc": ""
+        },
+                {
+          "name": "originMetaSiteId",
+          "type": "string",
+          "doc": "\nA meta site id from which this site was created.\n\nIn case of a creation from a template it's a template id.\nIn case of a site duplication (\"Save As\" in dashboard or duplicate in UM) it's an id of a source site.\n"
+        },
+                {
+          "name": "siteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "namespace",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteHardDeleted",
+      "displayName": "Site Hard Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nHard deletion of the meta site.\n\nCould not be restored. Therefore it's desirable to cleanup data.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteDeleted",
+      "displayName": "Site Deleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Soft deletion of the meta site. Could be restored.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deleteContext",
+        "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_DeleteContext",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUndeleted",
+      "displayName": "Site Undeleted Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Restoration of the meta site.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SitePublished",
+      "displayName": "Site Published Object",
+      "locations": [],
+      "docs":       {
+        "summary": " First publish of a meta site. Or subsequent publish after unpublish.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteUnpublished",
+      "displayName": "Site Unpublished Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "urls",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteTransferred",
+      "displayName": "Site Transferred Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Site transferred to another user.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldOwnerId",
+          "type": "string",
+          "doc": " A previous owner id (user that transfers meta site).\n"
+        },
+                {
+          "name": "newOwnerId",
+          "type": "string",
+          "doc": " A new owner id (user that accepts meta site).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+      "displayName": "Site Marked As Template Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+      "displayName": "Site Marked As Wix Site Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceProvisioned",
+      "displayName": "Service Provisioned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": " Either UUID or EmbeddedServiceType.\n"
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": " Not only UUID. Something here could be something weird.\n"
+        },
+                {
+          "name": "originInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_ServiceRemoved",
+      "displayName": "Service Removed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appDefId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "instanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteRenamed",
+      "displayName": "Site Renamed Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Rename of the site. Meaning, free public url has been changed as well. ",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "newSiteName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "oldSiteName",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_NamespaceChanged",
+      "displayName": "Namespace Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "oldNamespace",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        },
+                {
+          "name": "newNamespace",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_MetaSite_Namespace",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioAssigned",
+      "displayName": "Studio Assigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioUnassigned",
+      "displayName": "Studio Unassigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nUnassigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent",
+      "displayName": "Meta Site Special Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "version",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "assets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.OAuth Apps._com_wixpress_metasite_event_api_Asset"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "payload",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent_payload",
+      "displayName": "payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "siteCreated",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteCreated",
+          "doc": ""
+        },
+                {
+          "name": "siteTransferred",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteTransferred",
+          "doc": ""
+        },
+                {
+          "name": "siteDeleted",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteDeleted",
+          "doc": ""
+        },
+                {
+          "name": "siteUndeleted",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteUndeleted",
+          "doc": ""
+        },
+                {
+          "name": "sitePublished",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SitePublished",
+          "doc": ""
+        },
+                {
+          "name": "siteUnpublished",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteUnpublished",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsTemplate",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteMarkedAsTemplate",
+          "doc": ""
+        },
+                {
+          "name": "siteMarkedAsWixSite",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteMarkedAsWixSite",
+          "doc": ""
+        },
+                {
+          "name": "serviceProvisioned",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_ServiceProvisioned",
+          "doc": ""
+        },
+                {
+          "name": "serviceRemoved",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_ServiceRemoved",
+          "doc": ""
+        },
+                {
+          "name": "siteRenamedPayload",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteRenamed",
+          "doc": ""
+        },
+                {
+          "name": "hardDeleted",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_SiteHardDeleted",
+          "doc": ""
+        },
+                {
+          "name": "namespaceChanged",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_NamespaceChanged",
+          "doc": ""
+        },
+                {
+          "name": "studioAssigned",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_StudioAssigned",
+          "doc": ""
+        },
+                {
+          "name": "studioUnassigned",
+          "type": "All APIs.OAuth Apps._com_wixpress_metasite_event_api_StudioUnassigned",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -1148,6 +1692,103 @@
       "enum":       [
         "ASC",
         "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_Asset_State",
+      "displayName": "State Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ENABLED <\/code><\/li><li><code> DISABLED <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> DEMO <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "ENABLED",
+        "DISABLED",
+        "PENDING",
+        "DEMO"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_DeleteContext_DeleteStatus",
+      "displayName": "Delete Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> TRASH <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> PENDING_PURGE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "TRASH",
+        "DELETED",
+        "PENDING_PURGE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_MetaSite_Namespace",
+      "displayName": "Namespace Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li><li><code> HEADLESS - *\nNamespace for Headless Backoffice with no editor\n <\/code><\/li><li><code> ACCOUNT_MASTER_CMS - *\nNamespace for master site that will exist in parent account that will be referenced by subaccounts\nThe site will be used for account level CSM feature for enterprise\n <\/code><\/li><li><code> RISE - *\nRise.ai Siteless account management for Gift Cards and Store Credit.\n <\/code><\/li><li><code> BRANDED_FIRST - *\nAs part of the branded app new funnel, users now can create a meta site that will be branded app first.\nThere's a blank site behind the scene but it's blank).\nThe Mobile company will be the owner of this namespace.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_NAMESPACE",
+        "WIX",
+        "SHOUT_OUT",
+        "ALBUMS",
+        "WIX_STORES_TEST_DRIVE",
+        "HOTELS",
+        "CLUBS",
+        "ONBOARDING_DRAFT",
+        "DEV_SITE",
+        "LOGOS",
+        "VIDEO_MAKER",
+        "PARTNER_DASHBOARD",
+        "DEV_CENTER_COMPANY",
+        "HTML_DRAFT",
+        "SITELESS_BUSINESS",
+        "CREATOR_ECONOMY",
+        "DASHBOARD_FIRST",
+        "ANYWHERE",
+        "HEADLESS",
+        "ACCOUNT_MASTER_CMS",
+        "RISE",
+        "BRANDED_FIRST"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_SiteCreatedContext",
+      "displayName": "Site Created Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> OTHER -  A valid option, we don't expose all reasons why site might be created.\n <\/code><\/li><li><code> FROM_TEMPLATE -  A meta site was created from template.\n <\/code><\/li><li><code> DUPLICATE_BY_SITE_TRANSFER -  A meta site was created by copying of the transfferred meta site.\n <\/code><\/li><li><code> DUPLICATE -  A copy of existing meta site.\n <\/code><\/li><li><code> OLD_SITE_TRANSFER -  A meta site was created as a transfferred site (copy of the original), old flow, should die soon.\n <\/code><\/li><li><code> FLASH - deprecated A meta site was created for Flash editor.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "OTHER",
+        "FROM_TEMPLATE",
+        "DUPLICATE_BY_SITE_TRANSFER",
+        "DUPLICATE",
+        "OLD_SITE_TRANSFER",
+        "FLASH"
       ],
       "extra": {},
       "labels": []
