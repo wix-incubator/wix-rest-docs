@@ -26,6 +26,67 @@
   ],
   "operations":   [
         {
+      "name": "Bulk Set Attendance",
+      "methodName": "BulkSetAttendance",
+      "serviceName": "AttendanceService",
+      "tag": "Attendance",
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "attendanceList",
+        "attendanceList.bookingId",
+        "attendanceList.status"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "attendanceList",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance"]
+          },
+          "doc": " The attendance information for a booked sessions that you want to create or update.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkSetAttendance",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_BulkSetAttendanceResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSets information about whether a booking's session was attended for multiple bookings\n\n\nSee [SetAttendance](https://dev.wix.com/docs/rest/api-reference/wix-bookings/attendance/set-attendance) documentation for more information.\n\nIf any of the attendance list required fields were not passed on the request or if the caller doesn't have the required permissions to set the attendance, the call fails.\nIf the request contains attendance info for unavailable sessions, the call completes successfully but the attendance info for the unavailable sessions are not created and are not considered as failures in the response.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/bookings/v2/bulk/attendance/set",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkSetAttendanceRequest",
+        "rpcResponseName": "BulkSetAttendanceResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
       "name": "Get Attendance",
       "methodName": "GetAttendance",
       "serviceName": "AttendanceService",
@@ -142,7 +203,6 @@
       "requiredFields":       [
         "attendance",
         "attendance.bookingId",
-        "attendance.sessionId",
         "attendance.status"
       ],
       "params": [      {
@@ -199,7 +259,30 @@
       "customLabels": [{"id": "maturity-beta"}]
     }
   ],
-  "events": [],
+  "events":   [
+        {
+      "type": "_com_wixpress_bookings_attendance_v2_AttendanceCreatedDomainEvent",
+      "name": "Attendance Created Webhook",
+      "docs": {"summary": ""},
+      "topic": "domain_events_wix.bookings.v2.attendance",
+      "tag": "Attendance",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.bookings.v2.attendance_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_bookings_attendance_v2_AttendanceUpdatedDomainEvent",
+      "name": "Attendance Updated Webhook",
+      "docs": {"summary": ""},
+      "topic": "domain_events_wix.bookings.v2.attendance",
+      "tag": "Attendance",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-alpha"}],
+      "eventType": "wix.bookings.v2.attendance_updated",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
   "callbacks": [],
   "messages":   [
         {
@@ -267,9 +350,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "entityAsJson",
+        "name": "entity",
         "type": "All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -340,9 +423,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "currentEntityAsJson",
+        "name": "currentEntity",
         "type": "All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -377,7 +460,7 @@
                 {
           "name": "status",
           "type": "All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance_AttendanceStatus",
-          "doc": "\nStatus indicating if any particpants attended the session:\n\n+ `NOT_SET`: There is no available attendance information.\n+ `ATTENDED`: At least a single participant attended the session.\n+ `NOT_ATTENDED`: No participants attended the session.\n"
+          "doc": "\nStatus indicating if any participants attended the session:\n\n+ `NOT_SET`: There is no available attendance information.\n+ `ATTENDED`: At least a single participant attended the session.\n+ `NOT_ATTENDED`: No participants attended the session.\n"
         },
                 {
           "name": "numberOfAttendees",
@@ -567,6 +650,101 @@
       "labels": []
     },
         {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Attendance - WIP._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_bookings_attendance_v2_GetAttendanceRequest",
       "displayName": "Get Attendance Request Object",
       "locations": [],
@@ -634,6 +812,87 @@
         "type": "All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance",
         "doc": " The created or updated attendance information for the booked session.\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_attendance_v2_BulkSetAttendanceRequest",
+      "displayName": "Bulk Set Attendance Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "attendanceList",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance"]
+          },
+          "doc": " The attendance information for a booked sessions that you want to create or update.\n"
+        },
+                {
+          "name": "returnFullEntity",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_attendance_v2_BulkSetAttendanceResponse",
+      "displayName": "Bulk Set Attendance Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_BulkAttendanceResult"]
+          },
+          "doc": " The created or updated attendance information for the booked sessions.\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Attendance - WIP._wix_common_BulkActionMetadata",
+          "doc": " Total successes and failures of the bulk set attendance action.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_attendance_v2_BulkAttendanceResult",
+      "displayName": "Bulk Attendance Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "item",
+          "type": "All APIs.Attendance - WIP._com_wixpress_bookings_attendance_v2_Attendance",
+          "doc": ""
+        },
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Attendance - WIP._wix_common_ItemMetadata",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
