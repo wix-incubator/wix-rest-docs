@@ -1,0 +1,1999 @@
+{
+  "name": "Back In Stock Notification Requests",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "The back in stock notification request allows a customer to receive a notification when a specific item is available again. The request includes information about the person making the request, the item they want to receive a notification for, and the status of the notification.",
+    "description": []
+  },
+  "properties": [],
+  "tags":   [
+        {
+      "name": "Back In Stock Notification Requests",
+      "entity": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+      "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_notification_request.proto"
+    },
+        {
+      "name": "Back In Stock Settings",
+      "entity": "_com_wixpress_ecom_back_in_stock_BackInStockSettings",
+      "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_settings.proto"
+    }
+  ],
+  "relatedGuides":   [
+        {
+      "path": "../guides/back-in-stock-notification-requests/docs/integration.md",
+      "name": "Integration Guide"
+    },
+        {
+      "path": "../guides/back-in-stock-notification-requests/docs/README.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Back In Stock Notification Request",
+      "methodName": "CreateBackInStockNotificationRequest",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "request",
+        "request.catalogReference",
+        "request.catalogReference.catalogItemId",
+        "request.catalogReference.appId",
+        "request.email",
+        "itemDetails",
+        "itemDetails.name",
+        "itemDetails.price"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "request",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+          "doc": "\nNotification request information.  \n\nIncludes details for the out of stock item and the email address \nrequesting to be notified when it's back in stock.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "itemDetails",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockItemDetails",
+          "doc": " Item details to include in the notification when the item is back in stock.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateBackInStockNotificationRequest",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_CreateBackInStockNotificationRequestResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a back in stock notification request.  \n\nIf a notification request already exists for the same `catalogReference` and `email`, \nthen a new one isn't created and the existing request is returned.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl POST 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests' \\\n--data-binary '{\n                 \"item_details\": {\n                     \"price\": \"85\",\n                     \"image\": {\n                       \"url\": \"https://static.wixstatic.com/media/3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg/v1/fit/w_1000,h_1000,q_90/file.jpg\",\n                       \"id\": \"3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg\"\n                     },\n                     \"name\": \"Shoe\"\n                   },\n                   \"request\": {\n                     \"email\": \"janedoe@example.com\",\n                     \"catalog_reference\": {\n                       \"catalog_item_id\": \"f7cd6355-46db-4d22-a4e1-ade6a1b1bac8\",\n                       \"app_id\": \"fc4c353e-7182-11ee-b962-0242ac120002\",\n                       \"options\": {\n                         \"variantId\": \"00000000-0000-0000-0000-000000000000\"\n                       }\n                     },\n                     \"item_url\": \"www.store.com/shoe\"\n                   }\n               }' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"request\": {\n  \"id\": \"fbbb1604-a38d-435f-98f7-fe4d99e91127\",\n  \"catalog_reference\":   {\n    \"catalog_item_id\": \"f7cd6355-46db-4d22-a4e1-ade6a1b1bac8\",\n    \"app_id\": \"fc4c353e-7182-11ee-b962-0242ac120002\",\n    \"options\": {\"variantId\": \"00000000-0000-0000-0000-000000000000\"}\n  },\n  \"email\": \"janedoe@example.com\",\n  \"contact_id\": \"8d5949e0-e018-46ba-806d-084d4da18bb2\",\n  \"status\": \"RECEIVED\",\n  \"auto_notified\": null,\n  \"created_date\": \"2023-10-31T10:40:42.317Z\",\n  \"item_url\": \"www.store.com/shoe\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateBackInStockNotificationRequestRequest",
+        "rpcResponseName": "CreateBackInStockNotificationRequestResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Delete Back In Stock Notification Request",
+      "methodName": "DeleteBackInStockNotificationRequest",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to delete.",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "DeleteBackInStockNotificationRequest",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_DeleteBackInStockNotificationRequestResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nDeletes a back in stock notification request.\n \n",
+        "description": [],
+        "request": "DELETE",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/{id}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X DELETE 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/215b2b41-e58b-48b2-aeb9-ad6eb8ddc616' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "DeleteBackInStockNotificationRequestRequest",
+        "rpcResponseName": "DeleteBackInStockNotificationRequestResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Back In Stock Notification Request",
+      "methodName": "GetBackInStockNotificationRequest",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to retrieve.",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetBackInStockNotificationRequest",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a back in stock notification request.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/{id}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl GET 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/83ba152b-5e13-4d95-9af7-1e4f9aadb045' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"request\": {\n  \"id\": \"83ba152b-5e13-4d95-9af7-1e4f9aadb045\",\n  \"catalog_reference\":   {\n    \"catalog_item_id\": \"f7cd6355-46db-4d22-a4e1-ade6a1b1bac8\",\n    \"app_id\": \"fc4c353e-7182-11ee-b962-0242ac120002\",\n    \"options\": {\"variantId\": \"00000000-0000-0000-0000-000000000000\"}\n  },\n  \"email\": \"janedoe@example.com\",\n  \"contact_id\": \"8d5949e0-e018-46ba-806d-084d4da18bb2\",\n  \"status\": \"RECEIVED\",\n  \"auto_notified\": null,\n  \"created_date\": \"2023-07-06T08:40:17.927Z\",\n  \"item_url\": null\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetBackInStockNotificationRequestRequest",
+        "rpcResponseName": "GetBackInStockNotificationRequestResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Back In Stock Notification Requests Count By Catalog References",
+      "methodName": "GetBackInStockNotificationRequestsCountByCatalogReferences",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["catalogReferences"],
+      "params": [      {
+        "in": "QUERY",
+        "name": "catalogReferences",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference"]
+        },
+        "doc": " `catalogReference` items to retrieve the notification request for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetBackInStockNotificationRequestsCountByCatalogReferences",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestsCountByCatalogReferencesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the amount of back in stock requests for a given `catalogReference` item.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/count-by-catalog-reference",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl GET 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/count-by-catalog-reference' \\\n--data-binary '{\n                 \"catalog_references\": [\n                 {\n                   \"catalog_item_id\": \"7424be76-d458-48bf-8ea6-76b71872979e\",\n                   \"app_id\": \"3b1789d1-1972-482a-b36b-0c6339d30ac7\",\n                   \"options\": {\n                     \"variantId\": \"8e7dd8e3-9903-42cd-a5e2-edb821c4694c\"\n                   }\n                 },\n                 {\n                   \"catalog_item_id\": \"0b855151-79f7-4efb-a7a7-6d2709b890ec\",\n                   \"app_id\": \"c370d933-a58b-40ce-be45-c3c23b6ac272\",\n                   \"options\": {}\n                 }\n               }' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"counts_per_catalog_reference\": [\n    {\n    \"catalog_reference\":     {\n      \"catalog_item_id\": \"7424be76-d458-48bf-8ea6-76b71872979e\",\n      \"app_id\": \"3b1789d1-1972-482a-b36b-0c6339d30ac7\",\n      \"options\": {\"variantId\": \"8e7dd8e3-9903-42cd-a5e2-edb821c4694c\"}\n    },\n    \"count\": 15\n  },\n    {\n    \"catalog_reference\":     {\n      \"catalog_item_id\": \"0b855151-79f7-4efb-a7a7-6d2709b890ec\",\n      \"app_id\": \"c370d933-a58b-40ce-be45-c3c23b6ac272\",\n      \"options\": {}\n    },\n    \"count\": 27\n  }\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetBackInStockNotificationRequestsCountByCatalogReferencesRequest",
+        "rpcResponseName": "GetBackInStockNotificationRequestsCountByCatalogReferencesResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Settings",
+      "methodName": "GetSettings",
+      "serviceName": "BackInStockSettingsService",
+      "tag": "Back In Stock Settings",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "GetSettings",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_GetSettingsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " \nRetrieves back in stock request settings.  \n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/settings",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetSettingsRequest",
+        "rpcResponseName": "GetSettingsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Mark As Notification Sent",
+      "methodName": "MarkAsNotificationSent",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to mark.",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "MarkAsNotificationSent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_MarkAsNotificationSentResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSets `status` of a back in stock request to `NOTIFICATION_SENT`.  \n\nUse this endpoint if the notification is sent manually offline. If the notification is sent \nautomatically or with [Report Items Back In Stock](/report-items-back-in-stock), then `status` updates on its own.\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/{id}/mark-as-notification-sent",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X PUT 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/21c2b9ff-2c51-4bf5-9358-9bfe4e2370fc/mark-as-notification-sent' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\"request\": {\n  \"id\": \"21c2b9ff-2c51-4bf5-9358-9bfe4e2370fc\",\n  \"catalog_reference\":   {\n    \"catalog_item_id\": \"6ff3a2e6-9ec2-4b69-9365-80ca3b1e391a\",\n    \"app_id\": \"cb19870d-1f13-4412-9d2a-3c5995965a3c\",\n    \"options\": {\"variantId\": \"00000000-0000-0000-0000-000000000000\"}\n  },\n  \"email\": \"janedoe@example.com\",\n  \"contact_id\": \"84ebbf36-7188-11ee-b962-0242ac120002\",\n  \"status\": \"NOTIFICATION_SENT\",\n  \"auto_notified\": false,\n  \"created_date\": \"2023-07-15T07:49:25.267Z\",\n  \"item_url\": null\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "MarkAsNotificationSentRequest",
+        "rpcResponseName": "MarkAsNotificationSentResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Query Back In Stock Notification Requests",
+      "methodName": "QueryBackInStockNotificationRequests",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["query"],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "query.filter",
+          "type": "struct",
+          "doc": " Filter object.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "query.sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Back In Stock Notification Requests._wix_common_Sorting"]
+          },
+          "doc": " Sorting options. For example, `[{\"fieldName\":\"sortField1\"},{\"fieldName\":\"sortField2\",\"direction\":\"DESC\"}]`.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "query.pagingMethod",
+          "type": "ref",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "QueryBackInStockNotificationRequests",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_QueryBackInStockNotificationRequestsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of notification requests, given the provided paging, filtering, and sorting.  \n\nFor field support for filters and sorting, see [Back In Stock Requests: Supported Filters and Sorting]().  \n\nTo learn about working with _Query_ endpoints, see \n[API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language), \n[Sorting and Paging](https://dev.wix.com/api/rest/getting-started/sorting-and-paging), \nand [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl GET 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests' \\\n--data-binary '{\n                 \"query\": {\n                   \"filter\": \"{\\\"status\\\": \\\"RECEIVED\\\"}\",\n                   \"paging\": {\n                     \"limit\": 2\n                   },\n                   \"sort\": \"[{\\\"createdDate\\\": \\\"asc\\\"}]\"\n                 }\n               }' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+          "response": ["{\n  \"requests\":   [\n        {\n      \"id\": \"83ba152b-5e13-4d95-9af7-1e4f9aadb045\",\n      \"catalog_reference\":       {\n        \"catalog_item_id\": \"f7cd6355-46db-4d22-a4e1-ade6a1b1bac8\",\n        \"app_id\": \"fc4c353e-7182-11ee-b962-0242ac120002\",\n        \"options\": {\"variantId\": \"00000000-0000-0000-0000-000000000000\"}\n      },\n      \"email\": \"janedoe@example.com\",\n      \"contact_id\": \"8d5949e0-e018-46ba-806d-084d4da18bb2\",\n      \"status\": \"RECEIVED\",\n      \"auto_notified\": null,\n      \"created_date\": \"2023-07-06T08:40:17.927Z\",\n      \"item_url\": null\n    },\n        {\n      \"id\": \"dbc0d843-de6e-4652-aceb-eacc34c7df49\",\n      \"catalog_reference\":       {\n        \"catalog_item_id\": \"22f7b784-81ad-4a7d-af06-3031ccf89ca3\",\n        \"app_id\": \"fc4c353e-7182-11ee-b962-0242ac120002\",\n        \"options\": {\"variantId\": \"00000000-0000-0000-0000-000000000000\"}\n      },\n      \"email\": \"johndoe@example.com\",\n      \"contact_id\": \"be861ab3-5299-46bf-9706-7a4e89c263db\",\n      \"status\": \"RECEIVED\",\n      \"auto_notified\": null,\n      \"created_date\": \"2023-10-23T09:37:05.437Z\",\n      \"item_url\": null\n    }\n  ],\n  \"metadata\":   {\n    \"count\": 2,\n    \"offset\": null,\n    \"total\": 2,\n    \"cursors\": null\n  }\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "QueryBackInStockNotificationRequestsRequest",
+        "rpcResponseName": "QueryBackInStockNotificationRequestsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Report Items Back In Stock",
+      "methodName": "ReportItemsBackInStock",
+      "serviceName": "BackInStockNotificationRequestService",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "itemDetails",
+        "itemDetails.name",
+        "itemDetails.price"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "catalogReference",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": "\n`catalogReference` item to send notifications for.\n\nCannot be used with `requestIds`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "requestIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nIDs of requests to send notifications for.  \n\nCannot be used with `catalogReference`.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "itemDetails",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockItemDetails",
+          "doc": "\nItem details to use in notifications.  \n\n`itemDetails` may populate dynamic valyes in the notification template, as follows:\n+ `itemDetails.name` passes to the template as `item.name`\n+ `itemDetails.price` passes to the template as `item.price`\n+ `itemDetails.image.url` passes to the template as `item.image.url`\n\nUse `extraAutomationTemplateParameters` to pass additional dynamic values.  \n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "extraAutomationTemplateParameters",
+          "type": "All APIs.Back In Stock Notification Requests.extraAutomationTemplateParametersMapEntry",
+          "doc": "Set of key-value pairs.\nAdditional key-value pairs to pass to the back in stock notification template.  \n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ReportItemsBackInStock",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_ReportItemsBackInStockResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSends notifications for back in stock requests.  \n\n> **Important:**\n> Automations must be turned on in a [site's dashboard](https://www.wix.com/my-account/site-selector/?buttonText=Go%20to%20Back-in-Stock&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https://www.wix.com/dashboard/{{metaSiteId}}/store/back-in-stock) for notifications to send.\n\nThis endpoint triggers notifications for requests in 1 of 2 ways:\n1. For a specific item, with the `catalogReference` information.\n2. For specific requests, with `requestIds`.  \n\n`itemDetails` are required and may populate dynamic values in the notification template, as follows:\n+ `itemDetails.name` passes to the template as `item.name`\n+ `itemDetails.price` passes to the template as `item.price`\n+ `itemDetails.image.url` passes to the template as `item.image.url`\n\nIf the notification template doesn't include `item.price`, `item.name`, or `item.image.url`, values should \nbe passed in `extraAutomationTemplateParameters`.  \n\nAfter this endpoint is called, the `status` for the request will update to `NOTIFICATION_SENT` if it sends \nsuccessfully, or to `FAILED` if it fails to send.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/report-items-back-in-stock",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "",
+            "body": ["curl POST 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/report-items-back-in-stock' \\\n--data-binary '{\n                 \"request_ids\": [\n                   \"9bb181c8-dd26-4383-a985-effc81e43e21\",\n                   \"4f4d2b9c-68a2-4608-aba8-88bfcfeb659b\"\n                 ],\n                 \"item_details\": {\n                   \"price\": \"85\",\n                   \"image\": {\n                     \"url\": \"https://static.wixstatic.com/media/3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg/v1/fit/w_1000,h_1000,q_90/file.jpg\",\n                     \"id\": \"3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg\"\n                   },\n                   \"name\": \"Shoe\"\n                 },\n                 \"extra_automation_template_parameters\": {\n                    \"checkout_url\": \"www.store.com/shoe\"\n                 }\n               }' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "",
+            "body": ["curl POST 'https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/report-items-back-in-stock' \\\n--data-binary '{\n                 \"catalog_reference\": {\n                     \"catalog_item_id\": \"6d909221-62b6-43a7-a4eb-6538c6b84709\",\n                     \"app_id\": \"72bf133a-ce29-46e3-bb04-5ea6e17089f6\",\n                     \"options\": {\n                        \"variantId\": \"9dd75d24-0771-4afe-a9bc-ff63d10cacd2\"\n                     }\n                 },\n                 \"item_details\": {\n                   \"price\": \"85\",\n                   \"image\": {\n                     \"url\": \"https://static.wixstatic.com/media/3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg/v1/fit/w_1000,h_1000,q_90/file.jpg\",\n                     \"id\": \"3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg\"\n                   },\n                   \"name\": \"Shoe\"\n                 },\n                 \"extra_automation_template_parameters\": {\n                    \"checkout_url\": \"www.store.com/shoe\"\n                 }\n               }' \\\n-H 'Content-Type: application/json' \\\n-H 'Authorization: <AUTH>'"],
+            "response": ["{} "],
+            "type": "curl",
+            "extra": {}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ReportItemsBackInStockRequest",
+        "rpcResponseName": "ReportItemsBackInStockResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Start Collecting Requests",
+      "methodName": "StartCollectingRequests",
+      "serviceName": "BackInStockSettingsService",
+      "tag": "Back In Stock Settings",
+      "permissions": [      {
+        "name": "Manage Stores - all permissions",
+        "description": "Request permission to read, create and modify the site's Wix Stores data, including products, orders and currencies. This permission scope contains all of the Stores permissions."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["appId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "appId",
+        "type": "string",
+        "doc": " ID of the app to start accepting notification requests for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "StartCollectingRequests",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_StartCollectingRequestsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSets `settings.collectionStates.collectingRequests` to `true` for given `appId`.  \n\nWhen the collection state is set to `true`, collecting requests is enabled and customers may request \nnotifications for out of stock products. While collecting is enabled, customers see a \"Notify When Available\" \nbutton on out-of-stock items. Customers can click the button to enter their email address, which creates the \nnotification request.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/settings/start-collecting",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "StartCollectingRequestsRequest",
+        "rpcResponseName": "StartCollectingRequestsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Stop Collecting Requests",
+      "methodName": "StopCollectingRequests",
+      "serviceName": "BackInStockSettingsService",
+      "tag": "Back In Stock Settings",
+      "permissions": [      {
+        "name": "Manage Stores - all permissions",
+        "description": "Request permission to read, create and modify the site's Wix Stores data, including products, orders and currencies. This permission scope contains all of the Stores permissions."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["appId"],
+      "params": [      {
+        "in": "BODY",
+        "name": "appId",
+        "type": "string",
+        "doc": " ID of the app to stop accepting notification requests for.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "StopCollectingRequests",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_StopCollectingRequestsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSets `settings.collectionStates.collectingRequests` to `false` for given `appId`.  \n\nWhen the collection state is set to `false`, collecting notification requests is disabled.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/back-in-stock-service/v1/back-in-stock-notification-requests/settings/stop-collecting",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "StopCollectingRequestsRequest",
+        "rpcResponseName": "StopCollectingRequestsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events":   [
+        {
+      "type": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+      "name": "Back In Stock Notification Request Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_notification_request_service.proto"
+      },
+      "topic": "invalidate-ssr-cache",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "type": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestDeletedDomainEvent",
+      "name": "Back In Stock Notification Request Deleted Webhook",
+      "docs":       {
+        "summary": " Triggered when a back in stock notification request is deleted.\n",
+        "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_notification_request_service.proto"
+      },
+      "topic": "domain_events_wix.ecom.v1.back_in_stock_notification_request",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.ecom.v1.back_in_stock_notification_request_deleted",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestCreatedDomainEvent",
+      "name": "Back In Stock Notification Request Created Webhook",
+      "docs":       {
+        "summary": " Triggered when a back in stock notification request is created.\n",
+        "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_notification_request_service.proto"
+      },
+      "topic": "domain_events_wix.ecom.v1.back_in_stock_notification_request",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.ecom.v1.back_in_stock_notification_request_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestUpdatedDomainEvent",
+      "name": "Back In Stock Notification Request Updated Webhook",
+      "docs":       {
+        "summary": " Triggered when a back in stock notification request is updated.\n",
+        "src": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-back-in-stock/back-in-stock-service/proto/com/wixpress/ecom/back/in/stock/back_in_stock_notification_request_service.proto"
+      },
+      "topic": "domain_events_wix.ecom.v1.back_in_stock_notification_request",
+      "tag": "Back In Stock Notification Requests",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.ecom.v1.back_in_stock_notification_request_updated",
+      "extra": {"isDomainEvent": true}
+    }
+  ],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestDeletedDomainEvent",
+      "displayName": "Back In Stock Notification Request Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.back_in_stock_notification_request`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BackInStockNotificationRequest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityDeletedEvent",
+      "displayName": "Back In Stock Notification Request Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestCreatedDomainEvent",
+      "displayName": "Back In Stock Notification Request Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.back_in_stock_notification_request`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BackInStockNotificationRequest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityCreatedEvent",
+      "displayName": "Back In Stock Notification Request Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entity",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestUpdatedDomainEvent",
+      "displayName": "Back In Stock Notification Request Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.ecom.v1.back_in_stock_notification_request`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BackInStockNotificationRequest ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequestEntityUpdatedEvent",
+      "displayName": "Back In Stock Notification Request Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockCollectionState",
+      "displayName": "Back In Stock Collection State Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the app to receive notification requests for.\n"
+        },
+                {
+          "name": "collectingRequests",
+          "type": "boolean",
+          "doc": " Whether to collect requests for items from this app.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Image",
+      "displayName": "Image Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " WixMedia image ID.\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Image URL.\n"
+        },
+                {
+          "name": "height",
+          "type": "integer",
+          "doc": " Original image height.\n",
+          "readOnly": true
+        },
+                {
+          "name": "width",
+          "type": "integer",
+          "doc": " Original image width.\n",
+          "readOnly": true
+        },
+                {
+          "name": "altText",
+          "type": "string",
+          "doc": " Image alt text.\n"
+        },
+                {
+          "name": "filename",
+          "type": "string",
+          "doc": " Image filename.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockItemDetails",
+      "displayName": "Back In Stock Item Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Item name.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Item price.\n"
+        },
+                {
+          "name": "image",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_Image",
+          "doc": " Item image.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value",
+      "displayName": "Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "kind",
+        "type": "All APIs.Back In Stock Notification Requests._google_protobuf_Value_kind",
+        "doc": " The kind of value.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_Value_kind",
+      "displayName": "kind Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nullValue",
+          "type": "All APIs.Back In Stock Notification Requests._google_protobuf_NullValue",
+          "doc": " Represents a null value.\n"
+        },
+                {
+          "name": "numberValue",
+          "type": "number",
+          "doc": " Represents a double value.\n"
+        },
+                {
+          "name": "stringValue",
+          "type": "string",
+          "doc": " Represents a string value.\n"
+        },
+                {
+          "name": "boolValue",
+          "type": "boolean",
+          "doc": " Represents a boolean value.\n"
+        },
+                {
+          "name": "structValue",
+          "type": "struct",
+          "doc": " Represents a structured value.\n"
+        },
+                {
+          "name": "listValue",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Back In Stock Notification Requests._google_protobuf_Value"]
+          },
+          "doc": " Represents a repeated `Value`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within the catalog it belongs to.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+      "displayName": "Back In Stock Notification Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nThe back in stock notification request allows a customer to receive a notifiction when a specific item \nis available again. The request includes information about the person making the request, the item \nthey want to receive a notification for, and the status of the notification.\n",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"request\" : {\n    \"id\" : \"83ba152b-5e13-4d95-9af7-1e4f9aadb045\",\n    \"catalog_reference\" : {\n      \"catalog_item_id\" : \"f7cd6355-46db-4d22-a4e1-ade6a1b1bac8\",\n      \"app_id\" : \"fc4c353e-7182-11ee-b962-0242ac120002\",\n      \"options\" : {\n        \"variantId\" : \"00000000-0000-0000-0000-000000000000\"\n      }\n    },\n    \"email\" : \"janedoe@example.com\",\n    \"contact_id\" : \"8d5949e0-e018-46ba-806d-084d4da18bb2\",\n    \"status\" : \"RECEIVED\",\n    \"auto_notified\" : null,\n    \"created_date\" : \"2023-07-06T08:40:17.927Z\",\n    \"item_url\" : \"www.store.com/shoe\"\n  }\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Request ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " \nCatalog and item reference that the notification request is for.  \n\nIncludes IDs for the catalog and item it came from, as well as additional, optional information.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email address to send notification to about item being back in stock.\n"
+        },
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": "\nContact ID for the contact with this `email`.  \n\nIf a contact does not already exist with the email address submitted when creating this request, then a new contact is created. \nFor more information about contacts, see the [Contacts API](https://dev.wix.com/docs/rest/api-reference/contacts/introduction).\n",
+          "readOnly": true
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationStatusEnum_Status",
+          "doc": "\nStatus of the notification.  \n\n`status` is set to `RECEIVED` when the notification request is created. \nThe `status` changes once a notification email is sent for this request object: \n+ When a notification email is sent through the site, either automatically or with [Report Items Back In Stock](/report-items-back-in-stock), then the `status` is briefly set to `PROCESSING` and then set to `NOTIFICATION_SENT` if the email is successul, and `FAILED` if it fails.  \n+ When a notification email is sent offline, use [Mark As Notification Sent](/mark-as-notification-sent) to set `status` to `NOTIFICATION_SENT`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "autoNotified",
+          "type": "boolean",
+          "doc": "\nWhether a notification was sent automatically.  \n\n`autoNotified` is empty when the notification request is created and is not returned until \nthe field has a value. `autoNotified` receives a value when a notification email is sent for this request object.  \n\n`autoNotified` sets to `TRUE` if the notification is sent through the site, either automatically or with [Report Items Back In Stock](/report-items-back-in-stock). \nIf the notification email is sent offline but the `status` is updated with [Mark As Notification Sent](/mark-as-notification-sent), \nthen `autoNotified` sets to `FALSE`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the notification request was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "itemUrl",
+          "type": "string",
+          "doc": " Item URL for this request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Maximum number of items to return in the results.\n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_commons_api_PlatformPagingMetadata",
+      "displayName": "Platform Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " The number of items returned in this response.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " The offset which was requested. Returned if offset paging was used.\n"
+        },
+                {
+          "name": "total",
+          "type": "integer",
+          "doc": " The total number of items that match the query. Returned if offset paging was used.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_Cursors",
+          "doc": " Cursors to navigate through result pages. Returned if cursor paging was used.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
+        },
+                {
+          "name": "order",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_SortOrder",
+          "doc": " Sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_commons_api_PlatformPaging",
+      "displayName": "Platform Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_commons_api_PlatformQuery",
+      "displayName": "Platform Query Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "filter",
+          "type": "struct",
+          "doc": " Filter object.\n"
+        },
+                {
+          "name": "sort",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Back In Stock Notification Requests._wix_common_Sorting"]
+          },
+          "doc": " Sorting options. For example, `[{\"fieldName\":\"sortField1\"},{\"fieldName\":\"sortField2\",\"direction\":\"DESC\"}]`.\n"
+        },
+                {
+          "name": "pagingMethod",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_commons_api_PlatformQuery_pagingMethod",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_commons_api_PlatformQuery_pagingMethod",
+      "displayName": "paging Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_commons_api_PlatformPaging",
+          "doc": " Pointer to page of results using offset. Cannot be used together with `cursorPaging`.\n"
+        },
+                {
+          "name": "cursorPaging",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_CursorPaging",
+          "doc": " Cursor pointing to page of results. Cannot be used together with `paging`. `cursorPaging.cursor` can not be used together with `filter` or `sort`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityCreatedEvent",
+      "displayName": "Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityUpdatedEvent",
+      "displayName": "Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "string",
+        "doc": " Since platformized APIs only expose PATCH and not PUT we can't assume that the fields sent from the client are the actual diff.\n This means that to generate a list of changed fields (as opposed to sent fields) one needs to traverse both objects.\n We don't want to impose this on all developers and so we leave this traversal to the notification recipients which need it.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_EntityDeletedEvent",
+      "displayName": "Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "deletedEntityAsJson",
+        "type": "string",
+        "doc": " Entity that was deleted\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_ActionEvent",
+      "displayName": "Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent",
+      "displayName": "Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Unique event ID.\n Allows clients to ignore duplicate webhooks.\n"
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": " Assumes actions are also always typed to an entity_type\n Example: wix.stores.catalog.product, wix.bookings.session, wix.payments.transaction\n"
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": " ID of the entity associated with the event.\n"
+        },
+                {
+          "name": "body",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_domainevents_DomainEvent_body",
+          "doc": ""
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": " Event timestamp.\n"
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": " Whether the event was triggered as a result of a privacy regulation application\n (for example, GDPR).\n"
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_domainevents_DomainEvent_body",
+      "displayName": "body Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_domainevents_EntityCreatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_domainevents_EntityUpdatedEvent",
+          "doc": ""
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_domainevents_EntityDeletedEvent",
+          "doc": ""
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Back In Stock Notification Requests._wix_common_domainevents_ActionEvent",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_CreateBackInStockNotificationRequestRequest",
+      "displayName": "Create Back In Stock Notification Request Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "request",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+          "doc": "\nNotification request information.  \n\nIncludes details for the out of stock item and the email address \nrequesting to be notified when it's back in stock.\n"
+        },
+                {
+          "name": "itemDetails",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockItemDetails",
+          "doc": " Item details to include in the notification when the item is back in stock.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_CreateBackInStockNotificationRequestResponse",
+      "displayName": "Create Back In Stock Notification Request Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "request",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+        "doc": " Created back in stock notification request.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestRequest",
+      "displayName": "Get Back In Stock Notification Request Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to retrieve."
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestResponse",
+      "displayName": "Get Back In Stock Notification Request Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "request",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+        "doc": " Retrieved back in stock notification request.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_DeleteBackInStockNotificationRequestRequest",
+      "displayName": "Delete Back In Stock Notification Request Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to delete."
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_DeleteBackInStockNotificationRequestResponse",
+      "displayName": "Delete Back In Stock Notification Request Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_MarkAsNotificationSentRequest",
+      "displayName": "Mark As Notification Sent Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "string",
+        "doc": " ID of the notification request to mark."
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_MarkAsNotificationSentResponse",
+      "displayName": "Mark As Notification Sent Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "request",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest",
+        "doc": " Marked back in stock notification request.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_QueryBackInStockNotificationRequestsRequest",
+      "displayName": "Query Back In Stock Notification Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_commons_api_PlatformQuery",
+        "doc": " Query options.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_QueryBackInStockNotificationRequestsResponse",
+      "displayName": "Query Back In Stock Notification Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "requests",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockNotificationRequest"]
+          },
+          "doc": " Retrieved back in stock requests.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_commons_api_PlatformPagingMetadata",
+          "doc": " Details on the paged set of results returned.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestsCountByCatalogReferencesRequest",
+      "displayName": "Get Back In Stock Notification Requests Count By Catalog References Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "catalogReferences",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference"]
+        },
+        "doc": " `catalogReference` items to retrieve the notification request for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestsCountByCatalogReferencesResponse_BackInStockNotificationRequestsCount",
+      "displayName": "Back In Stock Notification Requests Count Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Maps each back in stock CatalogReference to the results (the number of unique occurrences).\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " \nCatalog and item reference.  \n\nIncludes IDs and additional, optional information related to the item.\n"
+        },
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " The number of unique back in stock requests for given `catalogReference`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestsCountByCatalogReferencesResponse",
+      "displayName": "Get Back In Stock Notification Requests Count By Catalog References Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "countsPerCatalogReference",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_GetBackInStockNotificationRequestsCountByCatalogReferencesResponse_BackInStockNotificationRequestsCount"]
+        },
+        "doc": " Amount of back in stock notifications for each of the retrieved `catalogReference` items.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "extraAutomationTemplateParametersMapEntry",
+      "displayName": "extra Automation Template Parameters Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.\nAdditional key-value pairs to pass to the back in stock notification template.  \n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_ReportItemsBackInStockRequest",
+      "displayName": "Report Items Back In Stock Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Back In Stock Notification Requests._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": "\n`catalogReference` item to send notifications for.\n\nCannot be used with `requestIds`.\n"
+        },
+                {
+          "name": "requestIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nIDs of requests to send notifications for.  \n\nCannot be used with `catalogReference`.\n"
+        },
+                {
+          "name": "itemDetails",
+          "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockItemDetails",
+          "doc": "\nItem details to use in notifications.  \n\n`itemDetails` may populate dynamic valyes in the notification template, as follows:\n+ `itemDetails.name` passes to the template as `item.name`\n+ `itemDetails.price` passes to the template as `item.price`\n+ `itemDetails.image.url` passes to the template as `item.image.url`\n\nUse `extraAutomationTemplateParameters` to pass additional dynamic values.  \n"
+        },
+                {
+          "name": "extraAutomationTemplateParameters",
+          "type": "All APIs.Back In Stock Notification Requests.extraAutomationTemplateParametersMapEntry",
+          "doc": "Set of key-value pairs.\nAdditional key-value pairs to pass to the back in stock notification template.  \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_ReportItemsBackInStockResponse",
+      "displayName": "Report Items Back In Stock Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockSettings",
+      "displayName": "Back In Stock Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nThe back in stock settings object holds information related to the state of collecting back in stock \nnotification requests.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "collectionStates",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockCollectionState"]
+        },
+        "doc": " \nInformation about collecting customer requests to receive \nback in stock notifications.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetSettingsRequest",
+      "displayName": "Get Settings Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_GetSettingsResponse",
+      "displayName": "Get Settings Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockSettings",
+        "doc": " Retrieved back in stock request settings.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_StartCollectingRequestsRequest",
+      "displayName": "Start Collecting Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appId",
+        "type": "string",
+        "doc": " ID of the app to start accepting notification requests for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_StartCollectingRequestsResponse",
+      "displayName": "Start Collecting Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockSettings",
+        "doc": " Back in stock settings info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_StopCollectingRequestsRequest",
+      "displayName": "Stop Collecting Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appId",
+        "type": "string",
+        "doc": " ID of the app to stop accepting notification requests for.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_StopCollectingRequestsResponse",
+      "displayName": "Stop Collecting Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Back In Stock Notification Requests._com_wixpress_ecom_back_in_stock_BackInStockSettings",
+        "doc": " Back in stock settings info.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_google_protobuf_NullValue",
+      "displayName": "Null Value Object",
+      "locations": [],
+      "docs":       {
+        "summary": " `NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n  The JSON representation for `NullValue` is JSON `null`.\n \n Possible values are: <li><code> NULL_VALUE -  Null value.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecom_back_in_stock_BackInStockNotificationStatusEnum_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> RECEIVED -  initial status of all new requests\n <\/code><\/li><li><code> PROCESSING <\/code><\/li><li><code> NOTIFICATION_SENT <\/code><\/li><li><code> FAILED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "RECEIVED",
+        "PROCESSING",
+        "NOTIFICATION_SENT",
+        "FAILED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_SortOrder",
+      "displayName": "Sort Order Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "ASC",
+        "DESC"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.ecom.back-in-stock-service"}
+}
