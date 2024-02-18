@@ -10,9 +10,9 @@ With the OAuth Apps API, you can:
 + Update details of an existing OAuth app.
 + Delete an OAuth app.
 
-To use Wix Headless functionality you need to create an OAuth app, either using the OAuth Apps API or in the project or site's [dashboard](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings). For instructions on how to do this, see how to [Set Up Authorization](https://dev.wix.com/api/sdk/sdk-setup:-wix-headless/authorization) for Wix Headless.
+To use Wix Headless functionality you need to create an OAuth app, either using the OAuth Apps API or in the project or site's [dashboard](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Foauth-apps-settings). For instructions on how to do this, see how to [Set Up Authorization](https://dev.wix.com/docs/go-headless/getting-started/setup/authorization/authorization-strategies) for Wix Headless.
 
-Once you have created an OAuth app, learn how to [Set Up the Wix JavaScript SDK for Wix Headless](https://dev.wix.com/api/sdk/sdk-setup:-wix-headless/set-up-the-wix-sdk).
+Once you have created an OAuth app, learn how to [Set Up the Wix JavaScript SDK for Wix Headless](https://dev.wix.com/docs/go-headless/getting-started/setup/general-setup/overview).
 
 ## Before you begin
 
