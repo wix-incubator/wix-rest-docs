@@ -3,6 +3,14 @@ SortOrder: 0
 
 Wix site owners can create subscriptions to sell their products on a recurring basis. With the Subscription Options API, you can integrate with the store owner's subscriptions in their Wix store to create, delete, get, check and query the site owner's subscriptions.
 
+<blockquote class='warning'>
+
+__Deprecation Notice:__
+
+Subscription Options API has been deprecated and will be removed on January 29, 2024.
+
+</blockquote>
+
 ## Subscription frequency and duration
 
 Wix supports the following frequencies and durations of subscriptions:
