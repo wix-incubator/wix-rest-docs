@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Shipping Rates SPI",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -78,6 +78,20 @@
         "type": "boolean",
         "doc": " Whether tax is included in the items' prices.\n",
         "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "deliveryPreferences",
+        "type": "All APIs.Shipping Rates Integration SPI._com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+        "doc": " list of delivery preferences, for example preferred delivery code (shippingOptionId)\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "purchaseFlowId",
+        "type": "string",
+        "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n",
+        "required": false
       }
     ],
     "ret":     {
@@ -119,7 +133,7 @@
       "displayName": "Catalog Reference Object",
       "locations": [],
       "docs":       {
-        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "summary": " Used for grouping line items. Sent when an item is added to a cart, checkout, or order.\n",
         "links": [],
         "examples": []
       },
@@ -127,17 +141,17 @@
                 {
           "name": "catalogItemId",
           "type": "string",
-          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `eventId` for Wix Events.\n"
+          "doc": " ID of the item within the catalog it belongs to.\n"
         },
                 {
           "name": "appId",
           "type": "string",
-          "doc": " ID of the catalog app. For example, the Wix Stores `appId`, or the 3rd-party `appId`.\n"
+          "doc": "\nID of the app providing the catalog.\n\nYou can get your app's ID from its page in the [Wix Dev Center](https://dev.wix.com/apps).\n\nFor items from Wix catalogs, the following values always apply:\n+ Wix Stores: `\"215238eb-22a5-4c36-9e7b-e7c08025e04e\"`\n+ Wix Bookings: `\"13d21c63-b5ec-5912-8397-c3a5ddb27a97\"`\n+ Wix Restaurants: `\"9a5d83fd-8570-482e-81ab-cfa88942ee60\"`\n"
         },
                 {
           "name": "options",
           "type": "struct",
-          "doc": " Additional info in key:value form. For example, `{\"options\":{\"Size\": \"M\", \"Color\": \"Red\"}}` or `{\"variantId\": \"<VARIANT_ID>\"}`.\n"
+          "doc": " Additional item details in key:value pairs.\n\n Use this optional field to specify a variant of the item or add custom details. There are several ways to use `options`:\n + Pass specific information about the item variant in this field. For example, size and color of an item of clothing: `\"options\": {\"Size\": \"M\", \"Color\": \"Red\"}`.\n + Create a separate API for creating item variants that stores the details and generates a unique ID for each item variant. Then pass only the variant ID in this field. For example: `\"options\": {\"variantId\": \"<VARIANT_ID>\"}`.\n"
         }
       ],
       "enum": null,
@@ -157,7 +171,7 @@
                 {
           "name": "weight",
           "type": "number",
-          "doc": " Line item weight. Measurement unit (KG or LB) is taken from `order.weightUnit`.\n"
+          "doc": " Line item weight. Measurement unit matches the weight unit specified in `weightUnit` in the request.\n"
         },
                 {
           "name": "sku",
@@ -544,6 +558,31 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DeliveryTimeSlot",
+      "displayName": "Delivery Time Slot Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "from",
+          "type": "string",
+          "doc": " starting time of the delivery time slot\n"
+        },
+                {
+          "name": "to",
+          "type": "string",
+          "doc": " ending time of the delivery time slot\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_ecommerce_shipping_options_v1_ProductItem",
       "displayName": "Product Item Object",
       "locations": [],
@@ -592,8 +631,41 @@
           "name": "totalPrice",
           "type": "string",
           "doc": " Total line item price after discounts. This is equal to `price` multiplied by `quantity`.\n"
+        },
+                {
+          "name": "deliveryDestinationIndex",
+          "type": "integer",
+          "doc": " item delivery destination index in the shipping addresses list\n"
+        },
+                {
+          "name": "deliveryOriginIndex",
+          "type": "integer",
+          "doc": " where the item is delivered from index in the from addresses list\n"
+        },
+                {
+          "name": "taxIncludedInPrice",
+          "type": "boolean",
+          "doc": " whether tax is included in line item price\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+      "displayName": "Delivery Preferences Object",
+      "locations": [],
+      "docs":       {
+        "summary": " delivery preferences, for example preferred delivery \"code\" (shippingOptionId).\n enrich the delivery providers with more data about the delivery\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "preferredCode",
+        "type": "string",
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -640,6 +712,16 @@
           "name": "taxIncludedInPrices",
           "type": "boolean",
           "doc": " Whether tax is included in the items' prices.\n"
+        },
+                {
+          "name": "deliveryPreferences",
+          "type": "All APIs.Shipping Rates Integration SPI._com_wixpress_ecommerce_shipping_options_v1_DeliveryPreferences",
+          "doc": " list of delivery preferences, for example preferred delivery code (shippingOptionId)\n"
+        },
+                {
+          "name": "purchaseFlowId",
+          "type": "string",
+          "doc": " Persistent ID that correlates between the various eCommerce elements: cart, checkout, and order.\n"
         }
       ],
       "enum": null,
@@ -758,5 +840,5 @@
       "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.ecom.pickup-locations"}
+  "extra": {"artifactId": "com.wixpress.ecom.advanced-shipping-rules"}
 }
