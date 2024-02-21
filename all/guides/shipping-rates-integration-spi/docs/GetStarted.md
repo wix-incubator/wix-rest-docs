@@ -1,7 +1,7 @@
 SortOrder: 0
 # About the Wix eCommerce Shipping Rates SPI
 
-As a shipping provider, you can integrate your shipping rates service with Wix to allow a merchants' stores or businesses to request and use your shipping services on their Wix sites.
+As a shipping provider, you can integrate your shipping rates service with Wix to allow a merchant's stores or businesses to request and use your shipping services on their Wix sites.
 The shipping rates are then displayed on the site's cart and checkout pages.
 
 The integration is done via an app in the Wix App Market (created in the [Wix Developers Center](https://dev.wix.com/)) and the Wix Shipping Rates SPI.
@@ -29,18 +29,20 @@ Complete the following steps to adapt Wix system's integration to make your ship
 
     ![Sample App ID](https://s3.amazonaws.com/wixplorer-readme-images/shipping-rates-integration-spi%2Fappid.png "Sample App ID")
 
-1. Go to the [Components](https://devforum.wix.com/kb/en/article/about-app-components) tab in the Wix Developers Center.
-1. Click **Add Component**, select **Integration Component** from the dropdown menu, select **Ecom Shipping Rates** and click **Add Component**.
-1. Use the JSON editor to create the integration component’s configuration file. Take care to include the required fields noted in the table below. Click **Save**.
+1. Go to the [Extensions](https://dev.wix.com/docs/build-apps/developer-tools/extensions/about-extensions) tab in the Wix Developers Center.
+1. Click **Create Extension** in the top right.
+1. Filter by **eCommerce** in the left menu, then find **Ecom Shipping Rates** and click **Create**.
+1. Use the JSON editor to create the extension's configuration file. Take care to include the required fields noted in the table below. Click **Save**.
 
     | Name                 | Type                     | Description       |
     | ---------------------|--------------------------|-------------------|
-    | `deploymentUri`      | string                   | Required. Base URI which Wix eCommerce will call to retrieve the shipping rates. For example, `https://my-shipping-provider.com/v1/getRates`.|
+    | `deploymentUri`      | string                   | Required. Base URI where the endpoints are called. Wix eCommerce appends the endpoint path to the base URI. For example, to call the Get Shipping Rates endpoint at `https://my-shipping-provider.com/v1/getRates`, the base URI you provide here is `https://my-shipping-provider.com/`.|
     | `name`               | string                   | Required. Human-readable name of the shipping provider. Max characters: 64.|
     | `description`        | string                   | Description of the shipping provider. Max characters: 200.|
     | `learnMoreUrl`       | string                   | URL to more info about the shipping provider.|
     | `dashboardUrl`       | string                   | URL to reach the shipping provider app's dashboard.|
     | `fallbackDefinitionMandatory`      | boolean    | Whether to require the site owner to define a fallback/default rate. Set to `true` if you do not provide rates as part of the integration.|
+    | `thumbnail_url`      | string                   | Thumbnail image of the shipping rates provider. Displayed in the shipping settings section in the Dashboard. The URL must be of an image uploaded to the [Wix Media Manager](https://support.wix.com/en/article/wix-media-uploading-media-to-the-media-manager).|
 
 1. Click [**Test Your App**](https://devforum.wix.com/kb/en/article/how-to-test-your-app-on-a-free-premium-development-site).
 1. After adding your app to the test site, [enable a shipping rule in the dashboard](https://support.wix.com/en/article/wix-stores-offering-real-time-shipping-rates-via-third-party-apps) to show your shipping rates during checkout.
