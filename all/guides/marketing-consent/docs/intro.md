@@ -24,7 +24,7 @@ Your app can also listen for events when a visitor's marketing consent is [creat
   + `NEVER_CONFIRMED`: The visitor never confirmed to receive marketing messages.
   + `REVOKED`: The marketing consent has been removed, for example, when a visitor unsubscribes from a newsletter. 
   + `PENDING`: The marketing consent is pending confirmation. Relevant only for `{"optInLevel": "DOUBLE_CONFIRMATION"}`.
-  + `CONFIRMED`: The site visitor has confirmed their marketing consent.
+  + `CONFIRMED`: The site visitor has confirmed their marketing consent.   
 
 + **Opt in level:** A marketing consent has an `optInLevel` of either single or double confirmation. Some countries require double confirmation for all marketing consents. With single confirmation, when a site visitor signs up, their marketing consent `state` is `CONFIRMED`. With double confirmation, when a site visitor signs up, their marketing consent `state` is `PENDING` until the visitor confirms their consent, for example, by clicking a link to verify their email address. When the visitor confirms their consent, the `state` is `CONFIRMED`. 
 
