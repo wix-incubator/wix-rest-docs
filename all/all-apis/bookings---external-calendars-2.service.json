@@ -870,7 +870,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " > **Deprecation Notice**\n >\n > **This endpoint has been replaced with External Calendar V2's [List Events](https://dev.wix.com/api/rest/wix-bookings/external-calendars-v2/list-events) and will be removed on December 31, 2023.**\n > **If your app uses this endpoint, we recommend updating your code as soon as possible.**\n\n Retrieves a list of events from all connected external calendars, based on the provided filtering and paging.\n\n\n Use List Events to retrieve an aggregated list of events in the connected external calendars for a specified time range, sorted by start date.\n \n > **Note:**  \n > Before using this endpoint, establish a connection with an external calendar using [Connect By Credentials](#connect-by-credentials) or [Connect By OAuth](#connect-by-o-auth).\n \n",
+        "summary": " Retrieves a list of events from all connected external calendars, based on the provided filtering and paging.\n\n\n Use List Events to retrieve an aggregated list of events in the connected external calendars for a specified time range, sorted by start date.\n \n > **Note:**  \n > Before using this endpoint, establish a connection with an external calendar using [Connect By Credentials](#connect-by-credentials) or [Connect By OAuth](#connect-by-o-auth).\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/bookings/v2/external-calendars/events",
@@ -2118,7 +2118,8 @@
                 {
           "name": "locationType",
           "type": "All APIs.Bookings - External Calendars 2._com_wixpress_locations_LocationType",
-          "doc": " Location type. **Note:** Currently not supported.\n"
+          "doc": " Location type. \n\n**Note:** Currently not supported.\n",
+          "deprecated": true
         },
                 {
           "name": "fax",
@@ -2160,6 +2161,14 @@
           "type": "boolean",
           "doc": "\nWhether the location is archived. Archived locations can't be updated. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect its `status`.\n",
           "readOnly": true
+        },
+                {
+          "name": "locationTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - External Calendars 2._com_wixpress_locations_LocationType"]
+          },
+          "doc": " Location types.\n"
         }
       ],
       "enum": null,
@@ -2480,11 +2489,6 @@
           "name": "customAddress",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_upstream_wix_common_Address",
           "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
-        },
-                {
-          "name": "businessLocation",
-          "type": "All APIs.Bookings - External Calendars 2._com_wixpress_locations_Location",
-          "doc": " Valid when `locationType` is `OWNER_BUSINESS`. Defaults to the business's location.\n\n`businessSchedule` is not supported by Wix Bookings\n"
         }
       ],
       "enum": null,
@@ -2732,7 +2736,7 @@
                 {
           "name": "duration",
           "type": "integer",
-          "doc": "The duration of the interval in minutes. Required. Part of the session end time calculation. minimum: 1, maximum: 86400.\n"
+          "doc": "The duration of the interval in minutes. Required. Part of the session end time calculation.\n"
         }
       ],
       "enum": null,
@@ -2975,7 +2979,8 @@
                 {
           "name": "timeZone",
           "type": "string",
-          "doc": ""
+          "doc": " Schedule's time zone in [Area/Location](https://en.wikipedia.org/wiki/Tz_database) format. Read-only.\n Derived from the Wix Business time zone.\n",
+          "readOnly": true
         },
                 {
           "name": "intervals",
@@ -2983,7 +2988,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_RecurringInterval"]
           },
-          "doc": "Specifies the intervals for the sessions calculation. Optional. e.g. when creating class service you can add\npattern for recurring intervals, these intervals can be returned as schedule's sessions or available slots if\nthere are no other availability calculation constraints and the capacity is bigger then the current total number of sessions' participants.\n",
+          "doc": " Deprecated. Please use the [Sessions API](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session) instead.\n",
           "deprecated": true
         },
                 {
@@ -2997,7 +3002,8 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "Tags for grouping schedules. These tags are the default tags for the schedule's sessions.\nThe Wix Bookings app uses the following predefined tags to set schedule type: `\"INDIVIDUAL\"`, `\"GROUP\"`, and `\"COURSE\"`. Once the schedule type is set using these tags, you cannot update it. In addition to the app's tags, you can create and update your own tags.\n"
+          "doc": "__Deprecated.__ \nTags for grouping schedules. These tags are the default tags for the schedule's sessions.\nThe Wix Bookings app uses the following predefined tags to set schedule type: `\"INDIVIDUAL\"`, `\"GROUP\"`, and `\"COURSE\"`. Once the schedule type is set using these tags, you cannot update it. In addition to the app's tags, you can create and update your own tags.\n",
+          "deprecated": true
         },
                 {
           "name": "location",
@@ -3012,12 +3018,14 @@
                 {
           "name": "rate",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_common_api_v1_Rate",
-          "doc": "Price options offered when booking this schedule's slots. Default is no rate.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "availability",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_Availability",
-          "doc": "An object describing how to calculate the schedule's availability.\nAn empty object indicates that the schedule is not available for booking.\n"
+          "doc": " __Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "totalNumberOfParticipants",
@@ -3031,13 +3039,14 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "Participants currently registered to sessions in this schedule.\nParticipants who are registered in the schedule are automatically registered to any session that is created for the schedule.\n",
+          "doc": " **Partial list** of participants which are registered to sessions in this schedule.  \n Participants who are registered in the schedule are automatically registered to any session that is created for the schedule.    \n To retrieve the full list of schedule participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n",
           "readOnly": true
         },
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\n"
+          "doc": "__Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -3075,13 +3084,14 @@
                 {
           "name": "conferenceProvider",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_ConferenceProvider",
-          "doc": "Conferencing Provider. A schedule with a conferencing provider will use to provider information to create a conference on the provider's system when a session is created on the schedule or on one of its linked schedule's.\n",
+          "doc": " __Deprecated.__\n",
           "deprecated": true
         },
                 {
           "name": "calendarConference",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the schedule. This is used when a participant is added to a schedule.\n"
+          "doc": " A conference created for the schedule. This is used when a participant is added to a schedule.    \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         }
       ],
       "enum": null,
@@ -3238,7 +3248,8 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "Tags for the session.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "__Deprecated.__ \nTags for the session.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n",
+          "deprecated": true
         },
                 {
           "name": "location",
@@ -3253,7 +3264,8 @@
                 {
           "name": "rate",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_common_api_v1_Rate",
-          "doc": "The price options offered for the session.  Defaults to the schedule rate.\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "timeReservedAfter",
@@ -3277,7 +3289,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "List of participants booked for the session.\nThe list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.\nIf the session is a recurring session, this field must be empty.\n"
+          "doc": " **Partial list** list of participants booked for the session.  \n The list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.  \n If the session is a recurring session, this field must be empty.  \n To retrieve the full list of session participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n"
         },
                 {
           "name": "inheritedFields",
@@ -3291,7 +3303,8 @@
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\nThe value is inherited from the schedule and can be overridden unless the session is a recurring session.\n"
+          "doc": "__Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -3320,7 +3333,8 @@
                 {
           "name": "calendarConference",
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the session according to the details set in the schedule's conference provider information.\nIf the session is a recurring session, this field is inherited from the schedule.\n"
+          "doc": " A conference created for the session according to the details set in the schedule's conference provider information.  \n If the session is a recurring session, this field is inherited from the schedule.  \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         },
                 {
           "name": "recurrence",
@@ -3529,16 +3543,6 @@
           "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_ScheduleUnassignedFromUser",
           "doc": " Inspect `schedule.scheduleOwnerUserId` on `scheduleUpdated` instead.\n",
           "deprecated": true
-        },
-                {
-          "name": "multipleSessionsCreated",
-          "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_MultipleSessionsCreated",
-          "doc": "supported only for schedule migration apis.\n"
-        },
-                {
-          "name": "migrationEvent",
-          "type": "All APIs.Bookings - External Calendars 2._com_wix_bookings_schedules_api_v1_MigrationEvent",
-          "doc": "supported only for schedule migration apis.\n"
         }
       ],
       "enum": null,
@@ -4676,7 +4680,7 @@
       "displayName": "Location Type Object",
       "locations": [],
       "docs":       {
-        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li>",
+        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li><li><code> INVENTORY <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -4686,7 +4690,8 @@
         "BRANCH",
         "OFFICES",
         "RECEPTION",
-        "HEADQUARTERS"
+        "HEADQUARTERS",
+        "INVENTORY"
       ],
       "extra": {},
       "labels": []
