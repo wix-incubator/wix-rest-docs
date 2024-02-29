@@ -67,7 +67,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a site member.\n\n<!--ONLY:REST-->\nAfter creation, you can use\n[Send Set Password Email](https://dev.wix.com/api/rest/members/member-authentication/send-set-password-email)\nto email the member with a link to set their password.\nThe member can log in to the site\nwhen they set their password for the first time.\n\n> **Note:**\n> When creating multiple members,\n> set your requests at least 1 second apart to keep below rate limits.\n<!--END:ONLY:REST-->\n \n",
+        "summary": "\nCreates a site member.\n\nAfter creation, you can use\n[Send Set Password Email](https://dev.wix.com/api/rest/members/member-authentication/send-set-password-email)\nto email the member with a link to set their password.\nThe member can log in to the site\nwhen they set their password for the first time.\n\n> **Note:**\n> When creating multiple members,\n> set your requests at least 1 second apart to keep below rate limits.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/members/v1/members",
@@ -127,7 +127,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nDeletes a member.\n\n<!--ONLY:VELO\nThis function returns a Promise that resolves to a member object\nwhen the specified member is deleted.\n\n> **Note:**\n> This function replaces the deprecated\n> `wix-users-backend.deleteUser()`.\n> The deprecated function will continue to work, but it will not receive updates.\n> To keep any existing code compatible with future changes, see the\n> [migration instructions](wix-users-backend/deleteuser#migration-instructions).\n<!--END:ONLY:VELO-->\n \n",
+        "summary": "\nDeletes a member by ID.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/members/v1/members/{id}",
@@ -178,7 +178,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nDeletes a member's street addresses.\n\n<!--ONLY:VELO\nThis function returns a Promise that resolves to a member object\nwhen the specified member's addresses are cleared.\n<!--END:ONLY:VELO-->\n\n`deleteMemberAddresses()` clears the `addresses` array under the `contact` property.\n \n",
+        "summary": "\nDeletes a member's street addresses.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/members/v1/members/{id}/addresses",
@@ -229,7 +229,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nClears a member's email addresses.\n\n<!--ONLY:VELO\nThis function returns a Promise that resolves to a member object\nwhen the specified member's email addresses are cleared.\n\n`deleteMemberEmails()` clears the `emails` array under the `contact` property.\nOther member\n[`updatedMember()`](wix-members-backend/members-obj/updatemember)\n\n> **Note:**\n> The member can still log in with their `loginEmail`,\n> which is not cleared when this function is called.\n<!--END:ONLY:VELO-->\n \n",
+        "summary": "\nClears a member's email addresses.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/members/v1/members/{id}/emails",
@@ -280,7 +280,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nClears a member's phone numbers.\n\n<!--ONLY:VELO\nThis function returns a Promise that resolves to a member object\nwhen the specified member's phone numbers are cleared.\n\n`deleteMemberPhones()` clears the `phones` array under the `contact` property.\n<!--END:ONLY:VELO-->\n \n",
+        "summary": "\nClears a member's phone numbers.\n\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/members/v1/members/{id}/phones",
@@ -306,14 +306,10 @@
       "methodName": "GetMember",
       "serviceName": "Members",
       "tag": "Members",
-      "permissions": [{
-          "name": "Manage Members",
-          "description": "Request permission to read, create and change member data."
-        },
-                {
-          "name": "Read Members",
-          "description": "Request permission to read member data."
-        }],
+      "permissions": [      {
+        "name": "Read Members",
+        "description": "Request permission to read member data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -355,7 +351,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a member by ID.\n\n- `PUBLIC` fieldset returns `id` and `profile` object. `status`, `privacyStatus` and `activityStatus` are returned as `UNKNOWN`.\n- `FULL` fieldset returns all fields.\n \n",
+        "summary": "\nRetrieves a member by ID.\n\n- `PUBLIC` fieldset returns `id`, `contactId`, and the `profile` object. `status`, `privacyStatus` and `activityStatus` are returned as `UNKNOWN`.\n- `EXTENDED` fieldset returns `id`, `loginEmail`, `status`, `contactId`, `privacyStatus`, `activityStatus`, and the `profile` object.\n- `FULL` fieldset returns all fields.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/members/v1/members/{id}",
@@ -393,18 +389,175 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
+      "name": "Get My Member",
+      "methodName": "GetMyMember",
+      "serviceName": "Members",
+      "tag": "Members",
+      "permissions": [      {
+        "name": "Read Members",
+        "description": "Request permission to read member data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Members._com_wixpress_members_api_FieldSet_Set",
+          "doc": "\nPredefined set of fields to return.\n\n- `\"FULL\"`: Returns all fields.\n- `\"PUBLIC\"`: Returns `_id` and all fields under `profile`.\n\n> **Note:**\n> When returning the `\"PUBLIC\"` fieldset,\n> `profile.status`, `profile.privacyStatus`, and `profile.activityStatus`\n> are returned as `\"UNKNOWN\"`.\n",
+          "required": false,
+          "deprecated": true
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldsets",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Members._com_wixpress_members_api_FieldSet_Set"]
+          },
+          "doc": "\nPredefined set of fields to return. One of:\n\n- `FULL`: Returns all fields.\n- `PUBLIC`: Returns `id`, `contactId`, and the `profile` object. `status`, `privacyStatus`, and `activityStatus` are returned as `UNKNOWN`.\n- `EXTENDED`: Returns `id`, `loginEmail`, `status`, `contactId`, `privacyStatus`, `activityStatus`, and the `profile` object.\n\nDefault: `PUBLIC`.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetMyMember",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Members._com_wixpress_members_api_GetMyMemberResponse"]
+        },
+        "doc": " Member profile.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the currently logged-in member.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/members/v1/members/my",
+        "links": [],
+        "examples":         [
+                    {
+            "title": "Get My Member FULL fieldset",
+            "body": ["curl -X GET \\\n  https://www.wixapis.com/members/v1/members/my?fieldSet=FULL \\\n  -H 'Authorization: <AUTH>' \\"],
+            "response": ["{\"member\": {\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"loginEmail\": \"john@example.com\",\n  \"status\": \"APPROVED\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"contact\":   {\n    \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phones\":     [\n      \"2075556300\",\n      \"2075555217\"\n    ],\n    \"emails\": [\"john@example.com\"],\n    \"addresses\": [    {\n      \"id\": \"399d8767-bee2-44fc-bbe4-b9aa8325ff31\",\n      \"addressLine\": \"76  Cedarstone Drive\",\n      \"city\": \"Jewell\",\n      \"subdivision\": \"Ohio\",\n      \"country\": \"United States\",\n      \"postalCode\": \"43530\"\n    }],\n    \"customFields\": {\"custom.petname\":     {\n      \"name\": \"Pet Name\",\n      \"value\": \"Toby\"\n    }},\n    \"birthdate\": \"2000-01-01\",\n    \"company\": \"Wix\",\n    \"jobTitle\": \"Developer\"\n  },\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\",\n  \"lastLoginDate\": \"2019-11-13T20:10:49.458Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving my member with provided FULL fieldSet"}
+          },
+                    {
+            "title": "Get My Member",
+            "body": ["curl -X GET \\\n  https://www.wixapis.com/members/v1/members/my \\\n  -H 'Authorization: <AUTH>' \\"],
+            "response": ["{\"member\": {\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"status\": \"UNKNOWN\",\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"UNKNOWN\",\n  \"activityStatus\": \"UNKNOWN\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving my member"}
+          },
+                    {
+            "title": "Get My Member EXTENDED fieldset",
+            "body": ["curl -X GET \\\n  https://www.wixapis.com/members/v1/members/my?fieldSet=EXTENDED \\\n  -H 'Authorization: <AUTH>' \\"],
+            "response": ["{\"member\": {\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"status\": \"UNKNOWN\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\"\n}} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving my member with provided EXTENDED fieldSet"}
+          }
+        ],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetMyMemberRequest",
+        "rpcResponseName": "GetMyMemberResponse"
+      },
+      "customLabels": []
+    },
+        {
+      "name": "Join Community",
+      "methodName": "JoinCommunity",
+      "serviceName": "Members",
+      "tag": "Members",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "JoinCommunity",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Members._com_wixpress_members_api_JoinCommunityResponse"]
+        },
+        "doc": " Member profile.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nJoins the currently logged-in member to the site community and sets their profile to public.\n\nWhen a member's profile is public, they have access to the site's\n[Members Area](https://support.wix.com/en/article/about-members-area)\nfeatures — such as chat, forum, and followers —\nand their profile is visible to other members and site visitors.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v1/members/join-community",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST \\\n  https://www.wixapis.com/members/v1/members/join-community \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"member\": {\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"loginEmail\": \"john@example.com\",\n  \"status\": \"APPROVED\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"contact\":   {\n    \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phones\":     [\n      \"2075556300\",\n      \"2075555217\"\n    ],\n    \"emails\": [\"john@example.com\"],\n    \"addresses\": [],\n    \"customFields\": {}\n  },\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    }\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\",\n  \"lastLoginDate\": \"2019-11-13T20:10:49.458Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "JoinCommunityRequest",
+        "rpcResponseName": "JoinCommunityResponse"
+      },
+      "customLabels": []
+    },
+        {
+      "name": "Leave Community",
+      "methodName": "LeaveCommunity",
+      "serviceName": "Members",
+      "tag": "Members",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params": [],
+      "ret":       {
+        "type":         {
+          "name": "LeaveCommunity",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Members._com_wixpress_members_api_LeaveCommunityResponse"]
+        },
+        "doc": " Member profile.\n"
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRemoves the currently logged-in member from the site community and sets their profile to private.\n\nWhen a member's profile is private,\nthey do not have access to the site's\n[Members Area](https://support.wix.com/en/article/about-members-area)\nfeatures — such as chat, forum, and followers —\nand their profile is hidden from other members and site visitors.\n\n> **Note:**\n> If a member leaves the site's community, their content (such as forum posts and blog comments) remain publicly visible.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v1/members/leave-community",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X POST \\\n  https://www.wixapis.com/members/v1/members/leave-community \\\n  -H 'Authorization: <AUTH>'"],
+          "response": ["{\"member\": {\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"loginEmail\": \"john@example.com\",\n  \"status\": \"APPROVED\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"contact\":   {\n    \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phones\":     [\n      \"2075556300\",\n      \"2075555217\"\n    ],\n    \"emails\": [\"john@example.com\"],\n    \"addresses\": [],\n    \"customFields\": {}\n  },\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    }\n  },\n  \"privacyStatus\": \"PRIVATE\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\",\n  \"lastLoginDate\": \"2019-11-13T20:10:49.458Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "LeaveCommunityRequest",
+        "rpcResponseName": "LeaveCommunityResponse"
+      },
+      "customLabels": []
+    },
+        {
       "name": "List Members",
       "methodName": "ListMembers",
       "serviceName": "Members",
       "tag": "Members",
-      "permissions": [{
-          "name": "Manage Members",
-          "description": "Request permission to read, create and change member data."
-        },
-                {
-          "name": "Read Members",
-          "description": "Request permission to read member data."
-        }],
+      "permissions": [      {
+        "name": "Read Members",
+        "description": "Request permission to read member data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -504,14 +657,10 @@
       "methodName": "QueryMembers",
       "serviceName": "Members",
       "tag": "Members",
-      "permissions": [{
-          "name": "Manage Members",
-          "description": "Request permission to read, create and change member data."
-        },
-                {
-          "name": "Read Members",
-          "description": "Request permission to read member data."
-        }],
+      "permissions": [      {
+        "name": "Read Members",
+        "description": "Request permission to read member data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -539,6 +688,13 @@
             "typeParams": ["All APIs.Members._com_wixpress_members_api_FieldSet_Set"]
           },
           "doc": "\nPredefined sets of fields to return.\n\nDefaults to `PUBLIC`.\n\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "search",
+          "type": "All APIs.Members._com_wixpress_members_api_Search",
+          "doc": "\nPlain text search.\n",
           "required": false
         }
       ],
@@ -592,6 +748,20 @@
             "response": ["{\"members\": [{\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"status\": \"UNKNOWN\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\"\n}]} "],
             "type": "curl",
             "extra": {"description": "Retrieving members with ID and provided EXTENDED fieldset"}
+          },
+                    {
+            "title": "Query members",
+            "body": ["curl -X POST \\\n  https://www.wixapis.com/members/v1/members/query \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n        \"fieldsets\": \"EXTENDED\",\n        \"search\": {\n            \"expression\": \"John\"\n        }\n    }'"],
+            "response": ["{\"members\": [{\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"status\": \"UNKNOWN\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\"\n}]} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving members with search expression and provided EXTENDED fieldset"}
+          },
+                    {
+            "title": "Query members",
+            "body": ["curl -X POST \\\n  https://www.wixapis.com/members/v1/members/query \\\n  -H 'Authorization: <AUTH>'\n  -d '{\n        \"fieldsets\": \"EXTENDED\",\n        \"search\": {\n            \"expression\": \"John\"\n        },\n        \"query\": {\n            \"filter\": {\n                \"privacyStatus\": \"PUBLIC\"\n            }\n        }\n    }'"],
+            "response": ["{\"members\": [{\n  \"id\": \"e62e3011-55cf-4de3-a497-e097b52d86b7\",\n  \"status\": \"UNKNOWN\",\n  \"contactId\": \"0fac596f-ff7c-4d2b-b826-63c60ee36ee8\",\n  \"profile\":   {\n    \"nickname\": \"John Doe\",\n    \"slug\": \"johndoe\",\n    \"photo\":     {\n      \"id\": \"a27d24_0dd318~mv2.jpg\",\n      \"url\": \"//static.wixstatic.com/media/a27d24_0dd318~mv2.jpg\",\n      \"height\": 256,\n      \"width\": 256\n    },\n    \"cover\":     {\n      \"id\": \"\",\n      \"url\": \"https://example.com/myimage.jpg\",\n      \"height\": 1080,\n      \"width\": 1920\n    },\n    \"title\": \"Awesome title\"\n  },\n  \"privacyStatus\": \"PUBLIC\",\n  \"activityStatus\": \"ACTIVE\",\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2019-11-13T20:14:49.458Z\"\n}]} "],
+            "type": "curl",
+            "extra": {"description": "Retrieving members with search expression, privacy status filter and provided EXTENDED fieldset"}
           }
         ],
         "extra": {}
@@ -628,7 +798,7 @@
           "in": "BODY",
           "name": "member",
           "type": "All APIs.Members._com_wixpress_members_api_Member",
-          "doc": " Member details to update.\n",
+          "doc": " Member to update.\n",
           "required": false
         }
       ],
@@ -642,7 +812,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpdates a member's properties.\n\n<!--ONLY:REST-->\nTo clear a field's value, set an empty value with an empty string `\"\"`.\n\nTo clear the member's addresses, emails, or phone numbers,\nuse these endpoints:\n\n- To clear `contact.addresses`, use [`Delete Member Addresses`](https://dev.wix.com/api/rest/members/members/delete-member-addresses).\n- To clear `contact.emails`, use [`Delete Member Emails`](https://dev.wix.com/api/rest/members/members/delete-member-emails).\n- To clear `contact.phones`, use [`Delete Member Phones`](https://dev.wix.com/api/rest/members/members/delete-member-phones).\n<!--END:ONLY:REST-->\n\n<!--ONLY:VELO\nThis function returns a Promise that resolves to a member object\nwhen the specified member is updated.\n\n> **Note:**\n> This function replaces the deprecated\n> `wixUsersBackend.updateUserFields()`.\n> The deprecated function will continue to work, but it will not receive updates.\n> To keep any existing code compatible with future changes, see the\n> [migration instructions](wix-users-backend/updateuserfields#migration-instructions).\n\nOnly the requested fields are updated.\n\nTo clear the member's addresses, emails, or phone numbers,\nuse these functions:\n\n- To clear `contact.addresses`, use [`deleteMemberAddresses()`](wix-members-backend/members-obj/deletememberaddresses).\n- To clear `contact.emails`, use [`deleteMemberEmails()`](wix-members-backend/members-obj/deletememberemails).\n- To clear `contact.phones`, use [`deleteMemberPhones()`](wix-members-backend/members-obj/deletememberphones).\n<!--END:ONLY:VELO-->\n \n",
+        "summary": "\nUpdates a member's properties.\n\nTo clear a field's value, set an empty value with an empty string `\"\"`.\n\nTo clear the member's addresses, emails, or phone numbers,\nuse these endpoints:\n\n- To clear `contact.addresses`, use [`Delete Member Addresses`](https://dev.wix.com/api/rest/members/members/delete-member-addresses).\n- To clear `contact.emails`, use [`Delete Member Emails`](https://dev.wix.com/api/rest/members/members/delete-member-emails).\n- To clear `contact.phones`, use [`Delete Member Phones`](https://dev.wix.com/api/rest/members/members/delete-member-phones).\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n\nPrivacy settings cannot be updated using [Update Member](https://dev.wix.com/docs/rest/api-reference/members/members/update-member). A member can use [Leave Community]([https://dev.wix.com/docs/rest/api-reference/members/members/leave-community](https://dev.wix.com/docs/rest/api-reference/members/members/leave-community)) or [Join Community](https://dev.wix.com/docs/rest/api-reference/members/members/join-community) to update their privacy settings.    \n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/members/v1/members/{member.id}",
@@ -671,6 +841,51 @@
         "rpcResponseName": "UpdateMemberResponse"
       },
       "customLabels": []
+    },
+        {
+      "name": "Update My Slug",
+      "methodName": "UpdateMySlug",
+      "serviceName": "Members",
+      "tag": "Members",
+      "permissions": [      {
+        "name": "Manage Members",
+        "description": "Request permission to read, create and change member data."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["slug"],
+      "params": [      {
+        "in": "BODY",
+        "name": "slug",
+        "type": "string",
+        "doc": " New slug.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "UpdateMySlug",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Members._com_wixpress_members_api_UpdateMySlugResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nUpdates the currently logged in member's slug.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/members/v1/members/my/slug",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "UpdateMySlugRequest",
+        "rpcResponseName": "UpdateMySlugResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
     }
   ],
   "events":   [
@@ -885,6 +1100,79 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_members_api_MemberOwnershipTransferredDomainEvent",
+      "displayName": "Member Ownership Transferred Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.members.v1.member`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `member_ownership_transferred`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Members._com_wixpress_members_api_MemberOwnershipTransferredActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "MemberOwnershipTransferred ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_api_MemberOwnershipTransferredActionEvent",
+      "displayName": "Member Ownership Transferred Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Members._com_wixpress_members_api_MemberOwnershipTransferred",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_members_api_MemberUnmutedDomainEvent",
       "displayName": "Member Unmuted Domain Event Object",
       "locations": [],
@@ -1030,79 +1318,6 @@
         "name": "entity",
         "type": "All APIs.Members._com_wixpress_members_api_Member",
         "doc": "Event body"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_members_api_MemberOwnershipTransferredDomainEvent",
-      "displayName": "Member Ownership Transferred Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.members.v1.member`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `member_ownership_transferred`.\nEvent name."
-        },
-                {
-          "name": "actionEvent",
-          "type": "All APIs.Members._com_wixpress_members_api_MemberOwnershipTransferredActionEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "MemberOwnershipTransferred ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_members_api_MemberOwnershipTransferredActionEvent",
-      "displayName": "Member Ownership Transferred Action Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "bodyAsJson",
-        "type": "All APIs.Members._com_wixpress_members_api_MemberOwnershipTransferred",
-        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -1992,12 +2207,12 @@
                 {
           "name": "offsetX",
           "type": "integer",
-          "doc": " X-axis offset.\n\n Defaults to `0`.\n"
+          "doc": " X-axis offset.\n\n Default: `0`.\n"
         },
                 {
           "name": "offsetY",
           "type": "integer",
-          "doc": " Y-axis offset.\n\n Defaults to `0`.\n"
+          "doc": " Y-axis offset.\n\n Default: `0`.\n"
         }
       ],
       "enum": null,
@@ -2038,9 +2253,45 @@
                 {
           "name": "title",
           "type": "string",
-          "doc": "\nMember title.\n\n<!--ONLY:REST-->\nCurrently available through the API only.\n<!--END:ONLY:REST-->\n"
+          "doc": "\nMember title.\n\nCurrently available through the API only.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "namespacesMapEntry",
+      "displayName": "namespaces Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "struct",
+        "doc": "`key` of type string, `value` of type struct"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_data_dataextensions_ExtendedFields",
+      "displayName": "Extended Fields Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "namespaces",
+        "type": "All APIs.Members.namespacesMapEntry",
+        "doc": "Set of key-value pairs.  \nExtended field data. Each key corresponds to the namespace of the app that created the extended fields.\nThe value of each key is structured according to the schema defined when the extended fields were configured.\n\nYou can only access fields for which you have the appropriate permissions.\n\nLearn more about [extended fields](https://dev.wix.com/docs/rest/articles/getting-started/extended-fields).\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2067,9 +2318,15 @@
           "doc": " Email used by the member to log in to the site.\n"
         },
                 {
+          "name": "loginEmailVerified",
+          "type": "boolean",
+          "doc": " Whether the email used by the member has been verified. \n",
+          "readOnly": true
+        },
+                {
           "name": "status",
           "type": "All APIs.Members._com_wixpress_members_api_AccessStatus_Status",
-          "doc": "\nMember site access status.\n<!--ONLY:REST-->\n- `PENDING`: Member created and is waiting for approval by site owner.\n- `APPROVED`: Member can log in to the site.\n- `OFFLINE`: Member is a [guest author](https://support.wix.com/en/article/wix-blog-adding-guest-authors-to-your-blog) for the site blog and cannot log in to the site.\n- `BLOCKED`: Member is blocked and cannot log in to the site.\n- `UNKNOWN`: Insufficient permissions to get the status.\n<!--END:ONLY:REST-->\n\n<!--ONLY:VELO\nOne of:\n\n- `\"PENDING\"`: Member created and is waiting for approval by site owner.\n- `\"APPROVED\"`: Member can log in to the site.\n- `\"OFFLINE\"`: Member is a [guest author](https://support.wix.com/en/article/wix-blog-adding-guest-authors-to-your-blog) for the site blog and cannot log in to the site.\n- `\"BLOCKED\"`: Member is blocked and cannot log in to the site.\n- `\"UNKNOWN\"`: Insufficient permissions to get the status.\n<!--END:ONLY:VELO-->\n",
+          "doc": "\nMember site access status.\n\n- `PENDING`: Member created and is waiting for approval by site owner.\n- `APPROVED`: Member can log in to the site.\n- `OFFLINE`: Member is a [guest author](https://support.wix.com/en/article/wix-blog-adding-guest-authors-to-your-blog) for the site blog and cannot log in to the site.\n- `BLOCKED`: Member is blocked and cannot log in to the site.\n- `UNKNOWN`: Insufficient permissions to get the status.\n",
           "readOnly": true
         },
                 {
@@ -2081,7 +2338,7 @@
                 {
           "name": "contact",
           "type": "All APIs.Members._com_wixpress_members_api_Contact",
-          "doc": "\nMember's contact information. Contact information is stored in the\n[Contact List](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).\n\n<!--ONLY:REST-->\nThe full set of contact data can be accessed and managed with the\n[Contacts API](https://dev.wix.com/api/rest/contacts/contacts).\n<!--END:ONLY:REST-->\n"
+          "doc": "\nMember's contact information. Contact information is stored in the\n[Contact List](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).\n\nThe full set of contact data can be accessed and managed with the\n[Contacts API](https://dev.wix.com/api/rest/contacts/contacts).\n"
         },
                 {
           "name": "profile",
@@ -2091,12 +2348,12 @@
                 {
           "name": "privacyStatus",
           "type": "All APIs.Members._com_wixpress_members_api_PrivacyStatus_Status",
-          "doc": "\nMember privacy status.\n\n<!--ONLY:REST-->\n- `PUBLIC`: Member is visible to everyone.\n- `PRIVATE`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `UNKNOWN`: Insufficient permissions to get the status.\n<!--END:ONLY:REST-->\n\n<!--ONLY:VELO\nOne of:\n\n- `\"PUBLIC\"`: Member is visible to everyone.\n- `\"PRIVATE\"`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `\"UNKNOWN\"`: Insufficient permissions to get the status.\n<!--END:ONLY:VELO-->\n"
+          "doc": "\nMember privacy status.\n\n- `PUBLIC`: Member is visible to everyone.\n- `PRIVATE`: Member is hidden from site visitors and other site members. Member is returned only to site contributors and apps with the appropriate permissions.\n- `UNKNOWN`: Insufficient permissions to get the status.\n"
         },
                 {
           "name": "activityStatus",
           "type": "All APIs.Members._com_wixpress_members_api_ActivityStatus_Status",
-          "doc": "\nMember activity status.\n\n<!--ONLY:REST-->\n- `ACTIVE`: Member can write forum posts and blog comments.\n- `MUTED`: Member cannot write forum posts or blog comments.\n- `UNKNOWN`: Insufficient permissions to get the status.\n<!--END:ONLY:REST-->\n\n<!--ONLY:VELO\nOne of:\n\n- `\"ACTIVE\"`: Member can write forum posts and blog comments.\n- `\"MUTED\"`: Member cannot write forum posts or blog comments.\n- `\"UNKNOWN\"`: Insufficient permissions to get the status.\n<!--END:ONLY:VELO-->\n",
+          "doc": "\nMember activity status.\n\n- `ACTIVE`: Member can write forum posts and blog comments.\n- `MUTED`: Member cannot write forum posts or blog comments.\n- `UNKNOWN`: Insufficient permissions to get the status.\n",
           "readOnly": true
         },
                 {
@@ -2266,7 +2523,11 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "deletedEntityAsJson",
+        "type": "string",
+        "doc": " Entity that was deleted\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2290,24 +2551,6 @@
       "labels": []
     },
         {
-      "name": "_wix_common_domainevents_ExtendedFieldsUpdatedEvent",
-      "displayName": "Extended Fields Updated Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "currentEntityAsJson",
-        "type": "string",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_domainevents_DomainEvent",
       "displayName": "Domain Event Object",
       "locations": [],
@@ -2320,7 +2563,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " random GUID so clients can tell if event was already handled\n"
+          "doc": " Unique event ID.\n Allows clients to ignore duplicate webhooks.\n"
         },
                 {
           "name": "entityFqdn",
@@ -2330,12 +2573,12 @@
                 {
           "name": "slug",
           "type": "string",
-          "doc": " This is top level to ease client code dipatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
+          "doc": " This is top level to ease client code dispatching of messages (switch on entity_fqdn+slug)\n This is although the created/updated/deleted notion is duplication of the oneof types\n Example: created/updated/deleted/started/completed/email_opened\n"
         },
                 {
           "name": "entityId",
           "type": "string",
-          "doc": " Assuming that all messages including Actions have id\n Example: The id of the specific order, the id of a specific campaign\n"
+          "doc": " ID of the entity associated with the event.\n"
         },
                 {
           "name": "body",
@@ -2345,17 +2588,22 @@
                 {
           "name": "eventTime",
           "type": "string",
-          "doc": " The time of the event. Useful if there was a delay in dipatching\n"
+          "doc": " Event timestamp.\n"
         },
                 {
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
-          "doc": " A field that should be set if this event was triggered by an anonymize request.\n For example you must set it to true when sending an event as a result of a GDPR right to be forgotten request.\n NOTE: This field is not relevant for `EntityCreatedEvent` but is located here for better ergonomics of consumers.\n"
+          "doc": " Whether the event was triggered as a result of a privacy regulation application\n (for example, GDPR).\n"
         },
                 {
           "name": "originatedFrom",
           "type": "string",
           "doc": " If present, indicates the action that triggered the event.\n"
+        },
+                {
+          "name": "entityEventSequence",
+          "type": "string",
+          "doc": " A sequence number defining the order of updates to the underlying entity.\n For example, given that some entity was updated at 16:00 and than again at 16:01,\n  it is guaranteed that the sequence number of the second update is strictly higher than the first.\n As the consumer, you can use this value to ensure that you handle messages in the correct order.\n To do so, you will need to persist this number on your end, and compare the sequence number from the\n  message against the one you have stored. Given that the stored number is higher, you should ignore the message.\n"
         }
       ],
       "enum": null,
@@ -2390,11 +2638,6 @@
                 {
           "name": "actionEvent",
           "type": "All APIs.Members._wix_common_domainevents_ActionEvent",
-          "doc": ""
-        },
-                {
-          "name": "extendedFieldsUpdatedEvent",
-          "type": "All APIs.Members._wix_common_domainevents_ExtendedFieldsUpdatedEvent",
           "doc": ""
         }
       ],
@@ -2767,6 +3010,34 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_metasite_event_api_StudioAssigned",
+      "displayName": "Studio Assigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nAssigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_metasite_event_api_StudioUnassigned",
+      "displayName": "Studio Unassigned Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nUnassigned Studio editor\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_metasite_event_api_MetaSiteSpecialEvent",
       "displayName": "Meta Site Special Event Object",
       "locations": [],
@@ -2883,6 +3154,16 @@
           "name": "namespaceChanged",
           "type": "All APIs.Members._com_wixpress_metasite_event_api_NamespaceChanged",
           "doc": ""
+        },
+                {
+          "name": "studioAssigned",
+          "type": "All APIs.Members._com_wixpress_metasite_event_api_StudioAssigned",
+          "doc": ""
+        },
+                {
+          "name": "studioUnassigned",
+          "type": "All APIs.Members._com_wixpress_metasite_event_api_StudioUnassigned",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -2924,85 +3205,32 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache_App",
-      "displayName": "App Object",
+      "name": "_com_wixpress_members_api_Search",
+      "displayName": "Search Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": " Free text to match in searchable fields\n",
         "links": [],
         "examples": []
       },
       "members":       [
                 {
-          "name": "appDefId",
+          "name": "expression",
           "type": "string",
-          "doc": " The AppDefId\n"
+          "doc": " Search term or expression\n"
         },
                 {
-          "name": "instanceId",
-          "type": "string",
-          "doc": " The instance Id\n"
+          "name": "fields",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Currently supported fields for search:\n\n - `loginEmail`\n - `contact.firstName`\n - `contact.lastName`\n - `profile.title`\n - `profile.nickname`\n - `profile.slug`\n\n Default is `profile.nickname`\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": []
-    },
-        {
-      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache",
-      "displayName": "Invalidate Cache Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "getBy",
-          "type": "All APIs.Members._com_wixpress_html_cache_invalidate_InvalidateCache_GetBy",
-          "doc": ""
-        },
-                {
-          "name": "reason",
-          "type": "string",
-          "doc": "tell us why you're invalidating the cache. You don't need to add your app name\n The cache invalidation reason\n"
-        },
-                {
-          "name": "localDc",
-          "type": "boolean",
-          "doc": " Is local DS\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_html_cache_invalidate_InvalidateCache_GetBy",
-      "displayName": "Get By Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "metaSiteId",
-          "type": "string",
-          "doc": " Invalidate by msId\n"
-        },
-                {
-          "name": "app",
-          "type": "All APIs.Members._com_wixpress_html_cache_invalidate_InvalidateCache_App",
-          "doc": " Invalidate by App\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": [],
-      "oneOf": true
     },
         {
       "name": "_com_wixpress_members_api_UpdateMySlugRequest",
@@ -3124,7 +3352,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who joined the community\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3170,7 +3403,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who left the community\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3188,7 +3426,7 @@
                 {
           "name": "fieldSet",
           "type": "All APIs.Members._com_wixpress_members_api_FieldSet_Set",
-          "doc": "\nPredefined set of fields to return.\n\n<!--ONLY:VELO\nOne of:\n\n- `\"FULL\"`: Returns all fields.\n- `\"PUBLIC\"`: Returns `_id` and all fields under `profile`.\n\n> **Note:**\n> When returning the `\"PUBLIC\"` fieldset,\n> `profile.status`, `profile.privacyStatus`, and `profile.activityStatus`\n> are returned as `\"UNKNOWN\"`.\n<!--END:ONLY:VELO-->\n",
+          "doc": "\nPredefined set of fields to return.\n\n- `\"FULL\"`: Returns all fields.\n- `\"PUBLIC\"`: Returns `_id` and all fields under `profile`.\n\n> **Note:**\n> When returning the `\"PUBLIC\"` fieldset,\n> `profile.status`, `profile.privacyStatus`, and `profile.activityStatus`\n> are returned as `\"UNKNOWN\"`.\n",
           "deprecated": true
         },
                 {
@@ -3197,7 +3435,7 @@
             "name": "array",
             "typeParams": ["All APIs.Members._com_wixpress_members_api_FieldSet_Set"]
           },
-          "doc": ""
+          "doc": "\nPredefined set of fields to return. One of:\n\n- `FULL`: Returns all fields.\n- `PUBLIC`: Returns `id`, `contactId`, and the `profile` object. `status`, `privacyStatus`, and `activityStatus` are returned as `UNKNOWN`.\n- `EXTENDED`: Returns `id`, `loginEmail`, `status`, `contactId`, `privacyStatus`, `activityStatus`, and the `profile` object.\n\nDefault: `PUBLIC`.\n"
         }
       ],
       "enum": null,
@@ -3372,6 +3610,11 @@
             "typeParams": ["All APIs.Members._com_wixpress_members_api_FieldSet_Set"]
           },
           "doc": "\nPredefined sets of fields to return.\n\nDefaults to `PUBLIC`.\n\n"
+        },
+                {
+          "name": "search",
+          "type": "All APIs.Members._com_wixpress_members_api_Search",
+          "doc": "\nPlain text search.\n"
         }
       ],
       "enum": null,
@@ -3451,7 +3694,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who got muted\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3501,7 +3749,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who got unmuted\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3551,7 +3804,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who got approved\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3601,7 +3859,12 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "memberId",
+        "type": "string",
+        "doc": " Member id who got blocked\n",
+        "readOnly": true
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3793,6 +4056,11 @@
           "name": "contentAssigneeId",
           "type": "string",
           "doc": " ID of a member receiving deleted members' content.\n"
+        },
+                {
+          "name": "search",
+          "type": "All APIs.Members._com_wixpress_members_api_Search",
+          "doc": "\nPlain text search.\n"
         }
       ],
       "enum": null,
@@ -3802,6 +4070,78 @@
         {
       "name": "_com_wixpress_members_api_BulkDeleteMembersResponse",
       "displayName": "Bulk Delete Members Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "jobId",
+        "type": "string",
+        "doc": " Token to be used to query an \"async jobs service\"\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_api_BulkApproveMembersRequest",
+      "displayName": "Bulk Approve Members Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "All APIs.Members._google_protobuf_Value",
+        "doc": " A filter object. See documentation [here](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/api-query-language#platformization-guidelines_api-query-language_defining-in-protobuf)\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_api_BulkApproveMembersResponse",
+      "displayName": "Bulk Approve Members Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "jobId",
+        "type": "string",
+        "doc": " Token to be used to query an \"async jobs service\"\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_api_BulkBlockMembersRequest",
+      "displayName": "Bulk Block Members Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "filter",
+        "type": "All APIs.Members._google_protobuf_Value",
+        "doc": " A filter object. See documentation [here](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/api-query-language#platformization-guidelines_api-query-language_defining-in-protobuf)\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_members_api_BulkBlockMembersResponse",
+      "displayName": "Bulk Block Members Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3829,7 +4169,7 @@
       "members": [      {
         "name": "member",
         "type": "All APIs.Members._com_wixpress_members_api_Member",
-        "doc": " Member details to update.\n"
+        "doc": " Member to update.\n"
       }],
       "enum": null,
       "extra": {},
@@ -4128,7 +4468,7 @@
       "displayName": "Namespace Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN_NAMESPACE <\/code><\/li><li><code> WIX -  Default namespace for UGC sites. MetaSites with this namespace will be shown in a user's site list by default.\n <\/code><\/li><li><code> SHOUT_OUT -  ShoutOut stand alone product. These are siteless (no actual Wix site, no HtmlWeb). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ALBUMS -  MetaSites created by the Albums product, they appear as part of the Albums app. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> WIX_STORES_TEST_DRIVE -  Part of the WixStores migration flow, a user tries to migrate and gets this site to view and if the user likes it then stores removes this namespace and deletes the old site with the old stores. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HOTELS -  Hotels standalone (siteless). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> CLUBS -  Clubs siteless MetaSites, a club without a wix website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> ONBOARDING_DRAFT -  A partially created ADI website. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_SITE -  AppBuilder for AppStudio / shmite (c). MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> LOGOS -  LogoMaker websites offered to the user after logo purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> VIDEO_MAKER -  VideoMaker websites offered to the user after video purchase. MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> PARTNER_DASHBOARD -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> DEV_CENTER_COMPANY -  MetaSites with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> HTML_DRAFT - \nA draft created by HTML editor on open. Upon \"first save\" it will be moved to be of WIX domain.\n\nMeta site with this namespace will *not* be shown in a user's site list by default.\n <\/code><\/li><li><code> SITELESS_BUSINESS - \nthe user-journey for Fitness users who want to start from managing their business instead of designing their website.\nWill be accessible from Site List and will not have a website app.\nOnce the user attaches a site, the site will become a regular wixsite.\n <\/code><\/li><li><code> CREATOR_ECONOMY - \nBelongs to \"strategic products\" company. Supports new product in the creator's economy space.\n <\/code><\/li><li><code> DASHBOARD_FIRST - *\nIt is to be used in the Business First efforts.\n <\/code><\/li><li><code> ANYWHERE - *\nBookings business flow with no site.\n <\/code><\/li><li><code> HEADLESS - *\nNamespace for Headless Backoffice with no editor\n <\/code><\/li><li><code> ACCOUNT_MASTER_CMS - *\nNamespace for master site that will exist in parent account that will be referenced by subaccounts\nThe site will be used for account level CSM feature for enterprise\n <\/code><\/li><li><code> RISE - *\nRise.ai Siteless account management for Gift Cards and Store Credit.\n <\/code><\/li><li><code> BRANDED_FIRST - *\nAs part of the branded app new funnel, users now can create a meta site that will be branded app first.\nThere's a blank site behind the scene but it's blank).\nThe Mobile company will be the owner of this namespace.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -4151,7 +4491,11 @@
         "SITELESS_BUSINESS",
         "CREATOR_ECONOMY",
         "DASHBOARD_FIRST",
-        "ANYWHERE"
+        "ANYWHERE",
+        "HEADLESS",
+        "ACCOUNT_MASTER_CMS",
+        "RISE",
+        "BRANDED_FIRST"
       ],
       "extra": {},
       "labels": []
