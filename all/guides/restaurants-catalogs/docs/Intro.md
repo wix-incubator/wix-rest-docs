@@ -1,6 +1,8 @@
 SortOrder: 1
 # About Wix Restaurants Catalogs
 
+> **Note:** This API only works with the original Wix Restaurants Menus app. Call [GetAppInstance](https://dev.wix.com/docs/rest/api-reference/app-management/apps/app-instance/get-app-instance) to confirm that the app named “restaurants_menus” is installed on the site.
+
 With Wix Restaurants Catalogs, site owners can manage individual catalogs for each of their restaurant locations.
 
 The Catalogs API allows your app to:
