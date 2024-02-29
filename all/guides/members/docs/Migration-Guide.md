@@ -41,7 +41,6 @@ Table which describes how [v1.MembersService](https://github.com/wix-private/crm
 |MembersService.List|Members.ListMembers|
 |MemberAreaFacade.GetProfile|Members.GetMember|
 |ProfileService.Query|Members.QueryMembers|
-|HydraContactsFacade.FindMemberByContactId|Members.GetMember|
 |MemberAreaFacade.CountActiveProfiles|Members.QueryMembers|
 |HydraUsersFacade.getMemberStatusByMemberId|Members.GetMember & fieldSet=FULL to get the status|
 |SiteMembersService.getMembersByUser|Members.QueryMembers & userId in the filter|
