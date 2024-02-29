@@ -1,5 +1,5 @@
 SortOrder: 0
-# About the Resources API
+# About Staff Members and Resources API
 
 A resource is a business asset like a staff member, a room, or equipment that is needed to provide a service.
 
