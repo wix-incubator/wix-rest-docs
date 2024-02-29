@@ -11,7 +11,7 @@ With External Calendars, you can:
 + Retrieve information about calendars belonging to an external calendar account.
 + Retrieve information about support for external calendar providers.
 
-The External Calendars API provides built-in support for Google, Microsoft, and Apple calendars. Integration with additional external calendars can be enabled by installing a calendar integration app from the Wix App Market.
+The External Calendars API provides built-in support for Google, Microsoft, and Apple calendars. Integration with additional external calendars can be enabled by installing a calendar integration app from the Wix App Market. 
 
 ## Before you begin
 
