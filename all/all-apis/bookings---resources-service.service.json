@@ -18,7 +18,7 @@
   "relatedGuides":   [
         {
       "path": "../guides/bookings---resources-service/com/wixpress/bookings/resources/core/api/v1/docs/api_flow.md",
-      "name": "API Overview"
+      "name": "About Staff Members and Resources"
     },
         {
       "path": "../guides/bookings---resources-service/com/wixpress/bookings/resources/core/api/v1/docs/field_masks_and_updates.md",
@@ -35,7 +35,10 @@
       "methodName": "Create",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -50,7 +53,7 @@
           "in": "BODY",
           "name": "resource",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-          "doc": " Resource details.\n",
+          "doc": " Resource to create.\n",
           "required": true
         },
                 {
@@ -74,7 +77,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Creates a resource.\n<!--ONLY:VELO\nThe `createResource()` function returns a Promise that resolves to the created resource.\n<!--END:ONLY:VELO-->\n\nBookings resources are created with a schedule. The schedule and its sessions determine the resource's availability. Note that the schedule must contain a start date in the `availability.start` property.\nFor resources that are available during the business's default hours, add the business's schedule as a linked schedule in the resource's schedule. For resources that have their own hours, create sessions with type `\"WORKING_HOURS\"` using the resource's schedule.\nYou can use both individual and recurring sessions to define resource availability. You cannot use availability constraints for resource schedules.\n\n<!--ONLY:VELO\nWhen creating a resource using `createResource()`, include the resource's schedule information. Set the schedule information as follows:\n+ If the resource uses the default business hours, get the business resource's schedule ID  and include it in the `scheduleInfo.availability.linkedSchedules` array in the `scheduleInfo` parameter. The default hours can bee found in the Dashboard under **Settings** in the **Bookings** section, on the **Appointment hours** page.\n+ If the resource has its own custom working hours, create the resource, then create sessions of type `\"WORKING_HOURS\"` using the [`createSession()`](wix-bookings-backend.Sessions/createsession) function. Use the `scheduleId` returned from `createResource()` when creating the sessions. These session can be single sessions or recurring sessions.\n+ You can have both default business hours and custom hours for the same resource schedule by combining the steps above.\n\n> **Notes:**\n> + The Wix Bookings app does not show both default business hours and custom hours on the **Staff** page in the dashboard. If you've set up both custom and default business hours, only the default business hours will appear in the app, although both are working.\n> + The Wix Bookings app does not show non-recurring `WORKING_HOURS` sessions in the resource calendar.\n> + You can only add the business resource's schedule as a linked schedule for a resource.\n> + A resource can have one schedule only.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + Only users with the **Bookings Admin** [role](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin) can create a resource. You can override the role permissions by setting the `options.suppressAuth` parameter to `true`.\n<!--END:ONLY:VELO-->\n\n<!--ONLY:REST-->\nUse the following steps to create resources:\n- Create the resource using including schedule information.\n- If the resource uses the default business hours, get the business resource's schedule ID  and include it in the `scheduleInfo.availability.linkedSchedules` array in the in the schedule parameters.\n- If the resource has its own custom working hours, create sessions of type `\"WORKING_HOURS\"`. Use the `scheduleId` of the new resource when creating the sessions. These session can be single sessions or recurring sessions. You can have both business hours and custom hours for the same resource schedule.\n\n>**Notes:**\n> + A resource can have one schedule only.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + The `businessLocation.businessSchedule` object in the `schedule.location` object is not supported.\n\n\n\n>**Permissions:**  \n> This endpoint requires the Manage Bookings [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n<!--END:ONLY:REST-->\n \n",
+        "summary": " Creates a resource.\n<!--ONLY:VELO\nThe `createResource()` function returns a Promise that resolves to the created resource.\n<!--END:ONLY:VELO-->\n\nBookings resources are created with a schedule. The schedule and its sessions determine the resource's availability. Note that the schedule must contain a start date in the `availability.start` property.\nFor resources that are available during the business's default hours, add the business's schedule as a linked schedule in the resource's schedule. For resources that have their own hours, create sessions with type `\"WORKING_HOURS\"` using the resource's schedule.\nYou can use both individual and recurring sessions to define resource availability. You cannot use availability constraints for resource schedules.\n\n<!--ONLY:VELO\nWhen creating a resource using `createResource()`, include the resource's schedule information. Set the schedule information as follows:\n+ If the resource uses the default business hours, get the business resource's schedule ID  and include it in the `scheduleInfo.availability.linkedSchedules` array in the `scheduleInfo` parameter. The default hours can bee found in the Dashboard under **Settings** in the **Bookings** section, on the **Appointment hours** page.\n+ If the resource has its own custom working hours, create the resource, then create sessions of type `\"WORKING_HOURS\"` using the [`createSession()`](wix-bookings-backend.Sessions/createsession) function. Use the `scheduleId` returned from `createResource()` when creating the sessions. These session can be single sessions or recurring sessions.\n+ You can have both default business hours and custom hours for the same resource schedule by combining the steps above.\n\n> **Notes:**\n> + The Wix Bookings app does not show both default business hours and custom hours on the **Staff** page in the dashboard. If you've set up both custom and default business hours, only the default business hours will appear in the app, although both are working.\n> + The Wix Bookings app does not show non-recurring `WORKING_HOURS` sessions in the resource calendar.\n> + You can only add the business resource's schedule as a linked schedule for a resource.\n> + A resource can have one schedule only.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + Only users with the **Bookings Admin** [role](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin) can create a resource. You can override the role permissions by setting the `options.suppressAuth` parameter to `true`.\n<!--END:ONLY:VELO-->\n\n<!--ONLY:REST-->\nUse the following steps to create resources:\n- Create the resource using including schedule information.\n- If the resource uses the default business hours, get the business resource's schedule ID  and include it in the `scheduleInfo.availability.linkedSchedules` array in the in the schedule parameters.\n- If the resource has its own custom working hours, create sessions of type `\"WORKING_HOURS\"`. Use the `scheduleId` of the new resource when creating the sessions. These session can be single sessions or recurring sessions. You can have both business hours and custom hours for the same resource schedule.\n\n>**Notes:**\n> + A resource can have one schedule only.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + The `businessLocation.businessSchedule` object in the `schedule.location` object is not supported.\n\n\n\n>**Permissions:**\n> This endpoint requires the Manage Bookings [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n<!--END:ONLY:REST-->\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/resources",
@@ -116,7 +119,10 @@
       "methodName": "Delete",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -138,7 +144,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nDeletes a resource.\n<!--ONLY:VELO\nThe `deleteResource()` function returns a Promise that is resolved when a resource is deleted.\n<!--END:ONLY:VELO-->\nDeleting a resource updates its `status` to `\"DELETED\"`.\n\nYou cannot delete a resource if it has booked sessions.\n\n<!--ONLY:VELO\n>**Notes:**\n> + The Bookings app automatically creates a resource with a name and tag of value `\"business\"``. This resource is used for the business's schedule and working hours and cannot be deleted.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + Only users with the **Bookings Admin** [role](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin) can delete a resource. You can override the role permissions by setting the `options.suppressAuth` parameter to `true`.\n<!--END:ONLY:VELO-->\n\n<!--ONLY:REST-->\n>**Notes:**\n> + The Bookings app creates a resource with `\"business\"` in name and tag values. This resource is used for the business's schedule and working hours and cannot be deleted.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n\n>**Permissions:**  \n> This endpoint requires the Manage Bookings [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n<!--END:ONLY:REST-->\n \n",
+        "summary": "\nDeletes a resource.\n<!--ONLY:VELO\nThe `deleteResource()` function returns a Promise that is resolved when a resource is deleted.\n<!--END:ONLY:VELO-->\nDeleting a resource updates its `status` to `\"DELETED\"`.\n\nYou cannot delete a resource if it has booked sessions.\n\n<!--ONLY:VELO\n>**Notes:**\n> + The Bookings app automatically creates a resource with a name and tag of value `\"business\"``. This resource is used for the business's schedule and working hours and cannot be deleted.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n> + Only users with the **Bookings Admin** [role](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin) can delete a resource. You can override the role permissions by setting the `options.suppressAuth` parameter to `true`.\n<!--END:ONLY:VELO-->\n\n<!--ONLY:REST-->\n>**Notes:**\n> + The Bookings app creates a resource with `\"business\"` in name and tag values. This resource is used for the business's schedule and working hours and cannot be deleted.\n> + You can have up to 135 active resources and an additional 135 deleted resources.\n\n>**Permissions:**\n> This endpoint requires the Manage Bookings [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).\n<!--END:ONLY:REST-->\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/bookings/v1/resources/{id}",
@@ -164,7 +170,24 @@
       "methodName": "List",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Bookings Services and Settings",
+          "description": "Request permission to manage services and settings"
+        },
+                {
+          "name": "Read Bookings - Public Data",
+          "description": "Request permission to read the business's bookings info, including staff member data (calendar, services, etc.)"
+        },
+                {
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
+        },
+                {
+          "name": "Read Bookings Calendar",
+          "description": "Request permission to read the site's bookings calendar info, including all sessions, scheduleable assets, and staff member data."
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -174,7 +197,7 @@
           "in": "QUERY",
           "name": "query.filter",
           "type": "ref",
-          "doc": "Filter object in the following format:   \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n",
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n",
           "required": false
         },
                 {
@@ -184,7 +207,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n",
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n",
           "required": false
         },
                 {
@@ -225,7 +248,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " > **Deprecation Notice**\n >\n > **This endpoint has been replaced with [Query Resource](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources/query-resource) and will be removed on March 31, 2022.**\n > **If your app uses this endpoint, we recommend updating your code as soon as possible.**\n\n Retrieves a list of the resources according to the provided filters and paging.\n<!--ONLY:REST-->\n This query is optional. If no query is provided than all non-deleted resources are returned.\n  \n |Property|Is supported|\n |--|--|\n |filter | supports `resource.id`, `resource.tag`, `resource.status`| \n |paging | supported |\n |fields | supported |\n |fieldsets | **not supported** |\n |sort| **not supported** |\n\n> **Permissions**  \n> This endpoint requires the Read Bookings Calendar, Read Bookings - Public Data, Read Bookings - Including Participants or Manage Bookings permission scope.\n<!--END:ONLY:REST-->\n \n",
+        "summary": " > **Deprecation Notice**\n >\n > **This endpoint has been replaced with [Query Resource](https://dev.wix.com/api/rest/wix-bookings/resources/list-resources/query-resource) and will be removed on March 31, 2022.**\n > **If your app uses this endpoint, we recommend updating your code as soon as possible.**\n\n Retrieves a list of the resources according to the provided filters and paging.\n Resources that are in a resource group (i.e. the group_id property contains an ID) are excluded from the result for backwards compatibility.\n<!--ONLY:REST-->\n This query is optional. If no query is provided than all non-deleted resources are returned.\n\n |Property|Is supported|\n |--|--|\n |filter | supports `resource.id`, `resource.tag`, `resource.status`|\n |paging | supported |\n |fields | supported |\n |fieldsets | **not supported** |\n |sort| **not supported** |\n\n> **Permissions**\n> This endpoint requires the Read Bookings Calendar, Read Bookings - Public Data, Read Bookings - Including Participants or Manage Bookings permission scope.\n<!--END:ONLY:REST-->\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/bookings/v1/resources",
@@ -260,14 +283,31 @@
       "methodName": "Query",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Bookings Services and Settings",
+          "description": "Request permission to manage services and settings"
+        },
+                {
+          "name": "Read Bookings - Public Data",
+          "description": "Request permission to read the business's bookings info, including staff member data (calendar, services, etc.)"
+        },
+                {
+          "name": "Read bookings calendar - including participants",
+          "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
+        },
+                {
+          "name": "Read Bookings Calendar",
+          "description": "Request permission to read the site's bookings calendar info, including all sessions, scheduleable assets, and staff member data."
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
       "params": [      {
         "in": "BODY",
         "name": "query",
-        "type": "All APIs.Bookings - Resources Service._wix_common_QueryV2",
+        "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_QueryV2",
         "doc": "",
         "required": false
       }],
@@ -281,7 +321,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a list of the resources according to the specified filters and paging.\n\n The query parameter is optional. If no query is provided than all non-deleted resources are returned.\n\n |Property|Is supported|\n |--|--|\n |filter | supported fields: `resource.id`, `resource.tags`, `resource.status`| \n |paging | supported |\n |fields | supported | \n |fieldsets | **not supported**  |\n |sort | **not supported**  |\n\n\n >**Notes:**  \n > + The following objects in the `query` parameter are not supported for this query:  \n >    - `sort`\n >    - `fieldsets`  \n\n> **Permissions**    \n> This endpoint requires the Read Bookings Calendar, Read Bookings - Public Data, Read Bookings - Including Participants or Manage Bookings permission scope.\n \n",
+        "summary": " Retrieves a list of the resources according to the specified filters and paging.\n\n The query parameter is optional. If no query is provided then all non-deleted resources are returned.\n Resources that are in a resource group (i.e. the group_id property contains an ID) are excluded from the result for backwards compatibility unless the `include_resources_with_groups` request field is set to true.\n\n |Property|Is supported|\n |--|--|\n |filter | supported fields: `resource.id`, `resource.tags`, `resource.status`|\n |paging | supported |\n |fields | supported |\n |fieldsets | **not supported**  |\n |sort | **not supported**  |\n\n\n >**Notes:**\n > + The following objects in the `query` parameter are not supported for this query:\n >    - `sort`\n >    - `fieldsets`\n\n> **Permissions**\n> This endpoint requires the Read Bookings Calendar, Read Bookings - Public Data, Read Bookings - Including Participants or Manage Bookings permission scope.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/bookings/v1/resources/query",
@@ -307,7 +347,10 @@
       "methodName": "Update",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -331,7 +374,7 @@
           "in": "BODY",
           "name": "resource",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-          "doc": " Resource details.\n",
+          "doc": " Resource to update.\n",
           "required": false
         },
                 {
@@ -339,7 +382,8 @@
           "name": "fieldMask",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_FieldMask",
           "doc": " Field mask of fields to update.\n",
-          "required": false
+          "required": false,
+          "fieldMask": "RPC"
         }
       ],
       "ret":       {
@@ -378,7 +422,10 @@
       "methodName": "UpdateSchedule",
       "serviceName": "ResourcesService",
       "tag": "Resource",
-      "permissions": [],
+      "permissions": [      {
+        "name": "Manage Bookings",
+        "description": "Request permission to read, create and change the site's bookings, schedules, sessions, services and resources, including site owner data, staff member data, and participant data."
+      }],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -391,7 +438,7 @@
           "in": "PATH",
           "name": "resourceId",
           "type": "string",
-          "doc": " Resource id to update.\n",
+          "doc": " Resource ID to update.\n",
           "required": true
         },
                 {
@@ -399,13 +446,14 @@
           "name": "fieldmask",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_FieldMask",
           "doc": "Fieldmask for schedule\n",
-          "required": false
+          "required": false,
+          "fieldMask": "RPC"
         },
                 {
           "in": "BODY",
           "name": "schedule",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_Schedule",
-          "doc": " The schedule to update\n",
+          "doc": " Schedule to update.\n",
           "required": false
         }
       ],
@@ -452,28 +500,16 @@
     "tag": "Resource",
     "permissions":     [
             {
+        "name": "Manage Bookings Services and Settings",
+        "description": "Request permission to manage services and settings"
+      },
+            {
         "name": "Read Bookings - Public Data",
         "description": "Request permission to read the business's bookings info, including staff member data (calendar, services, etc.)"
       },
             {
-        "name": "Manage Bookings",
-        "description": "Request permission to read, create and change the site's bookings, schedules, sessions and resources, including site owner data, staff member data, and participant data."
-      },
-            {
-        "name": "Read Bookings - Including Participants",
-        "description": "Request permission to read the business's bookings info, and its bookings with staff member and participant data."
-      },
-            {
-        "name": "Read Bookings - all read permissions",
-        "description": "Request permission to read the site's Wix Bookings data, including bookings, calendar and session data. This permission scope contains all of the read Bookings permissions."
-      },
-            {
-        "name": "Manage Bookings - all permissions",
-        "description": "Request permission to read, create and modify the site's Wix Bookings data, including bookings, calendar and session data. This permission scope contains all of the Bookings permissions."
-      },
-            {
         "name": "Read bookings calendar - including participants",
-        "description": "Request permission to read the site's bookings calendar info, including staff member data and participant data."
+        "description": "Request permission to read the site's bookings calendar info, including staff member and participant data."
       },
             {
         "name": "Read Bookings Calendar",
@@ -519,12 +555,13 @@
                 {
           "name": "altText",
           "type": "string",
-          "doc": " Image alt text. Optional.\n"
+          "doc": " Image alt text.\n"
         },
                 {
           "name": "filename",
           "type": "string",
-          "doc": " Image filename. Optional.\n"
+          "doc": " Image filename.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -566,7 +603,7 @@
       "displayName": "labeled Price Options Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs.Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n",
+        "summary": "Set of key-value pairs. Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n",
         "links": [],
         "examples": []
       },
@@ -592,12 +629,12 @@
                 {
           "name": "labeledPriceOptions",
           "type": "All APIs.Bookings - Resources Service.labeledPriceOptionsMapEntry",
-          "doc": "Set of key-value pairs.Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n"
+          "doc": "Set of key-value pairs. Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n"
         },
                 {
           "name": "priceText",
           "type": "string",
-          "doc": "Textual price information used when **Price Per Session** is set to **Custom Price** in the app's service details page.\n"
+          "doc": " Textual price information used when **Price Per Session** is set to **Custom Price** in the app's service details page.\n When present in an update request, the `default_varied_price` is ignored to support backward compatibility.\n"
         }
       ],
       "enum": null,
@@ -609,7 +646,7 @@
       "displayName": "Business Schedule Object",
       "locations": [],
       "docs":       {
-        "summary": "\nTime periods that this location is open for business. Includes a collection of TimePeriod instances.\nAligned with https://developers.google.com/my-business/reference/rest/v4/accounts.locations#businesshours\nWith a few minor adjustments\n",
+        "summary": "\nBusiness schedule. Regular and exceptional time periods when the business is open or the service is available.\n",
         "links": [],
         "examples": []
       },
@@ -620,7 +657,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._com_wixpress_siteproperties_api_v4_TimePeriod"]
           },
-          "doc": "\nTimes that this location is open. Each period represents a range of hours when the location is\nopen during the week. Limited to 100 time periods.\n"
+          "doc": "\nWeekly recurring time periods when the business is regularly open or the service is available. Limited to 100 time periods.\n"
         },
                 {
           "name": "specialHourPeriod",
@@ -628,7 +665,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._com_wixpress_siteproperties_api_v4_SpecialHourPeriod"]
           },
-          "doc": " Exceptions to the business's regular hours.\n"
+          "doc": " Exceptions to the business's regular hours. The business can be open or closed during the exception.\n"
         }
       ],
       "enum": null,
@@ -640,7 +677,7 @@
       "displayName": "Time Period Object",
       "locations": [],
       "docs":       {
-        "summary": "\nA span of time that the business is open,\nstarting on the specified open day/time and closing on the specified close day/time.\nClosing time must occur after the opening time, for example later in the same day, or on a subsequent day.\n",
+        "summary": "\nWeekly recurring time periods when the business is regularly open or the service is available.\n",
         "links": [],
         "examples": []
       },
@@ -648,22 +685,22 @@
                 {
           "name": "openDay",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_siteproperties_api_v4_DayOfWeek",
-          "doc": " Day of the week this period starts on.\n"
+          "doc": " Day of the week the period starts on.\n"
         },
                 {
           "name": "openTime",
           "type": "string",
-          "doc": "\nTime in 24hr ISO 8601 extended format (hh:mm). Valid values are 00:00-24:00, where 24:00 represents\nmidnight at the end of the specified day field.\n"
+          "doc": "\nTime the period starts in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.\n"
         },
                 {
           "name": "closeDay",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_siteproperties_api_v4_DayOfWeek",
-          "doc": " Day of the week this period ends on.\n"
+          "doc": " Day of the week the period ends on.\n"
         },
                 {
           "name": "closeTime",
           "type": "string",
-          "doc": "\nTime in 24hr ISO 8601 extended format (hh:mm). Valid values are 00:00-24:00, where 24:00 represents\nmidnight at the end of the specified day field.\n"
+          "doc": "\nTime the period ends in 24-hour [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) extended format. Valid values are `00:00` to `24:00`, where `24:00` represents\nmidnight at the end of the specified day.  \n\n__Note:__ If `openDay` and `closeDay` specify the same day of the week `closeTime` must be later than `openTime`.\n"
         }
       ],
       "enum": null,
@@ -675,7 +712,7 @@
       "displayName": "Special Hour Period Object",
       "locations": [],
       "docs":       {
-        "summary": " Set of time periods when a location's operational hours differ from its normal business hours.\n",
+        "summary": " Exception to the business's regular hours. The business can be open or closed during the exception.\n",
         "links": [],
         "examples": []
       },
@@ -683,22 +720,22 @@
                 {
           "name": "startDate",
           "type": "string",
-          "doc": " Date and Time in 24hr iso-8601 Coordinated universal time (UTC)\n"
+          "doc": "\nStart date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
         },
                 {
           "name": "endDate",
           "type": "string",
-          "doc": " Date and Time in 24hr iso-8601 Coordinated universal time (UTC)\n"
+          "doc": "\nEnd date and time of the exception in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format and [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).\n"
         },
                 {
           "name": "isClosed",
           "type": "boolean",
-          "doc": ""
+          "doc": " \nWhether the business is closed (or the service is not available) during the exception. \n\nDefault: `true`.\n"
         },
                 {
           "name": "comment",
           "type": "string",
-          "doc": ""
+          "doc": " Additional info about the exception. For example, \"We close earlier on New Year's Eve.\"\n"
         }
       ],
       "enum": null,
@@ -718,34 +755,35 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " ID of the location.\n",
+          "doc": " Location ID.\n",
           "readOnly": true
         },
                 {
           "name": "name",
           "type": "string",
-          "doc": " Display name of the location.\n"
+          "doc": " Location name.\n"
         },
                 {
           "name": "description",
           "type": "string",
-          "doc": " Free text for describing the location.\n"
+          "doc": " Location description.\n"
         },
                 {
           "name": "default",
           "type": "boolean",
-          "doc": "\nWhether this is the default location.\nThere can only be one default location per site. Changes to the default location are made on the **Site Properties** page of the dashboard.\nThe default location can't be deleted. \n<!-- and can be only marked through SetDefaultLocation api -->\n",
+          "doc": "\nWhether this is the default location. There can only be one default location per site. The default location can't be archived.\n",
           "readOnly": true
         },
                 {
           "name": "status",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_LocationStatus",
-          "doc": " Status of the location. Default is `\"ACTIVE\"`\n"
+          "doc": "\nLocation status. Defaults to `ACTIVE`. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect the location's status. `INACTIVE` is currently not supported.\n"
         },
                 {
           "name": "locationType",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_LocationType",
-          "doc": " Type of the location.\n"
+          "doc": " Location type. \n\n**Note:** Currently not supported.\n",
+          "deprecated": true
         },
                 {
           "name": "fax",
@@ -755,7 +793,7 @@
                 {
           "name": "timeZone",
           "type": "string",
-          "doc": " Time zone.\n"
+          "doc": " Timezone in `America/New_York` format.\n"
         },
                 {
           "name": "email",
@@ -770,23 +808,31 @@
                 {
           "name": "address",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_Address",
-          "doc": " Address\n"
+          "doc": " Address.\n"
         },
                 {
           "name": "businessSchedule",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_siteproperties_api_v4_BusinessSchedule",
-          "doc": "\nRepresents the time periods that this location is open for business. Holds a collection of TimePeriod instances.\nTimePeriod indicates when the location is open. Each period represents a range of hours when the location is\nopen during the week. Limited to 100 time periods. \n\nNot supported by Wix Bookings.\n"
+          "doc": "\nBusiness schedule. Array of weekly recurring time periods when the location is open for business. Limited to 100 time periods.\n\n__Note:__ Not supported by Wix Bookings.\n"
         },
                 {
           "name": "revision",
           "type": "string",
-          "doc": " Location revision, represents the number of changes to the location.\n"
+          "doc": "\nRevision number, which increments by 1 each time the location is updated. \nTo prevent conflicting changes, the existing revision must be used when updating a location.\n"
         },
                 {
           "name": "archived",
           "type": "boolean",
-          "doc": "\nWhether the location is archived.\nArchived locations can't be updated.\n",
+          "doc": "\nWhether the location is archived. Archived locations can't be updated. \n__Note:__ [Archiving a location](https://dev.wix.com/api/rest/business-info/locations/archive-location) \ndoesn't affect its `status`.\n",
           "readOnly": true
+        },
+                {
+          "name": "locationTypes",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Bookings - Resources Service._com_wixpress_locations_LocationType"]
+          },
+          "doc": " Location types.\n"
         }
       ],
       "enum": null,
@@ -806,12 +852,12 @@
                 {
           "name": "country",
           "type": "string",
-          "doc": "Country code.\n"
+          "doc": " 2-letter country code in an [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
         },
                 {
           "name": "subdivision",
           "type": "string",
-          "doc": "Subdivision. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2).\n"
+          "doc": " Code for a subdivision (such as state, prefecture, or province) in [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) format.\n"
         },
                 {
           "name": "city",
@@ -821,27 +867,27 @@
                 {
           "name": "postalCode",
           "type": "string",
-          "doc": " Zip/postal code.\n"
+          "doc": " Postal or zip code.\n"
         },
                 {
           "name": "streetAddress",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_StreetAddress",
-          "doc": " Street name, number, and apartment number.\n"
+          "doc": " Street address. Includes street name, number, and apartment number in separate fields.\n"
         },
                 {
           "name": "formattedAddress",
           "type": "string",
-          "doc": " A string containing the full address of this location.\n"
+          "doc": " Full address of the location.\n"
         },
                 {
           "name": "hint",
           "type": "string",
-          "doc": " Free text to help find the address.\n"
+          "doc": " Extra information that helps finding the location.\n"
         },
                 {
           "name": "geocode",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_AddressLocation",
-          "doc": " Coordinates of the physical address.\n"
+          "doc": " Geographic coordinates of location.\n"
         }
       ],
       "enum": null,
@@ -853,7 +899,7 @@
       "displayName": "Street Address Object",
       "locations": [],
       "docs":       {
-        "summary": " Street name, number, and apartment number.\n",
+        "summary": " Street address. Includes street name, number, and apartment number in separate fields.\n",
         "links": [],
         "examples": []
       },
@@ -861,7 +907,7 @@
                 {
           "name": "number",
           "type": "string",
-          "doc": " Street number.\n"
+          "doc": "Street number.\n"
         },
                 {
           "name": "name",
@@ -891,12 +937,12 @@
                 {
           "name": "latitude",
           "type": "number",
-          "doc": " Address latitude.\n"
+          "doc": " Latitude of the location. Must be between -90 and 90.\n"
         },
                 {
           "name": "longitude",
           "type": "number",
-          "doc": " Address longitude.\n"
+          "doc": " Longitude of the location. Must be between -180 and 180.\n"
         }
       ],
       "enum": null,
@@ -1095,7 +1141,7 @@
                 {
           "name": "locationType",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_common_api_v1_Location_LocationType",
-          "doc": "Location type.\n<!--ONLY:VELO\n One of:\n - `\"OWNER_BUSINESS\"` The business address as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"` The address as set when creating the service.\n - `\"CUSTOM\"` The address set for the individual session.\n<!--END:ONLY:VELO-->\n"
+          "doc": "Location type.\n One of:\n - `\"OWNER_BUSINESS\"` The business address as set in the site’s general settings.\n - `\"OWNER_CUSTOM\"` The address as set when creating the service.\n - `\"CUSTOM\"` The address set for the individual session.\n"
         },
                 {
           "name": "address",
@@ -1106,12 +1152,7 @@
                 {
           "name": "customAddress",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_Address",
-          "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`.\n"
-        },
-                {
-          "name": "businessLocation",
-          "type": "All APIs.Bookings - Resources Service._com_wixpress_locations_Location",
-          "doc": " Valid when `locationType` is `OWNER_BUSINESS`. Defaults to the business's location.\n \n`businessSchedule` is not supported by Wix Bookings\n"
+          "doc": "Custom address, used when locationType is `\"OWNER_CUSTOM\"`. Might be used when locationType is `\"CUSTOM\"` in case the owner sets a custom address for the session which is different from the default.\n"
         }
       ],
       "enum": null,
@@ -1323,7 +1364,7 @@
                 {
           "name": "duration",
           "type": "integer",
-          "doc": "The duration of the interval in minutes. Required. Part of the session end time calculation. minimum: 1, maximum: 86400.\n"
+          "doc": "The duration of the interval in minutes. Required. Part of the session end time calculation.\n"
         }
       ],
       "enum": null,
@@ -1397,7 +1438,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": "Participant ID.\n"
+          "doc": "Participant ID. Currently represents the booking.id.\n"
         },
                 {
           "name": "contactId",
@@ -1511,7 +1552,32 @@
                 {
           "name": "accountOwnerId",
           "type": "string",
-          "doc": "Account owner id in vc service\n"
+          "doc": "ID of the account owner in the video conferencing service.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_schedules_api_v1_Schedule_Version",
+      "displayName": "Version Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleVersion",
+          "type": "integer",
+          "doc": "Schedule version number, updated each time the schedule is updated.\n"
+        },
+                {
+          "name": "participantsVersion",
+          "type": "integer",
+          "doc": "Participants version number, updated each time the schedule participants are updated.\n"
         }
       ],
       "enum": null,
@@ -1541,7 +1607,8 @@
                 {
           "name": "timeZone",
           "type": "string",
-          "doc": ""
+          "doc": " Schedule's time zone in [Area/Location](https://en.wikipedia.org/wiki/Tz_database) format. Read-only.\n Derived from the Wix Business time zone.\n",
+          "readOnly": true
         },
                 {
           "name": "intervals",
@@ -1549,7 +1616,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_RecurringInterval"]
           },
-          "doc": "Specifies the intervals for the sessions calculation. Optional. e.g. when creating class service you can add\npattern for recurring intervals, these intervals can be returned as schedule's sessions or available slots if\nthere are no other availability calculation constraints and the capacity is bigger then the current total number of sessions' participants.\n",
+          "doc": " Deprecated. Please use the [Sessions API](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/session) instead.\n",
           "deprecated": true
         },
                 {
@@ -1563,7 +1630,8 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": "Tags for grouping schedules. These tags are the default tags for the schedule's sessions.\nThe Wix Bookings app uses the following predefined tags to set schedule type: `\"INDIVIDUAL\"`, `\"GROUP\"`, and `\"COURSE\"`. Once the schedule type is set using these tags, you cannot update it. In addition to the app's tags, you can create and update your own tags.\n"
+          "doc": "__Deprecated.__ \nTags for grouping schedules. These tags are the default tags for the schedule's sessions.\nThe Wix Bookings app uses the following predefined tags to set schedule type: `\"INDIVIDUAL\"`, `\"GROUP\"`, and `\"COURSE\"`. Once the schedule type is set using these tags, you cannot update it. In addition to the app's tags, you can create and update your own tags.\n",
+          "deprecated": true
         },
                 {
           "name": "location",
@@ -1573,17 +1641,19 @@
                 {
           "name": "capacity",
           "type": "integer",
-          "doc": "Maximum number of participants that can be added to the schedule's sessions. Default is 1.\n"
+          "doc": "Maximum number of participants that can be added to the schedule's sessions.\nMust be at most `1` for schedule whose availability is affected by another schedule. E.g, appointment schedules of the Wix Bookings app.\n"
         },
                 {
           "name": "rate",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_common_api_v1_Rate",
-          "doc": "Price options offered when booking this schedule's slots. Default is no rate.\n"
+          "doc": " Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead.\n",
+          "deprecated": true
         },
                 {
           "name": "availability",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_Availability",
-          "doc": "An object describing how to calculate the schedule's availability.\nAn empty object indicates that the schedule is not available for booking.\n"
+          "doc": " __Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "totalNumberOfParticipants",
@@ -1597,13 +1667,14 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_Participant"]
           },
-          "doc": "Participants currently registered to sessions in this schedule.\nParticipants who are registered in the schedule are automatically registered to any session that is created for the schedule.\n",
+          "doc": " **Partial list** of participants which are registered to sessions in this schedule.  \n Participants who are registered in the schedule are automatically registered to any session that is created for the schedule.    \n To retrieve the full list of schedule participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).\n",
           "readOnly": true
         },
                 {
           "name": "externalCalendarOverrides",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_ExternalCalendarOverrides",
-          "doc": "Title and description values to override session defaults when syncing to an external calendar.\nLearn more about [syncing calendars](https://support.wix.com/en/article/wix-bookings-important-information-about-syncing-google-calendars-with-wix-bookings).\n"
+          "doc": "__Deprecated.__\n",
+          "deprecated": true
         },
                 {
           "name": "status",
@@ -1641,13 +1712,14 @@
                 {
           "name": "conferenceProvider",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_ConferenceProvider",
-          "doc": "Conferencing Provider. A schedule with a conferencing provider will use to provider information to create a conference on the provider's system when a session is created on the schedule or on one of its linked schedule's.\n",
+          "doc": " __Deprecated.__\n",
           "deprecated": true
         },
                 {
           "name": "calendarConference",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_CalendarConference",
-          "doc": "A conference created for the schedule. This is used when a participant is added to a schedule.\n"
+          "doc": " A conference created for the schedule. This is used when a participant is added to a schedule.    \n **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported. \n",
+          "deprecated": true
         }
       ],
       "enum": null,
@@ -1733,16 +1805,34 @@
                 {
           "name": "status",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource_ResourceStatus",
-          "doc": " Resource status.\n<!--ONLY:VELO\n One of:\n - `\"CREATED\"` Default status.\n - `\"DELETED\"` The resource was deleted.\n - `\"UPDATED\"` The resource was updated.\n<!--END:ONLY:VELO--> \n",
+          "doc": " Resource status.\n<!--ONLY:VELO\n One of:\n - `\"CREATED\"` Default status.\n - `\"DELETED\"` The resource was deleted.\n - `\"UPDATED\"` The resource was updated.\n<!--END:ONLY:VELO-->\n",
           "readOnly": true
         },
                 {
           "name": "wixUserId",
           "type": "string",
-          "doc": " Wix user ID, if the resource is associated with the Wix user.\n A staff member resource can be associated with a Wix user via assignment of a permissions role in the business manager. \n<!--ONLY:VELO\nClick the **Set Permissions** button for the staff member on the Staff page on your site's dashboard.\n<!--END:ONLY:VELO-->\n",
+          "doc": " Wix user ID, if the resource is associated with the Wix user.\n A staff member resource can be associated with a Wix user via assignment of a permissions role in the business manager.\n<!--ONLY:VELO\nClick the **Set Permissions** button for the staff member on the Staff page on your site's dashboard.\n<!--END:ONLY:VELO-->\n",
           "readOnly": true
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_resources_core_api_v1_resource_BusinessLocation",
+      "displayName": "Business Location Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "locationId",
+        "type": "string",
+        "doc": " The ID of the business location. Has to be non-empty\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1794,6 +1884,31 @@
         },
         "doc": " The set of field mask paths.\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_bookings_upstream_wix_common_Paging",
+      "displayName": "Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": " Number of items to load.\n"
+        },
+                {
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of items to skip in the current sort order.\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1866,8 +1981,8 @@
       "oneOf": true
     },
         {
-      "name": "_wix_common_Paging",
-      "displayName": "Paging Object",
+      "name": "_wix_common_Sorting",
+      "displayName": "Sorting Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -1876,14 +1991,14 @@
       },
       "members":       [
                 {
-          "name": "limit",
-          "type": "integer",
-          "doc": " Number of items to load.\n"
+          "name": "fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n"
         },
                 {
-          "name": "offset",
-          "type": "integer",
-          "doc": " Number of items to skip in the current sort order.\n"
+          "name": "order",
+          "type": "All APIs.Bookings - Resources Service._wix_common_SortOrder",
+          "doc": " Sort order.\n"
         }
       ],
       "enum": null,
@@ -1903,12 +2018,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " The number of items to load.\n Cursor token returned in the query response. To be used on the next query request, but not the first query request.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": " Cursor returned in last query response. Should not be provided on first page request\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -1968,12 +2083,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next result page.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous result page.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -1981,32 +2096,7 @@
       "labels": []
     },
         {
-      "name": "_wix_common_Sorting",
-      "displayName": "Sorting Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "fieldName",
-          "type": "string",
-          "doc": " Name of the field to sort by.\n"
-        },
-                {
-          "name": "order",
-          "type": "All APIs.Bookings - Resources Service._wix_common_SortOrder",
-          "doc": " Sort order.\n\n Defaults to `ASC`.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_Query",
+      "name": "_com_wix_bookings_upstream_wix_common_Query",
       "displayName": "Query Object",
       "locations": [],
       "docs":       {
@@ -2018,7 +2108,7 @@
                 {
           "name": "filter",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_Value",
-          "doc": "Filter object in the following format:   \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -2026,11 +2116,11 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "paging",
-          "type": "All APIs.Bookings - Resources Service._wix_common_Paging",
+          "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_Paging",
           "doc": "Paging options to limit and skip the number of items.\n"
         },
                 {
@@ -2055,7 +2145,7 @@
       "labels": []
     },
         {
-      "name": "_wix_common_QueryV2",
+      "name": "_com_wix_bookings_upstream_wix_common_QueryV2",
       "displayName": "Query V 2 Object",
       "locations": [],
       "docs":       {
@@ -2067,7 +2157,7 @@
                 {
           "name": "filter",
           "type": "struct",
-          "doc": "Filter object in the following format:  \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -2075,7 +2165,7 @@
             "name": "array",
             "typeParams": ["All APIs.Bookings - Resources Service._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "fields",
@@ -2095,7 +2185,7 @@
         },
                 {
           "name": "pagingMethod",
-          "type": "All APIs.Bookings - Resources Service._wix_common_QueryV2_pagingMethod",
+          "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_QueryV2_pagingMethod",
           "doc": ""
         }
       ],
@@ -2104,7 +2194,7 @@
       "labels": []
     },
         {
-      "name": "_wix_common_QueryV2_pagingMethod",
+      "name": "_com_wix_bookings_upstream_wix_common_QueryV2_pagingMethod",
       "displayName": "paging Method Object",
       "locations": [],
       "docs":       {
@@ -2115,7 +2205,7 @@
       "members":       [
                 {
           "name": "paging",
-          "type": "All APIs.Bookings - Resources Service._wix_common_Paging",
+          "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_Paging",
           "doc": "Paging options to limit and skip the number of items.\n"
         },
                 {
@@ -2172,12 +2262,12 @@
                 {
           "name": "notifyParticipants",
           "type": "boolean",
-          "doc": " Whether to notify participants about the change.\n"
+          "doc": "\nWhether to send the message about the changes to the customer.\n\nDefault: `false`\n"
         },
                 {
           "name": "message",
           "type": "string",
-          "doc": " A custom message to send to the participants.\n"
+          "doc": "\nCustom message to send to the participants about the changes to the booking.\n"
         }
       ],
       "enum": null,
@@ -2220,7 +2310,8 @@
                 {
           "name": "fieldMask",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_FieldMask",
-          "doc": "Field mask of fields to update.\n"
+          "doc": "Field mask of fields to update.\n",
+          "fieldMask": "RPC"
         },
                 {
           "name": "alignTimeExceptions",
@@ -2462,7 +2553,7 @@
                 {
           "name": "resource",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-          "doc": " Resource details.\n"
+          "doc": " Resource to create.\n"
         },
                 {
           "name": "schedules",
@@ -2489,7 +2580,7 @@
       "members": [      {
         "name": "resource",
         "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-        "doc": " Resource details.\n"
+        "doc": " Created resource.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2525,7 +2616,7 @@
       "members": [      {
         "name": "id",
         "type": "string",
-        "doc": "Deleted resource id\n"
+        "doc": " Deleted resource ID.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2544,12 +2635,13 @@
                 {
           "name": "resource",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-          "doc": " Resource details.\n"
+          "doc": " Resource to update.\n"
         },
                 {
           "name": "fieldMask",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_FieldMask",
-          "doc": " Field mask of fields to update.\n"
+          "doc": " Field mask of fields to update.\n",
+          "fieldMask": "RPC"
         }
       ],
       "enum": null,
@@ -2569,12 +2661,12 @@
                 {
           "name": "resource",
           "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
-          "doc": " Resource details.\n"
+          "doc": " Updated resource.\n"
         },
                 {
           "name": "schedules",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_BatchResponse",
-          "doc": " Updated Schedules\n"
+          "doc": " Updated schedules. \n"
         }
       ],
       "enum": null,
@@ -2592,7 +2684,7 @@
       },
       "members": [      {
         "name": "query",
-        "type": "All APIs.Bookings - Resources Service._wix_common_Query",
+        "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_Query",
         "doc": ""
       }],
       "enum": null,
@@ -2644,7 +2736,7 @@
       },
       "members": [      {
         "name": "query",
-        "type": "All APIs.Bookings - Resources Service._wix_common_QueryV2",
+        "type": "All APIs.Bookings - Resources Service._com_wix_bookings_upstream_wix_common_QueryV2",
         "doc": ""
       }],
       "enum": null,
@@ -2692,17 +2784,18 @@
                 {
           "name": "resourceId",
           "type": "string",
-          "doc": " Resource id to update.\n"
+          "doc": " Resource ID to update.\n"
         },
                 {
           "name": "fieldmask",
           "type": "All APIs.Bookings - Resources Service._google_protobuf_FieldMask",
-          "doc": "Fieldmask for schedule\n"
+          "doc": "Fieldmask for schedule\n",
+          "fieldMask": "RPC"
         },
                 {
           "name": "schedule",
           "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_Schedule",
-          "doc": " The schedule to update\n"
+          "doc": " Schedule to update.\n"
         }
       ],
       "enum": null,
@@ -2721,7 +2814,7 @@
       "members": [      {
         "name": "schedule",
         "type": "All APIs.Bookings - Resources Service._com_wix_bookings_schedules_api_v1_Schedule",
-        "doc": "The updated schedule.\n"
+        "doc": " Updated schedule.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2807,6 +2900,38 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_bookings_resources_core_api_v1_resource_GetBusinessResourceRequest",
+      "displayName": "Get Business Resource Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_bookings_resources_core_api_v1_resource_GetBusinessResourceResponse",
+      "displayName": "Get Business Resource Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "resource",
+        "type": "All APIs.Bookings - Resources Service._com_wixpress_bookings_resources_core_api_v1_resource_Resource",
+        "doc": " The business resource.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_siteproperties_api_v4_DayOfWeek",
       "displayName": "Day Of Week Object",
       "locations": [],
@@ -2833,14 +2958,14 @@
       "displayName": "Location Status Object",
       "locations": [],
       "docs":       {
-        "summary": " For future use\n \n Possible values are: <li><code> ACTIVE <\/code><\/li><li><code> IN_ACTIVE <\/code><\/li>",
+        "summary": " For future use\n \n Possible values are: <li><code> ACTIVE <\/code><\/li><li><code> INACTIVE <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
       "enum":       [
         "ACTIVE",
-        "IN_ACTIVE"
+        "INACTIVE"
       ],
       "extra": {},
       "labels": []
@@ -2850,7 +2975,7 @@
       "displayName": "Location Type Object",
       "locations": [],
       "docs":       {
-        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li>",
+        "summary": " For future use\n \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> BRANCH <\/code><\/li><li><code> OFFICES <\/code><\/li><li><code> RECEPTION <\/code><\/li><li><code> HEADQUARTERS <\/code><\/li><li><code> INVENTORY <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -2860,7 +2985,8 @@
         "BRANCH",
         "OFFICES",
         "RECEPTION",
-        "HEADQUARTERS"
+        "HEADQUARTERS",
+        "INVENTORY"
       ],
       "extra": {},
       "labels": []
