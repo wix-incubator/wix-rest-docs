@@ -7,9 +7,9 @@ Therefore we launched the `Contacts Merge` feature
 to allow site owners and contributors to merge duplicate contacts.
 Any contact that is not a site member can be merged into another contact.
 
-## Merge in Business Manager (UI)
+## Merge in the Dashboard (UI)
 
-In order to merge two or more contacts, go to Contacts List in business manager and select at least two contacts (up to 5). 
+In order to merge two or more contacts, go to Contacts List in the dashboard and select at least two contacts (up to 5). 
 The _Merge Contacts_ will appear, click and follow the instructions.
 
 
