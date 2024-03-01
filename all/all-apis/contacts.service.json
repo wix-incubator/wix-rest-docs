@@ -12,11 +12,6 @@
   "properties": [],
   "tags":   [
         {
-      "name": "Contacts v1 (Deprecated)",
-      "entity": "_com_wixpress_contacts_core_api_v1_Contact",
-      "src": "https://github.com/wix-private/crm/tree/master/contacts/core/contacts-api/com/wixpress/contacts/core/api/v1/contact.proto"
-    },
-        {
       "name": "Contacts v4",
       "entity": "_com_wixpress_contacts_core_api_v4_Contact",
       "src": "https://github.com/wix-private/crm/tree/master/contacts/core/contacts-api/com/wixpress/contacts/core/api/v4/contact.proto"
@@ -28,7 +23,7 @@
     },
         {
       "name": "Contacts Gdpr Harvester",
-      "entity": null
+      "entity": ""
     }
   ],
   "relatedGuides":   [
@@ -310,7 +305,7 @@
           "in": "BODY",
           "name": "allowDuplicates",
           "type": "boolean",
-          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefaults to `false`.\n",
+          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefault: `false`\n",
           "required": false
         }
       ],
@@ -375,7 +370,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nDeletes a contact.\n\nDeleting a contact permanently removes them from the Contact List.\n\nIf a contact is also a site member or site contributor, or has a valid billing subscriptions,\nthe contact cannot be deleted.\nThe related site member or site contributor must first be deleted and any valid billing subscriptions must be canceled,\nbefore the contact can also be deleted.\n \n",
+        "summary": "\nDeletes a contact.\n\nDeleting a contact permanently removes them from the Contact List.\n\nIf a contact is also a site member or site contributor, or has a valid billing subscriptions,\nthe contact cannot be deleted.\nThe related site member or site contributor must first be deleted and any valid billing subscriptions must be canceled,\nbefore the contact can also be deleted.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{contactId}",
@@ -522,7 +517,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRetrieves a contact.\n\n#### Getting Merged Contacts\n\nWhen a source contact is merged\nwith a target contact, the source contact is deleted.\nWhen calling Get Contact for a merged contact,\nyou can use the source or target contact ID.\nIn both bases, the target contact is returned.\n\nThis is supported only when calling Get Contact,\nand only for merged contacts.\nDeleted source contact IDs are not supported on any other endpoint.\n \n",
+        "summary": "\nRetrieves a contact.\n\n#### Getting Merged Contacts\n\nWhen a source contact is merged\nwith a target contact, the source contact is deleted.\nWhen calling Get Contact for a merged contact,\nyou can use the source or target contact ID.\nIn both bases, the target contact is returned.\n\nThis is supported only when calling Get Contact,\nand only for merged contacts.\nDeleted source contact IDs are not supported on any other endpoint.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{id}",
@@ -537,7 +532,7 @@
           },
                     {
             "title": "Get Contact with Projected Fields",
-            "body": ["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47?fields=source,updatedDate' \\\n  -H 'Authorization: <AUTH>'"],
+            "body": ["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47?fields=source&fields=updatedDate' \\\n  -H 'Authorization: <AUTH>'"],
             "response": ["{\n  \"contact\":   {\n    \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"revision\": 1,\n    \"source\": {\"sourceType\": \"IMPORT\"},\n    \"updatedDate\": \"2019-10-30T17:22:10.299Z\"\n  },\n  \"responseType\": \"REGULAR\"\n} "],
             "type": "curl",
             "extra": {}
@@ -604,7 +599,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nAdds labels to a contact.\n\n- **To create new labels:** Use [Find or Create Label](https://dev.wix.com/api/rest/contacts/labels/find-or-create-label).\n- **To find labels:** Use [Find or Create Label](https://dev.wix.com/api/rest/contacts/labels/find-or-create-label), [Get Label](https://dev.wix.com/api/rest/contacts/labels/get-label), or [List Labels](https://dev.wix.com/api/rest/contacts/labels/list-labels).\n \n",
+        "summary": "\nAdds labels to a contact.\n\n- **To create new labels:** Use [Find or Create Label](https://dev.wix.com/api/rest/contacts/labels/find-or-create-label).\n- **To find labels:** Use [Find or Create Label](https://dev.wix.com/api/rest/contacts/labels/find-or-create-label), [Get Label](https://dev.wix.com/api/rest/contacts/labels/get-label), or [List Labels](https://dev.wix.com/api/rest/contacts/labels/list-labels).\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{contactId}/labels",
@@ -686,7 +681,7 @@
           "in": "QUERY",
           "name": "sort.fieldName",
           "type": "string",
-          "doc": "\nField to sort by.\n\nSupported properties:\n`createdDate`, `lastActivity.activityDate`, `primaryInfo.email`,\n`info.name.first`, `info.name.last`, `info.company`, `info.jobTitle`,\n`info.birthdate`\n",
+          "doc": "\nField to sort by.\n\nSupported properties:\n`createdDate`, `lastActivity.activityDate`, `primaryInfo.email`, `info.name.first`, `info.name.last`, `info.company`,\n`info.jobTitle`, `info.birthdate`\n",
           "required": false
         },
                 {
@@ -763,14 +758,14 @@
           },
                     {
             "title": "List Contacts with Projected Fields",
-            "body": ["\ncurl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts?fields=source,info.name,info.emails' \\\n  -H 'Authorization: <AUTH>'"],
+            "body": ["\ncurl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts?fields=source&fields=info.name&fields=info.emails' \\\n  -H 'Authorization: <AUTH>'"],
             "response": ["{\n  \"contacts\":   [\n        {\n      \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n      \"revision\": 1,\n      \"source\": {\"sourceType\": \"IMPORT\"},\n      \"info\":       {\n        \"name\":         {\n          \"first\": \"Some\",\n          \"last\": \"One\"\n        },\n        \"emails\": {\"items\":         [\n                    {\n            \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email@example.com\",\n            \"primary\": true\n          },\n                    {\n            \"id\": \"5b430771-e6f1-4bea-9eb5-ad7472270605\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email2@example.com\"\n          }\n        ]}\n      }\n    },\n        {\n      \"id\": \"e50c4534-d0a5-11ea-87d0-0242ac130003\",\n      \"revision\": 1,\n      \"source\": {\"sourceType\": \"IMPORT\"},\n      \"info\":       {\n        \"name\":         {\n          \"first\": \"Any\",\n          \"last\": \"One\"\n        },\n        \"emails\": {\"items\":         [\n                    {\n            \"id\": \"e50c487c-d0a5-11ea-87d0-0242ac130003\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email211@example.com\",\n            \"primary\": true\n          },\n                    {\n            \"id\": \"e50c4958-d0a5-11ea-87d0-0242ac130003\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email123213@example.com\"\n          }\n        ]}\n      }\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "List Contacts, Sorted",
-            "body": ["\ncurl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts?fields=source,info.name,info.emails&sort.fieldName=info.name.first$sort.order=ASC' \\\n  -H 'Authorization: <AUTH>'"],
+            "body": ["\ncurl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts?fields=source&fields=info.name&fields=info.emails&sort.fieldName=info.name.first&sort.order=ASC' \\\n  -H 'Authorization: <AUTH>'"],
             "response": ["{\n  \"contacts\":   [\n        {\n      \"id\": \"e50c4534-d0a5-11ea-87d0-0242ac130003\",\n      \"revision\": 1,\n      \"source\": {\"sourceType\": \"IMPORT\"},\n      \"info\":       {\n        \"name\":         {\n          \"first\": \"Any\",\n          \"last\": \"One\"\n        },\n        \"emails\": {\"items\":         [\n                    {\n            \"id\": \"e50c487c-d0a5-11ea-87d0-0242ac130003\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email211@example.com\",\n            \"primary\": true\n          },\n                    {\n            \"id\": \"e50c4958-d0a5-11ea-87d0-0242ac130003\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email123213@example.com\"\n          }\n        ]}\n      }\n    },\n        {\n      \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n      \"revision\": 1,\n      \"source\": {\"sourceType\": \"IMPORT\"},\n      \"info\":       {\n        \"name\":         {\n          \"first\": \"Some\",\n          \"last\": \"One\"\n        },\n        \"emails\": {\"items\":         [\n                    {\n            \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email@example.com\",\n            \"primary\": true\n          },\n                    {\n            \"id\": \"5b430771-e6f1-4bea-9eb5-ad7472270605\",\n            \"tag\": \"MAIN\",\n            \"email\": \"email2@example.com\"\n          }\n        ]}\n      }\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 2,\n    \"offset\": 0,\n    \"total\": 2\n  }\n} "],
             "type": "curl",
             "extra": {}
@@ -816,7 +811,7 @@
           "in": "QUERY",
           "name": "language",
           "type": "string",
-          "doc": "Language for localization\n",
+          "doc": " Language for localization\n",
           "required": false
         }
       ],
@@ -839,14 +834,14 @@
                     {
             "title": "List Facets",
             "body": ["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts/facets' \\\n  -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"All Contacts\",\n      \"count\": 20,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Customers\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Contacted Me\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Subscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Unsubscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Bounced\",\n      \"count\": 3,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Approved\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Blocked\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
+            "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"All Contacts\",\n      \"count\": 20,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Customers\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Contacted Me\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Subscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Unsubscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Bounced\",\n      \"count\": 3,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Approved\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Blocked\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "List Facets in Spanish",
             "body": ["curl -X GET \\\n  'https://www.wixapis.com/contacts/v4/contacts/facets?language=es' \\\n  -H 'Authorization: <AUTH>'"],
-            "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"Todos los contactos\",\n      \"count\": 20,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Clientes\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Me contactaron\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Suscritos\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Dados de baja\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pendientes\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Rechazados\",\n      \"count\": 3,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactivos\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Aprobada\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Obstruida\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pendiente\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactiva\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
+            "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"Todos los contactos\",\n      \"count\": 20,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Clientes\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Etiquetas\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Me contactaron\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Suscritos\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Dados de baja\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pendientes\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Rechazados\",\n      \"count\": 3,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Estado de la suscripción de correo electrónico\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactivos\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Aprobada\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Obstruida\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pendiente\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Estado miembro\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactiva\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -920,7 +915,7 @@
         "examples": [        {
           "title": "Merge Contacts",
           "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47/merge' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    targetContactRevision: 2,\n    sourceContactIds: [\"f274f4a0-664a-457a-a83a-d46ea5fb9f54\"]\n  }'"],
-          "response": ["{\n  \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"revision\": 2,\n  \"primaryInfo\":   {\n    \"email\": \"target@example.com\",\n    \"phone\": \"097495550\"\n  },\n  \"info\":   {\n    \"emails\": {\"items\":     [\n            {\n        \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n        \"tag\": \"MAIN\",\n        \"email\": \"target@example.com\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"c7f05j8c-af92-4237-833f-43aaaa2b4968\",\n        \"tag\": \"MAIN\",\n        \"email\": \"source@example.com\",\n        \"primary\": false\n      }\n    ]},\n    \"phones\": {\"items\":     [\n            {\n        \"id\": \"e5214c79-af80-4eff-87f2-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"097495550\",\n        \"e164Phone\": \"+97297495550\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"as465d4c-dht4-4eff-ftr4-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"78457445\",\n        \"e164Phone\": \"+972978457445\",\n        \"primary\": true\n      }\n    ]},\n    \"jobTitle\": \"Developer\",\n    \"company\": \"Wix\",\n    \"labelKeys\": {\"items\":     [\n      \"contacts.contacted-me\",\n      \"custom.my-label\",\n      \"custom.my-other-label\"\n    ]},\n    \"extendedFields\": {\"items\":     {\n      \"custom.color\": \"Blue\",\n      \"custom.food\": \"Pizza\"\n    }}\n  }\n} "],
+          "response": ["{\n  \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"revision\": 2,\n  \"primaryInfo\":   {\n    \"email\": \"target@example.com\",\n    \"phone\": \"097495550\"\n  },\n  \"info\":   {\n    \"emails\": {\"items\":     [\n            {\n        \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n        \"tag\": \"MAIN\",\n        \"email\": \"target@example.com\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"c7f05j8c-af92-4237-833f-43aaaa2b4968\",\n        \"tag\": \"MAIN\",\n        \"email\": \"source@example.com\",\n        \"primary\": false\n      }\n    ]},\n    \"phones\": {\"items\":     [\n            {\n        \"id\": \"e5214c79-af80-4eff-87f2-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"097495550\",\n        \"e164Phone\": \"+97297495550\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"as465d4c-dht4-4eff-ftr4-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"78457445\",\n        \"e164Phone\": \"+972978457445\",\n        \"primary\": false\n      }\n    ]},\n    \"jobTitle\": \"Developer\",\n    \"company\": \"Wix\",\n    \"labelKeys\": {\"items\":     [\n      \"contacts.contacted-me\",\n      \"custom.my-label\",\n      \"custom.my-other-label\"\n    ]},\n    \"extendedFields\": {\"items\":     {\n      \"custom.color\": \"Blue\",\n      \"custom.food\": \"Pizza\"\n    }}\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -975,7 +970,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nPreviews merging source contacts into a target contact.\n\nThis endpoint performs a dry run without deleting or updating any contacts.\nA preview of the updated target contact is returned,\nbut no data is changed in the Contact List.\n\nTo perform the actual merge, use [Merge Contacts](#merge-contacts).\n \n",
+        "summary": "\nPreviews merging source contacts into a target contact.\n\nThis endpoint performs a dry run without deleting or updating any contacts.\nA preview of the updated target contact is returned,\nbut no data is changed in the Contact List.\n\nTo perform the actual merge, use [Merge Contacts](#merge-contacts).\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{targetContactId}/preview-merge",
@@ -983,7 +978,7 @@
         "examples": [        {
           "title": "Merge Contacts Preview",
           "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47/preview-merge' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    sourceContactIds: [\"f274f4a0-664a-457a-a83a-d46ea5fb9f54\"]\n  }'"],
-          "response": ["{\n  \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"revision\": 2,\n  \"primaryInfo\":   {\n    \"email\": \"target@example.com\",\n    \"phone\": \"097495550\"\n  },\n  \"info\":   {\n    \"emails\": {\"items\":     [\n            {\n        \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n        \"tag\": \"MAIN\",\n        \"email\": \"target@example.com\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"c7f05j8c-af92-4237-833f-43aaaa2b4968\",\n        \"tag\": \"MAIN\",\n        \"email\": \"source@example.com\",\n        \"primary\": false\n      }\n    ]},\n    \"phones\": {\"items\":     [\n            {\n        \"id\": \"e5214c79-af80-4eff-87f2-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"097495550\",\n        \"e164Phone\": \"+97297495550\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"as465d4c-dht4-4eff-ftr4-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"78457445\",\n        \"e164Phone\": \"+972978457445\",\n        \"primary\": true\n      }\n    ]},\n    \"jobTitle\": \"Developer\",\n    \"company\": \"Wix\",\n    \"labelKeys\": {\"items\":     [\n      \"contacts.contacted-me\",\n      \"custom.my-label\",\n      \"custom.my-other-label\"\n    ]},\n    \"extendedFields\": {\"items\":     {\n      \"custom.color\": \"Blue\",\n      \"custom.food\": \"Pizza\"\n    }}\n  }\n} "],
+          "response": ["{\n  \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"revision\": 2,\n  \"primaryInfo\":   {\n    \"email\": \"target@example.com\",\n    \"phone\": \"097495550\"\n  },\n  \"info\":   {\n    \"emails\": {\"items\":     [\n            {\n        \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n        \"tag\": \"MAIN\",\n        \"email\": \"target@example.com\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"c7f05j8c-af92-4237-833f-43aaaa2b4968\",\n        \"tag\": \"MAIN\",\n        \"email\": \"source@example.com\",\n        \"primary\": false\n      }\n    ]},\n    \"phones\": {\"items\":     [\n            {\n        \"id\": \"e5214c79-af80-4eff-87f2-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"097495550\",\n        \"e164Phone\": \"+97297495550\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"as465d4c-dht4-4eff-ftr4-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"78457445\",\n        \"e164Phone\": \"+972978457445\",\n        \"primary\": false\n      }\n    ]},\n    \"jobTitle\": \"Developer\",\n    \"company\": \"Wix\",\n    \"labelKeys\": {\"items\":     [\n      \"contacts.contacted-me\",\n      \"custom.my-label\",\n      \"custom.my-other-label\"\n    ]},\n    \"extendedFields\": {\"items\":     {\n      \"custom.color\": \"Blue\",\n      \"custom.food\": \"Pizza\"\n    }}\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -1088,21 +1083,21 @@
           "in": "BODY",
           "name": "paging",
           "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_upstream_wix_common_Paging",
-          "doc": "Allow paginating, default: offset = 0 and limit = 1000\n",
+          "doc": " Allow paginating, default: offset = 0 and limit = 1000\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "language",
           "type": "string",
-          "doc": "Language for localization\n",
+          "doc": " Language for localization\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "filter",
           "type": "struct",
-          "doc": " Only allowed fields:\n #info.extendedFields.emailSubscriptions.effectiveEmail ($exists)\n #info.extendedFields.emailSubscriptions.deliverabilityStatus ($eq, $ne, $in, $nin)\n #info.extendedFields.emailSubscriptions.subscriptionStatus ($eq, $ne, $in)\n",
+          "doc": " Only allowed fields:\n #info.extendedFields.emailSubscriptions.effectiveEmail ($exists)\n #info.extendedFields.emailSubscriptions.subscriptionStatus ($eq, $ne, $in, $nin)\n #info.extendedFields.emailSubscriptions.deliverabilityStatus ($eq, $ne, $in, $nin)\n",
           "required": false
         }
       ],
@@ -1124,7 +1119,7 @@
         "examples": [        {
           "title": "Query Facets for Contacts with Effective Email",
           "body": ["curl -X POST \\\n  'https://www.wixapis.com/contacts/v4/contacts/facets' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Authorization: <AUTH>' \\\n  --data-binary '{\n    \"queryFilter\": {\n        \"$and\": [\n          {\"info.extendedFields.emailSubscriptions.effectiveEmail\": {\"$exists\": true}},\n          {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$in\": [\"VALID\", \"INACTIVE\"]}}\n        ]\n      }\n    }'"],
-          "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"All Contacts\",\n      \"count\": 8,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Customers\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Contacted Me\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Subscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Unsubscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Bounced\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Approved\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Blocked\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
+          "response": ["{\n  \"facets\":   [\n        {\n      \"facetType\": \"ALL_CONTACTS\",\n      \"facetKey\": \"contacts.all\",\n      \"facetDisplayName\": \"All Contacts\",\n      \"count\": 8,\n      \"legacyId\": \"contacts-all\"\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label1\",\n      \"facetDisplayName\": \"label1\",\n      \"count\": 0,\n      \"legacyId\": \"3b2af9cd-fa9e-4084-9c87-0a3d660cb2c9\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label1\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"custom\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"custom.label2\",\n      \"facetDisplayName\": \"label2\",\n      \"count\": 1,\n      \"legacyId\": \"66fa243c-97ad-4891-b628-fcd2d1d5cbe0\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"custom.label2\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"factKey\": \"contacts.customers\",\n      \"facetDisplayName\": \"Customers\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-customers\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.customers\"]}}\n    },\n        {\n      \"facetType\": \"LABELS\",\n      \"namespace\": \"contacts\",\n      \"namespaceDisplayName\": \"Labels\",\n      \"facetKey\": \"contacts.contacted-me\",\n      \"facetDisplayName\": \"Contacted Me\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-contacted_me\",\n      \"queryFilter\": {\"info.labelKeys\": {\"$hasSome\": [\"contacts.contacted-me\"]}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.subscribed\",\n      \"facetDisplayName\": \"Subscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-subscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"SUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.unsubscribed\",\n      \"facetDisplayName\": \"Unsubscribed\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-unsubscribed\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"UNSUBSCRIBED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-pending-subscription\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.subscriptionStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.bounced\",\n      \"facetDisplayName\": \"Bounced\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_all_non_valid\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"BOUNCED\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.spam\",\n      \"facetDisplayName\": \"Spam\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_spam\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"SPAM_COMPLAINT\"}}\n    },\n        {\n      \"facetType\": \"SUBSCRIPTION_STATUS\",\n      \"namespace\": \"emailSubscriptions\",\n      \"namespaceDisplayName\": \"Email Subscription Status\",\n      \"facetKey\": \"emailSubscriptions.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-delivery_inactive\",\n      \"queryFilter\": {\"info.extendedFields.emailSubscriptions.deliverabilityStatus\": {\"$eq\": \"INACTIVE\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.approved\",\n      \"facetDisplayName\": \"Approved\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_approved\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"APPROVED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.denied\",\n      \"facetDisplayName\": \"Blocked\",\n      \"count\": 1,\n      \"legacyId\": \"contacts-site_members_denied\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"DENIED\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.pending\",\n      \"facetDisplayName\": \"Pending\",\n      \"count\": 2,\n      \"legacyId\": \"contacts-site_members_request\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"PENDING\"}}\n    },\n        {\n      \"facetType\": \"MEMBERSHIP_STATUS\",\n      \"namespace\": \"membershipStatus\",\n      \"namespaceDisplayName\": \"Membership Status\",\n      \"facetKey\": \"membershipStatus.inactive\",\n      \"facetDisplayName\": \"Inactive\",\n      \"count\": 0,\n      \"legacyId\": \"contacts-site_members_inactive\",\n      \"queryFilter\": {\"info.extendedFields.members.membershipStatus\": {\"$eq\": \"INACTIVE\"}}\n    }\n  ],\n  \"pagingMetadata\":   {\n    \"count\": 15,\n    \"offset\": 0,\n    \"total\": 15\n  }\n} "],
           "type": "curl",
           "extra": {}
         }],
@@ -1182,7 +1177,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nRemoves labels from a contact.\n\nIf a label is no longer needed\nand you want to remove it from all contacts,\nyou can delete it with\n[Delete Label](https://dev.wix.com/api/rest/contacts/labels/delete-label)\n(in the Labels API).\n \n",
+        "summary": "\nRemoves labels from a contact.\n\nIf a label is no longer needed\nand you want to remove it from all contacts,\nyou can delete it with\n[Delete Label](https://dev.wix.com/api/rest/contacts/labels/delete-label)\n(in the Labels API).\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{contactId}/labels",
@@ -1239,7 +1234,7 @@
           "in": "BODY",
           "name": "allowDuplicates",
           "type": "boolean",
-          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefaults to `false`.\n",
+          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefault: `false`\n",
           "required": false
         },
                 {
@@ -1260,14 +1255,14 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpdates a contact.\n\nEach time the contact is updated,\n`revision` increments by 1.\nThe existing `revision` must be included when updating the contact.\nThis ensures you're working with the latest contact information,\nand it prevents unintended overwrites.\n\n \n",
+        "summary": "\nUpdates a contact.\n\nEach time the contact is updated,\n`revision` increments by 1.\nThe existing `revision` must be included when updating the contact.\nThis ensures you're working with the latest contact information,\nand it prevents unintended overwrites.\n\nMembers are typically associated with a contact, each having a distinct member and contact ID. When passing the ID as a parameter, avoid presuming the IDs are identical since they represent separate entities.\n\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/contacts/v4/contacts/{contactId}",
         "links": [],
         "examples": [        {
           "title": "Update Contact",
-          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"info\": {\n      \"name\": {\n        \"first\": \"Ignored\",\n        \"last\": \"Changed\"\n      },\n      \"company\" : \"Wix\",\n    },\n    \"revision\": 5,\n    \"allowDuplicates\": false,\n    \"fieldMask\": {\n      \"paths\" : [\n        \"info.company\",\n        \"info.name.last\"\n      ]\n    }\n  }'"],
+          "body": ["curl -X PATCH \\\n  'https://www.wixapis.com/contacts/v4/contacts/8046df3c-7575-4098-a5ab-c91ad8f33c47' \\\n  -H 'Authorization: <AUTH>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"info\": {\n      \"name\": {\n        \"first\": \"Ignored\",\n        \"last\": \"Changed\"\n      },\n      \"company\" : \"Wix\",\n    },\n    \"revision\": 5,\n    \"allowDuplicates\": false\n  }'"],
           "response": ["{\"contact\": {\n  \"id\": \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"revision\": 6,\n  \"source\":   {\n    \"sourceType\": \"WIX_APP\",\n    \"appId\": \"9da8bff7-68c9-49d4-8cfd-ba534fd34d68\"\n  },\n  \"createdDate\": \"2019-10-30T17:22:10.299Z\",\n  \"updatedDate\": \"2020-10-02T08:43:25.765Z\",\n  \"lastActivity\":   {\n    \"activityDate\": \"2019-10-30T17:22:10.299Z\",\n    \"activityType\": \"CONTACT_CREATED\"\n  },\n  \"primaryInfo\":   {\n    \"email\": \"email@example.com\",\n    \"phone\": \"097495550\"\n  },\n  \"picture\":   {\n    \"id\": \"WixMedia image ID\",\n    \"url\": \"https://www.wix.com/contacts-server/api/v1/metasite/avatar/8046df3c-7575-4098-a5ab-c91ad8f33c47/2528bd01086244efb191c1302d986566/\",\n    \"height\": 50,\n    \"width\": 50\n  },\n  \"info\":   {\n    \"name\":     {\n      \"first\": \"Some\",\n      \"last\": \"Changed\"\n    },\n    \"emails\": {\"items\":     [\n            {\n        \"id\": \"d8f0d88c-af92-4237-833f-56aaaa2b5168\",\n        \"tag\": \"MAIN\",\n        \"email\": \"email@example.com\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"5b430771-e6f1-4bea-9eb5-ad7472270605\",\n        \"tag\": \"MAIN\",\n        \"email\": \"email2@example.com\"\n      }\n    ]},\n    \"phones\": {\"items\":     [\n            {\n        \"id\": \"e5214c79-af80-4eff-87f2-408b0be4e710\",\n        \"tag\": \"HOME\",\n        \"countryCode\": \"IL\",\n        \"phone\": \"097495550\",\n        \"e164Phone\": \"+97297495550\",\n        \"primary\": true\n      },\n            {\n        \"id\": \"59323148-ecf2-4bbe-a7eb-c1b01f43845e \",\n        \"tag\": \"MOBILE\",\n        \"countryCode\": \"UA\",\n        \"phone\": \"0443955571\",\n        \"e164Phone\": \"+380443955571\",\n        \"primary\": false\n      }\n    ]},\n    \"addresses\": {\"items\":     [\n            {\n        \"id\": \"3f8bba59-150f-4ee7-9c58-632cbdae222c\",\n        \"tag\": \"HOME\",\n        \"address\":         {\n          \"country\": \"US\",\n          \"subdivision\": \"US-ME\",\n          \"city\": \"Richmond\",\n          \"postalCode\": \"04357\",\n          \"addressLine\": \"1772  Fantages Way\",\n          \"addressLine2\": \"Apt 17\"\n        }\n      },\n            {\n        \"id\": \"be0b1932-e081-46b0-8dfa-a9f2409fa3a8\",\n        \"tag\": \"WORK\",\n        \"address\":         {\n          \"country\": \"US\",\n          \"subdivision\": \"US-ME\",\n          \"city\": \"Richmond\",\n          \"postalCode\": \"04357\",\n          \"streetAddress\":           {\n            \"number\": \"5\",\n            \"name\": \"Wingate\"\n          },\n          \"addressLine2\": \"the code to the building is: *1234\"\n        }\n      }\n    ]},\n    \"company\": \"Wix\",\n    \"jobTitle\": \"Developer\",\n    \"birthdate\": \"1980-12-01\",\n    \"locale\": \"en-us\",\n    \"labelKeys\": {\"items\": [\"custom.label-a\"]},\n    \"extendedFields\": {\"items\":     {\n      \"custom.color\": \"Blue\",\n      \"custom.number\": 12,\n      \"custom.date\": \"2020-01-01\",\n      \"custom.url\": \"http://domain.com\",\n      \"emailSubscriptions.effectiveEmail\": \"email@example.com\",\n      \"emailSubscriptions.subscriptionStatus\": \"NOT_SET\",\n      \"contacts.displayByFirstName\": \"Some One\",\n      \"contacts.displayByLastName\": \"One Some\"\n    }},\n    \"locations\": {\"items\":     [\n      \"d009f926-3273-11eb-adc1-0242ac120002\",\n      \"cf2ca920-6ac7-451f-a19b-d0382ab3892f\",\n      \"c5d3ff84-c18c-40c1-b6ac-9e003d6c5643\"\n    ]}\n  }\n}} "],
           "type": "curl",
           "extra": {"description": "Updates only the given fields (`company` and `addresses`)."}
@@ -1304,7 +1299,7 @@
       "type": "_com_wixpress_contacts_core_api_v4_ContactUpdatedDomainEvent",
       "name": "Contact Updated Webhook",
       "docs":       {
-        "summary": "\nTriggered when a contact is updated.\n\nIf a contact is updated as part of a merge,\nthe `originatedFrom` property is sent as `merge`.\nOtherwise, `originatedFrom` is omitted.\n\n> **Deprecation Note:**\n> The deprecated `updatedEvent.previousEntity` property is no longer supported\n> for 3rd-party apps from July 2021.\n",
+        "summary": "\nTriggered when a contact is updated.\n\nIf a contact is updated as part of a merge,\nthe `originatedFrom` property is sent as `merge`.\nOtherwise, `originatedFrom` is omitted.\n\n",
         "src": "https://github.com/wix-private/crm/tree/master/contacts/core/contacts-api/src/main/proto/com/wixpress/contacts/core/api/v4/contacts_service.proto"
       },
       "topic": "domain_events_wix.contacts.v4.contact",
@@ -1363,7 +1358,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"52269077-05f2-4b59-ba4f-36ef8c4c1e11\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:40:57.870Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"manager\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}}}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:40:58.304800Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"52269077-05f2-4b59-ba4f-36ef8c4c1e11\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:40:57.870Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"manager\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}},\\\"primaryEmail\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"}}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:40:58.304800Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -1441,7 +1436,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"30b49365-4af7-47c0-bde1-6bcb7e4be0f8\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"revision\\\":1,\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:42:11.254Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"Clerk\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}}}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:42:11.943838Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"30b49365-4af7-47c0-bde1-6bcb7e4be0f8\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"revision\\\":1,\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:42:11.254Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"Clerk\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}},\\\"primaryEmail\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"}}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:42:11.943838Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -1739,7 +1734,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"200a394d-4646-482c-b328-23e94563c90c\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"merged\",\n  \"entityId\" : \"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"targetContactId\\\":\\\"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\\\",\\\"sourceContactIds\\\":[\\\"8e2070c3-10dd-40eb-bf81-ab01b4e41e28\\\"],\\\"targetContact\\\":{\\\"id\\\":\\\"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\\\",\\\"revision\\\":1,\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:42:11.254Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"Clerk\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}}}}\"\n  },\n  \"eventTime\" : \"2020-10-20T07:22:04.564864Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"200a394d-4646-482c-b328-23e94563c90c\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"merged\",\n  \"entityId\" : \"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"targetContactId\\\":\\\"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\\\",\\\"sourceContactIds\\\":[\\\"8e2070c3-10dd-40eb-bf81-ab01b4e41e28\\\"],\\\"targetContact\\\":{\\\"id\\\":\\\"39d1aab2-2eda-4dd7-95fb-263ccf0e9bb4\\\",\\\"revision\\\":1,\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"74bff718-5977-47f2-9e5f-a9fd0047fd1f\\\"},\\\"createdDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"updatedDate\\\":\\\"2020-10-18T13:42:11.254Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-10-18T13:40:57.803Z\\\",\\\"activityType\\\":\\\"CONTACT_CREATED\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"95606596-4006-4945-811d-61ba1fca629d\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"Example\\\",\\\"jobTitle\\\":\\\"Clerk\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}},\\\"primaryEmail\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"}}}\"\n  },\n  \"eventTime\" : \"2020-10-20T07:22:04.564864Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -1817,7 +1812,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"006e8b34-d795-454c-b35a-71aa30cf9555\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"submitted\",\n  \"entityId\" : \"086d2438-0fc0-48fe-99c7-f9ae8ea734eb\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"passThroughData\\\":\\\"extra data\\\",\\\"activity\\\":{\\\"activityDate\\\":\\\"2020-11-05T11:22:06.872Z\\\",\\\"activityType\\\":\\\"HOTELS_PURCHASE\\\"},\\\"contact\\\":{\\\"id\\\":\\\"086d2438-0fc0-48fe-99c7-f9ae8ea734eb\\\",\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"d2665c74-061f-4a37-875b-1fa72d9b8b7b\\\"},\\\"createdDate\\\":\\\"2020-10-27T09:27:40.988Z\\\",\\\"updatedDate\\\":\\\"2020-11-05T11:23:01.442Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-11-05T11:22:06.872Z\\\",\\\"activityType\\\":\\\"HOTELS_PURCHASE\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"phone\\\":\\\"0443955571\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"3d7de497-41bd-43fc-93dc-637f19874259\\\",\\\"tag\\\":\\\"MAIN\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"phones\\\":{\\\"items\\\":[{\\\"id\\\":\\\"d61838bd-f5a1-4e17-a04f-fa4dc60954f5\\\",\\\"countryCode\\\":\\\"UA\\\",\\\"phone\\\":\\\"0443955571\\\",\\\"e164Phone\\\":\\\"+380443955571\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"wix\\\",\\\"jobTitle\\\":\\\"dev\\\",\\\"locale\\\":\\\"en\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}}}}\"\n  },\n  \"eventTime\" : \"2020-11-05T11:23:02.012Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"006e8b34-d795-454c-b35a-71aa30cf9555\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"submitted\",\n  \"entityId\" : \"086d2438-0fc0-48fe-99c7-f9ae8ea734eb\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"passThroughData\\\":\\\"extra data\\\",\\\"activity\\\":{\\\"activityDate\\\":\\\"2020-11-05T11:22:06.872Z\\\",\\\"activityType\\\":\\\"HOTELS_PURCHASE\\\"},\\\"contact\\\":{\\\"id\\\":\\\"086d2438-0fc0-48fe-99c7-f9ae8ea734eb\\\",\\\"source\\\":{\\\"sourceType\\\":\\\"WIX_APP\\\",\\\"appId\\\":\\\"d2665c74-061f-4a37-875b-1fa72d9b8b7b\\\"},\\\"createdDate\\\":\\\"2020-10-27T09:27:40.988Z\\\",\\\"updatedDate\\\":\\\"2020-11-05T11:23:01.442Z\\\",\\\"lastActivity\\\":{\\\"activityDate\\\":\\\"2020-11-05T11:22:06.872Z\\\",\\\"activityType\\\":\\\"HOTELS_PURCHASE\\\"},\\\"primaryInfo\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"phone\\\":\\\"0443955571\\\"},\\\"info\\\":{\\\"name\\\":{\\\"first\\\":\\\"John\\\",\\\"last\\\":\\\"Doe\\\"},\\\"emails\\\":{\\\"items\\\":[{\\\"id\\\":\\\"3d7de497-41bd-43fc-93dc-637f19874259\\\",\\\"tag\\\":\\\"MAIN\\\",\\\"email\\\":\\\"johndoe@example.com\\\",\\\"primary\\\":true}]},\\\"phones\\\":{\\\"items\\\":[{\\\"id\\\":\\\"d61838bd-f5a1-4e17-a04f-fa4dc60954f5\\\",\\\"countryCode\\\":\\\"UA\\\",\\\"phone\\\":\\\"0443955571\\\",\\\"e164Phone\\\":\\\"+380443955571\\\",\\\"primary\\\":true}]},\\\"company\\\":\\\"wix\\\",\\\"jobTitle\\\":\\\"dev\\\",\\\"locale\\\":\\\"en\\\",\\\"extendedFields\\\":{\\\"items\\\":{\\\"emailSubscriptions.effectiveEmail\\\":\\\"johndoe@example.com\\\",\\\"emailSubscriptions.subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"contacts.displayByFirstName\\\":\\\"John Doe\\\",\\\"contacts.displayByLastName\\\":\\\"Doe John\\\"}}},\\\"primaryEmail\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"},\\\"primaryPhone\\\":{\\\"phone\\\":\\\"0443955571\\\",\\\"countryCode\\\": \\\"IL\\\",\\\"e164Phone\\\":\\\"+380443955571\\\",\\\"formattedPhone\\\":\\\"+380-44-395-5571\\\",\\\"subscriptionStatus\\\":\\\"SUBSCRIBED\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"}}}\"\n  },\n  \"eventTime\" : \"2020-11-05T11:23:02.012Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -1960,26 +1955,157 @@
       "labels": []
     },
         {
-      "name": "_wix_common_Paging",
-      "displayName": "Paging Object",
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactEmailSubscriptionUpdatedDomainEvent",
+      "displayName": "Contact Email Subscription Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"52269077-05f2-4b59-ba4f-36ef8c4c1e11\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"email_subscription_updated\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"revision\\\":\\\"5\\\",\\\"primaryEmail\\\":{\\\"email\\\":\\\"johndoe@example.com\\\",\\\"subscriptionStatus\\\":\\\"NOT_SET\\\",\\\"deliverabilityStatus\\\":\\\"NOT_SET\\\"},\\\"updatedDate\\\":\\\"2020-10-18T13:40:57.870Z\\\"}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:40:58.304800Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.contacts.v4.contact`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `email_subscription_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_ContactEmailSubscriptionUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ContactEmailSubscriptionUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactEmailSubscriptionUpdatedActionEvent",
+      "displayName": "Contact Email Subscription Updated Action Event Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": []
       },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_ContactEmailSubscriptionUpdated",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactPhoneSubscriptionUpdatedDomainEvent",
+      "displayName": "Contact Phone Subscription Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"52269077-05f2-4b59-ba4f-36ef8c4c1e11\",\n  \"entityFqdn\" : \"wix.contacts.v4.contact\",\n  \"slug\" : \"phone_subscription_updated\",\n  \"entityId\" : \"4b0133d5-7903-4411-bcc0-1817d1394028\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"id\\\":\\\"4b0133d5-7903-4411-bcc0-1817d1394028\\\",\\\"revision\\\":\\\"5\\\",\\\"primaryPhone\\\":{\\\"phone\\\":\\\"0443955571\\\",\\\"countryCode\\\": \\\"IL\\\",\\\"e164Phone\\\":\\\"+380443955571\\\",\\\"formattedPhone\\\":\\\"+380-44-395-5571\\\",\\\"subscriptionStatus\\\":\\\"SUBSCRIBED\\\"}},\\\"updatedDate\\\":\\\"2020-10-18T13:40:57.870Z\\\"}\"\n  },\n  \"eventTime\" : \"2020-10-18T13:40:58.304800Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
       "members":       [
                 {
-          "name": "limit",
-          "type": "integer",
-          "doc": " Number of items to load.\n"
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
         },
                 {
-          "name": "offset",
-          "type": "integer",
-          "doc": " Number of items to skip in the current sort order.\n"
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.contacts.v4.contact`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `phone_subscription_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_ContactPhoneSubscriptionUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ContactPhoneSubscriptionUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactPhoneSubscriptionUpdatedActionEvent",
+      "displayName": "Contact Phone Subscription Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "bodyAsJson",
+        "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_ContactPhoneSubscriptionUpdated",
+        "doc": "Event body as a stringified JSON"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2269,6 +2395,230 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_contacts_core_api_v4_ActivityIcon",
+      "displayName": "Activity Icon Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Icon name\n"
+        },
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Icon url\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_MemberInfo",
+      "displayName": "Member Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID. For more details see [here](https://github.com/wix-private/identity/blob/master/iam/memberid/proto/wix/iam/member/v1/member_id_service.proto)\n"
+        },
+                {
+          "name": "identityInfo",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_IdentityInfo",
+          "doc": " Identity info. For more details see [here](https://github.com/wix-private/identity/blob/master/iam/identity/identity-service/proto/wix/iam/identity/v1/identity.proto)\n"
+        },
+                {
+          "name": "profileInfo",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_ProfileInfo",
+          "doc": " Profile info. For more details see [here](https://github.com/wix-private/app-market/blob/master/members/members-profiles-api/proto/com/wixpress/members/profiles/profile.proto)\n"
+        },
+                {
+          "name": "userInfo",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_UserInfo",
+          "doc": " User info. For more details see [here](https://dev.wix.com/docs/rest/internal-only/identity/user-member-connection-v1/user-member-connection-object)\n"
+        },
+                {
+          "name": "sessionInfo",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_SessionInfo",
+          "doc": " Session info. For more details see [here](https://github.com/wix-private/identity/blob/master/iam/session/session-management/proto/wix/iam/session/v1/session.proto)\n"
+        },
+                {
+          "name": "groupInfo",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_GroupInfo",
+          "doc": " Group info. For more details see [here](https://github.com/wix-private/crm/blob/master/members-groups/api/src/main/proto/com/wixpress/members/groups/Groups.proto)\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_IdentityInfo",
+      "displayName": "Identity Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "signupDate",
+          "type": "string",
+          "doc": " Signup date\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Login email\n"
+        },
+                {
+          "name": "emailVerified",
+          "type": "boolean",
+          "doc": " Indicate whether the email is verified\n"
+        },
+                {
+          "name": "emailVerificationRequired",
+          "type": "boolean",
+          "doc": " Indicates that the member is required to verify their email\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_IdentityInfo_IdentityStatus",
+          "doc": " Identity status\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_ProfileInfo",
+      "displayName": "Profile Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "nickname",
+          "type": "string",
+          "doc": " Nickname\n"
+        },
+                {
+          "name": "privacyStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_ProfileInfo_PrivacyStatus",
+          "doc": " Privacy status\n"
+        },
+                {
+          "name": "reported",
+          "type": "boolean",
+          "doc": " Indicate whether the member is reported\n"
+        },
+                {
+          "name": "muted",
+          "type": "boolean",
+          "doc": " Indicate whether the member is muted\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_UserInfo",
+      "displayName": "User Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " User ID\n"
+        },
+                {
+          "name": "role",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_UserInfo_Role",
+          "doc": " User role\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_SessionInfo",
+      "displayName": "Session Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lastWebLogin",
+          "type": "string",
+          "doc": " Last web login\n"
+        },
+                {
+          "name": "lastMobileLogin",
+          "type": "string",
+          "doc": " Last mobile login\n"
+        },
+                {
+          "name": "mobileAppNames",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " List of mobile apps that the member has ever logged in to\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_GroupInfo",
+      "displayName": "Group Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groupIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Group IDs\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_contacts_core_api_v4_Contact",
       "displayName": "Contact Object",
       "locations": [],
@@ -2324,13 +2674,6 @@
           "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_PrimaryContactInfo",
           "doc": " Contact's primary phone and email.\n",
           "readOnly": true
-        },
-                {
-          "name": "picture",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_upstream_wix_common_Image",
-          "doc": "\nContact's profile picture.\nThis can contain an image URL and a Wix Media image ID.\n\n> **Deprecation Notice:**\n> This property has been replaced with\n> `info.picture`\n> and will be removed on March 31, 2022. If your app uses this property,\n> we recommend updating your code as soon as possible.\n",
-          "readOnly": true,
-          "deprecated": true
         },
                 {
           "name": "info",
@@ -2655,7 +2998,7 @@
                 {
           "name": "primary",
           "type": "boolean",
-          "doc": " Indicates whether this is the contact's primary email address.\n When changing `primary` to `true` for an email,\n the contact's other emails become `false`.\n"
+          "doc": " Indicates whether this is the contact's primary email address.\n When changing `primary` to `true` for an email,\n the contact's other emails become `false`.\n It also affects the subscription status to marketing emails that are decided based on the primary email.\n"
         }
       ],
       "enum": null,
@@ -2696,13 +3039,13 @@
                 {
           "name": "e164Phone",
           "type": "string",
-          "doc": " [ITU E.164-formatted](https://www.itu.int/rec/T-REC-E.164/)\n phone number.\n Automatically generated using `phone` and `countryCode`,\n as long as both of those values are valid.\n",
+          "doc": " [ITU E.164-formatted](https://www.itu.int/rec/T-REC-E.164/)\n phone number.\n Automatically generated using `phone` and `countryCode`, pending both values are valid.\n",
           "readOnly": true
         },
                 {
           "name": "primary",
           "type": "boolean",
-          "doc": " Whether this is the contact's primary phone number.\n When changing `primary` to `true` for a phone,\n the contact's other phones become `false`.\n"
+          "doc": " Whether this is the contact's primary phone number.\n When changing `primary` to `true` for a phone,\n the contact's `primary` field for other phones becomes `false`.\n It also affects the subscription status to SMS messages that are decided based on the primary phone.\n"
         }
       ],
       "enum": null,
@@ -2757,13 +3100,6 @@
           "readOnly": true
         },
                 {
-          "name": "wixAppId",
-          "type": "string",
-          "doc": "\nApp ID, if the contact was created by a Wix app.\n\n> **Deprecation Notice:**\n> This property has been replaced with\n> `appId`\n> and will be removed on March 31, 2022. If your app uses this property,\n> we recommend updating your code as soon as possible.\n",
-          "readOnly": true,
-          "deprecated": true
-        },
-                {
           "name": "appId",
           "type": "string",
           "doc": " App ID, if the contact was created by an app.\n",
@@ -2809,6 +3145,83 @@
         },
         "doc": "\nList of Contact segment IDs\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_PrimaryEmail",
+      "displayName": "Primary Email Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "email",
+          "type": "string",
+          "doc": "\nPrimary email address.\n\nThis property reflects the email address in `info.emails`\nwhere `primary` is `true`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "subscriptionStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_SubscriptionStatus",
+          "doc": " Indicates the recipient's opt-in or opt-out status for marketing emails.\n\n - `NOT_SET`: No status specified. Default.\n - `PENDING`: Subscription confirmation was requested,\n    but recipient hasn't confirmed yet.\n - `SUBSCRIBED`: Recipient has opted in to marketing emails.\n - `UNSUBSCRIBED`: Recipient has opted out of marketing emails.\n",
+          "readOnly": true
+        },
+                {
+          "name": "deliverabilityStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_PrimaryEmail_EmailDeliverabilityStatus",
+          "doc": " Indicates last reported status of sent emails.\n\n - `NOT_SET`: No status reported. Default.\n - `VALID`: Emails are being successfully delivered.\n - `BOUNCED`: The last email to the recipient bounced or was rejected.\n - `SPAM_COMPLAINT`: Recipient registered a spam complaint\n    with their email provider.\n - `INACTIVE`: Multiple emails have been delivered without any kind of engagement from the recipient.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_PrimaryPhone",
+      "displayName": "Primary Phone Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": " [ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the primary phone.\n"
+        },
+                {
+          "name": "e164Phone",
+          "type": "string",
+          "doc": " [ITU E.164-formatted](https://www.itu.int/rec/T-REC-E.164/)\n phone number.\n Automatically generated using `phone` and `countryCode`,\n as long as both of those values are valid.\n",
+          "readOnly": true
+        },
+                {
+          "name": "formattedPhone",
+          "type": "string",
+          "doc": " Formatted phone. Automatically generated using phone and countryCode.\n",
+          "readOnly": true
+        },
+                {
+          "name": "subscriptionStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_SubscriptionStatus",
+          "doc": " Indicates the recipient's opt-in or opt-out status for SMS messages.\n\n - `NO_SUBSCRIPTION_STATUS`: No status exists. This is the status when the phone is not a valid E164 phone.\n - `NOT_SET`: No status specified. Default when the phone is a valid E164 phone.\n - `PENDING`: Subscription confirmation was requested,\n    but recipient hasn't confirmed yet.\n - `SUBSCRIBED`: Recipient has opted in to SMS messages.\n - `UNSUBSCRIBED`: Recipient has opted out of SMS messages.\n",
+          "readOnly": true
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": "\nPrimary phone number.\n\nThis property reflects the phone number in `info.phones`\nwhere `primary` is `true`.\n",
+          "readOnly": true
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2957,446 +3370,6 @@
           "name": "prev",
           "type": "string",
           "doc": " Cursor pointing to previous result page\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Contact",
-      "displayName": "Contact Object",
-      "locations": [],
-      "docs":       {
-        "summary": "\n> **Deprecation Notice**\n>\n> **The Contacts v1 API has been replaced with\n> [Contacts v4](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/)\n> and will be removed on March 31, 2022. If your app uses this endpoint,\n> we recommend updating your code as soon as possible.**\n",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"id\" : \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n  \"firstName\" : \"Some\",\n  \"lastName\" : \"One\",\n  \"emails\" : [ {\n    \"tag\" : \"MAIN\",\n    \"email\" : \"email@test.rocks\"\n  } ],\n  \"phones\" : [ {\n    \"tag\" : \"HOME\",\n    \"phone\" : \"2075556300\"\n  }, {\n    \"tag\" : \"MOBILE\",\n    \"phone\" : \"2075555217\"\n  } ],\n  \"addresses\" : [ {\n    \"tag\" : \"HOME\",\n    \"street\" : \"1772  Fantages Way\",\n    \"city\" : \"Richmond\",\n    \"region\" : \"ME\",\n    \"country\" : \"US\",\n    \"postalCode\" : \"04357\"\n  } ],\n  \"metadata\" : {\n    \"createdAt\" : \"2019-10-30T17:22:10.299Z\",\n    \"updatedAt\" : \"2019-11-13T20:14:49.458Z\"\n  }\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": " Contact ID (unique) \n",
-          "readOnly": true
-        },
-                {
-          "name": "firstName",
-          "type": "string",
-          "doc": " Contact first name \n"
-        },
-                {
-          "name": "lastName",
-          "type": "string",
-          "doc": " Contact Last name\n"
-        },
-                {
-          "name": "emails",
-          "type":           {
-            "name": "array",
-            "typeParams": ["All APIs.Contacts._com_wixpress_contacts_core_api_v1_Email"]
-          },
-          "doc": " Contact email address data\n"
-        },
-                {
-          "name": "phones",
-          "type":           {
-            "name": "array",
-            "typeParams": ["All APIs.Contacts._com_wixpress_contacts_core_api_v1_Phone"]
-          },
-          "doc": " Contact phone number data\n"
-        },
-                {
-          "name": "addresses",
-          "type":           {
-            "name": "array",
-            "typeParams": ["All APIs.Contacts._com_wixpress_contacts_core_api_v1_Address"]
-          },
-          "doc": " Contact address data\n"
-        },
-                {
-          "name": "metadata",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_ContactMetaData",
-          "doc": " Contact metadata\n"
-        },
-                {
-          "name": "source",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Source",
-          "doc": " Contact Source\n",
-          "readOnly": true
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Email",
-      "displayName": "Email Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "tag",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Email_EmailTag",
-          "doc": ""
-        },
-                {
-          "name": "email",
-          "type": "string",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Phone",
-      "displayName": "Phone Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "tag",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Phone_PhoneTag",
-          "doc": ""
-        },
-                {
-          "name": "phone",
-          "type": "string",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Address",
-      "displayName": "Address Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "tag",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Address_AddressTag",
-          "doc": ""
-        },
-                {
-          "name": "street",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "city",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "region",
-          "type": "string",
-          "doc": ""
-        },
-                {
-          "name": "countryCode",
-          "type": "string",
-          "doc": "Country Code (ISO 3166-1 alpha-2) (2 letters)\n"
-        },
-                {
-          "name": "postalCode",
-          "type": "string",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_ContactMetaData",
-      "displayName": "Contact Meta Data Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "createdAt",
-          "type": "string",
-          "doc": " Contact creation time \n",
-          "readOnly": true
-        },
-                {
-          "name": "updatedAt",
-          "type": "string",
-          "doc": " Contact latest update time \n",
-          "readOnly": true
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Source",
-      "displayName": "Source Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "sourceType",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Source_SourceType",
-          "doc": "",
-          "readOnly": true
-        },
-                {
-          "name": "appId",
-          "type": "string",
-          "doc": "",
-          "readOnly": true
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_events_ContactCreated",
-      "displayName": "Contact Created Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"contact\" : {\n    \"id\" : \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"firstName\" : \"Some\",\n    \"lastName\" : \"One\",\n    \"emails\" : [ {\n      \"tag\" : \"MAIN\",\n      \"email\" : \"email@test.rocks\"\n    } ],\n    \"phones\" : [ {\n      \"tag\" : \"HOME\",\n      \"phone\" : \"2075556300\"\n    } ],\n    \"addresses\" : [ ],\n    \"metadata\" : {\n      \"createdAt\" : \"2019-10-30T17:22:10.299Z\",\n      \"updatedAt\" : \"2019-10-30T17:22:10.299Z\"\n    }\n  }\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members": [      {
-        "name": "contact",
-        "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Contact",
-        "doc": " Contact data\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_events_ContactChanged",
-      "displayName": "Contact Changed Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"contact\" : {\n    \"id\" : \"8046df3c-7575-4098-a5ab-c91ad8f33c47\",\n    \"firstName\" : \"Some\",\n    \"lastName\" : \"One\",\n    \"emails\" : [ {\n      \"tag\" : \"MAIN\",\n      \"email\" : \"email@test.rocks\"\n    } ],\n    \"phones\" : [ {\n      \"tag\" : \"HOME\",\n      \"phone\" : \"2075556300\"\n    }, {\n      \"tag\" : \"MOBILE\",\n      \"phone\" : \"2075555217\"\n    } ],\n    \"addresses\" : [ {\n      \"tag\" : \"HOME\",\n      \"street\" : \"1772  Fantages Way\",\n      \"city\" : \"Richmond\",\n      \"region\" : \"ME\",\n      \"country\" : \"US\",\n      \"postalCode\" : \"04357\"\n    } ],\n    \"metadata\" : {\n      \"createdAt\" : \"2019-10-30T17:22:10.299Z\",\n      \"updatedAt\" : \"2019-11-13T20:14:49.458Z\"\n    }\n  }\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "contact",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Contact",
-          "doc": " Updated contact\n"
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": ""
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_events_ContactDeleted",
-      "displayName": "Contact Deleted Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"contactId\" : \"8046df3c-7575-4098-a5ab-c91ad8f33c47\"\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members": [      {
-        "name": "contactId",
-        "type": "string",
-        "doc": " ID of deleted Contact\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_Sorting",
-      "displayName": "Sorting Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "fieldName",
-          "type": "string",
-          "doc": " Name of the field to sort by.\n"
-        },
-                {
-          "name": "order",
-          "type": "All APIs.Contacts._wix_common_SortOrder",
-          "doc": " Sort order.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_GetContactRequest",
-      "displayName": "Get Contact Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "id",
-        "type": "string",
-        "doc": "Contact ID\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_GetContactResponse",
-      "displayName": "Get Contact Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "contact",
-        "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_Contact",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_MetaData",
-      "displayName": "Meta Data Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "items",
-          "type": "integer",
-          "doc": "Number of returned items\n"
-        },
-                {
-          "name": "offset",
-          "type": "integer",
-          "doc": "Given offset\n"
-        },
-                {
-          "name": "hasMore",
-          "type": "boolean",
-          "doc": "When true, there is more data to be returned. Repeat the call, setting new offset to current offset + items to return more contacts\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_ListContactsRequest",
-      "displayName": "List Contacts Request Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "sort",
-          "type": "All APIs.Contacts._wix_common_Sorting",
-          "doc": "Allow sorting by the following fields: firstName, lastName, email (first email), metadata.updatedAt\n"
-        },
-                {
-          "name": "paging",
-          "type": "All APIs.Contacts._wix_common_Paging",
-          "doc": "Allow paginating, default: limit = 30 and offset = 0\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_ListContactsResponse",
-      "displayName": "List Contacts Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "contacts",
-          "type":           {
-            "name": "array",
-            "typeParams": ["All APIs.Contacts._com_wixpress_contacts_core_api_v1_Contact"]
-          },
-          "doc": ""
-        },
-                {
-          "name": "metadata",
-          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v1_MetaData",
-          "doc": ""
         }
       ],
       "enum": null,
@@ -3704,7 +3677,7 @@
                 {
           "name": "fieldName",
           "type": "string",
-          "doc": "\nField to sort by.\n\nSupported properties:\n`createdDate`, `lastActivity.activityDate`, `primaryInfo.email`,\n`info.name.first`, `info.name.last`, `info.company`, `info.jobTitle`,\n`info.birthdate`\n"
+          "doc": "\nField to sort by.\n\nSupported properties:\n`createdDate`, `lastActivity.activityDate`, `primaryInfo.email`, `info.name.first`, `info.name.last`, `info.company`,\n`info.jobTitle`, `info.birthdate`\n"
         },
                 {
           "name": "order",
@@ -4202,7 +4175,7 @@
                 {
           "name": "allowDuplicates",
           "type": "boolean",
-          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefaults to `false`.\n"
+          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefault: `false`\n"
         }
       ],
       "enum": null,
@@ -4250,7 +4223,7 @@
                 {
           "name": "allowDuplicates",
           "type": "boolean",
-          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefaults to `false`.\n"
+          "doc": "\nControls whether the call will succeed\nif the new contact information contains an email or a phone number already used by another contact.\n\nIf set to `true`,\nthe call will succeed even if an email address or phone number is used by another contact.\nIf set to `false`,\nthe call will fail if the given email address is used by another contact or,\nif the email address is not given and the given phone number is used by another contact.\n\nDefault: `false`\n"
         },
                 {
           "name": "info",
@@ -4690,12 +4663,12 @@
                 {
           "name": "paging",
           "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_upstream_wix_common_Paging",
-          "doc": "Allow paginating, default: offset = 0 and limit = 1000\n"
+          "doc": " Allow paginating, default: offset = 0 and limit = 1000\n"
         },
                 {
           "name": "language",
           "type": "string",
-          "doc": "Language for localization\n"
+          "doc": " Language for localization\n"
         }
       ],
       "enum": null,
@@ -4743,17 +4716,17 @@
                 {
           "name": "paging",
           "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_upstream_wix_common_Paging",
-          "doc": "Allow paginating, default: offset = 0 and limit = 1000\n"
+          "doc": " Allow paginating, default: offset = 0 and limit = 1000\n"
         },
                 {
           "name": "language",
           "type": "string",
-          "doc": "Language for localization\n"
+          "doc": " Language for localization\n"
         },
                 {
           "name": "filter",
           "type": "struct",
-          "doc": " Only allowed fields:\n #info.extendedFields.emailSubscriptions.effectiveEmail ($exists)\n #info.extendedFields.emailSubscriptions.deliverabilityStatus ($eq, $ne, $in, $nin)\n #info.extendedFields.emailSubscriptions.subscriptionStatus ($eq, $ne, $in)\n"
+          "doc": " Only allowed fields:\n #info.extendedFields.emailSubscriptions.effectiveEmail ($exists)\n #info.extendedFields.emailSubscriptions.subscriptionStatus ($eq, $ne, $in, $nin)\n #info.extendedFields.emailSubscriptions.deliverabilityStatus ($eq, $ne, $in, $nin)\n"
         }
       ],
       "enum": null,
@@ -5336,7 +5309,7 @@
       "members": [      {
         "name": "search",
         "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_upstream_wix_query_Search",
-        "doc": "Search object. Encapsulates filter, sorting, paging and other details\n"
+        "doc": " Search object. Encapsulates filter, sorting, paging and other details\n"
       }],
       "enum": null,
       "extra": {},
@@ -5401,6 +5374,41 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactEmailSubscriptionUpdated",
+      "displayName": "Contact Email Subscription Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " The updated contact ID.\n"
+        },
+                {
+          "name": "revision",
+          "type": "integer",
+          "doc": " The revision of the contact.\n"
+        },
+                {
+          "name": "primaryEmail",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_PrimaryEmail",
+          "doc": " The primary email of the contact with the updated subscription and deliverability status.\n"
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the contact was updated with the email subscription or deliverability status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_contacts_core_api_v4_events_ContactMerged",
       "displayName": "Contact Merged Object",
       "locations": [],
@@ -5429,6 +5437,99 @@
           "doc": " Updated target contact.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactPhoneSubscriptionUpdated",
+      "displayName": "Contact Phone Subscription Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " The updated contact ID.\n"
+        },
+                {
+          "name": "revision",
+          "type": "integer",
+          "doc": " The revision of the contact.\n"
+        },
+                {
+          "name": "primaryPhone",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_PrimaryPhone",
+          "doc": " The primary phone of the contact with the updated subscription status.\n"
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the contact was updated with the SMS subscription status.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_ContactPrimaryInfoUpdated",
+      "displayName": "Contact Primary Info Updated Object",
+      "locations": [],
+      "docs":       {
+        "summary": " This message is an internal message used by this app and it is used to trigger\n the update of the subscription status of the contact asynchronously.\n It is published after a contact is created/updated/merged.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "contactId",
+          "type": "string",
+          "doc": " The updated contact ID.\n"
+        },
+                {
+          "name": "primaryEmailUpdated",
+          "type": "boolean",
+          "doc": " Indication whether the primary email was updated.\n"
+        },
+                {
+          "name": "primaryPhoneUpdated",
+          "type": "boolean",
+          "doc": " Indication whether primary phone was updated.\n"
+        },
+                {
+          "name": "previousPrimaryEmailSubscriptionStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_PrimarySubscriptionStatus",
+          "doc": " previous primary email subscription status\n"
+        },
+                {
+          "name": "previousPrimaryPhoneSubscriptionStatus",
+          "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_events_PrimarySubscriptionStatus",
+          "doc": " previous primary phone subscription status\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_events_PrimarySubscriptionStatus",
+      "displayName": "Primary Subscription Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "subscriptionStatus",
+        "type": "All APIs.Contacts._com_wixpress_contacts_core_api_v4_SubscriptionStatus",
+        "doc": " subscription status\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -5518,7 +5619,7 @@
       "displayName": "Subdivision Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN_SUBDIVISION_TYPE <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_1 -  state\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_2 -  county\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_3 -  cities/towns\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_4 -  neighborhood/quarter\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_5 -  street/block\n <\/code><\/li><li><code> COUNTRY -  (ADMINISTRATIVE_AREA_LEVEL_0) indicates the national political entity, and is typically the highest order type returned by the Geocoder.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN_SUBDIVISION_TYPE <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_1 -  State\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_2 -  County\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_3 -  City/town\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_4 -  Neighborhood/quarter\n <\/code><\/li><li><code> ADMINISTRATIVE_AREA_LEVEL_5 -  Street/block\n <\/code><\/li><li><code> COUNTRY -  ADMINISTRATIVE_AREA_LEVEL_0. Indicates the national political entity, and is typically the highest order type returned by the Geocoder.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5554,7 +5655,7 @@
       "displayName": "Contact Activity Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> GENERAL - Last visit to your site (any unknown activity)\n <\/code><\/li><li><code> CONTACT_CREATED - This cannot be reported, used when contact created, will throw exception\n <\/code><\/li><li><code> MEMBER_LOGIN - \"auth/login\"\n <\/code><\/li><li><code> MEMBER_REGISTER - \"auth/register\"\n <\/code><\/li><li><code> MEMBER_STATUS_CHANGED - \"auth/status-change\"\n <\/code><\/li><li><code> FORM_SUBMITTED - \"contact/contact-form\", (but also \"form/contact-form\", \"form/form\")\n <\/code><\/li><li><code> INBOX_FORM_SUBMITTED - \"form/lead-capture-form\"\n <\/code><\/li><li><code> INBOX_PAYMENT_REQUEST_PAID - \"chat/payment-request-paid\"\n <\/code><\/li><li><code> INBOX_MESSAGE_TO_CUSTOMER - \"messaging/email\" - Direction BUSINESS_TO_CUSTOMER\n <\/code><\/li><li><code> INBOX_MESSAGE_FROM_CUSTOMER - \"messaging/email\" - Direction CUSTOMER_TO_BUSINESS\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_FORM_SUBMITTED - \"contact/subscription-form\" (but also \"form/subscription-form\")\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_UNSUBSCRIBE - \"contact/unsubscribe\"\n <\/code><\/li><li><code> ECOM_PURCHASE - \"e_commerce/purchase\"\n <\/code><\/li><li><code> ECOM_CART_ABANDON - \"e_commerce/cart-abandon\"\n <\/code><\/li><li><code> ECOM_CHECKOUT_BUYER - \"e_commerce/checkout-buyer\"\n <\/code><\/li><li><code> BOOKINGS_APPOINTMENT - \"scheduler/appointment\"\n <\/code><\/li><li><code> HOTELS_RESERVATION - \"hotels/reservation\"\n <\/code><\/li><li><code> HOTELS_PURCHASE - \"hotels/purchase\"\n <\/code><\/li><li><code> HOTELS_CONFIRMATION - \"hotels/confirmation\"\n <\/code><\/li><li><code> HOTELS_CANCEL - \"hotels/cancel\"\n <\/code><\/li><li><code> VIDEO_PURCHASE - \"video/purchase\"\n <\/code><\/li><li><code> VIDEO_RENT - \"video/rent\"\n <\/code><\/li><li><code> CASHIER_BUTTON_PURCHASE - \"cashier/button_purchase\"\n <\/code><\/li><li><code> ARENA_NEW_LEAD - \"arena/new-lead\"\n <\/code><\/li><li><code> EVENTS_RSVP - \"events/rsvp\"\n <\/code><\/li><li><code> INVOICE_PAY - \"invoice/pay\"\n <\/code><\/li><li><code> INVOICE_OVERDUE - \"invoice/overdue\"\n <\/code><\/li><li><code> PRICE_QUOTE_ACCEPT - \"price-quote/accept\"\n <\/code><\/li><li><code> PRICE_QUOTE_EXPIRE - \"price-quote/expire\"\n <\/code><\/li><li><code> RESTAURANTS_ORDER - \"restaurants/order\"\n <\/code><\/li><li><code> RESTAURANTS_RESERVATION - \"restaurants/reservation\"\n <\/code><\/li><li><code> SHOUTOUT_OPEN - \"shoutout/open\"\n <\/code><\/li><li><code> SHOUTOUT_CLICK - \"shoutout/click\"\n <\/code><\/li><li><code> CONTACT_MERGED <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> GENERAL - Last visit to your site (any unknown activity)\n <\/code><\/li><li><code> CONTACT_CREATED - This cannot be reported, used when contact created, will throw exception\n <\/code><\/li><li><code> MEMBER_LOGIN - \"auth/login\"\n <\/code><\/li><li><code> MEMBER_REGISTER - \"auth/register\"\n <\/code><\/li><li><code> MEMBER_STATUS_CHANGED - \"auth/status-change\"\n <\/code><\/li><li><code> FORM_SUBMITTED - \"contact/contact-form\", (but also \"form/contact-form\", \"form/form\")\n <\/code><\/li><li><code> INBOX_FORM_SUBMITTED - \"form/lead-capture-form\"\n <\/code><\/li><li><code> INBOX_PAYMENT_REQUEST_PAID - \"chat/payment-request-paid\"\n <\/code><\/li><li><code> INBOX_MESSAGE_TO_CUSTOMER - \"messaging/email\" - Direction BUSINESS_TO_CUSTOMER\n <\/code><\/li><li><code> INBOX_MESSAGE_FROM_CUSTOMER - \"messaging/email\" - Direction CUSTOMER_TO_BUSINESS\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_FORM_SUBMITTED - \"contact/subscription-form\" (but also \"form/subscription-form\")\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_UNSUBSCRIBE - \"contact/unsubscribe\"\n <\/code><\/li><li><code> ECOM_PURCHASE - \"e_commerce/purchase\"\n <\/code><\/li><li><code> ECOM_CART_ABANDON - \"e_commerce/cart-abandon\"\n <\/code><\/li><li><code> ECOM_CHECKOUT_BUYER - \"e_commerce/checkout-buyer\"\n <\/code><\/li><li><code> BOOKINGS_APPOINTMENT - \"scheduler/appointment\"\n <\/code><\/li><li><code> HOTELS_RESERVATION - \"hotels/reservation\"\n <\/code><\/li><li><code> HOTELS_PURCHASE - \"hotels/purchase\"\n <\/code><\/li><li><code> HOTELS_CONFIRMATION - \"hotels/confirmation\"\n <\/code><\/li><li><code> HOTELS_CANCEL - \"hotels/cancel\"\n <\/code><\/li><li><code> VIDEO_PURCHASE - \"video/purchase\"\n <\/code><\/li><li><code> VIDEO_RENT - \"video/rent\"\n <\/code><\/li><li><code> CASHIER_BUTTON_PURCHASE - \"cashier/button_purchase\"\n <\/code><\/li><li><code> ARENA_NEW_LEAD - \"arena/new-lead\"\n <\/code><\/li><li><code> EVENTS_RSVP - \"events/rsvp\"\n <\/code><\/li><li><code> INVOICE_PAY - \"invoice/pay\"\n <\/code><\/li><li><code> INVOICE_OVERDUE - \"invoice/overdue\"\n <\/code><\/li><li><code> PRICE_QUOTE_ACCEPT - \"price-quote/accept\"\n <\/code><\/li><li><code> PRICE_QUOTE_EXPIRE - \"price-quote/expire\"\n <\/code><\/li><li><code> RESTAURANTS_ORDER - \"restaurants/order\"\n <\/code><\/li><li><code> RESTAURANTS_RESERVATION - \"restaurants/reservation\"\n <\/code><\/li><li><code> SHOUTOUT_OPEN - \"shoutout/open\"\n <\/code><\/li><li><code> SHOUTOUT_CLICK - \"shoutout/click\"\n <\/code><\/li><li><code> CONTACT_MERGED <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_SUBSCRIBE - \"contact/subscribe\"\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_PENDING - \"contact/subscription-pending\"\n <\/code><\/li><li><code> NEWSLETTER_SUBSCRIPTION_NOT_SET - \"contact/subscription-not-set\"\n <\/code><\/li><li><code> PHONE_SUBSCRIPTION_SUBSCRIBE - \"contact/phone-subscription-subscribe\"\n <\/code><\/li><li><code> PHONE_SUBSCRIPTION_PENDING - \"contact/phone-subscription-pending\"\n <\/code><\/li><li><code> PHONE_SUBSCRIPTION_NOT_SET - \"contact/phone-subscription-not-set\"\n <\/code><\/li><li><code> PHONE_SUBSCRIPTION_UNSUBSCRIBE - \"contact/phone-subscription-unsubscribe\"\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5593,7 +5694,91 @@
         "RESTAURANTS_RESERVATION",
         "SHOUTOUT_OPEN",
         "SHOUTOUT_CLICK",
-        "CONTACT_MERGED"
+        "CONTACT_MERGED",
+        "NEWSLETTER_SUBSCRIPTION_SUBSCRIBE",
+        "NEWSLETTER_SUBSCRIPTION_PENDING",
+        "NEWSLETTER_SUBSCRIPTION_NOT_SET",
+        "PHONE_SUBSCRIPTION_SUBSCRIBE",
+        "PHONE_SUBSCRIPTION_PENDING",
+        "PHONE_SUBSCRIPTION_NOT_SET",
+        "PHONE_SUBSCRIPTION_UNSUBSCRIBE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_IdentityInfo_IdentityStatus",
+      "displayName": "Identity Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_IDENTITY_STATUS <\/code><\/li><li><code> PENDING_ADMIN_APPROVAL <\/code><\/li><li><code> ACTIVE <\/code><\/li><li><code> DELETED <\/code><\/li><li><code> BLOCKED <\/code><\/li><li><code> OFFLINE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_IDENTITY_STATUS",
+        "PENDING_ADMIN_APPROVAL",
+        "ACTIVE",
+        "DELETED",
+        "BLOCKED",
+        "OFFLINE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_ProfileInfo_PrivacyStatus",
+      "displayName": "Privacy Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_PRIVACY_STATUS <\/code><\/li><li><code> PRIVATE <\/code><\/li><li><code> PUBLIC <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_PRIVACY_STATUS",
+        "PRIVATE",
+        "PUBLIC"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_UserInfo_Role",
+      "displayName": "Role Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNSPECIFIED_ROLE <\/code><\/li><li><code> OWNER <\/code><\/li><li><code> CONTRIBUTOR <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED_ROLE",
+        "OWNER",
+        "CONTRIBUTOR"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_contacts_core_api_v4_SubscriptionStatus",
+      "displayName": "Subscription Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NO_SUBSCRIPTION_STATUS <\/code><\/li><li><code> NOT_SET <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> SUBSCRIBED <\/code><\/li><li><code> UNSUBSCRIBED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NO_SUBSCRIPTION_STATUS",
+        "NOT_SET",
+        "PENDING",
+        "SUBSCRIBED",
+        "UNSUBSCRIBED"
       ],
       "extra": {},
       "labels": []
@@ -5663,7 +5848,7 @@
       "displayName": "Contact Source Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> OTHER <\/code><\/li><li><code> ADMIN <\/code><\/li><li><code> WIX_APP <\/code><\/li><li><code> IMPORT <\/code><\/li><li><code> THIRD_PARTY <\/code><\/li><li><code> WIX_BOOKINGS <\/code><\/li><li><code> WIX_CHAT <\/code><\/li><li><code> WIX_EMAIL_MARKETING <\/code><\/li><li><code> WIX_EVENTS <\/code><\/li><li><code> WIX_FORMS <\/code><\/li><li><code> WIX_GROUPS <\/code><\/li><li><code> WIX_HOTELS <\/code><\/li><li><code> WIX_MARKET_PLACE <\/code><\/li><li><code> WIX_MUSIC <\/code><\/li><li><code> WIX_RESTAURANTS <\/code><\/li><li><code> WIX_SITE_MEMBERS <\/code><\/li><li><code> WIX_STORES <\/code><\/li><li><code> WIX_CODE <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> OTHER <\/code><\/li><li><code> ADMIN <\/code><\/li><li><code> WIX_APP <\/code><\/li><li><code> IMPORT <\/code><\/li><li><code> THIRD_PARTY <\/code><\/li><li><code> WIX_BOOKINGS <\/code><\/li><li><code> WIX_CHAT <\/code><\/li><li><code> WIX_EMAIL_MARKETING <\/code><\/li><li><code> WIX_EVENTS <\/code><\/li><li><code> WIX_FORMS <\/code><\/li><li><code> WIX_GROUPS <\/code><\/li><li><code> WIX_HOTELS <\/code><\/li><li><code> WIX_MARKET_PLACE <\/code><\/li><li><code> WIX_MUSIC <\/code><\/li><li><code> WIX_RESTAURANTS <\/code><\/li><li><code> WIX_SITE_MEMBERS <\/code><\/li><li><code> WIX_STORES <\/code><\/li><li><code> WIX_CODE <\/code><\/li><li><code> HOPP <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5686,7 +5871,8 @@
         "WIX_RESTAURANTS",
         "WIX_SITE_MEMBERS",
         "WIX_STORES",
-        "WIX_CODE"
+        "WIX_CODE",
+        "HOPP"
       ],
       "extra": {},
       "labels": []
@@ -5710,101 +5896,39 @@
       "labels": []
     },
         {
-      "name": "_com_wixpress_contacts_core_api_v1_Email_EmailTag",
-      "displayName": "Email Tag Object",
+      "name": "_com_wixpress_contacts_core_api_v4_PrimaryEmail_EmailDeliverabilityStatus",
+      "displayName": "Email Deliverability Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNTAGGED <\/code><\/li><li><code> MAIN <\/code><\/li><li><code> HOME <\/code><\/li><li><code> WORK <\/code><\/li><li><code> OTHER <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN_EMAIL_DELIVERABILITY_STATUS <\/code><\/li><li><code> NOT_SET <\/code><\/li><li><code> VALID <\/code><\/li><li><code> BOUNCED <\/code><\/li><li><code> SPAM_COMPLAINT <\/code><\/li><li><code> INACTIVE <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
       "enum":       [
-        "UNTAGGED",
-        "MAIN",
-        "HOME",
-        "WORK",
-        "OTHER"
+        "UNKNOWN_EMAIL_DELIVERABILITY_STATUS",
+        "NOT_SET",
+        "VALID",
+        "BOUNCED",
+        "SPAM_COMPLAINT",
+        "INACTIVE"
       ],
       "extra": {},
       "labels": []
     },
         {
-      "name": "_com_wixpress_contacts_core_api_v1_Phone_PhoneTag",
-      "displayName": "Phone Tag Object",
+      "name": "_com_wixpress_contacts_core_api_v4_PrimaryPhone_PhoneDeliverabilityStatus",
+      "displayName": "Phone Deliverability Status Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNTAGGED <\/code><\/li><li><code> MAIN <\/code><\/li><li><code> HOME <\/code><\/li><li><code> MOBILE <\/code><\/li><li><code> WORK <\/code><\/li><li><code> FAX <\/code><\/li><li><code> OTHER <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> NO_PHONE_DELIVERABILITY_STATUS <\/code><\/li><li><code> NOT_SET <\/code><\/li>",
         "links": [],
         "examples": []
       },
       "members": [],
       "enum":       [
-        "UNTAGGED",
-        "MAIN",
-        "HOME",
-        "MOBILE",
-        "WORK",
-        "FAX",
-        "OTHER"
-      ],
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Address_AddressTag",
-      "displayName": "Address Tag Object",
-      "locations": [],
-      "docs":       {
-        "summary": " \n Possible values are: <li><code> UNTAGGED <\/code><\/li><li><code> HOME <\/code><\/li><li><code> WORK <\/code><\/li><li><code> BILLING <\/code><\/li><li><code> SHIPPING <\/code><\/li><li><code> OTHER <\/code><\/li>",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum":       [
-        "UNTAGGED",
-        "HOME",
-        "WORK",
-        "BILLING",
-        "SHIPPING",
-        "OTHER"
-      ],
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_contacts_core_api_v1_Source_SourceType",
-      "displayName": "Source Type Object",
-      "locations": [],
-      "docs":       {
-        "summary": " \n Possible values are: <li><code> OTHER <\/code><\/li><li><code> IMPORT <\/code><\/li><li><code> APP <\/code><\/li><li><code> SITE_MEMBERS <\/code><\/li><li><code> MANUAL <\/code><\/li>",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum":       [
-        "OTHER",
-        "IMPORT",
-        "APP",
-        "SITE_MEMBERS",
-        "MANUAL"
-      ],
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_common_SortOrder",
-      "displayName": "Sort Order Object",
-      "locations": [],
-      "docs":       {
-        "summary": " \n Possible values are: <li><code> ASC <\/code><\/li><li><code> DESC <\/code><\/li>",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum":       [
-        "ASC",
-        "DESC"
+        "NO_PHONE_DELIVERABILITY_STATUS",
+        "NOT_SET"
       ],
       "extra": {},
       "labels": []
@@ -5856,7 +5980,7 @@
       "displayName": "Contact Field Set Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> BASIC - name, primaryEmail, primaryPhone\n <\/code><\/li><li><code> COMMUNICATION_DETAILS -  name, phones, emails, addressses\n <\/code><\/li><li><code> EXTENDED - name, primaryInfo(email, phone), extendedFields\n <\/code><\/li><li><code> FULL - Full contact object\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> BASIC - name, primaryEmail, primaryPhone\n <\/code><\/li><li><code> COMMUNICATION_DETAILS -  name, phones, emails, addresses\n <\/code><\/li><li><code> EXTENDED - name, primaryInfo(email, phone), extendedFields\n <\/code><\/li><li><code> FULL - Full contact object\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
