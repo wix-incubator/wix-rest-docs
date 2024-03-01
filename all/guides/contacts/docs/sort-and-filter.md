@@ -13,28 +13,29 @@ and free-text searching
 for the base set of contact properties.
 It doesn't include extended fields (those are covered in the sections below).
 
-| Field                        | Supported Filters                             | Sortable | Searchable |
-| ---------------------------- | --------------------------------------------- | -------- | ---------- |
-| `id`                         | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
-| `createdDate`                | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
-| `updatedDate`                | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    |          |            |
-| `lastActivity.activityDate`  | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
-| `primaryInfo.email`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
-| `primaryInfo.phone`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
-| `info.name.first`            | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
-| `info.name.last`             | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
-| `info.emails.email`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
-| `info.phones.phone`          | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
-| `info.addresses.street`      | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
-| `info.addresses.city`        | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
-| `info.addresses.subdivision` | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
-| `info.addresses.country`     | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
-| `info.company`               | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
-| `info.jobTitle`              | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
-| `info.birthdate`             | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
-| `info.locale`                | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
-| `info.labelKeys`             | `$hasSome`, `$hasAll`                         |          |            |
-| `info.locations`             | `$hasSome`, `$hasAll`                         |          |            |
+| Field                               | Supported Filters                             | Sortable | Searchable |
+|-------------------------------------|-----------------------------------------------|----------|------------|
+| `id`                                | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `createdDate`                       | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `updatedDate`                       | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    |          |            |
+| `lastActivity.activityDate`         | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `primaryInfo.email`                 | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `primaryInfo.phone`                 | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.name.first`                   | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.name.last`                    | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable | Searchable |
+| `info.emails.email`                 | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.phones.phone`                 | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.phones.e164Phone`             | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          | Searchable |
+| `info.addresses.street`             | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.city`               | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` |          |            |
+| `info.addresses.subdivision`        | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.addresses.country`            | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.company`                      | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.jobTitle`                     | `$eq`, `$ne`, `$in`, `$exists`, `$startsWith` | Sortable |            |
+| `info.birthdate`                    | `$eq`, `$ne`, `$gt`, `$lt`, `$gte`, `$lte`    | Sortable |            |
+| `info.locale`                       | `$eq`, `$ne`, `$in`, `$exists`                |          |            |
+| `info.labelKeys`                    | `$hasSome`, `$hasAll`                         |          |            |
+| `info.locations`                    | `$hasSome`, `$hasAll`                         |          |            |
 
 ## Extended Fields: Supported filters, sorting, and search
 
