@@ -34,6 +34,11 @@
   ],
   "relatedGuides":   [
         {
+      "path": "../guides/pricing-plans/docs/PlansExampleFlows.md",
+      "name": "Example Flows",
+      "tag": "Plan V2"
+    },
+        {
       "path": "../guides/pricing-plans/docs/about.md",
       "name": "Internal Introduction"
     },
@@ -406,7 +411,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Creates an order for a buyer who purchased the plan with an offline transaction.\n\nAn offline order is handled off of the Wix site and is marked as `offline` in `type`. If a pricing plan\nhas a limit on the amount of purchases per buyer, that limit is ignored for offline orders. \nTax is only applied if the site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection).\n\nHandle payment for an offline order in 1 of 2 ways:\n+ When creating the order, select `true` in the `paid` request parameter.\n+ After creation, use [Mark As Paid to mark the order as paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/mark-as-paid).\n\n \n",
+        "summary": " Creates an order for a buyer who purchased the plan with an offline transaction.\n\nAn offline order is handled off of the Wix site and is marked as `offline` in `type`. If a pricing plan\nhas a limit on the amount of purchases per buyer, that limit is ignored for offline orders.\nTax is only applied if the site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection).\n\nHandle payment for an offline order in 1 of 2 ways:\n+ When creating the order, select `true` in the `paid` request parameter.\n+ After creation, use [Mark As Paid to mark the order as paid](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/mark-as-paid).\n\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/checkout/orders/offline",
@@ -649,7 +654,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Performs a dry run of a purchase and provides an order preview.  \n\nThe preview uses the same logic as purchasing a plan, but the preview is not saved. Because an order is not actually\ncreated, the preview order's `orderId` and `subscriptionId` are displayed as a string of multiple zero characters \n(`000000-0000`). Tax is only calculated if the site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection).  \n<br>\nIf a pricing plan has a limit on the amount of purchases per buyer, that limit is not considered for generating the preview.\nBut, if that limit has been reached and this order would then exceed the amount of purchases permitted for this buyer, then\n`purchaseLimitExceeded` will return as `true`.\n\nTo get a general price preview for a plan that's not buyer-specific, use [Get Price Preview](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/get-price-preview).\n \n",
+        "summary": " Performs a dry run of a purchase and provides an order preview.\n\nThe preview uses the same logic as purchasing a plan, but the preview is not saved. Because an order is not actually\ncreated, the preview order's `orderId` and `subscriptionId` are displayed as a string of multiple zero characters\n(`000000-0000`). Tax is only calculated if the site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection).\n<br>\nIf a pricing plan has a limit on the amount of purchases per buyer, that limit is not considered for generating the preview.\nBut, if that limit has been reached and this order would then exceed the amount of purchases permitted for this buyer, then\n`purchaseLimitExceeded` will return as `true`.\n\nTo get a general price preview for a plan that's not buyer-specific, use [Get Price Preview](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/get-price-preview).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/checkout/orders/preview-offline",
@@ -670,6 +675,49 @@
         "artifactId": "com.wixpress.membership.membership-api"
       },
       "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Order",
+      "methodName": "GetOrder",
+      "serviceName": "OrdersService",
+      "tag": "Order",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params": [      {
+        "in": "PATH",
+        "name": "id",
+        "type": "string",
+        "doc": " Order id.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v1_orders_GetOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Gets a single order by order id. Available for site owner or member whom this order belongs to.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v1/orders/{id}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetOrderRequest",
+        "rpcResponseName": "GetOrderResponse",
+        "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
     },
         {
       "name": "Get Order",
@@ -735,6 +783,58 @@
         "rpcRequestName": "GetOrderRequest",
         "rpcResponseName": "GetOrderResponse",
         "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Order",
+      "methodName": "GetOrder",
+      "serviceName": "MemberOrdersService",
+      "tag": "Order V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["id"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "id",
+          "type": "string",
+          "doc": " Order ID.\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "GetOrder",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_member_GetOrderResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieves an order by ID.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v2/member/orders/{id}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetOrderRequest",
+        "rpcResponseName": "GetOrderResponse",
+        "artifactId": "com.wixpress.membership.pricing-plans-member-orders"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -945,7 +1045,7 @@
           "in": "BODY",
           "name": "couponCode",
           "type": "string",
-          "doc": " Coupon code to apply.  \n\nSee Coupons [to learn more](https://dev.wix.com/api/rest/coupons).\n",
+          "doc": " Coupon code to apply.\n\nSee Coupons [to learn more](https://dev.wix.com/api/rest/coupons).\n",
           "required": false
         }
       ],
@@ -959,7 +1059,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves a plan's pricing.\n\nThe price preview uses the same logic as purchasing a plan, but the preview is not saved. Tax is only applied if \nthe site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection). The price is returned \nin the [pricing model](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/introduction#wix-pricing-plans_pricing-plans_introduction_pricing-models) format used for orders.   \n\nBuyers do not have to be logged in to preview the price, as such, the details returned are not buyer-specific. To \ngenerate a preview of a purchase for a specific buyer, use [Get Offline Order Preview](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/get-offline-order-preview).\n \n",
+        "summary": " Retrieves a plan's pricing.\n\nThe price preview uses the same logic as purchasing a plan, but the preview is not saved. Tax is only applied if\nthe site [has it configured](https://support.wix.com/en/article/pricing-plans-setting-up-tax-collection). The price is returned\nin the [pricing model](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/introduction#wix-pricing-plans_pricing-plans_introduction_pricing-models) format used for orders.\n\nBuyers do not have to be logged in to preview the price, as such, the details returned are not buyer-specific. To\ngenerate a preview of a purchase for a specific buyer, use [Get Offline Order Preview](https://dev.wix.com/api/rest/wix-pricing-plans/pricing-plans/orders/get-offline-order-preview).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/checkout/orders/price-preview",
@@ -1093,6 +1193,111 @@
         {
       "name": "List Orders",
       "methodName": "ListOrders",
+      "serviceName": "OrdersService",
+      "tag": "Order",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Id of the member who subscribed for a paid plan.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "planIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Id of the plan that was subscribed by the member\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "orderStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v1_orders_OrderStatus"]
+          },
+          "doc": " Status of the order.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paymentStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v1_orders_PaymentStatus"]
+          },
+          "doc": " Status of the payment.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "limit",
+          "type": "integer",
+          "doc": " Limit the number of Paid Plans returned. Default limit is 50.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "offset",
+          "type": "integer",
+          "doc": " Allows you to skip some entries before returning the result for pagination.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sortBy",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v1_orders_OrderSortBy",
+          "doc": "",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sortDirection",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v1_SortDirection",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListOrders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v1_orders_ListOrdersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns all orders and details.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v1/orders",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListOrdersRequest",
+        "rpcResponseName": "ListOrdersResponse",
+        "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-alpha"}]
+    },
+        {
+      "name": "List Orders",
+      "methodName": "ListOrders",
       "serviceName": "OrderManagementService",
       "tag": "Order V2",
       "permissions":       [
@@ -1183,6 +1388,13 @@
           "type": "All APIs.Pricing Plans._wix_common_SortOrder",
           "doc": " Sort order.\n",
           "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": " Parameter to define amount of fields to return. FULL returns each order's submission data. Supported values: UNKNOWN_SET, BASIC, FULL\n",
+          "required": false
         }
       ],
       "ret":       {
@@ -1223,6 +1435,115 @@
         "rpcRequestName": "ListOrdersRequest",
         "rpcResponseName": "ListOrdersResponse",
         "artifactId": "com.wixpress.membership.membership-api"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Orders",
+      "methodName": "ListOrders",
+      "serviceName": "MemberOrdersService",
+      "tag": "Order V2",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "planIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "Filter by plan IDs.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "autoRenewCanceled",
+          "type": "boolean",
+          "doc": " Filter for orders where auto renewal was canceled.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "orderStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_OrderStatusEnum_OrderStatus"]
+          },
+          "doc": " Filter by order status.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paymentStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_PaymentStatusEnum_PaymentStatus"]
+          },
+          "doc": " Filter by payment status.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "limit",
+          "type": "integer",
+          "doc": " Limit the number of pricing plans returned. Default limit is 50.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "offset",
+          "type": "integer",
+          "doc": " Number of entries to offset.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.fieldName",
+          "type": "string",
+          "doc": " Name of the field to sort by.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "sorting.order",
+          "type": "All APIs.Pricing Plans._wix_common_SortOrder",
+          "doc": " Sort order.\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListOrders",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Pricing Plans._com_wixpress_membership_v2_orders_member_ListOrdersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Returns orders for currently logged in member.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/pricing-plans/v2/member/orders",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListOrdersRequest",
+        "rpcResponseName": "ListOrdersResponse",
+        "artifactId": "com.wixpress.membership.pricing-plans-member-orders"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1868,7 +2189,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Cancels an order. Recurring orders can be canceled either immediately or at the next payment date.\n One time orders can only be canceled immediately.\n \n",
+        "summary": "\nCancels an order. Recurring orders can be canceled either immediately or at the next payment date. One time orders can only be canceled immediately.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/pricing-plans/v2/member/orders/{id}/cancel",
@@ -2276,7 +2597,7 @@
         "name": "Read Pricing Plans",
         "description": "Request permission to read the site's pricing plans"
       }],
-      "customLabels": [{"id": "maturity-alpha"}],
+      "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.plan_updated",
       "extra": {"isDomainEvent": true}
     },
@@ -2433,6 +2754,23 @@
       }],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.pricing_plans.v2.plan_created",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedDomainEvent",
+      "name": "Buyer Can Cancel Updated Webhook",
+      "docs":       {
+        "summary": "",
+        "src": "https://github.com/wix-private/app-market/tree/master/membership/membership-proto/com/wixpress/membership/v2/plans/plans_service.proto"
+      },
+      "topic": "domain_events_wix.pricing_plans.v2.plan",
+      "tag": "Plan V2",
+      "permissions": [      {
+        "name": "Read Pricing Plans",
+        "description": "Request permission to read the site's pricing plans"
+      }],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.pricing_plans.v2.plan_buyer_can_cancel_updated",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -2773,6 +3111,79 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedDomainEvent",
+      "displayName": "Buyer Can Cancel Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.pricing_plans.v2.plan`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `buyer_can_cancel_updated`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "BuyerCanCancelUpdated ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedActionEvent",
+      "displayName": "Buyer Can Cancel Updated Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_BuyerCanCancelUpdated",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_membership_v2_plans_PlanUpdatedDomainEvent",
       "displayName": "Plan Updated Domain Event Object",
       "locations": [],
@@ -2845,79 +3256,6 @@
         "name": "currentEntity",
         "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_Plan",
         "doc": "Event body"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedDomainEvent",
-      "displayName": "Buyer Can Cancel Updated Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.pricing_plans.v2.plan`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `buyer_can_cancel_updated`.\nEvent name."
-        },
-                {
-          "name": "actionEvent",
-          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedActionEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "BuyerCanCancelUpdated ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_com_wixpress_membership_v2_plans_BuyerCanCancelUpdatedActionEvent",
-      "displayName": "Buyer Can Cancel Updated Action Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "bodyAsJson",
-        "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_plans_BuyerCanCancelUpdated",
-        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -6282,12 +6620,12 @@
                 {
           "name": "limit",
           "type": "integer",
-          "doc": " Number of items to load.\n"
+          "doc": " Maximum number of items to return in the results.\n"
         },
                 {
           "name": "cursor",
           "type": "string",
-          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nPass the relevant cursor token from the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
         }
       ],
       "enum": null,
@@ -6347,12 +6685,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -6471,7 +6809,7 @@
                 {
           "name": "cycleCount",
           "type": "integer",
-          "doc": " Amount of payment cycles this subscription is valid for.  \n\n`0` for unlimited or until-canceled.\n"
+          "doc": " Amount of payment cycles this subscription is valid for.\n\n`0` for unlimited or until-canceled.\n"
         }
       ],
       "enum": null,
@@ -6491,7 +6829,7 @@
                 {
           "name": "count",
           "type": "integer",
-          "doc": " The amount of a duration `unit` in a single payment cycle.  \n\nCurrently limited to support only `1`.\n"
+          "doc": " The amount of a duration `unit` in a single payment cycle.\n\nCurrently limited to support only `1`.\n"
         },
                 {
           "name": "unit",
@@ -6520,6 +6858,56 @@
         },
         "doc": " List of strings\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_FeeConfig",
+      "displayName": "Fee Config Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fee",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_Fee",
+          "doc": ""
+        },
+                {
+          "name": "appliedAt",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_FeeConfig_AppliedAt",
+          "doc": " The time this fee will be charged\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_Fee",
+      "displayName": "Fee Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Fee name\n"
+        },
+                {
+          "name": "amount",
+          "type": "string",
+          "doc": " Amount of fee to be charged\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -6764,6 +7152,11 @@
           "name": "currency",
           "type": "string",
           "doc": " Three-letter currency code in\n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) format.\n"
+        },
+                {
+          "name": "proration",
+          "type": "string",
+          "doc": " Price change after billing date was change and price was adjusted. Could be positive and negative values.\n"
         }
       ],
       "enum": null,
@@ -6988,7 +7381,7 @@
       "displayName": "submission Data Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Data submitted to the form at checkout.\n This field is only returned when `FieldSet.FULL` is specified when fetching the data\n",
+        "summary": "Set of key-value pairs. Data submitted to the plan's order form at checkout. \n",
         "links": [],
         "examples": []
       },
@@ -7014,17 +7407,17 @@
                 {
           "name": "formId",
           "type": "string",
-          "doc": " Reference to the form which was used to gather additional data in checkout.\n"
+          "doc": " ID of the order form associated with the plan at checkout.\n\n Learn more about [forms](https://dev.wix.com/docs/rest/api-reference/wix-forms/form-submissions/introduction). \n"
         },
                 {
           "name": "submissionId",
           "type": "string",
-          "doc": " Reference to the submission of the form.\n"
+          "doc": " ID of a submission to the plan's order form at checkout. Every time a visitor completes the checkout process for a plan, a new submission is created. \n"
         },
                 {
           "name": "submissionData",
           "type": "All APIs.Pricing Plans.submissionDataMapEntry",
-          "doc": "Set of key-value pairs. Data submitted to the form at checkout.\n This field is only returned when `FieldSet.FULL` is specified when fetching the data\n",
+          "doc": "Set of key-value pairs. Data submitted to the plan's order form at checkout. \n",
           "readOnly": true
         }
       ],
@@ -7093,7 +7486,7 @@
                 {
           "name": "type",
           "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_OrderTypeEnum_OrderType",
-          "doc": " How the order was processed. One of:\n+ `ONLINE`: The buyer purchased the plan using the site.\n+ `OFFLINE`: The buyer made a manual, offline purchase without using the site.\n",
+          "doc": " How the order was processed. One of:\n+ `ONLINE`: The buyer purchased the plan using the site.\n+ `OFFLINE`: The buyer made a manual, offline purchase without using the site.\n+ `EXTERNAL`: The buyer made a purchase through an external payment provider.\n",
           "readOnly": true
         },
                 {
@@ -7188,6 +7581,12 @@
           "type": "string",
           "doc": " Date and time the order was updated.\n",
           "readOnly": true
+        },
+                {
+          "name": "formData",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FormData",
+          "doc": " Information about the form submitted during the plan's checkout.\n",
+          "readOnly": true
         }
       ],
       "enum": null,
@@ -7230,6 +7629,49 @@
           "doc": " Form submission id that was submitted together with the order\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_CreateExternalOrderRequest",
+      "displayName": "Create External Order Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "planId",
+          "type": "string",
+          "doc": " Plan ID.\n"
+        },
+                {
+          "name": "submissionId",
+          "type": "string",
+          "doc": " Form submission id that was submitted together with the order\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_membership_v2_orders_CreateExternalOrderResponse",
+      "displayName": "Create External Order Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "order",
+        "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_Order",
+        "doc": " Created order\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -7632,7 +8074,7 @@
                 {
           "name": "couponCode",
           "type": "string",
-          "doc": " Coupon code to apply.  \n\nSee Coupons [to learn more](https://dev.wix.com/api/rest/coupons).\n"
+          "doc": " Coupon code to apply.\n\nSee Coupons [to learn more](https://dev.wix.com/api/rest/coupons).\n"
         }
       ],
       "enum": null,
@@ -8173,6 +8615,11 @@
           "name": "sorting",
           "type": "All APIs.Pricing Plans._wix_common_Sorting",
           "doc": " Sorting direction (defaults to ASC) and field to sort by. [See available fields here](https://dev.wix.com/api/rest/pricing-plans/pricing-plans/order-v2/filter-and-sort).\n"
+        },
+                {
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -8491,6 +8938,11 @@
           "name": "sorting",
           "type": "All APIs.Pricing Plans._wix_common_Sorting",
           "doc": " Sort order.\n\nUse `ASC` for ascending order or `DESC` for descending order.\n\nDefault: `DESC`\n"
+        },
+                {
+          "name": "fieldSet",
+          "type": "All APIs.Pricing Plans._com_wixpress_membership_v2_orders_FieldSet_Set",
+          "doc": " Parameter to define amount of fields to return. FULL returns each order's submission data. Supported values: UNKNOWN_SET, BASIC, FULL\n"
         }
       ],
       "enum": null,
@@ -9070,26 +9522,13 @@
           "name": "termsAndConditions",
           "type": "string",
           "doc": " Any terms and conditions that apply to the plan. This information will be displayed during checkout.\n"
+        },
+                {
+          "name": "formId",
+          "type": "string",
+          "doc": " ID of the form associated with the plan at checkout.\n\n Learn more about [forms](https://support.wix.com/en/article/wix-forms-an-overview).\n"
         }
       ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "clientDataMapEntry",
-      "displayName": "client Data Map Entry Object",
-      "locations": [],
-      "docs":       {
-        "summary": "Set of key-value pairs.",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "key:value",
-        "type": "string",
-        "doc": "`key` of type string, `value` of type string"
-      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -9175,14 +9614,9 @@
           "doc": " Any terms and conditions that apply to the plan. This information will be displayed during checkout.\n"
         },
                 {
-          "name": "clientData",
-          "type": "All APIs.Pricing Plans.clientDataMapEntry",
-          "doc": "Set of key-value pairs."
-        },
-                {
           "name": "formId",
           "type": "string",
-          "doc": " Reference to a form which is shown in checkout to gather additional data\n"
+          "doc": " ID of the form associated with the plan at checkout.\n\n Learn more about [forms](https://support.wix.com/en/article/wix-forms-an-overview).\n"
         }
       ],
       "enum": null,
@@ -9954,7 +10388,7 @@
       "displayName": "Order Type Object",
       "locations": [],
       "docs":       {
-        "summary": " Type of the order.\n \n Possible values are: <li><code> ORDER_TYPE_UNDEFINED -  Order type undefined\n <\/code><\/li><li><code> ONLINE -  Order made online\n <\/code><\/li><li><code> OFFLINE -  Order made offline\n <\/code><\/li>",
+        "summary": " Type of the order.\n \n Possible values are: <li><code> ORDER_TYPE_UNDEFINED -  Order type undefined\n <\/code><\/li><li><code> ONLINE -  Order made online\n <\/code><\/li><li><code> OFFLINE -  Order made offline\n <\/code><\/li><li><code> EXTERNAL -  Payments managed externally\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -9962,7 +10396,8 @@
       "enum":       [
         "ORDER_TYPE_UNDEFINED",
         "ONLINE",
-        "OFFLINE"
+        "OFFLINE",
+        "EXTERNAL"
       ],
       "extra": {},
       "labels": []
@@ -10172,6 +10607,23 @@
       "labels": []
     },
         {
+      "name": "_com_wixpress_membership_v2_FeeConfig_AppliedAt",
+      "displayName": "Applied At Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CHARGE_EVENT <\/code><\/li><li><code> FIRST_PAYMENT -  Will charge the fee on first payment. If order has a free trial meaning it will charge after the free trial.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CHARGE_EVENT",
+        "FIRST_PAYMENT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_membership_v2_orders_PausePeriod_Status",
       "displayName": "Status Object",
       "locations": [],
@@ -10194,7 +10646,7 @@
       "displayName": "Order Type Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> ONLINE -  Payments made by the buyer\n <\/code><\/li><li><code> OFFLINE -  Payments managed manually by the site owner\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> ONLINE -  Payments made by the buyer\n <\/code><\/li><li><code> OFFLINE -  Payments managed manually by the site owner\n <\/code><\/li><li><code> EXTERNAL -  Payments managed externally\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -10202,7 +10654,8 @@
       "enum":       [
         "UNDEFINED",
         "ONLINE",
-        "OFFLINE"
+        "OFFLINE",
+        "EXTERNAL"
       ],
       "extra": {},
       "labels": []
