@@ -23,6 +23,8 @@ and info of the event:
 - Contact Deleted: slug is `deleted` and the info is the field `deletedEvent` (which is empty)
 - Contact Merged: slug is `merged` and the info is the field `actionEvent`
 - Contact Submitted: slug is `submitted` and the info is the field `actionEvent`
+- Contact Email Subscription Status Updated: slug is `email_subscription_updated` and the info is the field `actionEvent`
+- Contact Phone Subscription Status Updated: slug is `phone_subscription_updated` and the info is the field `actionEvent`
 
 For each contact domain event, there are also:
 
@@ -31,14 +33,14 @@ For each contact domain event, there are also:
   as a result of a privacy regulation application
 - `entityFqdn`, which equals `wix.contacts.v4.contact`
 
+## Internal events
+Internal events are used for the internal logic of Contacts Service.
+- Contact Primary Info Updated. The topic of this event is `contact-primary-info-updated`.
+
 ## Legacy events 
 
 The topics that will be deprecated:
 - `crm-contacts-events`. With the respective [payload][v1-events] of each events (`Created, Updated, Deleted`)
-
-- `contacts-changed-events`. With message [ContactChangedEvent][bootstrap-events-1].
-
-- `contacts-update`. With message [UpdateContactMessage][bootstrap-events-2]
 
 [v1-events]: https://github.com/wix-private/crm/blob/master/contacts/core/contacts-api/src/main/proto/v1/webhooks/contact_events.proto
 [bootstrap-events-1]: https://github.com/wix-private/crm/blob/master/wix-contacts-server/wix-contacts-server-api/src/main/scala/com/wixpress/contacts/api/greyhound/ContactChangedEvent.scala
