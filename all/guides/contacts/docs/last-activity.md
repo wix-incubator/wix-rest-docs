@@ -42,3 +42,7 @@ and describes the interactions each activity type represents:
 | `SHOUTOUT_OPEN` | Opened an email from the site. |
 | `SHOUTOUT_CLICK` | Clicked a link in an email from the site. |
 | `CONTACT_MERGED` | Merged with another contact. |
+| `NEWSLETTER_SUBSCRIPTION_SUBSCRIBE` | Subscribed to a site newsletter. |
+| `NEWSLETTER_SUBSCRIPTION_PENDING` | Subscription status to site newsletters is pending confirmation. |
+| `NEWSLETTER_SUBSCRIPTION_NOT_SET` | Subscription status to site newsletters is not set. |
+
