@@ -66,10 +66,9 @@ This table gives the expected data structure:
 ## The `items` object
 
 `items` is an object that contains an array schema.
-Wix Automations supports arrays of objects only.
 
 | Property     | Data type | Description                                                                                                                                                                                                                                                                               |
 | ------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`       | string    | _Required_. Must be set to `"object"`.                                                                                                                                                                                                                                                    |
-| `properties` | object    | _Required_. Object containing 2nd-level payload property metadata as key-object pairs. Accepts the same data as the 1st-level `properties` object, but can contain only strings, numbers, integers, or booleans. See [the `properties` object](#the-properties-object) above for details. |
+| `properties` | object    | _Required_. Object containing 2nd-level payload property metadata as key-object pairs. Accepts the same data as the 1st-level `properties` object. See [the `properties` object](#the-properties-object) above for details. |
 | `required`   | array     | List of property keys that are required to be present in the [reported event](https://dev.wix.com/api/rest/wix-automations/triggered-events/report-event) payload.                                                                                                                        |
