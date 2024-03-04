@@ -12,7 +12,7 @@
   "properties": [],
   "tags": [  {
     "name": "Triggered Events",
-    "entity": null
+    "entity": ""
   }],
   "relatedGuides":   [
         {
@@ -33,6 +33,120 @@
     }
   ],
   "operations":   [
+        {
+      "name": "Bulk Cancel Event",
+      "methodName": "BulkCancelEvent",
+      "serviceName": "EsbConfigResolver",
+      "tag": "Triggered Events",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "triggerKey",
+        "externalEntityIds"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key whose events you want to cancel.\n For example, `form_submitted` or `invoice_due`.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "externalEntityIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Repeated list of external_entity_id, representing the related resources' IDs\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkCancelEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_BulkCancelEventResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Bulk cancels any remaining actions for a trigger and external entities.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/automations/v1/events/bulk-cancel",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkCancelEventRequest",
+        "rpcResponseName": "BulkCancelEventResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Bulk Report Event",
+      "methodName": "BulkReportEvent",
+      "serviceName": "EsbConfigResolver",
+      "tag": "Triggered Events",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "triggerKey",
+        "eventsInfo"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key as defined in your app's trigger configuration\n in the Wix Developers Center.\n For example, `form_submitted` or `invoice_due`.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "eventsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_EventInfo"]
+          },
+          "doc": " Repeated list of event details for bulk reporting\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "BulkReportEvent",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_BulkReportEventResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": " Bulk reports events and activates site automations with the specified trigger key.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/automations/v1/events/bulk-report",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "BulkReportEventRequest",
+        "rpcResponseName": "BulkReportEventResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
         {
       "name": "Cancel Event",
       "methodName": "CancelEvent",
@@ -72,7 +186,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCancels any remaining actions for a trigger and external entity.\n\n\nEvents are not cancelable by default.\nTo make an event cancelable,\nyou must first pass an `externalEntityId`\nand the applicable `triggerKey` to [Report Event](#report-event).\nWhen you call Cancel Event with the same `externalEntityId` and `triggerKey`,\nthe event is canceled,\nas are all other events that share the `externalEntityId` and `triggerKey`.\nSee\n[Reporting and Canceling Events](#reporting-and-canceling-events)\nfor more information.\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__  \nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
+        "summary": "\nCancels any remaining actions for a trigger and external entity.\n\n\nEvents are not cancelable by default.\nTo make an event cancelable,\nyou must first pass an `externalEntityId`\nand the applicable `triggerKey` to [Report Event](#report-event).\nWhen you call Cancel Event with the same `externalEntityId` and `triggerKey`,\nthe event is canceled,\nas are all other events that share the `externalEntityId` and `triggerKey`.\nSee\n[Reporting and Canceling Events](#reporting-and-canceling-events)\nfor more information.\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__\nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/automations/v1/events/cancel",
@@ -124,6 +238,13 @@
           "type": "string",
           "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n",
           "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "idempotency",
+          "type": "All APIs.Triggered Events._wix_automations_esb_resolver_v1_ReportEventRequest_Idempotency",
+          "doc": " Idempotency information for the event\n",
+          "required": false
         }
       ],
       "ret":       {
@@ -136,7 +257,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nReports an event and activates site automations with the specified trigger key.\n\n\nOnly the app that created a trigger can report events for it.\nThis means other apps can't report events for your triggers,\nand you can't report events for another app's triggers.\n\nIf your app supports canceling events,\n`externalEntityId` must be provided.\n`externalEntityId` is required when calling [Cancel Event](#cancel-event).\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__  \nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
+        "summary": "\nReports an event and activates site automations with the specified trigger key.\n\n\nOnly the app that created a trigger can report events for it.\nThis means other apps can't report events for your triggers,\nand you can't report events for another app's triggers.\n\nIf your app supports canceling events,\n`externalEntityId` must be provided.\n`externalEntityId` is required when calling [Cancel Event](#cancel-event).\n\n> You cannot try out this endpoint because\n> it can be called only by the app that created the specified `triggerKey`.\n> So please ignore the **Try It Out** button.\n\n<blockquote class=\"important\">\n\n__Permissions__\nThis endpoint requires the Manage Your App\n[permission scope](https://devforum.wix.com/en/article/available-permissions).\n\n<\/blockquote>\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/automations/v1/events/report",
@@ -158,9 +279,95 @@
       "customLabels": [{"id": "maturity-beta"}]
     }
   ],
-  "events": [],
+  "events": [  {
+    "type": "_wix_automations_v2_ActivationStatusChangedDomainEvent",
+    "name": "Activation Status Changed Webhook",
+    "docs":     {
+      "summary": " activation status changed message\n",
+      "src": "https://github.com/wix-private/wix-automations/tree/master/esb/esb-config-resolver/proto/wix/automations/esb/resolver/v1/esb_config_resolver.proto"
+    },
+    "topic": "domain_events_wix.automations.v2.activation",
+    "tag": "Triggered Events",
+    "permissions": [],
+    "customLabels": [{"id": "maturity-beta"}],
+    "eventType": "wix.automations.v2.activation_activation_status_changed",
+    "extra": {"isDomainEvent": true}
+  }],
   "callbacks": [],
   "messages":   [
+        {
+      "name": "_wix_automations_v2_ActivationStatusChangedDomainEvent",
+      "displayName": "Activation Status Changed Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.automations.v2.activation`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `activation_status_changed`.\nEvent name."
+        },
+                {
+          "name": "actionEvent",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChangedActionEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "ActivationStatusChanged ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChangedActionEvent",
+      "displayName": "Activation Status Changed Action Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "body",
+        "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
         {
       "name": "_google_protobuf_Empty",
       "displayName": "Empty Object",
@@ -243,6 +450,689 @@
       "oneOf": true
     },
         {
+      "name": "_wix_automations_v2_AutomationConfiguration_Trigger_Filter",
+      "displayName": "Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " the filter identifier\n"
+        },
+                {
+          "name": "fieldKey",
+          "type": "string",
+          "doc": " the field key from the schema, for example \"formId\"\n"
+        },
+                {
+          "name": "filterExpression",
+          "type": "string",
+          "doc": " filter expression that evaluates to a boolean, for example - {{ contains([\"guid1\",\"guid2\"];formId) }}\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Trigger_FutureDateActivationOffset",
+      "displayName": "Future Date Activation Offset Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "preScheduledEventOffsetExpression",
+          "type": "string",
+          "doc": " expression of offset before the trigger's time (in selected time unit), when the Automation should run\n only allows negative offset from the trigger's date (before the trigger), positive offset should be achieved via offset delay action\n preScheduledEventOffsetExpression: \"{{5}}\" + timeUnit: Days -  to run the Automation 5 days before the trigger's date\n or, preScheduledEventOffsetExpression: \"{{ someNumberField }}\" + timeUnit: Minutes, to run the Automation someNumberField's value in minutes before the trigger's date\n"
+        },
+                {
+          "name": "scheduledEventOffsetTimeUnit",
+          "type": "All APIs.Triggered Events._com_wixpress_automations_v1_common_TimeUnit",
+          "doc": " Time unit for the scheduled event offset\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Trigger",
+      "displayName": "Trigger Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " Trigger Application id\n"
+        },
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key\n"
+        },
+                {
+          "name": "filters",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Trigger_Filter"]
+          },
+          "doc": " optional - list of filters on schema fields\n the relation between the filter expressions is an AND relation.\n all filter expressions must be evaluated to `true` for a given payload in order for the automation to be executed\n"
+        },
+                {
+          "name": "scheduledEventOffset",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Trigger_FutureDateActivationOffset",
+          "doc": " optional - future date trigger activation offset\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_SpiAction",
+      "displayName": "Spi Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " Action app id\n"
+        },
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Action key\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "struct",
+          "doc": " Action input mapping, example:\n {\n    \"to\": \"{{ var(contact.email) }}\",\n    \"subject\": \"Your registration to {{ var(eventName) }} is Confirmed\",\n    \"body\": \"Hi {{ var(contact.name) }}, you are confirmed for the event\"\n }\n"
+        },
+                {
+          "name": "skipConditionOrExpressionGroups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_ConditionExpressionGroup"]
+          },
+          "doc": " optional skip condition configuration - if this action should be skipped when the automation runs (following actions of a skipped action will still run)\n the action will be skipped if either of the expression groups evaluate to `true`\n the relation between the expression groups is an OR relation.\n"
+        },
+                {
+          "name": "postActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions to run in parallel after this action finishes\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_ConditionAction",
+      "displayName": "Condition Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "orExpressionGroups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_ConditionExpressionGroup"]
+          },
+          "doc": " the condition evaluates to `true` if either of the expression groups evaluate to `true`\n the relation between the expression groups is an OR relation.\n"
+        },
+                {
+          "name": "truePostActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions to run when the entire condition is evaluated to `true`\n"
+        },
+                {
+          "name": "falsePostActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions to run when the entire condition is evaluated to `false`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_DelayAction",
+      "displayName": "Delay Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "offsetExpression",
+          "type": "string",
+          "doc": " optional - expression for amount of time to wait (in selected time unit) - from a specific date or from the time the action is executed\n offsetExpression: \"{{5}}\" + timeUnit: Days -  to wait for 5 days from the time the delay was invoked\n or, offsetExpression: \"{{5}}\" + timeUnit: Days + dueDateEpochExpression: \"{{someDateField}}\" -  to wait for 5 days from the time date in \"someDateField\" field in the payload\n or, offsetExpression: \"{{ someNumberField }}\" + timeUnit: Minutes,  to wait for someNumberField's value in minutes\n"
+        },
+                {
+          "name": "offsetTimeUnit",
+          "type": "All APIs.Triggered Events._com_wixpress_automations_v1_common_TimeUnit",
+          "doc": " Time unit for delay offset\n"
+        },
+                {
+          "name": "dueDateEpochExpression",
+          "type": "string",
+          "doc": " optional - expression of the due date to wait until, if an offset was defined, it will be calculated from this date\n number of milliseconds since the Unix Epoch (1 January, 1970 UTC)\n for example - \"{{ 18238348023423 }}\", or \"{{ someEpochFromPayloadField }}\" / \"{{ contact.birthdate }}\"\n"
+        },
+                {
+          "name": "postActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions to run in parallel after this action finishes\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_RateLimitAction",
+      "displayName": "Rate Limit Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "maxActivationsExpression",
+          "type": "string",
+          "doc": " Maximum number of activations expression. the expression will need to be parsed to Int on runtime\n for example - \"{{ 1 }}\" to set max activations to 1, or \"{{ var(someNumberField) }}\" to set max activations as the value of \"someNumberField\" from the payload\n"
+        },
+                {
+          "name": "rateLimitDurationExpression",
+          "type": "string",
+          "doc": " Duration of the rate limiting window (in selected time unit) expression for rate limiter, if empty then no time limit. the expression will need to be parsed to Int on runtime\n for example - \"{{ 10 }}\" to set timeframe to be 10 minutes, or {{ var(someNumberField) }} to set timeframe in minutes as the value of \"someNumberField\" from the payload\n"
+        },
+                {
+          "name": "rateLimitDurationTimeUnit",
+          "type": "All APIs.Triggered Events._com_wixpress_automations_v1_common_TimeUnit",
+          "doc": " Time unit for the rate limit duration\n"
+        },
+                {
+          "name": "uniqueIdentifierExpression",
+          "type": "string",
+          "doc": " Unique identifier of each activation by which rate limiter will count activations, expected return type is string\n for example - {{ var(contact.id) }} to set the unique identifier as the value of \"contact.id\" from the payload\n"
+        },
+                {
+          "name": "postActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions to run in parallel after this action finishes\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_ConditionExpressionGroup",
+      "displayName": "Condition Expression Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "operator",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_ConditionExpressionGroup_Operator",
+          "doc": " expression group operator\n"
+        },
+                {
+          "name": "booleanExpressions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " list of boolean expressions to be evaluated with the given operator\n examples - {{ true }}, {{ someBooleanField }}, {{ contains([\"guid1...\",\"guid2...\"];formId) }}\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action",
+      "displayName": "Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Action id, if not specified, will be generated\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_Type",
+          "doc": " Type of the action\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": "\nHuman readable name for the action (may only contain alphanumeric characters and underscores) to differentiate from other actions of the same kind.\nif the action has output, the output will be available in the payload under this name, otherwise it will be concatenated to the payload as is\nwithout namespaces (or in case of exact same namespaces), if the user has multiple actions of the same kind (appId+actionKey), the output will be overwritten.\n\nfor example, given:\n- if the action output looks like this - { \"message\": \"hello\" }\n- the namespace is \"action_1\"\n- the trigger payload looks like this - { \"someField\": \"50\", \"someBoolean\": true }\n\nthe payload will look like this:\n{\n\"someField\": \"50\",\n\"someBoolean\": true,\n\"action_1\": {\n\"message\": \"hello\"\n}\n}\n\ngiven the following Automation configuration:\n\n(Trigger A)\n|\n(Action B) // namespace = \"action_b_1\"\n|\n(Action B) // namespace = \"action_b_2\"\n|\n(Action C)\n\n\nthe available fields that Action C will be able to use to map to it's input fields will be:\n{\n\"someField\": \"50\",\n\"someBoolean\": true,\n\"action_b_1\": {\n\"message\": \"hello\"\n},\n\"action_b_2\": {\n\"message\": \"hello\"\n}\n}\nso the user can select which specific action output to use (action_b_1.message or action_b_2.message, in the case above)\n"
+        },
+                {
+          "name": "info",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_info",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_info",
+      "displayName": "info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "spiInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_SpiAction",
+          "doc": " Spi Action (via RPC, HTTP or Velo)\n"
+        },
+                {
+          "name": "conditionInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_ConditionAction",
+          "doc": " Condition action\n"
+        },
+                {
+          "name": "delayInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_DelayAction",
+          "doc": " Delay action\n"
+        },
+                {
+          "name": "rateLimitInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action_RateLimitAction",
+          "doc": " Rate limiting action\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "actionsMapEntry",
+      "displayName": "actions Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. map of all actions by actionId\n The key is the actionId of the action, and the value is the action configuration\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Action",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration",
+      "displayName": "Automation Configuration Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Automation runtime configuration\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Status",
+          "doc": " Automation's Status\n"
+        },
+                {
+          "name": "trigger",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration_Trigger",
+          "doc": " Trigger configuration\n"
+        },
+                {
+          "name": "rootActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " actions that run in parallel after the trigger\n"
+        },
+                {
+          "name": "actions",
+          "type": "All APIs.Triggered Events.actionsMapEntry",
+          "doc": "Set of key-value pairs. map of all actions by actionId\n The key is the actionId of the action, and the value is the action configuration\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_AuditInfo",
+      "displayName": "Audit Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "id",
+        "type": "All APIs.Triggered Events._wix_automations_v2_Automation_AuditInfo_id",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_AuditInfo_id",
+      "displayName": "id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " user identifier\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " application identifier\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_automations_v2_Automation_RecipeOrigin",
+      "displayName": "Recipe Origin Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "recipeId",
+        "type": "string",
+        "doc": " identifier for the recipe\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_ApplicationOrigin",
+      "displayName": "Application Origin Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "appId",
+        "type": "string",
+        "doc": " identifier for the application\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_PreinstalledOrigin",
+      "displayName": "Preinstalled Origin Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " identifier for the application\n"
+        },
+                {
+          "name": "componentId",
+          "type": "string",
+          "doc": " application component ID\n"
+        },
+                {
+          "name": "componentVersion",
+          "type": "integer",
+          "doc": " application component Version\n"
+        },
+                {
+          "name": "override",
+          "type": "boolean",
+          "doc": " is this a user modified preinstalled automation (on a specific site) or the original one\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation",
+      "displayName": "Automation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Automation ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "*\nRevision number, which increments by 1 each time the Automation is updated.\nTo prevent conflicting changes,\nthe current revision must be passed when updating the Automation.\n\nIgnored when creating an Automation.\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdBy",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_AuditInfo",
+          "doc": " information about the creator of the automation\n",
+          "readOnly": true
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Date and time the Automation was created.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedBy",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_AuditInfo",
+          "doc": " information about who updated of the automation\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": " Date and time the Automation was last updated.\n",
+          "readOnly": true
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Automation name\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Automation description\n"
+        },
+                {
+          "name": "configuration",
+          "type": "All APIs.Triggered Events._wix_automations_v2_AutomationConfiguration",
+          "doc": " Automation runtime configuration\n"
+        },
+                {
+          "name": "origin",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_Origin",
+          "doc": " Origin type\n"
+        },
+                {
+          "name": "originInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_OriginInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_OriginInfo",
+      "displayName": "Origin Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "recipeInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_RecipeOrigin",
+          "doc": " Recipe info\n"
+        },
+                {
+          "name": "applicationInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_ApplicationOrigin",
+          "doc": " Application info\n"
+        },
+                {
+          "name": "preinstalledInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation_PreinstalledOrigin",
+          "doc": " Preinstalled info\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "actionsMapEntry",
+      "displayName": "actions Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Map of action id to action data.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Triggered Events._com_wixpress_esb_Action",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_ActionsData",
+      "displayName": "Actions Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "rootActionIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Ids of the first level actions.\n"
+        },
+                {
+          "name": "actions",
+          "type": "All APIs.Triggered Events.actionsMapEntry",
+          "doc": "Set of key-value pairs. Map of action id to action data.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_com_wixpress_esb_ActionData",
       "displayName": "Action Data Object",
       "locations": [],
@@ -300,6 +1190,19 @@
             "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
           },
           "doc": " Action's post actions.\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Action's post actions ids.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": " The namespace of the action\n"
         }
       ],
       "enum": null,
@@ -353,6 +1256,11 @@
           "name": "rateLimiting",
           "type": "All APIs.Triggered Events._com_wixpress_esb_RateLimiting",
           "doc": ""
+        },
+                {
+          "name": "conditionFilter",
+          "type": "All APIs.Triggered Events._com_wixpress_esb_ConditionFilter",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -397,6 +1305,24 @@
           "name": "userOutputActionConfig",
           "type": "string",
           "doc": " The output configuration of the user for this action, can include params that are taken from the trigger event payload\n"
+        },
+                {
+          "name": "skipConditionExpression",
+          "type": "string",
+          "doc": " optional skip condition expression for current action\n decides whether to skip the action before executing it's post actions\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Action's post actions ids.\n"
+        },
+                {
+          "name": "namespace",
+          "type": "string",
+          "doc": " The namespace of the action\n"
         }
       ],
       "enum": null,
@@ -507,6 +1433,97 @@
             "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
           },
           "doc": " If's false post actions.\n"
+        },
+                {
+          "name": "truePostActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " If's true post actions ids.\n"
+        },
+                {
+          "name": "falsePostActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " If's false post actions ids.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_ConditionFilter_ConditionBlock",
+      "displayName": "Condition Block Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Triggered Events._com_wixpress_esb_ConditionFilter_BlockType",
+          "doc": ""
+        },
+                {
+          "name": "lineExpressions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_ConditionFilter",
+      "displayName": "Condition Filter Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "conditionBlocks",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ConditionFilter_ConditionBlock"]
+          },
+          "doc": " condition evaluates to `true` if either of the blocks evaluate to `true` (aka OR between all).\n"
+        },
+                {
+          "name": "postActions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
+          },
+          "doc": " Actions to perform when condition_blocks evaluates to `true`.\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Action's post actions ids.\n"
+        },
+                {
+          "name": "elsePostActions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
+          },
+          "doc": " Actions to perform when condition_blocks evaluates to `false`.\n"
         }
       ],
       "enum": null,
@@ -556,6 +1573,14 @@
             "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
           },
           "doc": " Case's post actions.\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Case's post actions ids.\n"
         }
       ],
       "enum": null,
@@ -625,6 +1650,11 @@
           "name": "units",
           "type": "All APIs.Triggered Events._com_wixpress_esb_DelayHelper_SimpleDelay_Units",
           "doc": ""
+        },
+                {
+          "name": "delayExpression",
+          "type": "string",
+          "doc": " Optional, used if provided: Jsonata expression that evaluates to a number of milliseconds to wait\n"
         }
       ],
       "enum": null,
@@ -663,6 +1693,14 @@
           "name": "overrideable",
           "type": "boolean",
           "doc": " Optional: if true, any new schedule with the same schedule identifier will override the existing one.\n If false, the new schedule will be ignored.\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Delay's post actions ids.\n"
         }
       ],
       "enum": null,
@@ -685,9 +1723,19 @@
           "doc": " The maximum number of activations allowed in the given time frame\n"
         },
                 {
+          "name": "maxNumOfActivationsExpression",
+          "type": "string",
+          "doc": " Optional, used if provided: A jsonata expression that evaluates to the maximum number of activations allowed in the given time frame\n"
+        },
+                {
           "name": "timeFrameInMinutes",
           "type": "integer",
           "doc": " If given - the time frame in minutes, otherwise, for life\n"
+        },
+                {
+          "name": "timeFrameInMinutesExpression",
+          "type": "string",
+          "doc": " Optional, used if provided - A jsonata expression that evaluates to the time frame in minutes, otherwise, for life\n"
         },
                 {
           "name": "keyJsonata",
@@ -701,6 +1749,14 @@
             "typeParams": ["All APIs.Triggered Events._com_wixpress_esb_ActionData"]
           },
           "doc": " The actions to perform if this rate limiting action succeeded - meaning we are still in the allowed number of activations in the given time frame\n"
+        },
+                {
+          "name": "postActionsIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " The ids of actions to perform if this rate limiting action succeeded - meaning we are still in the allowed number of activations in the given time frame\n"
         }
       ],
       "enum": null,
@@ -880,6 +1936,201 @@
           "name": "source",
           "type": "All APIs.Triggered Events._com_wixpress_esb_resolver_ActivationRequest_ActivationSource",
           "doc": " The source of this activation\n"
+        },
+                {
+          "name": "actionsMap",
+          "type": "All APIs.Triggered Events._com_wixpress_esb_ActionsData",
+          "doc": " Actions tree\n"
+        },
+                {
+          "name": "automation",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation",
+          "doc": "Automation V2. Used for reporting domain event until activation request will be deprecated.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_api_ApplicationError",
+      "displayName": "Application Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Error code.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Description of the error.\n"
+        },
+                {
+          "name": "data",
+          "type": "struct",
+          "doc": " Data related to the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_BulkActionMetadata",
+      "displayName": "Bulk Action Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "totalSuccesses",
+          "type": "integer",
+          "doc": " Number of items that were successfully processed.\n"
+        },
+                {
+          "name": "totalFailures",
+          "type": "integer",
+          "doc": " Number of items that couldn't be processed.\n"
+        },
+                {
+          "name": "undetailedFailures",
+          "type": "integer",
+          "doc": " Number of failures without details because detailed failure threshold was exceeded.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_ItemMetadata",
+      "displayName": "Item Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Item ID. Should always be available, unless it's impossible (for example, when failing to create an item).\n"
+        },
+                {
+          "name": "originalIndex",
+          "type": "integer",
+          "doc": " Index of the item within the request array. Allows for correlation between request and response items.\n"
+        },
+                {
+          "name": "success",
+          "type": "boolean",
+          "doc": " Whether the requested action was successful for this item. When `false`, the `error` field is populated.\n"
+        },
+                {
+          "name": "error",
+          "type": "All APIs.Triggered Events._wix_api_ApplicationError",
+          "doc": " Details about the error in case of failure.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationScheduleRequested",
+      "displayName": "Activation Schedule Requested Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Activation identifier\n"
+        },
+                {
+          "name": "requestedDate",
+          "type": "string",
+          "doc": " Activation schedule request date\n"
+        },
+                {
+          "name": "scheduleDate",
+          "type": "string",
+          "doc": " Activation schedule due date\n"
+        },
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": " Activation payload\n"
+        },
+                {
+          "name": "automation",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation",
+          "doc": " Activation Automation\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " Optional - external entity id that this activation is related to\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationScheduleCompleted",
+      "displayName": "Activation Schedule Completed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Activation identifier\n"
+        },
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Activation identifier\n"
+        },
+                {
+          "name": "scheduleDate",
+          "type": "string",
+          "doc": " Activation schedule due date\n"
+        },
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": " Activation payload\n"
+        },
+                {
+          "name": "automation",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation",
+          "doc": " Activation Automation\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " Optional - external entity id that this activation is related to\n"
         }
       ],
       "enum": null,
@@ -931,7 +2182,11 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "deletedEntityAsJson",
+        "type": "string",
+        "doc": " Entity that was deleted\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -955,24 +2210,6 @@
       "labels": []
     },
         {
-      "name": "_wix_common_domainevents_ExtendedFieldsUpdatedEvent",
-      "displayName": "Extended Fields Updated Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "currentEntityAsJson",
-        "type": "string",
-        "doc": ""
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_common_domainevents_DomainEvent",
       "displayName": "Domain Event Object",
       "locations": [],
@@ -985,7 +2222,7 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " random GUID so clients can tell if event was already handled\n"
+          "doc": " Unique event ID.\n Allows clients to ignore duplicate webhooks.\n"
         },
                 {
           "name": "entityFqdn",
@@ -1000,7 +2237,7 @@
                 {
           "name": "entityId",
           "type": "string",
-          "doc": " Assuming that all messages including Actions have id\n Example: The id of the specific order, the id of a specific campaign\n"
+          "doc": " ID of the entity associated with the event.\n"
         },
                 {
           "name": "body",
@@ -1010,12 +2247,12 @@
                 {
           "name": "eventTime",
           "type": "string",
-          "doc": " The time of the event. Useful if there was a delay in dispatching\n"
+          "doc": " Event timestamp.\n"
         },
                 {
           "name": "triggeredByAnonymizeRequest",
           "type": "boolean",
-          "doc": " A field that should be set if this event was triggered by an anonymize request.\n For example you must set it to true when sending an event as a result of a GDPR right to be forgotten request.\n NOTE: This field is not relevant for `EntityCreatedEvent` but is located here for better ergonomics of consumers.\n"
+          "doc": " Whether the event was triggered as a result of a privacy regulation application\n (for example, GDPR).\n"
         },
                 {
           "name": "originatedFrom",
@@ -1061,17 +2298,37 @@
           "name": "actionEvent",
           "type": "All APIs.Triggered Events._wix_common_domainevents_ActionEvent",
           "doc": ""
-        },
-                {
-          "name": "extendedFieldsUpdatedEvent",
-          "type": "All APIs.Triggered Events._wix_common_domainevents_ExtendedFieldsUpdatedEvent",
-          "doc": ""
         }
       ],
       "enum": null,
       "extra": {},
       "labels": [],
       "oneOf": true
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_ReportEventRequest_Idempotency",
+      "displayName": "Idempotency Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "key",
+          "type": "string",
+          "doc": "\nA unique identifier for the event.\nIf you send the same idempotency key in multiple report event requests, for the same trigger key and app id,\nconsecutive requests will be ignored after the first one. Note that the idempotency key is kept for a week before it expires.\n"
+        },
+                {
+          "name": "ttlInMilliseconds",
+          "type": "string",
+          "doc": "\nOptional. The time to live (TTL) in milliseconds before the key will expire. Default is a week.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
     },
         {
       "name": "_wix_automations_esb_resolver_v1_ReportEventRequest",
@@ -1097,6 +2354,221 @@
           "name": "externalEntityId",
           "type": "string",
           "doc": "\nID of the related resource in GUID format.\nFor example, `fc81a355-3429-50fc-a4c7-def486e828f3`.\n\nRequired if your app needs to\n[cancel the event](https://dev.wix.com/api/rest/wix-automations/triggered-events/cancel-event)\nif the automation becomes no longer relevant.\n\nTypically, this ID is defined in your system,\nbut you can also use any Wix resource GUID,\nsuch as contact ID, member ID, or invoice ID.\nSee\n[Choose the right `externalEntityId`](https://dev.wix.com/api/rest/wix-automations/triggered-events/reporting-and-canceling-events#wix-automations_triggered-events_reporting-and-canceling-events_choose-the-right-externalentityid)\nfor more information.\n"
+        },
+                {
+          "name": "idempotency",
+          "type": "All APIs.Triggered Events._wix_automations_esb_resolver_v1_ReportEventRequest_Idempotency",
+          "doc": " Idempotency information for the event\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkReportEventRequest",
+      "displayName": "Bulk Report Event Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key as defined in your app's trigger configuration\n in the Wix Developers Center.\n For example, `form_submitted` or `invoice_due`.\n"
+        },
+                {
+          "name": "eventsInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_EventInfo"]
+          },
+          "doc": " Repeated list of event details for bulk reporting\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_EventInfo",
+      "displayName": "Event Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": " Event payload, formatted as key:value pairs.\n Must comply with the payload schema\n if you provided one when configuring your trigger.\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " ID of the related resource in GUID format.\n"
+        },
+                {
+          "name": "idempotency",
+          "type": "All APIs.Triggered Events._wix_automations_esb_resolver_v1_ReportEventRequest_Idempotency",
+          "doc": " Idempotency information for the event\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkReportEventResult",
+      "displayName": "Bulk Report Event Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Triggered Events._wix_common_ItemMetadata",
+          "doc": " Metadata for the individual item in the request\n"
+        },
+                {
+          "name": "eventInfo",
+          "type": "All APIs.Triggered Events._wix_automations_esb_resolver_v1_EventInfo",
+          "doc": " Event details for the item in the request\n"
+        },
+                {
+          "name": "activationIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " The activation IDs of triggered ReportEvents.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkReportEventResponse",
+      "displayName": "Bulk Report Event Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key associated with the event\n"
+        },
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_BulkReportEventResult"]
+          },
+          "doc": " List of results for each item in the bulk report event request\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Triggered Events._wix_common_BulkActionMetadata",
+          "doc": " Metadata for the overall bulk action, including success and failure counts\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkCancelEventRequest",
+      "displayName": "Bulk Cancel Event Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key whose events you want to cancel.\n For example, `form_submitted` or `invoice_due`.\n"
+        },
+                {
+          "name": "externalEntityIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Repeated list of external_entity_id, representing the related resources' IDs\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkCancelEventResult",
+      "displayName": "Bulk Cancel Event Result Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "itemMetadata",
+          "type": "All APIs.Triggered Events._wix_common_ItemMetadata",
+          "doc": " Metadata of the item, including its ID and success or failure status\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " ID of the related resource in GUID format\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_BulkCancelEventResponse",
+      "displayName": "Bulk Cancel Event Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": " Trigger key related to the cancelled event\n"
+        },
+                {
+          "name": "results",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Triggered Events._wix_automations_esb_resolver_v1_BulkCancelEventResult"]
+          },
+          "doc": " List of results for each item in the bulk cancel event request\n"
+        },
+                {
+          "name": "bulkActionMetadata",
+          "type": "All APIs.Triggered Events._wix_common_BulkActionMetadata",
+          "doc": " Metadata for the overall bulk action, including success and failure counts\n"
         }
       ],
       "enum": null,
@@ -1112,7 +2584,14 @@
         "links": [],
         "examples": []
       },
-      "members": [],
+      "members": [      {
+        "name": "activationIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " The activation IDs of triggered ReportEvents.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -1157,6 +2636,45 @@
       "labels": []
     },
         {
+      "name": "_wix_automations_esb_resolver_v1_ReportDomainEventRequest",
+      "displayName": "Report Domain Event Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "triggerAppId",
+          "type": "string",
+          "doc": " trigger app id\n"
+        },
+                {
+          "name": "reportEventRequest",
+          "type": "All APIs.Triggered Events._wix_automations_esb_resolver_v1_ReportEventRequest",
+          "doc": " report event request\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_esb_resolver_v1_ReportDomainEventResponse",
+      "displayName": "Report Domain Event Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_automations_esb_resolver_v1_ExecuteFromActionRequest",
       "displayName": "Execute From Action Request Object",
       "locations": [],
@@ -1179,7 +2697,7 @@
                 {
           "name": "payload",
           "type": "struct",
-          "doc": ""
+          "doc": " Activation payload\n"
         },
                 {
           "name": "configurationCorrelationId",
@@ -1216,6 +2734,254 @@
       "labels": []
     },
         {
+      "name": "_wix_automations_v2_Activation",
+      "displayName": "Activation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Activation ID\n"
+        },
+                {
+          "name": "automation",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Automation",
+          "doc": " Activation automation\n"
+        },
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": " TODO: deprecate\n Event payload\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " External entity ID\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": " Activation created date\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_InitiatedStatusInfo",
+      "displayName": "Initiated Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "target",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_InitiatedStatusInfo_Target",
+          "doc": " Activation target\n"
+        },
+                {
+          "name": "externalEntityId",
+          "type": "string",
+          "doc": " TODO: deprecate\n"
+        },
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": " Event payload\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_ScheduledStatusInfo",
+      "displayName": "Scheduled Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "scheduleId",
+          "type": "string",
+          "doc": " Schedule identifier\n"
+        },
+                {
+          "name": "date",
+          "type": "string",
+          "doc": " Indicating when the activation should start\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_CancelledStatusInfo",
+      "displayName": "Cancelled Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "reason",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_CancelledStatusInfo_CancellationReason",
+          "doc": " Cancellation reason\n"
+        },
+                {
+          "name": "initiator",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Identity",
+          "doc": " The identity (such as user, app etc.) that caused the cancellation\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_FailedStatusInfo",
+      "displayName": "Failed Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "errorDescription",
+          "type": "string",
+          "doc": " Error description\n",
+          "readOnly": true
+        },
+                {
+          "name": "errorCode",
+          "type": "string",
+          "doc": " Error code\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged",
+      "displayName": "Activation Status Changed Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "activation",
+          "type": "All APIs.Triggered Events._wix_automations_v2_Activation",
+          "doc": " Activation\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_Status",
+          "doc": " Activation status\n"
+        },
+                {
+          "name": "eventDate",
+          "type": "string",
+          "doc": " Change event created date\n TODO: deprecate\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "statusInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_StatusInfo",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_StatusInfo",
+      "displayName": "Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "initiatedInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_InitiatedStatusInfo",
+          "doc": " Initiated status information\n"
+        },
+                {
+          "name": "scheduledInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_ScheduledStatusInfo",
+          "doc": " Scheduled status information\n"
+        },
+                {
+          "name": "cancelledInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_CancelledStatusInfo",
+          "doc": " Cancelled status information\n"
+        },
+                {
+          "name": "failedInfo",
+          "type": "All APIs.Triggered Events._wix_automations_v2_ActivationStatusChanged_FailedStatusInfo",
+          "doc": " Failed status information\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_automations_v2_Identity",
+      "displayName": "Identity Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "userId",
+          "type": "string",
+          "doc": " User ID\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " App ID\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_google_protobuf_NullValue",
       "displayName": "Null Value Object",
       "locations": [],
@@ -1226,6 +2992,122 @@
       },
       "members": [],
       "enum": ["NULL_VALUE"],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_automations_v1_common_TimeUnit",
+      "displayName": "Time Unit Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNDEFINED <\/code><\/li><li><code> MINUTES <\/code><\/li><li><code> HOURS <\/code><\/li><li><code> DAYS <\/code><\/li><li><code> WEEKS <\/code><\/li><li><code> MONTHS <\/code><\/li><li><code> SECONDS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNDEFINED",
+        "MINUTES",
+        "HOURS",
+        "DAYS",
+        "WEEKS",
+        "MONTHS",
+        "SECONDS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_ConditionExpressionGroup_Operator",
+      "displayName": "Operator Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_OPERATOR <\/code><\/li><li><code> OR <\/code><\/li><li><code> AND <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_OPERATOR",
+        "OR",
+        "AND"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Action_Type",
+      "displayName": "Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ACTION_TYPE -  Automation will be triggered according to the trigger configuration\n <\/code><\/li><li><code> SPI -  Spi Action\n <\/code><\/li><li><code> CONDITION -  Condition Action\n <\/code><\/li><li><code> DELAY -  Delay Action\n <\/code><\/li><li><code> RATE_LIMIT -  RateLimit Action\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ACTION_TYPE",
+        "SPI",
+        "CONDITION",
+        "DELAY",
+        "RATE_LIMIT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_AutomationConfiguration_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_STATUS -  unused\n <\/code><\/li><li><code> ACTIVE -  Automation will be triggered according to the trigger configuration\n <\/code><\/li><li><code> INACTIVE -  Automation will not be triggered\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_STATUS",
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_Automation_Origin",
+      "displayName": "Origin Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ORIGIN -  default value. this is unused\n <\/code><\/li><li><code> USER -  user created automation\n <\/code><\/li><li><code> RECIPE -  automation created from recipe\n <\/code><\/li><li><code> APPLICATION -  automation created by application (site specific)\n <\/code><\/li><li><code> PREINSTALLED -  preinstalled application automation\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ORIGIN",
+        "USER",
+        "RECIPE",
+        "APPLICATION",
+        "PREINSTALLED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_ConditionFilter_BlockType",
+      "displayName": "Block Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> OR <\/code><\/li><li><code> AND <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "OR",
+        "AND"
+      ],
       "extra": {},
       "labels": []
     },
@@ -1244,6 +3126,65 @@
         "MINUTES",
         "HOURS",
         "DAYS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_InitiatedStatusInfo_Target",
+      "displayName": "Target Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_TARGET <\/code><\/li><li><code> SCHEDULE <\/code><\/li><li><code> IMMEDIATE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_TARGET",
+        "SCHEDULE",
+        "IMMEDIATE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_CancelledStatusInfo_CancellationReason",
+      "displayName": "Cancellation Reason Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_CANCELLATION_REASON <\/code><\/li><li><code> EVENT_CANCELLED -  Indicating that the activation was cancelled directly\n <\/code><\/li><li><code> AUTOMATION_DEACTIVATED -  Indicating that the activation is cancelled because the automation was deactivated\n <\/code><\/li><li><code> AUTOMATION_DELETED -  Indicating that the activation is cancelled because the automation was deleted\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_CANCELLATION_REASON",
+        "EVENT_CANCELLED",
+        "AUTOMATION_DEACTIVATED",
+        "AUTOMATION_DELETED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_automations_v2_ActivationStatusChanged_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_STATUS <\/code><\/li><li><code> INITIATED -  This indicates activation is not started yet (no action has run yet)\n <\/code><\/li><li><code> SCHEDULED -  The activation is in scheduled status when the automation has future date or debounce defined and we're in the waiting stage (no action has run yet)\n <\/code><\/li><li><code> STARTED -  This indicates the automation activation has started and currently in progress\n <\/code><\/li><li><code> ENDED -  This indicates all the automation actions were handled either by invoking them, skipping them etc.\n <\/code><\/li><li><code> CANCELLED -  This indicates the activation was cancelled\n <\/code><\/li><li><code> FAILED -  This indicates the activation failed to start\n Note that failure in the activation of a single action will not result a failure in activation of the entire automation\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_STATUS",
+        "INITIATED",
+        "SCHEDULED",
+        "STARTED",
+        "ENDED",
+        "CANCELLED",
+        "FAILED"
       ],
       "extra": {},
       "labels": []
