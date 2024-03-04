@@ -9,7 +9,7 @@ To learn more about Wix Automations please review this KB and our documentation
 
 ## Recommended: Prerequisites before creating a new trigger
 
-1. Implement a call to `[reportEvent](https://bo.wix.com/wix-docs/rest/drafts/esbconfigresolver)` in your app, whenever your trigger event occurs.
+1. Implement a call to [reportEvent](https://bo.wix.com/wix-docs/rest/drafts/esbconfigresolver) in your app, whenever your trigger event occurs.
 
     For non-wix apps, use this url:
 
@@ -28,7 +28,7 @@ To learn more about Wix Automations please review this KB and our documentation
 
 2. Have an SPI implementation for [TriggerProviderService](https://bo.wix.com/wix-docs/rest/drafts/trigger-spi-provider/)
 
-    If you’re not familiar with SPI implementations in Wix - general information about SPIs can be found [here](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/spi---service-provider-interface).
+    If you’re not familiar with SPI implementations in Wix - general information about SPIs can be found [here](https://dev.wix.com/docs/rest/articles/getting-started/service-provider-interface).
 
     Please note that if your project is a loom-prime project,
     `@wix_automations//trigger-spi-provider/src/main/proto`
@@ -277,7 +277,7 @@ Reevaluate the schema for dynamic properties - Check this checkbox if your paylo
 
 For example - if for specific forms, you also want to include form fields in the trigger payload, check this checkbox, and whenever the user makes a filter selection, the `getDynamicSchema` SPI endpoint will be called and we will receive an additional json-schema representing the new dynamic payload fields. For more information, please review [`getDynamicSchema` documentation.](https://bo.wix.com/wix-docs/rest/drafts/trigger-spi-provider/get-dynamic-schema)
 
-### Testing your trigger in Business Manager
+### Testing your trigger in the Dashboard
 
 After you’ve configured your payload schema, you can now create your trigger and test it E2E. Find the relevant trigger in the triggers table and press ‘Test’ - choose a site where you have your app installed, and you’ll be redirected to the Automations wizard, and will be able to create a new automation with your newly created trigger.
 
