@@ -18,18 +18,18 @@ Site owners can set whether members are allowed to create groups, or add new mem
   >**Note:** The Wix Groups API doesn't assign group members a unique ID. Instead, it uses the `memberId` from the [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for identification.
 - **Group List**: List of groups displayed in the Wix Groups app home page.
 
-  >**Note:** Depending on the viewer's role (see [Roles](https://dev.wix.com/api/rest/wix-groups/groups/introduction#wix-groups_groups_introduction_roles)), not all groups will be displayed.
+  >**Note:** Depending on the viewer's role (see [Roles](https://dev.wix.com/api/rest/wix-groups/wix-groups/introduction#wix-groups_groups_introduction_roles)), not all groups will be displayed.
 - **Group Privacy Level**: Defines the visibility of a group in the **Group List** and how a site member can join it.
   - **Public**: Anyone can see the group and its content. Anyone can join the the group.
   - **Private**: Anyone can see the group, but only group members can view its content. In order to join the group, site members must submit a **Join Group Request**.
   - **Secret**: Only group members and admins can see the group. It is not possible for site members to submit a **Join Group Request**. Instead, group members and admins can add new members.
 
-- **Group Role**: Defines permissions. See [Roles](https://dev.wix.com/api/rest/wix-groups/groups/introduction#wix-groups_groups_introduction_roles) for more details.
+- **Group Role**: Defines permissions. See [Roles](https://dev.wix.com/api/rest/wix-groups/wix-groups/introduction#wix-groups_groups_introduction_roles) for more details.
 - **Join Group Request**: Request submitted by a site member to join a **private** group. Approved or rejected by a group admin.
 - **Group Request**: When the site owners have not given site members permission to create groups, they can submit a **Group Request** to do so. Approved or rejected by a group admin.
-- **Membership Question**: Question asked to members when joining a group. Site owners can set whether it is required to answer the question in the dashboard.
-- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Site owners can set up **Group Rules** in the dashboard.
-- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to the site owners under `Admin Tools` in the dashboard.
+- **Membership Question**: Question asked to members when joining a group. Site owners can set whether it is required to answer the question in the Business Manager.
+- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Site owners can set up **Group Rules** in the Business Manager.
+- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to the site owners under `Admin Tools` in the Business Manager.
 
 
 ## Roles
