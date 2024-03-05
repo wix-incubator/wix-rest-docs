@@ -6,7 +6,7 @@
   "mixes": [],
   "labels": [],
   "docs":   {
-    "summary": "Integrate your payment service provider with Wix to allow merchants process payments on Wix",
+    "summary": "Integrate your payment services to allow merchants to use them on Wix sites.",
     "description": []
   },
   "properties": [],
@@ -26,56 +26,64 @@
   ],
   "relatedGuides":   [
         {
-      "path": "../guides/provider-platform/docs/payment-methods.md",
+      "path": "../guides/provider-platform/guides/sample-refund-flows.md",
+      "name": "Sample Refund Flows"
+    },
+        {
+      "path": "../guides/provider-platform/guides/processing-payments.md",
+      "name": "Processing Payments"
+    },
+        {
+      "path": "../guides/provider-platform/guides/payment-methods.md",
       "name": "Payment Methods"
     },
         {
-      "path": "../guides/provider-platform/docs/idempotency.md",
-      "name": "Idempotency"
+      "path": "../guides/provider-platform/guides/implementation-overview.md",
+      "name": "Implementation Overview"
     },
         {
-      "path": "../guides/provider-platform/docs/required-fields.md",
-      "name": "Required Fields"
-    },
-        {
-      "path": "../guides/provider-platform/docs/refunding-payments.md",
-      "name": "Refunding Payments"
-    },
-        {
-      "path": "../guides/provider-platform/docs/terminology.md",
-      "name": "Terminology"
-    },
-        {
-      "path": "../guides/provider-platform/docs/reason-codes.md",
-      "name": "Reason Codes"
-    },
-        {
-      "path": "../guides/provider-platform/docs/making-payments.md",
-      "name": "Making Payments"
-    },
-        {
-      "path": "../guides/provider-platform/docs/payment-plugins.md",
-      "name": "Payment Plugins"
-    },
-        {
-      "path": "../guides/provider-platform/docs/currencies.md",
+      "path": "../guides/provider-platform/guides/currencies.md",
       "name": "Currencies"
     },
         {
-      "path": "../guides/provider-platform/docs/connecting-account.md",
-      "name": "Connecting Account"
+      "path": "../guides/provider-platform/guides/required-fields.md",
+      "name": "Required Fields"
     },
         {
-      "path": "../guides/provider-platform/docs/getting-started.md",
-      "name": "Getting Started"
+      "path": "../guides/provider-platform/guides/introduction.md",
+      "name": "Introduction"
     },
         {
-      "path": "../guides/provider-platform/docs/working-with-webhooks.md",
-      "name": "Working With Webhooks"
+      "path": "../guides/provider-platform/guides/making-payments.md",
+      "name": "Making Payments"
     },
         {
-      "path": "../guides/provider-platform/docs/use-cases.md",
-      "name": "Use Cases"
+      "path": "../guides/provider-platform/guides/idempotency.md",
+      "name": "Idempotency"
+    },
+        {
+      "path": "../guides/provider-platform/guides/validating-requests.md",
+      "name": "Validate Endpoint Requests"
+    },
+        {
+      "path": "../guides/provider-platform/guides/connecting-accounts.md",
+      "name": "Connecting Accounts"
+    },
+        {
+      "path": "../guides/provider-platform/guides/processing-refunds.md",
+      "name": "Processing Refunds"
+    },
+        {
+      "path": "../guides/provider-platform/guides/sample-payment-flows.md",
+      "name": "Sample Payment Flows"
+    },
+        {
+      "path": "../guides/provider-platform/guides/reason-codes.md",
+      "name": "Reason Codes"
+    },
+        {
+      "path": "../guides/provider-platform/guides/webhooks.md",
+      "name": "Webhooks"
     }
   ],
   "operations":   [
@@ -97,14 +105,14 @@
           "in": "BODY",
           "name": "credentials",
           "type": "All APIs.Provider Platform.credentialsMapEntry",
-          "doc": "Set of key-value pairs. Free format of the fields that describes merchant credentials for a PSP account.\n The format must be specified in  [Wix Developers Center](https://dev.wix.com/) beforehand or notified manually.\n It will be filled by merchant according to JSON schema during onboarding process and will be passed to a Payment Service Provider as is.\n",
+          "doc": "Set of key-value pairs.\n\nMerchant credentials for a PSP account.\nThe PSP specifies the keys for this object in the [Wix Developers Center](https://dev.wix.com/apps).\nThe merchant is prompted to enter these credentials when they connect their PSP account to their Wix site.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "country",
           "type": "string",
-          "doc": " The country in which the merchant will provide their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n",
+          "doc": " Country where the merchant provides their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n",
           "required": false
         },
                 {
@@ -118,7 +126,7 @@
           "in": "BODY",
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Connection mode. Identifies whether an account is live or for testing purposes. \n",
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n",
           "required": false
         },
                 {
@@ -139,35 +147,35 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nThis payment plugin endpoint is triggered when a merchant provides required data to connect their PSP account to a Wix site.\nThe plugin has to verify merchant's credentials, and ensure the merchant has an operational PSP account.\n> You cannot try out this endpoint because it has to be implemented by a payment plugin and can have an arbitrary URL.\n> So please ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "summary": "\nThis endpoint is used to connect a merchant's Payment Service Provider (PSP) account to a Wix site.\n\nWix calls this endpoint when a merchant chooses to connect a PSP in the Wix dashboard.\nThe PSP must verify the merchant's credentials and ensure that the merchant has an operational PSP account.\nLearn more about [implementing this endpoint](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/connecting-accounts).\n\n> You cannot try out this endpoint because it has to be implemented by a payment plugin and can have an arbitrary URL.\n> So please ignore the **Authorization** and **POST** sections below, as well as the **Try It Out** button.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/connect",
         "links": [],
         "examples":         [
                     {
-            "title": "Connecting without credentials enriching",
+            "title": "Connecting an account",
             "body": ["curl -X POST https://psp.example.com/connect \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"credentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"country\": \"US\",\n  \"currency\": \"USD\",\n  \"mode\": \"live\",\n  \"wixMerchantId\": \"000000-0000-0000-0000-000000000000\"\n}'"],
             "response": ["{\n  \"credentials\":   {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"accountId\": \"999999-9999-9999-9999-999999999999\",\n  \"accountName\": \"jane.brown@example.com\"\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Connecting with numeric and boolean credentials",
+            "title": "Using numeric and boolean credentials",
             "body": ["curl -X POST https://psp.example.com/connect \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"credentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\",\n    \"price_includes_tax\": \"true\",\n    \"tax_percentage\": \"20\"\n  },\n  \"country\": \"US\",\n  \"currency\": \"USD\",\n  \"mode\": \"live\",\n  \"wixMerchantId\": \"000000-0000-0000-0000-000000000000\"\n}'"],
             "response": ["{\n  \"credentials\":   {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\",\n    \"price_includes_tax\": \"true\",\n    \"tax_percentage\": \"20\"\n  },\n  \"accountId\": \"999999-9999-9999-9999-999999999999\",\n  \"accountName\": \"jane.brown@example.com\"\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Connecting with credentials enriching",
+            "title": "Adding credentials to the response",
             "body": ["curl -X POST https://psp.example.com/connect \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"credentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"country\": \"US\",\n  \"currency\": \"USD\",\n  \"mode\": \"live\",\n  \"wixMerchantId\": \"000000-0000-0000-0000-000000000000\"\n}'"],
             "response": ["{\n  \"credentials\":   {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\",\n    \"caller_token\": \"6mW9GHIsmhjSqGE7DBkD\"\n  },\n  \"accountId\": \"999999-9999-9999-9999-999999999999\",\n  \"accountName\": \"jane.brown@example.com\"\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Connecting failed, currency unsupported",
+            "title": "Responding to a failed connection attempt",
             "body": ["curl -X POST https://psp.example.com/connect \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"credentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"country\": \"US\",\n  \"currency\": \"USD\",\n  \"mode\": \"live\",\n  \"wixMerchantId\": \"000000-0000-0000-0000-000000000000\"\n}'"],
             "response": ["{\n  \"reasonCode\": 2009,\n  \"errorCode\": \"CURRENCY_IS_NOT_SUPPORTED\",\n  \"errorMessage\": \"Currency USD is not supported\"\n} "],
             "type": "curl",
@@ -196,6 +204,7 @@
       "requiredFields":       [
         "wixTransactionId",
         "merchantCredentials",
+        "wixMerchantId",
         "order",
         "order.description"
       ],
@@ -211,14 +220,14 @@
           "in": "BODY",
           "name": "paymentMethod",
           "type": "string",
-          "doc": "\nPayment method supported by the payment service provider.\nThese values will be displayed to the end-user upon checkout and will be passed to the payment service provider\nto understand what payment method a user selected on the Wix side.\nIn case `paymentMethod:creditCard` field `paymentMethodData` will be initialized with `card`data.\n",
+          "doc": "\nRequested payment method.\nIf the value of this field is `creditCard`, the `paymentMethodData`\nfield's value includes credit card data in the value of the `card` field.\nA PSP can specify the payment methods they accept in the [Wix Dev Ceter](https://dev.wix.com).\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "merchantCredentials",
           "type": "All APIs.Provider Platform.merchantCredentialsMapEntry",
-          "doc": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n",
+          "doc": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n",
           "required": true
         },
                 {
@@ -232,14 +241,14 @@
           "in": "BODY",
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Connection mode. Identifies whether an account is live or for testing purposes.\n",
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "installments",
           "type": "integer",
-          "doc": " Number of payment installments.\n",
+          "doc": " Number of payment installments requested.\n",
           "required": false
         },
                 {
@@ -247,41 +256,48 @@
           "name": "wixMerchantId",
           "type": "string",
           "doc": " Wix merchant ID.\n",
-          "required": false
+          "required": true
         },
                 {
           "in": "BODY",
           "name": "paymentMethodData",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodData",
-          "doc": "\nPayment method data information. Currently this data will be accessible in case `paymentMethod` equals to `creditCard`.\nPlease note that this call initiated in case you added *creditCard* as a payment method in the [Wix Developers Center](https://dev.wix.com).\n",
+          "doc": "Payment method data such as credit card information.\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "fraudInformation",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_FraudInformation",
-          "doc": " Information in case of fraud.\n",
+          "doc": " Fraud prevention data.\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "setupCredentialsOnFile",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_SetupCredentialsOnFile",
-          "doc": "",
+          "doc": " Data about recurring payment setup.\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "offSession",
           "type": "boolean",
-          "doc": "",
+          "doc": " Whether the request is for a recurring payment or merchant initiated transaction. If the value of this field is `true`, the PSP should use a payment method token to process the payment.\n Learn more about [recurring payments](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/sample-payment-flows#recurring-payments).\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "moto",
           "type": "boolean",
-          "doc": " Is MOTO(Mail Order/Telephone Order) transaction.\n",
+          "doc": " Whether the request is for a Mail Order/Telephone Order payment.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "scaRequested",
+          "type": "boolean",
+          "doc": " Request transaction to be made using strong customer authentication e.g. 3-D Secure.\n",
           "required": false
         }
       ],
@@ -295,44 +311,58 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nThis payment plugin endpoint is triggered when a buyer pays on a Wix site.\nThe plugin has to process this payment request but prevent double payments for the same `wixTransactionId`.\n> You cannot try out this endpoint because it has to be implemented by a payment plugin and can have an arbitrary URL.\n> So please ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "summary": " \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/sale",
         "links": [],
         "examples":         [
                     {
-            "title": "Payment approved instantly",
-            "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
+            "title": "Approving a payment instantly",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"paymentMethod\": \"creditCard\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n        },\n       \"order\": {\n         \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n         \"description\": {\n           \"totalAmount\": 1000,\n           \"currency\": \"USD\",\n           \"items\": [\n             {\n               \"id\": \"it_1\",\n               \"name\": \"Digital camera\",\n               \"quantity\": 1,\n               \"price\": 1000,\n               \"description\": \"Portable digital camera\",\n               \"category\": \"physical\"\n             }\n           ],\n           \"buyerInfo\": {\n             \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n             \"buyerLanguage\": \"en\"\n           }\n         },\n         \"returnUrls\": {\n           \"successUrl\": \"https://merchant.com/success\",\n           \"errorUrl\": \"https://merchant.com/error\",\n           \"cancelUrl\": \"https://merchant.com/cancel\",\n           \"pendingUrl\": \"https://merchant.com/pending\"\n         }\n       },\n    \"installments\": 1,\n    \"mode\": \"live\",\n    \"moto\": false,\n    \"paymentMethodData\": {\n      \"card\": {\n        \"number\": \"4111111111111111\",\n        \"year\": 2030,\n        \"month\": 12,\n        \"cvv\": \"777\",\n        \"holderName\": \"John Smith\"\n      }\n    }\n  }'"],
             "response": ["{\"pluginTransactionId\": \"e89b-12d3-a456-42665\"} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Payment declined instantly",
-            "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
+            "title": "Declining a payment instantly",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"paymentMethod\": \"creditCard\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n        },\n       \"order\": {\n         \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n         \"description\": {\n           \"totalAmount\": 1000,\n           \"currency\": \"USD\",\n           \"items\": [\n             {\n               \"id\": \"it_1\",\n               \"name\": \"Digital camera\",\n               \"quantity\": 1,\n               \"price\": 1000,\n               \"description\": \"Portable digital camera\",\n               \"category\": \"physical\"\n             }\n           ],\n           \"buyerInfo\": {\n             \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n             \"buyerLanguage\": \"en\"\n           }\n         },\n         \"returnUrls\": {\n           \"successUrl\": \"https://merchant.com/success\",\n           \"errorUrl\": \"https://merchant.com/error\",\n           \"cancelUrl\": \"https://merchant.com/cancel\",\n           \"pendingUrl\": \"https://merchant.com/pending\"\n         }\n       },\n    \"installments\": 1,\n    \"mode\": \"live\",\n    \"moto\": false,\n    \"paymentMethodData\": {\n      \"card\": {\n        \"number\": \"4111111111111111\",\n        \"year\": 2030,\n        \"month\": 12,\n        \"cvv\": \"777\",\n        \"holderName\": \"John Smith\"\n      }\n    }\n  }'"],
             "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"reasonCode\": 3012,\n  \"errorCode\": \"INSUFFICIENT_FUNDS\",\n  \"errorMessage\": \"Insufficient funds\"\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Payment pending",
-            "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
-            "response": ["{\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"reasonCode\": 5005\n} "],
+            "title": "Marking a payment as pending",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"paymentMethod\": \"creditCard\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n        },\n       \"order\": {\n         \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n         \"description\": {\n           \"totalAmount\": 1000,\n           \"currency\": \"USD\",\n           \"items\": [\n             {\n               \"id\": \"it_1\",\n               \"name\": \"Digital camera\",\n               \"quantity\": 1,\n               \"price\": 1000,\n               \"description\": \"Portable digital camera\",\n               \"category\": \"physical\"\n             }\n           ],\n           \"buyerInfo\": {\n             \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n             \"buyerLanguage\": \"en\"\n           }\n         },\n         \"returnUrls\": {\n           \"successUrl\": \"https://merchant.com/success\",\n           \"errorUrl\": \"https://merchant.com/error\",\n           \"cancelUrl\": \"https://merchant.com/cancel\",\n           \"pendingUrl\": \"https://merchant.com/pending\"\n         }\n       },\n    \"installments\": 1,\n    \"mode\": \"live\",\n    \"moto\": false,\n    \"paymentMethodData\": {\n      \"card\": {\n        \"number\": \"4111111111111111\",\n        \"year\": 2030,\n        \"month\": 12,\n        \"cvv\": \"777\",\n        \"holderName\": \"John Smith\"\n      }\n    }\n  }'"],
+            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"reasonCode\": 5005\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "3DS verification required",
-            "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
-            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"redirectUrl\": \"https://example.com/redirect-sale-form\"\n} "],
+            "title": "Responding with a 3DS verification redirect",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"paymentMethod\": \"creditCard\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n        },\n       \"order\": {\n         \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n         \"description\": {\n           \"totalAmount\": 1000,\n           \"currency\": \"USD\",\n           \"items\": [\n             {\n               \"id\": \"it_1\",\n               \"name\": \"Digital camera\",\n               \"quantity\": 1,\n               \"price\": 1000,\n               \"description\": \"Portable digital camera\",\n               \"category\": \"physical\"\n             }\n           ],\n           \"buyerInfo\": {\n             \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n             \"buyerLanguage\": \"en\"\n           }\n         },\n         \"returnUrls\": {\n           \"successUrl\": \"https://merchant.com/success\",\n           \"errorUrl\": \"https://merchant.com/error\",\n           \"cancelUrl\": \"https://merchant.com/cancel\",\n           \"pendingUrl\": \"https://merchant.com/pending\"\n         }\n       },\n    \"installments\": 1,\n    \"mode\": \"live\",\n    \"moto\": false,\n    \"paymentMethodData\": {\n      \"card\": {\n        \"number\": \"4111111111111111\",\n        \"year\": 2030,\n        \"month\": 12,\n        \"cvv\": \"777\",\n        \"holderName\": \"John Smith\"\n      }\n    }\n  }'"],
+            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"redirectUrl\": \"https://psp.example.com/3DS-verification\"\n} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "MOTO Payment approved instantly",
-            "body": ["curl -X POST https://psp.example.com/sale \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"333333-3333-3333-3333-333333333333\",\n  \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"paymentMethod\": \"creditCard\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"11111111-1111-1111-1111-111111111111\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": true,\n  \"paymentMethodData\": {\n    \"card\": {\n      \"number\": \"4111111111111111\",\n      \"year\": 2030,\n      \"month\": 12,\n      \"cvv\": \"777\",\n      \"holderName\": \"John Smith\"\n    }\n  }\n}'"],
+            "title": "Approving a MOTO payment instantly",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"paymentMethod\": \"creditCard\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n        },\n       \"order\": {\n         \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n         \"description\": {\n           \"totalAmount\": 1000,\n           \"currency\": \"USD\",\n           \"items\": [\n             {\n               \"id\": \"it_1\",\n               \"name\": \"Digital camera\",\n               \"quantity\": 1,\n               \"price\": 1000,\n               \"description\": \"Portable digital camera\",\n               \"category\": \"physical\"\n             }\n           ],\n           \"buyerInfo\": {\n             \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n             \"buyerLanguage\": \"en\"\n           }\n         },\n         \"returnUrls\": {\n           \"successUrl\": \"https://merchant.com/success\",\n           \"errorUrl\": \"https://merchant.com/error\",\n           \"cancelUrl\": \"https://merchant.com/cancel\",\n           \"pendingUrl\": \"https://merchant.com/pending\"\n         }\n       },\n    \"installments\": 1,\n    \"mode\": \"live\",\n    \"moto\": true,\n    \"paymentMethodData\": {\n      \"card\": {\n        \"number\": \"4111111111111111\",\n        \"year\": 2030,\n        \"month\": 12,\n        \"cvv\": \"777\",\n        \"holderName\": \"John Smith\"\n      }\n    }\n  }'"],
             "response": ["{\"pluginTransactionId\": \"e89b-12d3-a456-42665\"} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Approving a Google Pay payment with `PAN_ONLY` authentication",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n  \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n  \"paymentMethod\": \"googlePay\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"googlePay\": {\n        \"pan\": \"11111111-1111-1111-1111-111111111111\",\n        \"expirationYear\": 2025,\n        \"expirationMonth\": 12,\n        \"authenticationMethod\": \"PAN_ONLY\",\n        \"accountVerified\": true,\n        \"cardholderAuthenticated\": false,\n        \"eci\": \"02\"\n    }\n  }\n}'"],
+            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"cardDetails\":   {\n    \"bin\": \"444444\",\n    \"lastFour\": \"4444\"\n  }\n} "],
+            "type": "curl",
+            "extra": {}
+          },
+                    {
+            "title": "Approving a Google Pay payment with `CRYPTOGRAM_3DS` authentication",
+            "body": ["curl -X POST https://psp.example.com/payment \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixMerchantId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n  \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n  \"paymentMethod\": \"googlePay\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"order\": {\n    \"id\": \"ce590272-87bf-428f-943a-0ff594059712\",\n    \"description\": {\n      \"totalAmount\": 1000,\n      \"currency\": \"USD\",\n      \"items\": [\n        {\n          \"id\": \"it_1\",\n          \"name\": \"Digital camera\",\n          \"quantity\": 1,\n          \"price\": 1000,\n          \"description\": \"Portable digital camera\",\n          \"category\": \"physical\"\n        }\n      ],\n      \"buyerInfo\": {\n        \"buyerId\": \"ffc0a971-60cb-4c63-8016-39b1bce41e8d\",\n        \"buyerLanguage\": \"en\"\n      }\n    },\n    \"returnUrls\": {\n      \"successUrl\": \"https://merchant.com/success\",\n      \"errorUrl\": \"https://merchant.com/error\",\n      \"cancelUrl\": \"https://merchant.com/cancel\",\n      \"pendingUrl\": \"https://merchant.com/pending\"\n    }\n  },\n  \"installments\": 1,\n  \"mode\": \"live\",\n  \"moto\": false,\n  \"paymentMethodData\": {\n    \"googlePay\": {\n        \"pan\": \"11111111-1111-1111-1111-111111111111\",\n        \"expirationYear\": 2025,\n        \"expirationMonth\": 12,\n        \"authenticationMethod\": \"CRYPTOGRAM_3DS\",\n        \"cryptogram\": \"uug1soribziny223gmxmh39gdegwve\"\n        \"accountVerified\": true,\n        \"cardholderAuthenticated\": false,\n        \"eci\": \"02\"\n    }\n  }\n}'"],
+            "response": ["{\n  \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n  \"cardDetails\":   {\n    \"bin\": \"444444\",\n    \"lastFour\": \"4444\"\n  }\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -380,28 +410,28 @@
           "in": "BODY",
           "name": "pluginTransactionId",
           "type": "string",
-          "doc": " Provider transaction ID.\n",
+          "doc": " PSP transaction ID.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "merchantCredentials",
           "type": "All APIs.Provider Platform.merchantCredentialsMapEntry",
-          "doc": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n",
+          "doc": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n",
           "required": true
         },
                 {
           "in": "BODY",
           "name": "refundAmount",
           "type": "integer",
-          "doc": "\nTotal amount to pay in a currency’s smallest unit. In the example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n",
+          "doc": "\nTotal amount to refund in a currency’s smallest unit.\n\nLearn more about [currency units](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/currencies).\n",
           "required": false
         },
                 {
           "in": "BODY",
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Transaction mode. Identifies whether an account is live or for testing purposes.\n",
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n",
           "required": false
         },
                 {
@@ -422,23 +452,23 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nThis payment plugin endpoint is triggered when a merchant refunds a payment made on a Wix site.\nThe plugin has to process this refund request but prevent double refunds for the same `wixRefundId`.\n> You cannot try out this endpoint because it has to be implemented by a payment plugin and can have an arbitrary URL.\n> So please ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
+        "summary": "\nThis endpoint is used to send a merchant's refund requests to a Payment Service Provider (PSP).\n\nWix calls this endpoint when a merchant initiates a refund from the Wix dashboard. Learn more about [implementing this endpoint](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/processing-refunds).\n> You cannot try out this endpoint because it has to be implemented by a payment plugin and can have an arbitrary URL.\n> So please ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/refund",
         "links": [],
         "examples":         [
                     {
-            "title": "Refund succeeded",
-            "body": ["curl -X POST https://psp.example.com/refund \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixTransactionId\": \"11111111-1111-1111-1111-111111111111\",\n  \"wixRefundId\": \"33333333-3333-3333-3333-333333333333\"\n  \"pluginTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"refundAmount\": 1000,\n  \"mode\": \"live\",\n  \"reason\": \"REQUESTED_BY_CUSTOMER\"\n}'"],
-            "response": ["{\"pluginRefundId\": \"22222222-2222-2222-2222-222222222222\"} "],
+            "title": "Indicating a successful refund",
+            "body": ["curl -X POST https://psp.example.com/refund \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"wixRefundId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n       },\n       \"refundAmount\": 1000,\n       \"mode\": \"live\",\n       \"reason\": \"REQUESTED_BY_CUSTOMER\"\n     }'"],
+            "response": ["{\"pluginRefundId\": \"ce590272-87bf-428f-943a-0ff594059712\"} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Refund failed",
-            "body": ["curl -X POST https://psp.example.com/refund \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n  \"wixTransactionId\": \"11111111-1111-1111-1111-111111111111\",\n  \"wixRefundId\": \"33333333-3333-3333-3333-333333333333\"\n  \"pluginTransactionId\": \"000000-0000-0000-0000-000000000000\",\n  \"merchantCredentials\": {\n    \"client_id\": \"MerchantClientId\",\n    \"client_secret\": \"MerchantClientSecret\"\n  },\n  \"refundAmount\": 1000,\n  \"mode\": \"live\",\n  \"reason\": \"REQUESTED_BY_CUSTOMER\"\n}'"],
-            "response": ["{\n  \"pluginRefundId\": \"22222222-2222-2222-2222-222222222222\",\n  \"reasonCode\": 3025,\n  \"errorCode\": \"INSUFFICIENT_FUNDS_FOR_REFUND\",\n  \"errorMessage\": \"Insufficient funds for refund\"\n} "],
+            "title": "Indicating a failed refund",
+            "body": ["curl -X POST https://psp.example.com/refund \\\n -H 'Content-Type: application/json' \\\n -H 'Digest: JWT=ai0zIQqt71bmnkgEJ1CRJchjKJup' \\\n -d '{\n       \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n       \"wixRefundId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n       \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n       \"merchantCredentials\": {\n         \"client_id\": \"e89b-12d3-a456-42665\",\n         \"client_secret\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\"\n       },\n       \"refundAmount\": 1000,\n       \"mode\": \"live\",\n       \"reason\": \"REQUESTED_BY_CUSTOMER\"\n     }'"],
+            "response": ["{\n  \"pluginRefundId\": \"ce590272-87bf-428f-943a-0ff594059712\",\n  \"reasonCode\": 3025,\n  \"errorCode\": \"INSUFFICIENT_FUNDS_FOR_REFUND\",\n  \"errorMessage\": \"Insufficient funds for refund.\"\n} "],
             "type": "curl",
             "extra": {}
           }
@@ -466,7 +496,7 @@
         "in": "BODY",
         "name": "event",
         "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
-        "doc": " Provider platform event.\n",
+        "doc": " Event data.\n",
         "required": true
       }],
       "ret":       {
@@ -479,7 +509,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nThis Wix endpoint is used by a payment plugin to send payment state updates to Wix.\n> You cannot try out this endpoint because an `Authorization` header value has to be obtained\n> with OAuth 2.0 client credentials flow for a specific scope.\n> So please ignore the **Authorization** section below as well as the **Try It Out** button.\n \n",
+        "summary": "\nThis Wix API is used by a Payment Service Provider (PSP) to send webhooks about payment and refund states to Wix.\n\n> You cannot try out this endpoint because an `Authorization` header value has to be obtained\n> with the OAuth 2.0 client credentials flow for a specific scope.\n> So please ignore the **Authorization** section below as well as the **Try It Out** button.\n \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/payments/v1/provider-platform-events",
@@ -487,49 +517,49 @@
         "examples":         [
                     {
             "title": "Payment approved",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\"\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"transaction\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginTransactionId\": \"e89b-12d3-a456-42665\"\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "Payment declined",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3012,\n      \"errorCode\": \"INSUFFICIENT_FUNDS\",\n      \"errorMessage\": \"Insufficient funds\"\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"transaction\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n           \"reasonCode\": 3012,\n           \"errorCode\": \"INSUFFICIENT_FUNDS\",\n           \"errorMessage\": \"Insufficient funds\"\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "Payment pending",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 5005\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"transaction\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n           \"reasonCode\": 5005\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
             "title": "Payment canceled",
-            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"transaction\": {\n      \"wixTransactionId\": \"000000-0000-0000-0000-000000000000\",\n      \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n      \"reasonCode\": 3030,\n      \"errorCode\": \"BUYER_CANCELED\",\n      \"errorMessage\": \"Buyer canceled\"\n    }\n  }\n}'"],
+            "body": ["curl -X POST 'https://www.wixapis.com/payments/v1/provider-platform-events' \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"transaction\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginTransactionId\": \"e89b-12d3-a456-42665\",\n           \"reasonCode\": 3030,\n           \"errorCode\": \"BUYER_CANCELED\",\n           \"errorMessage\": \"Buyer canceled\"\n         }\n       } \n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Refund succeeded, initiated by Wix",
-            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"refund\": {\n      \"wixTransactionId\": \"11111111-1111-1111-1111-111111111111\",\n      \"pluginRefundId\": \"22222222-2222-2222-2222-222222222222\",\n      \"amount\": \"1000\",\n      \"wixRefundId\": \"33333333-3333-3333-3333-333333333333\"\n    }\n  }\n}'"],
+            "title": "Refund succeeded (initiated by Wix)",
+            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"refund\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginRefundId\": \"ce590272-87bf-428f-943a-0ff594059712\",\n           \"amount\": \"1000\",\n           \"wixRefundId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\"\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Refund failed, initiated by Wix",
-            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"refund\": {\n      \"wixTransactionId\": \"11111111-1111-1111-1111-111111111111\",\n      \"pluginRefundId\": \"22222222-2222-2222-2222-222222222222\",\n      \"amount\": \"1000\",\n      \"wixRefundId\": \"33333333-3333-3333-3333-333333333333\",\n      \"reasonCode\": \"3025\",\n      \"errorCode\": \"INSUFFICIENT_FUNDS_FOR_REFUND\",\n      \"errorMessage\": \"Insufficient funds for refund\"\n    }\n  }\n}'"],
+            "title": "Refund failed (initiated by Wix)",
+            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"refund\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginRefundId\": \"ce590272-87bf-428f-943a-0ff594059712\",\n           \"amount\": \"1000\",\n           \"wixRefundId\": \"fcd2655f-e261-4c5b-8129-72a241461a27\",\n           \"reasonCode\": \"3025\",\n           \"errorCode\": \"INSUFFICIENT_FUNDS_FOR_REFUND\",\n           \"errorMessage\": \"Insufficient funds for refund.\"\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
           },
                     {
-            "title": "Refund succeeded, not initiated by Wix",
-            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n  \"event\": {\n    \"refund\": {\n      \"wixTransactionId\": \"11111111-1111-1111-1111-111111111111\",\n      \"pluginRefundId\": \"22222222-2222-2222-2222-222222222222\",\n      \"amount\": \"1000\"\n    }\n  }\n}'"],
+            "title": "Refund succeeded (initiated by PSP)",
+            "body": ["curl -X POST https://www.wixapis.com/payments/v1/provider-platform-events \\\n -H 'Content-Type: application/json' \\\n -H 'Authorization: <AUTH>' \\\n -d '{\n       \"event\": {\n         \"refund\": {\n           \"wixTransactionId\": \"a15a3ee3-22d3-4a3f-920e-2186e13a19d1\",\n           \"pluginRefundId\": \"ce590272-87bf-428f-943a-0ff594059712\",\n           \"amount\": \"1000\"\n         }\n       }\n     }'"],
             "response": ["{} "],
             "type": "curl",
             "extra": {}
@@ -554,7 +584,7 @@
       "displayName": "credentials Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Free format of the fields that describes merchant credentials for a PSP account.\n The format must be specified in  [Wix Developers Center](https://dev.wix.com/) beforehand or notified manually.\n It will be filled by merchant according to JSON schema during onboarding process and will be passed to a Payment Service Provider as is.\n",
+        "summary": "Set of key-value pairs.\n\nMerchant credentials for a PSP account.\nThe PSP specifies the keys for this object in the [Wix Developers Center](https://dev.wix.com/apps).\nThe merchant is prompted to enter these credentials when they connect their PSP account to their Wix site.\n",
         "links": [],
         "examples": []
       },
@@ -580,12 +610,12 @@
                 {
           "name": "credentials",
           "type": "All APIs.Provider Platform.credentialsMapEntry",
-          "doc": "Set of key-value pairs. Free format of the fields that describes merchant credentials for a PSP account.\n The format must be specified in  [Wix Developers Center](https://dev.wix.com/) beforehand or notified manually.\n It will be filled by merchant according to JSON schema during onboarding process and will be passed to a Payment Service Provider as is.\n"
+          "doc": "Set of key-value pairs.\n\nMerchant credentials for a PSP account.\nThe PSP specifies the keys for this object in the [Wix Developers Center](https://dev.wix.com/apps).\nThe merchant is prompted to enter these credentials when they connect their PSP account to their Wix site.\n"
         },
                 {
           "name": "country",
           "type": "string",
-          "doc": " The country in which the merchant will provide their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
+          "doc": " Country where the merchant provides their services, in [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.\n"
         },
                 {
           "name": "currency",
@@ -595,7 +625,7 @@
                 {
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Connection mode. Identifies whether an account is live or for testing purposes. \n"
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n"
         },
                 {
           "name": "wixMerchantId",
@@ -612,7 +642,7 @@
       "displayName": "credentials Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n",
+        "summary": "Set of key-value pairs.\n\nMerchant credentials that Wix will use when sending the merchant's payment and refund requests.\n",
         "links": [],
         "examples": []
       },
@@ -638,12 +668,12 @@
                 {
           "name": "credentials",
           "type": "All APIs.Provider Platform.credentialsMapEntry",
-          "doc": "Set of key-value pairs. Merchant credentials that will be used by Wix to make a payment on behalf of the merchant.\n"
+          "doc": "Set of key-value pairs.\n\nMerchant credentials that Wix will use when sending the merchant's payment and refund requests.\n"
         },
                 {
           "name": "accountId",
           "type": "string",
-          "doc": " Merchant account ID. This must not be changed over the lifetime of their account.\n"
+          "doc": " Merchant account ID. The PSP must not change this value over the lifetime of the merchant's account.\n"
         },
                 {
           "name": "accountName",
@@ -653,22 +683,22 @@
                 {
           "name": "reasonCode",
           "type": "integer",
-          "doc": " Reason code predefined by Wix that indicates call result.\n"
+          "doc": " Wix [reason code](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/reason-codes#account-connection-failure) indicating a type of failed request.\n"
         },
                 {
           "name": "errorCode",
           "type": "string",
-          "doc": " Error code specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error code.\n"
         },
                 {
           "name": "errorMessage",
           "type": "string",
-          "doc": " Error description specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error message.\n"
         },
                 {
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " This field is ignored, do not send it.\n",
+          "doc": " This field is ignored. Do not send it.\n",
           "deprecated": true
         }
       ],
@@ -689,22 +719,22 @@
                 {
           "name": "pluginRefundId",
           "type": "string",
-          "doc": " Refund identifier on the side of a *Payment Service Provider*.\n"
+          "doc": " PSP refund ID.\n"
         },
                 {
           "name": "reasonCode",
           "type": "integer",
-          "doc": " Reason code predefined by Wix that indicates call result.\n"
+          "doc": " Wix [reason code](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/reason-codes#all-apis_provider-platform_reason-codes_refund-declined) indicating a failed request.\n"
         },
                 {
           "name": "errorCode",
           "type": "string",
-          "doc": " Error code specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error code.\n"
         },
                 {
           "name": "errorMessage",
           "type": "string",
-          "doc": " Error description specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error message.\n"
         },
                 {
           "name": "status",
@@ -722,7 +752,7 @@
       "displayName": "merchant Credentials Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n",
+        "summary": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n",
         "links": [],
         "examples": []
       },
@@ -758,22 +788,22 @@
                 {
           "name": "pluginTransactionId",
           "type": "string",
-          "doc": " Provider transaction ID.\n"
+          "doc": " PSP transaction ID.\n"
         },
                 {
           "name": "merchantCredentials",
           "type": "All APIs.Provider Platform.merchantCredentialsMapEntry",
-          "doc": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n"
+          "doc": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n"
         },
                 {
           "name": "refundAmount",
           "type": "integer",
-          "doc": "\nTotal amount to pay in a currency’s smallest unit. In the example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n"
+          "doc": "\nTotal amount to refund in a currency’s smallest unit.\n\nLearn more about [currency units](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/currencies).\n"
         },
                 {
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Transaction mode. Identifies whether an account is live or for testing purposes.\n"
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n"
         },
                 {
           "name": "reason",
@@ -797,7 +827,7 @@
       "members": [      {
         "name": "offSession",
         "type": "boolean",
-        "doc": ""
+        "doc": " Whether the request is for setting up a recurring payment.  \n Learn more about [recurring payments](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/sample-payment-flows#recurring-payments).\n"
       }],
       "enum": null,
       "extra": {},
@@ -844,13 +874,118 @@
                 {
           "name": "reference",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodReference",
-          "doc": ""
+          "doc": " Recurring payment token data.\n"
+        },
+                {
+          "name": "googlePay",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_GooglePay",
+          "doc": " GooglePay payment information.\n"
         }
       ],
       "enum": null,
       "extra": {},
       "labels": [],
       "oneOf": true
+    },
+        {
+      "name": "_wix_payments_v1_provider_ApplePay",
+      "displayName": "Apple Pay Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pan",
+          "type": "string",
+          "doc": " Primary Account Number.\n"
+        },
+                {
+          "name": "expirationYear",
+          "type": "integer",
+          "doc": " Full year of the card expiration date.\n"
+        },
+                {
+          "name": "expirationMonth",
+          "type": "integer",
+          "doc": " Month of the card expiration date.\n"
+        },
+                {
+          "name": "cryptogram",
+          "type": "string",
+          "doc": " Aka 3ds 2.0 challenge result.\n"
+        },
+                {
+          "name": "eci",
+          "type": "string",
+          "doc": " Electronic Commerce Indicator.\n"
+        },
+                {
+          "name": "cardholderName",
+          "type": "string",
+          "doc": " Card holder name\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_GooglePay",
+      "displayName": "Google Pay Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pan",
+          "type": "string",
+          "doc": " Primary account number. The number of the payment card to charge.\n"
+        },
+                {
+          "name": "expirationYear",
+          "type": "integer",
+          "doc": " 4 digit card expiration year.\n"
+        },
+                {
+          "name": "expirationMonth",
+          "type": "integer",
+          "doc": " Card expiration month.\n"
+        },
+                {
+          "name": "authenticationMethod",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_GooglePay_AuthenticationMethod",
+          "doc": " Transaction authentication method.\n"
+        },
+                {
+          "name": "cryptogram",
+          "type": "string",
+          "doc": " 3DS 2.0 challenge result. Included when the authentication method is `CRYPTOGRAM_3DS`.\n"
+        },
+                {
+          "name": "eci",
+          "type": "string",
+          "doc": " Electronic Commerce Indicator. A number indicating the level of security used in the transaction.\n"
+        },
+                {
+          "name": "accountVerified",
+          "type": "boolean",
+          "doc": " Whether the buyer's possession of the payment card was validated.\n"
+        },
+                {
+          "name": "cardholderAuthenticated",
+          "type": "boolean",
+          "doc": " Whether the cardholder's identity was verified.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
     },
         {
       "name": "_wix_payments_v1_provider_Card",
@@ -865,17 +1000,17 @@
                 {
           "name": "number",
           "type": "string",
-          "doc": " Credit card number.\n"
+          "doc": " Card number.\n"
         },
                 {
           "name": "year",
           "type": "integer",
-          "doc": " Card expiration date - year.\n"
+          "doc": " Card expiration year.\n"
         },
                 {
           "name": "month",
           "type": "integer",
-          "doc": " Card expiration date - month.\n"
+          "doc": " Card expiration month.\n"
         },
                 {
           "name": "cvv",
@@ -890,12 +1025,12 @@
                 {
           "name": "networkTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " Network payment ID. Only used for recurring payments.\n"
         },
                 {
           "name": "dsTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " Directory transaction ID. Only used for off session payments.\n"
         }
       ],
       "enum": null,
@@ -915,12 +1050,12 @@
                 {
           "name": "networkTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " Network payment ID.\n"
         },
                 {
           "name": "dsTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " 3DS payment ID .\n"
         }
       ],
       "enum": null,
@@ -939,7 +1074,7 @@
       "members": [      {
         "name": "issuerBank",
         "type": "All APIs.Provider Platform._wix_payments_v1_provider_IssuerBank",
-        "doc": ""
+        "doc": "\n\nBank for issuing the IDeal payment.\n"
       }],
       "enum": null,
       "extra": {},
@@ -957,7 +1092,7 @@
       "members": [      {
         "name": "remoteIp",
         "type": "string",
-        "doc": " Customer (buyer) IP address.\n"
+        "doc": " Buyer's IP address.\n"
       }],
       "enum": null,
       "extra": {},
@@ -976,22 +1111,22 @@
                 {
           "name": "firstName",
           "type": "string",
-          "doc": " Buyer's first name.\n"
+          "doc": " First name.\n"
         },
                 {
           "name": "lastName",
           "type": "string",
-          "doc": " Buyer's last name.\n"
+          "doc": " Last name.\n"
         },
                 {
           "name": "company",
           "type": "string",
-          "doc": " Buyer's company name.\n"
+          "doc": " Company name.\n"
         },
                 {
           "name": "address",
           "type": "string",
-          "doc": "\nBilling or delivery address line.\nThis field represents a street and house number concatenation.\n"
+          "doc": "\nAddress line.\nThis field represents a street and house number concatenation.\n"
         },
                 {
           "name": "street",
@@ -1021,27 +1156,27 @@
                 {
           "name": "countryCode",
           "type": "string",
-          "doc": " Country of a buyer.\n"
+          "doc": " Country.\n"
         },
                 {
           "name": "phone",
           "type": "string",
-          "doc": " Phone of a buyer.\n"
+          "doc": " Phone number.\n"
         },
                 {
           "name": "fax",
           "type": "string",
-          "doc": " Fax of a buyer in free form format.\n"
+          "doc": " Fax number.\n"
         },
                 {
           "name": "email",
           "type": "string",
-          "doc": " Email of a buyer.\n"
+          "doc": " Email address.\n"
         },
                 {
           "name": "taxIdentifier",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_TaxIdentifier",
-          "doc": ""
+          "doc": " Tax identification information.\n"
         }
       ],
       "enum": null,
@@ -1061,12 +1196,12 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Specific Tax id for merchant country.\n"
+          "doc": " Tax ID for merchant country.\n"
         },
                 {
           "name": "type",
           "type": "string",
-          "doc": " Specific Tax type for merchant country.\n"
+          "doc": " Tax type for merchant country.\n"
         }
       ],
       "enum": null,
@@ -1086,12 +1221,12 @@
                 {
           "name": "buyerId",
           "type": "string",
-          "doc": " Free format unique buyer identifier assigned by Wix.\n"
+          "doc": " Unique buyer ID assigned by Wix.\n"
         },
                 {
           "name": "buyerLanguage",
           "type": "string",
-          "doc": " Buyer language in [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)) format.\n"
+          "doc": " Buyer language in [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format.\n"
         }
       ],
       "enum": null,
@@ -1111,22 +1246,22 @@
                 {
           "name": "successUrl",
           "type": "string",
-          "doc": " URL destination to merchants site in case of successful payment.\n"
+          "doc": " Redirect URL for successful payments.\n"
         },
                 {
           "name": "errorUrl",
           "type": "string",
-          "doc": " URL destination to merchants site in case of failed payment.\n"
+          "doc": " Redict URL for failed payments.\n"
         },
                 {
           "name": "cancelUrl",
           "type": "string",
-          "doc": " URL destination to merchants site in case of payment cancellation.\n"
+          "doc": " Redirect URL for cancelled payments.\n"
         },
                 {
           "name": "pendingUrl",
           "type": "string",
-          "doc": " URL destination to merchants site in case of pending payment.\n"
+          "doc": " Redirect URL for pending payments.\n"
         }
       ],
       "enum": null,
@@ -1146,27 +1281,27 @@
                 {
           "name": "pluginTransactionId",
           "type": "string",
-          "doc": " Transaction identifier on the side of a Payment Service Provider.\n"
+          "doc": " PSP transaction ID.\n"
         },
                 {
           "name": "reasonCode",
           "type": "integer",
-          "doc": " Reason code predefined by Wix that indicates call result.\n"
+          "doc": " Wix [reason code](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/reason-codes) indicating a failed or pending request.\n"
         },
                 {
           "name": "errorCode",
           "type": "string",
-          "doc": " Error code specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error code.\n"
         },
                 {
           "name": "errorMessage",
           "type": "string",
-          "doc": " Error description specific for a Payment Service Provider.\n"
+          "doc": " PSP-specific error message.\n"
         },
                 {
           "name": "redirectUrl",
           "type": "string",
-          "doc": " Web page URL where a buyer can proceed with a payment.\n"
+          "doc": " URL where Wix can redirect the buyer to complete the payment.\n"
         },
                 {
           "name": "status",
@@ -1177,7 +1312,7 @@
                 {
           "name": "credentialsOnFile",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_CredentialsOnFile",
-          "doc": ""
+          "doc": " Reference to a saved payment method.\n"
         }
       ],
       "enum": null,
@@ -1215,12 +1350,12 @@
                 {
           "name": "cardReference",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_CardReference",
-          "doc": ""
+          "doc": " Network token data.\n"
         },
                 {
           "name": "paymentMethodReference",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodReference",
-          "doc": ""
+          "doc": " Provider generated token data.\n"
         }
       ],
       "enum": null,
@@ -1233,14 +1368,14 @@
       "displayName": "Payment Method Reference Object",
       "locations": [],
       "docs":       {
-        "summary": "",
+        "summary": " Payment Service Provider card token\n",
         "links": [],
         "examples": []
       },
       "members": [      {
         "name": "token",
         "type": "string",
-        "doc": ""
+        "doc": " Token created locally by the PSP.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1259,12 +1394,12 @@
                 {
           "name": "bin",
           "type": "string",
-          "doc": " Card bin, first six digits\n"
+          "doc": " Issuer (business) identification number. First 6 or 8 digits of the card's number.\n"
         },
                 {
           "name": "lastFour",
           "type": "string",
-          "doc": " Card last four digits\n"
+          "doc": " Last 4 digits of the card's number.\n"
         }
       ],
       "enum": null,
@@ -1276,7 +1411,7 @@
       "displayName": "merchant Credentials Map Entry Object",
       "locations": [],
       "docs":       {
-        "summary": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n",
+        "summary": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n",
         "links": [],
         "examples": []
       },
@@ -1307,12 +1442,12 @@
                 {
           "name": "paymentMethod",
           "type": "string",
-          "doc": "\nPayment method supported by the payment service provider.\nThese values will be displayed to the end-user upon checkout and will be passed to the payment service provider\nto understand what payment method a user selected on the Wix side.\nIn case `paymentMethod:creditCard` field `paymentMethodData` will be initialized with `card`data.\n"
+          "doc": "\nRequested payment method.\nIf the value of this field is `creditCard`, the `paymentMethodData`\nfield's value includes credit card data in the value of the `card` field.\nA PSP can specify the payment methods they accept in the [Wix Dev Ceter](https://dev.wix.com).\n"
         },
                 {
           "name": "merchantCredentials",
           "type": "All APIs.Provider Platform.merchantCredentialsMapEntry",
-          "doc": "Set of key-value pairs. Payment Service Provider own credentials that were connected during the onboarding process.\n"
+          "doc": "Set of key-value pairs.\n\nCredentials that the PSP provided when the merchant connected their account.\n"
         },
                 {
           "name": "order",
@@ -1322,12 +1457,12 @@
                 {
           "name": "mode",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Mode",
-          "doc": " Connection mode. Identifies whether an account is live or for testing purposes.\n"
+          "doc": " Connection mode. Identifies whether a request is live or for testing purposes.\n"
         },
                 {
           "name": "installments",
           "type": "integer",
-          "doc": " Number of payment installments.\n"
+          "doc": " Number of payment installments requested.\n"
         },
                 {
           "name": "wixMerchantId",
@@ -1337,27 +1472,32 @@
                 {
           "name": "paymentMethodData",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_PaymentMethodData",
-          "doc": "\nPayment method data information. Currently this data will be accessible in case `paymentMethod` equals to `creditCard`.\nPlease note that this call initiated in case you added *creditCard* as a payment method in the [Wix Developers Center](https://dev.wix.com).\n"
+          "doc": "Payment method data such as credit card information.\n"
         },
                 {
           "name": "fraudInformation",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_FraudInformation",
-          "doc": " Information in case of fraud.\n"
+          "doc": " Fraud prevention data.\n"
         },
                 {
           "name": "setupCredentialsOnFile",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_SetupCredentialsOnFile",
-          "doc": ""
+          "doc": " Data about recurring payment setup.\n"
         },
                 {
           "name": "offSession",
           "type": "boolean",
-          "doc": ""
+          "doc": " Whether the request is for a recurring payment or merchant initiated transaction. If the value of this field is `true`, the PSP should use a payment method token to process the payment.\n Learn more about [recurring payments](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/sample-payment-flows#recurring-payments).\n"
         },
                 {
           "name": "moto",
           "type": "boolean",
-          "doc": " Is MOTO(Mail Order/Telephone Order) transaction.\n"
+          "doc": " Whether the request is for a Mail Order/Telephone Order payment.\n"
+        },
+                {
+          "name": "scaRequested",
+          "type": "boolean",
+          "doc": " Request transaction to be made using strong customer authentication e.g. 3-D Secure.\n"
         }
       ],
       "enum": null,
@@ -1377,17 +1517,17 @@
                 {
           "name": "id",
           "type": "string",
-          "doc": " Merchant order ID. Can be used by a merchant to correlate payment on Wix and on provider side.\n"
+          "doc": " Unique order ID assigned by Wix.\n"
         },
                 {
           "name": "description",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_DocsOrderDescription",
-          "doc": ""
+          "doc": " Order description.\n"
         },
                 {
           "name": "returnUrls",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_OrderReturnUrls",
-          "doc": ""
+          "doc": " Redirect URLs for different payment outcomes. PSP-hosted payment pages use these URLs to redirect\n the buyer back to the merchant’s site.\n"
         }
       ],
       "enum": null,
@@ -1407,7 +1547,7 @@
                 {
           "name": "totalAmount",
           "type": "integer",
-          "doc": "\nTotal amount to pay in a currency’s smallest unit. In example it's a $10.00 payment.\nThe amount includes all extra charges that are described in the order object like shipping, taxes, etc.\n"
+          "doc": "\nTotal amount to pay in a currency’s smallest unit.\nIncludes all extra charges such as shipping and taxes.\n\nLearn more about [currency units](https://dev.wix.com/docs/rest/api-reference/payment-provider-spi/currencies).\n"
         },
                 {
           "name": "currency",
@@ -1420,27 +1560,27 @@
             "name": "array",
             "typeParams": ["All APIs.Provider Platform._wix_payments_v1_provider_DocsOrderItem"]
           },
-          "doc": ""
+          "doc": " Order items.\n"
         },
                 {
           "name": "charges",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_DocsAdditionalCharges",
-          "doc": ""
+          "doc": " Additional charges applied to the order.\n"
         },
                 {
           "name": "billingAddress",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Address",
-          "doc": ""
+          "doc": " Order billing address.\n"
         },
                 {
           "name": "shippingAddress",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_Address",
-          "doc": ""
+          "doc": " Order shipping address.\n"
         },
                 {
           "name": "buyerInfo",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_BuyerInfo",
-          "doc": ""
+          "doc": " Buyer information.\n"
         }
       ],
       "enum": null,
@@ -1465,7 +1605,7 @@
                 {
           "name": "name",
           "type": "string",
-          "doc": " Item name provided by the merchant.\n"
+          "doc": " Item name.\n"
         },
                 {
           "name": "quantity",
@@ -1480,17 +1620,17 @@
                 {
           "name": "description",
           "type": "string",
-          "doc": " Item description provided by the merchant.\n"
+          "doc": " Item description.\n"
         },
                 {
           "name": "weightInKg",
           "type": "number",
-          "doc": " Item weight in KG provided by the merchant.\n"
+          "doc": " Item weight in KG.\n"
         },
                 {
           "name": "category",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_DocsOrderItem_OrderItemCategory",
-          "doc": ""
+          "doc": "Item category.\n"
         }
       ],
       "enum": null,
@@ -1510,17 +1650,17 @@
                 {
           "name": "tax",
           "type": "integer",
-          "doc": " Calculated taxes applied for the full order.\n"
+          "doc": " Tax amount applied to the order.\n"
         },
                 {
           "name": "shipping",
           "type": "integer",
-          "doc": " Order shipping cost.\n"
+          "doc": " Shipping costs.\n"
         },
                 {
           "name": "discount",
           "type": "integer",
-          "doc": " Discount amount applied to order.\n"
+          "doc": " Discount amount applied to the order.\n"
         }
       ],
       "enum": null,
@@ -1539,7 +1679,7 @@
       "members": [      {
         "name": "event",
         "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_ProviderPlatformEvent",
-        "doc": " Provider platform event.\n"
+        "doc": " Event data.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1584,12 +1724,12 @@
                 {
           "name": "refund",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_RefundEvent",
-          "doc": " Refund event type.\n"
+          "doc": " Refund event data.\n"
         },
                 {
           "name": "transaction",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_TransactionEvent",
-          "doc": " Transaction event type.\n"
+          "doc": " Transaction event data.\n"
         }
       ],
       "enum": null,
@@ -1615,12 +1755,12 @@
                 {
           "name": "pluginRefundId",
           "type": "string",
-          "doc": " Payment provider refund ID.\n"
+          "doc": " PSP refund ID.\n"
         },
                 {
           "name": "reasonCode",
           "type": "integer",
-          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+          "doc": " Wix [reason code](https://dev.wix.com/api/rest/all-apis/provider-platform/reason-codes#all-apis_provider-platform_reason-codes_refund-declined) indicating a failed request.\n"
         },
                 {
           "name": "amount",
@@ -1630,17 +1770,17 @@
                 {
           "name": "wixRefundId",
           "type": "string",
-          "doc": " Wix refund ID. In case refund was performed via Wix admin panel by merchant.\n"
+          "doc": " Wix refund ID. This field is only required when a merchant initiates a refund from the Wix dashboard.\n"
         },
                 {
           "name": "errorCode",
           "type": "string",
-          "doc": " Payment provider's own error code.\n"
+          "doc": " PSP-specific error code.\n"
         },
                 {
           "name": "errorMessage",
           "type": "string",
-          "doc": " Payment provider's error description with details of the decline.\n"
+          "doc": " PSP-specific error message.\n"
         }
       ],
       "enum": null,
@@ -1665,27 +1805,32 @@
                 {
           "name": "pluginTransactionId",
           "type": "string",
-          "doc": " Payment Provider transaction ID.\n"
+          "doc": " PSP transaction ID.\n"
         },
                 {
           "name": "reasonCode",
           "type": "integer",
-          "doc": " Wix predefined [reason code](https://dev.wix.com/api/rest/payment-provider/payment-provider-spi/reason-codes).\n"
+          "doc": " Wix [reason code](https://dev.wix.com/api/rest/all-apis/provider-platform/reason-codes) indicating a failed or pending request.\n"
         },
                 {
           "name": "errorCode",
           "type": "string",
-          "doc": " Payment provider's error code.\n"
+          "doc": " PSP-specific error code.\n"
         },
                 {
           "name": "errorMessage",
           "type": "string",
-          "doc": " Payment provider's error description with details of the decline.\n"
+          "doc": " PSP-specific error message.\n"
         },
                 {
           "name": "credentialsOnFile",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CredentialsOnFile",
-          "doc": ""
+          "doc": " Token data for stored payment method.\n"
+        },
+                {
+          "name": "cardDetails",
+          "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CardDetails",
+          "doc": " Details of actual customer's card, obtained from a Funding PAN as opposed to a Device PAN.\n"
         }
       ],
       "enum": null,
@@ -1723,12 +1868,12 @@
                 {
           "name": "cardReference",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_CardReference",
-          "doc": ""
+          "doc": " Network token data.\n"
         },
                 {
           "name": "paymentMethodReference",
           "type": "All APIs.Provider Platform._wix_payments_v1_provider_platform_events_PaymentMethodReference",
-          "doc": ""
+          "doc": " Provider generated token data.\n"
         }
       ],
       "enum": null,
@@ -1749,12 +1894,37 @@
                 {
           "name": "networkTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " Network token.\n"
         },
                 {
           "name": "dsTransactionId",
           "type": "string",
-          "doc": ""
+          "doc": " Directory Server transaction ID\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_platform_events_CardDetails",
+      "displayName": "Card Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "bin",
+          "type": "string",
+          "doc": " Issuer (business) identification number. First 6 or 8 digits of the card's number.\n"
+        },
+                {
+          "name": "lastFour",
+          "type": "string",
+          "doc": " Last 4 digits of the card's number.\n"
         }
       ],
       "enum": null,
@@ -1773,7 +1943,7 @@
       "members": [      {
         "name": "token",
         "type": "string",
-        "doc": ""
+        "doc": " Payment method token created by the PSP.\n"
       }],
       "enum": null,
       "extra": {},
@@ -1893,6 +2063,24 @@
         "PENDING",
         "CANCELED",
         "DECLINED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_payments_v1_provider_GooglePay_AuthenticationMethod",
+      "displayName": "Authentication Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_AUTHENTICATION_METHOD <\/code><\/li><li><code> PAN_ONLY <\/code><\/li><li><code> CRYPTOGRAM_3DS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_AUTHENTICATION_METHOD",
+        "PAN_ONLY",
+        "CRYPTOGRAM_3DS"
       ],
       "extra": {},
       "labels": []
