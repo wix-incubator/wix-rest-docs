@@ -69,11 +69,11 @@ The following envelope attributes are:
 
 ```json
 {
-  type: "<identity type>", // SITE_VISITOR, SITE_MEMBER, WIX_USER, APPLICATION
-  siteMemberId: "<memberId>",
-  siteVisitorId: "<visitorId>",
-  userId: "<userId>",
-  applicationId: "<applicationId>"
+  identityType: "<identityType>", // ANONYMOUS_VISITOR, MEMBER, WIX_USER, APP
+  anonymousVisitorId: "<anonymousVisitorId>",
+  memberId: "<memberId>",
+  wixUserId: "<wixUserId>",
+  appId: "<appId>"
 }
 ```
 
