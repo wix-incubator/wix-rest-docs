@@ -1,6 +1,6 @@
 {
   "name": "Wix Groups",
-  "client_id": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/src/main/proto#public",
+  "client_id": "https://github.com/wix-private/wix-groups/tree/master/social-groups/social-groups-server/social-groups-v2-api/src/main/proto#public",
   "memberOf": "All APIs",
   "category": "business-service",
   "mixes": [],
@@ -35,6 +35,21 @@
       "name": "Roles",
       "entity": "_wix_social_groups_api_v2_GroupRole",
       "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/wix/social/groups/api/v2/domain.proto"
+    },
+        {
+      "name": "Rules",
+      "entity": "_wix_social_groups_api_v2_GroupRules",
+      "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/wix/social/groups/api/v2/domain.proto"
+    },
+        {
+      "name": "Membership Questions",
+      "entity": "_wix_social_groups_api_v2_MembershipQuestion",
+      "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/wix/social/groups/api/v2/domain.proto"
+    },
+        {
+      "name": "Group Settings",
+      "entity": "_wix_social_groups_api_v2_Group_GroupSettings",
+      "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/wix/social/groups/api/v2/domain.proto"
     }
   ],
   "relatedGuides":   [
@@ -53,10 +68,7 @@
       "methodName": "AddGroupMembers",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -118,7 +130,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "AddGroupMembersRequest",
-        "rpcResponseName": "AddGroupMembersResponse"
+        "rpcResponseName": "AddGroupMembersResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -127,10 +140,7 @@
       "methodName": "ApproveGroupRequests",
       "serviceName": "GroupRequestsService",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -171,7 +181,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ApproveGroupRequestsRequest",
-        "rpcResponseName": "ApproveGroupRequestsResponse"
+        "rpcResponseName": "ApproveGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -180,10 +191,7 @@
       "methodName": "ApproveJoinGroupRequests",
       "serviceName": "JoinGroupRequestsService",
       "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -245,7 +253,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ApproveJoinGroupRequestsRequest",
-        "rpcResponseName": "ApproveJoinGroupRequestsResponse"
+        "rpcResponseName": "ApproveJoinGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -254,10 +263,7 @@
       "methodName": "AssignRole",
       "serviceName": "GroupRolesService",
       "tag": "Roles",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -326,7 +332,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "AssignRoleRequest",
-        "rpcResponseName": "AssignRoleResponse"
+        "rpcResponseName": "AssignRoleResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -335,21 +342,18 @@
       "methodName": "CreateGroup",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["group.title"],
+      "requiredFields": ["group"],
       "params":       [
                 {
           "in": "BODY",
           "name": "group",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Group",
           "doc": " Group to create.\n",
-          "required": false
+          "required": true
         },
                 {
           "in": "BODY",
@@ -369,7 +373,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nCreates a group.\n>**Notes:**\n> + The site owners may not allow members to create groups.\n> + Specify a `creatorId` to set the group's creator.\n> + The group's creator will automatically become an admin.\n \n",
+        "summary": " \n",
         "description": [],
         "request": "POST",
         "url": "https://www.wixapis.com/social-groups/v2/groups",
@@ -386,7 +390,124 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "CreateGroupRequest",
-        "rpcResponseName": "CreateGroupResponse"
+        "rpcResponseName": "CreateGroupResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Or Replace All Membership Questions",
+      "methodName": "CreateOrReplaceAllMembershipQuestions",
+      "serviceName": "MembershipQuestionsService",
+      "tag": "Membership Questions",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "questions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestion"]
+          },
+          "doc": " New membership questions.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateOrReplaceAllMembershipQuestions",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_CreateOrReplaceAllMembershipQuestionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates membership questions if none have been set up. Otherwise, replaces all existing questions.\n> **Notes:**\n> * Only admins can create or replace membership questions.\n> * Providing an empty array means that members won't have to answer any question when joining the group.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/social-groups/v2/membership-questions/{groupId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X PUT \\\n    https://wixapis.com/social-groups/v2/membership-questions/707c1e28-c111-46e1-bafa-4e97c8fa490f \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>'\n\n{\n    \"questions\": [\n        {\n            \"required\": true,\n            \"text\": \"Question 1\"\n        },\n        {\n            \"required\": false,\n            \"text\": \"Question 2\"\n        }\n    ]\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateOrReplaceAllMembershipQuestionsRequest",
+        "rpcResponseName": "CreateOrReplaceAllMembershipQuestionsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Create Or Replace All Rules",
+      "methodName": "CreateOrReplaceAllRules",
+      "serviceName": "GroupRulesService",
+      "tag": "Rules",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "rules",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+          },
+          "doc": " New rules.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "CreateOrReplaceAllRules",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_CreateOrReplaceAllRulesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates rules if no rules have been set up. Otherwise, replaces all existing rules.\n> **Note:** Only admins can create or replace rules.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "PUT",
+        "url": "https://www.wixapis.com/social-groups/v2/rules/{groupId}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateOrReplaceAllRulesRequest",
+        "rpcResponseName": "CreateOrReplaceAllRulesResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -395,10 +516,7 @@
       "methodName": "DeleteGroup",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -420,7 +538,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nHides a group from the Group List or cancels group request.\n>**Notes:**\n> + Only admins can delete a group.\n> + The group will no longer be visible in the live site or the Wix business manager.\n> + It is not possible to restore the group via the [Update Group](https://dev.wix.com/api/rest/wix-groups/groups/group/update-group) endpoint into the live site.\n> + It is still possible to retrieve the group via the [Get Group](https://dev.wix.com/api/rest/wix-groups/groups/group/get-group), [List Groups](https://dev.wix.com/api/rest/wix-groups/groups/group/list-groups) and [Query Groups](https://dev.wix.com/api/rest/wix-groups/groups/group/query-groups) endpoints.\n \n",
+        "summary": "\nHides a group from the Group List or cancels group request.\n>**Notes:**\n> + Only admins can delete a group.\n> + The group will no longer be visible in the live site or the dashboard.\n> + It is not possible to restore the group via the [Update Group](https://dev.wix.com/api/rest/wix-groups/groups/group/update-group) endpoint into the live site.\n> + It is still possible to retrieve the group via the [Get Group](https://dev.wix.com/api/rest/wix-groups/groups/group/get-group), [List Groups](https://dev.wix.com/api/rest/wix-groups/groups/group/list-groups) and [Query Groups](https://dev.wix.com/api/rest/wix-groups/groups/group/query-groups) endpoints.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/social-groups/v2/groups/{groupId}",
@@ -437,7 +555,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "DeleteGroupRequest",
-        "rpcResponseName": "DeleteGroupResponse"
+        "rpcResponseName": "DeleteGroupResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -446,10 +565,7 @@
       "methodName": "GetGroup",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -488,7 +604,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "GetGroupRequest",
-        "rpcResponseName": "GetGroupResponse"
+        "rpcResponseName": "GetGroupResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -497,10 +614,7 @@
       "methodName": "GetGroupBySlug",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -539,7 +653,76 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "GetGroupBySlugRequest",
-        "rpcResponseName": "GetGroupBySlugResponse"
+        "rpcResponseName": "GetGroupBySlugResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Answers",
+      "methodName": "ListAnswers",
+      "serviceName": "MembershipQuestionsService",
+      "tag": "Membership Questions",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params":       [
+                {
+          "in": "PATH",
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Member IDs. If no member ID is provided, answers for all members will be returned. See [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for more details.\n",
+          "required": false
+        },
+                {
+          "in": "BODY",
+          "name": "paging",
+          "type": "All APIs.Wix Groups._wix_common_Paging",
+          "doc": "",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListAnswers",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListAnswersResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the answers to the membership questions, given the provided filters.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/social-groups/v2/membership-questions/{groupId}/answers",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    https://wixapis.com/social-groups/v2/membership-questions/707c1e28-c111-46e1-bafa-4e97c8fa490f/answers \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>'\ns\n{\n    \"memberAnswers\": [\n        {\n            \"memberId\": \"92c2810b-40e0-4b3d-9a51-6b404fea9a00\",\n            \"answers\": [\n                {\n                    \"id\": \"4527a3a6-804e-6f36-8aa3-2a73ca30da95\",\n                    \"text\": \"Test answer\"\n                }\n            ]\n        }\n    ],\n    \"questions\": {\n        \"4527a3a6-804e-6f36-8aa3-2a73ca30da95\": {\n            \"id\": \"4527a3a6-804e-6f36-8aa3-2a73ca30da95\",\n            \"required\": true,\n            \"text\": \"Question 1\"\n        },\n        \"8b1921a8-385c-31f5-0aa2-ee992b820f91\": {\n            \"id\": \"8b1921a8-385c-31f5-0aa2-ee992b820f91\",\n            \"required\": false,\n            \"text\": \"Question 2\"\n        }\n    }\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListAnswersRequest",
+        "rpcResponseName": "ListAnswersResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -548,10 +731,7 @@
       "methodName": "ListGroupMembers",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -606,7 +786,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListGroupMembersRequest",
-        "rpcResponseName": "ListGroupMembersResponse"
+        "rpcResponseName": "ListGroupMembersResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -615,10 +796,7 @@
       "methodName": "ListGroupRequests",
       "serviceName": "GroupRequestsService",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -665,7 +843,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListGroupRequestsRequest",
-        "rpcResponseName": "ListGroupRequestsResponse"
+        "rpcResponseName": "ListGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -674,10 +853,7 @@
       "methodName": "ListGroups",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -724,7 +900,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListGroupsRequest",
-        "rpcResponseName": "ListGroupsResponse"
+        "rpcResponseName": "ListGroupsResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -733,10 +910,7 @@
       "methodName": "ListJoinGroupRequests",
       "serviceName": "JoinGroupRequestsService",
       "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -791,7 +965,106 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListJoinGroupRequestsRequest",
-        "rpcResponseName": "ListJoinGroupRequestsResponse"
+        "rpcResponseName": "ListJoinGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Membership Questions",
+      "methodName": "ListMembershipQuestions",
+      "serviceName": "MembershipQuestionsService",
+      "tag": "Membership Questions",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "groupId",
+        "type": "string",
+        "doc": " Group ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListMembershipQuestions",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListMembershipQuestionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the membership questions for the given group.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/social-groups/v2/membership-questions/{groupId}",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    https://wixapis.com/social-groups/v2/membership-questions/707c1e28-c111-46e1-bafa-4e97c8fa490f \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>'\n\n{\n    \"questions\": [\n        {\n            \"id\": \"9a7b64c9-8b06-6602-b21f-869ae7cd673a\",\n            \"required\": true,\n            \"text\": \"Question 1\"\n        },\n        {\n            \"id\": \"38b0d2ff-1c03-df82-aea6-7222983d337e\",\n            \"required\": false,\n            \"text\": \"Question 2\"\n        }\n    ]\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMembershipQuestionsRequest",
+        "rpcResponseName": "ListMembershipQuestionsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Membership Questions (Additional Binding 1)",
+      "methodName": "ListMembershipQuestions",
+      "serviceName": "MembershipQuestionsService",
+      "tag": "Membership Questions",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "groupId",
+        "type": "string",
+        "doc": " Group ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListMembershipQuestions",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListMembershipQuestionsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves the membership questions for the given group.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/social-groups/v2/groups/{groupId}/membership-questions",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["curl -X GET \\\n    https://wixapis.com/social-groups/v2/membership-questions/707c1e28-c111-46e1-bafa-4e97c8fa490f \\\n    -H 'Content-Type: application/json;charset=UTF-8' \\\n    -H 'Authorization: <AUTH>'\n\n{\n    \"questions\": [\n        {\n            \"id\": \"9a7b64c9-8b06-6602-b21f-869ae7cd673a\",\n            \"required\": true,\n            \"text\": \"Question 1\"\n        },\n        {\n            \"id\": \"38b0d2ff-1c03-df82-aea6-7222983d337e\",\n            \"required\": false,\n            \"text\": \"Question 2\"\n        }\n    ]\n}\n"],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListMembershipQuestionsRequest",
+        "rpcResponseName": "ListMembershipQuestionsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -800,10 +1073,7 @@
       "methodName": "ListMemberships",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -858,7 +1128,51 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "ListMembershipsRequest",
-        "rpcResponseName": "ListMembershipsResponse"
+        "rpcResponseName": "ListMembershipsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Rules",
+      "methodName": "ListRules",
+      "serviceName": "GroupRulesService",
+      "tag": "Rules",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["groupId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "groupId",
+        "type": "string",
+        "doc": " Group ID.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "ListRules",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListRulesResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves rules.\n\n>**Note:**\n>This endpoint requires [visitor or member authentication](https://dev.wix.com/docs/rest/articles/getting-started/access-types-and-permissions).\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/social-groups/v2/rules/{groupId}",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListRulesRequest",
+        "rpcResponseName": "ListRulesResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -867,10 +1181,7 @@
       "methodName": "QueryGroupMembers",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -918,7 +1229,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QueryGroupMembersRequest",
-        "rpcResponseName": "QueryGroupMembersResponse"
+        "rpcResponseName": "QueryGroupMembersResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -927,10 +1239,7 @@
       "methodName": "QueryGroupRequests",
       "serviceName": "GroupRequestsService",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -968,7 +1277,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QueryGroupRequestsRequest",
-        "rpcResponseName": "QueryGroupRequestsResponse"
+        "rpcResponseName": "QueryGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -977,10 +1287,7 @@
       "methodName": "QueryGroups",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1018,7 +1325,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QueryGroupsRequest",
-        "rpcResponseName": "QueryGroupsResponse"
+        "rpcResponseName": "QueryGroupsResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1027,10 +1335,7 @@
       "methodName": "QueryJoinGroupRequests",
       "serviceName": "JoinGroupRequestsService",
       "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1078,7 +1383,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QueryJoinGroupRequestsRequest",
-        "rpcResponseName": "QueryJoinGroupRequestsResponse"
+        "rpcResponseName": "QueryJoinGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1087,10 +1393,7 @@
       "methodName": "QueryMemberships",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1146,7 +1449,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "QueryMembershipsRequest",
-        "rpcResponseName": "QueryMembershipsResponse"
+        "rpcResponseName": "QueryMembershipsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1155,10 +1459,7 @@
       "methodName": "RejectGroupRequests",
       "serviceName": "GroupRequestsService",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1199,7 +1500,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "RejectGroupRequestsRequest",
-        "rpcResponseName": "RejectGroupRequestsResponse"
+        "rpcResponseName": "RejectGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1208,10 +1510,7 @@
       "methodName": "RejectJoinGroupRequests",
       "serviceName": "JoinGroupRequestsService",
       "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1262,7 +1561,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "RejectJoinGroupRequestsRequest",
-        "rpcResponseName": "RejectJoinGroupRequestsResponse"
+        "rpcResponseName": "RejectJoinGroupRequestsResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1271,10 +1571,7 @@
       "methodName": "RemoveGroupMembers",
       "serviceName": "GroupMembersService",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1336,7 +1633,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "RemoveGroupMembersRequest",
-        "rpcResponseName": "RemoveGroupMembersResponse"
+        "rpcResponseName": "RemoveGroupMembersResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1345,10 +1643,7 @@
       "methodName": "UnassignRole",
       "serviceName": "GroupRolesService",
       "tag": "Roles",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -1417,7 +1712,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "UnassignRoleRequest",
-        "rpcResponseName": "UnassignRoleResponse"
+        "rpcResponseName": "UnassignRoleResponse",
+        "artifactId": "com.wixpress.groups.social-groups-web"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -1426,13 +1722,14 @@
       "methodName": "UpdateGroup",
       "serviceName": "GroupsService",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "events": [],
       "labels": [],
       "nameParams": [],
+      "requiredFields":       [
+        "group",
+        "group.id"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -1446,7 +1743,7 @@
           "name": "group",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Group",
           "doc": " Group to update.\n",
-          "required": false
+          "required": true
         }
       ],
       "ret":       {
@@ -1459,7 +1756,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": "\nUpdates a group.\n>**Note:**\n> + Only admins can update a group.\n> + When `group.privacyLevel` is updated from `PRIVATE` to `PUBLIC`, all pending group join requests are automatically approved.\n> + When `group.privacyLevel` is updated from `PRIVATE` to `SECRET`, all pending group join requests are automatically rejected.\n \n",
+        "summary": " \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/social-groups/v2/groups/{group.id}",
@@ -1476,7 +1773,8 @@
       "extra":       {
         "hasRest": true,
         "rpcRequestName": "UpdateGroupRequest",
-        "rpcResponseName": "UpdateGroupResponse"
+        "rpcResponseName": "UpdateGroupResponse",
+        "artifactId": "com.wixpress.socialgroups.groups-proxy"
       },
       "customLabels": [{"id": "maturity-beta"}]
     }
@@ -1491,10 +1789,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_request",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_request_approved",
       "extra": {"isDomainEvent": true}
@@ -1508,10 +1803,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_request",
       "tag": "Create Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_request_rejected",
       "extra": {"isDomainEvent": true}
@@ -1525,10 +1817,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_deleted",
       "extra": {"isDomainEvent": true}
@@ -1542,10 +1831,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_created",
       "extra": {"isDomainEvent": true}
@@ -1559,10 +1845,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_updated",
       "extra": {"isDomainEvent": true}
@@ -1576,10 +1859,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_group_cover_changed",
       "extra": {"isDomainEvent": true}
@@ -1593,29 +1873,9 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group",
       "tag": "Groups",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_group_description_changed",
-      "extra": {"isDomainEvent": true}
-    },
-        {
-      "type": "_wix_social_groups_api_v2_JoinGroupRequestApprovedDomainEvent",
-      "name": "Join Group Request Approved Webhook",
-      "docs":       {
-        "summary": "Triggered when a join group request is approved by a group admin or a groups manager.\n",
-        "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/src/main/proto/wix/social/groups/api/v2/join-group-requests-service.proto"
-      },
-      "topic": "domain_events_wix.social_groups.v2.join_group_request",
-      "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.social_groups.v2.join_group_request_approved",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1627,12 +1887,23 @@
       },
       "topic": "domain_events_wix.social_groups.v2.join_group_request",
       "tag": "Join Requests",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.join_group_request_rejected",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_wix_social_groups_api_v2_JoinGroupRequestApprovedDomainEvent",
+      "name": "Join Group Request Approved Webhook",
+      "docs":       {
+        "summary": "Triggered when a join group request is approved by a group admin or a groups manager.\n",
+        "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/src/main/proto/wix/social/groups/api/v2/join-group-requests-service.proto"
+      },
+      "topic": "domain_events_wix.social_groups.v2.join_group_request",
+      "tag": "Join Requests",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.social_groups.v2.join_group_request_approved",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1644,10 +1915,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_role",
       "tag": "Roles",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_role_assigned",
       "extra": {"isDomainEvent": true}
@@ -1661,12 +1929,23 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_role",
       "tag": "Roles",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_role_unassigned",
+      "extra": {"isDomainEvent": true}
+    },
+        {
+      "type": "_wix_social_groups_api_v2_GroupRulesUpdatedDomainEvent",
+      "name": "Group Rules Updated Webhook",
+      "docs":       {
+        "summary": " Triggered when rules are updated.\n",
+        "src": "https://github.com/wix-private/strategic-products/tree/master/social-groups/social-groups-server/social-groups-v2-api/src/main/proto/wix/social/groups/api/v2/group-rules-service.proto"
+      },
+      "topic": "domain_events_wix.social_groups.v2.group_rules",
+      "tag": "Rules",
+      "permissions": [],
+      "customLabels": [{"id": "maturity-beta"}],
+      "eventType": "wix.social_groups.v2.group_rules_updated",
       "extra": {"isDomainEvent": true}
     },
         {
@@ -1678,10 +1957,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_member",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_member_added",
       "extra": {"isDomainEvent": true}
@@ -1695,10 +1971,7 @@
       },
       "topic": "domain_events_wix.social_groups.v2.group_member",
       "tag": "Members",
-      "permissions": [      {
-        "name": "Manage Social Groups",
-        "description": "Request permission to read, create and manage Wix groups."
-      }],
+      "permissions": [],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.social_groups.v2.group_member_removed",
       "extra": {"isDomainEvent": true}
@@ -1779,84 +2052,6 @@
         "name": "body",
         "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRequestApproved",
         "doc": "Event body"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_GroupRequestCreatedDomainEvent",
-      "displayName": "Group Request Created Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"id\" : \"7df3de0d-146b-4569-8891-b3920386ba2e\",\n  \"entityFqdn\" : \"wix.social_groups.v2.group_request\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"9893dfdc-a800-45dc-9595-dee6c418e035\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"groupRequest\\\":{\\\"id\\\":\\\"9893dfdc-a800-45dc-9595-dee6c418e035\\\",\\\"group\\\":{\\\"id\\\":\\\"9893dfdc-a800-45dc-9595-dee6c418e035\\\",\\\"slug\\\":\\\"sr\\\",\\\"privacyLevel\\\":\\\"PUBLIC\\\",\\\"title\\\":\\\"Test\\\",\\\"description\\\":\\\"Welcome to the group! You can connect with other members, get updates and share videos.\\\",\\\"details\\\":{},\\\"settings\\\":{\\\"membersPermittedToInvite\\\":true,\\\"membersPermittedToApprove\\\":false,\\\"memberWelcomePostEnabled\\\":true,\\\"groupDetailsChangedPostEnabled\\\":true,\\\"showMemberList\\\":true},\\\"membersCount\\\":1,\\\"createdBy\\\":{\\\"id\\\":\\\"d0a2ef39-d8fd-449d-9db2-7f8d015656d9\\\",\\\"identityType\\\":\\\"MEMBER\\\"},\\\"createdDate\\\":\\\"2021-02-16T00:51:48Z\\\",\\\"updatedDate\\\":\\\"2021-02-16T00:51:48Z\\\",\\\"recentActivityDate\\\":\\\"2021-02-16T00:51:48Z\\\"},\\\"status\\\":\\\"PENDING\\\",\\\"requestDetails\\\":{}}}\"\n  },\n  \"eventTime\" : \"2021-02-16T00:52:32.669662Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.social_groups.v2.group_request`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `created`.\nEvent name."
-        },
-                {
-          "name": "createdEvent",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRequestEntityCreatedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "GroupRequest ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_GroupRequestEntityCreatedEvent",
-      "displayName": "Group Request Entity Created Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "entityAsJson",
-        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRequest",
-        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -2401,15 +2596,15 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestCreatedDomainEvent",
-      "displayName": "Join Group Request Created Domain Event Object",
+      "name": "_wix_social_groups_api_v2_JoinGroupRequestRejectedDomainEvent",
+      "displayName": "Join Group Request Rejected Domain Event Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"4a2ebd80-1a77-4a75-b621-5da8f0cd616e\",\n  \"entityFqdn\" : \"wix.social_groups.v2.join_group_request\",\n  \"slug\" : \"created\",\n  \"entityId\" : \"9c221c4e-82d0-4f29-b114-e32a9d932bc8\",\n  \"createdEvent\" : {\n    \"entityAsJson\" : \"{\\\"siteMemberId\\\":\\\"fcc4990c-c031-4c96-bb0b-d03ab9b3c2f6\\\",\\\"status\\\":\\\"PENDING\\\"}\"\n  },\n  \"eventTime\" : \"2021-02-16T00:51:15.951297Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"398019ee-9396-4f90-8c9f-0fbb02ba7a3d\",\n  \"entityFqdn\" : \"wix.social_groups.v2.join_group_request\",\n  \"slug\" : \"rejected\",\n  \"entityId\" : \"9c221c4e-82d0-4f29-b114-e32a9d932bc8\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"groupId\\\":\\\"9c221c4e-82d0-4f29-b114-e32a9d932bc8\\\",\\\"joinGroupRequest\\\":{\\\"siteMemberId\\\":\\\"fcc4990c-c031-4c96-bb0b-d03ab9b3c2f6\\\",\\\"status\\\":\\\"REJECTED\\\"}}\"\n  },\n  \"eventTime\" : \"2021-02-16T02:16:40.382843Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -2428,95 +2623,17 @@
                 {
           "name": "slug",
           "type": "string",
-          "doc": "Expected `created`.\nEvent name."
-        },
-                {
-          "name": "createdEvent",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestEntityCreatedEvent",
-          "doc": "Event Info"
-        },
-                {
-          "name": "entityId",
-          "type": "string",
-          "doc": "JoinGroupRequest ID associated with this event."
-        },
-                {
-          "name": "eventTime",
-          "type": "string",
-          "doc": "Event timestamp."
-        },
-                {
-          "name": "triggeredByAnonymizeRequest",
-          "type": "boolean",
-          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
-        },
-                {
-          "name": "originatedFrom",
-          "type": "string",
-          "doc": "If present, indicates the action that triggered the event."
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestEntityCreatedEvent",
-      "displayName": "Join Group Request Entity Created Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "entityAsJson",
-        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequest",
-        "doc": "Event body as a stringified JSON"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestCancelledDomainEvent",
-      "displayName": "Join Group Request Cancelled Domain Event Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": [        {
-          "title": "",
-          "body": ["{\n  \"id\" : \"bb801b84-61f5-413e-adcf-3e7880d35afe\",\n  \"entityFqdn\" : \"wix.social_groups.v2.join_group_request\",\n  \"slug\" : \"cancelled\",\n  \"entityId\" : \"9c221c4e-82d0-4f29-b114-e32a9d932bc8\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"groupId\\\":\\\"9c221c4e-82d0-4f29-b114-e32a9d932bc8\\\",\\\"joinGroupRequest\\\":{\\\"siteMemberId\\\":\\\"fcc4990c-c031-4c96-bb0b-d03ab9b3c2f6\\\",\\\"status\\\":\\\"CANCELLED\\\"}}\"\n  },\n  \"eventTime\" : \"2021-02-15T22:09:35.071957Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
-          "type": "json",
-          "extra": {}
-        }]
-      },
-      "members":       [
-                {
-          "name": "id",
-          "type": "string",
-          "doc": "Unique event ID."
-        },
-                {
-          "name": "entityFqdn",
-          "type": "string",
-          "doc": "Expected `wix.social_groups.v2.join_group_request`.\nFully Qualified Domain Name."
-        },
-                {
-          "name": "slug",
-          "type": "string",
-          "doc": "Expected `cancelled`.\nEvent name."
+          "doc": "Expected `rejected`.\nEvent name."
         },
                 {
           "name": "actionEvent",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestCancelledActionEvent",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestRejectedActionEvent",
           "doc": "Event Info"
         },
                 {
           "name": "entityId",
           "type": "string",
-          "doc": "JoinGroupRequestCancelled ID associated with this event."
+          "doc": "JoinGroupRequestRejected ID associated with this event."
         },
                 {
           "name": "eventTime",
@@ -2539,8 +2656,8 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestCancelledActionEvent",
-      "displayName": "Join Group Request Cancelled Action Event Object",
+      "name": "_wix_social_groups_api_v2_JoinGroupRequestRejectedActionEvent",
+      "displayName": "Join Group Request Rejected Action Event Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -2548,9 +2665,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "bodyAsJson",
-        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestCancelled",
-        "doc": "Event body as a stringified JSON"
+        "name": "body",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestRejected",
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -2635,15 +2752,15 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestRejectedDomainEvent",
-      "displayName": "Join Group Request Rejected Domain Event Object",
+      "name": "_wix_social_groups_api_v2_JoinGroupRequestCancelledDomainEvent",
+      "displayName": "Join Group Request Cancelled Domain Event Object",
       "locations": [],
       "docs":       {
         "summary": "",
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"id\" : \"398019ee-9396-4f90-8c9f-0fbb02ba7a3d\",\n  \"entityFqdn\" : \"wix.social_groups.v2.join_group_request\",\n  \"slug\" : \"rejected\",\n  \"entityId\" : \"9c221c4e-82d0-4f29-b114-e32a9d932bc8\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"groupId\\\":\\\"9c221c4e-82d0-4f29-b114-e32a9d932bc8\\\",\\\"joinGroupRequest\\\":{\\\"siteMemberId\\\":\\\"fcc4990c-c031-4c96-bb0b-d03ab9b3c2f6\\\",\\\"status\\\":\\\"REJECTED\\\"}}\"\n  },\n  \"eventTime\" : \"2021-02-16T02:16:40.382843Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"id\" : \"bb801b84-61f5-413e-adcf-3e7880d35afe\",\n  \"entityFqdn\" : \"wix.social_groups.v2.join_group_request\",\n  \"slug\" : \"cancelled\",\n  \"entityId\" : \"9c221c4e-82d0-4f29-b114-e32a9d932bc8\",\n  \"actionEvent\" : {\n    \"bodyAsJson\" : \"{\\\"groupId\\\":\\\"9c221c4e-82d0-4f29-b114-e32a9d932bc8\\\",\\\"joinGroupRequest\\\":{\\\"siteMemberId\\\":\\\"fcc4990c-c031-4c96-bb0b-d03ab9b3c2f6\\\",\\\"status\\\":\\\"CANCELLED\\\"}}\"\n  },\n  \"eventTime\" : \"2021-02-15T22:09:35.071957Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -2662,17 +2779,17 @@
                 {
           "name": "slug",
           "type": "string",
-          "doc": "Expected `rejected`.\nEvent name."
+          "doc": "Expected `cancelled`.\nEvent name."
         },
                 {
           "name": "actionEvent",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestRejectedActionEvent",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestCancelledActionEvent",
           "doc": "Event Info"
         },
                 {
           "name": "entityId",
           "type": "string",
-          "doc": "JoinGroupRequestRejected ID associated with this event."
+          "doc": "JoinGroupRequestCancelled ID associated with this event."
         },
                 {
           "name": "eventTime",
@@ -2695,8 +2812,8 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_JoinGroupRequestRejectedActionEvent",
-      "displayName": "Join Group Request Rejected Action Event Object",
+      "name": "_wix_social_groups_api_v2_JoinGroupRequestCancelledActionEvent",
+      "displayName": "Join Group Request Cancelled Action Event Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -2704,9 +2821,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "body",
-        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestRejected",
-        "doc": "Event body"
+        "name": "bodyAsJson",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequestCancelled",
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -2853,6 +2970,157 @@
         "name": "body",
         "type": "All APIs.Wix Groups._wix_social_groups_api_v2_RoleUnassignedFromGroupMember",
         "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GroupRulesUpdatedDomainEvent",
+      "displayName": "Group Rules Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": [        {
+          "title": "",
+          "body": ["{\n  \"id\" : \"cf905d83-d66a-4b29-a78a-20b7957cdd25\",\n  \"entityFqdn\" : \"wix.social_groups.v2.group_rules\",\n  \"slug\" : \"updated\",\n  \"entityId\" : \"c4f36bae-c281-4c6c-aad6-5042542bdc30\",\n  \"updatedEvent\" : {\n    \"currentEntityAsJson\" : \"{\\\"rules\\\":[{\\\"title\\\":\\\"Rule-1 title\\\",\\\"description\\\":\\\"Updated rule-1 itself\\\"},{\\\"title\\\":\\\"Updated rule-2 title\\\",\\\"description\\\":\\\"Rule-2 itself\\\"}]}\"\n  },\n  \"eventTime\" : \"2021-02-09T11:04:37.692132Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "type": "json",
+          "extra": {}
+        }]
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.social_groups.v2.group_rules`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRulesEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "GroupRules ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GroupRulesEntityUpdatedEvent",
+      "displayName": "Group Rules Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntity",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules",
+        "doc": "Event body"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_SettingsUpdatedDomainEvent",
+      "displayName": "Settings Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.social_groups.v2.groups_app_settings`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_SettingsEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "Settings ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_SettingsEntityUpdatedEvent",
+      "displayName": "Settings Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings",
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -3412,26 +3680,16 @@
       },
       "members":       [
                 {
-          "name": "membersPermittedToInvite",
-          "type": "boolean",
-          "doc": "\n__Deprecated.__ Use `membersCanInvite` instead.\nThis property will be removed on June 30, 2022.\n",
-          "deprecated": true
-        },
-                {
           "name": "membersCanInvite",
           "type": "boolean",
-          "doc": " Whether regular members are permitted to invite new members.\n If `false`, only admins can invite members. Defaults to `true`.\n"
-        },
-                {
-          "name": "membersPermittedToApprove",
-          "type": "boolean",
-          "doc": "\n__Deprecated.__ Use `membersCanApprove` instead.\nThis property will be removed on June 30, 2022.\n",
+          "doc": "\n__Deprecated.__ Use `allowedToInviteMembers` instead.\nWhether regular members are permitted to invite new members.\nIf `false`, only admins can invite members. Defaults to `true`.\n",
           "deprecated": true
         },
                 {
           "name": "membersCanApprove",
           "type": "boolean",
-          "doc": "Whether all group members are permitted to approve join group requests.\n If `false`, member approval is limited to the admins.\n"
+          "doc": "\n__Deprecated.__ Use `allowedToApproveJoinRequests` instead.\nWhether all group members are permitted to approve join group requests.\nIf `false`, member approval is limited to the admins.\n",
+          "deprecated": true
         },
                 {
           "name": "memberWelcomePostEnabled",
@@ -3453,6 +3711,14 @@
           "name": "showMemberList",
           "type": "boolean",
           "doc": " Whether all members can see the full member list.\n"
+        },
+                {
+          "name": "onboardingStepsSettings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_OnboardingStepSettings"]
+          },
+          "doc": ""
         }
       ],
       "enum": null,
@@ -3531,7 +3797,7 @@
                 {
           "name": "settings",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Group_GroupSettings",
-          "doc": " Group specific settings. Available to the site owners under `Admin Tools` in the Business Manager.\n"
+          "doc": " Group specific settings. Available to the site owners under `Admin Tools` in the dashboard.\n"
         },
                 {
           "name": "membersCount",
@@ -3674,6 +3940,12 @@
           "readOnly": true
         },
                 {
+          "name": "contactId",
+          "type": "string",
+          "doc": "",
+          "readOnly": true
+        },
+                {
           "name": "status",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_RequestStatus",
           "doc": "\nJoin group request status.\n- `PENDING` - Pending join group request.\n- `APPROVED` - Approved join group request.\n- `REJECTED` - Rejected join group request.\n- `CANCELED` - Canceled join group request.\n"
@@ -3682,6 +3954,67 @@
           "name": "requestDetails",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_RequestDetails",
           "doc": "Join group request details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_Settings",
+      "displayName": "Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Wix Groups Application Settings.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "sortField",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings_GroupsSortBy",
+          "doc": " Field to sort by.\n"
+        },
+                {
+          "name": "authorizedGroupCreators",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings_AuthorizedGroupCreators",
+          "doc": "\nAuthorized group creators.\n- `ONLY_OWNER` - Only Wix Groups Managers can create new groups.\n- `MEMBERS` - All members are allowed to create new groups.\n- `MEMBERS_WITH_APPROVAL` - Only group Wix Groups Managers can create new groups, but members can suggest to create a group via **Group Requests**.\n"
+        },
+                {
+          "name": "emailDigestEnabled",
+          "type": "boolean",
+          "doc": " Whether weekly email digest is enabled.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_MembershipQuestion",
+      "displayName": "Membership Question Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nQuestion asked to members when joining a group. Site owners can set whether it is required to answer the question in the dashboard.\n> **Note:** Only admins can create or update membership questions.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Question ID.\n",
+          "readOnly": true
+        },
+                {
+          "name": "required",
+          "type": "boolean",
+          "doc": " Whether a member must answer this question when joining the group.\n"
+        },
+                {
+          "name": "text",
+          "type": "string",
+          "doc": " Question text.\n"
         }
       ],
       "enum": null,
@@ -3730,57 +4063,6 @@
       "enum": null,
       "extra": {},
       "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_GroupWithRelationship_Relationship",
-      "displayName": "Relationship Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "membership",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupWithRelationship_Relationship_Membership",
-          "doc": "\nMembership status.\n- `NONE` - Site member is not a group member.\n- `JOINED` - Site member is a group member.\n- `PENDING` - Site member has submitted a Join Request that is still `PENDING`.\n"
-        },
-                {
-          "name": "role",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupRole",
-          "doc": " Member's role. Equals to `UNKNOWN_ROLE` in case a site member has not joined a group.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_GroupWithRelationship",
-      "displayName": "Group With Relationship Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "group",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Group",
-          "doc": ""
-        },
-                {
-          "name": "relationship",
-          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupWithRelationship_Relationship",
-          "doc": "Relationship between member and group.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": [],
-      "deprecated": true
     },
         {
       "name": "_wix_social_groups_api_v2_Membership",
@@ -3852,6 +4134,77 @@
         "type": "string",
         "doc": " Reason the request has been rejected.\n"
       }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GroupRules_GroupRule",
+      "displayName": "Group Rule Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Rule title.\n"
+        },
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Rule description.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GroupRules",
+      "displayName": "Group Rules Object",
+      "locations": [],
+      "docs":       {
+        "summary": "\nGuidelines ensuring that members post responsibly and respectfully. Site owners can set up Group Rules in the dashboard.\n>**Note:** Only admins can update the group rules.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rules",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+        },
+        "doc": " Group rules.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_OnboardingStepSettings",
+      "displayName": "Onboarding Step Settings Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "stepKey",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_OnboardingStep_StepKey",
+          "doc": ""
+        },
+                {
+          "name": "visible",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3955,12 +4308,12 @@
                 {
           "name": "groupId",
           "type": "string",
-          "doc": "Group ID that member has joined.\n"
+          "doc": " Group ID that member has joined.\n"
         },
                 {
           "name": "groupMember",
           "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GroupMember",
-          "doc": "Joined group member.\n"
+          "doc": " Joined group member.\n"
         }
       ],
       "enum": null,
@@ -4188,6 +4541,20 @@
       "labels": []
     },
         {
+      "name": "_google_protobuf_Empty",
+      "displayName": "Empty Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_google_protobuf_Value",
       "displayName": "Value Object",
       "locations": [],
@@ -4352,7 +4719,7 @@
                 {
           "name": "filter",
           "type": "All APIs.Wix Groups._google_protobuf_Value",
-          "doc": "Filter object in the following format:   \n`\"filter\" : {  \n              \"fieldName1\": \"value1\",  \n              \"fieldName2\":{\"$operator\":\"value2\"}  \n  }`  \nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
+          "doc": "Filter object in the following format:\n`\"filter\" : {\n              \"fieldName1\": \"value1\",\n              \"fieldName2\":{\"$operator\":\"value2\"}\n  }`\nExample of operators: `$eq`, `$ne`, `$lt`, `$lte`, `$gt`, `$gte`, `$in`, `$hasSome`, `$hasAll`, `$startsWith`, `$contains`\n"
         },
                 {
           "name": "sort",
@@ -4360,7 +4727,7 @@
             "name": "array",
             "typeParams": ["All APIs.Wix Groups._wix_common_Sorting"]
           },
-          "doc": "Sort object in the following format:  \n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
+          "doc": "Sort object in the following format:\n`[{\"fieldName\":\"sortField1\",\"order\":\"ASC\"},{\"fieldName\":\"sortField2\",\"order\":\"DESC\"}]`\n"
         },
                 {
           "name": "paging",
@@ -4389,6 +4756,204 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v1_events_SocialGroupsEvent",
+      "displayName": "Social Groups Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "payload",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v1_events_SocialGroupsEvent_payload",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v1_events_SocialGroupsEvent_payload",
+      "displayName": "payload Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberJoined",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v1_events_MemberJoinedGroup",
+          "doc": ""
+        },
+                {
+          "name": "membersAdded",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v1_events_MembersAddedToGroup",
+          "doc": ""
+        },
+                {
+          "name": "joinRequestsApproved",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v1_events_JoinRequestsApproved",
+          "doc": ""
+        },
+                {
+          "name": "membersInvited",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v1_events_MembersInvitedToGroup",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_social_groups_api_v1_events_MemberJoinedGroup",
+      "displayName": "Member Joined Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groupsInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "siteMemberId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v1_events_MembersAddedToGroup",
+      "displayName": "Members Added To Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groupsInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "whoAddedId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "siteMemberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "operationId",
+          "type": "string",
+          "doc": "Used for Apes sticky experiment\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v1_events_JoinRequestsApproved",
+      "displayName": "Join Requests Approved Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groupsInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "siteMemberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "operationId",
+          "type": "string",
+          "doc": "Used for Apes sticky experiment\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v1_events_MembersInvitedToGroup",
+      "displayName": "Members Invited To Group Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groupsInstanceId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "siteMemberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_JoinRequest",
       "displayName": "Join Request Object",
       "locations": [],
@@ -4410,6 +4975,11 @@
             "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestionAnswer"]
           },
           "doc": " Answers to membership questions. A Join Request will fail, if the answer to a required question is omitted.\n"
+        },
+                {
+          "name": "autoInviteId",
+          "type": "string",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -4626,7 +5196,7 @@
                 {
           "name": "metadata",
           "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
-          "doc": ""
+          "doc": "Paging information.\n"
         }
       ],
       "enum": null,
@@ -4679,7 +5249,7 @@
                 {
           "name": "metadata",
           "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
-          "doc": ""
+          "doc": "Paging information.\n"
         }
       ],
       "enum": null,
@@ -4783,7 +5353,7 @@
                 {
           "name": "metadata",
           "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
-          "doc": ""
+          "doc": "Paging information.\n"
         }
       ],
       "enum": null,
@@ -4842,6 +5412,278 @@
                 {
           "name": "metadata",
           "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
+          "doc": "Paging information.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListMembershipQuestionsRequest",
+      "displayName": "List Membership Questions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groupId",
+        "type": "string",
+        "doc": " Group ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListMembershipQuestionsResponse",
+      "displayName": "List Membership Questions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "questions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestion"]
+        },
+        "doc": " Membership questions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_CreateOrReplaceAllMembershipQuestionsRequest",
+      "displayName": "Create Or Replace All Membership Questions Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n"
+        },
+                {
+          "name": "questions",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestion"]
+          },
+          "doc": " New membership questions.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_CreateOrReplaceAllMembershipQuestionsResponse",
+      "displayName": "Create Or Replace All Membership Questions Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "questions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestion"]
+        },
+        "doc": " Membership questions.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAnswersRequest",
+      "displayName": "List Answers Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n"
+        },
+                {
+          "name": "memberIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Member IDs. If no member ID is provided, answers for all members will be returned. See [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for more details.\n"
+        },
+                {
+          "name": "paging",
+          "type": "All APIs.Wix Groups._wix_common_Paging",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "questionsMapEntry",
+      "displayName": "questions Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. Membership questions by question ID. Inludes only questions that have been answered by the specified members.\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestion",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAnswersResponse",
+      "displayName": "List Answers Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberAnswers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MemberMembershipQuestionAnswers"]
+          },
+          "doc": " Answers to the membership questions, grouped by member.\n"
+        },
+                {
+          "name": "questions",
+          "type": "All APIs.Wix Groups.questionsMapEntry",
+          "doc": "Set of key-value pairs. Membership questions by question ID. Inludes only questions that have been answered by the specified members.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_MemberMembershipQuestionAnswers",
+      "displayName": "Member Membership Question Answers Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " Member ID. See [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for more details.\n"
+        },
+                {
+          "name": "answers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestionAnswer"]
+          },
+          "doc": " Answers to the membership question.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAnswerCountsRequest",
+      "displayName": "List Answer Counts Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAnswerCountsResponse",
+      "displayName": "List Answer Counts Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "memberAnswerCounts",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MemberAnswerCount"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_MemberAnswerCount",
+      "displayName": "Member Answer Count Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "count",
+          "type": "integer",
           "doc": ""
         }
       ],
@@ -5298,6 +6140,190 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_ListRulesRequest",
+      "displayName": "List Rules Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groupId",
+        "type": "string",
+        "doc": " Group ID.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListRulesResponse",
+      "displayName": "List Rules Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rules",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+        },
+        "doc": " Retrieved rules.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListTemplatesResponse",
+      "displayName": "List Templates Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "rules",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+        },
+        "doc": " Retrieved rule templates.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_CreateOrReplaceAllRulesRequest",
+      "displayName": "Create Or Replace All Rules Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n"
+        },
+                {
+          "name": "rules",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+          },
+          "doc": " New rules.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_CreateOrReplaceAllRulesResponse",
+      "displayName": "Create Or Replace All Rules Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": " Group ID.\n"
+        },
+                {
+          "name": "rules",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupRules_GroupRule"]
+          },
+          "doc": " Rules.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_UpdateSettingsRequest",
+      "displayName": "Update Settings Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings",
+        "doc": " Wix Groups application settings to update.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_UpdateSettingsResponse",
+      "displayName": "Update Settings Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings",
+        "doc": " Updated Wix Groups application settings.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetSettingsRequest",
+      "displayName": "Get Settings Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetSettingsResponse",
+      "displayName": "Get Settings Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "settings",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_Settings",
+        "doc": " Retrieved Wix Groups application settings.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_CreateGroupRequest",
       "displayName": "Create Group Request Object",
       "locations": [],
@@ -5510,6 +6536,69 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_ListGroupsByUserIdRequest",
+      "displayName": "List Groups By User Id Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListGroupsByUserIdResponse_GroupWithMsId",
+      "displayName": "Group With Ms Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Retrieved Groups by metasite id\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "metaSiteId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "groups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_Group"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListGroupsByUserIdResponse",
+      "displayName": "List Groups By User Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groups",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListGroupsByUserIdResponse_GroupWithMsId"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_ListGroupsResponse",
       "displayName": "List Groups Response Object",
       "locations": [],
@@ -5584,8 +6673,26 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_QueryGroupsWithRelationshipsRequest",
-      "displayName": "Query Groups With Relationships Request Object",
+      "name": "_wix_social_groups_api_v2_QueryJoinedGroupsRequest",
+      "displayName": "Query Joined Groups Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "query",
+        "type": "All APIs.Wix Groups._wix_common_Query",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_QueryJoinedGroupsResponse",
+      "displayName": "Query Joined Groups Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -5594,13 +6701,16 @@
       },
       "members":       [
                 {
-          "name": "siteMemberId",
-          "type": "string",
-          "doc": " Member IDs. See [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for more details. If omitted the relationship of requester will be retrieved.\n"
+          "name": "groups",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_Group"]
+          },
+          "doc": " Retrieved groups.\n"
         },
                 {
-          "name": "query",
-          "type": "All APIs.Wix Groups._wix_common_Query",
+          "name": "metadata",
+          "type": "All APIs.Wix Groups._wix_common_PagingMetadata",
           "doc": ""
         }
       ],
@@ -5609,8 +6719,26 @@
       "labels": []
     },
         {
-      "name": "_wix_social_groups_api_v2_QueryGroupsWithRelationshipsResponse",
-      "displayName": "Query Groups With Relationships Response Object",
+      "name": "_wix_social_groups_api_v2_QueryGroupsByMembershipRequest_GroupPermissions",
+      "displayName": "Group Permissions Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "canCreatePosts",
+        "type": "boolean",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_QueryGroupsByMembershipRequest",
+      "displayName": "Query Groups By Membership Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -5619,12 +6747,42 @@
       },
       "members":       [
                 {
-          "name": "groupWithRelationship",
+          "name": "query",
+          "type": "All APIs.Wix Groups._wix_common_Query",
+          "doc": ""
+        },
+                {
+          "name": "membershipStatus",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_QueryGroupsByMembershipRequest_MembershipStatus",
+          "doc": ""
+        },
+                {
+          "name": "permissionsFilter",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_QueryGroupsByMembershipRequest_GroupPermissions",
+          "doc": " Filter groups by permissions.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_QueryGroupsByMembershipResponse",
+      "displayName": "Query Groups By Membership Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groups",
           "type":           {
             "name": "array",
-            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GroupWithRelationship"]
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_Group"]
           },
-          "doc": " Groups with relationships for requested member.\n"
+          "doc": " Retrieved groups.\n"
         },
                 {
           "name": "metadata",
@@ -5632,6 +6790,105 @@
           "doc": ""
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListGroupIntegrationsDataRequest",
+      "displayName": "List Group Integrations Data Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groupIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListGroupIntegrationsDataResponse_GroupIntegrationsData",
+      "displayName": "Group Integrations Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "feedItemsCount",
+          "type": "integer",
+          "doc": ""
+        },
+                {
+          "name": "topicIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "eventIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "connectedPricingPlanIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        },
+                {
+          "name": "onlineProgramIds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListGroupIntegrationsDataResponse",
+      "displayName": "List Group Integrations Data Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "groupsIntegrationsData",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_ListGroupIntegrationsDataResponse_GroupIntegrationsData"]
+        },
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -5962,6 +7219,326 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_RejectAllJoinGroupRequestsRequest",
+      "displayName": "Reject All Join Group Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_RejectAllJoinGroupRequestsResponse",
+      "displayName": "Reject All Join Group Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "joinGroupRequests",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequest"]
+        },
+        "doc": "Rejected join group requests.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ApproveAllJoinGroupRequestsRequest",
+      "displayName": "Approve All Join Group Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ApproveAllJoinGroupRequestsResponse",
+      "displayName": "Approve All Join Group Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "joinGroupRequests",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequest"]
+        },
+        "doc": "Rejected join group requests.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAllJoinGroupRequestsRequest",
+      "displayName": "List All Join Group Requests Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_ListAllJoinGroupRequestsResponse",
+      "displayName": "List All Join Group Requests Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "joinGroupRequests",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_JoinGroupRequest"]
+        },
+        "doc": "Join group requests.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsRequest",
+      "displayName": "Get Join Requirements Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "groupId",
+          "type": "string",
+          "doc": "Group ID.\n"
+        },
+                {
+          "name": "membershipQuestionAnswers",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_MembershipQuestionAnswer"]
+          },
+          "doc": "Answers to membership questions. They can be empty, but submit join group request will fail if an answer to a required question is omitted.\n"
+        },
+                {
+          "name": "autoInviteId",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_EventsViolationOptions",
+      "displayName": "Events Violation Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "eventIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": " Events which allow user to join the group.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_PricingPlanViolationOptions_PaidPlan",
+      "displayName": "Paid Plan Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "planId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "startsAt",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_PricingPlanViolationOptions",
+      "displayName": "Pricing Plan Violation Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "installed",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "requiredPlans",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_PricingPlanViolationOptions_PaidPlan"]
+          },
+          "doc": " Plan ids which allow user to join the group.\n"
+        },
+                {
+          "name": "futurePlans",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_PricingPlanViolationOptions_PaidPlan"]
+          },
+          "doc": " Plan ids which user have, but they don't allow to join group right now, because they start some time in the future.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_MembershipQuestionViolationOptions",
+      "displayName": "Membership Question Violation Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "requiredQuestionIds",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation",
+      "displayName": "Violation Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "violationType",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_ViolationType",
+          "doc": ""
+        },
+                {
+          "name": "violationOptions",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_ViolationOptions",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_ViolationOptions",
+      "displayName": "Violation Options Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "eventsOptions",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_EventsViolationOptions",
+          "doc": ""
+        },
+                {
+          "name": "pricingPlansOptions",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_PricingPlanViolationOptions",
+          "doc": ""
+        },
+                {
+          "name": "membershipQuestionsOptions",
+          "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_MembershipQuestionViolationOptions",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse",
+      "displayName": "Get Join Requirements Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "violation",
+        "type": "All APIs.Wix Groups._wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_RequestStatus",
       "displayName": "Request Status Object",
       "locations": [],
@@ -6036,6 +7613,25 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_Group_GroupSettings_AllowPolicy",
+      "displayName": "Allow Policy Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> OWNER_AND_ADMINS <\/code><\/li><li><code> OWNER <\/code><\/li><li><code> ALL_MEMBERS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "OWNER_AND_ADMINS",
+        "OWNER",
+        "ALL_MEMBERS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_Group_PrivacyStatus",
       "displayName": "Privacy Status Object",
       "locations": [],
@@ -6055,6 +7651,45 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_Settings_GroupsSortBy",
+      "displayName": "Groups Sort By Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> DEFAULT - Default sorting (recent activity, title and member count)\n <\/code><\/li><li><code> RECENT_ACTIVITY - Sort by recent activity date.\n <\/code><\/li><li><code> TITLE - Sort by title.\n <\/code><\/li><li><code> MEMBER_COUNT - Sort by members count.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "DEFAULT",
+        "RECENT_ACTIVITY",
+        "TITLE",
+        "MEMBER_COUNT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_Settings_AuthorizedGroupCreators",
+      "displayName": "Authorized Group Creators Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_POLICY <\/code><\/li><li><code> OWNER - Only Wix Groups Managers can create new groups.\n <\/code><\/li><li><code> MEMBERS - All members are allowed to create new groups.\n <\/code><\/li><li><code> MEMBERS_WITH_APPROVAL -  All members can create new groups, but they must be approved by a Wix Groups Managers.\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_POLICY",
+        "OWNER",
+        "MEMBERS",
+        "MEMBERS_WITH_APPROVAL"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_social_groups_api_v2_GroupRole_Role",
       "displayName": "Role Object",
       "locations": [],
@@ -6068,25 +7703,6 @@
         "UNKNOWN_ROLE",
         "MEMBER",
         "ADMIN"
-      ],
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_social_groups_api_v2_GroupWithRelationship_Relationship_Membership",
-      "displayName": "Membership Object",
-      "locations": [],
-      "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN_MEMBERSHIP <\/code><\/li><li><code> NONE - Site member is not a group member.\n <\/code><\/li><li><code> JOINED - Site member is a group member.\n <\/code><\/li><li><code> PENDING - Site member has join request with PENDING status for this group.\n <\/code><\/li>",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum":       [
-        "UNKNOWN_MEMBERSHIP",
-        "NONE",
-        "JOINED",
-        "PENDING"
       ],
       "extra": {},
       "labels": []
@@ -6127,6 +7743,43 @@
       "labels": []
     },
         {
+      "name": "_wix_social_groups_api_v2_OnboardingStep_StepKey",
+      "displayName": "Step Key Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> CREATE_POST <\/code><\/li><li><code> REACT_TO_POST <\/code><\/li><li><code> INVITE_MEMBERS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN",
+        "CREATE_POST",
+        "REACT_TO_POST",
+        "INVITE_MEMBERS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_MemberJoined_JoinBy",
+      "displayName": "Join By Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> MANUALLY <\/code><\/li><li><code> PERSONAL_INVITE_LINK <\/code><\/li><li><code> PUBLIC_INVITE_LINK <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "MANUALLY",
+        "PERSONAL_INVITE_LINK",
+        "PUBLIC_INVITE_LINK"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_google_protobuf_NullValue",
       "displayName": "Null Value Object",
       "locations": [],
@@ -6156,7 +7809,48 @@
       ],
       "extra": {},
       "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_QueryGroupsByMembershipRequest_MembershipStatus",
+      "displayName": "Membership Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> JOINED <\/code><\/li><li><code> PENDING <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "JOINED",
+        "PENDING"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_social_groups_api_v2_GetJoinRequirementsResponse_Violation_ViolationType",
+      "displayName": "Violation Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> NONE <\/code><\/li><li><code> NOT_LOGGED_IN <\/code><\/li><li><code> ALREADY_JOINED <\/code><\/li><li><code> SECRET_GROUP <\/code><\/li><li><code> EVENTS <\/code><\/li><li><code> PRICING_PlANS <\/code><\/li><li><code> MEMBERSHIP_QUESTIONS <\/code><\/li><li><code> ADMIN_APPROVAL <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "NONE",
+        "NOT_LOGGED_IN",
+        "ALREADY_JOINED",
+        "SECRET_GROUP",
+        "EVENTS",
+        "PRICING_PlANS",
+        "MEMBERSHIP_QUESTIONS",
+        "ADMIN_APPROVAL"
+      ],
+      "extra": {},
+      "labels": []
     }
   ],
-  "extra": {"artifactId": "com.wixpress.groups.social-groups-web"}
+  "extra": {}
 }
