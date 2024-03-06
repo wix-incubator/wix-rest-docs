@@ -1,0 +1,1301 @@
+{
+  "name": "Registered Domains",
+  "client_id": "https://github.com/wix-private/premium/tree/master/domains/domain-registered#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Manage domains that are registered through Wix.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Registered Domains",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/registered-domains/docs/Errors.md",
+      "name": "Error Messages"
+    },
+        {
+      "path": "../guides/registered-domains/docs/UseCases.md",
+      "name": "Sample Flows"
+    },
+        {
+      "path": "../guides/registered-domains/docs/PublicIntro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/registered-domains/docs/ContactFieldValidations.md",
+      "name": "Contact Validations"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Create Registered Domain",
+      "methodName": "CreateRegisteredDomain",
+      "serviceName": "RegisteredDomainService",
+      "tag": "Registered Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "registeredDomain",
+        "registeredDomain.domain",
+        "registeredDomain.productInstanceId",
+        "registeredDomain.contacts",
+        "registeredDomain.contacts.registrant",
+        "registeredDomain.contacts.registrant.firstName",
+        "registeredDomain.contacts.registrant.lastName",
+        "registeredDomain.contacts.registrant.email",
+        "registeredDomain.contacts.registrant.address",
+        "registeredDomain.contacts.registrant.city",
+        "registeredDomain.contacts.registrant.countryCode",
+        "registeredDomain.contacts.registrant.phone",
+        "registeredDomain.contacts.admin.firstName",
+        "registeredDomain.contacts.admin.lastName",
+        "registeredDomain.contacts.admin.email",
+        "registeredDomain.contacts.admin.address",
+        "registeredDomain.contacts.admin.city",
+        "registeredDomain.contacts.admin.countryCode",
+        "registeredDomain.contacts.admin.phone",
+        "registeredDomain.contacts.tech.firstName",
+        "registeredDomain.contacts.tech.lastName",
+        "registeredDomain.contacts.tech.email",
+        "registeredDomain.contacts.tech.address",
+        "registeredDomain.contacts.tech.city",
+        "registeredDomain.contacts.tech.countryCode",
+        "registeredDomain.contacts.tech.phone"
+      ],
+      "params": [      {
+        "in": "BODY",
+        "name": "registeredDomain",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": " Information about the domain to register including contact details.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CreateRegisteredDomain",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Registered Domains._com_wixpress_premium_domains_registered_CreateRegisteredDomainResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nCreates a `registeredDomain` object and starts the domain registration process\nthat may take up to 48 hours to resolve.\n\n\nYou must pass the relevant Wix account ID in the header of the call. You may\nalso pass a Wix site ID in the header of the call. This assigns the domain to \nthe site when the registration succeeds. If you don't provide a site ID, the domain\nis registered but not assigned to a Wix site. Information about the site is\nreturned in the `siteInfo` object, while information about the account isn't\nreturned.\n\nTo register a domain and assign it to a site, the site must have an active\n[Premium plan](https://support.wix.com/en/article/upgrading-your-site-to-premium-3066683).\nHowever, if you just want to register a domain without connecting it to a\nsite, the account doesn't need an active Premium plan. In both situations,\nthe account must own a product that supports linking a domain with the chosen\nTLD. Use [Create Package](https://dev.wix.com/api/rest/account-level-apis/resellers/packages/create-package-v2) \nof the Resellers API to add the relevant Premium plan or product to your\ncustomer's site. Contact the [Wix B2B sales team](mailto:bizdev@wix.com)\nfor details about the available product IDs. \n\nYou can only register a root domain. You can't register a subdomain.\n\nIf you try to register a domain that isn't available for purchase or there \nis already a `registeredDomain` object for the specified domain, the call\nfails without creating a `registeredDomain` object or starting the\nregistration process.\n\nWix tries to register the domain several times, \nbut stops in case the process fails too often. Contact the \n[Wix B2B team](mailto:bizdev@wix.com) \nfor more information about the number of attempts and their timing.\n\nWix only checks formal requirements of each field in the `contacts` object, such as \nthe maximum number of characters. Wix doesn't check whether the actual domain registrar has \nadditional requirements, for example that the postal code is valid in the \nspecified country. If there is such a mismatch between the request and the \nregistrar's requirements, the call succeeds but the registration process\ncan't succeed. Read more about \n[contact validations](https://dev.wix.com/api/rest/account-level-apis/registered-domains/contact-validations).\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.      \n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/domains/v1/registered-domains",
+        "links": [],
+        "examples": [        {
+          "title": "Register a domain.",
+          "body": ["curl -X POST \n'https://www.wixapis.com/domains/v1/registered-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'wix-site-id: <SITE_ID>' \\\n-H 'Authorization: <AUTH>' \\\n-d '{\n  \"registeredDomain\": {\n    \"domain\": \"example-domain.com\",\n    \"productInstanceId\": \"fa24f9bf-6206-4400-8185-772d70f70cbb\",\n    \"contacts\": {\n      \"registrant\": {\n        \"firstName\": \"Sherlock\",\n        \"lastName\": \"Holmes\",\n        \"phone\": \"+442072243688\",\n        \"city\": \"London\",\n        \"postalCode\": \"NW16XE\",\n        \"countryCode\": \"UK\",\n        \"address\": \"221B Baker street\",\n        \"email\": \"sherlock.holmes@wix.com\"\n      }\n    }\n  }\n}'"],
+          "response": ["{\"registeredDomain\": {\n  \"id\": \"example-domain.com\",\n  \"domain\": \"example-domain.com\",\n  \"productInstanceId\": \"fa24f9bf-6206-4400-8185-772d70f70cbb\",\n  \"createdDate\": \"2023-03-13T06:23:28.952Z\",\n  \"updatedDate\": \"2023-03-13T08:00:18.550Z\",\n  \"revision\": \"7\",\n  \"contacts\": {\"registrant\":   {\n    \"firstName\": \"Sherlock\",\n    \"lastName\": \"Holmes\",\n    \"phone\": \"+442072243688\",\n    \"city\": \"London\",\n    \"postalCode\": \"NW16XE\",\n    \"countryCode\": \"UK\",\n    \"address\": \"221B Baker street\",\n    \"email\": \"sherlock.holmes@wix.com\"\n  }},\n  \"status\": \"ACTIVE\",\n  \"pendingRegistrationInfo\": {\"latestAttempt\":   {\n    \"number\": 1,\n    \"timestamp\": \"2023-03-13T06:23:28.983Z\"\n  }},\n  \"icannConfirmationStatus\": \"UNKNOWN_ICANN_CONFIRMATION_STATUS\",\n  \"icannConfirmationStatusInfo\": null,\n  \"dnsPropagationStatus\": \"COMPLETED\",\n  \"expirationDate\": \"2024-03-13T06:23:31Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CreateRegisteredDomainRequest",
+        "rpcResponseName": "CreateRegisteredDomainResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Get Registered Domain",
+      "methodName": "GetRegisteredDomain",
+      "serviceName": "RegisteredDomainService",
+      "tag": "Registered Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["registeredDomainId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "registeredDomainId",
+        "type": "string",
+        "doc": " ID of the registered domain to retrieve.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetRegisteredDomain",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Registered Domains._com_wixpress_premium_domains_registered_GetRegisteredDomainResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a registered domain.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/registered-domains/{registeredDomainId}",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a registered domain.",
+          "body": ["curl -X GET \n'https://www.wixapis.com/domains/v1/registered-domains/example-domain.com' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"registeredDomain\": {\n  \"id\": \"example-domain.com\",\n  \"domain\": \"example-domain.com\",\n  \"productInstanceId\": \"fa24f9bf-6206-4400-8185-772d70f70cbb\",\n  \"createdDate\": \"2023-03-13T06:23:28.952Z\",\n  \"updatedDate\": \"2023-03-13T08:00:18.550Z\",\n  \"revision\": \"7\",\n  \"contacts\": {\"registrant\":   {\n    \"firstName\": \"Sherlock\",\n    \"lastName\": \"Holmes\",\n    \"phone\": \"+442072243688\",\n    \"city\": \"London\",\n    \"postalCode\": \"NW16XE\",\n    \"countryCode\": \"UK\",\n    \"address\": \"221B Baker street\",\n    \"email\": \"sherlock.holmes@wix.com\"\n  }},\n  \"status\": \"ACTIVE\",\n  \"pendingRegistrationInfo\": {\"latestAttempt\":   {\n    \"number\": 1,\n    \"timestamp\": \"2023-03-13T06:23:28.983Z\"\n  }},\n  \"icannConfirmationStatus\": \"UNKNOWN_ICANN_CONFIRMATION_STATUS\",\n  \"icannConfirmationStatusInfo\": null,\n  \"dnsPropagationStatus\": \"COMPLETED\",\n  \"expirationDate\": \"2024-03-13T06:23:31Z\"\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetRegisteredDomainRequest",
+        "rpcResponseName": "GetRegisteredDomainResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "List Registered Domains",
+      "methodName": "ListRegisteredDomains",
+      "serviceName": "RegisteredDomainService",
+      "tag": "Registered Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "paging.limit",
+          "type": "integer",
+          "doc": "\nNumber of domains to load.\n\nMin: `0`\nMax: `100` \n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "paging.cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ListRegisteredDomains",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Registered Domains._com_wixpress_premium_domains_registered_ListRegisteredDomainsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRetrieves a list of up to 100 registered domains.\n\n\nYou must pass the relevant Wix account ID in the header of the call. \n\nThe retrieved domains are sorted by `createdDate` in descending order.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domains/v1/registered-domains",
+        "links": [],
+        "examples": [        {
+          "title": "Retrieve a list of registered domains.",
+          "body": ["curl -X GET \n'https://www.wixapis.com/domains/v1/registered-domains' \\\n-H 'wix-account-id: <ACCOUNT_ID>' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\n  \"pagingMetadata\":   {\n    \"count\": 1,\n    \"cursors\":     {\n      \"next\": null,\n      \"prev\": null\n    },\n    \"hasNext\": false\n  },\n  \"registeredDomains\": [  {\n    \"id\": \"example-domain.com\",\n    \"domain\": \"example-domain.com\",\n    \"productInstanceId\": \"fa24f9bf-6206-4400-8185-772d70f70cbb\",\n    \"createdDate\": \"2023-03-13T06:23:28.952Z\",\n    \"updatedDate\": \"2023-03-13T08:00:18.550Z\",\n    \"revision\": \"7\",\n    \"contacts\": {\"registrant\":     {\n      \"firstName\": \"Sherlock\",\n      \"lastName\": \"Holmes\",\n      \"phone\": \"+442072243688\",\n      \"city\": \"London\",\n      \"postalCode\": \"NW16XE\",\n      \"countryCode\": \"UK\",\n      \"address\": \"221B Baker street\",\n      \"email\": \"sherlock.holmes@wix.com\"\n    }},\n    \"status\": \"ACTIVE\",\n    \"pendingRegistrationInfo\": {\"latestAttempt\":     {\n      \"number\": 1,\n      \"timestamp\": \"2023-03-13T06:23:28.983Z\"\n    }},\n    \"icannConfirmationStatus\": \"UNKNOWN_ICANN_CONFIRMATION_STATUS\",\n    \"icannConfirmationStatusInfo\": null,\n    \"dnsPropagationStatus\": \"COMPLETED\",\n    \"expirationDate\": \"2024-03-13T06:23:31Z\"\n  }]\n} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ListRegisteredDomainsRequest",
+        "rpcResponseName": "ListRegisteredDomainsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Redeem Registered Domain",
+      "methodName": "RedeemRegisteredDomain",
+      "serviceName": "RegisteredDomainService",
+      "tag": "Registered Domains",
+      "permissions": [      {
+        "name": "Manage Domains",
+        "description": "Request permission to read, create and modify the account's connected domains."
+      }],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["registeredDomainId"],
+      "params": [      {
+        "in": "PATH",
+        "name": "registeredDomainId",
+        "type": "string",
+        "doc": " ID of the registered domain to redeem.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "RedeemRegisteredDomain",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Registered Domains._com_wixpress_premium_domains_registered_RedeemRegisteredDomainResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nRedeems a registered domain that is in redemption period.\n\n\nYou must pass the relevant Wix account ID in the header of the call.\n\n> __Important:__ This call requires an account level API key and cannot be authenticated with the standard authorization header.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://www.wixapis.com/domains/v1/registered-domains/{registeredDomainId}/redeem",
+        "links": [],
+        "examples": [],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "RedeemRegisteredDomainRequest",
+        "rpcResponseName": "RedeemRegisteredDomainResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainCreatedDomainEvent",
+      "displayName": "Registered Domain Created Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.registered_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `created`.\nEvent name."
+        },
+                {
+          "name": "createdEvent",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomainEntityCreatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "RegisteredDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainEntityCreatedEvent",
+      "displayName": "Registered Domain Entity Created Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "entityAsJson",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainUpdatedDomainEvent",
+      "displayName": "Registered Domain Updated Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.registered_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `updated`.\nEvent name."
+        },
+                {
+          "name": "updatedEvent",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomainEntityUpdatedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "RegisteredDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainEntityUpdatedEvent",
+      "displayName": "Registered Domain Entity Updated Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "currentEntityAsJson",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": "Event body as a stringified JSON"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainDeletedDomainEvent",
+      "displayName": "Registered Domain Deleted Domain Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "Unique event ID."
+        },
+                {
+          "name": "entityFqdn",
+          "type": "string",
+          "doc": "Expected `wix.premium.domains.v1.registered_domain`.\nFully Qualified Domain Name."
+        },
+                {
+          "name": "slug",
+          "type": "string",
+          "doc": "Expected `deleted`.\nEvent name."
+        },
+                {
+          "name": "deletedEvent",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomainEntityDeletedEvent",
+          "doc": "Event Info"
+        },
+                {
+          "name": "entityId",
+          "type": "string",
+          "doc": "RegisteredDomain ID associated with this event."
+        },
+                {
+          "name": "eventTime",
+          "type": "string",
+          "doc": "Event timestamp."
+        },
+                {
+          "name": "triggeredByAnonymizeRequest",
+          "type": "boolean",
+          "doc": "Whether this event was triggered as a result of a privacy regulation application (e.g., GDPR)."
+        },
+                {
+          "name": "originatedFrom",
+          "type": "string",
+          "doc": "If present, indicates the action that triggered the event."
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomainEntityDeletedEvent",
+      "displayName": "Registered Domain Entity Deleted Event Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomain",
+      "displayName": "Registered Domain Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "\nDomain ID. Identical to `domain`.\n",
+          "readOnly": true
+        },
+                {
+          "name": "domain",
+          "type": "string",
+          "doc": "\nName of the domain including the\n[TLD](https://en.wikipedia.org/wiki/Top-level_domain).\nSubdomains aren't supported, you can only register a root domain.\nDomain name and TLD must be separated by a dot. For example,\n`my-new-domain.com`. Only alphanumeric characters, hyphens, and dots are\nsupported.\n\nMin: 3 characters  \nMax: 63 characters\n"
+        },
+                {
+          "name": "productInstanceId",
+          "type": "string",
+          "doc": "\nID of the product instance from the\n[Resellers API](https://dev.wix.com/docs/rest/api-reference/account-level-apis/resellers/packages-and-product-instances/packages-object)\nthat belongs to the `registeredDomain` object.  \nYour account must own a product that supports the chosen TLD, regardless of\nwhether you want to assign the domain to a site or keep it floating. In\ncase you want to assign the domain to a site, the relevant site must also\nown a Premium plan. Contact the [Wix B2B team](mailto:bizdev@wix.com)\nfor more information about how to become a reseller and a list of available\nproduct IDs.\n"
+        },
+                {
+          "name": "createdDate",
+          "type": "string",
+          "doc": "\nDate and time the `registeredDomain` object was created in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n",
+          "readOnly": true
+        },
+                {
+          "name": "updatedDate",
+          "type": "string",
+          "doc": "\nDate and time the `registeredDomain` object was last updated in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n",
+          "readOnly": true
+        },
+                {
+          "name": "revision",
+          "type": "string",
+          "doc": "\nRevision number, which increments by 1 each time the registered domain\nis updated. To prevent conflicting changes, the current revision must be\npassed when updating the registered domain.\n\nIgnored when creating a registered domain.\n"
+        },
+                {
+          "name": "siteInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_SiteInfo",
+          "doc": "\nInformation about the Wix site the domain is connected to and whether the\ndomain is assigned as the primary domain or a redirect.\n"
+        },
+                {
+          "name": "contacts",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_Contacts",
+          "doc": "\nContact details for the registrant, admin, and tech support of the registered domain.\nYou can read more about which\n[Contact Field Validations](https://https://dev.wix.com/api/rest/account-level-apis/registered-domains/contact-field-validations)\nare implemented.\n"
+        },
+                {
+          "name": "status",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_Status",
+          "doc": "\nStatus of the registered domain.\n\n+ `\"UNKNOWN_STATUS\"`: There's no information about the status of the registered domain.\n+ `\"PENDING_REGISTRATION\"`: Wix has started the domain registration process, but the domain hasn't been successfully registered yet.\n+ `\"ACTIVE\"`: The domain has been registered successfully and is active.\n+ `\"FAILED_REGISTRATION\"`: Wix has tried to register the domain, but has stopped the process due to too many failed attempts. Contact the [Wix B2B team](mailto:bizdev@wix.com) for more information.\n+ `\"CANCELED\"`: The domain has been canceled and isn't active any longer.\n",
+          "readOnly": true
+        },
+                {
+          "name": "statusInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain_StatusInfo",
+          "doc": "option (.wix.api.aligned_with_enum).field = \"status\";\n"
+        },
+                {
+          "name": "icannConfirmationStatus",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo_ICANNConfirmationStatus",
+          "doc": "\nICANN confirmation status.\n\n+ `\"UNKNOWN_ICANN_CONFIRMATION_STATUS\"`: There's no information about the status of the ICANN confirmation process.\n+ `\"PENDING\"`: Wix has started the ICANN confirmation process, but not all contacts have confirmed the domain yet.\n+ `\"CONFIRMED_BY_ALL\"`: The domain has been successfully confirmed by all contacts.\n+ `\"EXPIRED\"`: The domain hasn't been confirmed by all contacts before the ICANN confirmation process has expired. The domain isn't active and a new confirmation process must be started. Contact the [Wix B2B team](mailto:bizdev@wix.com) for more information.\n",
+          "readOnly": true
+        },
+                {
+          "name": "icannConfirmationStatusInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo",
+          "doc": "\nDetails about the ICANN confirmation status.\n",
+          "readOnly": true
+        },
+                {
+          "name": "dnsPropagationStatus",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_DnsPropagationStatusEnum_DnsPropagationStatus",
+          "doc": "\nDNS propagation status.\n\n+ `\"UNKNOWN_DNS_PROPAGATION_STATUS\"`: There's no information about the domain's DNS propagation status.\n+ `\"IN_PROGRESS\"`: The domain's DNS propagation process has started but hasn't successfully completed yet.\n+ `\"COMPLETED\"`: The domain's DNS propagation process has successfully finished.\n+ `\"FAILED\"`: The domain's DNS propagation process has failed.\n",
+          "readOnly": true
+        },
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": "\nExpiration date of the registered domain in `YYYY-MM-DDThh:mm:ss.sssZ`\nformat. The domain registration must be actively extended before the\nexpiration date.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RegisteredDomain_StatusInfo",
+      "displayName": "Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pendingRegistrationInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_PendingRegistrationInfo",
+          "doc": "\nInformation about a domain that hasn't been successfully registered\nyet. Includes the timestamp of the latest registration attempt.\n",
+          "readOnly": true
+        },
+                {
+          "name": "failedRegistrationInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_FailedRegistrationInfo",
+          "doc": "\nInformation about a domain that couldn't be registered. Includes\nfailure code and message.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_Contacts",
+      "displayName": "Contacts Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "registrant",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ContactData",
+          "doc": " Contact information for the domain registrant.\n"
+        },
+                {
+          "name": "admin",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ContactData",
+          "doc": " Contact information for the domain admin.\n"
+        },
+                {
+          "name": "tech",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ContactData",
+          "doc": " Contact information for the tech support of the domain.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ContactData",
+      "displayName": "Contact Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": "\nFirst name. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMin: 2 characters  \nMax: 64 characters\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": "\nLast name. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMin: 2 characters  \nMax: 64 characters\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": "\nEmail address.  Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nand a single `@` are supported. Wix doesn't validate that the email address\nexists.\n\nMin: 3 characters  \nMax: 64 characters before the `@` and 63 after\n"
+        },
+                {
+          "name": "address",
+          "type": "string",
+          "doc": "\nAddress details, including street name and house number. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMin: 2 characters  \nMax: 64 characters\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": "\nCity. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMin: 2 characters  \nMax: 64 characters\n"
+        },
+                {
+          "name": "subdivisionCode",
+          "type": "string",
+          "doc": "\nSubdivision code in\n[ISO-3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\nformat. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.  \n__Required__ for these countries:\n`”AE\"`, `\"AR\"`, `\"AT\"`, `\"AU\"`, `\"BE\"`, `\"BR\"`, `\"CA\"`, `\"CH\"`, `\"CL\"`,\n`\"CO\"`, `\"CR\"`, `\"CZ\"`, `\"DE\"`, `\"DK\"`, `\"ES\"`, `\"FI\"`, `\"FR\"`, `\"GR\"`,\n`\"IE\"`, `\"IN\"`, `\"IT\"`, `\"JP\"`, `\"KR\"`, `\"MX\"`, `\"MY\"`, `\"NL\"`, `\"NO\"`,\n`\"NZ\"`, `\"PE\"`, `\"PL\"`, `\"PT\"`, `\"RU\"`, `\"SE\"`, `\"SG\"`, `\"TH\"`, `\"TR\"`,\n`\"TW\"`, `\"UA\"`, `\"US\"`, `”ZA”`.\n\nMin: 2 characters  \nMax: 2 characters\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": "\nPostal code. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMin: 2 characters  \nMax: 16 characters\n"
+        },
+                {
+          "name": "countryCode",
+          "type": "string",
+          "doc": "\nCountry code in\n[ISO-3166 alpha-1](https://en.wikipedia.org/wiki/ISO_3166-2#Subdivisions_included_in_ISO_3166-1)\nformat. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported. Wix doesn't validate that the postal code is valid for the\ngiven country.\n\nMin: 2 characters  \nMax: 2 characters\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": "\nPhone number. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported. For example, `+15551234567`. Wix doesn't validate that the\nphone number belongs to the specified country.\n\nMin: 2 characters  \nMax: 20 characters\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": "\nCompany name. Only\n[alphanumerical characters](https://en.wikipedia.org/wiki/Alphanumericals)\nare supported.\n\nMax: 2 characters  \nMax: 64 characters\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo",
+      "displayName": "ICANN Confirmation Status Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "status",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo_status",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo_status",
+      "displayName": "status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pending",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_Pending",
+          "doc": "\nDetails about domains with `\"PENDING\"` ICANN confirmation status. \n"
+        },
+                {
+          "name": "expired",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_Expired",
+          "doc": "\nDetails about domains with `\"EXPIRED\"` ICANN confirmation status. \n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_Pending",
+      "displayName": "Pending Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "expirationDate",
+          "type": "string",
+          "doc": "\nExpiration date of the ICANN confirmation process in\n`YYYY-MM-DDThh:mm:ss.sssZ` format. All contacts must confirm the domain\nbefore this date or the domain won't be active.\n"
+        },
+                {
+          "name": "notConfirmedBy",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\nEmail addresses of the contacts who haven't confirmed the domain with ICANN\nyet.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_Expired",
+      "displayName": "Expired Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "notConfirmedBy",
+        "type":         {
+          "name": "array",
+          "typeParams": ["string"]
+        },
+        "doc": "\nEmail addresses of the contacts who haven't confirmed the domain with ICANN\nin time.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_SiteInfo",
+      "displayName": "Site Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": "\nID of the site to which the domain is assigned.\n",
+          "readOnly": true
+        },
+                {
+          "name": "assignmentType",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_AssignmentTypeEnum_AssignmentType",
+          "doc": "\nWhether the domain is assigned as the primary domain or a redirect.\nRead more about [primary and redirected domains](https://support.wix.com/en/article/switching-your-primary-and-redirected-domains).\n__Note:__ When you connect a domain or subdomain, you can't pass `\"UNKNOWN_ASSIGNMENT_TYPE\"`\nin the request of the Create Registered Domain call.\n\n+ `\"UNKNOWN_ASSIGNMENT_TYPE\"`: There's no information about the assignment type.\n+ `\"PRIMARY\"`: The domain is assigned as the primary domain to the Wix site.\n+ `\"REDIRECT\"`: The domain is assigned as a redirect to the Wix site.\n"
+        },
+                {
+          "name": "assignmentInfo",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_SiteInfo_AssignmentInfo",
+          "doc": "Extra information about the assignment\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_SiteInfo_AssignmentInfo",
+      "displayName": "Assignment Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "redirectInfo",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RedirectAssignmentInfo",
+        "doc": "Extra details in case assignment type is redirect.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": [],
+      "oneOf": true
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_PendingRegistrationInfo",
+      "displayName": "Pending Registration Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "latestAttempt",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_LatestAttempt",
+        "doc": "\nInformation about the latest attempt to register\nthe domain. Wix tries to register the domain several times, in case the\nfirst attempt is unsuccessful. You can contact the\n[Wix B2B team](mailto:bizdev@wix.com)\nfor more information about the number of attempts and their timing.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_FailedRegistrationInfo",
+      "displayName": "Failed Registration Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_FailedRegistrationInfo_FailureCode",
+          "doc": "\nFailure code.\n\n+ `\"UNKNOWN_FAILURE_CODE\"`: There's no information about the failure code.\n+ `\"OTHER\"`: There was a failure, but none of the listed failure codes applies.\n",
+          "readOnly": true
+        },
+                {
+          "name": "message",
+          "type": "string",
+          "doc": " Failure message.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_LatestAttempt",
+      "displayName": "Latest Attempt Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "integer",
+          "doc": " Number of the latest attempt to register the domain.\n",
+          "readOnly": true
+        },
+                {
+          "name": "timestamp",
+          "type": "string",
+          "doc": "\nDate and time of the latest domain registration attempt in\n`YYYY-MM-DDThh:mm:ss.sssZ` format.\n",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RedirectAssignmentInfo",
+      "displayName": "Redirect Assignment Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "primaryDomain",
+        "type": "string",
+        "doc": "Primary domain the redirect points to.\n",
+        "readOnly": true
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_CursorPaging",
+      "displayName": "Cursor Paging Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": "\nNumber of domains to load.\n\nMin: `0`\nMax: `100` \n"
+        },
+                {
+          "name": "cursor",
+          "type": "string",
+          "doc": "\nPointer to the next or previous page in the list of results.\n\nYou can get the relevant cursor token\nfrom the `pagingMetadata` object in the previous call's response.\nNot relevant for the first request.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_CursorPagingMetadata",
+      "displayName": "Cursor Paging Metadata Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "count",
+          "type": "integer",
+          "doc": " Number of domains returned in the response.\n"
+        },
+                {
+          "name": "cursors",
+          "type": "All APIs.Registered Domains._com_wixpress_domains_common_proto_Cursors",
+          "doc": " Offset that was requested.\n"
+        },
+                {
+          "name": "hasNext",
+          "type": "boolean",
+          "doc": " Indicates if there are more results after the current page.\n If `true`, another page of results can be retrieved.\n If `false`, this is the last page.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_domains_common_proto_Cursors",
+      "displayName": "Cursors Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "next",
+          "type": "string",
+          "doc": " Cursor pointing to next page in the list of results.\n"
+        },
+                {
+          "name": "prev",
+          "type": "string",
+          "doc": " Cursor pointing to previous page in the list of results.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_CreateRegisteredDomainRequest",
+      "displayName": "Create Registered Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomain",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": " Information about the domain to register including contact details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_CreateRegisteredDomainResponse",
+      "displayName": "Create Registered Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomain",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": " Created registered domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_GetRegisteredDomainRequest",
+      "displayName": "Get Registered Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomainId",
+        "type": "string",
+        "doc": " ID of the registered domain to retrieve.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_GetRegisteredDomainResponse",
+      "displayName": "Get Registered Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomain",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": " Retrieved registered domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ListRegisteredDomainsRequest",
+      "displayName": "List Registered Domains Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "paging",
+        "type": "All APIs.Registered Domains._com_wixpress_domains_common_proto_CursorPaging",
+        "doc": " Cursor paging options.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ListRegisteredDomainsResponse",
+      "displayName": "List Registered Domains Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "pagingMetadata",
+          "type": "All APIs.Registered Domains._com_wixpress_domains_common_proto_CursorPagingMetadata",
+          "doc": "\nMetadata about the returned list of registered domains.\n"
+        },
+                {
+          "name": "registeredDomains",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain"]
+          },
+          "doc": " Retrieved registered domains.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_DeleteRegisteredDomainByIdRequest",
+      "displayName": "Delete Registered Domain By Id Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomainId",
+        "type": "string",
+        "doc": " ID of the registered domain to delete.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_DeleteRegisteredDomainByIdResponse",
+      "displayName": "Delete Registered Domain By Id Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RedeemRegisteredDomainRequest",
+      "displayName": "Redeem Registered Domain Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomainId",
+        "type": "string",
+        "doc": " ID of the registered domain to redeem.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_RedeemRegisteredDomainResponse",
+      "displayName": "Redeem Registered Domain Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "registeredDomain",
+        "type": "All APIs.Registered Domains._com_wixpress_premium_domains_registered_RegisteredDomain",
+        "doc": " Redeemed registered domain.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_Status",
+      "displayName": "Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_STATUS <\/code><\/li><li><code> PENDING_REGISTRATION <\/code><\/li><li><code> ACTIVE <\/code><\/li><li><code> FAILED_REGISTRATION <\/code><\/li><li><code> CANCELED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_STATUS",
+        "PENDING_REGISTRATION",
+        "ACTIVE",
+        "FAILED_REGISTRATION",
+        "CANCELED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_AssignmentTypeEnum_AssignmentType",
+      "displayName": "Assignment Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ASSIGNMENT_TYPE <\/code><\/li><li><code> PRIMARY <\/code><\/li><li><code> REDIRECT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ASSIGNMENT_TYPE",
+        "PRIMARY",
+        "REDIRECT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_ICANNConfirmationStatusInfo_ICANNConfirmationStatus",
+      "displayName": "ICANN Confirmation Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": "the confirmation status types, a record:\nstarts at pending\nends either at confirmed_by_all or expired \n Possible values are: <li><code> UNKNOWN_ICANN_CONFIRMATION_STATUS <\/code><\/li><li><code> PENDING <\/code><\/li><li><code> CONFIRMED_BY_ALL <\/code><\/li><li><code> EXPIRED <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ICANN_CONFIRMATION_STATUS",
+        "PENDING",
+        "CONFIRMED_BY_ALL",
+        "EXPIRED"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_DnsPropagationStatusEnum_DnsPropagationStatus",
+      "displayName": "Dns Propagation Status Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_DNS_PROPAGATION_STATUS <\/code><\/li><li><code> COMPLETED <\/code><\/li><li><code> FAILED <\/code><\/li><li><code> IN_PROGRESS <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_DNS_PROPAGATION_STATUS",
+        "COMPLETED",
+        "FAILED",
+        "IN_PROGRESS"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domains_registered_FailedRegistrationInfo_FailureCode",
+      "displayName": "Failure Code Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_FAILURE_CODE <\/code><\/li><li><code> OTHER <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_FAILURE_CODE",
+        "OTHER"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.domains.domain-registered"}
+}
