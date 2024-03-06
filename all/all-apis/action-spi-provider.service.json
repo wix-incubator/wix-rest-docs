@@ -1,0 +1,954 @@
+{
+  "name": "Action SPI Provider",
+  "client_id": "https://github.com/wix-private/wix-automations/tree/master/action-spi-provider/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "This is an Action SPI Provider that can be implemented by Application developers. An Action is a part of a Wix Automation.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "ActionProviderService",
+    "entity": ""
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/action-spi-provider/docs/README.md",
+      "name": "Introduction (internal)"
+    },
+        {
+      "path": "../guides/action-spi-provider/docs/guides/intro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/action-spi-provider/docs/guides/input_schema.md",
+      "name": "About the Action SPI Input Schema"
+    },
+        {
+      "path": "../guides/action-spi-provider/docs/guides/action_quotas.md",
+      "name": "Displaying Action Quotas"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Get Quota Info",
+      "methodName": "GetQuotaInfo",
+      "serviceName": "ActionProviderService",
+      "tag": "ActionProviderService",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["actionKey"],
+      "params": [      {
+        "in": "BODY",
+        "name": "actionKey",
+        "type": "string",
+        "doc": "\nAction key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "GetQuotaInfo",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_GetQuotaInfoResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThis endpoint retrieves quota information for an action. \n\nWix calls this endpoint when a site contributor opens the **Manage your automations quotas** modal \nin the **Automations** dashboard. The response from this endpoint is displayed in the modal. \nThe data is displayed based on the response body format. Learn more about [quota display options](https://dev.wix.com/docs/rest/api-reference/wix-automations/action-provider-v1/displaying-action-quotas).\n\nImplementing this endpoint is optional. To implement it, select the endpoint under **Action's SPI Endpoints** when editing your\naction in the Wix Developers Center.\n\n> **Notes:** \n> * Wix doesn't enforce action quota limits, it only displays them to the user.\n> Enforcing quota limits is the action provider's responsibility.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://v1/quota-info",
+        "links": [],
+        "examples": [        {
+          "title": "Get Quota Info sent by Wix",
+          "body": [          {
+            "enforced": true,
+            "quotaInfo": [            {
+              "plans": [              {
+                "id": "email-marketing-1w23e-1ww34",
+                "name": "Email Marketing"
+              }],
+              "quotas": [              {
+                "featureName": "Emails sent",
+                "currentUsage": "346",
+                "limit": "500",
+                "renewalDate": "2023-01-12T01:20:00.000Z"
+              }],
+              "upgradeCta":               {
+                "url": "some link to upgrade",
+                "label": "Upgrade Email Plan"
+              }
+            }]
+          }],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {"description": "Get Quota Info request with a sample response body\n\ncurl -X POST https://provider.example.com/v1/quota-info \\\n-H 'user-agent: Wix' \\\n-H 'accept-encoding: gzip, deflate' \\\n-H 'content-type: text/plain; charset=utf-8' \\\n-d '{\n          \"actionKey\": \"email-client\",\n    }'"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "GetQuotaInfoRequest",
+        "rpcResponseName": "GetQuotaInfoResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Invoke",
+      "methodName": "Invoke",
+      "serviceName": "ActionProviderService",
+      "tag": "ActionProviderService",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "actionParams",
+        "executionIdentifier",
+        "actionKey"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "actionParams",
+          "type": "struct",
+          "doc": " Data for executing your action. \nStructured according to the [input schema](https://dev.wix.com/docs/rest/api-reference/wix-automations/action-provider-v1/about-the-action-spi-input-schema) \nyou provided when configuring the action in the Wix Developer’s Center.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Action key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "Invoke",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_InvokeResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThis endpoint is used to invoke an action provider's action.\n\nWix calls this endpoint when an automation using the provider's action is triggered. The request body includes\nall the data needed to execute the action including the final values of any dynamic parameters.\n\nThere is no need to validate the data in the request body against the JSON schema defined when the action was configured.\nWix validates the data before calling this endpoint.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://v1/invoke",
+        "links": [],
+        "examples": [        {
+          "title": "Invoke sent by Wix",
+          "body": ["curl -X POST https://provider.example.com/v1/invoke \\\n-H 'user-agent: Wix' \\\n-H 'accept-encoding: gzip, deflate' \\\n-H 'content-type: text/plain; charset=utf-8' \\\n-d '{\n  \"actionParams\": {\n    \"to\": \"my@email.com\",\n    \"subject\": \"Your registration to 2022 Event is Confirmed\",\n    \"body\": \"Hi Jane, you are confirmed for the event\"\n  },\n  \"actionKey\": \"email-client\"\n}'"],
+          "response": ["{\"result\": {}} "],
+          "type": "curl",
+          "extra": {"description": "Invoke request with a sample response body"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "InvokeRequest",
+        "rpcResponseName": "InvokeResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Validate Configuration",
+      "methodName": "ValidateConfiguration",
+      "serviceName": "ActionProviderService",
+      "tag": "ActionProviderService",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields":       [
+        "actionKey",
+        "inputMapping"
+      ],
+      "params":       [
+                {
+          "in": "BODY",
+          "name": "actionKey",
+          "type": "string",
+          "doc": "\nAction key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n",
+          "required": true
+        },
+                {
+          "in": "BODY",
+          "name": "inputMapping",
+          "type": "string",
+          "doc": "\nStringified object representing the mapping a site contributor made between keys in the input schema and their expected \nvalues when running the automation. A field can be a static value mapping, or an expression that will be evaluated \ndynamically on each activation.\n",
+          "required": true
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "ValidateConfiguration",
+          "statusCode": "200",
+          "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_ValidateConfigurationResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nThis endpoint is used to validate the user's action configuration.\n\nWix calls this endpoint when a site contributor configures an automation with your action,\nand when they select the automation from the **Your automations** list in the **Automations** dashboard. \nWix uses the returned response to display an error message to a site contributor if the action is invalid.\n\nImplementing this endpoint is optional. To implement it, select the endpoint under **Action's SPI Endpoints** when editing your\naction in the Wix Developers Center. If you don't implement this endpoint, Wix assumes that the action is always valid.\n\nAs an example, a user configures an action called “Send gift card”, where a gift card is identified by a unique UUID.\nAfter some period of time the user deletes the gift card, making the action’s mapping with the current\nUUID invalid. Validate Configuration checks the validity of the action’s input values, and returns an error to the user \nif one or more of the values is not valid.\n \n",
+        "description": [],
+        "request": "POST",
+        "url": "https://v1/validate-configuration",
+        "links": [],
+        "examples": [        {
+          "title": "Validate Configuration sent by Wix",
+          "body": [          {
+            "valid": false,
+            "configurationErrors": [            {
+              "fieldKey": "accountId",
+              "message": "accountId does not exist",
+              "ctaLabel": "Create an account",
+              "ctaUrl": "https://www.example.com/create-account",
+              "title": "Account not found."
+            }]
+          }],
+          "response": ["{} "],
+          "type": "curl",
+          "extra": {"description": "Validate Configuration request with a sample response body\n\ncurl -X POST https://provider.example.com/v1/validate-configuration \\\n-H 'user-agent: Wix' \\\n-H 'accept-encoding: gzip, deflate' \\\n-H 'content-type: text/plain; charset=utf-8' \\\n-d '{\n          \"actionKey\": \"email-client\",\n          \"inputMapping\": \"{\n                \\\"accountId\\\": \\\"some guid\\\",\n        \\\"to\\\": \\\"some-email@example.com\\\",\n        \\\"subject\\\": \\\"Welcome email\\\",\n        \\\"body\\\": \\\"Hello there!\\\"\n           }\"\n    }'"}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "ValidateConfigurationRequest",
+        "rpcResponseName": "ValidateConfigurationResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_automations_v1_common_ProviderConfigurationError",
+      "displayName": "Provider Configuration Error Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fieldKey",
+          "type": "string",
+          "doc": " Key corresponding to the field in the schema.\n"
+        },
+                {
+          "name": "message",
+          "type": "string",
+          "doc": " Error message.\n"
+        },
+                {
+          "name": "ctaLabel",
+          "type": "string",
+          "doc": " Label for a call-to-action button that's displayed with the error. Translated according to the SPI language context.\n"
+        },
+                {
+          "name": "ctaUrl",
+          "type": "string",
+          "doc": " URL to redirect to when the call-to-action button is clicked.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Title for the error.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_ActionQuotaInfo",
+      "displayName": "Action Quota Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "enforced",
+          "type": "boolean",
+          "doc": " Whether the quotas for your action are enforced. If you mark this as `true` in the response body,\n Wix displays the information in the quota object on the site dashboard. If you mark this as `false` for\n a user, Wix does not display any quota info on the site dashboard for your service.\n"
+        },
+                {
+          "name": "quotaInfo",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_QuotaInfo"]
+          },
+          "doc": " The plans your service provides, together with the quotas enforced by each plan. A site may be enrolled\nin multiple plans. Plans and quotas can be related as follows:\n\n+ A single plan has a single quota.\n+ A single plan has multiple quotas.\n+ Multiple plans are associated with multiple quotas.\n\nPlans and quotas that are related should be grouped together in a single `quotaInfo`\nobject.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_QuotaInfo",
+      "displayName": "Quota Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "plans",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_Plan"]
+          },
+          "doc": " List of plans associated with the site making the request.\n"
+        },
+                {
+          "name": "quotas",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_Quota"]
+          },
+          "doc": " List of quotas associated with the plans the site is enrolled in. \n"
+        },
+                {
+          "name": "upgradeCta",
+          "type": "All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_UpgradeCTA",
+          "doc": " Details for an upgrade call-to-action button.\n Displayed in the site contributor’s dashboard together with the quota details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_Plan",
+      "displayName": "Plan Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Plan ID defined by the action provider.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Plan name to display in the site contributor’s dashboard.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_UpgradeCTA",
+      "displayName": "Upgrade CTA Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " CTA button redirect URL.\n"
+        },
+                {
+          "name": "label",
+          "type": "string",
+          "doc": " CTA button label.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_Quota_AdditionalInfo_CTA",
+      "displayName": "CTA Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "url",
+          "type": "string",
+          "doc": " Call-to-action redirect URL.\n"
+        },
+                {
+          "name": "label",
+          "type": "string",
+          "doc": " Call-to-action label.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_Quota_AdditionalInfo",
+      "displayName": "Additional Info Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "description",
+          "type": "string",
+          "doc": " Tooltip content.\n"
+        },
+                {
+          "name": "cta",
+          "type": "All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_Quota_AdditionalInfo_CTA",
+          "doc": " Details for an options call-to-action link that appears in the tooltip.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_Quota",
+      "displayName": "Quota Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "featureName",
+          "type": "string",
+          "doc": " Name of the feature the quota is related to. For example, \"Messages sent\".\n"
+        },
+                {
+          "name": "renewalDate",
+          "type": "string",
+          "doc": " Quota renewal date in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.\n For example, 10 July 2020 at 15:00 is written as `2020-07-10 15:00:00.000`.\n"
+        },
+                {
+          "name": "currentUsage",
+          "type": "string",
+          "doc": " The user's current quota usage.\n"
+        },
+                {
+          "name": "limit",
+          "type": "string",
+          "doc": " Quota limit data.\n"
+        },
+                {
+          "name": "additionalInfo",
+          "type": "All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_Quota_AdditionalInfo",
+          "doc": " Additional information about the quota. Displayed as a tooltip in the site contributor’s dashboard.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_ValidateConfigurationRequest",
+      "displayName": "Validate Configuration Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": "\nAction key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "string",
+          "doc": "\nStringified object representing the mapping a site contributor made between keys in the input schema and their expected \nvalues when running the automation. A field can be a static value mapping, or an expression that will be evaluated \ndynamically on each activation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_ValidateConfigurationResponse",
+      "displayName": "Validate Configuration Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "valid",
+          "type": "boolean",
+          "doc": " Whether the action configuration is valid.\n"
+        },
+                {
+          "name": "configurationErrors",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Action SPI Provider._com_wixpress_automations_v1_common_ProviderConfigurationError"]
+          },
+          "doc": " Error details for an invalid action configuration. These are the errors displayed to the user.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_ResetActionRequest",
+      "displayName": "Reset Action Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Identifier for this action - human-readable action key - unique per app def ID\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "string",
+          "doc": " Action input mapping to reset\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_ResetActionResponse",
+      "displayName": "Reset Action Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_OnRemoveActionRequest",
+      "displayName": "On Remove Action Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Identifier for this action - human-readable action key - unique per app def ID\n"
+        },
+                {
+          "name": "inputMappings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["struct"]
+          },
+          "doc": " Action input mappings to remove\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_OnRemoveActionResponse",
+      "displayName": "On Remove Action Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_OnBeforeSaveRequest",
+      "displayName": "On Before Save Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Identifier for this action - human readable action key - unique per app def id\n"
+        },
+                {
+          "name": "inputMappings",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " list of action input mappings\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_OnBeforeSaveResponse",
+      "displayName": "On Before Save Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GenerateActionInputMappingFromTemplateRequest",
+      "displayName": "Generate Action Input Mapping From Template Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "actionInputMappingTemplate",
+        "type": "struct",
+        "doc": " action input mapping template the action spi provider will generate input mapping from\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GenerateActionInputMappingFromTemplateResponse",
+      "displayName": "Generate Action Input Mapping From Template Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "generatedActionInputMapping",
+        "type": "struct",
+        "doc": " generated action input mapping spi provider returns\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_DuplicateInputMappingRequest",
+      "displayName": "Duplicate Input Mapping Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Identifier for this action - human-readable action key - unique per app def ID\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "string",
+          "doc": " Action input mapping to duplicate\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_DuplicateInputMappingResponse",
+      "displayName": "Duplicate Input Mapping Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "inputMapping",
+        "type": "string",
+        "doc": " Duplicated action input mapping\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GenerateApplicationAutomationInputMappingRequest",
+      "displayName": "Generate Application Automation Input Mapping Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Identifier for this action - human-readable action key - unique per app def ID\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "string",
+          "doc": " Action input mapping to generate from\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GenerateApplicationAutomationInputMappingResponse",
+      "displayName": "Generate Application Automation Input Mapping Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "inputMapping",
+        "type": "string",
+        "doc": " Generated action input mapping\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GetQuotaInfoRequest",
+      "displayName": "Get Quota Info Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "actionKey",
+        "type": "string",
+        "doc": "\nAction key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GetQuotaInfoResponse",
+      "displayName": "Get Quota Info Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "actionQuotaInfo",
+        "type": "All APIs.Action SPI Provider._com_wixpress_esb_spi_action_v1_ActionQuotaInfo",
+        "doc": " Details about the quotas for your action.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GetDynamicInputSchemaRequest",
+      "displayName": "Get Dynamic Input Schema Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": "\nAction key as defined in your app's action configuration in the Wix Developers Center.\nFor example, `send-email` or `generate-invoice`.\n"
+        },
+                {
+          "name": "inputMapping",
+          "type": "struct",
+          "doc": "\nObject representing the mapping a site contributor made between keys in the [input schema](https://dev.wix.com/docs/rest/api-reference/wix-automations/action-spi/about-the-action-spi-input-schema) and their expected\nvalues when running the automation. A field can be a static value mapping, or an expression that will be evaluated\ndynamically on each activation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_GetDynamicInputSchemaResponse",
+      "displayName": "Get Dynamic Input Schema Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "inputSchema",
+          "type": "struct",
+          "doc": "A [JSON schema](https://json-schema.org/) containing the action's added dynamic fields and its static fields.\n"
+        },
+                {
+          "name": "uiSchema",
+          "type": "struct",
+          "doc": "A [UI schema](https://bo.wix.com/pages/automations-ui-lib/?path=/story/getting-started--about) is a JSON Schema that describes the UI of the static and dynamic fields.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_InvokeRequest_ActivationContext",
+      "displayName": "Activation Context Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "activationId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "esbConfigurationId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "triggerKey",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "triggerAppId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "actionId",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "payload",
+          "type": "struct",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_InvokeRequest",
+      "displayName": "Invoke Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "actionParams",
+          "type": "struct",
+          "doc": " Data for executing your action. \nStructured according to the [input schema](https://dev.wix.com/docs/rest/api-reference/wix-automations/action-provider-v1/about-the-action-spi-input-schema) \nyou provided when configuring the action in the Wix Developer’s Center.\n"
+        },
+                {
+          "name": "actionKey",
+          "type": "string",
+          "doc": " Action key as defined in your app's action configuration in the Wix Developers Center. \nFor example, `send-email` or `generate-invoice`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_esb_spi_action_v1_InvokeResponse",
+      "displayName": "Invoke Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "result",
+        "type": "struct",
+        "doc": "\nIf the action has no output schema, return an empty object.\nIf the action defines an output schema, return a JSON object that correlates to the output schema.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.automations.actions.zapier.zapier-provider"}
+}
