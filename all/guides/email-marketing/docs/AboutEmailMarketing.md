@@ -27,4 +27,4 @@ Access to the Email Marketing APIs are dependant on the user's account status, a
 - Sender Details API: Accessible only when email account status = ACTIVE (and sender details are verified).
 - Campaign API: Accessible only when email account status = ACTIVE (and quota has not been reached).  
 
-If an account is in a state of suspension they must visit their email marketing account in the Wix business manager and follow the instructions.
+If an account is in a state of suspension they must visit their email marketing account in the dashboard and follow the instructions.
