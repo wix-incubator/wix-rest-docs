@@ -1,6 +1,18 @@
 SortOrder: 0
 # Orders Service
 
+<blockquote class='warning'>
+
+__Deprecation Notice:__
+
+Stores Orders API has been replaced with
+[eCommerce Orders API](https://dev.wix.com/docs/rest/api-reference/wix-e-commerce/orders/introduction)
+and will be removed on September 4, 2024.
+
+Learn more about [migrating from Wix Stores to Wix eCommerce](https://dev.wix.com/docs/rest/api-reference/wix-e-commerce/orders/order-object-conversion).
+
+</blockquote>
+
 ## About This API
 
 Stores Orders API allows third party apps to create and manage orders for Wix store owners.
