@@ -56,51 +56,6 @@
   ],
   "operations":   [
         {
-      "name": "Archive",
-      "methodName": "Archive",
-      "serviceName": "CampaignService",
-      "tag": "Campaign",
-      "permissions": [      {
-        "name": "Manage Email Marketing",
-        "description": "Request permission to read, create and manage email marketing campaigns"
-      }],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "requiredFields": ["campaignId"],
-      "params": [      {
-        "in": "PATH",
-        "name": "campaignId",
-        "type": "string",
-        "doc": "ID of the campaign to archive.\n",
-        "required": true
-      }],
-      "ret":       {
-        "type":         {
-          "name": "Archive",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_ArchiveCampaignResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Marks a campaign as archived\n \n",
-        "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/email-marketing/v1/campaigns/{campaignId}/archive",
-        "links": [],
-        "examples": [],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "ArchiveCampaignRequest",
-        "rpcResponseName": "ArchiveCampaignResponse"
-      },
-      "customLabels": [{"id": "maturity-beta"}]
-    },
-        {
       "name": "Delete Campaign",
       "methodName": "Delete",
       "serviceName": "CampaignService",
@@ -130,7 +85,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Deletes a campaign (cannot be undone).\n \n",
+        "summary": " Permanently deletes a campaign.\n \n",
         "description": [],
         "request": "DELETE",
         "url": "https://www.wixapis.com/email-marketing/v1/campaigns/{campaignId}",
@@ -203,10 +158,6 @@
       "permissions": [      {
         "name": "Manage Email Marketing",
         "description": "Request permission to read, create and manage email marketing campaigns"
-      },
-      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
       }],
       "events": [],
       "labels": [],
@@ -224,7 +175,7 @@
           "in": "QUERY",
           "name": "optionIncludeStatistics",
           "type": "boolean",
-          "doc": " If true, campaign should contain statistics (default is 'false').\n",
+          "doc": " \nWhether a returned campaign object should include `publishingData.statistics`.\nDefault: `false`\n",
           "required": false
         }
       ],
@@ -282,7 +233,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Retrieves sender details.\n \n",
+        "summary": " Retrieves sender details.  \n\nThe sender details include the information displayed as the email sender's name and email address.  \n\n+ If you send an email campaign with a public email domain (e.g. @gmail.com or @yahoo.com), the email address will not be displayed in the 'from' header. Instead, the email address is replaced with @wixemails.com (or @wixsitemail.com for free users), and the sender's email is placed in the 'reply-to' header.\n+ If you send an email campaign with an email from a Wix managed domain, that email will be displayed in the 'from' header.\n+ If you send an email from a custom domain that is not managed by Wix, a line will be inserted that states that the email was sent via wixemails.com.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/email-marketing/v1/sender-details",
@@ -311,10 +262,6 @@
       "permissions": [      {
         "name": "Manage Email Marketing",
         "description": "Request permission to read, create and manage email marketing campaigns"
-      },
-      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
       }],
       "events": [],
       "labels": [],
@@ -338,7 +285,7 @@
           "in": "QUERY",
           "name": "optionIncludeStatistics",
           "type": "boolean",
-          "doc": " Whether a campaign should contain statistics (default is 'false').\n",
+          "doc": " \nWhether to include `publishingData.statistics` in the returned campaign object.\nDefault: `false`\n",
           "required": false
         },
                 {
@@ -379,7 +326,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Returns a list of email campaigns. These are always ordered by `date_updated` in descending order.\n \n",
+        "summary": " Returns a list of email campaigns. \n\n Default sort by `date_updated` in `desc` order.\n \n",
         "description": [],
         "request": "GET",
         "url": "https://www.wixapis.com/email-marketing/v1/campaigns",
@@ -405,18 +352,23 @@
       "methodName": "ListRecipients",
       "serviceName": "CampaignStatisticsService",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Manage Email Marketing",
-        "description": "Request permission to read, create and manage email marketing campaigns"
-      },
-      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["campaignId"],
+      "requiredFields":       [
+        "campaignId",
+        "activity"
+      ],
       "params":       [
                 {
           "in": "PATH",
@@ -430,7 +382,7 @@
           "name": "activity",
           "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_RecipientsActivity_Enum",
           "doc": " __Required.__ Email activity to filter for.\n",
-          "required": false
+          "required": true
         },
                 {
           "in": "QUERY",
@@ -483,14 +435,16 @@
       "methodName": "ListStatistics",
       "serviceName": "CampaignStatisticsService",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Manage Email Marketing",
-        "description": "Request permission to read, create and manage email marketing campaigns"
-      },
-      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "events": [],
       "labels": [],
       "nameParams": [],
@@ -502,7 +456,7 @@
           "name": "array",
           "typeParams": ["string"]
         },
-        "doc": " IDs of the campaigns to retrieve.  \n\nMax: 100 campaigns\n",
+        "doc": " IDs of the campaigns to retrieve (max 100 campaigns).\n",
         "required": true
       }],
       "ret":       {
@@ -657,8 +611,8 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Resend To Non Openers",
-      "methodName": "ResendToNonOpeners",
+      "name": "Reschedule",
+      "methodName": "Reschedule",
       "serviceName": "CampaignService",
       "tag": "Campaign",
       "permissions": [      {
@@ -668,45 +622,48 @@
       "events": [],
       "labels": [],
       "nameParams": [],
-      "requiredFields": ["campaignId"],
+      "requiredFields":       [
+        "campaignId",
+        "sendAt"
+      ],
       "params":       [
                 {
           "in": "PATH",
           "name": "campaignId",
           "type": "string",
-          "doc": " ID of the campaign to resend.\n",
+          "doc": " ID of the campaign to reschedule.\n",
           "required": true
         },
                 {
           "in": "BODY",
-          "name": "emailSubject",
+          "name": "sendAt",
           "type": "string",
-          "doc": " Resend email message subject line.",
-          "required": false
+          "doc": " New time that this email marketing campaign should be sent at.\n",
+          "required": true
         }
       ],
       "ret":       {
         "type":         {
-          "name": "ResendToNonOpeners",
+          "name": "Reschedule",
           "statusCode": "200",
-          "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_ResendToNonOpenersResponse"]
+          "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_RescheduleResponse"]
         },
         "doc": ""
       },
       "locations": [],
       "docs":       {
-        "summary": " Resends a copy of campaign to users that did not open it. Different subject line may be used for the new campaign if necessary.\n \n",
+        "summary": " Change sending time for already scheduled campaign.\n \n",
         "description": [],
         "request": "POST",
-        "url": "https://www.wixapis.com/email-marketing/v1/campaigns/{campaignId}/resend",
+        "url": "https://www.wixapis.com/email-marketing/v1/campaigns/{campaignId}/reschedule",
         "links": [],
         "examples": [],
         "extra": {}
       },
       "extra":       {
         "hasRest": true,
-        "rpcRequestName": "ResendToNonOpenersRequest",
-        "rpcResponseName": "ResendToNonOpenersResponse"
+        "rpcRequestName": "RescheduleRequest",
+        "rpcResponseName": "RescheduleResponse"
       },
       "customLabels": [{"id": "maturity-beta"}]
     },
@@ -883,51 +840,6 @@
       "customLabels": [{"id": "maturity-beta"}]
     },
         {
-      "name": "Unarchive",
-      "methodName": "Unarchive",
-      "serviceName": "CampaignService",
-      "tag": "Campaign",
-      "permissions": [      {
-        "name": "Manage Email Marketing",
-        "description": "Request permission to read, create and manage email marketing campaigns"
-      }],
-      "events": [],
-      "labels": [],
-      "nameParams": [],
-      "requiredFields": ["campaignId"],
-      "params": [      {
-        "in": "PATH",
-        "name": "campaignId",
-        "type": "string",
-        "doc": "ID of the campaign to unarchive.\n",
-        "required": true
-      }],
-      "ret":       {
-        "type":         {
-          "name": "Unarchive",
-          "statusCode": "200",
-          "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_UnarchiveCampaignResponse"]
-        },
-        "doc": ""
-      },
-      "locations": [],
-      "docs":       {
-        "summary": " Marks a campaign as active\n \n",
-        "description": [],
-        "request": "POST",
-        "url": "https://www.wixapis.com/email-marketing/v1/campaigns/{campaignId}/unarchive",
-        "links": [],
-        "examples": [],
-        "extra": {}
-      },
-      "extra":       {
-        "hasRest": true,
-        "rpcRequestName": "UnarchiveCampaignRequest",
-        "rpcResponseName": "UnarchiveCampaignResponse"
-      },
-      "customLabels": [{"id": "maturity-beta"}]
-    },
-        {
       "name": "Update Sender Details",
       "methodName": "Update",
       "serviceName": "SenderDetailsService",
@@ -957,7 +869,7 @@
       },
       "locations": [],
       "docs":       {
-        "summary": " Updates sender details (only provided fields will be updated).\n If `from_email` is changed - a verification code will be sent to new email address.\n If verification is needed, a verification email will be sent to the user, and `verification_needed` will return true.\n \n",
+        "summary": " Updates sender details (only provided fields will be updated).\n\n If `from_email` is changed - a verification code will be sent to new email address.\n If verification is needed, a verification email will be sent to the user, and `verification_needed` will return true.\n \n",
         "description": [],
         "request": "PATCH",
         "url": "https://www.wixapis.com/email-marketing/v1/sender-details",
@@ -1032,34 +944,6 @@
   ],
   "events":   [
         {
-      "type": "_wix_emailmarketing_api_v1_CampaignArchivedEventDomainEvent",
-      "name": "Campaign Archived Webhook",
-      "docs":       {
-        "summary": " Triggered when campaign is archived\n",
-        "src": "https://github.com/wix-private/promote-server/tree/master/shoutout-server/shoutout-platform/shoutout-platform-api/src/main/proto/wix/emailmarketing/api/v1/campaign-service.proto"
-      },
-      "topic": "domain_events_wix.email_marketing.v1.campaign",
-      "tag": "Campaign",
-      "permissions": [],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.email_marketing.v1.campaign_campaign_archived_event",
-      "extra": {"isDomainEvent": true}
-    },
-        {
-      "type": "_wix_emailmarketing_api_v1_CampaignUnarchivedEventDomainEvent",
-      "name": "Campaign Unarchived Webhook",
-      "docs":       {
-        "summary": " Triggered when campaign is unarchived\n",
-        "src": "https://github.com/wix-private/promote-server/tree/master/shoutout-server/shoutout-platform/shoutout-platform-api/src/main/proto/wix/emailmarketing/api/v1/campaign-service.proto"
-      },
-      "topic": "domain_events_wix.email_marketing.v1.campaign",
-      "tag": "Campaign",
-      "permissions": [],
-      "customLabels": [{"id": "maturity-beta"}],
-      "eventType": "wix.email_marketing.v1.campaign_campaign_unarchived_event",
-      "extra": {"isDomainEvent": true}
-    },
-        {
       "type": "_wix_emailmarketing_api_v1_CampaignRejectedEventDomainEvent",
       "name": "Campaign Rejected Webhook",
       "docs":       {
@@ -1068,10 +952,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_rejected_event",
       "extra": {"isDomainEvent": true}
@@ -1085,10 +975,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_published_event",
       "extra": {"isDomainEvent": true}
@@ -1102,10 +998,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_terminated_event",
       "extra": {"isDomainEvent": true}
@@ -1119,10 +1021,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_distributed_event",
       "extra": {"isDomainEvent": true}
@@ -1131,19 +1039,21 @@
       "type": "_wix_emailmarketing_api_v1_EmailActivityUpdatedDomainEvent",
       "name": "Email Activity Updated Webhook",
       "docs":       {
-        "summary": " Triggered each time an email campaign has a new recipient activity.  \n\nNew recipient activity includes when each email in a campaign is `DELIVERED`, `OPENED`, \nor `BOUNCED`. Also, when a URL inside the email is `CLICKED`.\n\nThe type of activity that triggered the webhook is in `actionEvent.body` and can be one of:\n+ `delivery`: Email was delivered to recipient.\n+ `click`: Recipient clicked on a URL in an email.\n+ `open`: Recipient opened an email.\n+ `softBounce`: Email soft bounced when sent to a recipient.\n+ `hardBounce`: Email hard bounced when sent to a recipient.\n",
+        "summary": " Triggered each time an email campaign has a new recipient activity.\n\nNew recipient activity includes when each email in a campaign is `DELIVERED`, `OPENED`, \nor `BOUNCED`. Also, when a URL inside the email is `CLICKED`.\n\nThe type of activity that triggered the webhook is in `actionEvent.body` and can be one of:\n+ `delivery`: Email was delivered to recipient.\n+ `click`: Recipient clicked on a URL in an email.\n+ `open`: Recipient opened an email.\n+ `softBounce`: Email soft bounced when sent to a recipient.\n+ `hardBounce`: Email hard bounced when sent to a recipient.\n",
         "src": "https://github.com/wix-private/promote-server/tree/master/shoutout-server/shoutout-platform/shoutout-platform-api/src/main/proto/wix/emailmarketing/api/v1/campaign-service.proto"
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Manage Email Marketing",
-        "description": "Request permission to read, create and manage email marketing campaigns"
-      },
-      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_email_activity_updated",
       "extra": {"isDomainEvent": true}
@@ -1157,10 +1067,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [      {
-        "name": "Read Email Marketing",
-        "description": "Request permission to read email marketing data"
-      }],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_scheduled_event",
       "extra": {"isDomainEvent": true}
@@ -1174,7 +1090,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_created",
       "extra": {"isDomainEvent": true}
@@ -1188,7 +1113,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_deleted",
       "extra": {"isDomainEvent": true}
@@ -1202,7 +1136,16 @@
       },
       "topic": "domain_events_wix.email_marketing.v1.campaign",
       "tag": "Campaign",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.campaign_campaign_paused_event",
       "extra": {"isDomainEvent": true}
@@ -1211,12 +1154,21 @@
       "type": "_wix_emailmarketing_api_v1_SenderDetailsUpdatedDomainEvent",
       "name": "Sender Details Updated Webhook",
       "docs":       {
-        "summary": "",
+        "summary": " An event that triggers after a user has verified changes to their sender details.\n",
         "src": "https://github.com/wix-private/promote-server/tree/master/shoutout-server/shoutout-platform/shoutout-platform-api/src/main/proto/wix/emailmarketing/api/v1/sender-details-service.proto"
       },
       "topic": "domain_events_wix.email_marketing.v1.sender_details",
       "tag": "Sender Details",
-      "permissions": [],
+      "permissions":       [
+                {
+          "name": "Manage Email Marketing",
+          "description": "Request permission to read, create and manage email marketing campaigns"
+        },
+                {
+          "name": "Read Email Marketing",
+          "description": "Request permission to read email marketing data"
+        }
+      ],
       "customLabels": [{"id": "maturity-beta"}],
       "eventType": "wix.email_marketing.v1.sender_details_updated",
       "extra": {"isDomainEvent": true}
@@ -1362,9 +1314,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "bodyAsJson",
+        "name": "body",
         "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignPublishedEvent",
-        "doc": "Event body as a stringified JSON"
+        "doc": "Event body"
       }],
       "enum": null,
       "extra": {},
@@ -1525,7 +1477,7 @@
         "links": [],
         "examples": [        {
           "title": "",
-          "body": ["{\n  \"entityId\" : \"38d837a5-8303-413c-8ac0-75d735a4bdb0\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"timestamp\" : \"2022-09-22T12:58:00Z\",\n      \"recipientEmailAddress\" : \"michaeltaylor@example.com\",\n      \"open\" : {\n        \"userAgent\" : \"Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)\"\n      },\n      \"activityType\" : \"OPEN\",\n      \"contactId\" : \"f1654c62-53b4-43d5-b01b-acbf782dee6f\",\n      \"campaignId\" : \"38d837a5-8303-413c-8ac0-75d735a4bdb0\"\n    }\n  },\n  \"slug\" : \"email_activity_updated\",\n  \"id\" : \"aacdffe0-8e14-4d1b-8060-8d0bf8248d36\",\n  \"entityFqdn\" : \"wix.email_marketing.v1.campaign\",\n  \"eventTime\" : \"2022-09-22T12:58:37.407664Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
+          "body": ["{\n  \"entityId\" : \"38d837a5-8303-413c-8ac0-75d735a4bdb0\",\n  \"actionEvent\" : {\n    \"body\" : {\n      \"timestamp\" : \"2022-09-22T12:58:00Z\",\n      \"recipientEmailAddress\" : \"michaeltaylor@example.com\",\n      \"open\" : {\n        \"userAgent\" : \"Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko Firefox/11.0 (via ggpht.com GoogleImageProxy)\"\n      },\n      \"activityType\" : \"OPEN\",\n      \"contactId\" : \"f1654c62-53b4-43d5-b01b-acbf782dee6f\",\n      \"campaignId\" : \"38d837a5-8303-413c-8ac0-75d735a4bdb0\",\n      \"metadata\" : {\n        \"metadataFieldOne\" : \"6b8fe9d9-bf02-42ed-9b27-77be5f6bc133\",\n        \"metadataFieldTwo\" : \"80cad016-1f36-4238-9748-2545fd374480\"\n      }\n    }\n  },\n  \"slug\" : \"email_activity_updated\",\n  \"id\" : \"aacdffe0-8e14-4d1b-8060-8d0bf8248d36\",\n  \"entityFqdn\" : \"wix.email_marketing.v1.campaign\",\n  \"eventTime\" : \"2022-09-22T12:58:37.407664Z\",\n  \"triggeredByAnonymizeRequest\" : false\n} "],
           "type": "json",
           "extra": {}
         }]
@@ -1732,9 +1684,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "body",
+        "name": "bodyAsJson",
         "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignUnarchivedEvent",
-        "doc": "Event body"
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -1878,9 +1830,9 @@
         "examples": []
       },
       "members": [      {
-        "name": "body",
+        "name": "bodyAsJson",
         "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignArchivedEvent",
-        "doc": "Event body"
+        "doc": "Event body as a stringified JSON"
       }],
       "enum": null,
       "extra": {},
@@ -2106,7 +2058,7 @@
       "displayName": "Account Details Object",
       "locations": [],
       "docs":       {
-        "summary": " An account can be active or in some state of suspension (warned/suspended/banned).\n If a user is in a state of suspension they must visit their email marketing account in the Wix business manager and follow the instructions.\n",
+        "summary": " An account can be active or in some state of suspension (warned/suspended/banned).\n If a user is in a state of suspension they must visit their email marketing account in the dashboard and follow the instructions.\n",
         "links": [],
         "examples": [        {
           "title": "",
@@ -2222,6 +2174,74 @@
       "labels": []
     },
         {
+      "name": "_wix_emailmarketing_api_v1_ComplianceDetails",
+      "displayName": "Compliance Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "status",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_AccountStatus_Enum",
+          "doc": " Account status.\n"
+        },
+                {
+          "name": "suspensionReasons",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": " Suspension reasons.\n"
+        },
+                {
+          "name": "note",
+          "type": "string",
+          "doc": " Suspension description.\n"
+        },
+                {
+          "name": "supportTicketId",
+          "type": "string",
+          "doc": " Support ticket id.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_Features",
+      "displayName": "Features Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "multipleSenderDetails",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "removeWixBranding",
+          "type": "boolean",
+          "doc": ""
+        },
+                {
+          "name": "scheduling",
+          "type": "boolean",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_emailmarketing_api_v1_GetAccountDetailsRequest",
       "displayName": "Get Account Details Request Object",
       "locations": [],
@@ -2248,6 +2268,111 @@
         "name": "accountDetails",
         "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_AccountDetails",
         "doc": " Current account details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_GetComplianceDetailsRequest",
+      "displayName": "Get Compliance Details Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_GetComplianceDetailsResponse",
+      "displayName": "Get Compliance Details Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "complianceDetails",
+        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_ComplianceDetails",
+        "doc": " Current compliance details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RespondRequest_SupportTicketData",
+      "displayName": "Support Ticket Data Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "subject",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "body",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "agentReplyBody",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RespondRequest",
+      "displayName": "Respond Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "action",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_RespondRequest_ActionEnum_Action",
+          "doc": ""
+        },
+                {
+          "name": "supportTicketData",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_RespondRequest_SupportTicketData",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RespondResponse",
+      "displayName": "Respond Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "supportTicketId",
+        "type": "string",
+        "doc": " ID of the support ticket created (optional).\n"
       }],
       "enum": null,
       "extra": {},
@@ -2331,12 +2456,12 @@
                 {
           "name": "next",
           "type": "string",
-          "doc": " Cursor pointing to next page in the list of results.\n"
+          "doc": " Cursor string pointing to the next page in the list of results.\n"
         },
                 {
           "name": "prev",
           "type": "string",
-          "doc": " Cursor pointing to previous page in the list of results.\n"
+          "doc": " Cursor pointing to the previous page in the list of results.\n"
         }
       ],
       "enum": null,
@@ -2412,8 +2537,32 @@
           "name": "dateUpdated",
           "type": "string",
           "doc": " Campaign last update date.\n"
+        },
+                {
+          "name": "emailSubject",
+          "type": "string",
+          "doc": " Email subject of the campaign (initially copied from the template).\n TODO: Deprecated (moved to \"GetComposerResponse\").\n",
+          "deprecated": true
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CampaignEditorType",
+      "displayName": "Campaign Editor Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " specifies if campaign is being created and edited in web or mobile app\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "value",
+        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignEditorType_Enum",
+        "doc": ""
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2630,31 +2779,6 @@
       "labels": []
     },
         {
-      "name": "_wix_emailmarketing_api_v1_PlaceholderValue",
-      "displayName": "Placeholder Value Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members":       [
-                {
-          "name": "value",
-          "type": "string",
-          "doc": " Placeholder value (string or stringified JSON).\n"
-        },
-                {
-          "name": "valueType",
-          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderValue_Type",
-          "doc": " Placeholder type.\n"
-        }
-      ],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_emailmarketing_api_v1_PlaceholderContent_PlainText",
       "displayName": "Plain Text Object",
       "locations": [],
@@ -2798,6 +2922,67 @@
       "labels": []
     },
         {
+      "name": "_wix_emailmarketing_api_v1_PlaceholderContent_Attachment",
+      "displayName": "Attachment Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "fileName",
+          "type": "string",
+          "doc": ""
+        },
+                {
+          "name": "downloadUrl",
+          "type": "string",
+          "doc": ""
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_PlaceholderContent_Integer",
+      "displayName": "Integer Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "value",
+        "type": "integer",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_PlaceholderContent_Decimal",
+      "displayName": "Decimal Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "value",
+        "type": "string",
+        "doc": ""
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_emailmarketing_api_v1_PlaceholderContent",
       "displayName": "Placeholder Content Object",
       "locations": [],
@@ -2859,6 +3044,21 @@
           "name": "enum",
           "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderContent_Enum",
           "doc": ""
+        },
+                {
+          "name": "attachment",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderContent_Attachment",
+          "doc": ""
+        },
+                {
+          "name": "integer",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderContent_Integer",
+          "doc": ""
+        },
+                {
+          "name": "decimal",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderContent_Decimal",
+          "doc": ""
         }
       ],
       "enum": null,
@@ -2878,7 +3078,7 @@
       "members": [      {
         "name": "composerDataJson",
         "type": "string",
-        "doc": " internal data structure for editor/viewer to render the campaign\n"
+        "doc": " Internal data structure for editor/viewer to render the campaign.\n"
       }],
       "enum": null,
       "extra": {},
@@ -2902,7 +3102,7 @@
                 {
           "name": "optionIncludeStatistics",
           "type": "boolean",
-          "doc": " If true, campaign should contain statistics (default is 'false').\n"
+          "doc": " \nWhether a returned campaign object should include `publishingData.statistics`.\nDefault: `false`\n"
         }
       ],
       "enum": null,
@@ -2936,11 +3136,18 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "campaignId",
-        "type": "string",
-        "doc": " Campaign ID.\n"
-      }],
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " Campaign ID.\n"
+        },
+                {
+          "name": "language",
+          "type": "string",
+          "doc": " Preferred language for campaign content (optional).\n"
+        }
+      ],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2954,11 +3161,77 @@
         "links": [],
         "examples": []
       },
-      "members": [      {
-        "name": "composer",
-        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
-        "doc": " composer\n"
-      }],
+      "members":       [
+                {
+          "name": "composer",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
+          "doc": " Composer.\n"
+        },
+                {
+          "name": "emailSubject",
+          "type": "string",
+          "doc": " Campaign subject.\n"
+        },
+                {
+          "name": "emailPreheader",
+          "type": "string",
+          "doc": " Campaign preheader (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_UpdateComposerRequest",
+      "displayName": "Update Composer Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " Campaign ID.\n"
+        },
+                {
+          "name": "composer",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
+          "doc": " Campaign composer.\n"
+        },
+                {
+          "name": "campaignEditorType",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignEditorType",
+          "doc": " Campaign editor type. Either web app or mobile app (optional, default \"Web\").\n"
+        },
+                {
+          "name": "emailSubject",
+          "type": "string",
+          "doc": " Campaign subject (optional).\n"
+        },
+                {
+          "name": "emailPreheader",
+          "type": "string",
+          "doc": " Campaign preheader (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_UpdateComposerResponse",
+      "displayName": "Update Composer Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -2981,7 +3254,7 @@
                 {
           "name": "optionIncludeStatistics",
           "type": "boolean",
-          "doc": " Whether a campaign should contain statistics (default is 'false').\n"
+          "doc": " \nWhether to include `publishingData.statistics` in the returned campaign object.\nDefault: `false`\n"
         },
                 {
           "name": "statuses",
@@ -3038,8 +3311,8 @@
       "labels": []
     },
         {
-      "name": "_wix_emailmarketing_api_v1_CreateCampaignRequest",
-      "displayName": "Create Campaign Request Object",
+      "name": "_wix_emailmarketing_api_v1_CountCampaignsRequest",
+      "displayName": "Count Campaigns Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3047,53 +3320,17 @@
         "examples": []
       },
       "members": [      {
-        "name": "composer",
-        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
-        "doc": " Campaign composer.\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_emailmarketing_api_v1_CreateCampaignResponse",
-      "displayName": "Create Campaign Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "campaign",
-        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Campaign",
-        "doc": " Campaign information.\n"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "variablesMapEntry",
-      "displayName": "variables Map Entry Object",
-      "locations": [],
-      "docs":       {
-        "summary": "Set of key-value pairs. Values to replace template placeholders with (unique for each template).\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "key:value",
+        "name": "dateFrom",
         "type": "string",
-        "doc": "`key` of type string, `value` of type string"
+        "doc": " Since when should we start counting (optional, default value \"1970-01-01T00:00:00.000Z\")\n"
       }],
       "enum": null,
       "extra": {},
       "labels": []
     },
         {
-      "name": "_wix_emailmarketing_api_v1_CreatePublishedAutomationRequest",
-      "displayName": "Create Published Automation Request Object",
+      "name": "_wix_emailmarketing_api_v1_CountCampaignsResponse",
+      "displayName": "Count Campaigns Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3102,14 +3339,29 @@
       },
       "members":       [
                 {
-          "name": "templateId",
-          "type": "string",
-          "doc": " ID of the template to fork.\n"
+          "name": "total",
+          "type": "integer",
+          "doc": " \"drafts\" + \"scheduled\" + \"published\" (excluding \"archived\").\n"
         },
                 {
-          "name": "variables",
-          "type": "All APIs.Email Marketing.variablesMapEntry",
-          "doc": "Set of key-value pairs. Values to replace template placeholders with (unique for each template).\n"
+          "name": "drafts",
+          "type": "integer",
+          "doc": " Non published (draft) campaigns.\n"
+        },
+                {
+          "name": "scheduled",
+          "type": "integer",
+          "doc": " Campaigns scheduled for publishing in the future.\n"
+        },
+                {
+          "name": "published",
+          "type": "integer",
+          "doc": " Campaigns published or sent.\n"
+        },
+                {
+          "name": "archived",
+          "type": "integer",
+          "doc": " Campaigns moved to archive (regardless of the status).\n"
         }
       ],
       "enum": null,
@@ -3117,8 +3369,33 @@
       "labels": []
     },
         {
-      "name": "_wix_emailmarketing_api_v1_CreatePublishedAutomationResponse",
-      "displayName": "Create Published Automation Response Object",
+      "name": "_wix_emailmarketing_api_v1_CreateCampaignRequest",
+      "displayName": "Create Campaign Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "composer",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
+          "doc": " Campaign composer.\n"
+        },
+                {
+          "name": "campaignEditorType",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignEditorType",
+          "doc": " Campaign editor type. Either web app or mobile app (optional, default \"Web\").\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CreateCampaignResponse",
+      "displayName": "Create Campaign Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3242,7 +3519,7 @@
             "name": "array",
             "typeParams": ["string"]
           },
-          "doc": " Filter ids to send campaign to.\n"
+          "doc": " Filter ids to send campaign to (unsupported).\n"
         },
                 {
           "name": "sendAt",
@@ -3318,6 +3595,45 @@
         {
       "name": "_wix_emailmarketing_api_v1_PauseSchedulingResponse",
       "displayName": "Pause Scheduling Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RescheduleRequest",
+      "displayName": "Reschedule Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " ID of the campaign to reschedule.\n"
+        },
+                {
+          "name": "sendAt",
+          "type": "string",
+          "doc": " New time that this email marketing campaign should be sent at.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RescheduleResponse",
+      "displayName": "Reschedule Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -3442,24 +3758,6 @@
       "labels": []
     },
         {
-      "name": "variablesMapEntry",
-      "displayName": "variables Map Entry Object",
-      "locations": [],
-      "docs":       {
-        "summary": "Set of key-value pairs. Values to replace campaign placeholders with (unique for each campaign).\n TODO: remove field in favor of \"placeholders\"\n",
-        "links": [],
-        "examples": []
-      },
-      "members": [      {
-        "name": "key:value",
-        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderValue",
-        "doc": "`key` of type string, `value` of type object"
-      }],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "placeholdersMapEntry",
       "displayName": "placeholders Map Entry Object",
       "locations": [],
@@ -3491,11 +3789,6 @@
           "name": "campaignId",
           "type": "string",
           "doc": " ID of the campaign to preview.\n"
-        },
-                {
-          "name": "variables",
-          "type": "All APIs.Email Marketing.variablesMapEntry",
-          "doc": "Set of key-value pairs. Values to replace campaign placeholders with (unique for each campaign).\n TODO: remove field in favor of \"placeholders\"\n"
         },
                 {
           "name": "language",
@@ -3548,7 +3841,7 @@
                 {
           "name": "emailSubject",
           "type": "string",
-          "doc": " Resend email message subject line."
+          "doc": " Subject line to use with the resent copy of campaign."
         }
       ],
       "enum": null,
@@ -3567,7 +3860,7 @@
       "members": [      {
         "name": "campaignId",
         "type": "string",
-        "doc": "ID of the newly created and resent campaign\n"
+        "doc": " ID of the newly created and resent campaign.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3585,7 +3878,7 @@
       "members": [      {
         "name": "campaignId",
         "type": "string",
-        "doc": "ID of the campaign to archive.\n"
+        "doc": " ID of the campaign to archive.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3617,7 +3910,7 @@
       "members": [      {
         "name": "campaignId",
         "type": "string",
-        "doc": "ID of the campaign to unarchive.\n"
+        "doc": " ID of the campaign to unarchive.\n"
       }],
       "enum": null,
       "extra": {},
@@ -3650,7 +3943,7 @@
                 {
           "name": "campaignId",
           "type": "string",
-          "doc": "ID of the campaign to change title of.\n"
+          "doc": " ID of the campaign to change title of.\n"
         },
                 {
           "name": "title",
@@ -3672,6 +3965,85 @@
         "examples": []
       },
       "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CreateUserTemplateRequest",
+      "displayName": "Create User Template Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " ID of campaign to create template from.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Title of template.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CreateUserTemplateResponse",
+      "displayName": "Create User Template Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "campaign",
+        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Campaign",
+        "doc": " Created user template information.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CreateFromUserTemplateRequest",
+      "displayName": "Create From User Template Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "campaignId",
+        "type": "string",
+        "doc": " ID of the user template campaign to use.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_CreateFromUserTemplateResponse",
+      "displayName": "Create From User Template Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "campaign",
+        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Campaign",
+        "doc": " Campaign created from user template.\n"
+      }],
       "enum": null,
       "extra": {},
       "labels": []
@@ -3750,6 +4122,21 @@
           "name": "lastActivityDate",
           "type": "string",
           "doc": " Date and time of the last activity.\n"
+        },
+                {
+          "name": "emailAddress",
+          "type": "string",
+          "doc": " Primary email address of the contact.\n"
+        },
+                {
+          "name": "fullName",
+          "type": "string",
+          "doc": " Full name of the contact (optional).\n"
+        },
+                {
+          "name": "contactDeleted",
+          "type": "boolean",
+          "doc": " Is this contact currently deleted from the site or not.\n"
         }
       ],
       "enum": null,
@@ -3771,7 +4158,7 @@
           "name": "array",
           "typeParams": ["string"]
         },
-        "doc": " IDs of the campaigns to retrieve.  \n\nMax: 100 campaigns\n"
+        "doc": " IDs of the campaigns to retrieve (max 100 campaigns).\n"
       }],
       "enum": null,
       "extra": {},
@@ -4099,6 +4486,24 @@
       "labels": []
     },
         {
+      "name": "metadataMapEntry",
+      "displayName": "metadata Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs. email metadata\n",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "string",
+        "doc": "`key` of type string, `value` of type string"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_emailmarketing_api_v1_EmailActivityUpdated",
       "displayName": "Email Activity Updated Object",
       "locations": [],
@@ -4137,6 +4542,11 @@
           "name": "eventType",
           "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_EmailActivityUpdated_EventType",
           "doc": " The type of the email event.\n"
+        },
+                {
+          "name": "metadata",
+          "type": "All APIs.Email Marketing.metadataMapEntry",
+          "doc": "Set of key-value pairs. email metadata\n"
         }
       ],
       "enum": null,
@@ -4184,7 +4594,7 @@
       "displayName": "Sender Details Object",
       "locations": [],
       "docs":       {
-        "summary": " Contains information about what will be displayed as the sender's email and name.\n If public email domains (@gmail.com, @yahoo.com, etc.) are used for sending email campaigns, they will not be displayed in the 'from' header.\n Instead, they will be replaced with @pb0x.ascendbywix.com, and the sender's email will be placed in the 'reply-to' header.\n If the user uses an email from a Wix managed domain to send campaigns, that email will be displayed in the 'from' header.\n If the user uses an email from a custom domain that is not managed by Wix, a line will be inserted that states that the email was sent via ascendbywix.com.\n",
+        "summary": "\nA sender details object contains the information that is displayed as the email sender's name and email address. \nIf sending email campaigns with a public email domain (e.g. @gmail.com or @yahoo.com), the email address will not \nbe displayed in the 'from' header. Instead, the email address is replaced with @wixemails.com (or @wixsitemail.com for free users), \nand the sender's email is placed in the 'reply-to' header.  \n\nIf sending email campaigns with an email from a Wix managed domain, that email will be displayed in the 'from' header. \nIf sending with an email from a custom domain that is not managed by Wix, a line will be inserted that states that the \nemail was sent via wixemails.com.\n",
         "links": [],
         "examples": [        {
           "title": "",
@@ -4197,17 +4607,17 @@
                 {
           "name": "fromName",
           "type": "string",
-          "doc": " Sender name.\n"
+          "doc": " Display name of sender.\n"
         },
                 {
           "name": "fromEmail",
           "type": "string",
-          "doc": " Sender email address.\n"
+          "doc": " Email address of sender.\n"
         },
                 {
           "name": "dateVerified",
           "type": "string",
-          "doc": " Email verification time (if relevant).\n",
+          "doc": " Date and time the sender's email address was verified.\n",
           "readOnly": true
         }
       ],
@@ -4270,6 +4680,11 @@
             "typeParams": ["string"]
           },
           "doc": " Template tags.\n"
+        },
+                {
+          "name": "isNew",
+          "type": "boolean",
+          "doc": " If template should be marked with badge \"new\".\n"
         }
       ],
       "enum": null,
@@ -4575,6 +4990,24 @@
       "labels": []
     },
         {
+      "name": "placeholdersMapEntry",
+      "displayName": "placeholders Map Entry Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Set of key-value pairs.",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "key:value",
+        "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_PlaceholderContent",
+        "doc": "`key` of type string, `value` of type object"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
       "name": "_wix_emailmarketing_api_v1_PreviewTemplateRequest",
       "displayName": "Preview Template Request Object",
       "locations": [],
@@ -4593,6 +5026,11 @@
           "name": "variables",
           "type": "All APIs.Email Marketing.variablesMapEntry",
           "doc": "Set of key-value pairs. Values to replace template placeholders with (unique for each template).\n"
+        },
+                {
+          "name": "placeholders",
+          "type": "All APIs.Email Marketing.placeholdersMapEntry",
+          "doc": "Set of key-value pairs."
         }
       ],
       "enum": null,
@@ -4745,19 +5183,77 @@
                 {
           "name": "emailId",
           "type": "string",
-          "doc": " The id of the email to be sent, as created in Triggered Emails\n"
+          "doc": " The id of the email to be sent, as created in Triggered Emails.\n"
         },
                 {
           "name": "contactId",
           "type": "string",
-          "doc": " The id of the contact to be sent to\n"
+          "doc": " The id of the contact to be sent to.\n"
         },
                 {
           "name": "options",
           "type": "All APIs.Email Marketing._wix_shoutout_api_v1_EmailContactOptions",
-          "doc": " Additional options\n"
+          "doc": " Additional options.\n"
         }
       ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_EmailContactResponse",
+      "displayName": "Email Contact Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_EmailMemberRequest",
+      "displayName": "Email Member Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "emailId",
+          "type": "string",
+          "doc": " The id of the email to be sent, as created in Triggered Emails.\n"
+        },
+                {
+          "name": "memberId",
+          "type": "string",
+          "doc": " The id of the member to be sent to.\n"
+        },
+                {
+          "name": "options",
+          "type": "All APIs.Email Marketing._wix_shoutout_api_v1_EmailContactOptions",
+          "doc": " Additional options.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_EmailMemberResponse",
+      "displayName": "Email Member Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
       "enum": null,
       "extra": {},
       "labels": []
@@ -4799,22 +5295,8 @@
       "labels": []
     },
         {
-      "name": "_wix_shoutout_api_v1_EmailContactResponse",
-      "displayName": "Email Contact Response Object",
-      "locations": [],
-      "docs":       {
-        "summary": "",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum": null,
-      "extra": {},
-      "labels": []
-    },
-        {
-      "name": "_wix_shoutout_api_v1_EmailMemberRequest",
-      "displayName": "Email Member Request Object",
+      "name": "_wix_shoutout_api_v1_ListTriggeredEmailsRequest",
+      "displayName": "List Triggered Emails Request Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -4823,19 +5305,35 @@
       },
       "members":       [
                 {
-          "name": "emailId",
-          "type": "string",
-          "doc": " The id of the email to be sent, as created in Triggered Emails\n"
+          "name": "paging",
+          "type": "All APIs.Email Marketing._wix_common_Paging",
+          "doc": " Paging parameters.\n"
         },
                 {
-          "name": "memberId",
-          "type": "string",
-          "doc": " The id of the member to be sent to\n"
+          "name": "optionIncludeStatistics",
+          "type": "boolean",
+          "doc": " Whether to include `publishingData.statistics` in the returned campaign objects (default value \"false\").\n"
         },
                 {
-          "name": "options",
-          "type": "All APIs.Email Marketing._wix_shoutout_api_v1_EmailContactOptions",
-          "doc": " Additional options\n"
+          "name": "statuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignStatus_Enum"]
+          },
+          "doc": " Include campaigns with the following statuses (no filtering by default).\n"
+        },
+                {
+          "name": "visibilityStatuses",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_CampaignVisibilityStatus_Enum"]
+          },
+          "doc": " Include campaigns with the following visibility statuses (no filtering by default).\n"
+        },
+                {
+          "name": "subjectSubstring",
+          "type": "string",
+          "doc": " Filter by subject line.\n"
         }
       ],
       "enum": null,
@@ -4843,8 +5341,119 @@
       "labels": []
     },
         {
-      "name": "_wix_shoutout_api_v1_EmailMemberResponse",
-      "displayName": "Email Member Response Object",
+      "name": "_wix_shoutout_api_v1_ListTriggeredEmailsResponse",
+      "displayName": "List Triggered Emails Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "paging",
+          "type": "All APIs.Email Marketing._wix_common_Paging",
+          "doc": " Paging parameters.\n"
+        },
+                {
+          "name": "campaigns",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Email Marketing._wix_emailmarketing_api_v1_Campaign"]
+          },
+          "doc": " List of campaigns.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_UpdateComposerRequest",
+      "displayName": "Update Composer Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " Triggered email ID to update or empty to create new one.\n"
+        },
+                {
+          "name": "composer",
+          "type": "All APIs.Email Marketing._wix_emailmarketing_api_v1_Composer",
+          "doc": " Composer.\n"
+        },
+                {
+          "name": "publish",
+          "type": "boolean",
+          "doc": " Should campaign also be published or not (default value \"false\").\n"
+        },
+                {
+          "name": "emailSubject",
+          "type": "string",
+          "doc": " Campaign subject (optional).\n"
+        },
+                {
+          "name": "emailPreheader",
+          "type": "string",
+          "doc": " Campaign preheader (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_UpdateComposerResponse",
+      "displayName": "Update Composer Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "campaignId",
+        "type": "string",
+        "doc": " ID of updated or newly created triggered email.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_UpdateTransactionalCodeRequest",
+      "displayName": "Update Transactional Code Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "campaignId",
+          "type": "string",
+          "doc": " Triggered email ID to update.\n"
+        },
+                {
+          "name": "transactionalCode",
+          "type": "string",
+          "doc": " Campaign preheader (optional).\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_shoutout_api_v1_UpdateTransactionalCodeResponse",
+      "displayName": "Update Transactional Code Response Object",
       "locations": [],
       "docs":       {
         "summary": "",
@@ -4861,7 +5470,7 @@
       "displayName": "Enum Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ACTIVE -  Able to use email marketing normally.\n <\/code><\/li><li><code> WARNED -  Must explicitly agree to terms of use to activate account.\n <\/code><\/li><li><code> SUSPENDED -  Must fill out compliance questionnaire, unable to use email marketing.\n <\/code><\/li><li><code> BANNED -  Able to open a support ticket, unable to use email marketing.\n <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> ACTIVE -  Able to use email marketing normally.\n <\/code><\/li><li><code> WARNED -  Must explicitly agree to terms of use to activate the account.\n <\/code><\/li><li><code> SUSPENDED -  Must fill out compliance questionnaire, unable to use email marketing.\n <\/code><\/li><li><code> BANNED -  Must fill out compliance questionnaire, unable to use email marketing.\n <\/code><\/li><li><code> SUSPENDED_AUTOLIFT -  Must fill out compliance questionnaire to activate the account.\n <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -4871,7 +5480,29 @@
         "ACTIVE",
         "WARNED",
         "SUSPENDED",
-        "BANNED"
+        "BANNED",
+        "SUSPENDED_AUTOLIFT"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_emailmarketing_api_v1_RespondRequest_ActionEnum_Action",
+      "displayName": "Action Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_ACTION <\/code><\/li><li><code> AGREE_TO_TERMS <\/code><\/li><li><code> OPEN_TICKET <\/code><\/li><li><code> FILL_FORM <\/code><\/li><li><code> ANSWER_QUESTIONS <\/code><\/li><li><code> FILL_AUTOLIFT_FORM <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_ACTION",
+        "AGREE_TO_TERMS",
+        "OPEN_TICKET",
+        "FILL_FORM",
+        "ANSWER_QUESTIONS",
+        "FILL_AUTOLIFT_FORM"
       ],
       "extra": {},
       "labels": []
@@ -5032,35 +5663,11 @@
       "labels": []
     },
         {
-      "name": "_wix_emailmarketing_api_v1_PlaceholderValue_Type",
-      "displayName": "Type Object",
-      "locations": [],
-      "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> PLAIN_TEXT <\/code><\/li><li><code> HTML <\/code><\/li><li><code> LIVE_SITE_LINK <\/code><\/li><li><code> BACKOFFICE_LINK <\/code><\/li><li><code> MONEY <\/code><\/li><li><code> DATETIME <\/code><\/li><li><code> DATETIME_WITH_TIMEZONE <\/code><\/li><li><code> ENUM <\/code><\/li>",
-        "links": [],
-        "examples": []
-      },
-      "members": [],
-      "enum":       [
-        "UNKNOWN",
-        "PLAIN_TEXT",
-        "HTML",
-        "LIVE_SITE_LINK",
-        "BACKOFFICE_LINK",
-        "MONEY",
-        "DATETIME",
-        "DATETIME_WITH_TIMEZONE",
-        "ENUM"
-      ],
-      "extra": {},
-      "labels": []
-    },
-        {
       "name": "_wix_emailmarketing_api_v1_RecipientsActivity_Enum",
       "displayName": "Enum Object",
       "locations": [],
       "docs":       {
-        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> DELIVERED <\/code><\/li><li><code> OPENED <\/code><\/li><li><code> CLICKED <\/code><\/li><li><code> BOUNCED <\/code><\/li><li><code> NOT_SENT <\/code><\/li>",
+        "summary": " \n Possible values are: <li><code> UNKNOWN <\/code><\/li><li><code> DELIVERED <\/code><\/li><li><code> OPENED <\/code><\/li><li><code> CLICKED <\/code><\/li><li><code> BOUNCED <\/code><\/li><li><code> NOT_SENT <\/code><\/li><li><code> SENT <\/code><\/li><li><code> NOT_OPENED <\/code><\/li>",
         "links": [],
         "examples": []
       },
@@ -5071,7 +5678,9 @@
         "OPENED",
         "CLICKED",
         "BOUNCED",
-        "NOT_SENT"
+        "NOT_SENT",
+        "SENT",
+        "NOT_OPENED"
       ],
       "extra": {},
       "labels": []
