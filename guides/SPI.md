@@ -2,6 +2,9 @@
 
 ## Introduction
 
+> **Note**:
+> This article is a legacy article. The updated article currently in use can be found in `developer-docs.`
+
 SPIs are APIs that are defined by Wix, which you may choose to implement.
 By doing so, you will become  a _service provider_, and then Wix will call your application during a certain flow, wait for your response, 
 and continue the flow with your response.  
@@ -69,11 +72,11 @@ The following envelope attributes are:
 
 ```json
 {
-  type: "<identity type>", // SITE_VISITOR, SITE_MEMBER, WIX_USER, APPLICATION
-  siteMemberId: "<memberId>",
-  siteVisitorId: "<visitorId>",
-  userId: "<userId>",
-  applicationId: "<applicationId>"
+  identityType: "<identityType>", // ANONYMOUS_VISITOR, MEMBER, WIX_USER, APP
+  anonymousVisitorId: "<anonymousVisitorId>",
+  memberId: "<memberId>",
+  wixUserId: "<wixUserId>",
+  appId: "<appId>"
 }
 ```
 
