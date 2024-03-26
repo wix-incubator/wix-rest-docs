@@ -1,6 +1,6 @@
 # App Versions and Updates
 
-During the normal life cycle of your app, periodic updates will be required. Each update must be submitted to Wix and when the update is approved it can be sent to site owners. Wix determines whether an update is major or minor and manages the versioning of the app accordingly. Minor updates are sent to site owners automatically, while major updates require an opt-int.
+During the normal life cycle of your app, periodic updates will be required. Each update must be submitted to Wix and when the update is approved it can be sent to site owners. Wix determines whether an update is major or minor and manages the versioning of the app accordingly. Minor updates are sent to site owners automatically, while major updates require an opt-in.
 
 This article explains which updates are major, which are minor, and how the versioning and update process differs between them.
 
@@ -12,7 +12,7 @@ Once approved, the updated app is given a new version number following the seque
 
 In the example below, version v2 has been approved and published. This is the version that site owners will get. A draft version with the next version number, v3, is created automatically once v2 was approved. Changes to the app will be saved to v3 from now on until it is submitted and approved, then a v4 draft is created, and so on.
 
-![Version Submissions](./../../../app-submissions2.png)
+![Version Submissions](../media/app-submissions2.png)
 
 ## Major and Minor Updates
 
@@ -21,12 +21,12 @@ The changes made to your app are reviewed and the new version is classified as e
 ### Major Updates
 The following changes to your app require a major update. These are:
 - Adding or removing [Permissions](https://devforum.wix.com/kb/en/article/about-permissions)
-- Adding an [Embedded Script](https://devforum.wix.com/kb/en/article/set-up-an-embedded-script-component) component
+- Adding an [Embedded Script](https://dev.wix.com/docs/build-apps/developer-tools/extensions/embedded-scripts) extension
 - Changing [Dynamic Key Parameters](https://devforum.wix.com/kb/en/article/embedded-script-dynamic-parameters) of an Embedded Script
 
 Major updates are not automatically sent to site owners. Instead, they are informed in the App Manager that the update is available. Site owners must click the Update button and follow any on-screen instructions to get the update.
 
-![Manage Apps](./../../../app-manager-update.png)
+![Manage Apps](../media/app-manager-update.png)
 
 > **Note:** Only site owners can update an app, not contributors. Be sure to test your app as a contributor to see how this flow works for them.
 

@@ -9,19 +9,21 @@ Endpoints that allow querying follow these format [guidelines](https://dev.wix.c
 
 ### Fields That Allow Filtering
 
-| Field | Operators | Sorting Allowed|
-| --- | --- | --- |
-| name |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
-| description |$eq,$ne,$hasSome,$contains,$startsWith||
-| sku |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
-| id |$eq,$ne,$hasSome|Allowed|
-| price |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
-| numericId |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
-| productType |$eq,$ne,$hasSome|Allowed|
-| slug |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
-| collections.id |$eq,$ne,$hasSome,$hasAll||
+| Field                   | Operators | Sorting Allowed|
+|-------------------------| --- | --- |
+| name                    |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
+| description             |$eq,$ne,$hasSome,$contains,$startsWith||
+| sku                     |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
+| id                      |$eq,$ne,$hasSome|Allowed|
+| price                   |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
+| numericId               |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
+| productType             |$eq,$ne,$hasSome|Allowed|
+| slug                    |$eq,$ne,$hasSome,$contains,$startsWith|Allowed|
+| collections.id          |$eq,$ne,$hasSome,$hasAll||
 | options.\<option name\> |$eq,$ne,$hasSome,$hasAll||
-| lastUpdated |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
+| inventoryStatus         |$eq,$ne,$hasSome|
+| lastUpdated             |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
+| createdDate             |$eq,$ne,$hasSome,$lt,$lte,$gt,$gte|Allowed|
 
 ** Note that "HasSome" is same as the operator "IN" in SQL
 
