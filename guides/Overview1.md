@@ -2,7 +2,7 @@
 
 Wix's REST API provides functionality that enables you to access and manage Wix business solutions from your code. It uses standard HTTPS terminology and authentication (either [OAuth]() or [API keys]()), and returns JSON-encoded responses.
 
-If you are not the site owner, to use our APIs the site owner must grant you explicit permission to collect this data. This permission can be granted either when the stie owner installs your app on their site, or when they provide you with an API key.
+If you are not the site owner, to use our APIs the site owner must grant you explicit permission to collect this data. This permission can be granted either when the site owner installs your app on their site, or when they provide you with an API key.
 
 ## Key concepts
 
