@@ -27,9 +27,9 @@ Site owners can set whether members are allowed to create groups, or add new mem
 - **Group Role**: Defines permissions. See [Roles](https://dev.wix.com/api/rest/wix-groups/groups/introduction#wix-groups_groups_introduction_roles) for more details.
 - **Join Group Request**: Request submitted by a site member to join a **private** group. Approved or rejected by a group admin.
 - **Group Request**: When the site owners have not given site members permission to create groups, they can submit a **Group Request** to do so. Approved or rejected by a group admin.
-- **Membership Question**: Question asked to members when joining a group. Site owners can set whether it is required to answer the question in the Business Manager.
-- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Site owners can set up **Group Rules** in the Business Manager.
-- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to the site owners under `Admin Tools` in the Business Manager.
+- **Membership Question**: Question asked to members when joining a group. Site owners can set whether it is required to answer the question in the dashboard.
+- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Site owners can set up **Group Rules** in the dashboard.
+- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to the site owners under `Admin Tools` in the dashboard.
 
 
 ## Roles

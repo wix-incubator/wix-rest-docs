@@ -1,4 +1,4 @@
-SortOrder: 1
+SortOrder: 2
 # Stores to eCommerce Cart Conversion Table
 
 To help with migration from the [Stores Cart API](https://dev.wix.com/api/rest/wix-stores/carts/cart-object) to the eCommerce [Cart](https://dev.wix.com/api/rest/wix-ecommerce/cart/cart-object) and [Checkout](https://dev.wix.com/api/rest/wix-ecommerce/checkout/introduction) APIs, refer to the table below for field changes in name and/or location.
@@ -38,7 +38,7 @@ Fields marked with an asterisk (*) signify little to no change in semantics or s
 | `buyerInfo.firstName` | Buyer first name is now only kept in [Checkout](https://dev.wix.com/api/rest/wix-ecommerce/checkout/checkout-object).                                               |
 | `buyerInfo.lastName`  | Buyer last name is now only kept in [Checkout](https://dev.wix.com/api/rest/wix-ecommerce/checkout/checkout-object).                                               |
 | `lineItems[i].id`                                | `lineItems[i].id` - **Note:** this `id` is of type GUID. In the Stores Cart API, the `lineItem.id` is of type Int32.                                              |
-| `lineItems[i].productId`                         | `lineItems[i].catalogReference.catalogItemId` - See [Stores Catalog eCommerce Integration](https://bo.wix.com/wix-docs/rest/stores/stores-catalog/ecommerce-integration) for more information. |
+| `lineItems[i].productId`                         | `lineItems[i].catalogReference.catalogItemId` - See [Stores Catalog eCommerce Integration](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration) for more information. |
 | `lineItems[i].name`                              | `lineItems[i].productName.original`                          |
 | `lineItems[i].quantity`                          | `lineItems[i].quantity`                          |
 | `lineItems[i].weight`                            | `lineItems[i].physicalProperties.weight`                  |
@@ -52,7 +52,7 @@ Fields marked with an asterisk (*) signify little to no change in semantics or s
 | `lineItems[i].mediaItem.url`                     | `lineItems[i].media.url`                                               |
 | `lineItems[i].mediaItem.width`                   | `lineItems[i].media.width`                                               |
 | `lineItems[i].mediaItem.height`                  | `lineItems[i].media.height`                                               |
-| `lineItems[i].options`                           | `lineItems[i].descriptionLines` - See [Stores Catalog eCommerce Integration](https://bo.wix.com/wix-docs/rest/stores/stores-catalog/ecommerce-integration) for more information.
+| `lineItems[i].options`                           | `lineItems[i].descriptionLines` - See [Stores Catalog eCommerce Integration](https://dev.wix.com/api/rest/wix-stores/catalog/ecommerce-integration) for more information.
 | `lineItems[i].priceData.price`                   | `lineItems[i].price.amount`                                               |
 | `lineItems[i].priceData.totalPrice`              | `lineItems[i].price.amount` X `lineItems[i].quantity`                                 |
 | `lineItems[i].convertedPriceData.price`          | `lineItems[i].price.convertedAmount`                                               |

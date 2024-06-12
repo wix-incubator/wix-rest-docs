@@ -1,0 +1,761 @@
+{
+  "name": "Additional Fees Integration SPI",
+  "client_id": "https://github.com/wix-private/ecom/tree/master/server/wix-ecommerce-server/wix-ecommerce-additional-fees-spi/src/main/proto#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Describes the additional fees integration to be called by Wix and received by the relevant additional fees provider. This integration is used to calculate the additional fees according to your own custom logic.",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "Additional Fees SPI",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/additional-fees-integration-spi/docs/Flow.md",
+      "name": "Sample Flow"
+    },
+        {
+      "path": "../guides/additional-fees-integration-spi/docs/GetStarted.md",
+      "name": "Introduction"
+    }
+  ],
+  "operations": [  {
+    "name": "Calculate Additional Fees",
+    "methodName": "CalculateAdditionalFees",
+    "serviceName": "AdditionalFeesSPI",
+    "tag": "Additional Fees SPI",
+    "permissions": [],
+    "events": [],
+    "labels": [],
+    "nameParams": [],
+    "params":     [
+            {
+        "in": "BODY",
+        "name": "lineItems",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_LineItem"]
+        },
+        "doc": " \nLine items to calculate additional fees for.  \n\nMax: 300 items\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "shippingAddress",
+        "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_platform_common_api_Address",
+        "doc": " Shipping address.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "buyerDetails",
+        "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_BuyerDetails",
+        "doc": " Information about the buyer, such as contact details.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "shippingInfo",
+        "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_ShippingInformation",
+        "doc": " Shipping information.\n",
+        "required": false
+      },
+            {
+        "in": "BODY",
+        "name": "ecomId",
+        "type": "string",
+        "doc": " \nWix eCommerce ID.  \n\n`eComId` stays consistent with an eCommerce element as it flows through cart, checkout, and order.\n",
+        "required": false
+      }
+    ],
+    "ret":     {
+      "type":       {
+        "name": "CalculateAdditionalFees",
+        "statusCode": "200",
+        "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_CalculateAdditionalFeesResponse"]
+      },
+      "doc": ""
+    },
+    "locations": [],
+    "docs":     {
+      "summary": " \nThis endpoint retrieves additional fees calculated by your app.  \n\nWix calls this endpoint when certain actions are performed on the cart or checkout. \nFor example, when an item is added to the cart or the amount of an item is updated in the checkout.  \n\n> __Notes:__ \n> + The currency returned in the response object must match the wix site's currency or those fees will be filtered out and not returned. Extract the `currency` from the [request envelope](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_request-envelope) to ensure the correct currency is used in your calculation.\n> + You cannot try out this endpoint because it has to be implemented by an app and can have an arbitrary URL. Therefore, ignore the **Authorization** and **POST** sections below as well as the **Try It Out** button.\n \n",
+      "description": [],
+      "request": "POST",
+      "url": "https://www.<your-deployment-uri>.com/v1/calculate-additional-fees",
+      "links": [],
+      "examples": [      {
+        "title": "Calculate additional fees - decoded JWT",
+        "body": ["curl -X POST https://provider.example.com/v1/calculate-additional-fees \\\n  -H 'user-agent: Wix' \\\n  -H 'accept-encoding: gzip, deflate' \\\n  -H 'content-type: text/plain; charset=utf-8' \\\n  -d '{\n      \"data\": {\n        \"request\": {\n          \"lineItems\": [\n            {\n              \"physicalProperties\": {\n                \"sku\": \"0043\",\n                \"shippable\": true\n              },\n              \"quantity\": 1,\n              \"price\": \"16.00\",\n              \"_id\": \"00000000-0000-0000-0000-000000000001\",\n              \"productName\": \"Set of bowls\",\n              \"catalogReference\": {\n                \"catalogItemId\": \"27ef9a44-74a6-a0dd-3e40-50c7d196f890\",\n                \"appId\": \"215238eb-22a5-4c36-9e7b-e7c08025e04e\",\n                \"options\": {\n                  \"options\": {},\n                  \"variantId\": \"00000000-0000-0000-0000-000000000000\"\n                }\n              }\n            }\n          ],\n          \"shippingAddress\": {\n            \"addressLine1\": \"123 Turnover Way\",\n            \"city\": \"Boston\",\n            \"subdivision\": \"US-MA\",\n            \"country\": \"US\",\n            \"postalCode\": \"02108\"\n          },\n          \"buyerDetails\": {\n            \"contactDetails\": {\n              \"phone\": \"6175551905\",\n              \"email\": \"bowlbuyer@example.com\"\n            }\n          },\n          \"shippingInfo\": {\n            \"selectedCarrierServiceOption\": {\n              \"code\": \"5336e031-4421-fdb5-08fa-45b777dbc488\",\n              \"title\": \"Standard shipping\",\n              \"logistics\": {\n                \"deliveryTime\": \"\"\n              },\n              \"cost\": {\n                \"price\": \"3\"\n              }\n            }\n          },\n          \"ecomId\": \"41abc90a-c82d-4e33-bbea-7e3494bc6522\"\n        }\n      }\n    }"],
+        "response": ["{\n  \"additionalFees\": [  {\n    \"code\": \"subscription-fee\",\n    \"name\": \"Subscription Fee\",\n    \"price\": \"5\",\n    \"taxDetails\": {\"taxable\": \"true\"}\n  }],\n  \"currency\": \"USD\"\n} "],
+        "type": "curl",
+        "extra": {"description": "The data payload will include the following object as an encoded JWT. For the purposes of this example, we show the request and response objects decoded."}
+      }],
+      "extra": {}
+    },
+    "extra":     {
+      "hasRest": true,
+      "rpcRequestName": "CalculateAdditionalFeesRequest",
+      "rpcResponseName": "CalculateAdditionalFeesResponse"
+    },
+    "customLabels": [{"id": "maturity-beta"}]
+  }],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_AdditionalFee",
+      "displayName": "Additional Fee Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Additional fees calculated.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Additional fee's unique code or ID.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " \nAdditional fee's name.  \n\nMax: 50 characters\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": "\nTotal additional fees. This `price` does not include any taxes that may apply to these additional fees.\n"
+        },
+                {
+          "name": "taxDetails",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_TaxDetails",
+          "doc": "\nTax details.  \n\n> **Note:** Tax is not calculated in the returned `price` even when `taxDetails.taxable` is `true`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_TaxDetails",
+      "displayName": "Tax Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Tax details.\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "taxable",
+          "type": "boolean",
+          "doc": " Whether additional fees are taxable.\n"
+        },
+                {
+          "name": "taxGroupId",
+          "type": "string",
+          "doc": " Reserved for internal use.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+      "displayName": "Catalog Reference Object",
+      "locations": [],
+      "docs":       {
+        "summary": " Used for grouping line items and is sent on add to cart\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "catalogItemId",
+          "type": "string",
+          "doc": " ID of the item within its Wix or 3rd-party catalog. For example, `productId` for Wix Stores or `eventId` for Wix Events.\n"
+        },
+                {
+          "name": "appId",
+          "type": "string",
+          "doc": " ID of the catalog app. For example, the Wix Stores `appId`, or the 3rd-party `appId`.\n"
+        },
+                {
+          "name": "options",
+          "type": "struct",
+          "doc": " Additional info in key:value form. For example, `{\"options\":{\"Size\": \"M\", \"Color\": \"Red\"}}` or `{\"variantId\": \"<VARIANT_ID>\"}`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+      "displayName": "Physical Properties Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "weight",
+          "type": "number",
+          "doc": " Line item weight. Measurement unit (KG or LB) is taken from `order.weightUnit`.\n"
+        },
+                {
+          "name": "sku",
+          "type": "string",
+          "doc": " Stock-keeping unit. Learn more about [SKUs](https://www.wix.com/encyclopedia/definition/stock-keeping-unit-sku).\n"
+        },
+                {
+          "name": "shippable",
+          "type": "boolean",
+          "doc": " Whether this line item is shippable.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_LineItem",
+      "displayName": "Line Item Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Line item ID.\n"
+        },
+                {
+          "name": "quantity",
+          "type": "integer",
+          "doc": " \nQuantity of item.  \n\nMin: `1`  \nMax: `100000`\n"
+        },
+                {
+          "name": "catalogReference",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_CatalogReference",
+          "doc": " Catalog and item reference. Includes IDs for the item and the catalog it came from, as well as further optional info.\n"
+        },
+                {
+          "name": "productName",
+          "type": "string",
+          "doc": " Item name.\n"
+        },
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Price for a single item.\n"
+        },
+                {
+          "name": "physicalProperties",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_catalog_spi_api_v1_PhysicalProperties",
+          "doc": " Physical properties of the item. When relevant, contains information such as SKU, item weight, and shippability.\n"
+        },
+                {
+          "name": "depositAmount",
+          "type": "string",
+          "doc": " Partial payment to be paid upfront during the checkout. \nOnly eligible for catalog items with `lineItem.paymentOption` type of `DEPOSIT_ONLINE`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_StreetAddress",
+      "displayName": "Street Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "number",
+          "type": "string",
+          "doc": " Street number.\n"
+        },
+                {
+          "name": "name",
+          "type": "string",
+          "doc": " Street name.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_FullAddressContactDetails",
+      "displayName": "Full Address Contact Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Full contact details for an address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "firstName",
+          "type": "string",
+          "doc": " Contact's first name.\n"
+        },
+                {
+          "name": "lastName",
+          "type": "string",
+          "doc": " Contact's last name.\n"
+        },
+                {
+          "name": "phone",
+          "type": "string",
+          "doc": " Contact's phone number.\n"
+        },
+                {
+          "name": "company",
+          "type": "string",
+          "doc": " Contact's company name.\n"
+        },
+                {
+          "name": "email",
+          "type": "string",
+          "doc": " Email associated with the address.\n"
+        },
+                {
+          "name": "vatId",
+          "type": "All APIs.Additional Fees Integration SPI._wix_common_VatId",
+          "doc": " Tax info. Currently usable only in Brazil.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatId",
+      "displayName": "Vat Id Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "id",
+          "type": "string",
+          "doc": " Customer's tax ID.\n"
+        },
+                {
+          "name": "type",
+          "type": "All APIs.Additional Fees Integration SPI._wix_common_VatType",
+          "doc": "\nTax type.\n\nSupported values:\n+ `CPF`: for individual tax payers\n+ `CNPJ`: for corporations\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_BuyerDetails",
+      "displayName": "Buyer Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "contactDetails",
+        "type": "All APIs.Additional Fees Integration SPI._wix_common_FullAddressContactDetails",
+        "doc": " Contact details.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_platform_common_api_Address",
+      "displayName": "Address Object",
+      "locations": [],
+      "docs":       {
+        "summary": "Physical address\n",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "country",
+          "type": "string",
+          "doc": " Two-letter country code in [ISO-3166 alpha-2](https://www.iso.org/obp/ui/#search/code/) format.\n"
+        },
+                {
+          "name": "subdivision",
+          "type": "string",
+          "doc": " Code for a subdivision (such as state, prefecture, or province) in [ISO 3166-2](https://www.iso.org/standard/72483.html) format.\n"
+        },
+                {
+          "name": "city",
+          "type": "string",
+          "doc": " City name.\n"
+        },
+                {
+          "name": "postalCode",
+          "type": "string",
+          "doc": " Postal or zip code.\n"
+        },
+                {
+          "name": "streetAddress",
+          "type": "All APIs.Additional Fees Integration SPI._wix_common_StreetAddress",
+          "doc": " Street address.\n"
+        },
+                {
+          "name": "addressLine",
+          "type": "string",
+          "doc": " Main address line (usually street name and number).\n"
+        },
+                {
+          "name": "addressLine2",
+          "type": "string",
+          "doc": " Free text providing more detailed address info. Usually contains apt, suite, floor.\n"
+        },
+                {
+          "name": "countryFullname",
+          "type": "string",
+          "doc": " Country's full name.",
+          "readOnly": true
+        },
+                {
+          "name": "subdivisionFullname",
+          "type": "string",
+          "doc": " Subdivision full-name.",
+          "readOnly": true
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_ShippingInformation",
+      "displayName": "Shipping Information Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "selectedCarrierServiceOption",
+        "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOption",
+        "doc": " Selected carrier shipping option.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOption",
+      "displayName": "Selected Carrier Service Option Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "code",
+          "type": "string",
+          "doc": " Unique identifier of selected option. For example, `\"usps_std_overnight\"`.\n"
+        },
+                {
+          "name": "title",
+          "type": "string",
+          "doc": " Title of the option, such as USPS Standard Overnight Delivery (in the requested locale).\n For example, \"Standard\" or \"First-Class Package International\".\n",
+          "readOnly": true
+        },
+                {
+          "name": "logistics",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_DeliveryLogistics",
+          "doc": " Delivery logistics.\n",
+          "readOnly": true
+        },
+                {
+          "name": "cost",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOptionPrices",
+          "doc": " Shipping costs.\n",
+          "readOnly": true
+        },
+                {
+          "name": "otherCharges",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOptionOtherCharge"]
+          },
+          "doc": " Other charges.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOptionPrices",
+      "displayName": "Selected Carrier Service Option Prices Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "price",
+          "type": "string",
+          "doc": " Price.\n"
+        },
+                {
+          "name": "totalDiscount",
+          "type": "string",
+          "doc": " Total shipping discount.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOptionOtherCharge",
+      "displayName": "Selected Carrier Service Option Other Charge Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "type",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_ChargeType",
+          "doc": " Type of charge.\n"
+        },
+                {
+          "name": "details",
+          "type": "string",
+          "doc": " \nDetails of the charge.  \n\nMax: 200 characters\n"
+        },
+                {
+          "name": "cost",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_SelectedCarrierServiceOptionPrices",
+          "doc": "\nCost.  \n\n`cost` is `price` minus `totalDiscount`.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_PickupDetails",
+      "displayName": "Pickup Details Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "address",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_platform_common_api_Address",
+          "doc": " Pickup address.\n"
+        },
+                {
+          "name": "businessLocation",
+          "type": "boolean",
+          "doc": " Whether the pickup address is a business. This may affect tax calculation.\n",
+          "deprecated": true
+        },
+                {
+          "name": "pickupMethod",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_PickupDetails_PickupMethod",
+          "doc": " Pickup method.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_DeliveryLogistics",
+      "displayName": "Delivery Logistics Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "deliveryTime",
+          "type": "string",
+          "doc": " Expected delivery time. For example, \"3-5 business days\".\n"
+        },
+                {
+          "name": "instructions",
+          "type": "string",
+          "doc": " Instructions for deliver. For example, \"Please deliver during open hours and please don't park in disabled parking spot\".\n"
+        },
+                {
+          "name": "pickupDetails",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_PickupDetails",
+          "doc": " Pickup details.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_CalculateAdditionalFeesRequest",
+      "displayName": "Calculate Additional Fees Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "lineItems",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_LineItem"]
+          },
+          "doc": " \nLine items to calculate additional fees for.  \n\nMax: 300 items\n"
+        },
+                {
+          "name": "shippingAddress",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_platform_common_api_Address",
+          "doc": " Shipping address.\n"
+        },
+                {
+          "name": "buyerDetails",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_BuyerDetails",
+          "doc": " Information about the buyer, such as contact details.\n"
+        },
+                {
+          "name": "shippingInfo",
+          "type": "All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_ShippingInformation",
+          "doc": " Shipping information.\n"
+        },
+                {
+          "name": "ecomId",
+          "type": "string",
+          "doc": " \nWix eCommerce ID.  \n\n`eComId` stays consistent with an eCommerce element as it flows through cart, checkout, and order.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_CalculateAdditionalFeesResponse",
+      "displayName": "Calculate Additional Fees Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "additionalFees",
+          "type":           {
+            "name": "array",
+            "typeParams": ["All APIs.Additional Fees Integration SPI._com_wix_ecommerce_additional_fees_spi_api_v1_AdditionalFee"]
+          },
+          "doc": " Additional fees calculated.\n"
+        },
+                {
+          "name": "currency",
+          "type": "string",
+          "doc": " \nCurrency of additional fees calculated. In three-letter currency code \n[ISO-4217 alphabetic](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) format.  \n\nThe currency returned in the response object must match the wix site's currency or those fees will \nbe filtered out and not returned. Extract the `currency` from the \n[request envelope](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_request-envelope) \nto ensure the correct currency is used in your calculation.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_wix_common_VatType",
+      "displayName": "Vat Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " tax info types\n \n Possible values are: <li><code> UNSPECIFIED <\/code><\/li><li><code> CPF -  CPF - for individual tax payers.\n <\/code><\/li><li><code> CNPJ -  CNPJ - for corporations\n <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNSPECIFIED",
+        "CPF",
+        "CNPJ"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_ChargeType",
+      "displayName": "Charge Type Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> HANDLING_FEE <\/code><\/li><li><code> INSURANCE <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "HANDLING_FEE",
+        "INSURANCE"
+      ],
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wix_ecommerce_additional_fees_spi_api_v1_PickupDetails_PickupMethod",
+      "displayName": "Pickup Method Object",
+      "locations": [],
+      "docs":       {
+        "summary": " \n Possible values are: <li><code> UNKNOWN_METHOD <\/code><\/li><li><code> STORE_PICKUP <\/code><\/li><li><code> PICKUP_POINT <\/code><\/li>",
+        "links": [],
+        "examples": []
+      },
+      "members": [],
+      "enum":       [
+        "UNKNOWN_METHOD",
+        "STORE_PICKUP",
+        "PICKUP_POINT"
+      ],
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.restaurants.poc.fees.additional-fees-provider"}
+}

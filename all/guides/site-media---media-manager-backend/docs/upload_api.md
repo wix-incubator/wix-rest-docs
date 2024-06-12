@@ -85,7 +85,6 @@ async function uploadMyFile(uploadUrl, fileContent) {
 
 
 ## Status/Error Codes
-Errors from this endpoint will 
-The response will include a [gRPC/HTTP status code](https://bo.wix.com/wix-docs/rnd/platformization-guidelines/errors#platformization-guidelines_errors_errors).
+The response will include an [HTTP status code](https://dev.wix.com/api/rest/getting-started/errors).
         
 

@@ -1,5 +1,206 @@
 # Release Notes
 
+## New Release: [Comments](comments/comments)
+
+The new [Comments API](comments/comments) allows a third party to manage a site's comments. It includes the following endpoints:
+
++ [Create](comments/comments/create-comment), [Update](comments/comments/update-comment), or [Delete](comments/comments/delete-comment) a comment.
++ [Get](comments/comments/get-comment) or [Query](comments/comments/query-comments) comments.
++ [Mark](comments/comments/mark-comment) and [Unmark](comments/comments/unmark-comment) a comment.
++ [Count Comments](comments/comments/count-comments).
++ Webhooks that trigger when a comment is [created](https://dev.wix.com/api/rest/comments/comments/comment-created-webhook), [updated](https://dev.wix.com/api/rest/comments/comments/comment-updated-webhook), [deleted](https://dev.wix.com/api/rest/comments/comments/comment-deleted-webhook), [marked](https://dev.wix.com/api/rest/comments/comments/comment-marked-webhook), or [unmarked](https://dev.wix.com/api/rest/comments/comments/comment-unmarked-webhook).
+
+(July 27, 2023)
+
+## New Release: Wix eCommerce [Validations Integration SPI](wix-ecommerce/validations-integration-spi)
+
+Wix eCommerce introduces the new [Validations Integration SPI](wix-ecommerce/validations-integration-spi). This SPI allows third parties to validate a cart and checkout for their merchant's customers including:
+
++ Minimum cart value.
++ Age of a customer before they proceed to checkout.
++ Line item quantity limit.
++ Valid coupon code.
+
+Using the [Get Validation Violations](wix-ecommerce/validations-integration-spi/get-validation-violations) endpoint, third party developers can provide validation violations for the cart and checkout.
+
+
+(July 27, 2023)
+
+## New Release: Wix eCommerce [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi)
+
+Wix eCommerce introduces the new [Custom Discount Triggers Integration SPI](wix-ecommerce/custom-discount-triggers-integration-spi). This SPI allows third parties to create custom triggers that specify when a discount rule can apply to a cart/checkout. Learn more about the [Discount Rules API](wix-ecommerce/discount-rules).
+
++ [Get Eligible Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/get-eligible-triggers).
++ [List Triggers](wix-ecommerce/custom-discount-triggers-integration-spi/list-triggers).
+
+
+(July 23, 2023)
+
+## New Release: Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi)
+
+The Marketing [SEO Keyword Suggestions SPI](marketing/seo-keyword-suggestions-spi) introduces the ability to integrate third-party SEO keyword services with a Wix site. SEO keyword services include [getting remaining search quota](marketing/seo-keyword-suggestions-spi/get-quota) and [listing keyword suggestions](marketing/seo-keyword-suggestions-spi/list-suggested-keywords).
+
+
+(July 17, 2023)
+
+## New Release: Wix Bookings [Attendance API](wix-bookings/attendance)
+
+Wix Bookings introduces the new [Attendance API](wix-bookings/attendance). This API allows you to track how many participants attended a booked session.
+
++ [Set](wix-bookings/attendance/set-attendance) the attendance for a booked session.
++ [Get](wix-bookings/attendance/get-attendance) the attendance for a booked session.
++ [Query](wix-bookings/attendance/query-attendance) attendance for booked sessions.
+
+
+(June 8, 2023)
+
+
+## New Release: Wix eCommerce [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts)
+
+Wix eCommerce introduces the new [Abandoned Checkouts API](wix-ecommerce/abandoned-checkouts). When a customer begins an eCommerce Checkout process but doesn't complete it (for example, after closing their browser tab before putting in their payment details and making a payment), that checkout becomes an abandoned checkout. 
+
+The Abandoned Checkouts API allows an app developer to help a customer recover their abandoned checkout (return to their incomplete checkout and complete the checkout).
+
+The Abandoned Checkouts API provides the following functionalities:
+
++ [Get](wix-ecommerce/abandoned-checkouts/get-abandoned-checkout) an abandoned checkout.
++ [Query](wix-ecommerce/abandoned-checkouts/query-abandoned-checkouts) abandoned checkouts.
++ An event when an abandoned checkout is [created](wix-ecommerce/abandoned-checkouts/abandoned-checkout-created-webhook).
++ An event when an abandoned checkout is [recovered](wix-ecommerce/abandoned-checkouts/abandoned-checkout-recovered-webhook).
+
+
+(June 6, 2023)
+
+
+## New Webhooks: [Wix Bookings V2](wix-bookings/bookings-v2)
+
+The [Bookings V2 API](wix-bookings/bookings-v2) now includes new webhooks for helping you manage the booking process flow:
+
++ [Booking Created](/wix-bookings/bookings-v2/booking-created-webhook)
++ [Booking Rescheduled](/wix-bookings/bookings-v2/booking-rescheduled-webhook)
++ [Booking Confirmed](/wix-bookings/bookings-v2/booking-confirmed-webhook)
++ [Booking Declined](/wix-bookings/bookings-v2/booking-declined-webhook)
++ [Booking Canceled](/wix-bookings/bookings-v2/booking-canceled-webhook)
++ [Number of Participants Updated](/wix-bookings/bookings-v2/number-of-participants-updated-webhook)
+
+
+(May 30, 2023)
+
+
+## New Release: [Bookings Service Options and Variants](wix-bookings/service-options-and-variants)
+
+The [Bookings Service Options and Variants](wix-bookings/service-options-and-variants) API enables you to retrieve and manage options and variants for a particular bookings service. The new API includes:
+
++ [Get Service Options And Variants](/wix-bookings/service-options-and-variants/get-service-options-and-variants)  
++ [Get Service Options And Variants By Service ID](/wix-bookings/service-options-and-variants/get-service-options-and-variants-by-service-id)
++ [Query Service Options And Variants](/wix-bookings/service-options-and-variants/query-service-options-and-variants)
++ [Create Service Options And Variants](/wix-bookings/service-options-and-variants/create-service-options-and-variants)
++ [Clone Service Options And Variants](/wix-bookings/service-options-and-variants/clone-service-options-and-variants)
++ [Update Service Options And Variants](/wix-bookings/service-options-and-variants/update-service-options-and-variants)
++ [Delete Service Options And Variants](/wix-bookings/service-options-and-variants/delete-service-options-and-variants)
++ Webhooks: 
+    + [Service Options And Variants Created](/wix-bookings/service-options-and-variants/service-options-and-variants-created-webhook)
+    + [Service Options And Variants Updated](/wix-bookings/service-options-and-variants/service-options-and-variants-updated-webhook)
+    + [Service Options And Variants Deleted](/wix-bookings/service-options-and-variants/service-options-and-variants-deleted-webhook)
+
+(May 22, 2023)
+
+## New Functionality: [Wix Blocks](https://support.wix.com/en/wix-blocks)
+3rd party apps can now be written partially or completely using Wix Blocks, powered by [Velo by Wix](https://www.wix.com/velo/reference).
+See [Publishing your Blocks app to the App Market](https://support.wix.com/en/article/wix-blocks-publishing-your-app-to-the-app-market) for details.
+
+(May 22, 2023)
+
+## New Release: [Redirect Session](redirect-session/redirect-session)
+
+The [Redirect Session](redirect-session/redirect-session) API enables you to manage redirection of site visitors between external Wix Headless client sites and Wix-managed pages for processes such as authentication and checkout. The new API includes:
+
+- [Create Redirect Session](redirect-session/redirect-session/create-redirect-session)
+
+(April 30, 2023)
+
+## New Release: [Event Guests](wix-events/event-guests)
+
+The [Event Guests](wix-events/event-guests) API enables you to manage guests for a particular event. The new API includes:
+
+- [Query Event Guests](wix-events/event-guests/query-event-guests)
+
+(April 25, 2023)
+
+## New Release: Wix eCommerce [Additional Fees Integration SPI](wix-ecommerce/additional-fees-integration-spi)
+
+The new [Calculate Additional Fees](wix-ecommerce/additional-fees-integration-spi/calculate-additional-fees) endpoint provides third parties the ability to calculate various additional fees for items in a cart, checkout, or order.
+
+(April 13, 2023)
+
+## New Release: [Wix Data API](wix-data)
+
+The [Wix Data API](wix-data/wix-data) provides a complete solution for accessing, organizing, configuring, and managing data stored in a Wix project or site's database. It includes the following APIs:
+
++ [Data Items](wix-data/wix-data/data-items): Access and manage items in a Wix site's data collections.
++ [Data Collections](wix-data/wix-data/data-collections): Create data collections and manage their structure.
++ [Indexes](wix-data/wix-data/indexes): Create indexes for data collections, to make querying data faster.
++ [External Database Connections](wix-data/wix-data/external-database-connections): Connect an external database and manage it with Wix Data APIs.
+
+(April 13, 2023)
+
+## New Release: [OAuth Apps API](auth-management/oauth-apps)
+
+The [OAuth Apps API](auth-management/oauth-apps) API enables you to create and manage OAuth apps which authorize external apps or sites to access a Wix project or site's data. It includes the following endpoints:
+
++ [Create OAuth App](auth-management/oauth-apps/create-oauth-app)
++ [Delete OAuth App](auth-management/oauth-apps/delete-oauth-app)
++ [Get OAuth App](auth-management/oauth-apps/get-oauth-app)
++ [Query OAuth Apps](auth-management/oauth-apps/query-oauth-apps)
++ [Update OAuth App](auth-management/oauth-apps/update-oauth-app)
+
+(April 02, 2023)
+
+## New Endpoints: [Wix Media](media/media-manager)
+
+The Media API now includes new endpoints and webhooks:
+
++ [Update File Descriptor](media/media-manager/files/update-file-descriptor) updates a file. This replaces [Update File](media/media-manager/files/update-file) which has been deprecated and will be removed on March 31, 2023.
++ [List Files](media/media-manager/files/list-files) retrieves a list of files in the Media Manager.
++ [List Deleted Files](media/media-manager/files/list-deleted-files) retrieves a list of files in the Media Manager's trash bin.
++ [List Folders](media/media-manager/folders/list-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [List Deleted Folders](media/media-manager/folders/list-deleted-folders) retrieves a list of folders in the Media Manager's trash bin.
++ [File Ready Webhook](media/media-manager/files/file-ready-webhook) triggered when a file is ready to be used, after any post-upload processing.
++ [File Failed Webhook](media/media-manager/files/file-failed-webhook) triggered when a file fails during essential post-upload processing.
++ [File Descriptor Updated Webhook](media/media-manager/files/file-descriptor-updated-webhook) triggered when a file is updated, including when a file is moved to a different folder.
++ [File Descriptor Deleted Webhook](media/media-manager/files/file-descriptor-deleted-webhook) triggered when a file is deleted.
++ [Folder Created Webhook](media/media-manager/folders/folder-created-webhook) triggered when a folder is created.
++ [Folder Updated Webhook](media/media-manager/folders/folder-updated-webhook) triggered when a folder is updated.
++ [Folder Deleted Webhook](media/media-manager/folders/folder-deleted-webhook) triggered when a folder is deleted.
+
+(March 30, 2023)
+
+## New Releases: Wix Bookings [Pricing API](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi)
+
+The new [Wix Bookings Pricing APIs](wix-bookings/pricing) and [Pricing Integration SPI](wix-bookings/pricing-integration-spi) provide third parties the ability to preview, calculate, and customize pricing for bookings:
+
++ [Preview](wix-bookings/pricing/preview-price) how much a booking will cost based on its line items.
++ [Calculate](wix-bookings/pricing/calculate-price) how much a booking will cost based on either: 
+    + Standard pricing logic supplied with Wix Bookings.
+    + Custom pricing, that you implement.
++ [Integrate](wix-bookings/pricing-integration-spi) your own custom pricing logic, such as varied pricing, into Wix Bookings with the [Pricing Integration SPI](wix-bookings/pricing-integration-spi).
+
+(March 28, 2023)
+
+
+## New Release: [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments)
+
+The [eCommerce Order Fulfillments](wix-ecommerce/order-fulfillments) API provides third parties the ability to manage eCommerce order fulfillments. The new API includes:
+- [Create Fulfillment](wix-ecommerce/order-fulfillments/create-fulfillment)
+- [Bulk Create Fulfillments](wix-ecommerce/order-fulfillments/bulk-create-fulfillments)
+- [Update Fulfillment](wix-ecommerce/order-fulfillments/update-fulfillment)
+- [List Fulfillments For Single Order](wix-ecommerce/order-fulfillments/list-fulfillments-for-single-order)
+- [List Fulfillments For Multiple Orders](wix-ecommerce/order-fulfillments/list-fulfillments-for-multiple-orders)
+- [Delete Fulfillment](wix-ecommerce/order-fulfillments/delete-fulfillment)
+
+(March 13, 2023)
+
+
 ## New Release: [External Calendars V2](wix-bookings/external-calendars-v2)
 
 The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you to connect and sync a Wix site with external calendars. The new API includes the following endpoints:
@@ -16,16 +217,16 @@ The [External Calendars V2](wix-bookings/external-calendars-v2) API enables you 
 (March 02, 2023)
 
 
-## New Release: [Policy v2](wix-events/policy-v2)
+## New Release: [Policies v2](wix-events/policies-v2)
 
-The [Policy v2](wix-events/policy-v2) API enables you to manage the policies for a particular event. The new API includes:
+The [Policies v2](wix-events/policies-v2) API enables you to manage the policies for a particular event. The new API includes:
 
-- [Create Policy](wix-events/policy-v2/create-policy)
-- [Delete Policy](wix-events/policy-v2/delete-policy)
-- [Get Policy](wix-events/policy-v2/get-policy)
-- [Query Policies](wix-events/policy-v2/query-policies)
-- [Reorder Event Policies](wix-events/policy-v2/reorder-event-policies)
-- [Update Policy](wix-events/policy-v2/update-policy)
+- [Create Policy](wix-events/policies-v2/create-policy)
+- [Delete Policy](wix-events/policies-v2/delete-policy)
+- [Get Policy](wix-events/policies-v2/get-policy)
+- [Query Policies](wix-events/policies-v2/query-policies)
+- [Reorder Event Policies](wix-events/policies-v2/reorder-event-policies)
+- [Update Policy](wix-events/policies-v2/update-policy)
 
 (March 01, 2023)
 

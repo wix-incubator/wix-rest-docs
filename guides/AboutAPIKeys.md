@@ -4,7 +4,7 @@ API keys allow you to make API calls at the account and site level while bypassi
 
 [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where you can assign a set of permissions that determine the types of APIs the key can access.
 
-![API Keys Manager](./../../media/APIKeysManager.jpg)
+![API Keys Manager](../media/APIKeysManager.jpg)
 
 ## Create and use API keys
 
@@ -19,7 +19,7 @@ API keys allow you to make API calls at the account and site level while bypassi
       > The site ID for a current site can be obtained from the site URL in your browser.
       > For example, the site ID appears after the '/dashboard/' part of this URL: <br />
       > <br />
-      > ![site Id in URL](./../../media/siteid.png)
+      > ![site Id in URL](../media/siteid.png)
 
       1. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
       2. Enter the account ID in the account ID header, as shown below. (In other calls, the site ID header may be required. Refer to the documentation for each specific call.)
