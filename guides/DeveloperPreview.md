@@ -20,9 +20,7 @@ Here is some important information to know about Developer Preview:
 
 ### Breaking changes 
 
-APIs in Developer Preview are still in development. This means that we **may change them at any time**. 
-Notifications about breaking changes appear in the [release notes](/release-notes) and in the API reference for the affected functions and properties. 
-We will not contact you directly about breaking changes. 
+APIs in Developer Preview are still in development. This means that we may change them at any time, without notice.
 
 ### Timeframe 
 APIs are expected to stay in Developer Preview mode for approximately 6 months. After that they are fully released, and any breaking changes require a 6 month deprecation notice.
