@@ -26,8 +26,7 @@ and configure your server to report the relevant events via the
 When configuring your app in the Wix Developers Center,
 select **Automations** from the left menu,
 then select **Create New > Trigger**.
-See [Create Triggers for Your App](https://devforum.wix.com/kb/en/article/create-automation-triggers-for-your-app)
-for more information on configuring a trigger.
+Learn more about [configuring a trigger](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/automations/triggers/about-triggers) for your app.
 
 After users install your app,
 your triggers are available for their automations,
