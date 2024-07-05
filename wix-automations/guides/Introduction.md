@@ -1,4 +1,4 @@
-# About Wix Automations Triggers
+# About Wix Automations
 
 Wix Automations allows site collaborators to automatically take an action
 in response to triggers.
@@ -19,15 +19,14 @@ to allow site collaborators to create automations with your triggers.
 You'll set up your app's trigger in the
 [Wix Developers Center](https://dev.wix.com/apps/)
 and configure your server to report the relevant events via the
-[Triggered Events](https://dev.wix.com/api/rest/wix-automations/triggered-events) API.
+[Triggered Events](https://dev.wix.com/docs/rest/business-management/automations/triggered-events/report-event) API.
 
 ## How to become a trigger provider
 
 When configuring your app in the Wix Developers Center,
 select **Automations** from the left menu,
 then select **Create New > Trigger**.
-See [Create Triggers for Your App](https://devforum.wix.com/kb/en/article/create-automation-triggers-for-your-app)
-for more information on configuring a trigger.
+Learn more about [configuring a trigger](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/automations/triggers/about-triggers) for your app.
 
 After users install your app,
 your triggers are available for their automations,
