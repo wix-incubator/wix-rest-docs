@@ -10,4 +10,4 @@ The default fieldset is typically the full object, although your API may specify
 
 If you specify fieldsets and projected fields together in a request, the union of all included fields is returned. For example, if you specify the `BASIC` fieldset and the `info.birthdate` field, all fields included in the `BASIC` fieldset and `info.birthdate` are returned.
 
-If neither fieldsets nor projected fields are specified, the default fieldset is returned.
+If neither fieldsets nor projected fields are specified, the default fieldset is returned. 
