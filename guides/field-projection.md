@@ -1,29 +1,13 @@
 # Field Projection
 
-Some endpoints support field projection, which allows you to control which fields are returned in the response object.
+Some endpoints support field projection, which allows you to control which fields are returned in the response object. This is done with the use of fieldsets and projected fields.
 
-**Fields** are predefined enumerations that may be either:
-  - Named sets of fields provided by Wix for common use cases.
-  - Individual field names.
+**Fieldsets** are predefined, named sets of fields. Fieldsets are provided by Wix for common use cases. For example, in the Contacts API, the `FULL` fieldset returns the full contact object, and the `BASIC` fieldset returns the contact's name, primary email, and primary phone number.
 
-In some cases, specific `fields` values may be protected by additional permissions.
+The default fieldset is typically the full object, although your API may specify a different default fieldset. See your API's documentation for specific details.
 
-## Legacy field projection
+**Projected fields**, on the other hand, allow you to supply a list of fields to return.
 
-Legacy APIs offer `fieldsets` and `fields` to manage returned fields:
-
-- **Fieldsets** are predefined and named sets of fields. Fieldsets are provided by Wix for common use cases.
-For example, in the [Contacts API](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/contact-object), the `FULL` fieldset returns the full contact object,
-and the `BASIC` fieldset returns the contact's name, primary email, and primary phone number.
-
-  The default fieldset is typically the full object, although some APIs may specify a different default fieldset.  
-  See each API's documentation for specific details.
-
-- **Projected fields**, on the other hand, allow you to supply a list of field names to return.
-
-If you specify fieldsets and projected fields together in a request,
-the union of all included fields is returned.
-For example, if you specify the `BASIC` fieldset and the `info.birthdate` field,
-all fields included in the `BASIC` fieldset and `info.birthdate` are returned.
+If you specify fieldsets and projected fields together in a request, the union of all included fields is returned. For example, if you specify the `BASIC` fieldset and the `info.birthdate` field, all fields included in the `BASIC` fieldset and `info.birthdate` are returned.
 
 If neither fieldsets nor projected fields are specified, the default fieldset is returned.
