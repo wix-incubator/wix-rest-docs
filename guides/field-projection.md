@@ -19,7 +19,7 @@ and the `BASIC` fieldset returns the contact's name, primary email, and primary 
   The default fieldset is typically the full object, although some APIs may specify a different default fieldset.  
   See each API's documentation for specific details.
 
-- **Projected fields**, on the other hand, allow you to supply a list of field names to return.
+- **Fields**, on the other hand, allow you to supply a list of field names to return.
 
 If you specify fieldsets and projected fields together in a request,
 the union of all included fields is returned.
