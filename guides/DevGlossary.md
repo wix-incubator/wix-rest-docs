@@ -50,7 +50,7 @@
 
 - **Site Owner**: The Wix user who created the site – usually the business owner or the person who is managing the business via the Wix site.
 
-- **SPI**: Service Provider Interface. An API designed to be implemented or extended by a third party.
+- **Service Plugin**: An API designed to be implemented or extended by a third party.
 
 - **Template**: A generic site layout, usually geared to a specific topic or business type (e.g., restaurant, gym, photography, etc.). A template serves as a starting point for building a new site.
 
