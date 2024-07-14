@@ -13,7 +13,7 @@ Deprecated endpoints will include the following note in the docuementation:
 
 <blockquote class='danger'>
               <p><strong>Deprecation Notice</strong><br/>
-  <p>This endpoint has been replaced with <b>New Endpoint</b>, and will be removed on <b>June 30, 2021. If your app uses this endpoint, we recommend updating your code as soon as possible.</b></p>
+  <p>This endpoint has been replaced with <b>New Endpoint</b>, and will be removed on <b>June 30, 2021</b>. If your app uses this endpoint, we recommend updating your code as soon as possible.</b></p>
 </blockquote>`
 
 They will also be added to the [End-of-life notices](https://dev.wix.com/docs/rest/articles/what-s-new/end-of-life-notices).
