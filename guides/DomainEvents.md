@@ -19,7 +19,7 @@ The data payload will include the following as an encoded JWT:
     
 
 ## Data payload
-The data payload will always include the following fields:
+The `data.data` payload will always include the following fields:
 
 | Field name | Description | 
 | :-------------- | :------- |  
