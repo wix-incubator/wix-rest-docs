@@ -37,7 +37,7 @@ In addition, each webhook will include one of the following fields with data spe
 | :-------------- | :------- |  
 | `createdEvent` | Complete entity that was created. |
 | `updatedEvent` | Complete entity that was updated. |
-| `actionEvent` | Data related to the non-standard action that was taken. For example, the [Contact Merged](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/contact-merged) webhook returns the IDs of the source and target contact IDs in addition to the complete updated entity.|
+| `actionEvent` | Data related to the non-standard action that was taken, generally including the complete entity. For example, the [Contact Merged](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/contact-merged) webhook returns the IDs of the source and target contact IDs in addition to the complete updated entity.|
 | `deletedEvent` | ID of the entity that was deleted. |
 
 ## Legacy webhooks
