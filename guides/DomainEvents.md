@@ -27,7 +27,7 @@ The `data.data` payload will always include the following fields:
 | `slug` | Event type. Common values include: `created`, `updated`, and `deleted`. Non-CUD actions will return a slug that corresponds to the action taken. For example, the [Merge Contacts](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/merge-contacts) endpoint triggers a webhook with slug: `merge`. |
 | `entityFqdn` | Fully qualified domain name of the entity associated with the event. |
 | `entityId` | ID of the affected entity. For example, the affected contact ID. |
-| `eventTime` | Timestamp when the webhook was triggered. |
+| `eventTime` | Timestamp when the webhook was triggered, in UTC time zone. |
 | `triggeredByAnonymizeRequest` | Whether this change was triggered by a request to apply a privacy regulation. |
 | `originatedFrom` | The slug of the action that triggered this change, when applicable. For example, when a contact is deleted due to merging of 2 contacts, this field will be populated with `merge`. |
 
