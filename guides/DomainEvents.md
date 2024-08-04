@@ -1,6 +1,7 @@
 # Webhook structure
 
-Wix exposes webhooks for standard create, update, and delete actions, and relevant additional actions in a standardized format. 
+Wix exposes webhooks for standard create, update, and delete actions, and relevant additional actions.
+Most webhooks are organized in a standard format, as described below. Wix also has some legacy webhooks that don't comply with the standardized format.
 
 The data payload will include the following as an encoded JWT:
 
