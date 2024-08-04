@@ -2,7 +2,7 @@
 
 A Fully Qualified Domain Name (FQDN) is a unique identifier assigned to each Wix service entity.
 
-The standard FQDN naming structure looks like: FQDNs MUST follow the structure: `wix.<domain?>.<product>.<version>.<entity>`.
+The standard FQDN naming structure looks like: `wix.<domain?>.<product>.<version>.<entity>`.
 
 For example, the Wix eCommerce Cart entity's FQDN is: `wix.ecom.v1.cart`.
 
