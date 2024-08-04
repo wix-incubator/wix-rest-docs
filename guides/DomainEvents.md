@@ -7,7 +7,7 @@ The data payload will include the following as an encoded JWT:
 | Field name | Description | 
 | :-------------- | :------- |  
 | `data` | |
-| `data.eventType`| Webhook event type. For example: `wix.contacts.v4.contact_merged`. |
+| `data.eventType`| Webhook event type, as documented in each webhook. For example: `wix.contacts.v4.contact_merged`. |
 | `data.instanceId`| App instance ID, the identifier of the site where the event occurred. |
 | `data.data`| Data payload as stringified JSON. See the **Data payload** table. |
 | `data.identity` | Identity data as stringified JSON. See the **Identity payload** table. | // Identity of what??
@@ -38,9 +38,12 @@ In addition, each webhook will include one of the following fields with data spe
 
 ## Identity payload
 
+The `data.identity` payload will include the type and ID of the identity that triggered the event:
+
 | Field name | Description | 
 | :-------------- | :------- |  
 | `data.identity.identityType`| Identity type that triggered this event. Supported values: `ANONYMOUS_VISITOR`, `MEMBER`, `WIX_USER`, `APP`. See [Identities](https://dev.wix.com/docs/build-apps/develop-your-app/access/about-identities).|
+| One of: |
 | `data.identity.anonymousVisitorId` | Visitor ID. |
 | `data.identity.memberId`|  Member ID. |
 | `data.identity.wixUserId` | Wix User ID. | 
