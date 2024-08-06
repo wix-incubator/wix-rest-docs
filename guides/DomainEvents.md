@@ -57,4 +57,4 @@ The `data.identity` payload will include the type and ID of the identity that tr
 ## Legacy webhooks
 Wix also returns some legacy webhooks that don't follow the above standard.
 For example, the legacy Wix Stores [Product Changed](https://dev.wix.com/docs/rest/business-solutions/stores/catalog/product-changed) webhook only returns the fields that were updated, and these fields are returned in a flat list, not according to the full object structure.
-We're working to replace these webhooks with new ones that align with the above standard, but in the meantime your may depend on a webhook that doesn't align with the standard structure.
+We're working to replace these webhooks with new ones that align with the above standard, but in the meantime you may depend on a webhook that doesn't align with the standard structure.
