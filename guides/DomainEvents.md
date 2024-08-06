@@ -7,7 +7,7 @@ Most webhooks are organized in a standardized format, as described below. Wix al
 
 The majority of webhooks exposed by Wix align with the standardized format described below.
 
-The data payload will include the following as an encoded JWT:
+The data payload will consist of the following information encoded as a JWT:
 
 | Field name | Description | 
 | :-------------- | :------- |  
