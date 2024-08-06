@@ -7,7 +7,7 @@ Most webhooks are organized in a standardized format, as described below. Wix al
 
 The majority of webhooks exposed by Wix align with the standardized format described below.
 
-The data payload will consist of the following information encoded as a JWT:
+The data payload consists of the following information encoded as a JWT:
 
 | Field name | Description | 
 | :-------------- | :------- |  
@@ -18,20 +18,20 @@ The data payload will consist of the following information encoded as a JWT:
 | `data.identity` | Identity data as stringified JSON. See the **Identity payload** table. | // Identity of what??
 
 ### Data payload
-The `data.data` payload will always include the following fields:
+The `data.data` payload always includes the following fields:
 
 | Field name | Description | 
 | :-------------- | :------- |  
 | `id` | Webhook event ID. Note that this ID is not related to the ID of the affected entity. |
-| `slug` | Event type. Common values include: `created`, `updated`, and `deleted`. Non-standard actions will return a slug that corresponds to the action taken, as documented in each webhook. For example, the [Merge Contacts](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/merge-contacts) endpoint triggers a webhook with slug: `merge`. |
+| `slug` | Event type. Common values include: `created`, `updated`, and `deleted`. Non-standard actions return a slug that corresponds to the action taken, as documented in each webhook. For example, the [Merge Contacts](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/contacts/contact-v4/merge-contacts) endpoint triggers a webhook with slug: `merge`. |
 | `entityFqdn` | Fully qualified domain name (FQDN) of the entity associated with the event, as documented in each webhook. |
 | `entityId` | ID of the affected entity. For example, the affected contact ID. |
 | `eventTime` | Timestamp when the event was triggered, in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format and UTC time. |
 | `triggeredByAnonymizeRequest` | Whether this change was triggered by a request to apply a privacy regulation. |
-| `originatedFrom` | The slug of the action that triggered this change, when applicable, as documented in each webhook. For example, when a contact is deleted due to merging of 2 contacts, this field will be populated with `merge`. |
+| `originatedFrom` | The slug of the action that triggered this change, when applicable, as documented in each webhook. For example, when a contact is deleted due to merging of 2 contacts, this field is populated with `merge`. |
 
 
-In addition, each webhook will include one of the following fields with data specifc to the event, based on the slug type:
+In addition, each webhook includes one of the following fields with data specifc to the event, based on the slug type:
 | Field name | Slug | Description | 
 | :-------------- | :------- |  :------- |  
 | `createdEvent` | `created` | Complete entity that was created. |
@@ -43,7 +43,7 @@ In addition, each webhook will include one of the following fields with data spe
 
 ### Identity payload
 
-The `data.identity` payload will include the type and ID of the identity that triggered the event:
+The `data.identity` payload includes the type and ID of the identity that triggered the event:
 
 | Field name | Description | 
 | :-------------- | :------- |  
