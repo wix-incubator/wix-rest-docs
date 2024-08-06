@@ -1,7 +1,11 @@
 # Webhook structure
 
 Wix exposes webhooks for standard create, update, and delete actions, and relevant additional actions.
-Most webhooks are organized in a standard format, as described below. Wix also has some legacy webhooks that don't comply with the standardized format.
+Most webhooks are organized in a standardized format, as described below. Wix also has some legacy webhooks that don't comply with the standardized format.
+
+## Standardized webhooks
+
+The majority of webhooks exposed by Wix align with the standardized format described below.
 
 The data payload will include the following as an encoded JWT:
 
@@ -13,7 +17,7 @@ The data payload will include the following as an encoded JWT:
 | `data.data`| Data payload as stringified JSON. See the **Data payload** table. |
 | `data.identity` | Identity data as stringified JSON. See the **Identity payload** table. | // Identity of what??
 
-## Data payload
+### Data payload
 The `data.data` payload will always include the following fields:
 
 | Field name | Description | 
@@ -37,7 +41,7 @@ In addition, each webhook will include one of the following fields with data spe
 
 
 
-## Identity payload
+### Identity payload
 
 The `data.identity` payload will include the type and ID of the identity that triggered the event:
 
