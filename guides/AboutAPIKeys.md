@@ -1,6 +1,6 @@
 # About API Keys
 
-API keys allow site owners to make API calls at the account and site level while bypassing OAuth authentication. 
+API keys are authentication tools that account owners and co-owners can create and provide to external developers, enabling them to make API calls at the account and site level while bypassing OAuth authentication. 
 
 > **Note:**
 > Currently only account owners and co-owners can create API keys. 
