@@ -18,7 +18,7 @@ The data payload consists of the following information encoded as a JWT:
 | `data.identity` | Identity data as stringified JSON. See the **Identity payload** table. | // Identity of what??
 
 ### Data payload
-The `data.data` payload always includes the following fields:
+The `data.data` payload includes the following fields:
 
 | Field name | Description | 
 | :-------------- | :------- |  
