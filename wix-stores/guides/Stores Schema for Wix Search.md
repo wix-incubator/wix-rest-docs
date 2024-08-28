@@ -1,11 +1,9 @@
 # Stores Schema for Wix Search
 
-This article describes the Wix Stores fields you can [search and aggregate](https://dev.wix.com/docs/velo/api-reference/wix-search-v2/wix-site-search/search) on your site.
+This article describes the Wix Stores fields you can [search and aggregate](https://dev.wix.com/docs/rest/business-management/search/wix-site-search/search) on a site.
 
-To search or aggregate Wix Stores products on your site, set the search API `documentType` parameter to `STORES_PRODUCTS`. 
+To search or aggregate Wix Stores products on a site, set the search API `documentType` parameter to `STORES_PRODUCTS`. 
 
->**Note** 
-> The Stores/Products fields supported by Wix Search are not identical to the fields in your site's [Stores/Products collection](../Wix%20Stores%20with%20Velo/Wix%20Stores%20Products%20Collection%20Fields.md).
 
 ### Fields
 
@@ -107,10 +105,6 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 **Can filter**: in, eq, ne, gt, ge, lt, le 
 
-**Can suggest**: Yes
-
-**Can autocomplete**: Yes
-
 #### inStock
 
 **Description**: Indicates whether the product is in stock.
@@ -155,7 +149,7 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 #### discountedPrice
 
-**Description**: ?
+**Description**: Price after a discount has been applied.
 
 **Type**: String
 
@@ -165,13 +159,13 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 **Can sort**: Yes
 
-**Can filter**: yes..?
+**Can filter**: in, nin, eq, ne, gt, gte, lt, lte, exists, startsWith 
 
 #### discountedPriceNumeric
 
-**Description**: ?
+**Description**: Numeric representation of the price after a discount has been applied.
 
-**Type**: Double?
+**Type**: Double
 
 **Can search the content of this field**: No
 
@@ -179,13 +173,13 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 **Can sort**: Yes
 
-**Can filter**: yes..?
+**Can filter**: eq, ne, gt, gte, lt, lte, exists
 
 #### currency
 
 **Description**: Currency of the store product's price.
 
-**Type**: Double?
+**Type**: String
 
 **Can search the content of this field**: No
 
@@ -193,11 +187,11 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 **Can sort**: Yes
 
-**Can filter**: yes..?
+**Can filter**: in, nin, eq, ne, gt, gte, lt, lte, exists, startsWith
 
 #### infoSections
 
-**Description**: ?
+**Description**: Additional information sections for a product.
 
 **Type**: Array of Strings
 
@@ -207,4 +201,4 @@ To search or aggregate Wix Stores products on your site, set the search API `doc
 
 **Can sort**: No
 
-**Can filter**: yes..?
+**Can filter**: in, nin, eq, ne, gt, gte, lt, lte, exists, startsWith

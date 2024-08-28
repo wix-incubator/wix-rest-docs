@@ -1,11 +1,9 @@
 # Bookings Schema for Wix Search
 
-This article describes the Wix Bookings fields you can [search and aggregate](https://dev.wix.com/docs/velo/api-reference/wix-search-v2/wix-site-search/search) on your site.
+This article describes the Wix Bookings fields you can [search and aggregate](https://dev.wix.com/docs/rest/business-management/search/wix-site-search/search) on a site.
 
-To search or aggregate Wix Bookings services on your site, set the search API `documentType` parameter to `BOOKING_SERVICES`. 
+To search or aggregate Wix Bookings services on a site, set the search API `documentType` parameter to `BOOKING_SERVICES`. 
 
->**Note:** 
-> The Bookings fields supported by Wix Search are not identical to the fields in your site's [Bookings/Services collection](../Wix%20Bookings%20with%20Velo/Wix%20Bookings%20%22Services%22%20Collection%20Fields.md).
 
 ### Fields
 
@@ -137,7 +135,7 @@ To search or aggregate Wix Bookings services on your site, set the search API `d
 
 #### benefits
 
-**Description**: ?
+**Description**: Member benefits.
 
 **Type**: Array of Strings
 
