@@ -1,13 +1,9 @@
 # Create an Editor Deep Link
 
-### Authorization
-
-This endpoint requires an authorization header. Pass the access token from the [OAuth installation flow](https://dev.wix.com/api/rest/getting-started/authentication).
-
 <blockquote class='important' style="margin-bottom:20px">
   <p>
     <strong>Permissions</strong><br/>
-    This endpoint requires the Manage Your App <a href="https://devforum.wix.com/en/article/available-permissions">permission scope</a>.
+    This endpoint requires the Manage Your App <a href="https://dev.wix.com/docs/build-apps/develop-your-app/access/authorization/about-permissions">permission scope</a>.
   </p>
 </blockquote>
 
