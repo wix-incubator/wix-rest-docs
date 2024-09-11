@@ -29,7 +29,7 @@ The [Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-boo
 
 ## `CANCELED` (Booking status)
 
-Indicates that the booking has been canceled by the site owner or the customer. Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/bookings-cancel-booking).
+Indicates that the booking has been canceled by the site owner or the customer. Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/cancel-booking).
 
 ## Catalog
 
@@ -101,7 +101,7 @@ A resource that doesn't have a Wix Bookings calendar. Instead, the resource's av
 
 ## Form
 
-The [booking form](https://support.wix.com/en/article/wix-bookings-customizing-the-design-of-your-booking-form) that's displayed to customers in the Wix site when they book the service. For example, customers can input their name into the bookings form.
+The [booking form](https://support.wix.com/en/article/wix-bookings-customizing-booking-form-fields) that's displayed to customers in the Wix site when they book the service. For example, customers can input their name into the bookings form.
 
 ## Integration
 
@@ -161,7 +161,7 @@ A time period available for booking by a customer for a service. In appointment 
 
 ## Service plugin
 
-[Service plugins](https://dev.wix.com/api/rest/getting-started/service-provider-interface#getting-started_service-provider-interface_introduction) (formerly SPIs) are APIs that are defined by Wix, which you can choose to implement. By doing so, you become a service provider. Then, Wix calls your service during a certain flow, waits for your response, and continues the flow with it. For example, as a pricing provider you can offer custom varied pricing options to a Wix site using the [Wix Bookings Pricing Integration REST Service Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
+[Service plugins](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/service-plugins/about-service-plugin-extensions) (formerly SPIs) are APIs that are defined by Wix, which you can choose to implement. By doing so, you become a service provider. Then, Wix calls your service during a certain flow, waits for your response, and continues the flow with it. For example, as a pricing provider you can offer custom varied pricing options to a Wix site using the [Wix Bookings Pricing Integration REST Service Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 
 ## Site owner
 
