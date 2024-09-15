@@ -29,7 +29,7 @@ The [Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-boo
 
 ## `CANCELED` (Booking status)
 
-Indicates that the booking has been canceled by the site owner or the customer. Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/cancel-booking).
+Indicates that the booking has been canceled by the site owner or the customer. Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/bookings-cancel-booking).
 
 ## Catalog
 
