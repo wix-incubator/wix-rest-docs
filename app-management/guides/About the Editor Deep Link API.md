@@ -1,6 +1,6 @@
 # About the Editor Deep Link API
 
-This API generates a URL that will open the Editor and add an App's [Custom Element](https://devforum.wix.com/kb/en/article/create-a-custom-element) component to the user's page. If the App doesn't have a Custom Element component, the URL just opens the Editor.
+This API generates a URL that will open the Editor and add an App's [Custom Element](https://support.wix.com/en/article/wix-editor-adding-a-custom-element-to-your-site) component to the user's page. If the App doesn't have a Custom Element component, the URL just opens the Editor.
 
 > Note:
 > The Custom Element is currently in beta testing, and is not available to all users. If you would like to request access, please submit a proposal.
