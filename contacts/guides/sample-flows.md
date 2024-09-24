@@ -190,7 +190,7 @@ with this basic flow:
 
 [hook-contact-created]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-created-webhook
 [hook-contact-deleted]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-deleted-webhook
-[hook-contact-updated]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-changed-webhook
+[hook-contact-updated]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-updated-webhook
 [hook-contacts-merged]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/contact-merged-webhook
 
 [initial-setup]: #part-1-initial-setup
