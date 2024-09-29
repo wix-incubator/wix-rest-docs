@@ -13,3 +13,4 @@ While some of these calls may take action at the site level, they all require ac
 - **API Key**: Authorization key generated in the [API Keys Manager](https://manage.wix.com/account/api-keys).
 - **Resellers**: Strategic partners that offer Wix services to their customers.
 - **Site ID**: Unique identifier of a Wix site. 
+
