@@ -3,6 +3,16 @@ SortOrder: 0
 
 Use this API to manage bookings to a site's services.
 
+<blockquote class='warning'>
+
+__Deprecation Notice:__
+
+Bookings V1 has been replaced with
+[Bookings V2](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/introduction)
+and will be removed on December 31, 2024.
+
+</blockquote>
+
 A booking is an entity that represents a session that was ordered (but not necessarily paid for) for a specific time and rate for a specific customer. A customer can book a single class or an appointment (= session), or book an bundle of sessions at once, e.g., a course (= schedule).  
 
 > **Note**:  
@@ -31,11 +41,7 @@ Each booking has a status. Statuses include:
 
 ## Use Cases
 
-### Book a visitor (i.e., anyone, not necessarily known to the site owner in advance) to a given service, including payment
-![image](https://s3.amazonaws.com/wixplorer-readme-images/bookings---bookings-service%2FBookWithID-Slot.png)
-1. To display the various services available for booking on your platform, call the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) endpoint.  
-2. When a visitor selects a service, call [Query Availability](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/time-slots/availability-calendar/query-availability) to display the sessions available for booking.  
-2a. Provide the visitor with a form to fill out that matches the data required in this session's form, as returned in the [List Services](https://dev.wix.com/api/rest/wix-bookings/services/service/list-services) response.
-3. When a visitor selects a slot to book, call [Checkout Options](https://dev.wix.com/api/rest/wix-bookings/checkout-options/checkout-options) to display the payment options available for this service. At this time, payment via WixPayOnline is not supported via API.
-4. When a visitor continues with the checkout process - if a significant amount of time has passed, call [Is Available](https://dev.wix.com/api/rest/wix-bookings/bookings/availability/is-available) to confirm that the slot is still available before continuing.
-5. When a visitor completes the checkout process, call [Create Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/create-booking). Include formInfo and either scheduleId or by bySessionId.
+Bookings V1 has been replaced with
+[Bookings V2](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/introduction)
+and will be removed on December 31, 2024. For use cases your app could support, refer to the
+[Bookings V2 sample flows](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/sample-booking-flows).
