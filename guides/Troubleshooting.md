@@ -7,7 +7,7 @@ This article provides troubleshooting steps for common issues encountered while 
 Wix’s calls are designed to support the full list of parameters you see in the documentation. However, not all parameters will always be filled - for example, 
 if a site customer doesn’t fill in their province during checkout when they make a purchase, then when you call Wix eCommerce’s [Get Order](https://dev.wix.com/docs/rest/business-solutions/e-commerce/orders/get-order) 
 or receive the [Order Created](https://dev.wix.com/docs/rest/business-solutions/e-commerce/orders/order-created) webhook about their order, 
-the billingInfo > address > subdivision won’t be returned. If your app is dependent on a specific field, your app should be prepared to handle a case where it isn't returned.
+the `billingInfo` > `address` > `subdivision` won’t be returned. If your app is dependent on a specific field, your app should be prepared to handle a case where it isn't returned.
 
 ## Limitations aren’t documented
 ### I often come across parameters that must have limitations, but they aren’t documented, for example min/max.
@@ -17,7 +17,7 @@ especially in older APIs. If you come across one of these, please [let us know](
 ## I got a 403 error and don’t know what to do about it
 There are 2 primary reasons for a 403 error:
 1. App didn’t request the right permissions in the Dev Center. Make sure to add the relevant permissions to your app.
-2. The user doesn’t have the right permissions - SDK / Client only
+2. The user doesn’t have the right permissions - relevant for the SDK and Client APIs only.
 
 ## I got a 409 error and don’t know what to do about it
 ### I got a 409 error - “entity has already changed since the requested revision”.   
