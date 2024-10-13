@@ -25,6 +25,6 @@ If you are an account owner or co-owner, you can create and manage [API keys](ht
 ## Terminology:
 - **Account**: A collection of sites and other assets (domains, custom templates, etc.) with associated users.
 - **API Key**: Authorization key generated in the [API Keys Manager](https://manage.wix.com/account/api-keys).
-- **Reseller**: A strategic partners that offer Wix services to their customers.
+- **Reseller**: A strategic partner that offer Wix services to their customers.
 - **Site ID**: Unique identifier of a Wix site. 
 
