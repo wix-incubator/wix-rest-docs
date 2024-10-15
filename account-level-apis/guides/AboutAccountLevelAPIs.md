@@ -21,7 +21,7 @@ API keys are authentication tools that account owners and co-owners can create, 
 
 If you are an account owner or co-owner, you can create and manage [API keys](https://support.wix.com/en/article/about-wix-api-keys) in the [API Keys Manager](https://manage.wix.com/account/api-keys), where you can assign a set of permissions that determine the types of APIs the key can access.
 
-![API Keys Manager](../media/APIKeysManager.jpg)
+![API Keys Manager](./../../media/APIKeysManager.jpg)
 
 
 ## Terminology:
