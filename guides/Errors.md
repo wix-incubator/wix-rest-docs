@@ -35,7 +35,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
 | `fieldViolations.field` | Field name. |
 | `fieldViolations.description` | Detailed explanation of why the error occurred for the specified field. |
 | `fieldViolations.violatedRule` | Specific rule or constraint that was violated by the input in the identified field. |
-| `fieldViolations.ruleName` | Name of specific rule or constraint that was violated. |
+| `fieldViolations.ruleName` | Name of specific rule or constraint that was violated. For example, `"VALIDATION_ERROR"`  |
 | `fieldViolations.data` | Additional contextual information related to the field violation.  |
 
 
