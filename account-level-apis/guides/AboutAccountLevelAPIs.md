@@ -8,7 +8,8 @@ Account owners can use roles to limit team members’ access to various tasks an
 
 ## Authorization strategies for account level APIs
 The APIs in this category require using an [authorization strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies) that utilizes an [API key](https://dev.wix.com/api/rest/getting-started/api-keys):
-- Headless projects and apps should use the [Headless admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#headless-admin-with-api-key).
+- Headless projects and apps should use the [Headless admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#headless-admin-with-api-key).  
+To learn how to implement this strategy, see [Create a Client with an API Key](https://dev.wix.com/docs/go-headless/coding/java-script-sdk/admin/create-a-client-with-an-api-key).
 - Channel partners should use the [Channel admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#channel-admin-with-api-key).  
 To learn how to implement this strategy, see the ApiKeyStrategy in [About the Wix Client](https://dev.wix.com/docs/sdk/articles/work-with-the-sdk/about-the-wix-client).  
 
