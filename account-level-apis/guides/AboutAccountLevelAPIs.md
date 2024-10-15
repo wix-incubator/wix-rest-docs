@@ -9,7 +9,7 @@ Account owners can use roles to limit team members’ access to various tasks an
 ## Authorization strategies for account level APIs
 The APIs in this category require using an [authorization strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies) that utilizes an [API key](https://dev.wix.com/api/rest/getting-started/api-keys):
 - Headless projects and apps should use the [Headless admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#headless-admin-with-api-key).
-- Enterprise and Channel partners should use the [Enterprise and Channel admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#enterprise-and-channel-admin-with-api-key).
+- Channel partners should use the [Channel admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#channel-admin-with-api-key).
 
 ### About API keys
 API keys are authentication tools that account owners and co-owners can create, enabling them and any developers they share the key with to make API calls at the account and site levels. 
