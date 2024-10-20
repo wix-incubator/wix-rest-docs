@@ -1,16 +1,13 @@
 SortOrder: 3
-# API Query Language 
+# API Query and Search Language 
 
-The query language described in this article
-is implemented partially or in full by Wix APIs supporting query capabilities.
-You may see some similarities between the Wix API Query Language
-and MongoQL.
-This is because the style of the Wix API Query Language
+The query and search language described in this article is implemented partially or in full by Wix APIs supporting query and search capabilities.
+You may see some similarities between the Wix API Query Language and MongoQL, as the style of the Wix API Query Language
 is heavily influenced by MongoQL.
 
 ## Syntax
 
-A query object consists of 5 optional parts:
+Query and Search objects consist of several optional parts:
 
 * [`filter`](#the-filter-section):
   Which results to return.
@@ -23,6 +20,13 @@ A query object consists of 5 optional parts:
 * [`fieldsets`](#the-fieldsets-section):
   Predefined, named sets of fields with common use.
   This is a shorthand provided by individual APIs.
+* [`aggregations`](#the-aggregations-section)
+  Search object only: Faceted search, a way to explore large amounts of data by displaying summaries about various partitions of the 
+  data and later allowing to narrow the navigation to a specific partition.
+* [`search`](#the-search-section)
+  Search object only: Free text to match in searchable fields.
+* [`timeZone`](#the-time-zone-section)
+  Search object only: Time zone for aggregations and filters by date.
 
 Each query is always a single JSON object.
 An empty JSON object returns all records
@@ -36,7 +40,8 @@ The query object can define a key for each of the above parts:
   "sort": [ ... ],
   "paging": { ... },
   "fields": [ ... ],
-  "fieldsets": [ ... ]
+  "fieldsets": [ ... ],
+  "search": [ ... ]
 }
 ```
 
@@ -249,3 +254,27 @@ For example:
   ]
 }
 ```
+
+## The `aggregation` section (Search object only)
+Aggregation is a search method for grouping data into various buckets (meaning, categories) and providing summaries for each bucket (meaning, facets). 
+Supported aggregation types: 
+- "DATE_HISTOGRAM":
+- "NESTED": Multiple aggregations, of any time, nested within one aggregation.
+- "RANGE":
+  - `rangeBuckets`: categories for grouping data. Each bucket must have one range bound:
+    - `from`: Inclusive lower bound of the range. 
+    - `to`: Exclusive upper bound of the range.
+- "SCALAR":
+- "VALUE":
+  
+## The `search` section (Search object only)
+With `search`, you can filter for specific text within any searchable field, using the following:
+- `mode`: How to combine multiple `expression` terms. Supported values: `AND`, `OR`. Default: `OR`.
+- `expression`: Free text to search for.
+- `fields`: Fields to search in. Use dot notation to specify json path. Default: All searchable fields.
+- `fuzzy`: Fuzzy search, enablinging search including typos, by a managed proximity algorithm. Default: FALSE.
+
+## The `timeZone` section (Search object only)
+UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as +02:00 or -06:00, and IANA time zone IDs, such as Europe/Rome.
+Affects all filters and aggregations returned values.
+You may override this behavior in a specific filter by providing timestamps including time zone. For example, `"2023-12-20T10:52:34.795Z"`.
