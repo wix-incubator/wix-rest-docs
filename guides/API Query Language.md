@@ -258,14 +258,14 @@ For example:
 ## The `aggregation` section (Search object only)
 Aggregation is a search method for grouping data into various buckets (meaning, categories) and providing summaries for each bucket (meaning, facets). 
 Supported aggregation types: 
-- "DATE_HISTOGRAM":
-- "NESTED": Multiple aggregations, of any time, nested within one aggregation.
-- "RANGE":
+- "DATE_HISTOGRAM": Calculates the count of time values from the specified field in the dataset fall within the defined time interval (hour, day, week, etc.) 
+- "NESTED": Calculates multiple aggregations, of any type, nested within one aggregation, allowing you to first group data using one aggregation, and then apply another aggregation within each group.
+- "RANGE": Calculates the count of the values from the specified field in the dataset that fall within the range of each defined bucket.
   - `rangeBuckets`: categories for grouping data. Each bucket must have one range bound:
     - `from`: Inclusive lower bound of the range. 
     - `to`: Exclusive upper bound of the range.
-- "SCALAR":
-- "VALUE":
+- "SCALAR": Calculates a single numerical value from a dataset, such as the total sum, average, min, or max, summarizing the dataset into one key metric.
+- "VALUE": Calculates metrics such as count for specific fields within a dataset.
   
 ## The `search` section (Search object only)
 With `search`, you can filter for specific text within any searchable field, using the following:
