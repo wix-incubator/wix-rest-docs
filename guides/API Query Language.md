@@ -272,7 +272,7 @@ With `search`, you can filter for specific text within any searchable field, usi
 - `mode`: How to combine multiple `expression` terms. Supported values: `AND`, `OR`. Default: `OR`.
 - `expression`: Free text to search for.
 - `fields`: Fields to search in. Use dot notation to specify json path. Default: All searchable fields.
-- `fuzzy`: Fuzzy search, enablinging search including typos, by a managed proximity algorithm. Default: FALSE.
+- `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: FALSE. 
 
 ## The `timeZone` section (Search object only)
 UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as +02:00 or -06:00, and IANA time zone IDs, such as Europe/Rome.
