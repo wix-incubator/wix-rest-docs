@@ -266,7 +266,7 @@ Supported aggregation types:
     - `from`: Inclusive lower bound of the range. 
     - `to`: Exclusive upper bound of the range.
 - `SCALAR`: Calculates a single numerical value from a dataset, with the total count, sum, average, min, or max, summarizing the dataset into one key metric.
-- "VALUE": Calculates metrics such as count for specific fields within a dataset.
+- `VALUE`: Calculates the distribution of a specific field's values within a dataset. 
   
 ## The `search` section (Search object only)
 With `search`, you can filter for specific text within any searchable field, using the following:
