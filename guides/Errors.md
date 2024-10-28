@@ -116,7 +116,7 @@ An application error occurs when the service business-logic decides to reject th
 }
 ```
 ## System errors
-A system error occurs there's an exeption in the system, server is down, or some dependent service or database is down.  
+A system error occurs when there's an exception in the system, server is down, or some dependent service or database is down.  
 These errors are sent empty by design.
 
 ### Example
