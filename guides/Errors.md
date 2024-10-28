@@ -48,7 +48,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
       "fieldViolations": [
         {
           "field": "fieldA",
-          "description": "invalid music note. supported notes: [do,re,mi,fa,sol,la,ti]",
+          "description": "Invalid music note. Supported notes: [do,re,mi,fa,sol,la,ti]",
           "violatedRule": "CUSTOM",
           "ruleName": "INVALID_NOTE",
           "data": {
