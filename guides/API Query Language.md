@@ -265,7 +265,7 @@ Supported aggregation types:
   - `rangeBuckets`: categories for grouping data. Each bucket must have at least one range bound:
     - `from`: Inclusive lower bound of the range. 
     - `to`: Exclusive upper bound of the range.
-- "SCALAR": Calculates a single numerical value from a dataset, such as the total sum, average, min, or max, summarizing the dataset into one key metric.
+- `SCALAR`: Calculates a single numerical value from a dataset, with the total count, sum, average, min, or max, summarizing the dataset into one key metric.
 - "VALUE": Calculates metrics such as count for specific fields within a dataset.
   
 ## The `search` section (Search object only)
