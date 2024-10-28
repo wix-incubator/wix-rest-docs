@@ -262,7 +262,7 @@ Supported aggregation types:
 - `DATE_HISTOGRAM`: Calculates the count of time values from the specified field in the dataset fall within the defined time interval (hour, day, week, etc.) 
 - `NESTED`: Calculates multiple aggregations, of any type, nested within one aggregation, allowing you to first group data using one aggregation, and then apply another aggregation within each group.
 - `RANGE`: Calculates the count of the values from the specified field in the dataset that fall within the range of each defined bucket.
-  - `rangeBuckets`: categories for grouping data. Each bucket must have one range bound:
+  - `rangeBuckets`: categories for grouping data. Each bucket must have at least one range bound:
     - `from`: Inclusive lower bound of the range. 
     - `to`: Exclusive upper bound of the range.
 - "SCALAR": Calculates a single numerical value from a dataset, such as the total sum, average, min, or max, summarizing the dataset into one key metric.
