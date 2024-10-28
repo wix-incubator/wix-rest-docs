@@ -40,7 +40,8 @@ The query object can define a key for each of the above parts:
   "sort": [ ... ],
   "paging": { ... },
   "fields": [ ... ],
-  "fieldsets": [ ... ],
+   "fieldsets": [ ... ],
+   "aggregations": [ ... ],
   "search": [ ... ]
 }
 ```
