@@ -78,7 +78,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
 ```
 
 ## Application error data
-An application error occurs when the service business-logic decides to reject the request. This will include codes like `UNAUTHENTICATED`, `PERMISSION_DENIED`, `NOT_FOUND`, `ALREADY_EXISTS`, `ABORTED` and `RESOURCE_EXHAUSTED`.
+An application error occurs when the service business-logic decides to reject the request. This includes codes like `UNAUTHENTICATED`, `PERMISSION_DENIED`, `NOT_FOUND`, `ALREADY_EXISTS`, `ABORTED` and `RESOURCE_EXHAUSTED`.
 
 | Property | Description | 
 | :-------------- | :------- |    
