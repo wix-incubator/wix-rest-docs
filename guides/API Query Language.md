@@ -270,7 +270,7 @@ Supported aggregation types:
   
 ## The `search` section (Search object only)
 With `search`, you can filter for specific text within any searchable field, using the following:
-- `mode`: How to combine multiple `expression` terms. Supported values: `AND`, `OR`. Default: `OR`.
+- `mode`: How to handle multiple words in the `expression`. Supported values: `AND`, `OR`. Default: `OR`.
 - `expression`: Free text to search for.
 - `fields`: Fields to search in. Use dot notation to specify json path. Default: All searchable fields.
 - `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: FALSE. 
