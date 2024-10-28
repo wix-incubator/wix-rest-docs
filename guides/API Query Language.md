@@ -276,6 +276,6 @@ With `search`, you can filter for specific text within any searchable field, usi
 - `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: FALSE. 
 
 ## The `timeZone` section (Search object only)
-UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as +02:00 or -06:00, and IANA time zone IDs, such as Europe/Rome.
+UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as `+02:00` or `-06:00`, and IANA time zone IDs, such as `Europe/Rome`.
 Affects all filters and aggregations returned values.
 You may override this behavior in a specific filter by providing timestamps including time zone. For example, `"2023-12-20T10:52:34.795Z"`.
