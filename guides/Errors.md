@@ -27,7 +27,7 @@ Every API call will return a status code. If something went wrong, you'll receiv
 | 504 - Gateway timeout | The underlying service didn't respond in a timely manner. Try again later. |
 
 ## Validation error data
-A validation error occurs when input data fails to meet predefined criteria or constraints set by the system. This type of error serves to enforce rules such as correct data formats, required fields, or value ranges. This will include rules like `OUT_OF_RANGE` and `INVALID_ARGUMENT`.
+A validation error occurs when input data fails to meet predefined criteria or constraints set by the system. This type of error serves to enforce rules such as correct data formats, required fields, or value ranges. This includes rules like `OUT_OF_RANGE` and `INVALID_ARGUMENT`.
 
 | Property | Description | 
 | :-------------- | :------- |  
