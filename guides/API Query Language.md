@@ -259,7 +259,7 @@ For example:
 ## The `aggregation` section (Search object only)
 Aggregation is a search method that groups data into different categories (called buckets) and generates summaries for each category (referred to as facets).
 Supported aggregation types: 
-- `DATE_HISTOGRAM`: Calculates the count of time values from the specified field in the dataset fall within the defined time interval (hour, day, week, etc.) 
+- `DATE_HISTOGRAM`: Calculates the count of time values from the specified field in the dataset fall within the defined time interval (hour, day, week, etc.).  
 - `NESTED`: Calculates multiple aggregations, of any type, nested within one aggregation, allowing you to first group data using one aggregation, and then apply another aggregation within each group.
 - `RANGE`: Calculates the count of the values from the specified field in the dataset that fall within the range of each defined bucket.
   - `rangeBuckets`: categories for grouping data. Each bucket must have at least one range bound:
@@ -273,7 +273,7 @@ With `search`, you can filter for specific text within any searchable field, usi
 - `mode`: How to handle multiple words in the `expression`. Supported values: `AND`, `OR`. Default: `OR`.
 - `expression`: Free text to search for.
 - `fields`: Fields to search in. Use dot notation to specify json path. Default: All searchable fields.
-- `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: FALSE. 
+- `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: `false`. 
 
 ## The `timeZone` section (Search object only)
 UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as `+02:00` or `-06:00`, and IANA time zone IDs, such as `Europe/Rome`.
