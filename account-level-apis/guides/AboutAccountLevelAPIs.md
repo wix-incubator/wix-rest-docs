@@ -7,11 +7,11 @@ Accounts are particularly useful when a business employs multiple staff members 
 Account owners can use roles to limit team members’ access to various tasks and/or interfaces of the account (for example, blocking access to specific sites or blocking access to adding features that require payment). See [About Team Management](https://support.wix.com/en/article/about-team-management) and [Wix Partners: Default Team Management Roles & Permissions](https://support.wix.com/en/article/default-team-management-roles-permissions#roles-and-permissions-summary-table) for more information.
 
 ## Authorization strategies for account level APIs
-The APIs in this category require using an [authorization strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies) that utilizes an [API key](https://dev.wix.com/api/rest/getting-started/api-keys):
-- Headless projects and apps should use the [Headless admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#headless-admin-with-api-key).  
-To learn how to implement this strategy, see [Create a Client with an API Key](https://dev.wix.com/docs/go-headless/coding/java-script-sdk/admin/create-a-client-with-an-api-key).
-- Channel partners should use the [Channel admin with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#channel-admin-with-api-key).  
-To learn how to implement this strategy, see the ApiKeyStrategy in [About the Wix Client](https://dev.wix.com/docs/sdk/articles/work-with-the-sdk/about-the-wix-client).  
+The APIs in this category require using the [admin access with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#admin-access-with-api-key).    
+
+To learn how to implement this strategy for headless projects and apps, see [Create a Client with an API Key](https://dev.wix.com/docs/go-headless/coding/java-script-sdk/admin/create-a-client-with-an-api-key).  
+
+To learn how to implement this strategy for channel and enterprise partners , see the ApiKeyStrategy in [About the Wix Client](https://dev.wix.com/docs/sdk/articles/work-with-the-sdk/about-the-wix-client).  
 
 ### About API keys
 API keys are authentication tools that account owners and co-owners can create, enabling them and any developers they share the key with to make API calls at the account and site levels. 
