@@ -1,15 +1,17 @@
 # About Identities
 
 API calls are restricted using identities. An identity defines who is calling a method and what actions they are authorized to take. 
-Each method can only be called by specific identities. [Notes in the REST reference]() indicate restrictions on the identities that can call a method.
+Each method can only be called by specific identities. [Notes in the REST reference](#methods-with-restricted-identities) indicate restrictions on the identities that can call a method.
 
 The following identities are supported:
 
-- [Site visitor](#site-visitor)
-- [Site member](#site-member)
-- [Wix user](#wix-user)
-- [Wix app](#wix-app)
-- [API key](#api-key)
+- [Site visitor](#site-visitor) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
+- [Site member](#site-member) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
+- [Wix user](#wix-user) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
+- [Wix app](#wix-app) - App flows only
+- [API key](#api-key) - Site admins, [Channel](https://support.wix.com/en/article/wix-channels-dashboard-overview) and [Enterprise](https://support.wix.com/en/article/wix-enterprise-an-overview) admins, and [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows
+
+> **Note**: Additional identities are supported for app flows using the [SDK](https://dev.wix.com/docs/sdk).
 
 ### Site visitor
 
@@ -31,7 +33,7 @@ Learn more about [authenticating as a Wix user](https://dev.wix.com/docs/build-a
 
 ### Wix app
 
-Wix apps are packages of reusable methodality that users can add to their sites. When an app is installed or updated on a Wix site, Wix generates an [app instance](https://dev.wix.com/docs/build-apps/develop-your-app/access/app-instances/about-app-instances) with a unique ID. This ID represents the installed version of the app on that particular site. 
+Wix apps are packages of reusable functionality that users can add to their sites. When an app is installed or updated on a Wix site, Wix generates an [app instance](https://dev.wix.com/docs/build-apps/develop-your-app/access/app-instances/about-app-instances) with a unique ID. This ID represents the installed version of the app on that particular site. 
 A call authenticated with the Wix app identity is a call made by an app for a specific app instance.
 
 Methods that can be called by this identity usually involve site-level operations. These include managing the site's data collections, contacts, or products.
@@ -44,7 +46,9 @@ Learn more about [configuring app permissions](https://dev.wix.com/docs/build-ap
 
 An admin with customized administrative access to a Wix account's sites and projects. [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where site owners and co-owners can assign a set of permissions that determine the types of APIs each key can access. 
 
-Methods that can be called by this identity can involve administrative operations at the site or account level. These include managing members or business data. API keys can also be used to call many of the same methods a site visitor or site member can call.
+Methods that can be called by this identity can involve administrative operations at the site or account level. These include managing members or business data. 
+
+Because API keys must be created by the site owners or co-owners, and passed manually to any developer who wants to use them, they aren't recommended for apps.
 
 ## Methods with restricted identities
 By default, methods can be called using any identity.
