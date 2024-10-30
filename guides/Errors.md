@@ -7,7 +7,7 @@ Most of Wix's errors follow a standardized format, as described below.
 | :-------------- | :------- |  
 | Status code | See the HTTP status code table below. |
 | `message` | Textual description that provides a brief explanation of the error. |
-| `details` | Additional contextual information about the error, including either `validationError` or `applicationError`. See the tables below. |
+| `details` | Additional contextual information about the error, including either `applicationError` or `validationError`. See the tables below. |
 
 ## HTTP status codes
 Every API call will return a status code. If something went wrong, you'll receive an error code that defines the type of error that occurred. 
@@ -25,6 +25,46 @@ Every API call will return a status code. If something went wrong, you'll receiv
 | 501 - Not implemented | The endpoint hasn't been implemented yet. |
 | 503 - Service unavailable | The service that you’re trying to access is temporarily unavailable. Try again later. |
 | 504 - Gateway timeout | The underlying service didn't respond in a timely manner. Try again later. |
+
+
+## Application error data
+An application error occurs when the service business-logic decides to reject the request. This includes codes like `UNAUTHENTICATED`, `PERMISSION_DENIED`, `NOT_FOUND`, `ALREADY_EXISTS`, `ABORTED` and `RESOURCE_EXHAUSTED`.
+
+| Property | Description | 
+| :-------------- | :------- |    
+| `code` | Identifier that categorizes and signifies the specific error. |
+| `description` | Detailed explanation of why the error occurred. |
+| `data` | Additional contextual information related to the error. |
+
+### Examples
+```json
+{
+  "message": "Payment failed",
+  "details": {
+    "applicationError": {
+      "code": "NO_FUNDS",
+      "description": "Payment declined due to insufficient funds",
+      "data": {
+        "availableFunds": 75.22
+      }
+    }
+  }
+}
+```
+```json
+{
+ "message": "Duplicate contact exists",
+ "details": {
+   "applicationError": {
+     "code": "DUPLICATE_CONTACT_EXIST",
+     "description": "Duplicate contact already exists",
+     "data": {
+       "duplicateContactId":"ca22360e-7f58-4613-bae6-a537f2791f84"
+     }
+   }
+ }
+}
+```
 
 ## Validation error data
 A validation error occurs when input data fails to meet predefined criteria or constraints set by the system. This type of error serves to enforce rules such as correct data formats, required fields, or value ranges. This includes rules like `OUT_OF_RANGE` and `INVALID_ARGUMENT`.
@@ -77,44 +117,6 @@ A validation error occurs when input data fails to meet predefined criteria or c
 }
 ```
 
-## Application error data
-An application error occurs when the service business-logic decides to reject the request. This includes codes like `UNAUTHENTICATED`, `PERMISSION_DENIED`, `NOT_FOUND`, `ALREADY_EXISTS`, `ABORTED` and `RESOURCE_EXHAUSTED`.
-
-| Property | Description | 
-| :-------------- | :------- |    
-| `code` | Identifier that categorizes and signifies the specific error. |
-| `description` | Detailed explanation of why the error occurred. |
-| `data` | Additional contextual information related to the error. |
-
-### Examples
-```json
-{
-  "message": "Payment failed",
-  "details": {
-    "applicationError": {
-      "code": "NO_FUNDS",
-      "description": "Payment declined due to insufficient funds",
-      "data": {
-        "availableFunds": 75.22
-      }
-    }
-  }
-}
-```
-```json
-{
- "message": "Duplicate contact exists",
- "details": {
-   "applicationError": {
-     "code": "DUPLICATE_CONTACT_EXIST",
-     "description": "Duplicate contact already exists",
-     "data": {
-       "duplicateContactId":"ca22360e-7f58-4613-bae6-a537f2791f84"
-     }
-   }
- }
-}
-```
 ## System errors
 A system error occurs when there's an exception in the system, server is down, or some dependent service or database is down.  
 These errors are sent empty by design.
