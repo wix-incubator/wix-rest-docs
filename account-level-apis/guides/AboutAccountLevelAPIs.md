@@ -7,7 +7,7 @@ Accounts are particularly useful when a business employs multiple staff members 
 Account owners can use roles to limit team members’ access to various tasks and/or interfaces of the account (for example, blocking access to specific sites or blocking access to adding features that require payment). See [About Team Management](https://support.wix.com/en/article/about-team-management) and [Wix Partners: Default Team Management Roles & Permissions](https://support.wix.com/en/article/default-team-management-roles-permissions#roles-and-permissions-summary-table) for more information.
 
 ## Intended audience
-Wix’s Account Level APIs are intended to support large-scale businesses that create, design, and/or manage large numbers of Wix sites, enabling businesses to manage access to these sites.
+Wix’s Account Level APIs are intended to support large-scale businesses that create, design, or manage large numbers of Wix sites, enabling businesses to manage access to these sites.
 
 Wix categorizes these businesses into 2 types:
 
