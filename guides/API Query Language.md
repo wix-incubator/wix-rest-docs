@@ -9,23 +9,23 @@ is heavily influenced by MongoQL.
 
 Query and Search objects consist of several optional parts:
 
-* [`filter`](#the-filter-section):
+* [`filter`](#filters):
   Which results to return.
-* [`sort`](#the-sort-section):
+* [`sort`](#sorting):
   In what order.
-* [`paging`](#the-paging-section):
+* [`paging`](#paging):
   Return only some of the matched entities.
-* [`fields`](#the-fields-section):
+* [`fields`](#fields):
   Field projection. Returns only part of each entity.
-* [`fieldsets`](#the-fieldsets-section):
+* [`fieldsets`](#fieldsets):
   Predefined, named sets of fields with common use.
   This is a shorthand provided by individual APIs.
-* [`aggregations`](#the-aggregations-section)
+* [`aggregations`](#aggregations-search-object-only)
   Search object only: Faceted search, a way to explore large amounts of data by displaying summaries about various partitions of the 
   data and later allowing to narrow the navigation to a specific partition.
-* [`search`](#the-search-section)
+* [`search`](#search-search-object-only)
   Search object only: Free text to match in searchable fields.
-* [`timeZone`](#the-time-zone-section)
+* [`timeZone`](#time-zones-search-object-only)
   Search object only: Time zone for aggregations and filters by date.
 
 Each query is always a single JSON object.
@@ -46,7 +46,7 @@ The query object can define a key for each of the above parts:
 }
 ```
 
-## The `filter` section
+## Filters
 
 The filter section is a single json object { } with the following rules:
 
@@ -140,7 +140,7 @@ The following query matches entities that do not contain the `item` field, or wh
 }
 ```
 
-## The `sort` section
+## Sorting
 
 The `sort` section is an array of field names and sort order.
 If `order` is not specified for a field, the field is sorted in ascending order.
@@ -160,7 +160,7 @@ Sorting is applied to the first `sort` item, then the second, and so on:
 }
 ```
 
-## The `paging` section
+## Paging
 
 The `paging` section describes the size of the data set to return per response
 and how many records to skip.
@@ -219,7 +219,7 @@ by forming your request like this:
 }
 ```
 
-## The `fields` section
+## Fields
 
 The `fields` section is an array of field paths to return.
 If a field path points to an object, the entire sub-object is returned.
@@ -237,7 +237,7 @@ and the entire `address` object:
 }
 ```
 
-## The `fieldsets` section
+## Fieldsets
 
 An API may provide named projections to save clients from specifying individual fields in common cases.
 For example,
@@ -256,7 +256,7 @@ For example:
 }
 ```
 
-## The `aggregation` section (Search object only)
+## Aggregations (Search object only)
 Aggregation is a search method that groups data into different categories (called buckets) and generates summaries for each category (referred to as facets).
 Supported aggregation types: 
 - `DATE_HISTOGRAM`: Calculates the count of time values from the specified field in the dataset fall within the defined time interval (hour, day, week, etc.).  
@@ -268,14 +268,14 @@ Supported aggregation types:
 - `SCALAR`: Calculates a single numerical value from a dataset, with the total count, sum, average, min, or max, summarizing the dataset into one key metric.
 - `VALUE`: Calculates the distribution of a specific field's values within a dataset. 
   
-## The `search` section (Search object only)
+## Search (Search object only)
 With `search`, you can filter for specific text within any searchable field, using the following:
 - `mode`: How to handle multiple words in the `expression`. Supported values: `AND`, `OR`. Default: `OR`.
 - `expression`: Free text to search for.
 - `fields`: Fields to search in. Use dot notation to specify json path. Default: All searchable fields.
 - `fuzzy`: [Fuzzy search](https://www.techtarget.com/whatis/definition/fuzzy-search), enabling search including typos, by a managed proximity algorithm. Default: `false`. 
 
-## The `timeZone` section (Search object only)
+## Time zones (Search object only)
 UTC offset or IANA time zone. Valid values are ISO 8601 UTC offsets, such as `+02:00` or `-06:00`, and IANA time zone IDs, such as `Europe/Rome`.
 Affects all filters and aggregations returned values.
 You may override this behavior in a specific filter by providing timestamps including time zone. For example, `"2023-12-20T10:52:34.795Z"`.
