@@ -1,31 +1,16 @@
 # About Identities
 
 API calls are restricted using identities. An identity defines who is calling a method and what actions they are authorized to take. 
-Each method can only be called by specific identities. [Notes in the REST reference](#methods-with-restricted-identities) indicate restrictions on the identities that can call a method.
+Each method can only be called by specific identities. [Notes in the REST reference](#methods-with-restricted-identities) indicate restrictions on the identities that can call a method.  
+Different contexts also limit the identities that can make a given call. For example, apps can only make calls as apps, not as visitors or members.
 
 Wix supports the following identities:
 
-- [Site visitor](#site-visitor) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
-- [Site member](#site-member) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
-- [Wix user](#wix-user) - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows only
-- [Wix app](#wix-app) - App flows only
-- [API key](#api-key) Admin - Site admins, [Channel](https://support.wix.com/en/article/wix-channels-dashboard-overview) and [Enterprise](https://support.wix.com/en/article/wix-enterprise-an-overview) admins, and [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows
-
-**Context**
-There are several contexts in which you could be making API calls with the SDK:
-
-- Wix App
-- Headless site or app
-- Channel or Enterprise partner
-
-Each context has access to make REST calls as different identities:
-
-| Context | Identity | 
-| :-------- | :------- |  
-| Wix App |  App |  
-| Headless | Visitors, Members  |
-| Headless |  API Key Admin | 
-| Channel or Enterprise | API Key Admin |
+- [Site visitor](#site-visitor) 
+- [Site member](#site-member) 
+- [Wix user](#wix-user) 
+- [Wix app](#wix-app) 
+- [API key admin](#api-key-admin) 
 
 > **Note**: Additional identities are supported for app flows using the [SDK](https://dev.wix.com/docs/sdk).
 
@@ -33,9 +18,15 @@ Each context has access to make REST calls as different identities:
 
 An anonymous site visitor who hasn't logged in. Methods that can be called by this identity usually involve operations specific to a particular visitor. These include accessing a list of products, creating and managing a cart, or accessing a login page to authenticate as a member.
 
+**Context**:  
+- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as site visitors.
+
 ## Site member
 
 A site member who has logged in. Methods that can be called by this identity usually involve operations specific to a registered member. These include accessing or managing personal data.
+
+**Context**:   
+- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as site members.
 
 ## Wix user
 
@@ -45,7 +36,9 @@ Methods that can be called by this identity usually involve site maintenance ope
 
 Site owners can invite collaborators and assign them specific [user roles](https://support.wix.com/en/article/roles-permissions-overview) to control permissions. In this case, the methods that the app can access when making calls as a collaborator are limited by the collaborator's user roles.
 
-Learn more about [authenticating as a Wix user](https://dev.wix.com/docs/build-apps/develop-your-app/access/authentication/about-authentication#authentication-on-behalf-of-a-wix-user).
+**Context**:   
+- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as Wix Users.
+- Apps can make calls [on behalf of Wix users](https://dev.wix.com/docs/build-apps/develop-your-app/access/authentication/about-authentication#authentication-on-behalf-of-a-wix-user).
 
 ## Wix app
 
@@ -58,13 +51,22 @@ Each method requires certain permissions when called by a Wix App. To check whic
 
 Learn more about [configuring app permissions](https://dev.wix.com/docs/build-apps/develop-your-app/access/authorization/configure-permissions-for-your-app).
 
-## API key
+**Context**:
+- Apps can make calls as apps.
+
+## API key admin
 
 An admin with customized administrative access to a Wix account's sites and projects. [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where site owners and co-owners can assign a set of permissions that determine the types of APIs each key can access. 
 
 Methods that can be called by this identity can involve administrative operations at the site or account level. These include managing members or business data. 
 
 Because API keys must be created by the site owners or co-owners, and passed manually to any developer who wants to use them, they aren't recommended for apps.
+
+**Context**:
+- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as API key admins.
+- Site admin flows can make calls as API key admins. 
+- [Channel](https://support.wix.com/en/article/wix-channels-dashboard-overview) and [Enterprise](https://support.wix.com/en/article/wix-enterprise-an-overview) admin flows can make calls as API key admins.
+
 
 ## Methods with restricted identities
 By default, methods can be called using any identity.
