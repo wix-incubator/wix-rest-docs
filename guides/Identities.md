@@ -1,7 +1,6 @@
 # About Identities
 
-API calls are restricted using identities. An identity defines who is calling a method and what actions they are authorized to take. 
-Each method can only be called by specific identities. [Notes in the REST reference](#methods-with-restricted-identities) indicate restrictions on the identities that can call a method.  
+Each request to a Wix API is associated with a specific identity type, which determines access permissions. If a [method has identity restrictions](#methods-with-restricted-identities), the method reference will include a note specifying the allowed identity types.
 Different contexts also limit the identities that can make a given call. For example, apps can only make calls as apps, not as visitors or members.
 
 Wix supports the following identities:
