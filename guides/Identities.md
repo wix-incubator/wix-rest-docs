@@ -3,7 +3,7 @@
 Each request to a Wix API is associated with a specific identity type, which determines access permissions. If a [method has identity restrictions](#methods-with-restricted-identities), the method reference will include a note specifying the allowed identity types.
 Different contexts also limit the identities that can make a given call. For example, apps can only make calls as apps, not as visitors or members.
 
-Wix supports the following identities:
+Wix's identity types include:
 
 - [Site visitor](#site-visitor) 
 - [Site member](#site-member) 
