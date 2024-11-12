@@ -1,7 +1,7 @@
 # About Identities
 
-Each request to a Wix API is associated with a specific identity type, which determines access permissions. If a [method has identity restrictions](#methods-with-restricted-identities), the method reference will include a note specifying the allowed identity types.
-Different contexts also limit the identities that can make a given call. For example, apps can only make calls as apps, not as visitors or members.
+Every request to a Wix API is made by a specific identity type. For each call, the caller's identity is checked and confirmed to have the necessary permissions.  
+If a [method has identity restrictions](#methods-with-restricted-identities), the reference documentation will include a note specifying the allowed identity types. 
 
 Wix's identity types include:
 
@@ -15,17 +15,23 @@ Wix's identity types include:
 
 ## Site visitor
 
-An anonymous site visitor who hasn't logged in. Methods that can be called by this identity usually involve operations specific to a particular visitor. These include accessing a list of products, creating and managing a cart, or accessing a login page to authenticate as a member.
+An anonymous site visitor is a site visitor who hasn't logged in. Methods that can be called by this identity usually involve operations specific to a particular visitor. 
 
 **Context**:  
 - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as site visitors.
 
+**Example use cases**:
+- A headless site can make calls to Wix's APIs as an anonymous site visitor to access a list of products, create and manage a cart, or access a login page to authenticate as a member.
+
 ## Site member
 
-A site member who has logged in. Methods that can be called by this identity usually involve operations specific to a registered member. These include accessing or managing personal data.
+- A site member a site visitor who has logged in. Methods that can be called by this identity usually involve operations specific to a registered member. These include accessing or managing personal data.
 
 **Context**:   
 - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as site members.
+
+**Example use cases**:
+A headless site can make calls to Wix's APIs as a site member to access personal order data or edit their personal member profile.  
 
 ## Wix user
 
@@ -36,8 +42,12 @@ Methods that can be called by this identity usually involve site maintenance ope
 Site owners can invite collaborators and assign them specific [user roles](https://support.wix.com/en/article/roles-permissions-overview) to control permissions. In this case, the methods that the app can access when making calls as a collaborator are limited by the collaborator's user roles.
 
 **Context**:   
-- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as Wix Users.
+- [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as Wix users.
 - Apps can make calls [on behalf of Wix users](https://dev.wix.com/docs/build-apps/develop-your-app/access/authentication/about-authentication#authentication-on-behalf-of-a-wix-user).
+
+**Example use cases**:
+- A headless site can make calls to Wix's APIs as a Wix user to edit store products, create a coupon, or create a bookings calendar.
+- An app can make calls to Wix's APIs on behalf of a Wix user to edit store products, create a coupon, or create a bookings calendar. These calls are authenticated with the Wix app identity, and XXX
 
 ## Wix app
 
@@ -53,9 +63,12 @@ Learn more about [configuring app permissions](https://dev.wix.com/docs/build-ap
 **Context**:
 - Apps can make calls as apps.
 
+**Example use cases**:
+- An app can make calls to Wix's APIs as a Wix app to edit store products, create a loyalty program, or import an order.
+
 ## API key admin
 
-An admin with customized administrative access to a Wix account's sites and projects. [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where site owners and co-owners can assign a set of permissions that determine the types of APIs each key can access. 
+An API key admin is an account admin with customized administrative access to a Wix account's sites and projects. [API keys](https://support.wix.com/en/article/about-wix-api-keys) are created and managed in the [API Keys Manager](https://manage.wix.com/account/api-keys) where site owners and co-owners can assign a set of permissions that determine the types of APIs each key can access. 
 
 Methods that can be called by this identity can involve administrative operations at the site or account level. These include managing members or business data. 
 
@@ -65,6 +78,10 @@ Because API keys must be created by the site owners or co-owners, and passed man
 - [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless) flows can make calls as API key admins.
 - Site admin flows can make calls as API key admins. 
 - [Channel](https://support.wix.com/en/article/wix-channels-dashboard-overview) and [Enterprise](https://support.wix.com/en/article/wix-enterprise-an-overview) admin flows can make calls as API key admins.
+
+**Example use cases**:
+- A headless admin can make calls to Wix's APIs as an API key admin to invite team members to join the account, manage domains and create store products.
+- A Channel or Enterprise admin can make calls to Wix's APIs as an API key admin to invite team members to join the account, manage domains and create store products.
 
 
 ## Methods with restricted identities
