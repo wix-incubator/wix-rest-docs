@@ -1,5 +1,5 @@
 # Errors
-Error messages are a fundamental component of Wix's APIs, providing critical information and guidance when something goes wrong. 
+Errors are a fundamental component of Wix's APIs, providing critical information and guidance when something goes wrong. 
 Most of Wix's errors follow a standardized format, as described below.
 
 ## Error properties
@@ -12,19 +12,24 @@ Most of Wix's errors follow a standardized format, as described below.
 ## HTTP status codes
 Every API call will return a status code. If something went wrong, you'll receive an error code that defines the type of error that occurred. 
 
+Status code types include:
+- 2xx - Everything is OK.
+- 4xx - There was a problem with the request. Usually you can fix the request and try again immediately.
+- 5xx - There was a problem in Wix's service, there's nothing wrong with the request. Try again later.
+
 | HTTP Status Code | Description | 
 | :-------------- | :------- |  
-| 200 - OK | Success. |
+| 200 - OK | Success. No error. |
 | 400 - Bad Request | One or more request parameters is wrong or missing, or you didn't pass validation. |
-| 401 - Unauthorized | The system wasn't able to authenticate you (missing or incorrect Authorization header, expired token, etc.). |
+| 401 - Unauthorized | The system wasn't able to authenticate you (missing or incorrect Authorization header, expired token, etc.). Occasionally returned when you don’t have permissions to call this API.|
 | 403 - Permission denied | The system authenticated you, but you don’t have permissions to call this API. |
 | 404 - Not found | Resource not found / doesn't exist. |
-| 409 - Conflict | The resource you are attempting to create already exists. |
+| 409 - Conflict | The resource you are attempting to create already exists or has a different revision than the one you're attempting to update, or another conflict with the server state. |
 | 429 - Resource exhausted | Resource usage was exhausted (e.g., a previously used one-time-token, or too many requests). |
 | 500 - Internal server error | An error occurred on Wix's server. Try again later. |
 | 501 - Not implemented | The endpoint hasn't been implemented yet. |
 | 503 - Service unavailable | The service that you’re trying to access is temporarily unavailable. Try again later. |
-| 504 - Gateway timeout | The underlying service didn't respond in a timely manner. Try again later. |
+| 504 - Gateway timeout | The underlying service didn't respond in a timely manner. Try again later. If you're trying to query for data, you may try a smaller page size or a simpler filter. |
 
 
 ## Application error data
@@ -53,6 +58,7 @@ An application error occurs when the service business-logic decides to reject th
 ```
 ```json
 {
+409 Conflict
  "message": "Duplicate contact exists",
  "details": {
    "applicationError": {
@@ -67,7 +73,7 @@ An application error occurs when the service business-logic decides to reject th
 ```
 
 ## Validation error data
-A validation error occurs when input data fails to meet predefined criteria or constraints set by the system. This type of error serves to enforce rules such as correct data formats, required fields, or value ranges. This includes rules like `OUT_OF_RANGE` and `INVALID_ARGUMENT`.
+A validation error occurs when input data fails to meet predefined criteria or constraints set by the system. This type of error serves to enforce rules such as correct data formats, required fields, or value ranges. This includes rules like `OUT_OF_RANGE` and `INVALID_ARGUMENT`. Validation errors are 4xx types. Multiple violations may be returned in one response.
 
 | Property | Description | 
 | :-------------- | :------- |  
@@ -119,10 +125,11 @@ A validation error occurs when input data fails to meet predefined criteria or c
 
 ## System errors
 A system error occurs when there's an exception in the system, server is down, or some dependent service or database is down.  
-These errors are sent empty by design.
+These errors are sent empty by design. System errors are 5xx types.
 
 ### Example
 ```json
+500 Internal server error
 {
   "message": "",
   "details": {}
