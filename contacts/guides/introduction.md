@@ -1,4 +1,4 @@
-# About Contacts
+# About the Contacts API
 
 The Contacts API provides functionality for creating and managing contacts. 
 
