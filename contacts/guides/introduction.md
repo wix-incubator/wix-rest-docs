@@ -1,36 +1,35 @@
 # About Contacts
 
-When a new visitor first shares some of their contact information with a site,
-they're added to the site's
-[contact list](https://www.wix.com/my-account/site-selector/?buttonText=Select%20Site&title=Select%20a%20Site&autoSelectOnSingleSite=true&actionUrl=https:%2F%2Fwww.wix.com%2Fdashboard%2F%7B%7BmetaSiteId%7D%7D%2Fcontacts).
-Once that happens, their details are available through the Contacts API.
+The Contacts API provides functionality for creating and managing contacts. 
 
-A person becomes a contact when:
 
-- A site visitor fills in a form with their contact details.
-- A site visitor signs up as a member of the site.
-- A Wix user
-  [imports a contact](https://support.wix.com/en/article/importing-contacts-by-uploading-a-csv-file-1066522), 
-  [adds a contact manually](https://support.wix.com/en/article/manually-adding-contacts), or [creates a contact](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/create-contact) with the Contacts API.
+The Contacts API contains the following APIs:
 
-Wix users can use the contact list
-to manage their contacts' information.
-Learn more about how Wix users can
-[manage their contact list][kb-manage-contacts].
+- [Contacts](https://dev.wix.com/api/rest/contacts/contacts) - This API allows you to manage the contact details for contacts on a site. 
+- [Labels](https://dev.wix.com/api/rest/contacts/labels) - This API allows you to manage contact labels. Once a label is created, it can be assigned to a contact using the Contacts API.
+- [Extended Fields](https://dev.wix.com/api/rest/contacts/extended-fields) -  This API allows you to create and manage additional fields for contacts. 
 
-With the Contacts API, you can:
 
-- Manage [site contacts](https://dev.wix.com/api/rest/contacts/contacts).
-- Manage [contact labels](https://dev.wix.com/api/rest/contacts/labels).
-- Manage [extended field definitions](https://dev.wix.com/api/rest/contacts/extended-fields).
+## Use Cases
+- [Periodically export new Wix contacts to an external CRM](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/sample-flows#periodically-export-new-wix-contacts-to-an-external-crm)
+- [Sync with an external system in Real Time](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/sample-flows#real-time-2-way-sync-with-an-external-system)
+- [Create new contacts from an external form](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/sample-flows#create-new-contacts-from-an-external-form)
+- [Sync subscribed enails with an email delivery service](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/sample-flows#sync-subscribed-emails-with-an-email-delivery-service)
+
 
 ## Terminology
+
+- **Labels**: Tags that help Wix users categorize and organize their contacts.
+  Labels can be system-defined or user-defined.
+  You can manage a site's labels with the [Labels API][https://dev.wix.com/docs/rest/crm/members-contacts/contacts/labels/introduction].
+  A contact's assigned labels are available
+  in the contact object under `info.labelKeys`.
 
 - **Extended fields**: Additional properties that store additional contact information.
   A contact's extended field data is available
   in the contact object under `info.extendedFields`.
   Extended field definitions can be created and managed with
-  the [Extended Fields API][svc-fields].
+  the [Extended Fields API][https://dev.wix.com/docs/rest/crm/members-contacts/contacts/extended-fields/introduction].
 
   There are 2 types of extended fields:
 
@@ -41,14 +40,3 @@ With the Contacts API, you can:
   - **Custom fields**: Extended fields added by Wix users.
     Custom fields can be renamed,
     and their data can be written by any Wix user.
-
-- **Labels**: Tags that help Wix users categorize and organize their contacts.
-  Labels can be system-defined or user-defined.
-  You can manage a site's labels with the [Labels API][svc-labels].
-  A contact's assigned labels are available
-  in the contact object under `info.labelKeys`.
-
-[kb-manage-contacts]: https://support.wix.com/en/article/about-your-contact-list
-
-[svc-fields]: https://dev.wix.com/api/rest/contacts/extended-fields
-[svc-labels]: https://dev.wix.com/api/rest/contacts/labels
