@@ -2,6 +2,16 @@ SortOrder: 0
 
 # About the Schedules and Sessions API
 
+<blockquote class='warning'>
+
+__Deprecation Notice:__
+
+**Schedules and Sessions** has been replaced with
+[Calendar V3](https://dev.wix.com/docs/rest/business-management/calendar/introduction)
+and will be removed on June 30, 2025.
+
+</blockquote>
+
 Create, modify and delete bookable schedules and sessions.
 
 > **Note**:  
