@@ -287,7 +287,7 @@ Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 The owner of the Wix site that has Wix Bookings installed and all
 [site contributors](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site).
 
-## Staff Member
+## Staff member
 
 Team member of the business who provides a Bookings service. Staff members are
 eligible to receive tips. Not all staff members are
