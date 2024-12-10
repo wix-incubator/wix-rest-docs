@@ -53,7 +53,7 @@ is a general overview about the availability and bookings of the business,
 including its services and resources. You can manage appointments, classes, and
 courses on the calendar.
 
-## `CANCELED` (Booking status)
+## `CANCELED` (booking status)
 
 Indicates that the booking has been canceled by the site owner or the customer.
 Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/bookings-cancel-booking).
@@ -62,7 +62,7 @@ Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-so
 
 A list of all the different Bookings services a business provides.
 
-## Category (Service)
+## Category (service)
 
 A label used to group services, helping business owners, app developers, and
 customers filter and organize services efficiently.
@@ -74,7 +74,7 @@ when booking a service. The checkout is the second stage of the
 [eCommerce](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction)
 purchase flow: cart; checkout; order.
 
-## Choice (Pricing)
+## Choice (pricing)
 
 A specific value for a service option that customers can book. For example, the
 service option `ageGroup` may have these choices: `child`, `student`, `adult`,
@@ -98,7 +98,7 @@ to schedule sessions. This is in contrast to appointment services, where
 customers are free to decide when they want to book a session. Wix uses the
 class schedule to calculate which sessions are still available.
 
-## `CONFIRMED` (Booking status)
+## `CONFIRMED` (booking status)
 
 Indicates that the business owner has confirmed the booking and it appears in
 the business calendar. You can confirm your bookings in different ways:
@@ -200,14 +200,14 @@ their business, unless your app is working with a
 [Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless)
 project (in which case the site is hosted outside of the Wix ecosystem).
 
-## Option (Pricing)
+## Option (pricing)
 
 The pricing possibilities for a service, which can vary based on factors such
 as the staff member, customer age, appointment time, or type of equipment. Each
 option has a list of supported choices that may affect the service price or the
 option may have a uniform price.
 
-## `PENDING` (Booking status)
+## `PENDING` (booking status)
 
 Indicates that the booking is waiting to be confirmed or declined. Bookings in
 `PENDING` status are displayed in the business calendar. Bookings are
@@ -252,7 +252,7 @@ by appointment, 1-hour yoga classes every Monday at 7:00 PM, and introductory
 HIIT courses consisting of 3 training sessions on specific dates. For more
 information, see appointment, class, and course.
 
-## Status (Booking)
+## Status (booking)
 
 Information about the life cycle status of the booking. Booking statuses
 include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`,
@@ -294,7 +294,7 @@ eligible to receive tips. Not all staff members are
 [site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site)
 and not all site contributors are staff members.
 
-## Suggested participant (Waitlist)
+## Suggested participant (waitlist)
 
 When a session is fully booked, customers can join the waitlist. If a spot
 opens up due to a cancellation, the first person on the waitlist (the suggested
@@ -302,7 +302,7 @@ participant) is notified and given a chance to book the session within a
 specified time. If they don't book it, the opportunity is passed to the next
 person on the list.
 
-## Variant (Pricing)
+## Variant (pricing)
 
 Unique combination of choices for a service. For example: `{"time": "afternoon",
 "ageGroup": "adult", "equipment": "kettlebells"}`. Each variant may have a
@@ -320,7 +320,7 @@ Anyone who isn't registered as a member or hasn't logged in to the Wix site. If
 a visitor creates a booking they're added as a
 [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction).
 
-## `WAITING_LIST` (Booking status)
+## `WAITING_LIST` (booking status)
 
 Indicates that the booking is on a waitlist. Currently, waitlists are available
 only for classes and not for courses or appointment-based services.
