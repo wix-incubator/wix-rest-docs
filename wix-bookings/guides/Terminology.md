@@ -221,7 +221,7 @@ Rules set by the merchant regarding booking and canceling a service. These may
 include how far in advance customers can book, the deadline for cancellations,
 and the maximum number of participants allowed per booking.
 
-## Booking policy snapshot
+## Policy snapshot
 
 The version of a service's booking policy saved at the time a booking is
 created. Snapshots preserve the original terms, which is useful if policies
