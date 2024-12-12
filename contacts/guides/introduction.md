@@ -21,7 +21,7 @@ The Contacts API contains the following APIs:
 
 - **Labels**: Tags that help Wix users categorize and organize their contacts.
   Labels can be system-defined or user-defined.
-  You can manage a site's labels with the [Labels API][https://dev.wix.com/docs/rest/crm/members-contacts/contacts/labels/introduction].
+  You can manage a site's labels with the [Labels API](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/labels/introduction).
   A contact's assigned labels are available
   in the contact object under `info.labelKeys`.
 
@@ -29,14 +29,14 @@ The Contacts API contains the following APIs:
   A contact's extended field data is available
   in the contact object under `info.extendedFields`.
   Extended field definitions can be created and managed with
-  the [Extended Fields API][https://dev.wix.com/docs/rest/crm/members-contacts/contacts/extended-fields/introduction].
+  the [Extended Fields API](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/extended-fields/introduction).
 
   There are 2 types of extended fields:
 
   - **System fields**: Extended fields created by apps built by Wix.
     System fields often enrich contacts with data from apps built by Wix,
     such as Wix Stores or Wix Members.
-    System fields cannot be renamed and are typically read-only.
+    System fields can't be renamed and are typically read-only.
   - **Custom fields**: Extended fields added by Wix users.
     Custom fields can be renamed,
     and their data can be written by any Wix user.
