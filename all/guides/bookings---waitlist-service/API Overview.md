@@ -12,7 +12,7 @@ Upon reaching the end of the list, with no one accepting the invitation to join 
 
 ## Terminology
 
-- **Waitlist**: A list of participants that requested to be added to a session that is fully booked, if there should be a cancelation.
+- **Waitlist**: A list of participants that requested to be added to a session that is fully booked, if there should be a cancellation.
 - **Suggesting**: When a spot opens up in a session with a waitlist, the session is locked for bookings from any participant, other than the participant that is currently in queue in the waitlist - so that only the "suggested" participant is able to book the session.
 - **Waitlist Time Window**: How much time a client has to book a place in the session, before it is offered to the next client on the waitlist.
 
