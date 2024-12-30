@@ -221,16 +221,16 @@ Rules set by the merchant regarding booking and canceling a service. These may
 include how far in advance customers can book, the deadline for cancellations,
 and the maximum number of participants allowed per booking.
 
+## Pricing provider
+
+A 3rd-party app that implements custom logic to determine the price of a booking
+with the [Pricing Integration Service Plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction).
+
 ## Policy snapshot
 
 The version of a service's booking policy saved at the time a booking is
 created. Snapshots preserve the original terms, which is useful if policies
 change after a booking is made.
-
-## Pricing provider
-
-A 3rd-party app that implements custom logic to determine the price of a booking
-with the [Pricing Integration Service Plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction).
 
 ## Resource
 
@@ -252,26 +252,6 @@ by appointment, 1-hour yoga classes every Monday at 7:00 PM, and introductory
 HIIT courses consisting of 3 training sessions on specific dates. For more
 information, see appointment, class, and course.
 
-## Status (booking)
-
-Information about the life cycle status of the booking. Booking statuses
-include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`,
-`UPDATED`, `CANCELED`.
-
-## Session
-
-A booked or reserved period of time for an appointment, class, or course.
-Alternatively, you can consider a session as a specific instance of a service
-occurring at a particular time. The aggregation of all sessions for a service
-constitutes the service's schedule.
-
-## Slot
-
-A time period that customers can book for a service. For appointments, it
-includes all the times available to book. For classes, it refers to sessions
-that are open for booking. For more details, see appointment schedule and class
-schedule.
-
 ## Service plugin
 
 [Service plugins](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/service-plugins/about-service-plugin-extensions)
@@ -282,10 +262,24 @@ with it. For example, as a pricing provider you can offer custom varied pricing
 options to a Wix site using the [Wix Bookings Pricing Integration REST Service
 Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 
+## Session
+
+A booked or reserved period of time for an appointment, class, or course.
+Alternatively, you can consider a session as a specific instance of a service
+occurring at a particular time. The aggregation of all sessions for a service
+constitutes the service's schedule.
+
 ## Site owner
 
 The owner of the Wix site that has Wix Bookings installed and all
 [site contributors](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site).
+
+## Slot
+
+A time period that customers can book for a service. For appointments, it
+includes all the times available to book. For classes, it refers to sessions
+that are open for booking. For more details, see appointment schedule and class
+schedule.
 
 ## Staff member
 
@@ -293,6 +287,12 @@ Team member of the business who provides a Bookings service. Staff members are
 eligible to receive tips. Not all staff members are
 [site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site)
 and not all site contributors are staff members.
+
+## Status (booking)
+
+Information about the life cycle status of the booking. Booking statuses
+include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`,
+`UPDATED`, `CANCELED`.
 
 ## Suggested participant (waitlist)
 
