@@ -13,7 +13,7 @@ Site owners can set whether members are allowed to create groups, or add new mem
 - **Group**: Place where members can connect with each other to get updates and share media.
 - **Group Member**: Site member that has joined a group.
 
-  > **Note:** The Wix Groups API doesn't assign group members a unique ID. Instead, it uses the `memberId` from the [Members API](https://dev.wix.com/api/rest/members/members/about-wix-members) for identification.
+  > **Note:** The Wix Groups API doesn't assign group members a unique ID. Instead, it uses the `memberId` from the [Members API](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/introduction) for identification.
 
 - **Group List**: List of groups displayed in the Wix Groups app home page.
 
