@@ -49,7 +49,7 @@ Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-s
 6. title = e.g., Reminder   
 
 ### Set up a Fitness Instructor's Work Schedule, Including Group Classes and Availability for 1-on-1 Appointments
-The fitness instructor will exist as a resource in the system, with their own personal schedule. They will also be linked to both the group class's schedule, and the schedule detailing their availaibility for 1-on-1 appointments. 
+The fitness instructor will exist as a resource in the system, with their own personal schedule. They will also be linked to both the group class's schedule, and the schedule detailing their availability for 1-on-1 appointments. 
 
 1. Call [Create Resource](https://dev.wix.com/api/rest/wix-bookings/resources/create-resource) to add the instructor to the system and create their personal schedule.   
 Parameters to include:  
