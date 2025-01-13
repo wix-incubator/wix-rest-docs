@@ -2,11 +2,11 @@ SortOrder: 0
 
 # About Wix Groups
 
-With [Wix Groups](https://support.wix.com/en/article/wix-groups-about-groups) site owners can offer their members places to participate in discussions, share media and more.
+With [Wix Groups](https://support.wix.com/en/article/wix-groups-about-groups), Wix users can offer their members places to participate in discussions, share media and more.
 
 Media in Wix Groups is organized in a gallery.
 
-Site owners can set whether members are allowed to create groups, or add new members to a group.
+Wix users can set whether members are allowed to create groups, or add new members to a group.
 
 ## Terminology
 
@@ -27,10 +27,10 @@ Site owners can set whether members are allowed to create groups, or add new mem
 
 - **Group Role**: Defines permissions. See [Roles](https://dev.wix.com/docs/rest/crm/community/groups/introduction#roles) for more details.
 - **Join Group Request**: Request submitted by a site member to join a **private** group. Approved or rejected by a group admin.
-- **Group Request**: When the site owners have not given site members permission to create groups, they can submit a **Group Request** to do so. Approved or rejected by a group admin.
-- **Membership Question**: Question asked to members when joining a group. Site owners can set whether it is required to answer the question in the dashboard.
-- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Site owners can set up **Group Rules** in the dashboard.
-- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to the site owners under `Admin Tools` in the dashboard.
+- **Group Request**: When the Wix users have not given site members permission to create groups, they can submit a **Group Request** to do so. Approved or rejected by a group admin.
+- **Membership Question**: Question asked to members when joining a group. Wix users can set whether it is required to answer the question in the dashboard.
+- **Group Rule**: Guidelines ensuring that members post responsibly and respectfully. Wix users can set up **Group Rules** in the dashboard.
+- **Group Settings**: Group specific settings. Including, whether members can see the full member list or invite new members. Available to Wix users under `Admin Tools` in the dashboard.
 
 ## Roles
 
@@ -42,4 +42,4 @@ Site owners can set whether members are allowed to create groups, or add new mem
   >
   > - The creator of a group is automatically a **Group Admin**.
   > - A **Group Admin** has always permissions to create groups.
-- **Wix Groups Manager**: Member, Wix App or third party application with full management permissions. The site owners are always **Wix Groups Managers**.
+- **Wix Groups Manager**: Member, Wix user, or Wix app with full management permissions. Wix users are always **Wix Groups Managers**.
