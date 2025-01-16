@@ -6,13 +6,13 @@ SortOrder: 1
 
 For example, create a group for each class at a school or each fitness class (yoga, TRX, etc) in a gym.
 
-1. Create a list of site members to add to the relevant group, identified by one of the following: name, email address, phone number, contactId.
+1. Create a list of site members to add to the relevant group, identified by one of the following: name, email address, phone number, contact ID.
 2. Create a group by calling [Create Group](https://dev.wix.com/docs/rest/crm/community/groups/groups/create-group).
 3. Call [Query Members](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/query-members) to get the site member data.
 4. Map the site members to add to the group to their IDs as returned in step 3.
 5. Add the site members to the group by calling [Add Group Members](https://dev.wix.com/docs/rest/crm/community/groups/members/add-group-members) with the site member IDs collected above.
 
-## Manage Bulk Emailing to Group Members
+## Manage bulk emailing to group members
 
 For example, send automated emails to group members.
 
@@ -24,7 +24,7 @@ For example, send automated emails to group members.
 
 ## Provide Analytical Reports
 
-For example, create a report including aggregated group info: total amount of groups created, the most popular groups by member count, idle groups;
+For example, create a report including aggregated group info: total amount of groups created, the most popular groups by member count, and idle groups.
 
 1. Get the total amount of groups by calling [List Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/list-groups).
 2. From the response, collect the metadata total.
@@ -84,7 +84,7 @@ Then, you can send emails to the identified members informing them about upcomin
 
 ## Bulk Update Group Rules
 
-When Wix users manually update the rules for one group, You can apply the new rules to other relevant groups.
+When Wix users manually update the rules for one group, you can apply the new rules to other relevant groups.
 
 1. Get the updated group rules by calling [List Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/list-rules).
 2. Save the rules on your server and update them if needed by calling [Create or Replace Group Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/create-or-replace-all-rules).

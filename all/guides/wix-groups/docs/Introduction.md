@@ -41,5 +41,5 @@ Wix users can set whether members are allowed to create groups, or add new membe
   > **Notes:**
   >
   > - The creator of a group is automatically a **Group Admin**.
-  > - A **Group Admin** has always permissions to create groups.
+  > - A **Group Admin** always has permissions to create groups.
 - **Wix Groups Manager**: Member, Wix user, or Wix app with full management permissions. Wix users are always **Wix Groups Managers**.
