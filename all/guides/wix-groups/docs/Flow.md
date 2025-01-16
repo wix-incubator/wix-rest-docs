@@ -88,7 +88,7 @@ Then, you can send emails to the identified members informing them about upcomin
 
 When Wix users manually update the rules for one group, you can apply the new rules to other relevant groups.
 
-1. Get the updated group rules by calling [List Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/list-rules).
+1. Listen to [Rule Created](https://dev.wix.com/docs/rest/crm/community/moderation-rules/rule-created) and [Rule Updated](https://dev.wix.com/docs/rest/crm/community/moderation-rules/rule-updated), and/or regularly get the updated group rules by calling [List Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/list-rules).
 2. Save the rules on your server and update them if needed by calling [Create or Replace Group Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/create-or-replace-all-rules).
 3. Retrieve a list of all group IDs by calling [List Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/list-groups).
 4. Iterate over the list of group IDs and update the rules for each relevant group by calling [Create or Replace All Rules](https://dev.wix.com/docs/rest/crm/community/groups/rules/create-or-replace-all-rules).
