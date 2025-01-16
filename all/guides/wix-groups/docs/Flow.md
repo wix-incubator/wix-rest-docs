@@ -1,8 +1,10 @@
 SortOrder: 1
 
-# Sample Use Cases & Flow: Social Groups
+# Sample Flows: Social Groups
 
-## Create a Group for a Predefined List of People
+This article shares a possible use cases you can support, as well as an example flow that could support each use case. You're certainly not limited to these use cases, but it can be a helpful jumping off point as you plan your implementation.
+
+## Create a group for a predefined list of people
 
 For example, create a group for each class at a school or each fitness class (yoga, TRX, etc) in a gym.
 
@@ -22,7 +24,7 @@ For example, send automated emails to group members.
 4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the members have agreed to receive emails from the site owners.
 5. Prepare and send the automated emails.
 
-## Provide Analytical Reports
+## Provide analytical reports
 
 For example, create a report including aggregated group info: total amount of groups created, the most popular groups by member count, and idle groups.
 
@@ -71,7 +73,7 @@ For example, create a report including aggregated group info: total amount of gr
 
 5. Prepare and display the report.
 
-## Send Promotional Emails Based on Members' Interests
+## Send promotional emails based on members' interests
 
 Your can identify group members who are interested in a certain topic by searching for keywords in their answers to the membership questions.
 Then, you can send emails to the identified members informing them about upcoming events or special offers.
@@ -82,7 +84,7 @@ Then, you can send emails to the identified members informing them about upcomin
 4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the identified members have agreed to receive emails from the site owners.
 5. Prepare and send the automated emails.
 
-## Bulk Update Group Rules
+## Bulk update group rules
 
 When Wix users manually update the rules for one group, you can apply the new rules to other relevant groups.
 
