@@ -45,7 +45,7 @@ Depending on the call, an account ID and/or site ID must be included in the head
 
 For requests made exclusively at the account level, you must include the account ID in the header along with the API key for authentication. Some endpoints will require the site ID as well. This is indicated in the documentation for each account-level API.
 
-With site-level API requests, the account ID can be ommitted.
+With site-level API requests, the account ID can be omitted.
 
 ### Sample request: Site Folders API - Create Folder
 
