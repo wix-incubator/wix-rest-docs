@@ -1,6 +1,6 @@
 # About Account Level APIs
 
-Wix's account level APIs enable developers to access and manage account level functionality, including domains, transfering sites between accounts, and inviting team members.
+Wix's account level APIs enable developers to access and manage account level functionality, including domains, transferring sites between accounts, and inviting team members.
 
 Accounts are particularly useful when a business employs multiple staff members who all should have access to and permissions to manage one or more sites created for the business, and when a design company creates and designs sites for clients. In these cases, creating a team and sharing account access with the relevant users allows them access to account-level (domains, payment and billing info, etc.) and site-level data. This allows the right people to edit the relevant sites and other account assets to get their work done and keep sites and businesses running smoothly.  
 
