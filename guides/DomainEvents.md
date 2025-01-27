@@ -31,7 +31,7 @@ The `data.data` payload includes the following fields:
 | `originatedFrom` | The slug of the action that triggered this change, when applicable, as documented in each webhook. For example, when a contact is deleted due to merging of 2 contacts, this field is populated with `merge`. |
 
 
-In addition, each webhook includes one of the following fields with data specifc to the event, based on the slug type:
+In addition, each webhook includes one of the following fields with data specific to the event, based on the slug type:
 | Field name | Slug | Description | 
 | :-------------- | :------- |  :------- |  
 | `createdEvent` | `created` | Complete entity that was created. |

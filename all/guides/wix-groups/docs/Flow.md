@@ -30,6 +30,7 @@ To create a report including aggregated group information, such as, the total am
 1. Call [List Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/list-groups) to retrieve the total amount of groups.
 2. From the response, collect `metadata.total`.
 3. Retrieve the most popular groups by calling [Query Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/query-groups) and sorting by `membersCount`.
+
    Sample request body:
 
 ```json
@@ -50,9 +51,8 @@ To create a report including aggregated group information, such as, the total am
 ```
 
 4. Retrieve idle groups with the least recent activity by calling [Query Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/query-groups) and sorting by `recentActivityDate`.
+
    Sample request body:
-
-
 ```json
 {
   "query": {
