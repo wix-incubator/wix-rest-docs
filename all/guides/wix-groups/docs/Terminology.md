@@ -33,16 +33,15 @@ Group specific `settings`. Includes whether members can see the full group membe
 Request submitted by a site member to join a private group. The request can be approved or rejected by a group admin.
 
 ## Membership question
-A question asked to members when joining a group. Wix users can set whether it is required to answer the question in the dashboard.
+A question asked to members when joining a group. Only group admins can create or update membership questions and can set whether it is required to answer membership questions
 
 ## Role
 Role a site visitor has in a group.
 
   - **Anonymous:** Site visitor that isn't logged in.
-  - **Site member:** Site visitor that is logged in but not a group member.
+  - **Site member:** Site visitor that is logged in but is not a group member.
   - **Group member:** Site member that has joined a group.
-  - **Group admin:** Group member with additional permissions. The creator of a group is automatically a group admin.
-  - **Wix Groups Manager:** Member, Wix user or Wix app with full management permissions. Site admins are always Wix Groups Managers.
+  - **Group admin:** Group member, Wix user, or Wix app with group management permissions. The member that creates a group is automatically a group admin. Also, Wix users are always group admins for all groups on their site. 
 
-## Rule
-Guidelines ensuring that members post responsibly and respectfully. Wix users can set up group rules in the dashboard.
+## Rules
+A set of guidelines for group members' communication to encourage members to post responsibly and respectfully. These rules help set a positive tone for discussions and avoid conflicts.
