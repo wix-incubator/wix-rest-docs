@@ -25,7 +25,8 @@ Status code types include:
 | 403 - Permission denied | The system authenticated you, but you don’t have permissions to call this API. |
 | 404 - Not found | Resource not found / doesn't exist. |
 | 409 - Conflict | The resource you are attempting to create already exists or has a different revision than the one you're attempting to update, or another conflict with the server state. |
-| 429 - Resource exhausted | Resource usage was exhausted (e.g., a previously used one-time-token, or too many requests). |
+| 428 - Precondition required | Preconditions must be met for the request to be successful (for example, a required field wasn't passed, gift card is out of funds).
+| 429 - Resource exhausted | Resource usage was exhausted (for example, a previously used one-time-token, or too many requests). |
 | 500 - Internal server error | An error occurred on Wix's server. Try again later. |
 | 501 - Not implemented | The endpoint hasn't been implemented yet. |
 | 503 - Service unavailable | The service that you’re trying to access is temporarily unavailable. Try again later. |
