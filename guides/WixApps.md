@@ -1,14 +1,14 @@
-# About Apps Made by Wix
+# About Wix Business Solutions
 
-Wix offers a range of powerful business solutions that extend the functionalities of its existing products or add new capabilities. Apps made by Wix are web apps created by Wix that site owners can use to enhance their sites. A site owner can install one or more apps made by Wix to manage specific data on their site. 
+Wix offers a range of powerful business solutions that extend the functionalities of its existing products or add new capabilities. Wix business solutions are apps created by Wix that Wix users can use to enhance their sites. A Wix user can install one or more Wix business solutions o manage specific data on their site. 
 
-You may want to access site data that is managed by an app made by Wix. When making API calls to access Wix site data, some API calls require a reference to the specific app made by Wix. For example, to add a comment with the [`Create Comment`](https://dev.wix.com/docs/rest/api-reference/comments/comments/create-comment) API, pass an `appId` to specify where to create the comment, such as in Wix Blogs. 
+You may want to access site data that is managed by a Wix business solution. When making API calls to access Wix site data, some API calls require a reference to the specific Wix business solution. For example, to add a comment with [`Create Comment`](https://dev.wix.com/docs/rest/api-reference/comments/comments/create-comment) API, pass an `appId` to specify where to create the comment, such as in Wix Blog. 
 
-Other API calls may return a reference to the app made by Wix. For example, calling the [`Get a Coupon`](https://dev.wix.com/docs/rest/api-reference/coupons/coupons/get-a-coupon) API returns a coupon object with an `appId` referring to the ID of the Wix app that created the coupon, such as Wix Bookings or Wix Events. 
+Other API calls may return a reference to the Wix business solution. For example, calling the [`Get a Coupon`](https://dev.wix.com/docs/rest/api-reference/coupons/coupons/get-a-coupon) API returns a coupon object with an `appId` referring to the ID of the Wix business solution that created the coupon, such as Wix Bookings or Wix Events. 
 
-See the following apps made by Wix and their corresponding IDs. Regardless of the API call, each app always has the same `app ID`.
+See the following Wix business solution and their corresponding IDs. Regardless of the API call, each Wix business solution always has the same `app ID`.
 
-| **App made by Wix**    | **App ID**                          |
+| **Wix Business Solution**    | **App ID**                          |
 |------------------------|--------------------------------------|
 | Wix Bookings           | 13d21c63-b5ec-5912-8397-c3a5ddb27a97 |
 | Wix Blog               | 14bcded7-0066-7c35-14d7-466cb3f09103 |
@@ -26,3 +26,4 @@ See the following apps made by Wix and their corresponding IDs. Regardless of th
 | Wix Stores             | 215238eb-22a5-4c36-9e7b-e7c08025e04e |
 | Wix Subscriptions      | 8725b255-2aa2-4a53-b76d-7d3c363aaeea |
 | Wix Video              | 14409595-f076-4753-8303-9a86f9f71469 |
+
