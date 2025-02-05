@@ -1,6 +1,6 @@
 # About Wix Business Solutions
 
-Wix offers a range of powerful business solutions that extend the functionalities of its existing products or add new capabilities. Wix business solutions are apps created by Wix that Wix users can use to enhance their sites. A Wix user can install one or more Wix business solutions o manage specific data on their site. 
+Wix offers a range of powerful business solutions that extend the functionalities of its existing products or add new capabilities. Wix business solutions are apps created by Wix that Wix users can use to enhance their sites. A Wix user can install one or more Wix business solutions or manage specific data on their site. 
 
 You may want to access site data that is managed by a Wix business solution. When making API calls to access Wix site data, some API calls require a reference to the specific Wix business solution. For example, to add a comment with [`Create Comment`](https://dev.wix.com/docs/rest/api-reference/comments/comments/create-comment) API, pass an `appId` to specify where to create the comment, such as in Wix Blog. 
 
