@@ -20,7 +20,7 @@ To send automated emails to group members:
 1. Call [List Group Members](https://dev.wix.com/docs/rest/crm/community/groups/members/list-group-members) to get all members of a group.
 2. From the response, collect the site member IDs.
 3. Call [Query Members](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/query-members), with the site member IDs you collected, to get their email addresses.
-4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the members have agreed to receive emails from the Wix user.
+4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the members have agreed to receive emails.
 5. Prepare and send the automated emails.
 
 ## Provide analytical reports
@@ -80,7 +80,7 @@ Then, send emails to the identified members informing them about upcoming events
 1. Add membership questions with [Create or Replace All Membership Questions](https://dev.wix.com/docs/rest/crm/community/groups/membership-questions/create-or-replace-all-membership-questions).
 2. Call [List Answers](https://dev.wix.com/docs/rest/crm/community/groups/membership-questions/list-answers) to retrieve members' answers to the membership questions.
 3. Identify the relevant members via a keyword search.
-4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the identified members have agreed to receive emails from the Wix user.
+4. Call [Query Email Subscriptions](https://dev.wix.com/docs/rest/crm/communication/email-subscriptions/query-email-subscriptions) to confirm that the identified members have agreed to receive emails.
 5. Prepare and send the automated emails.
 
 ## Bulk update group rules

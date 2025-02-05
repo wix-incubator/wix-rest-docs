@@ -11,13 +11,13 @@ When a Wix user has not given site members permission to create groups, they can
 ## Group
 Place where members can connect with each other to get updates and share media.
 
-## Group list
-List of groups displayed in the Wix Groups app home page.
+## Groups list
+[List of groups](https://support.wix.com/en/article/wix-groups-about-your-groups-pages#groups-group-list) displayed in the Wix Groups app home page.
 
   > **Note:** Depending on the viewer's [role](#role), not all groups will be displayed.
 
 ## Group member
-Site member that has joined a group. The Groups API doesn't assign group members a unique ID. Instead, it uses the `memberId` from the [Members API](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/introduction) for identification.
+Site member that has joined a group.
 
 ## Group privacy status
 Defines the visibility of a group in a [group list](#group-list) and how a site member can join it.
@@ -33,7 +33,7 @@ Group specific `settings`. Includes whether members can see the full group membe
 Request submitted by a site member to join a private group. The request can be approved or rejected by a group admin.
 
 ## Membership question
-A question asked to members when joining a group. Only group admins can create or update membership questions and can set whether it is required to answer membership questions
+A question asked to members when joining a group. Only group admins can create or update membership questions and can set whether it is required to answer membership questions.
 
 ## Role
 Role a site visitor has in a group.
