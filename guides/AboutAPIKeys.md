@@ -21,7 +21,7 @@ API keys are authentication tools that account owners and co-owners can create a
   > The site ID for a current site can be obtained from the site URL in your browser.
   > For example, the site ID appears after the '/dashboard/' part of this URL: <br />
   > <br />
-  > ![site Id in URL](../media/siteid.png
+  > ![site Id in URL](../media/siteid.png)
 
   1. Enter the API key in the authorization header. Note that the API key does not need to be refreshed.  
   2. Calls may require either the account ID header or the site ID header. 
