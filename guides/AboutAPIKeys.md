@@ -49,7 +49,7 @@ Refer to the documentation for each specific call to know which one to use.
 
 Depending on the call, either an account ID or a site ID must be included in the header of the API request.
 
-For requests made exclusively at the [account level](https://dev.wix.com/docs/rest/account-level/about-account-level-apis), you must include the account ID in the header along with the API key for authentication. Some endpoints will require the site ID instead. This is indicated in the documentation for each API.
+For requests made exclusively at the [account level](https://dev.wix.com/docs/rest/account-level/about-account-level-apis), you must include the account ID in the header along with the API key for authentication. Some endpoints require the site ID instead. This is indicated in the documentation for each API.
 
 ### Sample request: Site Folders API - Create Folder
 
