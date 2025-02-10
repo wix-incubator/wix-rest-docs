@@ -23,25 +23,6 @@ API keys are authentication tools that account owners and co-owners can create a
   > <br />
   > ![site Id in URL](../media/siteid.png)
 
-  Enter the API key in the authorization header. Note that the API key does not need to be refreshed. 
-  
-
-      A complete header for an account-level API request looks like this:
-      ```sh
-      curl <GET/POST> \
-        '<endpoint>' \
-        -H 'Authorization: <APIKEY>' \
-        -H 'wix-account-id: <ACCOUNTID>' \
-      ```
-
-      A complete header for a site-level API request looks like this:
-      ```sh
-      curl <GET/POST> \
-        '<endpoint>' \
-        -H 'Authorization: <APIKEY>' \
-        -H 'wix-site-id: <SITEID>' \
-      ```
-
 3. Enter the API key in the authorization header. Note that the API key does not need to be refreshed. 
 
     Calls may require either the account ID header or the site ID header. Refer to the documentation for each specific call to know which one to use.
