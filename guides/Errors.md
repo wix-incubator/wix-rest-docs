@@ -95,7 +95,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
       "fieldViolations": [
         {
           "field": "fieldA",
-          "description": "Invalid music note. Supported notes: [do,re,mi,fa,sol,la,ti]",
+          "description": "Invalid musical note. Supported notes: [do,re,mi,fa,sol,la,ti]",
           "violatedRule": "CUSTOM",
           "ruleName": "INVALID_NOTE",
           "data": {
@@ -104,7 +104,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
         },
         {
           "field": "fieldB",
-          "description": "field value out of range. supported range: [0-20]",
+          "description": "Field value out of range. Supported range: [0-20]",
           "violatedRule": "MAX",
           "data": {
             "threshold": 20
@@ -112,7 +112,7 @@ A validation error occurs when input data fails to meet predefined criteria or c
         },
         {
           "field": "fieldC",
-          "description": "invalid phone number. provide a valid phone number of size: [7-12], supported characters: [0-9, +, -, (, )]",
+          "description": "Invalid phone number. Provide a valid phone number of size: [7-12]. Supported characters: [0-9, +, -, (, )]",
           "violatedRule": "FORMAT",
           "data": {
             "expected": "PHONE"
