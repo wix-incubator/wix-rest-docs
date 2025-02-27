@@ -4,7 +4,7 @@ Wix's account level APIs enable developers to access and manage account level fu
 
 Accounts are particularly useful when a business employs multiple staff members who all should have access to and permissions to manage one or more sites created for the business, and when a design company creates and designs sites for clients. In these cases, creating a team and sharing account access with the relevant users allows them access to account-level (domains, payment and billing info, etc.) and site-level data. This allows the right people to edit the relevant sites and other account assets to get their work done and keep sites and businesses running smoothly.  
 
-Account owners can use roles to limit team members’ access to various tasks and/or interfaces of the account (for example, blocking access to specific sites or blocking access to adding features that require payment). See [Managing Your Team](https://support.wix.com/en/article/wix-studio-managing-your-team) and [Wix Partners: Default Team Management Roles & Permissions](https://support.wix.com/en/article/default-team-management-roles-permissions#roles-and-permissions-summary-table) for more information.
+Account owners can use roles to limit team members’ access to various tasks and/or interfaces of the account (for example, blocking access to specific sites or blocking access to adding features that require payment). See [Managing Your Team](https://support.wix.com/en/article/wix-studio-managing-your-team) and [Wix Enterprise: About Team Management](https://support.wix.com/en/article/wix-enterprise-about-team-management) for more information.
 
 ## Intended audience
 Wix’s Account Level APIs are intended to support the following types of customers:
