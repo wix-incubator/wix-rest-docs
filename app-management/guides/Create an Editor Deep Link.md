@@ -7,7 +7,7 @@
   </p>
 </blockquote>
 
-<span style="padding:6px;color:#fff;background-color:#46d895;">&nbsp;&nbsp;POST&nbsp;&nbsp;</span><a style="padding:6px;color:#000;background-color:#f2f3f4;font-size:12px;pointer-events:none;cursor:default;text-decoration:none;color:#000;">&nbsp;https://www.wixapis.com/apps/v1/post-installation/editor-deep-link</a>
+<span style="padding:6px;color:#fff;background-color:#46d895;">&nbsp;&nbsp;POST&nbsp;&nbsp;</span><span style="padding:6px;color:#000;background-color:#f2f3f4;font-size:12px;pointer-events:none;cursor:default;text-decoration:none;color:#000;">&nbsp;https://www.wixapis.com/apps/v1/post-installation/editor-deep-link</span>
 
 
 ### Body Params
