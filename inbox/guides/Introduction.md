@@ -16,7 +16,7 @@ With the Inbox API, you can:
 
 [Read more about how site contributors work with Wix Inbox][kb-inbox].
 
-## Use case
+## Use cases
 + [Sync messages from an external service](https://dev.wix.com/docs/rest/crm/communication/inbox/example-flows#sync-messages-from-an-external-service)
 + [Add contact activities from another service](https://dev.wix.com/docs/rest/crm/communication/inbox/example-flows#add-contact-activities-from-another-service)
 
