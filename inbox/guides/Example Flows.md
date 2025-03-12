@@ -1,27 +1,25 @@
 SortOrder: 1
 # Example Flows
 
-This article shares some possible use cases your app could support,
-as well as an example flow that could support each use case.
-You're certainly not limited to these use cases,
-but they can be a helpful jumping off point
-as you plan your app's implementation.
+This article presents possible use cases and corresponding
+sample flows that you can support. This can be a helpful jumping off point
+as you plan your implementation.
 
-## Sync Messages from an External Service
+## Sync messages from an external service
 
-Your app can enable business owners to communicate with their customers on any platform
+You can enable business owners to communicate with their customers on any platform
 by syncing messages to Wix Inbox.
 The scenario below covers chat messages,
 but this flow could support integrating phone call logs, SMS services,
 chat sessions, or any other online or offline communication.
 
-To do this, your app can follow this basic flow:
+To do this, you can follow this basic flow:
 
 1. Set up the external service's webhooks.
-    When a "message sent" or "message received" webhook is triggered,
+    When a "message sent" or "message received" event is triggered,
     parse the event data for an email address.
 
-2. Use [Query Contacts][query-contacts]
+2. Call [Query Contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts)
     to find a contact with the email address you extracted in step 1.
     You're looking for a contact ID here,
     so you can use the `fields` array to make sure the response only passes back `id`:
@@ -39,9 +37,9 @@ To do this, your app can follow this basic flow:
 
     Any matching contacts are in the returned `contacts` array.
     An email address can belong to more than one contact,
-    so your app must handle situations when multiple contacts are returned.
+    so you must handle situations when multiple contacts are returned.
 
-3. Get the conversation ID with [Get or Create Conversation][get-or-create-conversation].
+3. Get the conversation ID with [Get or Create Conversation](https://dev.wix.com/api/rest/inbox/conversations/get-or-create-conversation).
 
     Set the `participantId.contactId` parameter to the `id` extracted in step 2:
 
@@ -53,12 +51,12 @@ To do this, your app can follow this basic flow:
 
     You can get the conversation ID from `conversation.id` in the response.
 
-4. Use [Send Message][send-message]
+4. Call [Send Message](https://dev.wix.com/api/rest/inbox/messages/send-message)
     to add the new message to the contact's conversation.
 
     Set the `conversationId` parameter to `conversation.id` returned in step 3.
 
-    In the body, pass the incoming message in a [`BASIC` message type][plain-message-type]:
+    In the body, pass the incoming message in a [`BASIC` message type](https://dev.wix.com/api/rest/inbox/messages/message-types#basic-messages):
 
     ```json
     {
@@ -85,23 +83,23 @@ To do this, your app can follow this basic flow:
     }
     ```
 
-Your app can also send messages sent on behalf of the business
+You can also send messages sent on behalf of the business
 from the external chat tool.
 In those cases, change the visibility settings to match your requirements,
 and set `direction` to `BUSINESS_TO_PARTICIPANT`.
 
-## Add Contact Activities from Another Service
+## Add contact activities from another service
 
-Your app can capture contact activities from another platform
-and display them in the contact's conversation in Inbox.
+You can capture contact activities from another platform
+and display them in the contact's conversation in Wix Inbox.
 
-To do this, your app can follow this basic flow:
+To do this, you can follow this basic flow:
 
-1. Set up the external service's webhooks.
-    When an event webhook is triggered,
+1. Set up the external service's events.
+    When an event is triggered,
     parse the event data for an email address.
 
-2. Use [Query Contacts][query-contacts]
+2. Call [Query Contacts](https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts)
     to find a contact with the email address you extracted in step 1.
     You're looking for a contact ID here,
     so you can use the `fields` array to make sure the response only passes back `id`:
@@ -119,7 +117,7 @@ To do this, your app can follow this basic flow:
 
     The response includes matching contacts in the returned `contacts` array.
     An email address can belong to more than one contact,
-    so your app must handle situations when multiple contacts are returned.
+    so you must handle situations when multiple contacts are returned.
 
 3. Get the conversation ID with [Get or Create Conversation][get-or-create-conversation].
 
@@ -133,12 +131,12 @@ To do this, your app can follow this basic flow:
 
     You can get the conversation ID from `conversation.id` in the response.
 
-4. Use [Send Message][send-message]
+4. Call [Send Message](https://dev.wix.com/api/rest/inbox/messages/send-message)
     to add the new message to the contact's conversation.
 
     Set the `conversationId` path parameter to `conversation.id` returned in step 3.
 
-    In the body, pass the action in a [`MINIMAL` message type][minimal-message-type]:
+    In the body, pass the action in a [`MINIMAL` message type](https://dev.wix.com/api/rest/inbox/messages/message-types#minimal-messages):
 
     ```json
     {
@@ -160,9 +158,3 @@ To do this, your app can follow this basic flow:
       "direction": "PARTICIPANT_TO_BUSINESS"
     }
     ```
-
-[query-contacts]: https://dev.wix.com/api/rest/contacts/contacts/contacts-v4/query-contacts
-[get-or-create-conversation]: https://dev.wix.com/api/rest/inbox/conversations/get-or-create-conversation
-[send-message]: https://dev.wix.com/api/rest/inbox/messages/send-message
-[plain-message-type]: https://dev.wix.com/api/rest/inbox/messages/message-types#basic-messages
-[minimal-message-type]: https://dev.wix.com/api/rest/inbox/messages/message-types#minimal-messages
