@@ -15,4 +15,4 @@ The following table shows field support for filters and sorting for the Policy o
 
 __Related content:__
 [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language),
-[Policy Query endpoint](https://dev.wix.com/api/rest/all-apis/policies-v2/filter-and-sort)
+[Policy Query endpoint](https://dev.wix.com/api/rest/wix-events/policy-v2/query-policies)
