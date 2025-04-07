@@ -1,45 +1,49 @@
 # Query vs. Search Methods
 
-When working with Wix REST APIs, you'll notice that some endpoints provide both Query and Search methods. Understanding the differences between these methods will help you choose the most appropriate one for your use case.
+When working with Wix APIs, you'll notice that some APIs provide both Query and Search methods. Understanding the differences between these methods will help you choose the most appropriate one for your use case.
 
 Both Query and Search methods retrieve collections of items, but they're optimized for different scenarios:
-- Query methods are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities
-- Search methods provide powerful text search functionality, aggregations, and result counting
+- Query methods are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
+- Search methods provide powerful text search functionality, aggregations, and result counting.
 
 ## When to use Query methods
-Choose a Query method when:
+Query methods deliver structured data efficiently with consistent performance. Choose a Query method when:
 - You need consistent, low-latency responses, even at the cost of some data freshness. For example, you're performing read operations immediately after write operations.
 - You need predictable performance for displaying paginated data.
 - Filtering or sorting based on structured fields is enough to meet your needs, without free text or aggregated data (counts, sums, and so on).
 
 
 ## When to use Search methods
-Choose a Search method when you need:
-- Free-text searches across multiple fields
-- Aggregated data (counts, sums, etc.)
-- Automatic counting of total results
-- More advanced filtering capabilities
+Search methods provide more advanced functionality for complex data retrieval scenarios.  Choose a Search method when you need:
+- Free-text searches across multiple fields.
+- Aggregated data, such as counts, sums, and so on.
+- Automatic counting of total results.
+- More advanced filtering capabilities.
 
-## Key Differences
+## Key differences
+Understanding the technical distinctions between these methods helps you make informed implementation decisions:
+
 |Feature | Query | Search |
 |---|---|---|
-|Consistency | Generally lower latency but may sacrifice immediate consistency | Eventually consistent|
-|Result count | Not included by default; separate count endpoint may be available | Usually includes total count automatically|
-|Aggregations |Not supported |Supported (sum, count, etc.)|
-|Free-text search | Not supported |Supported across multiple fields|
-|Filter & sort | Supported on specific fields | Supported, often with more options |
+|Consistency | Generally lower latency, but may sacrifice immediate consistency. | Eventually consistent.|
+|Result count | Not included by default. A separate count method may be available. | Usually includes total count automatically.|
+|Aggregations |Not supported. |Supported.|
+|Free-text search | Not supported. |Supported across multiple fields.|
+|Filter & sort | Supported on specific fields. | Supported, often with more field options. |
 
-## Practical Considerations
-Keep these issues in mind while making your decision:
+## Practical considerations
+When planning your implementation, keep these factors in mind:
 
-- **API-specific differences**: Always check the specific API documentation as available fields and capabilities may vary
-- **Performance**: Query methods generally provide more predictable performance for simple retrievals
-- **Complexity**: Search methods offer more power but may have more complex syntax
-- **Result limits**: Both methods typically support pagination, but may have different default and maximum values
+- **API-specific differences**: Always check the specific API documentation as available fields and capabilities may vary.
+- **Performance**: Query methods generally provide more predictable performance for simple retrievals.
+- **Complexity**: Search methods offer more power but may have more complex syntax.
+- **Result limits**: Both methods typically support pagination, but may have different default and maximum values.
 
 ## Example use cases
+These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
 
-### Query example: Retrieving a list of payment links filtered by price and sorted by creation date
+### Query example: Retrieve a list of payment links filtered by price and sorted by creation date
+You can retrieve a list of payment links filtered by a specific price range and sorted chronologically by creation date with the following call:
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/query' \
@@ -65,7 +69,8 @@ curl -X POST \
   }'
 ```
 
-### Search example: Finding all payment links containing "test" in their description, with aggregated counts by statuses
+### Search example: Find all payment links containing "test" in their description, with aggregated counts by statuses
+You can retrieve all test payment links, with aggregated counts for each status with the following call:
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/search' \
@@ -99,7 +104,8 @@ curl -X POST \
     }
   }'
 ```
-## Best Practices
+## Best practices
+Follow these recommendations to get the most out of your API calls:
 
 - Start with Query methods for simple data retrieval scenarios.
 - Use Search methods when you need text search or aggregations.
