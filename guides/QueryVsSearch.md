@@ -105,7 +105,7 @@ curl -X POST \
   }'
 ```
 ## Best practices
-Follow these recommendations to get the most out of your API implementations:
+Follow these recommendations to get the most out of your API calls:
 
 - Start with Query methods for simple data retrieval scenarios.
 - Use Search methods when you need text search or aggregations.
