@@ -9,7 +9,6 @@ Both Query and Search methods retrieve collections of items, but they're optimiz
 ## When to use Query methods
 Query methods deliver structured data efficiently with consistent performance. Choose a Query method when:
 - You need consistent, low-latency responses, even at the cost of some data freshness. For example, you're performing read operations immediately after write operations.
-- You need predictable performance for displaying paginated data.
 - Filtering or sorting based on structured fields is enough to meet your needs, without free text or aggregated data (counts, sums, and so on).
 
 
@@ -25,24 +24,26 @@ Understanding the technical distinctions between these methods helps you make in
 
 |Feature | Query | Search |
 |---|---|---|
-|Consistency | Generally lower latency, but may sacrifice immediate consistency. | Eventually consistent.|
-|Result count | Not included by default. A separate count method may be available. | Usually includes total count automatically.|
-|Aggregations |Not supported. |Supported.|
-|Free-text search | Not supported. |Supported across multiple fields.|
+|Consistency | Eventually consistent, lower latency compared to Search. | Eventually consistent, higher latency compared to Query.|
+|Result count | Not included by default. A separate count method may be available. | Includes total count automatically for the first page of results.|
+|Aggregations |Not supported. | Supported.|
+|Free-text search | Not supported. | Supported across multiple fields.|
 |Filter & sort | Supported on specific fields. | Supported, often with more field options. |
 
-## Practical considerations
-When planning your implementation, keep these factors in mind:
+## Best practices
+Follow these recommendations to get the most out of your API calls:
 
-- **API-specific differences**: Always check the specific API documentation as available fields and capabilities may vary.
-- **Performance**: Query methods generally provide more predictable performance for simple retrievals.
-- **Complexity**: Search methods offer more power but may have more complex syntax.
-- **Result limits**: Both methods typically support pagination, but may have different default and maximum values.
+- Start with Query methods for simple data retrieval scenarios.
+- Use Search methods when you need text search or aggregations.
+- Check for a dedicated Count method if you only need to know the total results.
+- Leverage both methods in your application when appropriate, for different user experiences.
+- Remember to review each API's specific documentation for details about supported fields and features for both Query and Search methods.
 
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
 
 ### Query example: Retrieve a list of payment links filtered by price and sorted by creation date
+A business may want to review all payment links for premium offerings to ensure the most recent links reflect current marketing strategies.   
 You can retrieve a list of payment links filtered by a specific price range and sorted chronologically by creation date with the following call:
 ```
 curl -X POST \
@@ -70,6 +71,7 @@ curl -X POST \
 ```
 
 ### Search example: Find all payment links containing "test" in their description, with aggregated counts by statuses
+A business may want to identify all test payment links and check what types of tests were run.  
 You can retrieve all test payment links, with aggregated counts for each status with the following call:
 ```
 curl -X POST \
@@ -104,12 +106,3 @@ curl -X POST \
     }
   }'
 ```
-## Best practices
-Follow these recommendations to get the most out of your API calls:
-
-- Start with Query methods for simple data retrieval scenarios.
-- Use Search methods when you need text search or aggregations.
-- Check for a dedicated Count method if you only need to know the total results.
-- Leverage both methods in your application when appropriate, for different user experiences.
-- Remember to review each API's specific documentation for details about supported fields and features for both Query and Search methods.
-
