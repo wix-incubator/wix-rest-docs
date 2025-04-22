@@ -12,8 +12,8 @@ API keys are authentication tools that account owners and co-owners can create a
 ## Create and use API keys
 
 1. Create or request an API key.
-- If you have direct access to the site, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.
-- If you don't have direct access to the site, request the key and the account ID from the site owner.  
+- If you have direct access to the account, create a key with the relevant permissions in the [API Keys Manager](https://manage.wix.com/account/api-keys). Collect the key and the account ID.
+- If you don't have direct access to the account, request the key and the account ID from the account owner.  
 
 2. Call the Site API's **Query Sites** endpoint to collect all the account's associated site IDs.
 
@@ -23,9 +23,9 @@ API keys are authentication tools that account owners and co-owners can create a
   > <br />
   > ![site Id in URL](../media/siteid.png)
 
-3. Enter the API key in the authorization header. Note that the API key does not need to be refreshed. 
+3. When making API calls, enter the API key in the authorization header. Note that the API key does not need to be refreshed. 
 
-    Calls may require either the account ID header or the site ID header. Refer to the documentation for each specific call to know which one to use.
+    Calls may require either the account ID header or the site ID header (but not both). Refer to the documentation for each specific call to know which one to use.
     
     A complete header for an account-level API request looks like this:
     ```sh
@@ -41,6 +41,7 @@ API keys are authentication tools that account owners and co-owners can create a
       -H 'Authorization: <APIKEY>' \
       -H 'wix-site-id: <SITEID>' \
     ```
+Keep in mind that site-level calls only work with API keys from the site's owner account. If you work with multiple API keys, make sure you're using the correct key that matches your target site's ownership.
 
 ## Account-level and site-level API requests
 
