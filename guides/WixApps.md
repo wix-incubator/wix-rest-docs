@@ -8,22 +8,22 @@ Other API calls may return a reference to the app created by Wix. For example, c
 
 See the following apps created by Wix and their corresponding IDs. Regardless of the API call, each app always has the same `app ID`.
 
-| **App Created by Wix** | **App ID**                           |
-|------------------------|--------------------------------------|
-| Wix Bookings           | 13d21c63-b5ec-5912-8397-c3a5ddb27a97 |
-| Wix Blog               | 14bcded7-0066-7c35-14d7-466cb3f09103 |
-| Wix CMS                | 675bbcef-18d8-41f5-800e-131ec9e08762 |
-| Wix eCommerce          | 1380b703-ce81-ff05-f115-39571d94dfcd |
-| Wix Events             | 140603ad-af8d-84a5-2c80-a0f60cb47351 |
-| Wix Forms              | 14ce1214-b278-a7e4-1373-00cebd1bef7c |
-| Wix Hotels             | 135aad86-9125-6074-7346-29dc6a3c9bcf |
-| Wix Inbox              | 141fbfae-511e-6817-c9f0-48993a7547d1 |
-| Wix Invoices           | 13ee94c1-b635-8505-3391-97919052c16f |
-| Wix Music              | 13bb5d67-1add-e770-a71f-001277e17c57 |
-| Wix Online Programs    | 2936472a-a1ed-4ae5-9f71-614313a9f4e7 |
-| Wix Pay Button         | 3575d251-42c3-4992-adff-170b2af90a2c |
-| Wix Pricing Plans      | 1522827f-c56c-a5c9-2ac9-00f9e6ae12d3 |
-| Wix Restaurants Orders | 13e8d036-5516-6104-b456-c8466db39542 |
-| Wix Stores             | 215238eb-22a5-4c36-9e7b-e7c08025e04e |
-| Wix Subscriptions      | 8725b255-2aa2-4a53-b76d-7d3c363aaeea |
-| Wix Video              | 14409595-f076-4753-8303-9a86f9f71469 |
+| **App Created by Wix**   | **App ID**                           | **Description**                                      |
+|--------------------------|--------------------------------------|------------------------------------------------------|
+| Wix Bookings             | 13d21c63-b5ec-5912-8397-c3a5ddb27a97 | Schedule appointments, classes, and manage bookings. |
+| Wix Blog                 | 14bcded7-0066-7c35-14d7-466cb3f09103 | Create and manage blog content.                      |
+| Wix CMS                  | 675bbcef-18d8-41f5-800e-131ec9e08762 | Manage content and data.                             |
+| Wix eCommerce            | 1380b703-ce81-ff05-f115-39571d94dfcd | Sell goods and services to customers.                |
+| Wix Events               | 140603ad-af8d-84a5-2c80-a0f60cb47351 | Organize events, sell tickets, and manage RSVPs.     |
+| Wix Forms                | 14ce1214-b278-a7e4-1373-00cebd1bef7c | Create custom forms for data collection.             |
+| Wix Hotels               | 135aad86-9125-6074-7346-29dc6a3c9bcf | Manage hotel reservations.                           |
+| Wix Inbox                | 141fbfae-511e-6817-c9f0-48993a7547d1 | Manage customer communications.                      |
+| Wix Invoices             | 13ee94c1-b635-8505-3391-97919052c16f | Generate and send invoices to clients.               |
+| Wix Music                | 13bb5d67-1add-e770-a71f-001277e17c57 | Stream and sell music online.                        |
+| Wix Online Programs      | 2936472a-a1ed-4ae5-9f71-614313a9f4e7 | Build and sell online courses.                       |
+| Wix Pay Button           | 3575d251-42c3-4992-adff-170b2af90a2c | Process payments.                                    |
+| Wix Pricing Plans        | 1522827f-c56c-a5c9-2ac9-00f9e6ae12d3 | Offer subscriptions or membership plans.             |
+| Wix Restaurants Orders   | 13e8d036-5516-6104-b456-c8466db39542 | Take online orders for food and drinks.              |
+| Wix Stores               | 215238eb-22a5-4c36-9e7b-e7c08025e04e | Sell physical or digital products to customers.      |
+| Wix Subscriptions        | 8725b255-2aa2-4a53-b76d-7d3c363aaeea | Manage recurring billing and subscriptions.          |
+| Wix Video                | 14409595-f076-4753-8303-9a86f9f71469 | Upload and share videos on your website.             |
