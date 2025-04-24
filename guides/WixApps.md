@@ -8,10 +8,11 @@ Other API calls may return a reference to the app created by Wix. For example, c
 
 See the following apps created by Wix and their corresponding IDs. Regardless of the API call, each app always has the same `app ID`.
 
-| **App Created by Wix**    | **App ID**                          |
+| **App Created by Wix** | **App ID**                           |
 |------------------------|--------------------------------------|
 | Wix Bookings           | 13d21c63-b5ec-5912-8397-c3a5ddb27a97 |
 | Wix Blog               | 14bcded7-0066-7c35-14d7-466cb3f09103 |
+| Wix CMS                | 675bbcef-18d8-41f5-800e-131ec9e08762 |
 | Wix eCommerce          | 1380b703-ce81-ff05-f115-39571d94dfcd |
 | Wix Events             | 140603ad-af8d-84a5-2c80-a0f60cb47351 |
 | Wix Forms              | 14ce1214-b278-a7e4-1373-00cebd1bef7c |
@@ -26,4 +27,3 @@ See the following apps created by Wix and their corresponding IDs. Regardless of
 | Wix Stores             | 215238eb-22a5-4c36-9e7b-e7c08025e04e |
 | Wix Subscriptions      | 8725b255-2aa2-4a53-b76d-7d3c363aaeea |
 | Wix Video              | 14409595-f076-4753-8303-9a86f9f71469 |
-
