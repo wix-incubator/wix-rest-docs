@@ -81,6 +81,8 @@ List methods typically have these features:
 
 ## Method selection guide
 
+When choosing between search, query, and list methods for your data retrieval needs, use decision tree below  to guide you to the most appropriate method based on your data retrieval needs, and your requirements for data freshness, filtering complexity, and caching.
+
 ![method decision tree](./SearchQueryList.png)
 
 ## Example use cases
