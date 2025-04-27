@@ -81,7 +81,7 @@ List methods typically have these features:
 
 ## Method selection guide
 
-
+![method decision tree](./SearchQueryList.png)
 
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
