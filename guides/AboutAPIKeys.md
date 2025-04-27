@@ -47,7 +47,7 @@ Keep in mind that site-level calls only work with API keys from the site's owner
 
 Depending on the call, either an account ID or a site ID must be included in the header of the API request.
 
-For requests made exclusively at the [account level](https://dev.wix.com/docs/rest/account-level/about-account-level-apis), you must include the account ID in the header along with the API key for authentication. Requests made at the site level require the site ID instead. This is indicated in the documentation for each API.
+For requests made exclusively at the [account level](https://dev.wix.com/docs/rest/account-level/about-account-level-apis), you must include the account ID in the header along with the API key for authentication. Requests made at the site level require the site ID instead. This is indicated in the documentation for each API. Don’t pass both, as this may result in an error.
 
 ### Sample request: Site Folders API - Create Folder
 
