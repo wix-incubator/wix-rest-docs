@@ -6,7 +6,7 @@ All three methods retrieve collections of items, but they're optimized for diffe
 
 * **Search methods** provide powerful text search functionality, aggregations, and result counting.
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
-* **List methods** provide simple, straightforward access to collections with basic pagination options.
+* **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only avaialable for collections that are limited in size.
 
 ## Key differences
 
@@ -14,19 +14,18 @@ All three methods retrieve collections of items, but they're optimized for diffe
 |---------|------|-------|--------|
 | Purpose | Discovery and exploration | Efficient filtered data access | Basic collection access |
 | Complexity | Complex | Moderate | Simple |
-| Consistency | Eventually consistent, higher latency | Eventually consistent, lower latency | Eventually consistent |
-| Result Count | Includes total count automatically in the first page | Not included by default; separate count endpoint may be available | Not included by default |
+| Consistency | Eventually consistent, higher latency for availability of created and updated records than query and list| Eventually consistent, lower latency | Eventually consistent, lower latency |
+| Result Count | Includes total count automatically in the first page | Not included by default; separate count endpoint may be available | Not included by default; separate count endpoint may be available  |
 Filtering | Advanced text and field-based filtering | Extensive field-based filtering | Limited field-based filtering |
-| Sorting | Flexible field-based sorting with relevance | Flexible field-based sorting | Limited, often predefined options |
+| Sorting | Flexible field-based sorting | Flexible field-based sorting | Limited, often predefined options |
 | Aggregations | Supported | Not supported | Not supported |
 | Free-text Search | Supported across multiple fields | Not supported | Not supported |
-| Performance | Optimized for search capabilities | Optimized for filtered access | Fastest for simple retrieval |
-| Pagination | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available | Simple offset/limit |
+| Performance | Optimized for search capabilities for sort and filter| Optimized for filtered access | Fastest for simple retrieval |
+| Pagination | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available | Simple offset/limit, cursor may be available |
 
 ## Search method characteristics
 Search methods typically have these features:
 - Advanced text search capabilities across multiple fields.
-- Relevance-based result ordering.
 - Support for both structured filtering and free-text search.
 - Fuzzy matching for spelling tolerance and typo forgiveness.
 - Phrase matching for exact sequence detection.
@@ -39,7 +38,6 @@ Search methods typically have these features:
   - Distinct count operations.
 - Facet generation for filtered navigation interfaces.
 - Higher latency compared to List and Query methods.
-- May include relevance scoring information in results.
 - Designed for discovery-oriented user experiences.
 - Suitable for building search boxes, filters, and exploratory interfaces.
 - Often supports highlighting of matched text in results.
