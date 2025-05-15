@@ -20,7 +20,7 @@ Filtering | Advanced text and field-based filtering | Extensive field-based filt
 | Sorting | Flexible field-based sorting | Flexible field-based sorting | Limited, often predefined options |
 | Aggregations | Supported | Not supported | Not supported |
 | Free-text Search | Supported across multiple fields | Not supported | Not supported |
-| Performance | Optimized for search capabilities with sort and filter | Good performance for simple queries | Good performance for simple queries |
+| Performance | Optimized for search capabilities  | Optimized for sorting and filtering | Good performance for simple queries |
 | Pagination | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available |
 
 ## Search method characteristics
