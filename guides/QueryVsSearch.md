@@ -14,14 +14,14 @@ All three methods retrieve collections of items, but they're optimized for diffe
 |---------|------|-------|--------|
 | Purpose | Discovery and exploration | Efficient filtered data access | Basic collection access |
 | Complexity | Complex | Moderate | Simple |
-| Consistency | Eventually consistent, higher latency for availability of created and updated records than query and list| Eventually consistent, lower latency | Eventually consistent, lower latency |
-| Result Count | Includes total count automatically in the first page | Not included by default; separate count endpoint may be available | Not included by default; separate count endpoint may be available  |
+| Consistency | Eventually consistent, higher latency for availability of created and updated records than list| Eventually consistent, higher latency for availability of created and updated records than list | Eventually consistent, lower latency |
+| Result Count | Includes total count automatically in the first page | Not included; separate count endpoint may be available | Not included; separate count endpoint may be available  |
 Filtering | Advanced text and field-based filtering | Extensive field-based filtering | Limited field-based filtering |
 | Sorting | Flexible field-based sorting | Flexible field-based sorting | Limited, often predefined options |
 | Aggregations | Supported | Not supported | Not supported |
 | Free-text Search | Supported across multiple fields | Not supported | Not supported |
-| Performance | Optimized for search capabilities for sort and filter| Good performance for simple queries | Good performance for simple queries |
-| Pagination | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available | Simple offset/limit, cursor may be available |
+| Performance | Optimized for search capabilities with sort and filter | Good performance for simple queries | Good performance for simple queries |
+| Pagination | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available | Cursor-based for efficiency, offset/limit may be available |
 
 ## Search method characteristics
 Search methods typically have these features:
@@ -37,15 +37,11 @@ Search methods typically have these features:
   - Min/Max value detection.
   - Distinct count operations.
 - Facet generation for filtered navigation interfaces.
-- Higher latency compared to List and Query methods.
+- Higher latency compared to List methods.
 - Designed for discovery-oriented user experiences.
 - Suitable for building search boxes, filters, and exploratory interfaces.
 - Often supports highlighting of matched text in results.
 - REST: POST endpoints with comprehensive JSON configuration bodies.
-
-## Query method characteristics
-
-Query methods typically have these features:
 - Support for complex filtering expressions with logical operators. Common operators include:  
 
   | Expression type | SDK | REST |  
@@ -60,18 +56,36 @@ Query methods typically have these features:
   | Field exists check | `exists()` | `$exists` |  
   | String starts with | `startsWith()` | `$startsWith` |  
 
+
+## Query method characteristics
+
+Query methods typically have these features:
+
 - Field-specific sorting with direction control.
 - Efficient cursor-based pagination for handling large datasets.
 - Often allows multiple filter conditions to be combined.
 - Optimized for low-latency data access patterns.
 - No support for text search or aggregations.
 - REST: HTTP POST endpoints with a JSON request body.
+- Support for complex filtering expressions with logical operators. Common operators include:  
+
+  | Expression type | SDK | REST |  
+  |----------------|-----|------|  
+  | Equal to | `eq()` | `$eq` |  
+  | Not equal to | `ne()` | `$ne`|
+  | Greater than | `gt()` | `$gt` |  
+  | Greater than or equal to | `ge()` | `$gte` |  
+  | Less than | `lt()` | `$lt` |  
+  | Less than or equal to | `le()` | `$lte` |  
+  | In a specified list | `in()` | `$in` |  
+  | Field exists check | `exists()` | `$exists` |  
+  | String starts with | `startsWith()` | `$startsWith` |  
+
 
 ## List method characteristics
 
 List methods typically have these features:
 * Basic field-based filtering.
-* Standard pagination (`limit` and `offset`).
 * Usually have the simplest implementation requirements.
 * Limited or no sorting capabilities beyond defaults.
 * Suitable for dropdown menus, simple listings, and basic data display.
