@@ -95,7 +95,7 @@ List methods typically have these features:
 
 When choosing between search, query, and list methods for your data retrieval needs, use decision tree below  to guide you to the most appropriate method based on your data retrieval needs, and your requirements for data freshness, filtering complexity, and caching.
 
-![method decision tree](./SearchQueryList.png)
+![method decision tree](./SearchQueryList2.png)
 
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
