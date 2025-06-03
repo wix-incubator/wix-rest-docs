@@ -172,7 +172,7 @@ with this basic flow:
     Filter for contacts whose `subscriptionStatus` is `SUBSCRIBED`:
 
     ::::tabs
-   :::REST_TAB
+    :::REST_TAB
     ```json
         {
         "filter": {
@@ -186,14 +186,14 @@ with this basic flow:
             "info.extendedFields"
         ]
         }
-        ```
-   :::
-   :::SDK_TAB
-   ```js
-   const query = services.queryContacts().eq("info.extendedFields.emailSubscriptions.subscriptionStatus", "SUBSCRIBED");
-   ```
-   :::
-   ::::
+    ```
+    :::
+    :::SDK_TAB
+    ```js
+    const query = services.queryContacts().eq("info.extendedFields.emailSubscriptions.subscriptionStatus", "SUBSCRIBED");
+    ```
+    :::
+    ::::
 
 2. Create a mapping from the Wix fields to the email delivery service fields.
     Store this mapping on your app's server.

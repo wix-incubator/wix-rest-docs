@@ -24,16 +24,26 @@ To do this, you can follow this basic flow:
     You're looking for a contact ID here,
     so you can use the `fields` array to make sure the response only passes back `id`:
 
-    ```json
-    {
-      "query": {
-        "filter": {
-          "info.emails.email": { "$eq": "<EMAIL_ADDRESS_FROM_INCOMING_MESSAGE>" }
-        },
-        "fields": [ "id" ]
+    ::::tabs
+    :::REST_TAB
+      ```json
+      {
+        "query": {
+          "filter": {
+            "info.emails.email": { "$eq": "<EMAIL_ADDRESS_FROM_INCOMING_MESSAGE>" }
+          },
+          "fields": [ "id" ]
+        }
       }
-    }
+      ```
+    :::
+    :::SDK_TAB
+    ```js
+    const query = services.queryContacts().eq("info.emails.email", "<EMAIL_ADDRESS_FROM_INCOMING_MESSAGE>").find();
+    const returnedItems = results.items._id
     ```
+    :::
+    ::::
 
     Any matching contacts are in the returned `contacts` array.
     An email address can belong to more than one contact,
@@ -104,16 +114,26 @@ To do this, you can follow this basic flow:
     You're looking for a contact ID here,
     so you can use the `fields` array to make sure the response only passes back `id`:
 
-    ```json
-    {
-      "query": {
-        "filter": {
-          "info.emails.email": { "$eq": "<CUSTOMER_EMAIL_ADDRESS>" }
-        },
-        "fields": [ "id" ]
+    ::::tabs
+    :::REST_TAB
+      ```json
+      {
+        "query": {
+          "filter": {
+            "info.emails.email": { "$eq": "<EMAIL_ADDRESS_FROM_INCOMING_MESSAGE>" }
+          },
+          "fields": [ "id" ]
+        }
       }
-    }
+      ```
+    :::
+    :::SDK_TAB
+    ```js
+    const query = services.queryContacts().eq("info.emails.email", "<EMAIL_ADDRESS_FROM_INCOMING_MESSAGE>").find();
+    const returnedItems = results.items._id
     ```
+    :::
+    ::::
 
     The response includes matching contacts in the returned `contacts` array.
     An email address can belong to more than one contact,
