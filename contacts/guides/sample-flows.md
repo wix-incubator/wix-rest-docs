@@ -31,8 +31,10 @@ To do this, your app can periodically bulk load new contacts:
 4. For all subsequent loads, use [Query Contacts][query-contacts],
     and filter for new contacts created since the last load:
 
-    ```json
-    {
+   ::::tabs
+   :::REST_TAB
+   ```json
+        {
       "sort": {
         "fieldName": "createdDate",
         "order": "ASC"
@@ -43,7 +45,14 @@ To do this, your app can periodically bulk load new contacts:
         }
       }
     }
-    ```
+      ```
+   :::
+   :::SDK_TAB
+   ```js
+   const query = services.queryContacts().ascending("createdDate").gt("createdDate", "<PREVIOUS_LOAD_DATETIME>");
+   ```
+   :::
+   ::::
 
 5. Repeat steps 2 to 4 for each subsequent load.
     You can allow the site admin to configure the time interval in your app
@@ -160,23 +169,31 @@ query contacts where `emailSubscriptions.subscriptionStatus` is `SUBSCRIBED`
 with this basic flow:
 
 1. Retrieve the filtered list of contacts with [Query Contacts][query-contacts].
-    Filter for contacts whose `subscriptionStatus` is `SUBSCRIBED`,
-    and return only the fields you need:
+    Filter for contacts whose `subscriptionStatus` is `SUBSCRIBED`:
 
+    ::::tabs
+    :::REST_TAB
     ```json
-    {
-      "filter": {
-        "info.extendedFields.emailSubscriptions.subscriptionStatus": {
-          "$eq": "SUBSCRIBED"
+        {
+        "filter": {
+            "info.extendedFields.emailSubscriptions.subscriptionStatus": {
+            "$eq": "SUBSCRIBED"
+            }
+        },
+        "fields": [
+            "primaryInfo",
+            "info.labelKeys",
+            "info.extendedFields"
+        ]
         }
-      },
-      "fields": [
-        "primaryInfo",
-        "info.labelKeys",
-        "info.extendedFields"
-      ]
-    }
     ```
+    :::
+    :::SDK_TAB
+    ```js
+    const query = services.queryContacts().eq("info.extendedFields.emailSubscriptions.subscriptionStatus", "SUBSCRIBED");
+    ```
+    :::
+    ::::
 
 2. Create a mapping from the Wix fields to the email delivery service fields.
     Store this mapping on your app's server.
