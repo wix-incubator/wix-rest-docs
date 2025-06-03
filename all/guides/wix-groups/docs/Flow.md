@@ -33,42 +33,64 @@ To create a report including aggregated group information, such as, the total am
 
    Sample request body:
 
-```json
-{
-  "query": {
-    "sort": [
-      {
-        "fieldName": "membersCount",
-        "order": "DESC"
-      }
-    ],
-    "paging": {
-      "offset": 0,
-      "limit": 100
-    }
-  }
-}
-```
+
+   ::::tabs
+   :::REST_TAB
+   ```json
+        {
+          "query": {
+            "sort": [
+              {
+                "fieldName": "membersCount",
+                "order": "DESC"
+              }
+            ],
+            "paging": {
+              "offset": 0,
+              "limit": 100
+            }
+          }
+        }
+      ```
+   :::
+   :::SDK_TAB
+   ```js
+   const query = services.queryGroups.descending("membersCount").limit(100);
+   ```
+   :::
+   ::::
+
+
 
 4. Retrieve idle groups with the least recent activity by calling [Query Groups](https://dev.wix.com/docs/rest/crm/community/groups/groups/query-groups) and sorting by `recentActivityDate`.
 
-   Sample request body:
-```json
-{
-  "query": {
-    "sort": [
-      {
-        "fieldName": "recentActivityDate",
-        "order": "ASC"
+  Sample request body:
+  
+   ::::tabs
+   :::REST_TAB
+   ```json
+       {
+        "query": {
+          "sort": [
+            {
+              "fieldName": "recentActivityDate",
+              "order": "ASC"
+            }
+          ],
+          "paging": {
+            "offset": 0,
+            "limit": 100
+          }
+        }
       }
-    ],
-    "paging": {
-      "offset": 0,
-      "limit": 100
-    }
-  }
-}
-```
+      ```
+   :::
+   :::SDK_TAB
+   ```js
+   const query = services.queryGroups.ascending("recentActivityDate").limit(100);
+   ```
+   :::
+   ::::
 
 5. Prepare and display the report.
 
