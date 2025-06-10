@@ -24,7 +24,7 @@ See the following apps created by Wix and their corresponding IDs. Regardless of
 | Wix Pay Button                | 3575d251-42c3-4992-adff-170b2af90a2c | Process payments.                                       |
 | Wix Portfolio                 | d90652a2-f5a1-4c7c-84c4-d4cdcc41f130 | Showcase images and videos in a customizable portfolio. |
 | Wix Pricing Plans             | 1522827f-c56c-a5c9-2ac9-00f9e6ae12d3 | Offer subscriptions or membership plans.                |
-| Wix Restaurants Menus         | b278a256-2757-4f19-9313-c05c783bec92 | Create and manage food menus.                           |
+| Wix Restaurants Menus  (New)  | b278a256-2757-4f19-9313-c05c783bec92 | Create and manage food menus.                           |
 | Wix Restaurants Menus  (Old)  | 13c1402c-27f2-d4ab-7463-ee7c89e07578 | Create and manage food menus. Old app.                  |
 | Wix Restaurants Orders (New)  | 9a5d83fd-8570-482e-81ab-cfa88942ee60 | Take online orders for food and drinks.                 |
 | Wix Restaurants Orders (Old)  | 13e8d036-5516-6104-b456-c8466db39542 | Take online orders for food and drinks. Old app.        |
