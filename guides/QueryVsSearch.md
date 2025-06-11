@@ -8,6 +8,8 @@ All three methods retrieve collections of items, but they're optimized for diffe
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
 * **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only avaialable for collections that are limited in size.
 
+> **Note:** The Wix Data Items API has a dedicated Aggregate method, XXX.
+
 ## Key differences
 
 | Feature | Search | Query | List |
@@ -44,17 +46,17 @@ Search methods typically have these features:
 - REST: POST endpoints with comprehensive JSON configuration bodies.
 - Support for complex filtering expressions with logical operators. Common operators include:  
 
-  | Expression type | SDK | REST |  
-  |----------------|-----|------|  
-  | Equal to | `eq()` | `$eq` |  
-  | Not equal to | `ne()` | `$ne`|
-  | Greater than | `gt()` | `$gt` |  
-  | Greater than or equal to | `ge()` | `$gte` |  
-  | Less than | `lt()` | `$lt` |  
-  | Less than or equal to | `le()` | `$lte` |  
-  | In a specified list | `in()` | `$in` |  
-  | Field exists check | `exists()` | `$exists` |  
-  | String starts with | `startsWith()` | `$startsWith` |  
+  | Expression type | SDK & REST |  
+  |----------------|------|  
+  | Equal to | `$eq` |  
+  | Not equal to |  `$ne`|
+  | Greater than |  `$gt` |  
+  | Greater than or equal to |  `$gte` |  
+  | Less than |  `$lt` |  
+  | Less than or equal to |  `$lte` |  
+  | In a specified list |  `$in` |  
+  | Field exists check |  `$exists` |  
+  | String starts with |  `$startsWith` |  
 
 
 ## Query method characteristics
