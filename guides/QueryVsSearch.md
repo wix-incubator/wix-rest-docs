@@ -107,7 +107,7 @@ These examples illustrate common applications for both methods in the [Payment L
 A business may want to identify all test payment links and check what types of tests were run.
 
 ::::tabs
-:::REST Example
+:::REST_TAB
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/search' \
@@ -142,7 +142,7 @@ curl -X POST \
   }'
 ```
 :::
-:::SDK Example
+:::SDK_TAB
 ```
 async function searchPaymentLinks() {
   try {
@@ -185,7 +185,7 @@ A business may want to review all payment links for premium offerings to ensure 
 You can retrieve a list of payment links filtered by a specific price range and sorted chronologically by creation date with the following call:
 
 ::::tabs
-:::REST Example
+:::REST_TAB
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/query' \
@@ -211,7 +211,7 @@ curl -X POST \
   }'
 ```
 :::
-:::SDK Example
+:::SDK_TAB
 ```
 async function queryPaymentLinks() {
   try {
@@ -243,14 +243,14 @@ async function queryPaymentLinks() {
 A business needs to display a list of all their payment links in a dashboard with page navigation. If the Payment Links API included a List call, it would look like the example below.
 
 ::::tabs
-:::REST Example
+:::REST_TAB
 ```
 curl -X GET \
   'https://www.wixapis.com/payment-links/v1/payment-links?limit=10&offset=0' \
   -H 'Authorization: <AUTH>'
 ```
 :::
-:::SDK Example
+:::SDK_TAB
 ```
 async function getPaymentLinks() {
   try {
