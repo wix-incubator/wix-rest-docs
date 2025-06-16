@@ -32,3 +32,5 @@ See the following apps created by Wix and their corresponding IDs. Regardless of
 | Wix Subscriptions             | 8725b255-2aa2-4a53-b76d-7d3c363aaeea | Manage recurring billing and subscriptions.             |
 | Wix Table Reservations        | f9c07de2-5341-40c6-b096-8eb39de391fb | Manage table reservations.                              |
 | Wix Video                     | 14409595-f076-4753-8303-9a86f9f71469 | Upload and share videos on your website.                |
+| Wix Members Area              | 14cc59bc-f0b7-15b8-e1c7-89ce41d0e0c9 | Manage member accounts and access content.              |
+| Wix Loyalty Program           | 553c79f3-5625-4f38-b14b-ef7c0d1e87df | Offer rewards for earned loyalty points.                |
