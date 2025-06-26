@@ -8,6 +8,7 @@ All three methods retrieve collections of items, but they're optimized for diffe
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
 * **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only avaialable for collections that are limited in size.
 
+> **Note:** The Wix Data Items API has a dedicated Aggregate method.
 
 ## Key differences
 
@@ -105,6 +106,8 @@ These examples illustrate common applications for both methods in the [Payment L
 
 A business may want to identify all test payment links and check what types of tests were run.
 
+::::tabs
+:::REST_TAB
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/search' \
@@ -138,11 +141,57 @@ curl -X POST \
     }
   }'
 ```
+:::
+:::SDK_TAB
+```
+import { paymentLinks } from "@wix/get-paid"; 
+
+export async function searchPaymentLinks() {
+  try {
+    const response = await paymentLinks.searchPaymentLinks({
+      sort: [
+          {
+            fieldName: "createdDate",
+            order: "DESC"
+          }
+        ],
+        aggregations: [
+          {
+            name: "statuses",
+            type: "VALUE",
+            fieldPath: "status",
+            value: {
+              sortType: "COUNT"
+            }
+          }
+        ],
+        search: {
+          fuzzy: true,
+          expression: "Test",
+          fields: [
+            "title"
+          ]
+        },
+    })
+    return response
+    }, catch (error) {
+    console.error(error);
+    },
+     };
+
+```
+:::
+::::
+
+
 
 
 ### Query example: Retrieve a list of payment links filtered by price and sorted by creation date
 A business may want to review all payment links for premium offerings to ensure the most recent links reflect current marketing strategies.   
 You can retrieve a list of payment links filtered by a specific price range and sorted chronologically by creation date with the following call:
+
+::::tabs
+:::REST_TAB
 ```
 curl -X POST \
   'https://www.wixapis.com/payment-links/v1/payment-links/query' \
@@ -167,13 +216,58 @@ curl -X POST \
     }
   }'
 ```
+:::
+:::SDK_TAB
+```
+async function queryPaymentLinks() {
+  try {
+    const results = await myWixClient.queryPaymentLinks({
+      query: {
+        filter: {
+          price: {
+            $gt: 100
+          }
+        },
+        sort: [
+          {
+            fieldName: "createdDate",
+            order: "DESC"
+          }
+        ],
+        cursorPaging: {
+          limit: 1
+        }
+      }
+    });
+```
+:::
+::::
+
 
 ### List example: Retrieving all payment links with basic pagination
 
-A business needs to display a list of all their payment links in a dashboard with page navigation.
+A business needs to display a list of all their payment links in a dashboard with page navigation. If the Payment Links API included a List call, it would look like the example below.
 
+::::tabs
+:::REST_TAB
 ```
 curl -X GET \
   'https://www.wixapis.com/payment-links/v1/payment-links?limit=10&offset=0' \
   -H 'Authorization: <AUTH>'
 ```
+:::
+:::SDK_TAB
+```
+async function getPaymentLinks() {
+  try {
+    const response = await paymentLinksService.queryPaymentLinks({
+      query: {
+        paging: {
+          limit: 10,
+          offset: 0
+        }
+      }
+    });
+```
+:::
+::::
