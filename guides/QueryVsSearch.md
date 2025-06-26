@@ -144,11 +144,12 @@ curl -X POST \
 :::
 :::SDK_TAB
 ```
-async function searchPaymentLinks() {
+import { paymentLinks } from "@wix/get-paid"; 
+
+export async function searchPaymentLinks() {
   try {
-    const response = await myWixClient.paymentLinks.searchPaymentLinks({
-      search: {
-        sort: [
+    const response = await paymentLinks.searchPaymentLinks({
+      sort: [
           {
             fieldName: "createdDate",
             order: "DESC"
@@ -170,9 +171,14 @@ async function searchPaymentLinks() {
           fields: [
             "title"
           ]
-        }
-      }
-    });
+        },
+    })
+    return response
+    }, catch (error) {
+    console.error(error);
+    },
+     };
+
 ```
 :::
 ::::
