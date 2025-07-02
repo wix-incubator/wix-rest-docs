@@ -6,7 +6,7 @@ All three methods retrieve collections of items, but they're optimized for diffe
 
 * **Search methods** provide powerful text search functionality, aggregations, and result counting.
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
-* **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only avaialable for collections that are limited in size.
+* **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only available for collections that are limited in size.
 
 
 ## Key differences
