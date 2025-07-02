@@ -98,6 +98,7 @@ When choosing between search, query, and list methods for your data retrieval ne
 
 ![method decision tree](./SearchQueryList2.png)
 
+<!-- remove temporarily until find samles that actually work
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
 
@@ -177,3 +178,4 @@ curl -X GET \
   'https://www.wixapis.com/payment-links/v1/payment-links?limit=10&offset=0' \
   -H 'Authorization: <AUTH>'
 ```
+-->
