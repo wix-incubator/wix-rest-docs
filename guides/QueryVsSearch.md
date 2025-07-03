@@ -8,6 +8,7 @@ All three methods retrieve collections of items, but they're optimized for diffe
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
 * **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only available for collections that are limited in size.
 
+> **Note:** The Wix Data Items API has a dedicated Aggregate method.
 
 ## Key differences
 
