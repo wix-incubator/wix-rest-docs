@@ -1,9 +1,10 @@
 SortOrder: 3
 # API Query and Search Language 
 
-The query and search language described in this article is implemented partially or in full by Wix APIs supporting query and search capabilities.
-You may see some similarities between the Wix API Query Language and MongoQL, as the style of the Wix API Query Language
-is heavily influenced by MongoQL.
+The query and search language described in this article is implemented partially or in full by many Wix APIs supporting query and search capabilities.
+You may see some similarities between the Wix API Query Language and MongoQL, as the style of the Wix API Query Language is heavily influenced by MongoQL. 
+
+> **Note:** Many query methods in the Wix JavaScript SDK handle filter and sort functionalities with chained functions. Learn more about Wix's [search](https://dev.wix.com/docs/rest/articles/get-started/search-query-and-list-methods#search-method-characteristics) and [query](https://dev.wix.com/docs/rest/articles/get-started/search-query-and-list-methods#query-method-characteristics) methods.
 
 ## Syntax
 

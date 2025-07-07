@@ -6,7 +6,7 @@ All three methods retrieve collections of items, but they're optimized for diffe
 
 * **Search methods** provide powerful text search functionality, aggregations, and result counting.
 * **Query methods** are designed for efficient, low-latency data retrieval with predictable filtering and sorting capabilities.
-* **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only avaialable for collections that are limited in size.
+* **List methods** provide simple, straightforward access to collections with basic pagination options. Generally only available for collections that are limited in size.
 
 > **Note:** The Wix Data Items API has a dedicated Aggregate method.
 
@@ -99,6 +99,7 @@ When choosing between search, query, and list methods for your data retrieval ne
 
 ![method decision tree](./SearchQueryList2.png)
 
+<!-- remove temporarily until find samles that actually work
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
 
@@ -269,3 +270,5 @@ export async function myListLoyaltyAccountsFunction() {
 ```
 :::
 ::::
+-->
+

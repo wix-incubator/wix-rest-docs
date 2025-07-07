@@ -19,6 +19,8 @@ See the following apps created by Wix and their corresponding IDs. Regardless of
 | Wix Hotels                    | 135aad86-9125-6074-7346-29dc6a3c9bcf | Manage hotel reservations.                              |
 | Wix Inbox                     | 141fbfae-511e-6817-c9f0-48993a7547d1 | Manage customer communications.                         |
 | Wix Invoices                  | 13ee94c1-b635-8505-3391-97919052c16f | Generate and send invoices to clients.                  |
+| Wix Loyalty Program           | 553c79f3-5625-4f38-b14b-ef7c0d1e87df | Offer rewards for earned loyalty points.                |
+| Wix Members Area              | 14cc59bc-f0b7-15b8-e1c7-89ce41d0e0c9 | Manage member accounts and access content.              |
 | Wix Music                     | 13bb5d67-1add-e770-a71f-001277e17c57 | Stream and sell music online.                           |
 | Wix Online Programs           | 2936472a-a1ed-4ae5-9f71-614313a9f4e7 | Build and sell online courses.                          |
 | Wix Pay Button                | 3575d251-42c3-4992-adff-170b2af90a2c | Process payments.                                       |
