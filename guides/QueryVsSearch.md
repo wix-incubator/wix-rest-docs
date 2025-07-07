@@ -103,13 +103,15 @@ When choosing between search, query, and list methods for your data retrieval ne
 ## Example use cases
 These examples illustrate common applications for both methods in the [Payment Links API](https://dev.wix.com/docs/rest/business-management/get-paid/payment-links/payment-links/introduction).
 
-### Search example: Finding payment links containing "test" with aggregated counts by status
+### Search example: Finding Loyalty accounts containing "test" in the contact email address with aggregated counts by points balance
 
-A business may want to identify all test payment links and check what types of tests were run.
+A business may want to identify all test loyalty accounts and check their point balances, sorted by latest created date.
 
+::::tabs
+:::REST_TAB
 ```
 curl -X POST \
-  'https://www.wixapis.com/payment-links/v1/payment-links/search' \
+  'https://www.wixapis.com/loyalty-accounts/v1/accounts/search' \
   -H 'Authorization: <AUTH>' \
   -H 'Content-Type: application/json' \
   --data-binary '{
@@ -122,9 +124,9 @@ curl -X POST \
       ],
       "aggregations": [
         {
-          "name": "statuses",
+          "name": "balances",
           "type": "VALUE",
-          "fieldPath": "status",
+          "fieldPath": "points.balance",
           "value": {
             "sortType": "COUNT"
           }
@@ -132,28 +134,74 @@ curl -X POST \
       ],
       "search": {
         "fuzzy": true,
-        "expression": "Test",
+        "expression": "test",
         "fields": [
-          "title"
+          "contact.email"
         ]
       }
     }
   }'
 ```
+:::
+:::SDK_TAB
+```
+import { accounts } from "@wix/loyalty";
+
+export async function searchAccounts() {
+  try {
+    const response = await loyalty.searchAccounts({
+      sort: [
+          {
+            fieldName: "createdDate",
+            order: "DESC"
+          }
+        ],
+        aggregations: [
+          {
+            name: "balances",
+            type: "VALUE",
+            fieldPath: "points.balance",
+            value: {
+              sortType: "COUNT"
+            }
+          }
+        ],
+        search: {
+          fuzzy: true,
+          expression: "test",
+          fields: [
+            "contact.email"
+          ]
+        },
+    })
+    return response
+    }, catch (error) {
+    console.error(error);
+    },
+     };
+
+```
+:::
+::::
 
 
-### Query example: Retrieve a list of payment links filtered by price and sorted by creation date
-A business may want to review all payment links for premium offerings to ensure the most recent links reflect current marketing strategies.   
-You can retrieve a list of payment links filtered by a specific price range and sorted chronologically by creation date with the following call:
+
+
+### Query example: Retrieve a list of Loyalty accounts filtered by points balances 
+A business may want to review all Loyalty accounts and their current balance to send reminders to customers with high balances about ways to use their points.   
+You can retrieve a list of Loyalty accounts filtered by a specific points balance range and sorted chronologically by creation date with the following call:
+
+::::tabs
+:::REST_TAB
 ```
 curl -X POST \
-  'https://www.wixapis.com/payment-links/v1/payment-links/query' \
+  'https://www.wixapis.com/loyalty-accounts/v1/accounts/query' \
   -H 'Authorization: <AUTH>' \
   -H 'Content-Type: application/json' \
   --data-binary '{
     "query": {
       "filter": {
-        "price": {
+        "points.balance": {
           "$gt": 100,
         }
       },
@@ -169,14 +217,58 @@ curl -X POST \
     }
   }'
 ```
+:::
+:::SDK_TAB
+```
+import { accounts } from "@wix/loyalty";
 
-### List example: Retrieving all payment links with basic pagination
+async function queryLoyaltyAccounts() {
+    const { items } = await loyalty.queryLoyaltyAccounts().gt("points.balance", 100).descending("createdDate").find();
+}
+```
+:::
+::::
 
-A business needs to display a list of all their payment links in a dashboard with page navigation.
 
+### List example: Retrieving Loyalty accounts for specific customers with basic pagination
+
+A business needs to access a list of specific Loyalty accounts in a dashboard with page navigation. 
+You can retrieve a list of specified Loyalty accounts with the deprecated List Accounts method.
+
+::::tabs
+:::REST_TAB
 ```
 curl -X GET \
-  'https://www.wixapis.com/payment-links/v1/payment-links?limit=10&offset=0' \
+  'https://www.wixapis.com/loyalty-accounts/v1/accountscontactIds[]=88615e02-3e8a-4297-8939-5d0a432b322a&contactIds[]=fb8f125e-bfc3-4d9a-80c2-215494f24731' \
   -H 'Authorization: <AUTH>'
 ```
+:::
+:::SDK_TAB
+```
+import { accounts } from "@wix/loyalty";
+
+export async function myListLoyaltyAccountsFunction() {
+  try {
+    const accountsList = await accounts.listAccounts(options);
+
+    const firstAccountId = accountsList.accounts[0]._id;
+    const firstAccountBalance = accountsList.accounts[0].points.balance;
+
+    console.log(
+      "Success! The ID and point balance for the first account in your list is: ",
+      firstAccountId,
+      " and ",
+      firstAccountBalance,
+    );
+
+    return accountsList;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+```
+:::
+::::
 -->
+
