@@ -32,20 +32,9 @@ For example, to list contacts by last name in ascending order:
 :::
 :::SDK_TAB
 ```
-import { listContacts } from 'wix-crm-backend';
-
 const sort = [
   { fieldName: "info.name.last", order: "ASC" },
 ];
-
-listContacts({ sort })
-  .then(results => {
-    // results.items is sorted as requested
-    console.log(results.items);
-  })
-  .catch(error => {
-    console.error(error);
-  });
 ```
 :::
 ::::
