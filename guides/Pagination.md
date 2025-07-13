@@ -56,14 +56,6 @@ const sort = [
   { fieldName: "createdDate", order: "DESC" }
 ];
 
-listContacts({ sort })
-  .then(results => {
-    // results.items is sorted as requested
-    console.log(results.items);
-  })
-  .catch(error => {
-    console.error(error);
-  });
 ```
 :::
 ::::
@@ -118,9 +110,9 @@ The standard Wix API pagination includes:
 
 - **limit**: amount of items per response (default is `0`)
 
-- **offset**: number of items to skip. In legacy APIs **skip** is provided instead of **offset**.
+- **offset/skip**: number of items to skip. The standard in REST is **offset**, and in the SDK is **skip**.
 
-
+- **cursor paging**: 
 
 ### Paging _List_ endpoints
 
@@ -133,24 +125,12 @@ For example, to list 100 contacts, starting from contact 20:
 ```
 :::
 :::SDK_TAB
-import { listContacts } from 'wix-crm-backend';
-
+```
 const sort = [
   { fieldName: "info.name.last", order: "ASC" },   
   { fieldName: "createdDate", order: "DESC" }      
 ];
-
-listContacts({
-  sort,     
-  limit: 100, // Number of items to return
-  skip: 20  // Number of items to skip (i.e., start with contact #101)
-})
-.then(results => {
-  console.log(results.items);
-})
-.catch(error => {
-  console.error(error);
-});
+```
 :::
 ::::
 
