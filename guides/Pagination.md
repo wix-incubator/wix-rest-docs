@@ -106,17 +106,14 @@ contacts.query()
 
 ## Paging
 
-The standard Wix API pagination includes:
+Paging allows you to control how many results are returned and where the result set starts. Wix APIs commonly support 1 or both of 2 paging strategies:
 
-- **limit**: amount of items per response (default is `0`)
-
-- **offset/skip**: number of items to skip. The standard in REST is **offset**, and in the SDK is **skip**.
-
-- **cursor paging**: 
+- **Offset-based** (limit/skip/offset): Specify the number of items to skip and the number to return.
+- **Cursor-based** (nextCursor): Use a token (cursor) to fetch the next set of results.
 
 ### Paging _List_ endpoints
 
-For example, to list 100 contacts, starting from contact 20:
+For example, to list 100 contacts, starting from contact 20, with offset paging:
 
 ::::tabs
 :::REST_TAB
@@ -126,14 +123,36 @@ For example, to list 100 contacts, starting from contact 20:
 :::
 :::SDK_TAB
 ```
-const sort = [
-  { fieldName: "info.name.last", order: "ASC" },   
-  { fieldName: "createdDate", order: "DESC" }      
+{
+ *   paging: {
+ *       limit: 100,
+          skip: 20
+ *   }     
 ];
 ```
 :::
 ::::
 
+To list the next 100 contacts with cursor paging:
+
+::::tabs
+:::REST_TAB
+```txt
+&cursorPaging.cursor=JWE.eyJhbGciOiJBMTI4S1ciLCJlbm
+```
+:::
+:::SDK_TAB
+```
+{
+    const options = {
+       cursorPaging {
+            cursor: JWE.eyJhbGciOiJBMTI4S1ciLCJlbm
+    }
+}
+};
+```
+:::
+::::
 
 ### Paging _Query_ endpoints
 
