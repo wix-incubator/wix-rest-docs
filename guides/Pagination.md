@@ -158,21 +158,26 @@ To list the next 100 contacts with cursor paging:
 
 ### Paging _Query_ endpoints
 
-For example, to query 100 contacts, starting from contact 20:
+For example, to query 100 contacts, starting from contact 20, with offset paging:
 
 ::::tabs
 :::REST_TAB
 ```json
+  "query": {
+    "paging": {
     "limit": 100, 
-    "offset": 20 
+    "offset": 20
+  }
+}
 ```
 :::
 :::SDK_TAB
+```
 import { contacts } from "@wix/crm";
 
-contacts.query()                  
+const query = contacts.queryContacts()               
   .limit(100)  
-  .offset(20)
+  .skip(20)
   .find()
   .then(results => {
     console.log(results.items); // Sorted and filtered results
@@ -180,7 +185,30 @@ contacts.query()
   .catch(error => {
     console.error(error);
   });
+```
 :::
 ::::
 
 Should return items 21-120 in the results.
+
+To query 100 payment links with cursor paging:
+
+::::tabs
+:::REST_TAB
+```json
+  "query": {
+    "cursorPaging": {
+      "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
+    }
+```
+:::
+:::SDK_TAB
+```
+import { paymentLinks } from "@wix/get-paid";
+
+  const nextCursor = results.cursors.next;
+  return paymentLinks.queryPaymentLinks().skipTo(JWE.eyJhbGciOiJBMTI4S1ciLCJlbm).find();
+}
+```
+:::
+::::
