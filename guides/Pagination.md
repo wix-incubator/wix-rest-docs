@@ -88,18 +88,32 @@ For example, to list payment links by created date in ascending order, and by st
 ```
 :::
 :::SDK_TAB
-import { contacts } from "@wix/crm";
+```
+import { paymentLinks } from "@wix/get-paid";
 
-contacts.query()       
-  .ascending('info.name.last')                 // Sort results by last name (A–Z)
-  .descending('createdDate')                   // Then by creation date (newest first)
-  .find()
-  .then(results => {
-    console.log(results.items); // Sorted and filtered results
-  })
-  .catch(error => {
-    console.error(error);
-  });
+export const queryPaymentLinksSorted = webMethod(
+  async () => {
+    try {
+      const results = await paymentLinks.queryPaymentLinks()
+        .ascending('_createdDate')        // Sort by created date ascending
+        .descending('status')             // Then by status descending
+        .find();
+
+      console.log(`Found ${results.items.length} payment links`);
+      console.log('Payment links:', results.items);
+      
+      return {
+        success: true,
+        paymentLinks: results.items,
+        totalCount: results.totalCount,
+        pageSize: results.pageSize,
+        sortedBy: 'created date (oldest first), then status (descending)'
+      };
+
+      }
+    }
+);
+```
 :::
 ::::
 
@@ -107,8 +121,8 @@ contacts.query()
 
 Paging allows you to control how many results are returned and where the result set starts. Wix APIs commonly support 1 or both of 2 paging strategies:
 
-- **Offset-based** (limit/skip/offset): Specify the number of items to skip and the number to return.
-- **Cursor-based** (nextCursor): Use a token (cursor) to fetch the next set of results.
+- **Offset-based** (includes `limit` and `skip`/`offset`): Specify the number of items to skip and the number to return.
+- **Cursor-based** (includes `nextCursor` and `prevCursor`): Use a token (cursor) to fetch the next or previous set of results.
 
 ### Paging _List_ endpoints
 
@@ -206,7 +220,7 @@ To query 100 payment links with cursor paging:
 import { paymentLinks } from "@wix/get-paid";
 
   const nextCursor = results.cursors.next;
-  return paymentLinks.queryPaymentLinks().skipTo(JWE.eyJhbGciOiJBMTI4S1ciLCJlbm).find();
+  return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 }
 ```
 :::
