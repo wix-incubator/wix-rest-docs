@@ -124,11 +124,13 @@ For example, to list 100 contacts, starting from contact 20, with offset paging:
 :::SDK_TAB
 ```
 {
- *   paging: {
- *       limit: 100,
-          skip: 20
- *   }     
-];
+    "options": {
+       "paging": {
+           "limit": 20,
+           "offset": 0
+       },
+    }
+ }
 ```
 :::
 ::::
