@@ -168,7 +168,7 @@ For example, to query 100 contacts, starting from contact 20:
 ```
 :::
 :::SDK_TAB
-import { contacts } from 'wix-crm-backend'; 
+import { contacts } from "@wix/crm";
 
 contacts.query()                  
   .limit(100)  
