@@ -146,7 +146,7 @@ To list the next 100 contacts with cursor paging:
 {
     const options = {
        cursorPaging {
-            cursor: JWE.eyJhbGciOiJBMTI4S1ciLCJlbm
+            cursor: JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
     }
 }
 };
