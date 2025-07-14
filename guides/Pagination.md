@@ -89,7 +89,7 @@ include this structure in the request body:
 ```
 :::
 :::SDK_TAB
-import { contacts } from 'wix-crm-backend';
+import { contacts } from "@wix/crm";
 
 contacts.query()       
   .ascending('info.name.last')                 // Sort results by last name (A–Z)
