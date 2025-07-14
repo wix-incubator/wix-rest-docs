@@ -70,8 +70,7 @@ typically `query.sort`, and in the SDK within a .sort() function in the SDK's qu
 For each `sort` object,
 sorting is applied with the `fieldName` and `order` parameters.
 
-For example, to list contacts by last name in ascending order,
-include this structure in the request body:
+For example, to list payment links by created date in ascending order, and by status in descending order:
 
 ::::tabs
 :::REST_TAB
