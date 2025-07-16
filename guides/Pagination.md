@@ -79,6 +79,7 @@ import { paymentLinks } from "@wix/get-paid";
       .ascending('_createdDate')        // Sort by created date ascending
       .descending('status')             // Then by status descending
       .find();
+```
 :::
 ::::
 
@@ -117,6 +118,7 @@ import { paymentLinks } from "@wix/get-paid";
     }
   }
 };
+```
 :::
 ::::
 
