@@ -1,11 +1,11 @@
 # Sorting and Paging
 
-_List_, _Query_ and _Search_ endpoints that return a list of entities
+_List_, _Query_ and _Search_ methods that return a list of entities
 may allow you to specify sorting and paging options in the request.
 
 This articles gives a general overview of sorting and paging.
 The implementation changes in REST
-depending on whether an endpoint is a GET or POST request.
+depending on whether a method is a GET or POST request.
 Check your API's documentation for specific details,
 including which fields are sortable.
 
@@ -16,9 +16,9 @@ although some APIs have a different default sort order.
 You can often override the default sorting by specifying
 a new field and order.
 
-### Sort _List_ endpoints
+### Sort _List_ methods
 
-_List_ endpoints are designed to be lightweight requests.
+_List_ methods are designed to be lightweight requests.
 For this reason, sorting is applied through the query parameters,
 typically with sort field name and order fields.
 
@@ -40,10 +40,10 @@ const sort = [
 ::::
 
 
-### Sort _Query_ endpoints
+### Sort _Query_ methods
 
-_Query_ endpoints offer more robust filtering capabilities.
-When working with a _Query_ endpoint,
+_Query_ methods offer more robust filtering capabilities.
+When working with a _Query_ method,
 sorting is specified in REST in an array in the request body,
 typically `query.sort`, and in the SDK with `.ascending()` and `.descending()` functions in the SDK's query chain. 
 For each `query.sort` object,
@@ -58,8 +58,12 @@ For example, to list payment links by created date in ascending order, and by st
   "query": {
     "sort": [
       {
-        "fieldName": "info.name.last",
+        "fieldName": "createdDate",
         "order": "ASC"
+      },
+{
+        "fieldName": "status",
+        "order": "DESC"
       }
     ]
   }
@@ -78,8 +82,43 @@ import { paymentLinks } from "@wix/get-paid";
 :::
 ::::
 
-### Sort _Search_ endpoints
+### Sort _Search_ methods
 
+When working with a _Search_ method,
+sorting is specified in REST in an array in the request body,
+typically `search.sort`, and in the SDK as an object defining the sort to the search function.
+
+For example, to search payment links by created date in ascending order:
+
+::::tabs
+:::REST_TAB
+```json
+{
+  "search": {
+    "sort": [
+      {
+        "fieldName": "createdDate",
+        "order": "ASC"
+      }
+    ]
+  }
+}
+```
+:::
+:::SDK_TAB
+```
+import { paymentLinks } from "@wix/get-paid";
+
+{
+    const search = {
+      // ...
+      sort: {
+        fieldName: "createdDate", order: "ASC"
+    }
+  }
+};
+:::
+::::
 
 
 ## Paging
@@ -89,7 +128,7 @@ Paging allows you to control how many results are returned and where the result 
 - **Offset-based** (includes `limit` and `skip`/`offset`): Specify the number of items to skip and the number to return.
 - **Cursor-based** (includes `nextCursor` and `prevCursor`): Use a token (cursor) to fetch the next or previous set of results.
 
-### Paging _List_ endpoints
+### Paging _List_ methods
 
 For example, to list 100 contacts, starting from contact 20, with offset paging:
 
@@ -135,7 +174,7 @@ For calls that support cursor paging, after receieving a cursor in your first re
 :::
 ::::
 
-### Paging _Query_ endpoints
+### Paging _Query_ methods
 
 For example, to query 100 contacts, starting from contact 20, with offset paging:
 
@@ -188,5 +227,56 @@ return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 :::
 ::::
 
-Paging Search 
+### Paging _Search_ methods 
 
+For example, to search for 10 payment links, and return a cursor for paging:
+
+::::tabs
+:::REST_TAB
+```json
+  "search": {
+    "cursorPaging": {
+      "limit": 10
+  }
+}
+```
+:::
+:::SDK_TAB
+```
+import { paymentLinks } from "@wix/get-paid";
+
+"search": {
+// ...
+    "cursorPaging": {
+      "limit": 10
+  }
+}
+```
+:::
+::::
+
+Should return 10 items.
+
+
+To retrieve the next 10 payment links with a cursor:
+
+::::tabs
+:::REST_TAB
+```json
+  "query": {
+    "cursorPaging": {
+      "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
+    }
+```
+:::
+:::SDK_TAB
+```
+import { paymentLinks } from "@wix/get-paid";
+
+// ...
+const nextCursor = results.cursors.next;
+return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
+}
+```
+:::
+::::
