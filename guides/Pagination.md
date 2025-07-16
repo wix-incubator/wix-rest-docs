@@ -45,7 +45,7 @@ const sort = [
 _Query_ endpoints offer more robust filtering capabilities.
 When working with a _Query_ endpoint,
 sorting is specified in REST in an array in the request body,
-typically `query.sort`, and in the SDK within a .sort() function in the SDK's query chain. 
+typically `query.sort`, and in the SDK with `.ascending()` and `.descending()` functions in the SDK's query chain. 
 For each `sort` object,
 sorting is applied with the `fieldName` and `order` parameters.
 
@@ -92,7 +92,11 @@ export const queryPaymentLinksSorted = webMethod(
       }
     }
 );
-```
+// ...
+    const results = await paymentLinks.queryPaymentLinks()
+      .ascending('_createdDate')        // Sort by created date ascending
+      .descending('status')             // Then by status descending
+      .find();
 :::
 ::::
 
