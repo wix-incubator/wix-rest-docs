@@ -16,10 +16,10 @@ although some APIs have a different default sort order.
 You can often override the default sorting by specifying
 a new field and order.
 
-### Sort _List_ methods
+### Sorting _List_ methods
 
 _List_ methods are designed to be lightweight requests.
-For this reason, sorting is applied through the query parameters,
+For this reason, sorting is applied in REST through query parameters,
 typically with sort field name and order fields.
 
 For example, to list contacts by last name in ascending order:
@@ -40,7 +40,7 @@ const sort = [
 ::::
 
 
-### Sort _Query_ methods
+### Sorting _Query_ methods
 
 _Query_ methods offer more robust filtering capabilities.
 When working with a _Query_ method,
@@ -82,7 +82,7 @@ import { paymentLinks } from "@wix/get-paid";
 :::
 ::::
 
-### Sort _Search_ methods
+### Sorting _Search_ methods
 
 When working with a _Search_ method,
 sorting is specified in REST in an array in the request body,
@@ -130,6 +130,8 @@ Paging allows you to control how many results are returned and where the result 
 
 ### Paging _List_ methods
 
+List endpoints support paging through query parameters in REST requests and options objects in SDK calls.
+
 For example, to list 100 contacts, starting from contact 20, with offset paging:
 
 ::::tabs
@@ -175,6 +177,8 @@ For calls that support cursor paging, after receieving a cursor in your first re
 ::::
 
 ### Paging _Query_ methods
+
+Query endpoints handle paging through the request body in REST and chainable methods in the SDK. Generally either offset-based or cursor-based strategies are supported, and occasionaly both are supported.
 
 For example, to query 100 contacts, starting from contact 20, with offset paging:
 
@@ -228,6 +232,8 @@ return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 ::::
 
 ### Paging _Search_ methods 
+
+Search endpoints implement paging through the request body structure in REST and search configuration objects in SDK calls. Search methods typically use cursor-based paging to ensure consistent results even when the underlying data changes during pagination.
 
 For example, to search for 10 payment links, and return a cursor for paging:
 
