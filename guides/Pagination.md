@@ -34,7 +34,7 @@ For example, to list contacts by last name in ascending order:
 ```
 const sort = [
   { fieldName: "info.name.last", order: "ASC" },
-];
+]
 ```
 :::
 ::::
