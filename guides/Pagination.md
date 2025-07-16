@@ -46,8 +46,8 @@ _Query_ endpoints offer more robust filtering capabilities.
 When working with a _Query_ endpoint,
 sorting is specified in REST in an array in the request body,
 typically `query.sort`, and in the SDK with `.ascending()` and `.descending()` functions in the SDK's query chain. 
-For each `sort` object,
-sorting is applied with the `fieldName` and `order` parameters.
+For each `query.sort` object,
+sorting is typically applied with the `fieldName` and `order` parameters.
 
 For example, to list payment links by created date in ascending order, and by status in descending order:
 
