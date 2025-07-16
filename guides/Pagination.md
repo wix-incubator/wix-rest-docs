@@ -1,7 +1,7 @@
 # Sorting and Paging
 
-_List_ and _Query_ endpoints that return a list of entities
-allow you to specify sorting and paging options in the request.
+_List_, _Query_ and _Search_ endpoints that return a list of entities
+may allow you to specify sorting and paging options in the request.
 
 This articles gives a general overview of sorting and paging.
 The implementation changes in REST
@@ -13,7 +13,7 @@ including which fields are sortable.
 
 Most APIs default to sorting by `createdDate` in `DESC` (descending) order,
 although some APIs have a different default sort order.
-You can override the default sorting by specifying
+You can often override the default sorting by specifying
 a new field and order.
 
 ### Sort _List_ endpoints
@@ -77,6 +77,10 @@ import { paymentLinks } from "@wix/get-paid";
       .find();
 :::
 ::::
+
+### Sort _Search_ endpoints
+
+
 
 ## Paging
 
