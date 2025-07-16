@@ -39,27 +39,6 @@ const sort = [
 :::
 ::::
 
-Your API's _List_ method may support sorting by multiple fields.
-This is done by adding new field name and order parameters
-for each sort field:
-
-::::tabs
-:::REST_TAB
-```txt
-?sort.fieldName=info.name.last&sort.order=ASC&sort.fieldName=createdDate&sort.order=ASC
-```
-:::
-:::SDK_TAB
-```
-const sort = [
-  { fieldName: "status", order: "ASC" },
-  { fieldName: "createdDate", order: "DESC" }
-];
-
-```
-:::
-::::
-
 
 ### Sort _Query_ endpoints
 
