@@ -113,7 +113,7 @@ For example, to list 100 contacts, starting from contact 20, with offset paging:
 :::
 ::::
 
-To list the next 100 contacts with cursor paging:
+For calls that support cursor paging, after receieving a cursor in your first request, list the next 100 entities with cursor paging:
 
 ::::tabs
 :::REST_TAB
@@ -125,8 +125,9 @@ To list the next 100 contacts with cursor paging:
 ```
 {
     const options = {
-       cursorPaging {
-            cursor: JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
+      // ...
+      paging: {
+        cursor: JWE.eyJhbGciOiJBMTI4S1ciLCJlbm
     }
 }
 };
