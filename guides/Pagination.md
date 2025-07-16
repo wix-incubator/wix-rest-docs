@@ -70,28 +70,6 @@ For example, to list payment links by created date in ascending order, and by st
 ```
 import { paymentLinks } from "@wix/get-paid";
 
-export const queryPaymentLinksSorted = webMethod(
-  async () => {
-    try {
-      const results = await paymentLinks.queryPaymentLinks()
-        .ascending('_createdDate')        // Sort by created date ascending
-        .descending('status')             // Then by status descending
-        .find();
-
-      console.log(`Found ${results.items.length} payment links`);
-      console.log('Payment links:', results.items);
-      
-      return {
-        success: true,
-        paymentLinks: results.items,
-        totalCount: results.totalCount,
-        pageSize: results.pageSize,
-        sortedBy: 'created date (oldest first), then status (descending)'
-      };
-
-      }
-    }
-);
 // ...
     const results = await paymentLinks.queryPaymentLinks()
       .ascending('_createdDate')        // Sort by created date ascending
@@ -161,8 +139,8 @@ For example, to query 100 contacts, starting from contact 20, with offset paging
 ```json
   "query": {
     "paging": {
-    "limit": 100, 
-    "offset": 20
+      "limit": 100, 
+      "offset": 20
   }
 }
 ```
@@ -171,16 +149,11 @@ For example, to query 100 contacts, starting from contact 20, with offset paging
 ```
 import { contacts } from "@wix/crm";
 
-const query = contacts.queryContacts()               
+// ...
+const results = await contacts.queryContacts()               
   .limit(100)  
   .skip(20)
   .find()
-  .then(results => {
-    console.log(results.items); // Sorted and filtered results
-  })
-  .catch(error => {
-    console.error(error);
-  });
 ```
 :::
 ::::
@@ -202,9 +175,13 @@ To query 100 payment links with cursor paging:
 ```
 import { paymentLinks } from "@wix/get-paid";
 
-  const nextCursor = results.cursors.next;
-  return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
+// ...
+const nextCursor = results.cursors.next;
+return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 }
 ```
 :::
 ::::
+
+Paging Search 
+
