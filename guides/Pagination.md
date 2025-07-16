@@ -3,8 +3,8 @@
 _List_, _Query_ and _Search_ methods that return a list of entities
 may allow you to specify sorting and paging options in the request.
 
-This articles gives a general overview of sorting and paging.
-The implementation changes in REST
+This articles provides a general overview of sorting and paging.
+The implementation syntax varies in REST
 depending on whether a method is a GET or POST request.
 Check your API's documentation for specific details,
 including which fields are sortable.
@@ -125,14 +125,14 @@ import { paymentLinks } from "@wix/get-paid";
 
 Paging allows you to control how many results are returned and where the result set starts. Wix APIs commonly support 1 or both of 2 paging strategies:
 
-- **Offset-based** (includes `limit` and `skip`/`offset`): Specify the number of items to skip and the number to return.
+- **Offset-based** (includes `limit` and `skip`/`offset`): Specify the number of items to skip and the number to return. 
 - **Cursor-based** (includes `nextCursor` and `prevCursor`): Use a token (cursor) to fetch the next or previous set of results.
 
 ### Paging _List_ methods
 
 List endpoints support paging through query parameters in REST requests and options objects in SDK calls.
 
-For example, to list 100 contacts, starting from contact 20, with offset paging:
+For example, to list 100 contacts, starting from contact 21, with offset paging:
 
 ::::tabs
 :::REST_TAB
@@ -154,7 +154,10 @@ For example, to list 100 contacts, starting from contact 20, with offset paging:
 :::
 ::::
 
-For calls that support cursor paging, after receieving a cursor in your first request, list the next 100 entities with cursor paging:
+Should return items 21-120 in the results.
+
+
+For calls that support cursor paging, after receieving a cursor in your first request, list the next set of entities with cursor paging:
 
 ::::tabs
 :::REST_TAB
@@ -180,7 +183,7 @@ For calls that support cursor paging, after receieving a cursor in your first re
 
 Query endpoints handle paging through the request body in REST and chainable methods in the SDK. Generally either offset-based or cursor-based strategies are supported, and occasionaly both are supported.
 
-For example, to query 100 contacts, starting from contact 20, with offset paging:
+For example, to query 100 contacts, starting from contact 21, with offset paging:
 
 ::::tabs
 :::REST_TAB
