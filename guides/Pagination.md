@@ -4,8 +4,7 @@ _List_, _Query_ and _Search_ methods that return a list of entities
 may allow you to specify sorting and paging options in the request.
 
 This articles provides a general overview of sorting and paging.
-The implementation syntax varies in REST
-depending on whether a method is a GET or POST request.
+The implementation syntax varies between methods.
 Check your API's documentation for specific details,
 including which fields are sortable.
 
@@ -16,9 +15,9 @@ although some APIs have a different default sort order.
 You can often override the default sorting by specifying
 a new field and order.
 
-### Sorting _List_ methods
+### Sorting List results
 
-_List_ methods are designed to be lightweight requests.
+List methods are designed to be lightweight requests.
 For this reason, sorting is applied in REST through query parameters,
 typically with sort field name and order fields.
 
@@ -30,7 +29,7 @@ For example, to list contacts by last name in ascending order:
 ?sort.fieldName=info.name.last&sort.order=ASC
 ```
 :::
-:::SDK_TAB
+:::SDKTAB
 ```
 const sort = [
   { fieldName: "info.name.last", order: "ASC" },
@@ -40,14 +39,13 @@ const sort = [
 ::::
 
 
-### Sorting _Query_ methods
+### Sorting Query results
 
-_Query_ methods offer more robust filtering capabilities.
-When working with a _Query_ method,
-sorting is specified in REST in an array in the request body,
-typically `query.sort`, and in the SDK with `.ascending()` and `.descending()` functions in the SDK's query chain. 
-For each `query.sort` object,
-sorting is typically applied with the `fieldName` and `order` parameters.
+Query methods offer more robust filtering capabilities.
+When working with a Query method,
+In REST, sorting is specified in an array in the request body,
+typically `query.sort`, and is typically applied with the `fieldName` and `order` parameters.
+In the SDK, sorting is specified with `.ascending()` and `.descending()` functions in the SDK's query chain. 
 
 For example, to list payment links by created date in ascending order, and by status in descending order:
 
@@ -83,9 +81,9 @@ import { paymentLinks } from "@wix/get-paid";
 :::
 ::::
 
-### Sorting _Search_ methods
+### Sorting Search results
 
-When working with a _Search_ method,
+When working with a Search method,
 sorting is specified in REST in an array in the request body,
 typically `search.sort`, and in the SDK as an object defining the sort to the search function.
 
@@ -130,9 +128,9 @@ Paging allows you to control how many results are returned and where the result 
 - **Offset-based** (includes `limit` and `skip`/`offset`): Specify the number of items to skip and the number to return. 
 - **Cursor-based** (includes `nextCursor` and `prevCursor`): Use a token (cursor) to fetch the next or previous set of results.
 
-### Paging _List_ methods
+### Paging List results
 
-List endpoints support paging through query parameters in REST requests and options objects in SDK calls.
+List methods support paging through query parameters in REST requests and options objects in SDK calls.
 
 For example, to list 100 contacts, starting from contact 21, with offset paging:
 
@@ -181,9 +179,9 @@ For calls that support cursor paging, after receieving a cursor in your first re
 :::
 ::::
 
-### Paging _Query_ methods
+### Paging Query results
 
-Query endpoints handle paging through the request body in REST and chainable methods in the SDK. Generally either offset-based or cursor-based strategies are supported, and occasionaly both are supported.
+Query methods handle paging through the request body in REST and chainable methods in the SDK. Generally either offset-based or cursor-based strategies are supported, and occasionaly both are supported.
 
 For example, to query 100 contacts, starting from contact 21, with offset paging:
 
@@ -236,9 +234,9 @@ return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 :::
 ::::
 
-### Paging _Search_ methods 
+### Paging Search results 
 
-Search endpoints implement paging through the request body structure in REST and search configuration objects in SDK calls. Search methods typically use cursor-based paging to ensure consistent results even when the underlying data changes during pagination.
+Search methods implement paging through the request body structure in REST and search configuration objects in SDK calls. Search methods typically use cursor-based paging to ensure consistent results even when the underlying data changes during pagination.
 
 For example, to search for 10 payment links, and return a cursor for paging:
 
