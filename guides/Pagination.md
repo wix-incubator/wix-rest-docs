@@ -218,11 +218,11 @@ To query 100 payment links with cursor paging:
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
-    "cursorPaging": {
-      "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
-    }
-```
+"query": {
+  "cursorPaging": {
+    "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
+  }
+}
 :::
 :::SDK_TAB
 ```
