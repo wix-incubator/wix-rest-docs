@@ -83,14 +83,10 @@ import { paymentLinks } from "@wix/get-paid";
 
 ### Sorting Search results
 
-When working with a Search method,
-sorting is specified in REST in an array in the request body,
-typically `search.sort`, and in the SDK as an object defining the sort to the search function.
+When working with a Search method, sorting is typically specified in the search.sort parameter.
 
 For example, to search payment links by created date in ascending order:
 
-::::tabs
-:::REST_TAB
 ```json
 {
   "search": {
@@ -103,23 +99,6 @@ For example, to search payment links by created date in ascending order:
   }
 }
 ```
-:::
-:::SDK_TAB
-```
-import { paymentLinks } from "@wix/get-paid";
-
-{
-    const search = {
-      // ...
-      sort: {
-        fieldName: "createdDate", order: "ASC"
-    }
-  }
-};
-```
-:::
-::::
-
 
 ## Paging
 
@@ -236,12 +215,10 @@ return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
 
 ### Paging Search results 
 
-Search methods implement paging through the request body structure in REST and search configuration objects in SDK calls. Search methods typically use cursor-based paging to ensure consistent results even when the underlying data changes during pagination.
+When working with a Search method, paging is typically specified in the paging or cursorPaging parameter. Search methods typically use cursor-based paging to ensure consistent results even when the underlying data changes during pagination.
 
 For example, to search for 10 payment links, and return a cursor for paging:
 
-::::tabs
-:::REST_TAB
 ```json
   "search": {
     "cursorPaging": {
@@ -249,43 +226,15 @@ For example, to search for 10 payment links, and return a cursor for paging:
   }
 }
 ```
-:::
-:::SDK_TAB
-```
-import { paymentLinks } from "@wix/get-paid";
-
-"search": {
-// ...
-    "cursorPaging": {
-      "limit": 10
-  }
-}
-```
-:::
-::::
 
 Should return 10 items.
 
 
 To retrieve the next 10 payment links with a cursor:
 
-::::tabs
-:::REST_TAB
 ```json
   "search": {
     "cursorPaging": {
       "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
     }
 ```
-:::
-:::SDK_TAB
-```
-import { paymentLinks } from "@wix/get-paid";
-
-// ...
-const nextCursor = results.cursors.next;
-return paymentLinks.queryPaymentLinks().skipTo(nextCursor).find();
-}
-```
-:::
-::::
