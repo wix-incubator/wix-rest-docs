@@ -132,7 +132,7 @@ Paging allows you to control how many results are returned and where the result 
 
 ### Paging _List_ methods
 
-List endpoints support paging through query parameters in REST requests and options objects in SDK calls.
+List endpoints typically support paging through query parameters in REST requests and `paging` objects in SDK calls.
 
 For example, to list 100 contacts, starting from contact 21, with offset paging:
 
