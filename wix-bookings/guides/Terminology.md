@@ -171,7 +171,7 @@ account, and Google calendar.
 
 ## Form
 
-The [booking form](https://support.wix.com/en/article/wix-bookings-customizing-booking-form-fields)
+The [booking form](https://support.wix.com/en/article/wix-bookings-creating-and-setting-up-your-booking-forms)
 that's displayed to customers in the Wix site when they book the service. For
 example, customers can input their name into the bookings form.
 
