@@ -30,6 +30,7 @@ See the following apps created by Wix and their corresponding IDs. Regardless of
 | Wix Restaurants Menus  (Old)  | 13c1402c-27f2-d4ab-7463-ee7c89e07578 | Create and manage food menus. Old app.                  |
 | Wix Restaurants Orders (New)  | 9a5d83fd-8570-482e-81ab-cfa88942ee60 | Take online orders for food and drinks.                 |
 | Wix Restaurants Orders (Old)  | 13e8d036-5516-6104-b456-c8466db39542 | Take online orders for food and drinks. Old app.        |
+| Wix Scheduling Form Fields    | 3e4e322b-6d9b-4da0-9f53-e22c4a44a49e | Book services through [forms](https://dev.wix.com/docs/rest/crm/forms/form-schemas/form-object) with appointment fields. Auto-installed when the first such form is added to the site. |
 | Wix Stores                    | 215238eb-22a5-4c36-9e7b-e7c08025e04e | Sell physical or digital products to customers.         |
 | Wix Subscriptions             | 8725b255-2aa2-4a53-b76d-7d3c363aaeea | Manage recurring billing and subscriptions.             |
 | Wix Table Reservations        | f9c07de2-5341-40c6-b096-8eb39de391fb | Manage table reservations.                              |
