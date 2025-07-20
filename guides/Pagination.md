@@ -190,11 +190,11 @@ For example, to query 100 contacts, starting from contact 21, with offset paging
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
-    "paging": {
-      "limit": 100, 
-      "offset": 20
-  }
+"query": {
+  "paging": {
+    "limit": 100, 
+    "offset": 20
+    }
 }
 ```
 :::
