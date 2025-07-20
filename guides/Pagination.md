@@ -188,11 +188,11 @@ For example, to query 100 contacts, starting from contact 21, with offset paging
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
-    "paging": {
-      "limit": 100, 
-      "offset": 20
-  }
+"query": {
+  "paging": {
+    "limit": 100, 
+    "offset": 20
+    }
 }
 ```
 :::
@@ -216,11 +216,11 @@ To query 100 payment links with cursor paging:
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
-    "cursorPaging": {
-      "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
-    }
-```
+"query": {
+  "cursorPaging": {
+    "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
+  }
+}
 :::
 :::SDK_TAB
 ```
@@ -272,7 +272,7 @@ To retrieve the next 10 payment links with a cursor:
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
+  "search": {
     "cursorPaging": {
       "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
     }
