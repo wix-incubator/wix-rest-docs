@@ -274,7 +274,7 @@ To retrieve the next 10 payment links with a cursor:
 ::::tabs
 :::REST_TAB
 ```json
-  "query": {
+  "search": {
     "cursorPaging": {
       "cursor": JWE.eyJhbGciOiJBMTI4S1ciLCJlbm,
     }
