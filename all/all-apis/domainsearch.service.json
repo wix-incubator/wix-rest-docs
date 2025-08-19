@@ -1,0 +1,290 @@
+{
+  "name": "DomainSearch",
+  "client_id": "https://github.com/wix-private/premium/tree/master/domains/domain-search#public",
+  "memberOf": "All APIs",
+  "category": "core",
+  "mixes": [],
+  "labels": [],
+  "docs":   {
+    "summary": "Check domain availabilities and get suggestions",
+    "description": []
+  },
+  "properties": [],
+  "tags": [  {
+    "name": "DomainSearch",
+    "entity": null
+  }],
+  "relatedGuides":   [
+        {
+      "path": "../guides/domainsearch/docs/UseCases.md",
+      "name": "Sample Flow"
+    },
+        {
+      "path": "../guides/domainsearch/docs/ErrorMessages.md",
+      "name": "Error Messages"
+    },
+        {
+      "path": "../guides/domainsearch/docs/PublicIntro.md",
+      "name": "Introduction"
+    },
+        {
+      "path": "../guides/domainsearch/docs/Intro.md",
+      "name": "Internal Introduction"
+    }
+  ],
+  "operations":   [
+        {
+      "name": "Check Domain Availability",
+      "methodName": "CheckDomainAvailability",
+      "serviceName": "DomainAvailabilityService",
+      "tag": "DomainSearch",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["domain"],
+      "params": [      {
+        "in": "QUERY",
+        "name": "domain",
+        "type": "string",
+        "doc": "\nDomain name. Must include the TLD. For example, `my-new-domain.com`.\n",
+        "required": true
+      }],
+      "ret":       {
+        "type":         {
+          "name": "CheckDomainAvailability",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainSearch._com_wixpress_premium_domain_search_availability_v2_CheckDomainAvailabilityResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nChecks whether the given domain is available for purchase.\n\n\nThe `domain` field must include the TLD. For example, `my-new-domain.com`.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domain-search/v2/check-domain-availability",
+        "links": [],
+        "examples": [        {
+          "title": "Checks whether a specific domain is available for purchase at Wix.",
+          "body": ["curl -X GET \n'https://www.wixapis.com/domain-search/v2/check-domain-availability?domain=mydomain.com' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"availability\": {\n  \"domain\": \"mydomain.com\",\n  \"available\": false\n}} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "CheckDomainAvailabilityRequest",
+        "rpcResponseName": "CheckDomainAvailabilityResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    },
+        {
+      "name": "Suggest Domains",
+      "methodName": "SuggestDomains",
+      "serviceName": "DomainSearchService",
+      "tag": "DomainSearch",
+      "permissions": [],
+      "events": [],
+      "labels": [],
+      "nameParams": [],
+      "requiredFields": ["query"],
+      "params":       [
+                {
+          "in": "QUERY",
+          "name": "query",
+          "type": "string",
+          "doc": "\nInput to base your domain suggestions on. May include \nletters, numbers, spaces, dots, and hyphens. Must not include the TLD.\n\nMin: 3 characters   \nMax: 100 characters\n",
+          "required": true
+        },
+                {
+          "in": "QUERY",
+          "name": "tlds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\n[Top-level domains](https://en.wikipedia.org/wiki/Top-level_domain). Must \nnot include the dot. For example, `com`, not `.com`. Not all TLDs can be \nconnected to Wix sites. Supported TLDS include `com`, `net`, and `org`.  \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for more \ninformation.\n\nMax: 10 TLDs\n",
+          "required": false
+        },
+                {
+          "in": "QUERY",
+          "name": "limit",
+          "type": "integer",
+          "doc": "\nNumber of domain suggestions to be returned. \n\nMin: `1`   \nMax: `20`  \nDefault: `5`\n",
+          "required": false
+        }
+      ],
+      "ret":       {
+        "type":         {
+          "name": "SuggestDomains",
+          "statusCode": "200",
+          "typeParams": ["All APIs.DomainSearch._com_wixpress_premium_domain_search_suggest_v2_SuggestDomainsResponse"]
+        },
+        "doc": ""
+      },
+      "locations": [],
+      "docs":       {
+        "summary": "\nSuggests domains available for purchase, based on the provided query input.\n\nThe `tlds` must not include the dot. For example, `com` and not `.com`.\n \n",
+        "description": [],
+        "request": "GET",
+        "url": "https://www.wixapis.com/domain-search/v2/suggest-domains",
+        "links": [],
+        "examples": [        {
+          "title": "Suggests available domains available for purchase.",
+          "body": ["\ncurl -X GET \n'https://www.wixapis.com/domain-search/v2/suggest-domains?query=my%20stunning%20domain&limit=4&tlds=com&tlds=love' \\\n-H 'Authorization: <AUTH>' \\"],
+          "response": ["{\"suggestions\": [\n  {\"domain\": \"find-my-domain.com\"},\n  {\"domain\": \"mydomain.com\"},\n  {\"domain\": \"mydomain.love\"},\n  {\"domain\": \"my-domain.love\"}\n]} "],
+          "type": "curl",
+          "extra": {}
+        }],
+        "extra": {}
+      },
+      "extra":       {
+        "hasRest": true,
+        "rpcRequestName": "SuggestDomainsRequest",
+        "rpcResponseName": "SuggestDomainsResponse"
+      },
+      "customLabels": [{"id": "maturity-beta"}]
+    }
+  ],
+  "events": [],
+  "callbacks": [],
+  "messages":   [
+        {
+      "name": "_com_wixpress_premium_domain_search_availability_v2_CheckDomainAvailabilityRequest",
+      "displayName": "Check Domain Availability Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domain",
+        "type": "string",
+        "doc": "\nDomain name. Must include the TLD. For example, `my-new-domain.com`.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_search_availability_v2_CheckDomainAvailabilityResponse",
+      "displayName": "Check Domain Availability Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "availability",
+        "type": "All APIs.DomainSearch._com_wixpress_premium_domain_search_availability_v2_DomainAvailability",
+        "doc": " \nInformation about the domain's availability.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_search_availability_v2_DomainAvailability",
+      "displayName": "Domain Availability Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "domain",
+          "type": "string",
+          "doc": "\nDomain name including TLD. For example, `my-new-domain.com`.\n"
+        },
+                {
+          "name": "available",
+          "type": "boolean",
+          "doc": " \nWhether the domain is available for purchase.\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_search_suggest_v2_SuggestDomainsRequest",
+      "displayName": "Suggest Domains Request Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members":       [
+                {
+          "name": "query",
+          "type": "string",
+          "doc": "\nInput to base your domain suggestions on. May include \nletters, numbers, spaces, dots, and hyphens. Must not include the TLD.\n\nMin: 3 characters   \nMax: 100 characters\n"
+        },
+                {
+          "name": "tlds",
+          "type":           {
+            "name": "array",
+            "typeParams": ["string"]
+          },
+          "doc": "\n[Top-level domains](https://en.wikipedia.org/wiki/Top-level_domain). Must \nnot include the dot. For example, `com`, not `.com`. Not all TLDs can be \nconnected to Wix sites. Supported TLDS include `com`, `net`, and `org`.  \nContact the [Wix B2B sales team](mailto:bizdev@wix.com) for more \ninformation.\n\nMax: 10 TLDs\n"
+        },
+                {
+          "name": "limit",
+          "type": "integer",
+          "doc": "\nNumber of domain suggestions to be returned. \n\nMin: `1`   \nMax: `20`  \nDefault: `5`\n"
+        }
+      ],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_search_suggest_v2_SuggestDomainsResponse",
+      "displayName": "Suggest Domains Response Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "suggestions",
+        "type":         {
+          "name": "array",
+          "typeParams": ["All APIs.DomainSearch._com_wixpress_premium_domain_search_suggest_v2_DomainSuggestion"]
+        },
+        "doc": " List of suggested domains.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    },
+        {
+      "name": "_com_wixpress_premium_domain_search_suggest_v2_DomainSuggestion",
+      "displayName": "Domain Suggestion Object",
+      "locations": [],
+      "docs":       {
+        "summary": "",
+        "links": [],
+        "examples": []
+      },
+      "members": [      {
+        "name": "domain",
+        "type": "string",
+        "doc": " Suggested domain name including TLD.\n"
+      }],
+      "enum": null,
+      "extra": {},
+      "labels": []
+    }
+  ],
+  "extra": {"artifactId": "com.wixpress.premium.domains.domain-search"}
+}
