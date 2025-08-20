@@ -19,7 +19,7 @@ Query and Search objects consist of several optional parts:
 * [`fields`](#fields):
   Field projection. Returns only part of each entity.
 * [`fieldsets`](#fieldsets):
-  Predefined, named sets of fields with common use.
+  Predefined, named sets of fields with common use cases.
   This is a shorthand provided by individual APIs.
 * [`aggregations`](#aggregations-search-object-only)
   Search object only: Faceted search, a way to explore large amounts of data by displaying summaries about various partitions of the 
