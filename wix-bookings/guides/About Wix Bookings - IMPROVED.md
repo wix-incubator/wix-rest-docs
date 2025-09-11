@@ -60,15 +60,6 @@ Wix Bookings supports 2 checkout approaches:
 
 For class services, customers can join a waitlist when sessions are fully booked. If a spot opens up due to a cancellation, the first person on the waitlist is notified and given a chance to book the session.
 
-## Before you begin
-
-It's important to note the following points before starting to code:
-
-- **Calendar API dependency**: Wix Bookings relies on the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar) for all scheduling functionality. Wix Bookings automatically manages schedules and events, so you primarily retrieve calendar data rather than create it.
-- **App ID filtering**: When working with Calendar APIs in a Bookings context, filter schedules using the Wix Bookings app ID (`13d21c63-b5ec-5912-8397-c3a5ddb27a97`) to show only Bookings-related data.
-- **eCommerce integration**: Bookings integrate with Wix eCommerce for payment processing during checkout.
-- **Service setup**: Services must be properly configured with schedules, resources, and policies before customers can make bookings.
-
 ## See also
 
 - [Wix Bookings Terminology](https://dev.wix.com/docs/rest/business-solutions/bookings/terminology)
