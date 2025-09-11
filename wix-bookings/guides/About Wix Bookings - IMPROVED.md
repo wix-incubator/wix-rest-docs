@@ -27,13 +27,17 @@ Wix Bookings supports 3 service types:
 
 For detailed information about each service type, see [About Service Types](https://dev.wix.com/docs/sdk/backend-modules/bookings/services/about-service-types).
 
-### Calendar integration
+### Calendar integration and scheduling
 
-Wix Bookings uses the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar) to manage all scheduling and availability. Each service, staff member, and resource has associated schedules and events in the calendar system. This unified approach handles appointments, classes, courses, and resource scheduling through a single calendar system.
+Wix Bookings uses the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar) to manage all scheduling and availability. Each service, staff member, and resource has associated schedules and events in the calendar system.
 
-### Events and schedules
+**Events** are time-specific instances of services (like an appointment or class session). **Schedules** organize these events and define when services are available or when resources are booked. Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
 
-An event is a time-specific instance of a service (like an appointment or class session). Events are organized within schedules, which define when services are available or when resources are booked. Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
+For detailed information about this integration, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
+
+### App ID filtering
+
+When working with Calendar APIs in a Bookings context, you must filter schedules using the Wix Bookings app ID (`13d21c63-b5ec-5912-8397-c3a5ddb27a97`) to show only Bookings-related data. This ensures proper data isolation and consistency with the Bookings interface.
 
 ### Staff members and resources
 
