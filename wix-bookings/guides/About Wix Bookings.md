@@ -26,7 +26,7 @@ Wix Bookings supports 3 service types:
 
 - Appointments: On-demand bookings for available time slots. For example, hair cuts or consultations.
 - Classes: Scheduled sessions that customers can join individually. For example, drop-in yoga classes or weekly cooking lessons.
-  When a specific event is fully booked, customers can join a waitlist and are notified if a spot opens up.
+  When a specific event is fully booked, customers can join a [waitlist](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/waitlist/api-overview) and are notified if a spot opens up.
 - Courses: Multi-session programs that customers must book in full. For example, 8-week programming bootcamps or certification training programs.
 
 For detailed information, see [About Service Types](https://dev.wix.com/docs/sdk/backend-modules/bookings/services/about-service-types).
