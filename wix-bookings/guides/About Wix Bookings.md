@@ -40,8 +40,8 @@ Wix Bookings integrates with the [Calendar APIs](https://dev.wix.com/docs/rest/b
 Each service, [staff member](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction), and [resource](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction) has associated schedules and events in the calendar system.
 For details about how staff and resources affect scheduling, see the [Staff members and resources](#staff-members-and-resources) section below.
 
-- **Events** are time-specific instances of services (like an appointment or class session).
-- **Schedules** organize these events and define when services are available or when resources are booked.
+- Events are time-specific instances of services (like an appointment or class session).
+- Schedules organize these events and define when services are available or when resources are booked.
   Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
 
 #### How availability works
@@ -49,21 +49,21 @@ For details about how staff and resources affect scheduling, see the [Staff memb
 Time slots represent specific periods when services can be booked.
 The Wix Bookings and Calendar APIs work together to manage availability:
 
-- **Wix Bookings APIs** handle availability queries and booking validation.
+- Wix Bookings APIs handle availability queries and booking validation.
   Use the [Time Slots API](https://dev.wix.com/docs/rest/business-solutions/bookings/time-slots/availability-calendar/query-availability) to find available time slots for appointments and classes.
   The availability calculation considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
   For courses, you need to manually calculate availability based on total capacity since customers must book the entire program, as described in the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows#book-a-course).
-- **Wix Calendar APIs** manage the underlying schedule data and events. Wix Bookings automatically creates and updates calendar events when bookings are made.
+- Wix Calendar APIs manage the underlying schedule data and events. Wix Bookings automatically creates and updates calendar events when bookings are made.
   For most use cases, you'll use Calendar APIs to retrieve schedule and event data for display purposes, while Wix Bookings handles creation and management automatically.
 
 For detailed information about the integration, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
 
 ### Staff members and resources
 
-**Staff members** are people who provide services and have complex scheduling needs.
+Staff members are people who provide services and have complex scheduling needs.
 They have both working hours (when they're available to work) and event schedules (when they're actually booked).
 
-**Resources** are physical assets like rooms, equipment, or facilities needed for services. They only have event schedules showing when they're booked, with availability based on business hours.
+Resources are physical assets like rooms, equipment, or facilities needed for services. They only have event schedules showing when they're booked, with availability based on business hours.
 
 For detailed information, see [About Resources](https://dev.wix.com/docs/api-reference/business-solutions/bookings/resources/about-resources).
 
