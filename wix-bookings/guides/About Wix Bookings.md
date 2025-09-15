@@ -18,7 +18,7 @@ Wix Bookings APIs include:
 
 ## Key concepts
 
-These concepts form the foundation of the Wix Bookings platform.
+These concepts form the foundation of the [Wix Bookings platform](https://support.wix.com/en/article/about-wix-bookings).
 
 ### Service types
 
