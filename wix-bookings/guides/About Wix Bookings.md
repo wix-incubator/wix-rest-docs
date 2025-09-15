@@ -72,6 +72,8 @@ For detailed information, see [About Resources](https://dev.wix.com/docs/api-ref
 Services can be free or have fixed pricing or varied pricing based on different factors like staff member, time of day, or customer type.
 Wix Bookings supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/api-reference/business-solutions/bookings/pricing/pricing-integration-service-plugin/introduction), allowing you to implement dynamic pricing logic.
 
+You can also create service packages and memberships using [Wix Pricing Plans](https://dev.wix.com/docs/api-reference/business-solutions/pricing-plans/introduction), which allow customers to purchase bundles of services or recurring access to bookings.
+
 For detailed information, see [About Service Payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ### Checkout and order
