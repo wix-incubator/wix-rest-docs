@@ -1,7 +1,7 @@
 # About Wix Bookings
 
 The Wix Bookings APIs allow you to build and customize booking experiences for any service-based business.
-You can manage services, staff members, pricing, availability, and customer bookings throughout their entire lifecycle.
+You can manage services, staff members, resources, pricing, availability, and customer bookings throughout their entire lifecycle.
 
 ## Wix Bookings APIs
 
@@ -13,7 +13,7 @@ Wix Bookings APIs include:
 - [Pricing](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/introduction): Calculate booking costs and implement custom pricing logic through service plugins.
 - [Policies](https://dev.wix.com/docs/rest/business-solutions/bookings/policies/booking-policies/introduction): Define rules for when and how customers can book, cancel, or reschedule services.
 - [Time Slots](https://dev.wix.com/docs/rest/business-solutions/bookings/time-slots/availability-calendar/introduction): Check availability of appointment slots and class events for efficient booking and scheduling.
-- [Bookings](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/about-the-bookings-apis): Manage customer bookings to individual services or multiple services at once.
+- [Bookings](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/about-the-bookings-apis): Manage customer bookings for individual services or multiple services at once.
 - [External Calendar](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/external-calendar-v2/introduction): Connect and sync with external calendar providers like Google, Microsoft, and Apple calendars.
 
 ## Key concepts
@@ -24,12 +24,12 @@ These concepts form the foundation of the [Wix Bookings platform](https://suppor
 
 Wix Bookings supports 3 service types:
 
-- Appointments: On-demand bookings for available time slots. For example, hair cuts or consultations.
-- Classes: Scheduled sessions that customers can join individually. For example, drop-in yoga classes or weekly cooking lessons.
+- __Appointments__: On-demand bookings for available time slots. For example, haircuts or consultations.
+- __Classes__: Scheduled sessions that customers can join individually. For example, drop-in yoga classes or weekly cooking lessons.
   When a specific event is fully booked, customers can join a [waitlist](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/waitlist/api-overview) and are notified if a spot opens up.
-- Courses: Multi-session programs that customers must book in full. For example, 8-week programming bootcamps or certification training programs.
+- __Courses__: Multi-session programs that customers must book in full. For example, 8-week programming bootcamps or certification training programs.
 
-For detailed information, see [About Service Types](https://dev.wix.com/docs/sdk/backend-modules/bookings/services/about-service-types).
+Learn more about [service types](https://dev.wix.com/docs/sdk/backend-modules/bookings/services/about-service-types).
 
 ### Scheduling and availability
 
@@ -37,12 +37,15 @@ Wix Bookings integrates with the [Calendar APIs](https://dev.wix.com/docs/rest/b
 
 #### How scheduling works
 
-Each service, [staff member](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction), and [resource](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction) has associated schedules and events in the calendar system.
-For details about how staff and resources affect scheduling, see the [Staff members and resources](#staff-members-and-resources) section below.
+Wix Bookings uses 2 key components to manage when services can be booked:
 
-- Events are time-specific instances of services (like an appointment or class session).
-- Schedules organize these events and define when services are available or when resources are booked.
-  Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
+- **Events** are time-specific instances of services (like an appointment or class session).
+- **Schedules** organize these events and define when services are available or when resources are booked.
+
+Each service, [staff member](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction), and [resource](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction) has associated schedules and events in the calendar system.
+Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
+
+For details about how staff and resources affect scheduling, see the [Staff members and resources](#staff-members-and-resources) section below.
 
 #### How availability works
 
@@ -65,7 +68,7 @@ They have both working hours (when they're available to work) and event schedule
 
 Resources are physical assets like rooms, equipment, or facilities needed for services. They only have event schedules showing when they're booked, with availability based on business hours.
 
-For detailed information, see [About Resources](https://dev.wix.com/docs/api-reference/business-solutions/bookings/resources/about-resources).
+Learn more about [resources](https://dev.wix.com/docs/api-reference/business-solutions/bookings/resources/about-resources) and [staff members](https://dev.wix.com/docs/api-reference/business-solutions/bookings/staff-members/introduction).
 
 ### Pricing
 
@@ -76,7 +79,7 @@ You can also create service packages and memberships using [Wix Pricing Plans](h
 
 For detailed information, see [About Service Payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
-### Checkout and order
+### Checkout and orders
 
 Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/api-reference/business-solutions/e-commerce/introduction) to handle payments and order management.
 All bookings use [eCommerce orders](https://dev.wix.com/docs/api-reference/business-solutions/e-commerce/orders/introduction) to maintain proper records and functionality.
@@ -84,11 +87,11 @@ All bookings use [eCommerce orders](https://dev.wix.com/docs/api-reference/busin
 By default, Wix Bookings handles the entire checkout and order creation process automatically.
 To customize the checkout process, you can choose between 2 approaches:
 
-- Wix eCommerce checkout: Use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/api-reference/business-solutions/e-commerce/purchase-flow/checkout/introduction). Wix Bookings automatically processes payments, creates eCommerce orders, and updates booking statuses.
-- Custom checkout: Build your own payment interface and process payments with external providers.
-  You must still manually create an eCommerce order and update the booking status to complete the booking flow.
+- __Wix eCommerce checkout__: Use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/api-reference/business-solutions/e-commerce/purchase-flow/checkout/introduction). Wix Bookings automatically processes payments, creates eCommerce carts, checkouts, and orders, and updates booking statuses.
+- __Custom checkout__: Build your own payment interface and process payments with external providers.
+  You must still manually create an order in the Wix eCommerce platform and update the booking status to complete the booking flow.
 
-For step-by-step implementation examples, see [End-to-End Booking Flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows).
+For step-by-step implementation examples, see our [end-to-end booking flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows).
 
 ## See also
 
