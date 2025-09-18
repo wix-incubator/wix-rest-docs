@@ -52,11 +52,11 @@ For details about how staff and resources affect scheduling, see the [Staff memb
 Time slots represent specific periods when services can be booked.
 The Wix Bookings and Calendar APIs work together to manage availability:
 
-- Wix Bookings APIs handle availability queries and booking validation.
+- __Wix Bookings__ APIs handle availability queries and booking validation.
   Use the [Time Slots API](https://dev.wix.com/docs/rest/business-solutions/bookings/time-slots/availability-calendar/query-availability) to find available time slots for appointments and classes.
   The availability calculation considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
   For courses, you need to manually calculate availability based on total capacity since customers must book the entire program, as described in the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows#book-a-course).
-- Wix Calendar APIs manage the underlying schedule data and events. Wix Bookings automatically creates and updates calendar events when bookings are made.
+- __Wix Calendar__ APIs manage the underlying schedule data and events. Wix Bookings automatically creates and updates calendar events when bookings are made.
   For most use cases, you'll use Calendar APIs to retrieve schedule and event data for display purposes, while Wix Bookings handles creation and management automatically.
 
 For detailed information about the integration, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
