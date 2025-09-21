@@ -1,17 +1,14 @@
 # Wix Bookings Terminology
 
-[Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows
-business owners to accept and manage bookings for their services.
+[Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
 
-This article contains a comprehensive list of the various terms and concepts
-used in all of Wix Bookings and its APIs.
+This article contains a comprehensive list of the various terms and conceptsused in all of Wix Bookings and its APIs.
 
 ## Appointment
 
 [Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments)
-are specific time slots that customers can book in a calendar. For example, a
-hair salon may be open Monday to Friday from 9:00 AM to 7:00 PM. Customers could
-book a session at any available time during these hours.
+are on-demand bookings for available time slots. For example, haircuts, or consultations.
+Customers can book a session at any available time during business hours.
 
 ## Appointment schedule
 
@@ -27,6 +24,7 @@ considering the 15-minute buffer before and after the session.
 ## Availability
 
 Free time on an appointment schedule that customers can book.
+For the availability calculation, Wix Bookings considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
 
 ## Booking
 
@@ -69,10 +67,9 @@ customers filter and organize services efficiently.
 
 ## Checkout
 
-Customers must complete a [checkout](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction)
-when booking a service. The checkout is the second stage of the
-[eCommerce](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction)
-purchase flow: cart; checkout; order.
+Customers must complete a checkout when booking a service.
+Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction) to handle payments and order management.
+To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) APIs or build your own payment interface and process payments with external providers.
 
 ## Choice (pricing)
 
@@ -82,14 +79,11 @@ and `senior`. Each choice may have a different price.
 
 ## Class
 
-[Classes](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes)
-are either a single session or a set of sessions that's offered by a business
-on specific day and time. Classes can be scheduled on various weekdays, at
-different times, and with different resources, including staff members.
-Customers can sign up for one or multiple sessions, unlike courses where all
-sessions must be booked. For example, a language school offers an open
-discussion class in Spanish every Monday at 8:00 PM. Customers can book one or
-multiple sessions of this class.
+[Classes](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes) are scheduled sessions that customers can join individually.
+For example, drop-in yoga classes or weekly cooking lessons.
+Classes can be scheduled on various weekdays, at different times, and with different resources, including staff members.
+Customers can sign up for one or multiple sessions, unlike courses where all sessions must be booked.
+When a specific event is fully booked, customers can join a waitlist and are notified if a spot opens up.
 
 ## Class schedule
 
@@ -110,19 +104,15 @@ the business calendar. You can confirm your bookings in different ways:
 
 ## Course
 
-[Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses)
-start and end on pre-defined dates with a limited number of sessions. For
-example, an academic course or fitness boot camp during the summer holidays.
-Customers must book all course sessions, while they're free to book only a
-single or some sessions for classes.
+[Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) are multi-session programs that customers must book in full.
+For example, 8-week programming bootcamps or certification training programs.
+Courses start and end on pre-defined dates with a limited number of sessions.
+Customers must book all course sessions, while they're free to book only a single or some sessions for classes.
 
 ## Course schedule
 
-Before offering a course service, the business owner must decide when to
-schedule sessions. This is in contrast to appointment services, where customers
-are free to decide when they want to book a session. Wix uses the course
-schedule to calculate availability, when the first session starts, and when the
-last session ends.
+Before offering a course service, the business owner must decide when to schedule sessions.
+This is in contrast to appointment services, where customers are free to decide when they want to book a session. Wix Bookings uses the course schedule to calculate availability, when the first session starts, and when the last session ends.
 
 ## Deposit
 
@@ -134,6 +124,11 @@ A double booking occurs when a customer attempts to book a service that's
 already reserved. This can happen if multiple customers are checking out
 simultaneously or if the business owner manually confirms more bookings than
 the service's capacity allows.
+
+## Event
+
+Time-specific instances of services, such as an appointment or class session.
+Wix Bookings automatically creates and manages events via the [Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/introduction) when you create services, staff members, or bookings.
 
 ## Extended booking
 
@@ -207,6 +202,13 @@ as the staff member, customer age, appointment time, or type of equipment. Each
 option has a list of supported choices that may affect the service price or the
 option may have a uniform price.
 
+## Order
+
+A record of a customer's purchase in the [Wix eCommerce system](https://dev.wix.com/docs/api-reference/business-solutions/e-commerce/introduction).
+All bookings use [eCommerce orders](https://dev.wix.com/docs/rest/business-solutions/e-commerce/orders/introduction) to maintain proper records and functionality.
+When you use an [eCommerce checkout](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction), orders are automatically created and contain details about the booking, payment information, and customer data.
+For custom checkouts, you must manually create an order in the Wix eCommerce platform and update the booking status to complete the booking flow.
+
 ## `PENDING` (booking status)
 
 Indicates that the booking is waiting to be confirmed or declined. Bookings in
@@ -225,6 +227,7 @@ and the maximum number of participants allowed per booking.
 
 A 3rd-party app that implements custom logic to determine the price of a booking
 with the [Pricing Integration Service Plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction).
+Services can have fixed pricing or varied pricing based on different factors like staff member, time of day, or customer type.
 
 ## Policy snapshot
 
@@ -234,15 +237,16 @@ change after a booking is made.
 
 ## Resource
 
-A business asset. For example, a staff member, a room, or equipment that's
-needed to provide a service. Each resource has a schedule that defines its
-availability.
+Physical assets like rooms, equipment, or facilities needed for services.
+Resources only have event schedules showing when they're booked, with
+availability based on business hours. Each resource has a schedule that
+defines its availability.
 
 ## Schedule
 
-A collection of all sessions associated with a specific service or resource. It
-includes information necessary to calculate availability. For more details, see
-appointment schedule, class schedule, and course schedule.
+Organizes events and defines when services are available or when resources are booked.
+Wix Bookings automatically creates and manages schedules via the [Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/introduction) when you create services, staff members, or bookings.
+For more details, see appointment schedule, class schedule, and course schedule.
 
 ## Service
 
@@ -281,12 +285,19 @@ includes all the times available to book. For classes, it refers to sessions
 that are open for booking. For more details, see appointment schedule and class
 schedule.
 
+## Time slot
+
+Specific periods when services can be booked.
+The Time Slots API helps find available time slots for appointments and classes.
+The availability calculation considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
+
 ## Staff member
 
-Team member of the business who provides a Bookings service. Staff members are
-eligible to receive tips. Not all staff members are
-[site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site)
-and not all site contributors are staff members.
+People who provide services and have complex scheduling needs.
+Staff members have both working hours (when they're available to work) and event schedules
+(when they're actually booked).
+Staff members are eligible to receive tips.
+Not all staff members are [site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site) and not all site contributors are staff members.
 
 ## Status (booking)
 
@@ -310,9 +321,8 @@ different price.
 
 ## Varied pricing
 
-[Varied pricing](https://support.wix.com/en/article/wix-bookings-understanding-price-options)
-allows businesses to charge for services based on different factors, such as
-the staff member who provides the service or the equipment needed.
+[Varied pricing](https://support.wix.com/en/article/wix-bookings-understanding-price-options) allows businesses to charge for services based on different factors, such as the staff member who provides the service or the equipment needed.
+Wix Bookings supports custom pricing integrations through the Pricing Integration service plugin, allowing you to implement dynamic pricing logic.
 
 ## Visitor
 
@@ -339,5 +349,5 @@ session before it's offered to the next customer on the waitlist.
 ## Wix Pricing Plans
 
 [Wix Pricing Plans](https://support.wix.com/en/article/wix-bookings-about-wix-bookings#selling-membership-plans-and-packages)
-are prepaid bundles of services or memberships providing customers access to
-certain services.
+are prepaid bundles of services or memberships providing customers access to certain services.
+You can create service packages and memberships that allow customers to purchase bundles of services or recurring access to bookings.
