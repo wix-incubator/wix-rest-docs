@@ -6,8 +6,8 @@ This article lists the terms and concepts used in Wix Bookings and its APIs.
 
 ## Appointment
 
-[Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments)
-are on-demand bookings for available time slots. For example, haircuts, or consultations.
+[Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are on-demand bookings for available time slots.
+For example, haircuts or consultations.
 Customers can book a session at any available time during business hours.
 
 ## Appointment schedule
@@ -15,7 +15,7 @@ Customers can book a session at any available time during business hours.
 An appointment schedule defines when customers can book a session for an appointment-based service.
 The business's opening hours, session duration, time between sessions, and staff availability determine booking availability. For example, a hair salon operates Monday to Friday, 9:00 AM to 7:00 PM, offering 30-minute and 1-hour haircuts.
 1 staff member is available from 9:00 AM to 5:00 PM and another from 11:00 AM to 7:00 PM, with 15-minute buffers between sessions.
-Customers can book an appointment if the service and at least one staff member are available, considering the 15-minute buffer before and after the session.
+Customers can book an appointment if the service and at least 1 staff member are available, considering the 15-minute buffer before and after the session.
 
 ## Availability
 
@@ -142,12 +142,12 @@ External calendar connections allow you to import and export calendar events.
 
 ## External calendar event
 
-A single session or an instance of recurring session that appears in a calendar.
+A single session or an instance of a recurring session that appears in a calendar.
 For example, an appointment or a class session.
 
 ## External calendar provider
 
-The 3rd-party service that provides an external calendar such as,
+The 3rd-party service that provides an external calendar such as
 [Google](https://developers.google.com/calendar/api/guides/overview),
 [Apple](https://developer.apple.com/documentation/foundation/calendar),
 or [Microsoft](https://learn.microsoft.com/en-us/graph/api/resources/calendar?view=graph-rest-1.0).
@@ -157,7 +157,7 @@ or [Microsoft](https://learn.microsoft.com/en-us/graph/api/resources/calendar?vi
 A resource that doesn't have a Wix Bookings calendar. Instead, the resource's
 availability is managed with an external calendar. For example, your app or the
 business owner may decide to manage availability through a staff member's Gmail
-account, and Google calendar.
+account and Google calendar.
 
 ## Form
 
