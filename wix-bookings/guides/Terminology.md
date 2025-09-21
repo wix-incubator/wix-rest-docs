@@ -2,7 +2,7 @@
 
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
 
-This article contains a comprehensive list of the various terms and conceptsused in all of Wix Bookings and its APIs.
+This article lists the terms and concepts used in Wix Bookings and its APIs.
 
 ## Appointment
 
@@ -12,14 +12,10 @@ Customers can book a session at any available time during business hours.
 
 ## Appointment schedule
 
-Defines when customers can book a session for an appointment-based service.
-Bookings are based on the business’s opening hours, session duration, time
-between sessions, and staff availability. For example, a hair salon operates
-Monday to Friday, 9:00 AM to 7:00 PM, offering 30-minute and 1-hour haircuts.
-One staff member is available from 9:00 AM to 5:00 PM, and another from 11:00 AM
-to 7:00 PM, with 15-minute buffers between sessions. Customers can book an
-appointment if the service and at least one staff member are available,
-considering the 15-minute buffer before and after the session.
+An appointment schedule defines when customers can book a session for an appointment-based service.
+The business's opening hours, session duration, time between sessions, and staff availability determine booking availability. For example, a hair salon operates Monday to Friday, 9:00 AM to 7:00 PM, offering 30-minute and 1-hour haircuts.
+1 staff member is available from 9:00 AM to 5:00 PM and another from 11:00 AM to 7:00 PM, with 15-minute buffers between sessions.
+Customers can book an appointment if the service and at least one staff member are available, considering the 15-minute buffer before and after the session.
 
 ## Availability
 
