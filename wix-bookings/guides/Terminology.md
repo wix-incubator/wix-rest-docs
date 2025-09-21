@@ -69,7 +69,7 @@ customers filter and organize services efficiently.
 
 Customers must complete a checkout when booking a service.
 Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction) to handle payments and order management.
-To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) APIs or build your own payment interface and process payments with external providers.
+To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) or build your own payment interface and process payments with external providers.
 
 ## Choice (pricing)
 
@@ -81,8 +81,8 @@ and `senior`. Each choice may have a different price.
 
 [Classes](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes) are scheduled sessions that customers can join individually.
 For example, drop-in yoga classes or weekly cooking lessons.
-Classes can be scheduled on various weekdays, at different times, and with different resources, including staff members.
-Customers can sign up for one or multiple sessions, unlike courses where all sessions must be booked.
+You can schedule classes on various weekdays, at different times, and with different staff members.
+Customers can sign up for 1 or multiple sessions, unlike courses where all sessions must be booked.
 When a specific event is fully booked, customers can join a waitlist and are notified if a spot opens up.
 
 ## Class schedule
@@ -111,8 +111,9 @@ Customers must book all course sessions, while they're free to book only a singl
 
 ## Course schedule
 
-Before offering a course service, the business owner must decide when to schedule sessions.
-This is in contrast to appointment services, where customers are free to decide when they want to book a session. Wix Bookings uses the course schedule to calculate availability, when the first session starts, and when the last session ends.
+Before offering a course service, the business owner must decide when to schedule all sessions.
+This is in contrast to appointment services, where customers are free to decide when they want to book a session.
+Wix Bookings uses the course schedule to calculate availability, when the first session starts, and when the last session ends.
 
 ## Deposit
 
@@ -120,10 +121,8 @@ Amount the customer must pay immediately when checking out the booking.
 
 ## Double booking
 
-A double booking occurs when a customer attempts to book a service that's
-already reserved. This can happen if multiple customers are checking out
-simultaneously or if the business owner manually confirms more bookings than
-the service's capacity allows.
+A double booking occurs when a customer attempts to book a service that's already reserved.
+This can happen if multiple customers are checking out simultaneously or if the business owner manually confirms more bookings than the service's capacity allows.
 
 ## Event
 
@@ -268,10 +267,10 @@ Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 
 ## Session
 
-A booked or reserved period of time for an appointment, class, or course.
-Alternatively, you can consider a session as a specific instance of a service
-occurring at a particular time. The aggregation of all sessions for a service
-constitutes the service's schedule.
+A specific instance of a service occurring at a particular time, such as an appointment, class session, or course session.
+Sessions are represented as events in the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar), which Wix Bookings automatically creates and manages when bookings are made.
+For classes and courses, the aggregation of all sessions constitutes the service's schedule.
+For appointments, sessions are created dynamically when customers book available time slots.
 
 ## Site owner
 
@@ -294,8 +293,7 @@ The availability calculation considers multiple factors: service schedules, staf
 ## Staff member
 
 People who provide services and have complex scheduling needs.
-Staff members have both working hours (when they're available to work) and event schedules
-(when they're actually booked).
+Staff members have both working hours (when they're available to work) and event schedules (when they're actually booked).
 Staff members are eligible to receive tips.
 Not all staff members are [site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site) and not all site contributors are staff members.
 
