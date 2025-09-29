@@ -95,7 +95,8 @@ Only available for services with either fixed or [varied pricing](#varied-pricin
 ## Double booking
 
 A double booking occurs when a customer attempts to book a service that's already reserved.
-This can happen if multiple customers are checking out simultaneously or if the business owner manually confirms more bookings than the service's capacity allows.
+This can happen if multiple bookings are created simultaneously.
+When Wix Bookings detects insufficient availability during the following booking confirmation process, the business must manually resolve the conflict.
 
 ## Event
 
