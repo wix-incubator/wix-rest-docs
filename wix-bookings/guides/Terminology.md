@@ -133,7 +133,7 @@ Someone who is a registered [member](https://dev.wix.com/docs/rest/crm/members-c
 
 Multi-service bookings enable businesses to offer comprehensive service packages where customers can book multiple related services together in a single transaction.
 Each multi-service booking contains several single-service bookings.
-Single-service bookings within the package must be scheduled sequentially with each booking starting when the previous booking ends.
+Single-service bookings in the package must be scheduled sequentially with each booking starting when the previous booking ends.
 Learn more about [multi-service bookings](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#multi-service-bookings).
 
 ## Option
@@ -215,7 +215,7 @@ For [appointments](#appointment), sessions are created dynamically when customer
 
 ## Site owner
 
-The owner of the Wix site that has Wix Bookings installed.
+The [Wix user](#wix-user) who owns the site that has Wix Bookings installed.
 
 ## Staff member
 
@@ -267,9 +267,9 @@ Indicates that the booking is on a waitlist for a fully booked class session.
 ## Waitlist
 
 A feature for class services that allows customers to join a queue when sessions are fully booked.
-When a spot opens due to cancellation, the first person on the waitlist (also called the suggested participant) is notified and given a specified time window to book the session.
-If they don't book within the time window, the opportunity passes to the next person on the waitlist.
-Not available for courses or appointment services.
+When a spot opens due to cancellation, the first person on the waitlist (also called the suggested participant) is notified and given a time window to book the session.
+If they don't book in the time window, the opportunity passes to the next person on the waitlist.
+Waitlists aren't available for courses or appointment services.
 
 ## Working hours
 
@@ -284,5 +284,5 @@ You can create service packages and memberships that allow customers to purchase
 ## Wix user
 
 Someone who is logged into their account on [wix.com](https://wix.com/).
-Wix users can be [site owners](#site-owner) or [site collaborators](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site).
+Wix users can be site owners or site collaborators.
 Learn more about [identities](https://dev.wix.com/docs/build-apps/develop-your-app/access/about-identities).
