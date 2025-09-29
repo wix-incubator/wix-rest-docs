@@ -161,18 +161,18 @@ Rules set by the business owner that govern how customers can book and cancel se
 Policies define booking windows, cancellation deadlines, participant limits, and other constraints.
 When a booking is created, the current policy is saved as a [policy snapshot](#policy-snapshot) to preserve the original terms.
 
+## Policy snapshot
+
+A saved version of a service's [policy](#policy) captured when a booking is created.
+Policy snapshots preserve the original terms, which is useful if policies change after a booking is made.
+This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle.
+
 ## Pricing
 
 Services can be free, use fixed pricing, or have [varied pricing](#varied-pricing).
 Wix Bookings also supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
 Additionally, you can create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which allow customers to purchase bundles of services or recurring access to bookings.
 Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
-
-## Policy snapshot
-
-A saved version of a service's [policy](#policy) captured when a booking is created.
-Policy snapshots preserve the original terms, which is useful if policies change after a booking is made.
-This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle.
 
 ## Resource
 
