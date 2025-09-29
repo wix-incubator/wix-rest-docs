@@ -8,55 +8,54 @@ This article lists the terms and concepts used in Wix Bookings and its APIs.
 
 [Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are on-demand bookings for available time slots.
 For example, haircuts or consultations.
-Customers can book a session at any available time during business hours.
-
-## Appointment schedule
-
-An appointment schedule defines when customers can book a session for an appointment-based service.
-The business's opening hours, session duration, time between sessions, and staff availability determine booking availability. For example, a hair salon operates Monday to Friday, 9:00 AM to 7:00 PM, offering 30-minute and 1-hour haircuts.
-1 staff member is available from 9:00 AM to 5:00 PM and another from 11:00 AM to 7:00 PM, with 15-minute buffers between sessions.
-Customers can book an appointment if the service and at least 1 staff member are available, considering the 15-minute buffer before and after the session.
-
-## Availability
-
-Free time on an appointment schedule that customers can book.
-For the availability calculation, Wix Bookings considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
+Customers choose their preferred time from available slots, with availability calculated based on business hours, session duration, staff working hours, and booking policies.
 
 ## Booking
 
-Information about the service that the customer has booked. You can think of a
-booking as an order placed by a customer for a service. Includes details about
-the time, location, participants, and price.
+Information about the service that the customer has booked.
+You can think of a booking as an order placed by a customer for a service.
+The booking includes details about the time, location, participants, and price.
 
 ## Booking fee
 
-Fee for a specific booking that's calculated according to the associated booking
-policy snapshot. Currently, only cancellation fees, including no-show fees, are
-supported.
+A fee for a specific booking that's calculated according to the associated booking [policy snapshot](#policy-snapshot).
+Currently, only cancellation fees, including no-show fees, are supported.
+
+## Business hours
+
+The default operating hours when services are available for booking.
+Business hours serve as the foundation for staff working hours and resource availability.
+Use the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar/introduction) to configure business hours through schedule events.
 
 ## Business owner
 
-The owner of the business that offers services through Wix. Can be a different
-person than the site owner. The business owner makes decisions such as
-confirming or declining a booking.
+The owner of the business that offers services through Wix.
+Can be a different person than the Wix user.
+The business owner makes decisions such as confirming or declining a booking.
 
 ## Calendar
 
-The [Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar)
-is a general overview about the availability and bookings of the business,
-including its services and resources. You can manage appointments, classes, and
-courses on the calendar.
+The [Wix Bookings Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) displays business availability, staff schedules, and confirmed bookings in a unified interface.
+Wix Bookings automatically manages the underlying [schedules](#schedule) and [events](#event) with the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar/introduction) integration.
+For technical details, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
 
-## `CANCELED` (booking status)
+## CANCELED booking status
 
 Indicates that the booking has been canceled by the site owner or the customer.
 Cancel bookings using [Cancel Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/bookings-writer-v2/cancel-booking).
+
+## Capacity
+
+The maximum number of participants that can book a service or session.
+For classes and courses, capacity determines when sessions become fully booked and waitlists activate.
+For appointments, capacity is typically 1 but can be higher for group sessions.
+Capacity is defined in the service configuration and affects availability calculations.
 
 ## Catalog
 
 A list of all the different Bookings services a business provides.
 
-## Category (service)
+## Category
 
 A label used to group services, helping business owners, app developers, and
 customers filter and organize services efficiently.
@@ -67,7 +66,7 @@ Customers must complete a checkout when booking a service.
 Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction) to handle payments and order management.
 To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) or build your own payment interface and process payments with external providers.
 
-## Choice (pricing)
+## Choice
 
 A specific value for a service option that customers can book. For example, the
 service option `ageGroup` may have these choices: `child`, `student`, `adult`,
@@ -79,14 +78,7 @@ and `senior`. Each choice may have a different price.
 For example, drop-in yoga classes or weekly cooking lessons.
 You can schedule classes on various weekdays, at different times, and with different staff members.
 Customers can sign up for 1 or multiple sessions, unlike courses where all sessions must be booked.
-When a specific event is fully booked, customers can join a waitlist and are notified if a spot opens up.
-
-## Class schedule
-
-Before offering a class or course service, the business owner must decide when
-to schedule sessions. This is in contrast to appointment services, where
-customers are free to decide when they want to book a session. Wix uses the
-class schedule to calculate which sessions are still available.
+When a specific session is fully booked, customers can join a waitlist and are notified if a spot opens up.
 
 ## `CONFIRMED` (booking status)
 
@@ -102,14 +94,8 @@ the business calendar. You can confirm your bookings in different ways:
 
 [Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) are multi-session programs that customers must book in full.
 For example, 8-week programming bootcamps or certification training programs.
-Courses start and end on pre-defined dates with a limited number of sessions.
+Business owners set the complete session timeline before offering the course, with courses starting and ending on pre-defined dates.
 Customers must book all course sessions, while they're free to book only a single or some sessions for classes.
-
-## Course schedule
-
-Before offering a course service, the business owner must decide when to schedule all sessions.
-This is in contrast to appointment services, where customers are free to decide when they want to book a session.
-Wix Bookings uses the course schedule to calculate availability, when the first session starts, and when the last session ends.
 
 ## Deposit
 
@@ -127,68 +113,31 @@ Wix Bookings automatically creates and manages events via the [Calendar APIs](ht
 
 ## Extended booking
 
-In addition to basic information about the booking, an extended booking contains
-additional details. For example, attendance details, and whether the customer
-can demand a refund or reschedule the booking.
+A booking object with additional details beyond the basic booking information.
+Extended bookings include attendance details, refund eligibility, reschedule permissions, and other management data.
+Use the [Extended Bookings API](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/bookings-reader-v2/introduction) to retrieve this enhanced booking information.
 
-## External calendar
+## External calendar integration
 
-A calendar hosted by a 3rd-party provider.
-
-## External calendar connection
-
-A linkage between a Wix Bookings calendar and one or more external calendars.
-External calendar connections allow you to import and export calendar events.
-
-## External calendar event
-
-A single session or an instance of a recurring session that appears in a calendar.
-For example, an appointment or a class session.
-
-## External calendar provider
-
-The 3rd-party service that provides an external calendar such as
-[Google](https://developers.google.com/calendar/api/guides/overview),
-[Apple](https://developer.apple.com/documentation/foundation/calendar),
-or [Microsoft](https://learn.microsoft.com/en-us/graph/api/resources/calendar?view=graph-rest-1.0).
-
-## External calendar resource
-
-A resource that doesn't have a Wix Bookings calendar. Instead, the resource's
-availability is managed with an external calendar. For example, your app or the
-business owner may decide to manage availability through a staff member's Gmail
-account and Google calendar.
+The synchronization between Wix Bookings and 3rd-party calendar services like [Google Calendar](https://developers.google.com/calendar/api/guides/overview), [Apple Calendar](https://developer.apple.com/documentation/foundation/calendar), or [Microsoft Outlook](https://learn.microsoft.com/en-us/graph/api/resources/calendar?view=graph-rest-1.0).
+This integration allows bidirectional sync of booking events and availability, preventing double-bookings across platforms.
+Use the [External Calendar API](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/external-calendar-v2/introduction) to set up and manage these connections.
 
 ## Form
 
-The [booking form](https://support.wix.com/en/article/wix-bookings-creating-and-setting-up-your-booking-forms)
-that's displayed to customers in the Wix site when they book the service. For
-example, customers can input their name into the bookings form.
+The [booking form](https://support.wix.com/en/article/wix-bookings-creating-and-setting-up-your-booking-forms) collects customer information required to complete a booking.
+Forms can include fields for contact details, special requests, service preferences, and custom questions.
+Learn more about [how Bookings integrates with Wix Forms](https://dev.wix.com/docs/rest/business-solutions/bookings/wix-forms-integration).
 
 ## Integration
 
-Extended functionality that's implemented by a 3rd-party service provider and
-made available to the merchant using Wix service plugins. For example, you, as
-a pricing provider, can offer custom varied pricing options to a Wix site using
-the [Wix Bookings Pricing Integration REST Service Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
-
-## Locked session
-
-A session for a class that customers can't book. For example, because the
-session is full, has a waitlist, or an administrator needs to manually screen
-each customer before adding them to the session.
+A custom implementation that extends Wix Bookings functionality through service plugins.
+Developers can inject custom logic into the booking flow, such as dynamic pricing or availability rules.
 
 ## Member
 
 Someone who is a registered [member](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/introduction)
 in the Wix site and has a login.
-
-## Merchant
-
-The business that offers services to customers. The merchant has a Wix site for
-their business, unless your app is working with a
-[Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless)
-project (in which case the site is hosted outside of the Wix ecosystem).
 
 ## Option (pricing)
 
@@ -214,9 +163,9 @@ related to the booking has been created.
 
 ## Policy
 
-Rules set by the merchant regarding booking and canceling a service. These may
-include how far in advance customers can book, the deadline for cancellations,
-and the maximum number of participants allowed per booking.
+Rules set by the business owner that govern how customers can book and cancel services.
+Policies define booking windows, cancellation deadlines, participant limits, and other constraints.
+When a booking is created, the current policy is saved as a policy snapshot to preserve the original terms.
 
 ## Pricing provider
 
@@ -226,9 +175,9 @@ Services can have fixed pricing or varied pricing based on different factors lik
 
 ## Policy snapshot
 
-The version of a service's booking policy saved at the time a booking is
-created. Snapshots preserve the original terms, which is useful if policies
-change after a booking is made.
+A saved version of a service's booking policy captured when a booking is created.
+Policy snapshots preserve the original terms, which is useful if policies change after a booking is made.
+This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle.
 
 ## Resource
 
@@ -273,19 +222,6 @@ For appointments, sessions are created dynamically when customers book available
 The owner of the Wix site that has Wix Bookings installed and all
 [site contributors](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site).
 
-## Slot
-
-A time period that customers can book for a service. For appointments, it
-includes all the times available to book. For classes, it refers to sessions
-that are open for booking. For more details, see appointment schedule and class
-schedule.
-
-## Time slot
-
-Specific periods when services can be booked.
-The Time Slots API helps find available time slots for appointments and classes.
-The availability calculation considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
-
 ## Staff member
 
 People who provide services and have complex scheduling needs.
@@ -298,20 +234,19 @@ Not all staff members are [site collaborators](https://support.wix.com/en/articl
 Information about the life cycle status of the booking. Booking statuses
 include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`,
 `UPDATED`, `CANCELED`.
+Learn more about [booking lifecycle and status transitions](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#booking-lifecycle).
 
-## Suggested participant (waitlist)
+## Time slot
 
-When a session is fully booked, customers can join the waitlist. If a spot
-opens up due to a cancellation, the first person on the waitlist (the suggested
-participant) is notified and given a chance to book the session within a
-specified time. If they don't book it, the opportunity is passed to the next
-person on the list.
+Specific periods when services can be booked.
+The [Time Slots API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/pricing/introduction) helps find available time slots for appointments and classes.
+The availability calculation considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing reservations.
 
-## Variant (pricing)
+## Variant
 
-Unique combination of choices for a service. For example: `{"time": "afternoon",
-"ageGroup": "adult", "equipment": "kettlebells"}`. Each variant may have a
-different price.
+The combination of all customer choices for a service's pricing options.
+Business owners must define all possible variants and their prices when setting up varied pricing for a service.
+Each variant represents a different combination of the available choices and has its own price.
 
 ## Varied pricing
 
@@ -320,25 +255,25 @@ Wix Bookings supports custom pricing integrations through the Pricing Integratio
 
 ## Visitor
 
-Anyone who isn't registered as a member or hasn't logged in to the Wix site. If
-a visitor creates a booking they're added as a
-[contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction).
+Anyone who isn't registered as a member or hasn't logged in to the Wix site.
+If a visitor creates a booking they're added as a [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction).
 
-## `WAITING_LIST` (booking status)
+## `WAITING_LIST` booking status
 
-Indicates that the booking is on a waitlist. Currently, waitlists are available
-only for classes and not for courses or appointment-based services.
+Indicates that the booking is on a waitlist for a fully booked class session.
 
 ## Waitlist
 
-A feature available for class services, allowing customers to request to be
-added to a fully booked session in case of cancellations. Not available for
-courses or appointment services.
+A feature for class services that allows customers to join a queue when sessions are fully booked.
+When a spot opens due to cancellation, the first person on the waitlist (called the suggested participant) is notified and given a specified time window to book the session.
+If they don't book within the time window, the opportunity passes to the next person on the waitlist.
+Not available for courses or appointment services.
 
-## Waitlist time window
+## Working hours
 
-The duration that's given to the suggested participant to book a place in the
-session before it's offered to the next customer on the waitlist.
+The specific times when staff members are available to provide services.
+Working hours are different from business hours and event schedules, they define when staff can work, not when they're actually booked.
+Staff members can have custom working hours that override the default business hours, enabling flexible scheduling for different team members.
 
 ## Wix Pricing Plans
 
