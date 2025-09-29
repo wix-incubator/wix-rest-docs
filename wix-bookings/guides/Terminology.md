@@ -35,7 +35,7 @@ The business owner makes decisions such as confirming or declining a booking.
 
 The [Wix Bookings Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) displays business availability, staff schedules, and confirmed bookings in a unified interface.
 Wix Bookings automatically manages the underlying [schedules](#schedule) and [events](#event) with the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar/introduction).
-For technical details, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
+Learn more about [how Wix Bookings uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
 
 ## `CANCELED` (booking status)
 
@@ -75,10 +75,10 @@ When a specific session is fully booked, customers can join a waitlist and are n
 
 ## `CONFIRMED` (booking status)
 
-Indicates that the business owner has confirmed the booking and it appears in the business calendar.
+Indicates that the business owners have confirmed the booking and it appears in the business calendar.
 Bookings can be confirmed in different ways:
-- Automatically. Bookings are automatically confirmed when the service is set up for automatic confirmation and the [order](#order) is approved during checkout, including an availability check.
-- Manually. You can manually confirm a booking using [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking).
+- **Automatically**: Bookings are automatically confirmed when the service doesn't require manual approval and you use Wix eCommerce checkout. Wix Bookings listens to eCommerce order events and confirms a booking when the corresponding order is approved.
+- **Manually**: If the service requires manual approval or you use a custom checkout, you can call [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking).
 
 ## Course
 
