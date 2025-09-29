@@ -7,7 +7,7 @@ This article lists the terms and concepts used in Wix Bookings and its APIs.
 
 [Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are on-demand bookings for available time slots.
 For example, haircuts or consultations.
-Customers choose their preferred time from available slots, with availability calculated based on [business hours](#business-hours), service duration, [staff](#staff-member) working hours, and [booking policies](#policy).
+Customers choose their preferred time from available slots, with availability calculated based on [business hours](#business-hours), service duration, staff [working hours](#working-hours), and [booking policies](#policy).
 
 ## Booking
 
@@ -170,7 +170,7 @@ Learn more about [service payments](https://dev.wix.com/docs/api-reference/busin
 
 ## Policy snapshot
 
-A saved version of a service's [booking policy](#policy) captured when a booking is created.
+A saved version of a service's [policy](#policy) captured when a booking is created.
 Policy snapshots preserve the original terms, which is useful if policies change after a booking is made.
 This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle.
 
@@ -178,7 +178,7 @@ This protects both customers and businesses by maintaining the original agreemen
 
 An asset the business needs to provide a service.
 Each resource has an event [schedule](#schedule) that tracks when it's booked.
-Customers can book a service only if at least 1 resource of each required [type](#resource-type) is available.
+Customers can book a service only if at least 1 resource of each required [resource type](#resource-type) is available.
 
 ## Resource type
 
@@ -190,7 +190,7 @@ For example, rooms, equipment, vehicles, or any other custom asset type requirin
 
 Organizes [events](#event) and defines when services are available and when resources are booked.
 Wix Bookings automatically creates and manages schedules via the [Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/introduction) when you create services, staff members, or bookings.
-For more details, see appointment schedule, class schedule, and course schedule.
+Learn more about [how Wix Bookings integrates with the Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/wix-bookings-integration).
 
 ## Service
 
@@ -201,17 +201,17 @@ Learn more about [service types](https://dev.wix.com/docs/api-reference/business
 ## Service plugin
 
 [Service plugins](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/service-plugins/about-service-plugin-extensions)
-(formerly SPIs) are APIs that are defined by Wix, which you can choose to implement.
+(formerly SPIs) are APIs defined by Wix, which you can choose to implement.
 By doing so, you become a service provider.
-Then, Wix calls your service during a certain flow, waits for your response, and continues the flow with it.
-For example, as a pricing provider you can offer custom pricing options for a business using the [Wix Bookings Pricing Integration REST Service Plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
+Then, Wix calls your implementation during a specific flow, waits for your response, and continues the flow considering your returned data.
+For example, as a pricing provider you can offer custom pricing options for a business using the [Wix Bookings Pricing Integration service plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 
 ## Session
 
-A specific instance of a service occurring at a particular time, such as an appointment, class session, or course session.
-Sessions are represented as events in the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar), which Wix Bookings automatically creates and manages when bookings are made.
-For classes and courses, the aggregation of all sessions constitutes the service's schedule.
-For appointments, sessions are created dynamically when customers book available time slots.
+A single occurrence of a service at a specific time.
+For example, a yoga class on Monday at 7 PM or a haircut appointment on Tuesday at 2 PM.
+For [classes](#class) and [courses](#course), sessions are pre-created when the service is set up, and customers book into existing sessions.
+For [appointments](#appointment), sessions are created dynamically when customers make bookings.
 
 ## Site owner
 
@@ -219,8 +219,8 @@ The owner of the Wix site that has Wix Bookings installed.
 
 ## Staff member
 
-A person who provides services for the business and has complex scheduling needs.
-Staff members have both working hours (when they're available to work) and event [schedules](#schedule) (when they're actually booked).
+A person who provides services for the business with complex scheduling needs.
+Staff members have both working hour schedules (when they're available to work) and event schedules (when they're actually booked).
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
 Staff members are eligible to receive [tips](#tips).
 Not all staff members are [Wix users](#wix-user) and not all Wix users are staff members.
