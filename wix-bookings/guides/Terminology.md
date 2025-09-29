@@ -40,7 +40,7 @@ For technical details, see [How Wix Bookings Uses the Calendar APIs](https://dev
 ## `CANCELED` (booking status)
 
 Indicates that the booking has been canceled by the customer.
-Depending on the [policy snapshot](#policy-snapshot) the customer may have to pay a cancellation fee. 
+Depending on the [policy snapshot](#policy-snapshot), the customer may have to pay a cancellation fee. 
 
 ## Capacity
 
@@ -85,7 +85,7 @@ Bookings can be confirmed in different ways:
 [Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) are multi-session programs that customers must book in full.
 For example, an 8-week programming bootcamp or a 3-day certification training program.
 Business owners set the complete session timeline before offering the course, with courses starting and ending on pre-defined dates.
-Customers must book all course sessions, while they're free to book only a single or some sessions for classes.
+Customers must book all course sessions, while they're free to book only a single session or some sessions for classes.
 
 ## Deposit
 
@@ -161,11 +161,12 @@ Rules set by the business owner that govern how customers can book and cancel se
 Policies define booking windows, cancellation deadlines, participant limits, and other constraints.
 When a booking is created, the current policy is saved as a [policy snapshot](#policy-snapshot) to preserve the original terms.
 
-## Pricing provider
+## Pricing
 
-A 3rd-party app that implements custom logic to determine the price of a booking
-with the [Pricing Integration Service Plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction).
-Services can have fixed pricing or [varied pricing](#varied-pricing) based on different factors like staff member, time of day, or customer type.
+Services can be free, use fixed pricing, or have [varied pricing](#varied-pricing).
+Wix Bookings also supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
+Additionally, you can create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which allow customers to purchase bundles of services or recurring access to bookings.
+Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ## Policy snapshot
 
@@ -233,7 +234,7 @@ Learn more about [booking lifecycle and status transitions](https://dev.wix.com/
 ## Time slot
 
 Specific periods when a service is available for customer bookings.
-You can use the [Time Slots API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/pricing/introduction) to find available slots for appointments and classes.
+You can use the [Time Slots API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/time-slots/time-slots-v2/introduction) to find available slots for appointments and classes.
 The API considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing bookings.
 For courses, you can follow the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows#book-a-course) to check availability.
 
