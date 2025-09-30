@@ -17,7 +17,7 @@ The booking includes details about the time, location, participants, and price.
 
 ## Booking fee
 
-A fee for a specific booking that's calculated according to the associated booking [policy snapshot](#policy-snapshot).
+A fee for a specific booking that's calculated according to the associated booking [policy](#policy).
 Currently, only cancellation fees, including no-show fees, are supported.
 
 ## Business hours
@@ -40,7 +40,7 @@ Wix Bookings automatically creates and manages the underlying [schedules](#sched
 ## `CANCELED` (booking status)
 
 Indicates that the booking has been canceled by the customer.
-Depending on the [policy snapshot](#policy-snapshot), the customer may have to pay a cancellation fee. 
+Depending on the [policy](#policy), the customer may have to pay a cancellation fee. 
 
 ## Capacity
 
@@ -58,6 +58,7 @@ A label used to group services, helping business owners, app developers, and cus
 Customers must complete a checkout when booking a service.
 Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction) to handle payments and [order management](#order).
 To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) or build your own payment interface and process payments with external providers.
+For implementation examples, see [end-to-end booking flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows).
 
 ## Choice
 
@@ -75,17 +76,18 @@ When a specific session is fully booked, customers can join a waitlist and are n
 
 ## `CONFIRMED` (booking status)
 
-Indicates that the business owners have confirmed the booking and it appears in the business calendar.
+Indicates that the business owner has confirmed the booking and it appears in the [Wix Bookings Calendar](#calendar).
 Bookings can be confirmed in different ways:
-- **Automatically**: Bookings are automatically confirmed when the service doesn't require manual approval and you use Wix eCommerce checkout. Wix Bookings listens to eCommerce order events and confirms a booking when the corresponding order is approved.
-- **Manually**: If the service requires manual approval or you use a custom checkout, you can call [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking).
+- __Automatically__: Bookings are automatically confirmed when the service doesn't require manual approval and you use Wix eCommerce checkout.
+  Wix Bookings listens to eCommerce order events and confirms a booking when the corresponding order is approved.
+- __Manually__: If the service requires manual approval or you use a custom checkout, you can call [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking).
 
 ## Course
 
 [Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) are multi-session programs that customers must book in full.
 For example, an 8-week programming bootcamp or a 3-day certification training program.
 Business owners set the complete session timeline before offering the course, with courses starting and ending on pre-defined dates.
-Customers must book all course sessions, while they're free to book only a single session or some sessions for classes.
+Customers must book all course sessions, while for classes they're free to book only a single session or some sessions.
 
 ## Deposit
 
@@ -96,7 +98,7 @@ Only available for services with either fixed or [varied pricing](#varied-pricin
 
 A double booking occurs when a customer attempts to book a service that's already reserved.
 This can happen when multiple bookings are created simultaneously.
-When Wix Bookings detects insufficient availability during booking confirmation, the business must manually resolve the conflict.
+When Wix Bookings detects insufficient availability during booking confirmation, the business must manually resolve the conflict using [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking) or [Reschedule Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/bookings-writer-v2/reschedule-booking).
 
 ## Event
 
@@ -119,7 +121,7 @@ Use the [External Calendar API](https://dev.wix.com/docs/rest/business-solutions
 
 The [booking form](https://support.wix.com/en/article/wix-bookings-creating-and-setting-up-your-booking-forms) collects customer information required to complete a booking.
 Forms can include fields for contact details, special requests, service preferences, and custom questions.
-Learn more about [how Bookings technically integrates with Wix Forms](https://dev.wix.com/docs/rest/business-solutions/bookings/wix-forms-integration).
+Learn more about [Wix Forms integration](https://dev.wix.com/docs/rest/business-solutions/bookings/wix-forms-integration).
 
 ## Integration
 
@@ -140,7 +142,7 @@ Learn more about [multi-service bookings](https://dev.wix.com/docs/api-reference
 ## Option
 
 A pricing category that business owners define when setting up [varied pricing](#varied-pricing) for a service.
-For example, staff member, customer age, appointment time, or equipment type.
+For example, options can include staff member, customer age, appointment time, or equipment type.
 Each option contains a list of predefined [choices](#choice) that customers can select from.
 
 ## Order
@@ -153,26 +155,27 @@ For custom checkouts, you must manually create an order in the Wix eCommerce pla
 ## `PENDING` (booking status)
 
 Indicates that the booking is waiting to be confirmed or declined by the business.
-Bookings in `PENDING` status are displayed in the business calendar.
-Bookings are automatically set as `PENDING` when an [eCommerce order](https://dev.wix.com/docs/rest/business-solutions/e-commerce/orders/introduction) related to the booking has been created and the service requires manual business approval.
+This status is used when the service requires manual business approval.
+
+Bookings are set as `PENDING` in these scenarios:
+- __Wix eCommerce checkout__: Wix Bookings automatically sets this status when an eCommerce order is created.
+- __Custom checkout__: Developers must manually set this status using [Mark Booking as Pending](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/bookings-writer-v2/mark-booking-as-pending).
+
+Bookings in `PENDING` status are displayed in the business calendar and may block availability for the time slot, depending on whether the service allows multiple pending booking requests for the same time.
 
 ## Policy
 
 Rules set by the business owner that govern how customers can book and cancel services.
 Policies define booking windows, cancellation deadlines, participant limits, and other constraints.
-When a booking is created, the current policy is saved as a [policy snapshot](#policy-snapshot) to preserve the original terms.
 
-## Policy snapshot
-
-A saved version of a service's [policy](#policy) captured when a booking is created.
-Policy snapshots preserve the original terms, which is useful if policies change after a booking is made.
-This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle.
+When a booking is created, the current policy is saved as a [policy snapshot](https://dev.wix.com/docs/api-reference/business-solutions/bookings/policies/booking-policy-snapshots/introduction) to preserve the original terms.
+This protects both customers and businesses by maintaining the original agreement terms throughout the booking lifecycle, even if policies change after a booking is made.
 
 ## Pricing
 
-Services can be free, use fixed pricing, or have [varied pricing](#varied-pricing).
-Wix Bookings also supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
-Additionally, you can create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which allow customers to purchase bundles of services or recurring access to bookings.
+Businesses can offer services for free, with fixed pricing, or with [varied pricing](#varied-pricing).
+Wix Bookings also supports custom pricing integrations through the [Pricing Integration SPI](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
+You can also create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which let customers purchase bundles of services or recurring access to bookings.
 Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ## Resource
@@ -183,9 +186,9 @@ Customers can book a service only if at least 1 resource of each required [resou
 
 ## Resource type
 
-A classification that allows Wix Bookings to automatically check [resource](#resource) availability and help avoid double bookings.
-For example, rooms, equipment, vehicles, or any other custom asset type requiring scheduling and availability management.
-[Staff members](#staff-member) are treated as a special resource type with complex scheduling needs.
+A classification that allows Wix Bookings to automatically check [resource](#resource) availability and avoid double bookings.
+Examples include rooms, equipment, vehicles, or any other custom asset type that requires scheduling and availability management.
+[Staff members](#staff-member) are treated as a special resource type with complex scheduling needs and have a [separate API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/staff-members/introduction).
 
 ## Schedule
 
