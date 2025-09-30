@@ -22,7 +22,7 @@ Currently, only cancellation fees, including no-show fees, are supported.
 
 ## Business hours
 
-The default operating hours when services are available for booking.
+The default operating hours when appointment-based services are available for booking.
 You can use the [Locations API](https://dev.wix.com/docs/api-reference/business-management/locations/introduction) to manage individual business hours for each of the business locations.
 
 ## Business owner
