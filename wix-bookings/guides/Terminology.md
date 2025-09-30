@@ -174,8 +174,8 @@ This protects both customers and businesses by maintaining the original agreemen
 ## Pricing
 
 Businesses can offer services for free, with fixed pricing, or with [varied pricing](#varied-pricing).
-Wix Bookings also supports custom pricing integrations through the [Pricing Integration SPI](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
-You can also create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which let customers purchase bundles of services or recurring access to bookings.
+Wix Bookings also supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
+You can also create service packages and memberships using [Wix pricing plans](#wix-pricing-plans), which let customers purchase bundles of services or recurring access to bookings.
 Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ## Resource
@@ -226,13 +226,14 @@ The [Wix user](#wix-user) who owns the site that has Wix Bookings installed.
 A person who provides services for the business with complex scheduling needs.
 Staff members have both working hour schedules (when they're available to work) and event schedules (when they're actually booked).
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
-Staff members are eligible to receive [tips](#tips).
+
 Not all staff members are [Wix users](#wix-user) and not all Wix users are staff members.
+Staff members are also eligible to receive [tips](#tips).
 
 ## Status (booking)
 
 Information about the life cycle status of the booking.
-Booking statuses include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`, `UPDATED`, `CANCELED`.
+Booking statuses include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`, `UPDATED`, and `CANCELED`.
 Learn more about [booking lifecycle and status transitions](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#booking-lifecycle).
 
 ## Time slot
@@ -266,7 +267,7 @@ If a visitor creates a booking they're added as a [contact](https://dev.wix.com/
 
 ## `WAITING_LIST` (booking status)
 
-Indicates that the booking is on a waitlist for a fully booked class session.
+Indicates that the class booking is on a waitlist for a fully booked session.
 
 ## Waitlist
 
@@ -274,11 +275,6 @@ A feature for class services that allows customers to join a queue when sessions
 When a spot opens due to cancellation, the first person on the waitlist (also called the suggested participant) is notified and given a time window to book the session.
 If they don't book in the time window, the opportunity passes to the next person on the waitlist.
 Waitlists aren't available for courses or appointment services.
-
-## Working hours
-
-The specific times when a [staff member](#staff-member) is working.
-By default, staff members work during the [business hours](#business-hours).
 
 ## Wix Pricing Plans
 
@@ -288,5 +284,10 @@ You can create service packages and memberships that allow customers to purchase
 ## Wix user
 
 Someone who is logged into their account on [wix.com](https://wix.com/).
-Wix users can be site owners or site collaborators.
+Wix users can be site owners or collaborators.
 Learn more about [identities](https://dev.wix.com/docs/build-apps/develop-your-app/access/about-identities).
+
+## Working hours
+
+The specific times when a [staff member](#staff-member) is working, defined by their working hours [schedule](#schedule).
+By default, staff members work during the [business hours](#business-hours).
