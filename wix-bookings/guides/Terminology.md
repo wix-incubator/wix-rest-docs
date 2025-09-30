@@ -33,9 +33,9 @@ They make decisions such as confirming or declining a booking.
 
 ## Calendar
 
-The [Wix Bookings Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) displays business availability, staff schedules, and confirmed bookings in a unified interface.
-Wix Bookings automatically manages the underlying [schedules](#schedule) and [events](#event) with the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar/introduction).
-Learn more about [how Wix Bookings uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
+The [Wix Bookings Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-booking-calendar) is the central interface for managing appointments, classes, and courses.
+It displays business availability, staff schedules, confirmed bookings, and provides tools for scheduling, attendance tracking, and client management.
+Wix Bookings automatically creates and manages the underlying [schedules](#schedule) and [events](#event) through the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar/introduction).
 
 ## `CANCELED` (booking status)
 
