@@ -175,7 +175,7 @@ This protects both customers and businesses by maintaining the original agreemen
 
 Businesses can offer services for free, with fixed pricing, or with [varied pricing](#varied-pricing).
 Wix Bookings also supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
-You can also create service packages and memberships using [Wix pricing plans](#wix-pricing-plans), which let customers purchase bundles of services or recurring access to bookings.
+You can also create service packages and memberships using [Wix Pricing Plans](#wix-pricing-plans), which let customers purchase bundles of services or recurring access to bookings.
 Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ## Resource
