@@ -27,9 +27,9 @@ You can use the [Locations API](https://dev.wix.com/docs/api-reference/business-
 
 ## Business owner
 
-The owner of the business that offers services to customers.
-Can be a different person than the [Wix user](#wix-user).
-The business owner makes decisions such as confirming or declining a booking.
+The person responsible for managing the business that offers services to customers.
+This can be the actual business owner or a manager, who may or may not be staff members themselves.
+They make decisions such as confirming or declining a booking.
 
 ## Calendar
 
