@@ -9,7 +9,7 @@ Wix Bookings APIs include:
 
 - [Services](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/introduction): Create, manage, and query the specific offerings a business provides.
 - [Staff Members](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction): Manage people who provide services, including their working hours.
-- [Resources](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction): Manage physical assets like rooms and equipment that the business needs to provide a service.
+- [Resources](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction): Manage physical assets like rooms and equipment that the business needs in order to provide a service.
 - [Pricing](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/introduction): Calculate booking costs and implement custom pricing logic through service plugins.
 - [Policies](https://dev.wix.com/docs/rest/business-solutions/bookings/policies/booking-policies/introduction): Define rules for when and how customers can book, cancel, or reschedule services.
 - [Time Slots](https://dev.wix.com/docs/rest/business-solutions/bookings/time-slots/availability-calendar/introduction): Check availability of appointment slots and class events for efficient booking and scheduling.
@@ -18,7 +18,7 @@ Wix Bookings APIs include:
 
 ## Key concepts
 
-These concepts form the foundation of the [Wix Bookings platform](https://support.wix.com/en/article/about-wix-bookings).
+These concepts form the foundation of the [Wix Bookings platform](https://support.wix.com/en/article/about-wix-bookings):
 
 ### Service types
 

@@ -1,24 +1,28 @@
 # Wix Bookings Terminology
 
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
-This article lists the terms and concepts used in Wix Bookings and its APIs.
+This article lists terms and concepts used in Wix Bookings and its APIs.
 
 ## Appointment
 
-[Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are on-demand bookings for available time slots.
-For example, haircuts or consultations.
+[Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are bookings for on-demand services such as haircuts or consultations.
 Customers choose their preferred time from available slots, with availability calculated based on [business hours](#business-hours), service duration, staff [working hours](#working-hours), and [booking policies](#policy).
 
 ## Booking
 
-Information about the service that the customer has booked.
-You can think of a booking as an order placed by a customer for a service.
-The booking includes details about the time, location, participants, and price.
+A booking represents a customer's reservation for a specific [service](#service).
+The booking includes details about the time, location, and participants.
+
+See also:
+- [Status (booking)](#status-booking): Booking lifecycle and status transitions.
+- [Extended booking](#extended-booking): Enhanced booking information with additional details.
+- [Multi-service booking](#multi-service-booking): Booking multiple services together.
+- [Order](#order): Payment and purchase records.
 
 ## Booking fee
 
 A fee for a specific booking that's calculated according to the associated booking [policy](#policy).
-Currently, only cancellation fees, including no-show fees, are supported.
+For example, a cancellation or no-show fee.
 
 ## Business hours
 
@@ -68,11 +72,11 @@ Each choice may have a different price, and customers select from these predefin
 
 ## Class
 
-[Classes](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes) are scheduled sessions that customers can join individually.
+[Classes](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#classes) are scheduled sessions that customers can book individually.
 For example, drop-in yoga classes or weekly cooking lessons.
-You can schedule classes on various weekdays, at different times, and with different staff members.
-Customers can sign up for 1 or multiple sessions, unlike courses where all sessions must be booked.
+You can schedule classes on various days of the week, at different times, and with different staff members.
 When a specific session is fully booked, customers can join a waitlist and are notified if a spot opens up.
+Unlike [courses](#courses) where customers must book all sessions, class customers can choose which sessions to attend.
 
 ## `CONFIRMED` (booking status)
 
@@ -87,18 +91,18 @@ Bookings can be confirmed in different ways:
 [Courses](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#courses) are multi-session programs that customers must book in full.
 For example, an 8-week programming bootcamp or a 3-day certification training program.
 Business owners set the complete session timeline before offering the course, with courses starting and ending on pre-defined dates.
-Customers must book all course sessions, while for classes they're free to book only a single session or some sessions.
+Customers must book all course sessions, while for [classes](#class) they're free to book only a single session or some sessions.
 
 ## Deposit
 
 Amount that customers must pay immediately online when checking out the booking.
-Only available for services with either fixed or [varied pricing](#varied-pricing).
+Only available for services with fixed or varied [pricing](#pricing).
 
 ## Double booking
 
 A double booking occurs when a customer attempts to book a service that's already reserved.
-This can happen when multiple bookings are created simultaneously.
-When Wix Bookings detects insufficient availability during booking confirmation, the business must manually resolve the conflict using [Confirm Or Decline Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings-and-time-slots/bookings-v2/bookings-v2-and-confirmation/confirm-or-decline-booking) or [Reschedule Booking](https://dev.wix.com/docs/rest/business-solutions/bookings/bookings/bookings-writer-v2/reschedule-booking).
+This can happen when multiple customers book simultaneously.
+When Wix Bookings detects insufficient availability during booking confirmation, the business must manually resolve the conflict.
 
 ## Event
 
@@ -131,10 +135,12 @@ Developers can inject custom logic into the booking flow, such as dynamic pricin
 ## Member
 
 Someone who is a registered [member](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/introduction) in the Wix site and has a login.
+Unlike [visitors](#visitor), members have persistent accounts and can access member-only features on the Wix site.
 
 ## Multi-service booking
 
 Multi-service bookings enable businesses to offer comprehensive service packages where customers can book multiple related services together in a single transaction.
+For example, a spa package that includes a massage, facial, and manicure, or a fitness package with a personal training session followed by a yoga class.
 Each multi-service booking contains several single-service bookings.
 Single-service bookings in the package must be scheduled sequentially with each booking starting when the previous booking ends.
 Learn more about [multi-service bookings](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#multi-service-bookings).
@@ -180,7 +186,7 @@ Learn more about [service payments](https://dev.wix.com/docs/api-reference/busin
 
 ## Resource
 
-An asset the business needs to provide a service.
+An asset the business needs in order to provide a service.
 Each resource has an event [schedule](#schedule) that tracks when it's booked.
 Customers can book a service only if at least 1 resource of each required [resource type](#resource-type) is available.
 
@@ -198,16 +204,15 @@ Learn more about [how Wix Bookings integrates with the Calendar APIs](https://de
 
 ## Service
 
-A business offering, which can be a [class](#class), [course](#course), or [appointment-based](#appointment).
+A business offering, which can be a [class](#class), a [course](#course), or [appointment-based](#appointment).
 For example, a fitness studio may offer 30-minute 1-on-1 personal training sessions by appointment, 1-hour yoga classes every Monday at 7:00 PM, and introductory HIIT courses consisting of 3 training sessions on specific dates.
 Learn more about [service types](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-types).
 
 ## Service plugin
 
-[Service plugins](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/service-plugins/about-service-plugin-extensions)
-(formerly SPIs) are APIs defined by Wix, which you can choose to implement.
+[Service plugins](https://dev.wix.com/docs/build-apps/develop-your-app/extensions/backend-extensions/service-plugins/about-service-plugin-extensions) are APIs defined by Wix, which you can choose to implement.
 By doing so, you become a service provider.
-Then, Wix calls your implementation during a specific flow, waits for your response, and continues the flow considering your returned data.
+Then, Wix calls your implementation during a specific flow, receives your response, and continues the flow considering your returned data.
 For example, as a pricing provider you can offer custom pricing options for a business using the [Wix Bookings Pricing Integration service plugin](https://dev.wix.com/api/rest/wix-bookings/pricing-integration-spi).
 
 ## Session
@@ -217,17 +222,13 @@ For example, a yoga class on Monday at 7 PM or a haircut appointment on Tuesday 
 For [classes](#class) and [courses](#course), sessions are pre-created when the service is set up, and customers book into existing sessions.
 For [appointments](#appointment), sessions are created dynamically when customers make bookings.
 
-## Site owner
-
-The [Wix user](#wix-user) who owns the site that has Wix Bookings installed.
-
 ## Staff member
 
-A person who provides services for the business with complex scheduling needs.
-Staff members have both working hour schedules (when they're available to work) and event schedules (when they're actually booked).
+A person who provides services for the business.
+Staff members have both working hour schedules (when they're available to work) and event schedules (when they're booked), which may involve complex scheduling needs.
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
 
-Not all staff members are [Wix users](#wix-user) and not all Wix users are staff members.
+Not all staff members are registered Wix users, and not all Wix users related to the business are staff members.
 Staff members are also eligible to receive [tips](#tips).
 
 ## Status (booking)
@@ -240,7 +241,7 @@ Learn more about [booking lifecycle and status transitions](https://dev.wix.com/
 
 Specific periods when a service is available for customer bookings.
 You can use the [Time Slots API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/time-slots/time-slots-v2/introduction) to find available slots for appointments and classes.
-The API considers multiple factors: service schedules, staff working hours, resource availability, booking policies, and existing bookings.
+The API considers multiple factors to determine availability: service schedules, staff working hours, resource availability, booking policies, and existing bookings.
 For courses, you can follow the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows#book-a-course) to check availability.
 
 ## Tips
@@ -257,13 +258,14 @@ Each variant represents a different combination of the available choices and can
 
 ## Varied pricing
 
-[Varied pricing](https://support.wix.com/en/article/wix-bookings-understanding-price-options) allows businesses to charge for services based on different factors, such as staff member providing the service or the equipment needed.
+[Varied pricing](https://support.wix.com/en/article/wix-bookings-understanding-price-options) allows businesses to charge for services based on different factors, such as the staff member providing the service or the equipment needed.
 Wix Bookings supports custom pricing integrations through the [Pricing Integration service plugin](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/pricing-integration-spi/introduction), allowing you to implement dynamic pricing logic.
 
 ## Visitor
 
-Anyone who isn't registered as a member or hasn't logged in to the Wix site.
+Anyone who isn't registered as a [member](#member) or hasn't logged in to the Wix site.
 If a visitor creates a booking they're added as a [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction) to the Wix site.
+Unlike members, visitors don't have persistent accounts and can't access member-only features.
 
 ## `WAITING_LIST` (booking status)
 
@@ -280,12 +282,6 @@ Waitlists aren't available for courses or appointment services.
 
 [Wix Pricing Plans](https://support.wix.com/en/article/wix-bookings-about-wix-bookings#selling-membership-plans-and-packages) are prepaid bundles of services or memberships providing customers access to certain services.
 You can create service packages and memberships that allow customers to purchase bundles of services or recurring access to bookings.
-
-## Wix user
-
-Someone who is logged into their account on [wix.com](https://wix.com/).
-Wix users can be site owners or collaborators.
-Learn more about [identities](https://dev.wix.com/docs/build-apps/develop-your-app/access/about-identities).
 
 ## Working hours
 
