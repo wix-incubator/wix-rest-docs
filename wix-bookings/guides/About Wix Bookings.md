@@ -9,7 +9,7 @@ Wix Bookings APIs include:
 
 - [Services](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/introduction): Create, manage, and query the specific offerings a business provides.
 - [Staff Members](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction): Manage people who provide services, including their working hours.
-- [Resources](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction): Manage physical assets like rooms and equipment that the business needs to provide a service.
+- [Resources](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction): Manage physical assets like rooms and equipment that the business needs in order to provide a service.
 - [Pricing](https://dev.wix.com/docs/rest/business-solutions/bookings/pricing/introduction): Calculate booking costs and implement custom pricing logic through service plugins.
 - [Policies](https://dev.wix.com/docs/rest/business-solutions/bookings/policies/booking-policies/introduction): Define rules for when and how customers can book, cancel, or reschedule services.
 - [Time Slots](https://dev.wix.com/docs/rest/business-solutions/bookings/time-slots/availability-calendar/introduction): Check availability of appointment slots and class events for efficient booking and scheduling.
@@ -18,7 +18,7 @@ Wix Bookings APIs include:
 
 ## Key concepts
 
-These concepts form the foundation of the [Wix Bookings platform](https://support.wix.com/en/article/about-wix-bookings).
+These concepts form the foundation of the [Wix Bookings platform](https://support.wix.com/en/article/about-wix-bookings):
 
 ### Service types
 
@@ -45,7 +45,7 @@ Wix Bookings uses 2 key components to manage when services can be booked:
 Each service, [staff member](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction), and [resource](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction) has associated schedules and events in the calendar system.
 Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
 
-For details about how staff and resources affect scheduling, see the [Staff members and resources](#staff-members-and-resources) section below.
+For details about how staff and resources affect scheduling, see the [staff members and resources](#staff-members-and-resources) section below.
 
 #### How availability works
 
@@ -59,7 +59,7 @@ The Wix Bookings and Calendar APIs work together to manage availability:
 - __Wix Calendar__ APIs manage the underlying schedule data and events. Wix Bookings automatically creates and updates calendar events when bookings are made.
   For most use cases, you'll use Calendar APIs to retrieve schedule and event data for display purposes, while Wix Bookings handles creation and management automatically.
 
-For detailed information about the integration, see [How Wix Bookings Uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
+Learn more about [how Wix Bookings uses the Calendar APIs](https://dev.wix.com/docs/rest/business-solutions/bookings/calendar/how-wix-bookings-uses-the-calendar-apis).
 
 ### Staff members and resources
 
@@ -77,7 +77,7 @@ Wix Bookings supports custom pricing integrations through the [Pricing Integrati
 
 You can also create service packages and memberships using [Wix Pricing Plans](https://dev.wix.com/docs/api-reference/business-solutions/pricing-plans/introduction), which allow customers to purchase bundles of services or recurring access to bookings.
 
-For detailed information, see [About Service Payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
+Learn more about [service payments](https://dev.wix.com/docs/api-reference/business-solutions/bookings/services/services-v2/about-service-payments).
 
 ### Checkout and orders
 
