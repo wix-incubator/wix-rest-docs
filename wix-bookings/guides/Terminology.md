@@ -76,7 +76,7 @@ Each choice may have a different price, and customers select from these predefin
 For example, drop-in yoga classes or weekly cooking lessons.
 You can schedule classes on various days of the week, at different times, and with different staff members.
 When a specific session is fully booked, customers can join a waitlist and are notified if a spot opens up.
-Unlike [courses](#courses) where customers must book all sessions, class customers can choose which sessions to attend.
+Unlike [courses](#course) where customers must book all sessions, class customers can choose which sessions to attend.
 
 ## `CONFIRMED` (booking status)
 
