@@ -32,7 +32,7 @@ You can use the [Locations API](https://dev.wix.com/docs/api-reference/business-
 ## Business owner
 
 The person responsible for managing the business that offers services to customers.
-This can be the actual business owner or a manager, who may or may not be staff members themselves.
+This can be the actual business owner or a manager, who may or may not be [staff members](#staff-member) themselves.
 They make decisions such as confirming or declining a booking.
 
 ## Calendar
@@ -49,9 +49,10 @@ Depending on the [policy](#policy), the customer may have to pay a cancellation 
 ## Capacity
 
 The maximum number of participants that can book a service.
-For appointments, capacity is typically 1 but can be higher for group sessions.
-For classes, capacity determines when individual sessions become fully booked and a [waitlist](#waitlist) activates.
-For courses, capacity determines when the entire course becomes fully booked.
+
+- __ Appointments__ : Capacity is typically 1 but can be higher for group sessions.
+- __ Classes__ : Capacity determines when individual sessions become fully booked and a [waitlist](#waitlist) activates.
+- __ Courses__ : Capacity determines when the entire course becomes fully booked.
 
 ## Category
 
@@ -227,15 +228,15 @@ For [appointments](#appointment), sessions are created dynamically when customer
 A person who provides services for the business.
 Staff members have both working hour schedules (when they're available to work) and event schedules (when they're booked), which may involve complex scheduling needs.
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
+Staff members are also eligible to receive [tips](#tips).
 
 Not all staff members are registered Wix users, and not all Wix users related to the business are staff members.
-Staff members are also eligible to receive [tips](#tips).
 
 ## Status (booking)
 
 Information about the life cycle status of the booking.
 Booking statuses include: `CREATED`, `PENDING`, `CONFIRMED`, `DECLINED`, `WAITING_LIST`, `UPDATED`, and `CANCELED`.
-Learn more about [booking lifecycle and status transitions](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#booking-lifecycle).
+Learn more about [the booking lifecycle and status transitions](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction#booking-lifecycle).
 
 ## Time slot
 
@@ -265,7 +266,7 @@ Wix Bookings supports custom pricing integrations through the [Pricing Integrati
 
 Anyone who isn't registered as a [member](#member) or hasn't logged in to the Wix site.
 If a visitor creates a booking they're added as a [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction) to the Wix site.
-Unlike members, visitors don't have persistent accounts and can't access member-only features.
+Unlike members, visitors don't have persistent accounts and can't access member-only features on the Wix site.
 
 ## `WAITING_LIST` (booking status)
 
