@@ -3,6 +3,19 @@
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
 This article lists terms and concepts used in Wix Bookings and its APIs.
 
+## Add-on
+
+An optional extra for a Wix Bookings service for an extra cost.
+Add-ons are either duration-based (extending booking time in minutes) or quantity-based (purchased in multiple units up to a maximum quantity per add-on).
+Add-ons must be included in [add-on groups](#add-on-group) before customers can select them during booking.
+Use the [Add-Ons API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/add-ons/introduction) to create and manage individual add-ons.
+
+## Add-on group
+
+A collection of related [add-ons](#add-on) linked to a booking service.
+Groups define the maximum number of different add-ons customers can select from the group and include customer-facing information like prompts (instructional text displayed to customers to explain the group's purpose and selection rules) and display order (the sequence in which add-ons appear to customers in the group, determined by their order in the group's `add-on IDs` array).
+Use the [Services V2 API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/about-add-on-groups) to organize add-ons into groups.
+
 ## Appointment
 
 [Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are bookings for on-demand services such as haircuts or consultations.
