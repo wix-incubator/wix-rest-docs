@@ -25,6 +25,7 @@ Customers choose their preferred time from available slots, with availability ca
 
 A booking represents a customer's reservation for a specific [service](#service).
 The booking includes details about the time, location, and participants.
+Use the [Bookings Writer V2 API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction) to create and manage bookings, and the [Bookings Reader V2 API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-reader-v2/introduction) to retrieve booking information.
 
 See also:
 - [Status (booking)](#status-booking): Booking lifecycle and status transitions.
@@ -242,6 +243,7 @@ A person who provides services for the business.
 Staff members have both working hour schedules (when they're available to work) and event schedules (when they're booked), which may involve complex scheduling needs.
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
 Staff members are also eligible to receive [tips](#tips).
+Use the [Staff Members API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/staff-members/introduction) to manage staff members and their schedules.
 
 Not all staff members are registered Wix users, and not all Wix users related to the business are staff members.
 
@@ -278,7 +280,8 @@ Wix Bookings supports custom pricing integrations through the [Pricing Integrati
 ## Visitor
 
 Anyone who isn't registered as a [member](#member) or hasn't logged in to the Wix site.
-If a visitor creates a booking they're added as a [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction) to the Wix site.
+If a visitor creates a booking they're added as a contact to the Wix site.
+Use the [Contacts API](https://dev.wix.com/docs/api-reference/crm/members-contacts/contacts/introduction) to manage visitor contact information.
 Unlike members, visitors don't have persistent accounts and can't access member-only features on the Wix site.
 
 ## `WAITING_LIST` (booking status)
