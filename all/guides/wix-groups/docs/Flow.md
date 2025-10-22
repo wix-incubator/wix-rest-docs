@@ -11,7 +11,7 @@ To create a group for each class at a school or each fitness class (yoga, TRX, e
 2. Create a group with [Create Group](https://dev.wix.com/docs/rest/crm/community/groups/groups/create-group).
 3. Call [Query Members](https://dev.wix.com/docs/rest/crm/members-contacts/members/members/query-members) to get the site member data.
 4. Map the site members for the group by their IDs as returned in step 3.
-5. Add the site members to the group by calling [Add Group Members](https://dev.wix.com/docs/rest/crm/community/groups/members/add-group-members) with the site member IDs collected above.
+5. Add the site members to the group by calling [Add Group Members](https://dev.wix.com/docs/rest/crm/community/groups/members/add-group-members) with the member IDs collected above.
 
 ## Manage bulk emailing to group members
 
