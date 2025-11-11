@@ -3,6 +3,19 @@
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
 This article lists terms and concepts used in Wix Bookings and its APIs.
 
+## Add-on
+
+An optional extra for a Wix Bookings service for an extra cost.
+Add-ons are either duration-based (extending booking time in minutes) or quantity-based (purchased in multiple units up to a maximum quantity per add-on).
+Add-ons must be included in [add-on groups](#add-on-group) before customers can select them during booking.
+Use the [Add-Ons API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/add-ons/introduction) to create and manage individual add-ons.
+
+## Add-on group
+
+A collection of related [add-ons](#add-on) linked to a booking service.
+Groups define the maximum number of different add-ons customers can select from the group and include customer-facing information like prompts (instructional text displayed to customers to explain the group's purpose and selection rules) and display order (the sequence in which add-ons appear to customers in the group, determined by their order in the group's `add-on IDs` array).
+Use the [Services V2 API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/about-add-on-groups) to organize add-ons into groups.
+
 ## Appointment
 
 [Appointments](https://support.wix.com/en/article/creating-the-right-booking-service-for-your-business#appointments) are bookings for on-demand services such as haircuts or consultations.
@@ -12,6 +25,7 @@ Customers choose their preferred time from available slots, with availability ca
 
 A booking represents a customer's reservation for a specific [service](#service).
 The booking includes details about the time, location, and participants.
+Use the [Bookings Writer V2 API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-writer-v2/introduction) to create and manage bookings, and the [Bookings Reader V2 API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings/bookings-reader-v2/introduction) to retrieve booking information.
 
 See also:
 - [Status (booking)](#status-booking): Booking lifecycle and status transitions.
@@ -229,6 +243,7 @@ A person who provides services for the business.
 Staff members have both working hour schedules (when they're available to work) and event schedules (when they're booked), which may involve complex scheduling needs.
 By default, staff members work during the [business hours](#business-hours), but you can customize their working hours.
 Staff members are also eligible to receive [tips](#tips).
+Use the [Staff Members API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/staff-members/introduction) to manage staff members and their schedules.
 
 Not all staff members are registered Wix users, and not all Wix users related to the business are staff members.
 
@@ -265,7 +280,8 @@ Wix Bookings supports custom pricing integrations through the [Pricing Integrati
 ## Visitor
 
 Anyone who isn't registered as a [member](#member) or hasn't logged in to the Wix site.
-If a visitor creates a booking they're added as a [contact](https://dev.wix.com/docs/rest/crm/members-contacts/contacts/introduction) to the Wix site.
+If a visitor creates a booking they're added as a contact to the Wix site.
+Use the [Contacts API](https://dev.wix.com/docs/api-reference/crm/members-contacts/contacts/introduction) to manage visitor contact information.
 Unlike members, visitors don't have persistent accounts and can't access member-only features on the Wix site.
 
 ## `WAITING_LIST` (booking status)
