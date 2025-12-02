@@ -33,7 +33,7 @@ Learn more about [service types](https://dev.wix.com/docs/sdk/backend-modules/bo
 
 ### Scheduling and availability
 
-Wix Bookings integrates with the [Calendar APIs](https://dev.wix.com/docs/rest/business-management/calendar) to manage when services can be booked.
+Wix Bookings integrates with the [Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/introduction) to manage when services can be booked.
 
 #### How scheduling works
 
