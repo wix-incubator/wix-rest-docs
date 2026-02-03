@@ -3,6 +3,8 @@
 The Wix Bookings APIs allow you to build and customize booking experiences for any service-based business.
 You can manage services, staff members, resources, pricing, availability, and customer bookings throughout their entire lifecycle.
 
+To build a custom booking app with its own identity using the [Bookings Platform](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/introduction), see [Building a custom booking app](#building-a-custom-booking-app).
+
 ## Wix Bookings APIs
 
 Wix Bookings APIs include:
@@ -39,8 +41,8 @@ Wix Bookings integrates with the [Calendar APIs](https://dev.wix.com/docs/api-re
 
 Wix Bookings uses 2 key components to manage when services can be booked:
 
-- **Events** are time-specific instances of services (like an appointment or class session).
-- **Schedules** organize these events and define when services are available or when resources are booked.
+- [Events](https://dev.wix.com/docs/api-reference/business-management/calendar/events/introduction) are time-specific instances of services, such as an appointment or class session.
+- [Schedules](https://dev.wix.com/docs/api-reference/business-management/calendar/schedules-v3/introduction) organize these events and define when services are available or when resources are booked.
 
 Each service, [staff member](https://dev.wix.com/docs/rest/business-solutions/bookings/staff-members/introduction), and [resource](https://dev.wix.com/docs/rest/business-solutions/bookings/resources/resources-v2/introduction) has associated schedules and events in the calendar system.
 Wix Bookings automatically creates and manages schedules and events when you create services, staff members, or bookings.
@@ -92,6 +94,20 @@ To customize the checkout process, you can choose between 2 approaches:
   You must still manually create an order in the Wix eCommerce platform and update the booking status to complete the booking flow.
 
 For step-by-step implementation examples, see our [end-to-end booking flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows).
+
+## Building a custom booking app
+
+The Wix Bookings APIs are designed to work with the Wix Bookings app by default. You can also use the [Bookings Platform](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/introduction) to build custom booking apps with their own identity and behavior.
+
+With the Bookings Platform, you can:
+
+- Create services and bookings under your app's own [`appId`](https://dev.wix.com/docs/api-reference/articles/work-with-wix-apis/platform/about-apps-created-by-wix), keeping data separate from Wix Bookings.
+- Override default permissions for API operations.
+- Configure custom Wix Forms namespaces and automation triggers.
+
+This is useful if you're building a specialized booking app, such as a meetings scheduler or appointment system, rather than extending the standard Wix Bookings experience.
+
+Learn more about [the Bookings Platform](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/introduction) and how to [build a custom booking app](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/build-a-custom-booking-app).
 
 ## See also
 

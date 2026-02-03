@@ -13,8 +13,17 @@ Use the [Add-Ons API](https://dev.wix.com/docs/rest/business-solutions/bookings/
 ## Add-on group
 
 A collection of related [add-ons](#add-on) linked to a booking service.
-Groups define the maximum number of different add-ons customers can select from the group and include customer-facing information like prompts (instructional text displayed to customers to explain the group's purpose and selection rules) and display order (the sequence in which add-ons appear to customers in the group, determined by their order in the group's `add-on IDs` array).
+Groups define the maximum number of different add-ons customers can select from the group and include customer-facing information like prompts and display order.
+Prompts are instructional text displayed to customers to explain the group's purpose and selection rules.
+Display order is the sequence in which add-ons appear to customers in the group, determined by their order in the group's `addOnIds` array.
 Use the [Services V2 API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/about-add-on-groups) to organize add-ons into groups.
+
+## App ID
+
+A unique identifier assigned to each app in the [Wix Developers Center](https://dev.wix.com/).
+In the [Bookings Platform](#bookings-platform), the `appId` determines which app owns a service, booking, or policy.
+Entities created by the standard Wix Bookings app use the Wix Bookings [`appId`](https://dev.wix.com/docs/api-reference/articles/work-with-wix-apis/platform/about-apps-created-by-wix), while custom booking apps use their own `appId`.
+Learn more about [app identity in the Bookings Platform](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/app-identity-in-the-bookings-platform).
 
 ## Appointment
 
@@ -37,6 +46,13 @@ See also:
 
 A fee for a specific booking that's calculated according to the associated booking [policy](#policy).
 For example, a cancellation or no-show fee.
+
+## Bookings Platform
+
+The underlying infrastructure that powers Wix Bookings and enables custom booking apps.
+The platform provides APIs for creating services, managing bookings, and handling availability, with support for multiple app identities.
+Apps built on the Bookings Platform can define custom permissions, forms integrations, and automation triggers through the [Bookings Platform Configuration service plugin](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/bookings-platform-configuration-service-plugin/introduction).
+Learn more about [the Bookings Platform](https://dev.wix.com/docs/api-reference/business-solutions/bookings/bookings-platform/introduction).
 
 ## Business hours
 
