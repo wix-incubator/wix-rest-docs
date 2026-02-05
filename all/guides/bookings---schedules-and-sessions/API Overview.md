@@ -19,26 +19,26 @@ Read schedule and session data using the [Calendar API](https://dev.wix.com/api/
 
 ## Terminology
 
-* **Session**: An *occupied* period of time on a schedule (e.g., if a “Vinyasa Yoga” service is offered every Monday between 6-7pm, the class on Monday June 7, 2020 from 6-7pm is one session on a schedule with a recurring session every Monday).
+* **Session**: An *occupied* period of time on a schedule (e.g., if a “Vinyasa Yoga” service is offered every Monday between 6-7 PM, the class on Monday June 7, 2020 from 6-7 PM is one session on a schedule with a recurring session every Monday).
 
-* **Slot**: An *available* period of time in a schedule that can be booked by a customer. While this includes existing sessions that are available for booking, it can also represent a period of time that can be booked based on the availability of a resource (e.g., a barber with appointments of 30 minutes each that are open for booking every weekday between 8:00 - 17:00). These slots are calculated by the constraints of the schedule - they are not *occupied* sessions until they are booked.
+* **Slot**: An *available* period of time in a schedule that can be booked by a customer. While this includes existing sessions that are available for booking, it can also represent a period of time that can be booked based on the availability of a resource (e.g., a barber with appointments of 30 minutes each that are open for booking every weekday between 8 AM-5 PM). These slots are calculated by the constraints of the schedule. They are not *occupied* sessions until they are booked.
 
 * **Schedule**: A collection of sessions related to a specific entity (session, resource, etc.), with relevant metadata. The schedule entity represents all available information about when its owner can be booked for a service (both *occupied* and *available*).
 
 > **Important**:  
-The owner of the schedule can be a resource (e.g., a staff member or room) or a collection of sessions (e.g., a course with multiple sessions) - or you can create your own schedule owner ID for any entity of your choosing.
+The owner of the schedule can be a resource (e.g., a staff member or room) or a collection of sessions (e.g., a course with multiple sessions), or you can create your own schedule owner ID for any entity of your choosing.
 
 ## Schedule Tags
 Every schedule can be tagged for easy reference and filtering. The Wix Bookings UI uses the following tags:
-* INDIVIDUAL - for appointments (slots)
-* GROUP - for classes (sessions)
-* COURSE - for courses (schedules)
+* INDIVIDUAL: for appointments (slots)
+* GROUP: for classes (sessions)
+* COURSE: for courses (schedules)
 
 When creating schedules via API, adding the relevant tag is recommended so that Wix Bookings will display the related service correctly in the UI.
 
 ## Use Cases
 
-### Create a Recurring Event on Fridays at 10am beginning May 15th, 2020
+### Create a Recurring Event on Fridays at 10 AM beginning May 15th, 2020
 
 Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule). Parameters to include:  
 1. scheduleOwnerId (writable)  
@@ -61,7 +61,7 @@ Parameters to include:
     f. schedule.intervals.interval.duration = 570  
 2. Collect the returned resource ID and schedule ID. 
 (Note: the resource's schedule owner ID will equal the resource ID.)  
-3. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) to set up the instructor's group class (on Mondays from 5:30-6:30pm).  
+3. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) to set up the instructor's group class (on Mondays from 5:30-6:30 PM).  
 Parameters to include:  
     a. scheduleOwnerId = service ID  
     b. schedule.intervals.affectedSchedules.scheduleId = instructor's schedule ID  
@@ -72,7 +72,7 @@ Parameters to include:
     g. schedule.intervals.interval.duration = 60  
 4. Collect the returned schedule ID.  
 5. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) again to set the logic for the instructor's availability for 1-on-1 appointments of 60 minutes. Parameters to include:  
-    a. scheduleOwnerId (service ID - e.g., "1-on-1 training")  
+    a. scheduleOwnerId (service ID, e.g., "1-on-1 training")  
     b. schedule.availability.linkedSchedules.transparency = BUSY  
     c. schedule.availability.linkedSchedules.scheduleId = (instructor's schedule ID)   
     d. schedule.availability.start = e.g., 2020-05-15T21:00:00Z [(Google Protobuf Timestamp format)](https://developers.google.com/protocol-buffers/docs/reference/csharp/class/google/protobuf/well-known-types/timestamp)  
