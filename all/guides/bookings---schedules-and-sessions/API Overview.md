@@ -53,27 +53,27 @@ The fitness instructor will exist as a resource in the system, with their own pe
 
 1. Call [Create Resource](https://dev.wix.com/api/rest/wix-bookings/resources/create-resource) to add the instructor to the system and create their personal schedule.   
 Parameters to include:  
-   a. tags = StaffMember  
-   b. schedules.schedule.intervals.interval.intervalType = AVAILABILITY  
-   c. schedule.intervals.interval.daysOfWeek = MON  
-   d. schedule.intervals.interval.hourOfDay = 9  
-   e. schedule.intervals.interval.minuteOfHour = 0  
-   f. schedule.intervals.interval.duration = 570  
+    a. tags = StaffMember  
+    b. schedules.schedule.intervals.interval.intervalType = AVAILABILITY  
+    c. schedule.intervals.interval.daysOfWeek = MON  
+    d. schedule.intervals.interval.hourOfDay = 9  
+    e. schedule.intervals.interval.minuteOfHour = 0  
+    f. schedule.intervals.interval.duration = 570  
 2. Collect the returned resource ID and schedule ID. 
-Note: the resource's schedule owner ID will equal the resource ID)  
+(Note: the resource's schedule owner ID will equal the resource ID.)  
 3. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) to set up the instructor's group class (on Mondays from 5:30-6:30pm).  
 Parameters to include:  
-   a. scheduleOwnerId = service ID  
-   b. schedule.intervals.affectedSchedules.scheduleId = instructor's schedule ID  
-   c. schedule.intervals.affectedSchedules.transparency = BUSY  
-   d. schedule.intervals.interval.daysOfWeek = MON  
-   e. schedule.intervals.interval.hourOfDay = 17  
-   f. schedule.intervals.interval.minuteOfHour = 30  
-   g. schedule.intervals.interval.duration= 60  
+    a. scheduleOwnerId = service ID  
+    b. schedule.intervals.affectedSchedules.scheduleId = instructor's schedule ID  
+    c. schedule.intervals.affectedSchedules.transparency = BUSY  
+    d. schedule.intervals.interval.daysOfWeek = MON  
+    e. schedule.intervals.interval.hourOfDay = 17  
+    f. schedule.intervals.interval.minuteOfHour = 30  
+    g. schedule.intervals.interval.duration = 60  
 4. Collect the returned schedule ID.  
 5. Call [Create Schedule](https://dev.wix.com/api/rest/wix-bookings/schedules-and-sessions/schedule/create-schedule) again to set the logic for the instructor's availability for 1-on-1 appointments of 60 minutes. Parameters to include:  
-   a. scheduleOwnerId (service ID - e.g., "1-on-1 training")  
-   b. schedule.availability.linkedSchedules.transparency = BUSY  
-   c. schedule.availability.linkedSchedules.scheduleId = (instructor's schedule ID)   
-   d. schedule.availability.start = e.g.,2020-05-15T21:00:00Z [(Google Protobuf Timestamp format)](https://developers.google.com/protocol-buffers/docs/reference/csharp/class/google/protobuf/well-known-types/timestamp)  
-   e. schedule.availability.constraints.slotDuration = 60  
+    a. scheduleOwnerId (service ID - e.g., "1-on-1 training")  
+    b. schedule.availability.linkedSchedules.transparency = BUSY  
+    c. schedule.availability.linkedSchedules.scheduleId = (instructor's schedule ID)   
+    d. schedule.availability.start = e.g., 2020-05-15T21:00:00Z [(Google Protobuf Timestamp format)](https://developers.google.com/protocol-buffers/docs/reference/csharp/class/google/protobuf/well-known-types/timestamp)  
+    e. schedule.availability.constraints.slotDuration = 60  
