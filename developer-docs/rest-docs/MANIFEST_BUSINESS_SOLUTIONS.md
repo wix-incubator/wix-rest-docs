@@ -1,0 +1,135 @@
+# Business Solutions - Manifest
+
+This directory contains published business solutions from wix-rest-docs.
+
+**Total Files:** 127
+
+## Files
+
+- account-level-apis/guides/account-level-apis.yaml
+- all/guides/bookings---bookings-service/com/wix/bookings/api/v1/docs/bookings.yaml
+- all/guides/bookings---checkout-service/checkout-options.yaml
+- all/guides/bookings---external-calendar-sync/external-calendar-sync.yaml
+- all/guides/bookings---schedules-and-sessions/bookings-schedules-sessions.yaml
+- all/guides/bookings---service-catalog/docs/bookings-service-catalog.yaml
+- all/guides/bookings---services/bookings-services.yaml
+- all/guides/bookings---waitlist-service/API Overview.md
+- all/guides/comments/docs/CONSUMERS.md
+- all/guides/comments/docs/Introduction.md
+- all/guides/comments/docs/README.md
+- all/guides/comments/docs/Sample_Flows.md
+- all/guides/comments/docs/Sort_and_Filter.md
+- all/guides/comments/docs/USE_CASES.md
+- all/guides/email-subscriptions/docs/example-flows.md
+- all/guides/email-subscriptions/docs/intro.md
+- all/guides/faq/docs/faq.yaml
+- all/guides/payment-provider-spi/Authentication.md
+- all/guides/payment-provider-spi/Provider Platform Overview.md
+- all/guides/payment-provider-spi/Reason Codes.md
+- all/guides/payment-provider-spi/Response Error Object.md
+- all/guides/payment-provider-spi/Schema.md
+- all/guides/pricing-integration-spi/docs/BestPractices.md
+- all/guides/pricing-integration-spi/docs/Intro.md
+- all/guides/pricing-integration-spi/docs/SampleFlows.md
+- all/guides/resellers/docs/Errors.md
+- all/guides/resellers/docs/Flow.md
+- all/guides/resellers/docs/Intro.md
+- all/guides/resellers/docs/SupportedFilters.md
+- all/guides/site-folders/docs/README-External.md
+- all/guides/site-media---media-manager-backend/docs/import_files.md
+- all/guides/site-media---media-manager-backend/docs/intro.md
+- all/guides/site-media---media-manager-backend/docs/resumable_upload_api.md
+- all/guides/site-media---media-manager-backend/docs/sample_flows.md
+- all/guides/site-media---media-manager-backend/docs/upload_api.md
+- all/guides/site-properties/docs/Introduction.md
+- all/guides/site-properties/docs/README.md
+- all/guides/social-groups-v2/docs/Introduction.md
+- all/guides/stores-abandoned-carts/docs/intro.md
+- all/guides/stores-abandoned-carts/docs/use_case.md
+- all/guides/stores-carts/docs/intro.md
+- all/guides/stores-catalog/docs/ecom_integration.md
+- all/guides/stores-catalog/docs/filterAndSort.md
+- all/guides/stores-catalog/docs/intro.md
+- all/guides/stores-catalog/docs/queryingProductAvailability.md
+- all/guides/stores-inventory/docs/howToUse.md
+- all/guides/stores-inventory/docs/intro.md
+- all/guides/stores-orders/docs/filterAndSort.md
+- all/guides/stores-orders/docs/intro.md
+- all/guides/stores-subscription-options/docs/example-flows.md
+- all/guides/stores-subscription-options/docs/intro.md
+- all/guides/transactions/doc/disputes.md
+- all/guides/transactions/doc/intro.md
+- all/guides/triggered-events/docs/intro.md
+- all/guides/triggered-events/docs/reporting-and-canceling-events.md
+- all/guides/triggered-events/docs/the-payload-schema.md
+- all/guides/txt-file-server/docs/AdsTxt_Flow.md
+- all/guides/txt-file-server/docs/AdsTxt_PublicIntro.md
+- all/guides/txt-file-server/docs/PublicIntro.md
+- all/guides/validations-integration-spi/docs/intro.md
+- all/guides/validations-integration-spi/docs/sample-flow.md
+- all/guides/wix-chat/docs/intro.md
+- all/guides/wix-data/docs/DataCollectionServiceIntro.md
+- all/guides/wix-data/docs/DataItemsServiceIntro.md
+- all/guides/wix-data/docs/EventualConsistency.md
+- all/guides/wix-data/docs/ExternalDatabaseConnections.md
+- all/guides/wix-data/docs/IndexTypes.md
+- all/guides/wix-data/docs/IndexUseCases.md
+- all/guides/wix-data/docs/IndexesAndQuerySpeed.md
+- all/guides/wix-data/docs/Indexing.md
+- all/guides/wix-data/docs/WixDataServiceIntro.md
+- all/guides/wix-events/About Wix Events.md
+- all/guides/wix-events/Event/About the Events API.md
+- all/guides/wix-events/Fieldset.md
+- all/guides/wix-events/Filter and Sort.md
+- all/guides/wix-events/Introduction.md
+- all/guides/wix-events/Pagination.md
+- all/guides/wix-events/Partial Updates.md
+- all/guides/wix-events/Registration Form/About the Registration Form API.md
+- all/guides/wix-events/Rich Text.md
+- all/guides/wix-events/Use Cases.md
+- all/guides/wix-events/events.yaml
+- all/guides/wix-forms/Introduction.md
+- all/guides/wix-forum/docs/filterAndSort.md
+- all/guides/wix-forum/docs/intro.md
+- all/guides/wix-groups/docs/Flow.md
+- all/guides/wix-groups/docs/Introduction.md
+- all/guides/wix-groups/docs/Terminology.md
+- all/guides/wix-payments-transactions/docs/disputes.md
+- all/guides/wix-payments-transactions/docs/intro.md
+- app-management/EmbeddedScriptSDK.md
+- app-management/guides/About App Management.md
+- app-management/guides/About the Editor Deep Link API.md
+- app-management/guides/Create an Editor Deep Link.md
+- app-management/guides/app-instance/Introduction.md
+- app-management/guides/app-management.yaml
+- contacts/guides/contacts.yaml
+- contacts/guides/introduction.md
+- contacts/guides/sample-flows.md
+- inbox/guides/Example Flows.md
+- inbox/guides/Introduction.md
+- inbox/guides/inbox.yaml
+- wix-automations/guides/Introduction.md
+- wix-automations/guides/Sample Flows.md
+- wix-automations/guides/automations.yaml
+- wix-bookings/guides/About Wix Bookings.md
+- wix-bookings/guides/Sample App.md
+- wix-bookings/guides/Terminology.md
+- wix-bookings/guides/wix-bookings.yaml
+- wix-cashier/guides/AboutCashier.md
+- wix-cashier/guides/cashier.yaml
+- wix-chat/guides/chat/Introduction.md
+- wix-chat/guides/chat/chat.yaml
+- wix-coupons/guides/About Wix Coupons.md
+- wix-coupons/guides/coupons.yaml
+- wix-loyalty-program/guides/Example Flows.md
+- wix-loyalty-program/guides/Introduction.md
+- wix-loyalty-program/guides/loyalty-program.yaml
+- wix-payments/guides/About Wix Payments.md
+- wix-payments/guides/paymants.yaml
+- wix-payments/guides/payments/About Payments.md
+- wix-stores/guides/About Wix Stores.md
+- wix-stores/guides/Pagination.md
+- wix-stores/guides/Rich Text.md
+- wix-stores/guides/Stores Schema for Wix Search.md
+- wix-stores/guides/carts/Introduction.md
+- wix-stores/guides/stores.yaml
