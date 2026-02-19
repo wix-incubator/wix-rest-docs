@@ -77,7 +77,7 @@ A label used to group services, helping business owners, app developers, and cus
 Customers must complete a checkout when booking a service.
 Wix Bookings integrates with the [Wix eCommerce platform](https://dev.wix.com/docs/rest/business-solutions/e-commerce/introduction) to handle payments and [order management](#order).
 To customize the checkout, you can either use the Wix eCommerce [Checkout APIs](https://dev.wix.com/docs/rest/business-solutions/e-commerce/checkout/introduction) or build your own payment interface and process payments with external providers.
-For implementation examples, see [end-to-end booking flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows).
+For implementation examples, see [end-to-end booking flows](https://dev.wix.com/docs/api-reference/business-solutions/bookings/flow-single-service-booking).
 
 ## Choice
 
@@ -258,7 +258,7 @@ Learn more about [the booking lifecycle and status transitions](https://dev.wix.
 Specific periods when a service is available for customer bookings.
 You can use the [Time Slots API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/time-slots/time-slots-v2/introduction) to find available slots for appointments and classes.
 The API considers multiple factors to determine availability: service schedules, staff working hours, resource availability, booking policies, and existing bookings.
-For courses, you can follow the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/end-to-end-booking-flows#book-a-course) to check availability.
+For courses, you can follow the [end-to-end booking flow](https://dev.wix.com/docs/api-reference/business-solutions/bookings/flow-single-service-booking) to check availability.
 
 ## Tips
 
