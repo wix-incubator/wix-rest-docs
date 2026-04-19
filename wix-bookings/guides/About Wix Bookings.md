@@ -97,3 +97,4 @@ For step-by-step implementation examples, see our [end-to-end booking flows](htt
 
 - [Wix Bookings Terminology](https://dev.wix.com/docs/rest/business-solutions/bookings/terminology)
 - [Architecture and Data Flow](https://dev.wix.com/docs/rest/business-solutions/bookings/architecture-and-data-flow)
+- [About Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction)
