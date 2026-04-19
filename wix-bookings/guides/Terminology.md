@@ -154,7 +154,7 @@ See also: [Intake form](#intake-form).
 ## Host
 
 A [staff member](#staff-member) who conducts meetings in [Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction).
-Each host must be connected to a Wix site collaborator with an appropriate role.
+Each host must be connected to a Wix site collaborator with an [appropriate role](https://support.wix.com/en/article/roles-permissions-overview).
 Wix Meetings supports a single host per [scheduling link](#scheduling-link).
 Availability and external calendar sync are tied to the host.
 
