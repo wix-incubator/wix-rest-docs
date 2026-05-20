@@ -17,7 +17,7 @@ Wix’s Account Level APIs are intended to support the following types of custom
 ## Authorization strategies for account level APIs
 The APIs in this category require using the [admin access with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#admin-access-with-api-key).    
 
-To learn how to implement this strategy for headless projects and apps, see [Create a Client with an API Key](https://dev.wix.com/docs/go-headless/coding/java-script-sdk/admin/create-a-client-with-an-api-key).  
+To learn how to implement this strategy for headless projects and apps, see [Create a Client with an API Key](https://dev.wix.com/docs/api-reference/articles/authentication/api-keys/make-api-calls-with-an-api-key).  
 
 To learn how to implement this strategy for channel and enterprise partners , see the ApiKeyStrategy in [About the Wix Client](https://dev.wix.com/docs/sdk/articles/work-with-the-sdk/about-the-wix-client).  
 
