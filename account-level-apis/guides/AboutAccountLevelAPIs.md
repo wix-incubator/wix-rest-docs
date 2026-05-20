@@ -15,7 +15,7 @@ Wix’s Account Level APIs are intended to support the following types of custom
 - **Enterprise Partners**: Large businesses and organizations that need advanced features and support to build and maintain their websites. 
 
 ## Authorization strategies for account level APIs
-The APIs in this category require using the [admin access with API key strategy](https://dev.wix.com/docs/sdk/articles/get-started/authorization-strategies#admin-access-with-api-key).    
+The APIs in this category require using the [admin access with API key strategy](https://dev.wix.com/docs/api-reference/articles/authentication/api-keys/about-api-keys).    
 
 To learn how to implement this strategy for headless projects and apps, see [Create a Client with an API Key](https://dev.wix.com/docs/api-reference/articles/authentication/api-keys/make-api-calls-with-an-api-key).  
 
