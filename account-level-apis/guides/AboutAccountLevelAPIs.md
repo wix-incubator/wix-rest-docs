@@ -9,7 +9,7 @@ Account owners can use roles to limit team members’ access to various tasks an
 ## Intended audience
 Wix’s Account Level APIs are intended to support the following types of customers:
 
-- **Agencies and Freelancers**: Professionals who create, manage and maintain web presence (sites, apps and more) for their clients. Agencies and freelancers are Wix Studio users (using the Wix Studio account-level workspace), and if they join the Partner Program they are also considered Partners. 
+- **Agencies and Freelancers**: Web professionals who create, manage, and maintain sites, apps, and other digital assets for their clients. They use Wix Studio from the account-level workspace. Those who join the Partner Program are also considered Wix Partners. 
 - **Channel Partners**: Wix works with 2 types of Channel partners:
   - **Do it yourself (DIY)**: Businesses that resell Wix subscriptions, funneling customers directly into Wix’s site creation flow, to build a site for themselves with unique reseller attributes. These businesses don’t require edit access to the customer’s sites.
   - **Do it for me (DIFM)**: Businesses that create, manage, and maintain Wix sites in large numbers for their customers.
