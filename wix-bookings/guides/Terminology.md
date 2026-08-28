@@ -1,7 +1,7 @@
 # Wix Bookings Terminology
 
 [Wix Bookings](https://support.wix.com/en/article/about-wix-bookings) allows business owners to accept and manage bookings for their services.
-This article lists terms and concepts used in Wix Bookings and its APIs.
+This article lists terms and concepts used in Wix Bookings, [Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction), and their shared APIs.
 
 ## Add-on
 
@@ -15,6 +15,13 @@ Use the [Add-Ons API](https://dev.wix.com/docs/rest/business-solutions/bookings/
 A collection of related [add-ons](#add-on) linked to a booking service.
 Groups define the maximum number of different add-ons customers can select from the group and include customer-facing information like prompts (instructional text displayed to customers to explain the group's purpose and selection rules) and display order (the sequence in which add-ons appear to customers in the group, determined by their order in the group's `add-on IDs` array).
 Use the [Services V2 API](https://dev.wix.com/docs/rest/business-solutions/bookings/services/services-v2/about-add-on-groups) to organize add-ons into groups.
+
+## App ID
+
+A unique identifier that indicates which app owns a booking entity such as a service, policy, or booking.
+When multiple apps share the Wix Bookings APIs on the same Wix site, such as [Wix Bookings](https://dev.wix.com/docs/api-reference/business-solutions/bookings/introduction) and [Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction), the `appId` determines data ownership, visibility, and isolation between apps.
+Use it as a filter when querying shared APIs to retrieve records belonging to a specific app.
+Learn more about [app identity in Wix Bookings](https://dev.wix.com/docs/api-reference/business-solutions/bookings/app-identity).
 
 ## Appointment
 
@@ -142,6 +149,21 @@ The [booking form](https://support.wix.com/en/article/wix-bookings-creating-and-
 Forms can include fields for contact details, special requests, service preferences, and custom questions.
 Learn more about [Wix Forms integration](https://dev.wix.com/docs/rest/business-solutions/bookings/wix-forms-integration).
 
+See also: [Intake form](#intake-form).
+
+## Host
+
+A [staff member](#staff-member) who conducts meetings in [Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction).
+Each host must be connected to a Wix site collaborator with an [appropriate role](https://support.wix.com/en/article/roles-permissions-overview).
+Wix Meetings supports a single host per [scheduling link](#scheduling-link).
+Availability and external calendar sync are tied to the host.
+
+## Intake form
+
+A form that collects additional customer information beyond the standard booking details.
+Unlike [booking forms](#form), which collect the information required to complete a booking, intake forms gather supplementary details such as health waivers, preferences, or other service-specific requirements.
+Learn more about [Wix Forms integration](https://dev.wix.com/docs/rest/business-solutions/bookings/wix-forms-integration).
+
 ## Integration
 
 A custom implementation that extends Wix Bookings functionality through [service plugins](#service-plugin).
@@ -217,6 +239,11 @@ Organizes [events](#event) and defines when services are available and when reso
 Wix Bookings automatically creates and manages schedules via the [Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/introduction) when you create services, staff members, or bookings.
 Learn more about [how Wix Bookings integrates with the Calendar APIs](https://dev.wix.com/docs/api-reference/business-management/calendar/wix-bookings-integration).
 
+## Scheduling link
+
+A shareable URL that customers use to book a meeting in [Wix Meetings](https://dev.wix.com/docs/api-reference/business-solutions/meetings/introduction).
+Each scheduling link corresponds to a [service](#service) and maps to a specific meeting configuration including duration, location, and [host](#host).
+
 ## Service
 
 A business offering, which can be a [class](#class), a [course](#course), or [appointment-based](#appointment).
@@ -246,6 +273,7 @@ Staff members are also eligible to receive [tips](#tips).
 Use the [Staff Members API](https://dev.wix.com/docs/api-reference/business-solutions/bookings/staff-members/introduction) to manage staff members and their schedules.
 
 Not all staff members are registered Wix users, and not all Wix users related to the business are staff members.
+In Wix Meetings, staff members are called [hosts](#host).
 
 ## Status (booking)
 
